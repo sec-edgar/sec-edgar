@@ -9,7 +9,7 @@ import re, urllib2
 import requests
 import os
 
-def Filing_10Q(companyCode, cik):
+def Filing_10Q(companyCode, cik, priorto):
 	#Making the directory to save comapny filings
 	if not os.path.exists("Crawled Data/"):
 		os.makedirs("Crawled Data/")
@@ -21,7 +21,7 @@ def Filing_10Q(companyCode, cik):
 		os.makedirs("Crawled Data/"+str(companyCode)+"/"+str(cik)+"/"+str("10-Q"))
 	
 	#generate the url to crawl 
-	base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="+str(cik)+"&type=10-Q&dateb=&owner=exclude&output=xml&count=100"	
+	base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="+str(cik)+"&type=10-Q&dateb="+str(priorto)+"&owner=exclude&output=xml&count=100"	
 	print ("started 10-Q"+str(companyCode))
 	r = requests.get(base_url)
 	data = r.text
@@ -55,7 +55,7 @@ def Filing_10Q(companyCode, cik):
 		filename = open(path,"a")
 		filename.write(data.encode('ascii', 'ignore'))	
 
-def Filing_10K(companyCode, cik):
+def Filing_10K(companyCode, cik, priorto):
 	#Making the directory to save comapny filings
 	if not os.path.exists("Crawled Data/"):
 		os.makedirs("Crawled Data/")
@@ -67,7 +67,7 @@ def Filing_10K(companyCode, cik):
 		os.makedirs("Crawled Data/"+str(companyCode)+"/"+str(cik)+"/"+str("10-K"))
 	
 	#generate the url to crawl 
-	base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="+str(cik)+"&type=10-K&dateb=&owner=exclude&output=xml&count=100"	
+	base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="+str(cik)+"&type=10-K&dateb="+str(priorto)+"&owner=exclude&output=xml&count=100"	
 	print ("started !0-K"+str(companyCode))
 	r = requests.get(base_url)
 	data = r.text
@@ -100,7 +100,7 @@ def Filing_10K(companyCode, cik):
 		filename = open(path,"a")
 		filename.write(data.encode('ascii', 'ignore'))	
 
-def Filing_8K(companyCode, cik):
+def Filing_8K(companyCode, cik, priorto):
 	#Making the directory to save comapny filings
 	if not os.path.exists("Crawled Data/"):
 		os.makedirs("Crawled Data/")
@@ -112,7 +112,7 @@ def Filing_8K(companyCode, cik):
 		os.makedirs("Crawled Data/"+str(companyCode)+"/"+str(cik)+"/"+str("8-K"))
 	
 	#generate the url to crawl 
-	base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="+str(cik)+"&type=8-K&dateb=&owner=exclude&output=xml&count=100"	
+	base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="+str(cik)+"&type=8-K&dateb="+str(priorto)+"&owner=exclude&output=xml&count=100"	
 	print ("started 8-K" + str(companyCode))
 	r = requests.get(base_url)
 	data = r.text
@@ -152,6 +152,7 @@ def test():
 	# file containig company name and corresponding cik codes
 	companyCodeList = list()    # company code list 
 	cikList = list()	    # cik code list
+	dateList = list()           # pror date list
 	try:
 		crs = open("file.txt", "r")
 	except:
@@ -161,11 +162,13 @@ def test():
 	for columns in ( raw.strip().split() for raw in crs ):  
 	     	companyCodeList.append(columns[0])
 		cikList.append(columns[1])
+		dateList.append(columns[2])
 
+	del cikList[0]; del companyCodeList[0]; del dateList[0]
 	for i in range(len(cikList)):
-		Filing_10Q(str(companyCodeList[i]), str(cikList[i]))
-		Filing_10K(str(companyCodeList[i]), str(cikList[i]))
-		Filing_8K(str(companyCodeList[i]), str(cikList[i]))
+		Filing_10Q(str(companyCodeList[i]), str(cikList[i]), str(dateList[i]))
+		Filing_10K(str(companyCodeList[i]), str(cikList[i]), str(dateList[i]))
+		Filing_8K(str(companyCodeList[i]), str(cikList[i]), str(dateList[i]))
 	
 	t2 = time.time()
 	print "Total Time taken: ",
