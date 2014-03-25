@@ -14,6 +14,8 @@ Edgar-Crawler
  This will download the company's 8-K, 10-K, 10-Q filings of company's listed in file.txt. The data will be saved in "Crawled
  Data" folder in the same folder where allinone.py is.
  
+ The pypy package will be available soon.
+ 
  
  
 <h3>The MIT License (MIT) </h3>
