@@ -8,7 +8,7 @@ Installation
 ------------- 
  You may have to install the package using pip.
  ```bash
- $ pip install SEC-Edgar
+ $ pip install SECEdgar
  ```
  or
 
