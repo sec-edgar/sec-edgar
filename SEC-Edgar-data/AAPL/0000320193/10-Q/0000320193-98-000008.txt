@@ -1,0 +1,1372 @@
+-----BEGIN PRIVACY-ENHANCED MESSAGE-----
+Proc-Type: 2001,MIC-CLEAR
+Originator-Name: webmaster@www.sec.gov
+Originator-Key-Asymmetric:
+ MFgwCgYEVQgBAQICAf8DSgAwRwJAW2sNKK9AVtBzYZmr6aGjlWyK3XmZv3dTINen
+ TWSM7vrzLADbmYQaionwg5sDW3P6oaM5D3tdezXMm7z1T+B+twIDAQAB
+MIC-Info: RSA-MD5,RSA,
+ QFs+e2n5eaJoa/+zKz47TyRT8x7goAZl1broWn5mfR63UaWpuLKdR3GSVPkmnFCO
+ D1j3zG6dLJwNzt/N3f/C1g==
+
+<SEC-DOCUMENT>0000320193-98-000008.txt : 19980812
+<SEC-HEADER>0000320193-98-000008.hdr.sgml : 19980812
+ACCESSION NUMBER:		0000320193-98-000008
+CONFORMED SUBMISSION TYPE:	10-Q
+PUBLIC DOCUMENT COUNT:		2
+CONFORMED PERIOD OF REPORT:	19980626
+FILED AS OF DATE:		19980810
+SROS:			NASD
+
+FILER:
+
+	COMPANY DATA:	
+		COMPANY CONFORMED NAME:			APPLE COMPUTER INC
+		CENTRAL INDEX KEY:			0000320193
+		STANDARD INDUSTRIAL CLASSIFICATION:	ELECTRONIC COMPUTERS [3571]
+		IRS NUMBER:				942404110
+		STATE OF INCORPORATION:			CA
+		FISCAL YEAR END:			0930
+
+	FILING VALUES:
+		FORM TYPE:		10-Q
+		SEC ACT:		
+		SEC FILE NUMBER:	000-10030
+		FILM NUMBER:		98680930
+
+	BUSINESS ADDRESS:	
+		STREET 1:		1 INFINITE LOOP
+		CITY:			CUPERTINO
+		STATE:			CA
+		ZIP:			95014
+		BUSINESS PHONE:		4089961010
+
+	MAIL ADDRESS:	
+		STREET 1:		ONE INFINITE LOOP
+		CITY:			CUPERTINO
+		STATE:			CA
+		ZIP:			95014
+</SEC-HEADER>
+<DOCUMENT>
+<TYPE>10-Q
+<SEQUENCE>1
+<TEXT>
+
+               
+                                 UNITED STATES
+                      SECURITIES AND EXCHANGE COMMISSION
+                             Washington, D.C. 20549
+                                ___________
+                               
+                                   Form 10-Q
+                                ___________
+                               
+                                  (Mark One)
+
+_X_   QUARTERLY REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE 
+      SECURITIES EXCHANGE ACT OF 1934
+      For the quarterly period ended June 26, 1998 OR
+
+__  TRANSITION REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE 
+      SECURITIES EXCHANGE ACT OF 1934
+      For the transition period from _______ to ________.
+
+                         Commission file number 0-10030
+                                ___________
+
+                             APPLE COMPUTER, INC.
+            (Exact name of Registrant as specified in its charter)
+                                ___________
+
+         CALIFORNIA                                942404110
+   (State or other jurisdiction         (I.R.S. Employer Identification No.)
+   of incorporation or organization)
+
+                1 Infinite Loop                                    
+             Cupertino, California                      95014
+        (Address of principal executive             (Zip Code)
+                offices)
+
+      Registrant's telephone number, including area code: (408) 996-1010
+
+      Securities registered pursuant to Section 12(b) of the Act: None
+
+         Securities registered pursuant to Section 12(g) of the Act:
+                             Common Stock, no par value
+                        Common Share Purchase Rights
+                              (Titles of classes)
+                                ___________
+
+Indicate by check mark whether the Registrant (1) has filed all reports 
+required to be filed by Section 13 or 15(d) of the Securities Exchange Act of 
+1934 during the preceding 12 months (or for such shorter period that the 
+Registrant was required to file such reports), and (2) has been subject to such
+filing requirements for the past 90 days.
+
+Yes    X      No  ____
+
+134,639,382 shares of Common Stock Issued and Outstanding as of  August 4, 1998
+
+
+PART I. FINANCIAL INFORMATION
+
+Item 1. Financial Statements
+
+                             APPLE COMPUTER, INC.
+          CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited)
+               (Dollars in millions, except per share amounts)
+<TABLE>
+<CAPTION>	
+                                    THREE MONTHS                 NINE  MONTHS
+                                       ENDED                         ENDED
+                                June 26,    June 27,       June 26,    June 27,
+                                    1998        1997           1998        1997
+<S>                                 <C>          <C>            <C>         <C>
+Net sales                      $  1,402     $  1,737       $  4,385    $  5,467
+Costs and expenses:
+  Cost of sales                   1,042        1,389          3,323       4,419
+  Research and development           76          101            230         391
+  Selling, general and 
+    administrative                  216          307            673       1,027
+  In-process research and 
+    development                       7           --              7         375
+  Restructuring costs                --           --              --        155
+                                   ____        _____          _____       _____
+                                  1,341        1,797          4,233       6,367
+
+Operating income (loss)              61         (60)            152       (900)
+Interest and other income 
+  (expense), net                     48            4             63          16
+                                   ____        _____          _____       _____
+
+Income (loss) before provision 
+  for income taxes                  109         (56)            215       (884)
+Provision for income taxes            8          --              12          --
+                                   ____        _____          _____       _____
+
+Net income (loss)              $    101    $    (56)       $    203    $  (884)
+                                   ____        _____          _____       _____
+
+Earnings (loss) per common share:
+    Basic                      $   0.76    $  (0.44)       $   1.55    $ (7.04)
+    Diluted                    $   0.65    $  (0.44)       $   1.40    $ (7.04)
+
+Shares used in computing 
+earnings (loss) per common 
+share (in thousands):
+    Basic                       133,068      126,500        130,971     125,547
+    Diluted                     171,786      126,500        145,177     125,547
+</TABLE>
+See accompanying notes to condensed consolidated financial statements
+(unaudited).
+                                       2
+<PAGE>
+
+                             APPLE COMPUTER, INC.
+
+                    CONDENSED CONSOLIDATED BALANCE SHEETS
+
+                                    ASSETS
+                                 (In millions)
+<TABLE>
+<CAPTION>	
+                                         June 26, 1998      September 26, 1997
+                                           (Unaudited)
+<S>                                               <C>                     <C>
+
+Current assets:
+  Cash and cash equivalents                   $  1,203                $  1,230
+  Short-term investments                           790                     229
+  Accounts receivable, net of allowance
+    for doubtful accounts of $90 ($99 at 
+    September 26, 1997)                            915                   1,035
+  Inventories:
+    Purchased parts                                 54                     141
+    Work in process                                  8                      15
+    Finished goods                                  67                     281
+                                                ______                  ______
+                                                   129                     437
+
+  Deferred tax assets                              192                     259
+  Other current assets                             146                     234
+                                                ______                  ______
+      Total current assets                       3,375                   3,424
+
+Property, plant, and equipment:
+  Land and buildings                               352                     453
+  Machinery and equipment                          379                     460
+  Office furniture and equipment                    93                     110
+  Leasehold improvements                           134                     172
+                                                ______                  ______
+                                                   958                   1,195
+  Accumulated depreciation and amortization      (593)                   (709)
+                                                ______                  ______
+    Net property, plant, and equipment             365                     486
+
+Other assets                                       301                     323
+                                                ______                  ______
+
+                                              $  4,041                $  4,233
+                                                ______                  ______
+</TABLE>
+See accompanying notes to condensed consolidated financial statements 
+(unaudited).
+
+
+                                       3
+<PAGE>
+                             APPLE COMPUTER, INC.
+              CONDENSED CONSOLIDATED BALANCE SHEETS (Continued)
+
+                     LIABILITIES AND SHAREHOLDERS' EQUITY
+                            (Dollars in millions)
+<TABLE>
+<CAPTION>	
+                                         June 26, 1998      September 26, 1997
+                                           (Unaudited)
+<S>                                                 <C>                     <C>
+Current liabilities:
+
+  Notes payable to banks                     $      --               $      25
+  Accounts payable                                 573                     685
+  Accrued compensation and employee benefits        91                      99
+  Accrued marketing and distribution               234                     278
+  Accrued warranty and related                     124                     128
+  Accrued restructuring costs                       77                     180
+  Other current liabilities                        290                     423
+                                                ______                  ______
+
+Total current liabilities                        1,389                   1,818
+
+Long-term debt                                     953                     951
+Deferred tax liabilities                           213                     264
+
+Shareholders' equity:
+
+  Series A non-voting convertible preferred 
+    stock, no par value; 150,000 shares 
+    authorized, issued and outstanding             150                     150
+  Common stock, no par value; 320,000,000 shares 
+    authorized; 133,130,984 shares issued and 
+    outstanding at June 26, 1998 (127,949,220 
+    shares at September 26, 1997)                  592                     498
+Retained earnings                                  792                     589
+Other                                             (48)                    (37)
+                                                ______                  ______
+
+Total shareholders' equity                       1,486                   1,200
+                                                ______                  ______
+
+                                             $   4,041               $   4,233
+                                                ______                  ______
+</TABLE>
+
+See accompanying notes to condensed consolidated financial statements 
+(unaudited).
+
+
+                                       
+                                       4
+<PAGE>
+
+                             APPLE COMPUTER, INC.
+          CONDENSED CONSOLIDATED STATEMENTS OF CASH FLOWS (Unaudited)
+                             (Dollars in millions)
+<TABLE>
+<CAPTION>	
+                                                     NINE MONTHS ENDED
+                                              June 26, 1998       June 27, 1997	
+<S>                                                     <C>                <C>
+Cash and cash equivalents, beginning of the period   $1,230             $1,552
+
+Operating:
+Net income (loss)                                       203              (884)
+Adjustments to reconcile net income (loss) to cash 
+  generated by (used for) operating activities:
+    Depreciation and amortization                        88                 77
+    Loss on sale of property, plant, and equipment       --                 31
+    In-process research and development                   7                375
+    Gain on equity investment in ARM                   (40)                 --
+    Provision for deferred income taxes                   6               (54)
+Changes in operating assets and liabilities, net 
+  of effects of acquisition of NeXT:
+    Accounts receivable                                 112                297
+    Inventories                                         308                128
+    Other current assets                                 68                 55
+    Accounts payable                                  (112)                 20
+    Accrued restructuring costs                        (73)                 83
+    Other current liabilities                         (115)              (133)
+                                                      _____              _____
+Cash generated by (used for) operating activities       452                (5)
+
+Investing:
+Purchase of short-term investments                  (1,620)              (781)
+Proceeds from sales and maturities of 
+  short-term investments                              1,059                762
+Net proceeds from sale of property, 
+  plant, and equipment                                   79                 12
+Purchase of property, plant, and equipment             (29)               (42)
+Cash paid for acquisition of technology                (10)                 --
+Proceeds from sale of ARM shares                         24                 --
+Cash used to acquire NeXT                                --              (384)
+Other                                                    27               (49)
+                                                      _____               _____
+Cash used for investing activities                    (470)              (482)
+
+Financing:
+Decrease in notes payable to banks                     (25)               (59)
+Increase in long-term borrowings                          2                 --
+Increase in common stock                                 14                 12
+                                                      _____               _____
+Cash used for financing activities                    (9)                 (47)
+
+Total cash used                                        (27)              (534)
+
+Cash and cash equivalents, end of the period        $ 1,203            $ 1,018   
+                                                      _____               _____
+
+Supplemental cash flow disclosures:
+  Cash paid during the period for interest           $    50           $    51
+  Cash received during the period for 
+    income taxes, net                                $   14            $    23
+</TABLE>
+
+See accompanying notes to condensed consolidated financial statements 
+(unaudited).
+                                       5
+<PAGE>
+
+                              APPLE COMPUTER, INC.
+
+        Notes to Condensed Consolidated Financial Statements (Unaudited)
+
+Note 1 - Basis of Presentation  
+Interim information is unaudited; however, in the opinion of the Company's 
+management, all adjustments necessary for a fair statement of interim results 
+have been included. All adjustments are of a normal recurring nature unless 
+specified in a separate note included in these Notes to Condensed Consolidated 
+Financial Statements (Unaudited). The results for interim periods are not 
+necessarily indicative of results to be expected for the entire year. These 
+financial statements and notes should be read in conjunction with the 
+Company's annual consolidated financial statements and the notes thereto 
+for the fiscal year ended September 26, 1997, included in its Annual Report 
+on Forms 10-K and 10-K/A for the year ended September 26, 1997 (the "1997 
+Form 10-K").
+
+Note 2 - Earnings Per Share
+The Company has adopted Statement of Financial Accounting Standards No. 128
+("SFAS 128"), "Earnings Per Share." In accordance with SFAS 128, primary 
+earnings per share has been replaced with basic earnings per share, and fully 
+diluted earnings per share has been replaced with diluted earnings per share 
+which includes potentially dilutive securities such as outstanding options and 
+convertible securities. Prior periods presented have been presented to conform 
+to SFAS 128; however, as the Company had a net loss in those periods, basic 
+and diluted loss per share are the same as the primary loss per share 
+previously reported.
+
+Basic earnings per share is computed by dividing income available to common 
+shareholders by the weighted-average number of common shares outstanding 
+during the period. Diluted earnings per share is computed by dividing income 
+available to common shareholders by the weighted-average number of common 
+shares outstanding during the period increased to include the number of 
+additional common shares that would have been outstanding if the dilutive 
+potential common shares had been issued. The dilutive effect of outstanding 
+options is reflected in diluted earnings per share by application of the 
+treasury stock method. The dilutive effect of convertible securities is 
+reflected using the if-converted method. For fiscal years 1997, 1996, 1995, 
+1994, and 1993, basic earnings (loss) per share was $(8.29), $(6.59), $3.50, 
+$2.63, and $0.74, respectively. For those same fiscal years, there were no 
+material differences between amounts previously reported as fully diluted 
+earnings (loss) per share and diluted earnings (loss) per share calculated in 
+accordance with SFAS 128.
+
+
+
+
+                                       6
+<PAGE>
+
+The following table sets forth the computation of basic and diluted earnings
+(loss) per share (in thousands, except net income (loss) and per share amounts)
+<TABLE>
+<CAPTION>
+                    For the Three Months Ended        For the Nine Months Ended
+                      June 26,        June 27,         June 26,        June 27,
+                         1998            1997             1998            1997
+<S>                             <C>           <C>           <C>             <C>
+Numerator:
+  Numerator for basic 
+    earnings (loss) per 
+    share -- Net income 
+    (loss) (in millions)  $   101       $    (56)       $    203      $   (884)          
+  Interest expense on 
+    convertible debt           11              --             --             --     
+  Numerator for diluted 
+    earnings (loss) per 
+    share - Adjusted net 
+    income (loss) 
+    (in millions)         $   112       $    (56)       $    203      $   (884)          
+
+Denominator:
+  Denominator for basic 
+    earnings (loss) per 
+    share -- weighted 
+    average shares 
+    outstanding           133,068       126,500         130,971        125,547
+
+Effect of dilutive securities:
+  Convertible preferred
+    stock                   9,091            --           9,091              --
+  Dilutive options          6,985            --           5,115              --     
+  Convertible debt         22,642            --              --              --     
+  Dilutive potential 
+    common shares          38,718            --          14,206              --   
+
+Denominator for diluted 
+  earnings (loss) per share - 
+  adjusted weighted-average 
+  shares and assumed 
+  conversions             171,786        126,500        145,177        125,547
+
+Basic earnings (loss) 
+  per share               $  0.76       $ (0.44)        $  1.55       $  (7.04)  
+Diluted earnings (loss) 
+  per share               $  0.65       $ (0.44)        $  1.40       $  (7.04)    
+
+</TABLE>
+
+                                        7
+
+
+<PAGE>
+
+The Company has outstanding $661 million of unsecured convertible subordinated 
+notes (the "Notes") which are convertible by their holders into approximately
+22.6 million shares of common stock at a conversion price of $29.205 per share 
+subject to the adjustments as defined in the Note agreement. The common shares 
+represented by these Notes upon conversion were included in the computation of 
+diluted earnings per share for the three months ended June 26, 1998, as the 
+effect of using the if-converted method was dilutive for that period. The 
+common shares represented by these Notes were not included in the computation 
+of diluted earnings per share for other periods presented because the effect 
+of using the if-converted method for those periods would be anti-dilutive. For 
+additional disclosures regarding the outstanding preferred stock, employee 
+stock options and the Notes, see the 1997 Form 10-K.
+
+Note 3 - Restructuring Activities
+In the second quarter of 1996, the Company announced and began to implement a 
+restructuring plan aimed at reducing costs and restoring profitability to the 
+Company's operations. The restructuring plan was necessitated by decreased 
+demand for the Company's products and the Company's adoption of a new strategic 
+direction. These actions resulted in a net charge of $179 million after 
+subsequent adjustments recorded in the fourth quarter of 1996. During 1997, the 
+Company announced and began to implement supplemental restructuring actions to 
+meet the foregoing objectives of the plan. The Company recognized a $217 
+million charge during 1997 for the estimated incremental costs of those 
+actions, including approximately $8 million of costs related to the 
+termination of the Company's former Chief Executive Officer. The combined 
+restructuring actions consist of terminating approximately 4,200 full-time 
+employees, approximately 3,400 of whom have been terminated from the second 
+quarter of 1996 through June 26, 1998, excluding employees who were hired by 
+SCI Systems, Inc. and MCI Systemhouse, the purchasers of the Company's 
+Fountain, Colorado manufacturing facility and the Napa, California data center 
+facility, respectively; canceling or vacating certain facility leases as a 
+result of those employee terminations; writing down certain land, buildings and 
+equipment to be sold as a result of downsizing operations and outsourcing 
+various operational functions; and canceling contracts for projects and 
+technologies that are not central to the Company's core business strategy. The 
+restructuring actions under the plan have resulted in cash expenditures of $236 
+million and noncash asset write-downs of $83 million from the second quarter of 
+1996 through June 26, 1998. The Company has periodically made adjustments to 
+the categories and timing of expected restructure spending based on revised 
+estimates. The Company expects that the remaining $77 million accrued balance 
+as of June 26, 1998 will result in cash expenditures of approximately $35 
+million over the next three months and $25 million thereafter. The remaining 
+contemplated restructuring actions related to the plan will be initiated 
+before the end of fiscal 1998 and completed before the end of calendar year 
+1998. Remaining restructuring actions are expected to be financed through 
+current working capital.
+
+
+
+
+                                       8
+
+<PAGE>
+
+The following table depicts the restructuring activity through June 26, 1998:
+<TABLE>
+<CAPTION>
+                                                                  (In millions)
+               Balance as of                                    Balance as of 
+Category       September 26, 1997   Spending     Adjustments     June 26, 1998  
+<S>                           <C>        <C>              <C>               <C>        
+Payments to employees 
+  involuntarily 
+terminated  (C)            $   76       $  49            $ --             $  27
+Payments on canceled
+  or vacated facility 
+leases (C)                     25           9               3                19
+Write-down of operating 
+assets to be sold (N)          39          30               8                17
+Payments on canceled 
+contracts (C)                  40          15            (11)                14
+                            ___________________________________________________
+                             $180        $103            $ --             $  77
+(C): Cash; (N): Noncash.	
+</TABLE>
+
+
+Note 4 - Stock Option Exchange
+In order to address concerns regarding the retention of the Company's key 
+employees, in December 1997 the Board of Directors approved an option exchange 
+program which allowed employees to exchange all (but not less than all) of 
+their existing options (vested and unvested) with an exercise price of greater 
+than $13.6875 on a one-for-one basis for new options with an exercise price of 
+$13.6875, the fair market value of the Company's common stock on December 19, 
+1997, and a new four year vesting schedule beginning in December 1997.  A 
+total of 4.4 million options with a weighted-average exercise price of $20.01 
+per share were exchanged for new options as a result of this program.
+
+Note 5 - Equity Investment Gains
+As of March 27, 1998, the Company owned 37.4% of the outstanding stock of ARM 
+Holdings plc ("ARM"), a privately held company in the United Kingdom involved 
+in the design of high performance microprocessors and related technology. The 
+Company accounts for this investment using the equity method. On April 17, 
+1998, ARM completed an initial public offering of its stock on the London 
+Stock Exchange and the NASDAQ National Market. The Company sold 18.9% of its 
+shares in the offering for a gain before foreign taxes of approximately $24 
+million which was recognized as other income. Foreign taxes recognized on this 
+gain were approximately $7 million. 
+
+At the time an equity method investee sells existing or newly issued common 
+stock to unrelated parties in excess of its book value, the equity method 
+requires that the net book value of the investment be adjusted to reflect the 
+investor's share of the change in the investee's shareholders' equity 
+resulting from the sale. It is the Company's policy to record an adjustment 
+
+
+                                       9
+<PAGE>
+reflecting its share of the change in the investee's shareholders' equity 
+resulting from such a sale as a gain or loss in other income. Consequently, the 
+Company also recognized in the third quarter of 1998 other income of 
+approximately $16 million to reflect its remaining 25.9% ownership interest in 
+the increased net book value of ARM following its initial public offering. As 
+of June 26, 1998, the carrying value of the Company's investment in ARM was 
+approximately $21 million. The fair value of this investment at that date 
+based on listed market values was approximately $219 million. The Company is 
+subject to a "lock-up" agreement under which it is restricted from selling any 
+of its ARM shares before October 16, 1998. The Company will continue to 
+account for its investment in ARM using the equity method.
+
+Note 6 - Technology Acquisition
+In May 1998, the Company acquired certain technology that was under 
+development.  The acquisition resulted in the recognition of $7 million of 
+purchased in-process research and development which was charged to operations 
+upon acquisition.
+
+Note 7 - Recent Accounting Pronouncements
+In October 1997, the American Institute of Certified Public Accountants issued 
+Statement of Position ("SOP") 97-2, "Software Revenue Recognition" which 
+establishes standards relating to the recognition of all aspects of software 
+revenue. SOP 97-2 is effective for transactions entered into in fiscal years 
+beginning after December 15, 1997 and may require the Company to modify 
+certain aspects of its revenue recognition policies. The Company does not 
+expect the adoption of SOP 97-2 to have a material impact on the Company's 
+consolidated results of operations.
+
+In June 1998, the Financial Accounting Standards Board issued Statement of 
+Financial Accounting Standards No. 133 ("SFAS 133"), "Accounting for Derivative 
+Instruments and Hedging Activities" which establishes accounting and reporting 
+standards for derivative instruments and hedging activities. SFAS 133 requires 
+that an entity recognize all derivatives as either assets or liabilities in 
+the statement of financial position and measure those instruments at fair 
+value.  The Statement is effective for all fiscal quarters of fiscal years 
+beginning after June 15, 1999.  Earlier application of the Statement is 
+permitted. The Company is still in the process of assessing the impact that the 
+Statement will have on the Company's consolidated financial statements.
+
+Note 8 - Contingencies
+The Company is subject to various legal proceedings and claims which are 
+discussed in detail in the 1997 Form 10-K and in the Form 10-Q for the period 
+ended December 27, 1997. The Company is also subject to certain other legal 
+proceedings and claims which have arisen in the ordinary course of business 
+and which have not been fully adjudicated.  The results of legal proceedings 
+cannot be predicted with certainty; however, in the opinion of management, the 
+Company does not have a potential liability related to any legal proceedings 
+and claims that would have a material adverse effect on its financial 
+condition or results of operations.
+
+
+
+                                       10
+<PAGE>
+
+The Internal Revenue Service ("IRS") has proposed federal income tax 
+deficiencies for the years 1984 through 1991, and the Company has made certain 
+prepayments thereon. The Company contested the proposed deficiencies by filing 
+petitions with the United States Tax Court, and most of the issues in dispute 
+have now been resolved. On June 30, 1997, the IRS proposed income tax 
+adjustments for the years 1992 through 1994. Although a substantial number of 
+issues for these years have been resolved, certain issues still remain in 
+dispute and are being contested by the Company. Management believes that 
+adequate provision has been made for any adjustments that may result from tax 
+examinations.
+
+Note 9 - Reclassifications
+Certain amounts in the 1997 Condensed Consolidated Statement of Cash Flows 
+have been reclassified to conform to the 1998 presentation.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                       11
+<PAGE>
+
+Item 2. Management's Discussion and Analysis of Financial Condition and 
+Results of Operations 
+This section and other parts of this Form 10-Q contain forward-looking 
+statements that involve risks and uncertainties. The Company's actual results 
+may differ significantly from the results discussed in the forward-looking 
+statements. Factors that might cause such differences include, but are not 
+limited to, those discussed in the subsection entitled "Factors That May Affect 
+Future Results and Financial Condition" below. The following discussion 
+should be read in conjunction with the condensed consolidated financial 
+statements and notes thereto included elsewhere in this Form 10-Q and in the 
+Company's 1997 Form 10-K.  All information is based on the Company's fiscal 
+calendar. 
+
+Results of Operations
+(Tabular information: Dollars in millions, except per share amounts)
+<TABLE>
+<CAPTION>	
+                              Third Quarter              Nine Months Ended
+                                                       June 26,  June 27,
+                              1998   1997  Change        1998      1997  Change
+                             ______________________   _________________________                       
+<S>                             <C>      <C>    <C>        <C>      <C>     <C>
+Net sales                     $1,402   $1,737   (19%)    $4,385   $5,467  (20%)
+Gross margin                  $  360   $  348      3%    $1,062   $1,048    1%
+   Percentage of net sales       26%      20%               24%      19%
+Research and development      $   76   $  101   (25%)    $  230   $  391  (41%)
+   Percentage of net sales        5%       6%                5%       7%
+Selling, general and 
+  administrative            $   216    $  307   (30%)    $  673   $1,027  (34%)
+   Percentage of net sales       15%      18%               15%      19%
+Special Charges
+  In-process research and 
+    development               $    7   $   --      NM    $    7   $  375     NM
+   Percentage of net sales       --%      --%              --%       7%
+Restructuring costs           $   --   $   --      NM    $   --   $  155     NM
+   Percentage of net sales       --%      --%              --%       3%
+Interest and other income 
+  (expense), net              $   48   $    4   1100%    $   63   $   16   294%
+Provision for income taxes    $    8   $   --      NM    $   12   $   --     NM
+  Effective tax rate              7%      --%               6%      --%
+Net income (loss)             $  101   $  (56)   280%   $  203    $ (884)  123%
+Basic earnings (loss) 
+  per share                   $ 0.76   $(0.44)   273%    $ 1.55   $(7.04)  122%
+Diluted earnings (loss) 
+per share                     $ 0.65   $(0.44)   248%    $ 1.40   $(7.04)  120%
+</TABLE>
+
+
+
+
+                                       12
+
+<PAGE>
+
+
+Results of Operations - continued
+(Tabular information: Dollars in millions, except per share amounts)
+
+<TABLE>
+<CAPTION>	  
+                            Third      Second 
+                            Quarter    Quarter 
+                              1998       1998  Change
+                             ______________________
+<S>                             <C>      <C>     <C>
+
+Net sales                     $1,402   $1,405     --%
+Gross margin                  $  360   $  349      3%
+   Percentage of net sales       26%      25%
+Research and development      $   76   $   75      1%
+   Percentage of net sales        5%       5%
+Selling, general and 
+  administrative              $  216   $  223    (3%)
+   Percentage of net sales       15%      16%
+Special Charges
+  In-process research and 
+    development               $    7   $   --      NM
+   Percentage of net sales       --%      --%
+Interest and other income 
+  (expense), net              $   48   $    8    500%
+Provision for income taxes    $    8   $    4    100%
+  Effective tax rate              7%       7%
+Net income                    $  101   $   55     84%
+Basic earnings per share      $ 0.76   $ 0.42     81%
+Diluted earnings per share    $ 0.65   $ 0.38     71%
+</TABLE>
+
+
+NM: Not Meaningful
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                       13
+<PAGE>
+
+Net Sales
+
+Net sales represent the Company's gross sales net of returns, rebates, 
+discounts and price protection. Net sales for the third quarter and first nine 
+months of 1998 were $1.402 billion and $4.385 billion, respectively, decreases 
+of 19% and 20%, respectively, over the corresponding periods in 1997. The 
+decline in net sales is attributable to several factors. The Company has 
+experienced a $355 million decrease in net sales of peripheral products between 
+the first nine months of 1998 and the same period in 1997 primarily due to the 
+discontinuance by the Company of certain imaging and display products. Net 
+sales in Asia were adversely affected primarily by the region's current 
+economic problems, declining 37% or $476 million during the first nine months 
+of 1998 compared to the same period in 1997. The average revenue per Macintosh 
+system, a function of total net sales generated by hardware shipments and total 
+Macintosh CPU unit sales, fell 7% and 6%, respectively, between the third 
+quarter and first nine months of 1998 compared to the corresponding periods in 
+1997, reflecting the effect of aggressive pricing of the Company's Power 
+Macintosh G3 systems introduced in the first quarter of fiscal 1998, the 
+decline in net sales from the phase out of certain peripheral products, and 
+the overall industry trend towards lower-priced products. Lastly, overall 
+CPU units sales for the comparable nine month periods decreased approximately 
+14% from 1997.
+
+Net sales were unchanged in the third quarter of 1998 compared with the second 
+quarter of 1998. A slight sequential decrease in unit sales from 650 thousand 
+in the second quarter of 1998 to 644 thousand in the third quarter was offset 
+by an increase in the average revenue per Macintosh system of 2%. The slight 
+overall decline in unit sales is primarily attributable to the lack of 
+available consumer oriented products and production capacity constraints 
+related to the introduction of new PowerBook G3 systems at the end of the third 
+quarter of 1998. The overall product mix continued to shift towards products 
+incorporating the Power Macintosh G3 microprocessor. Sales of G3 powered 
+Macintosh systems accounted for approximately 84% of Macintosh systems 
+shipped during the third quarter of 1998 as compared to 51% of Macintosh 
+systems shipped during the prior quarter. Net sales of imaging and display 
+products decreased by $25 million to $127 million in the third quarter of 1998 
+compared with the prior quarter reflecting the continuing phase-out of most 
+imaging and display products.
+
+International sales for the three and nine month periods ended June 26, 1998 
+represented 43% and 47%, respectively, of consolidated net sales in each of the 
+periods versus 53% for the same periods in 1997. International net sales fell 
+35% in the third quarter of 1998 compared with the same period of 1997, 
+primarily due to decreased revenue in the European and Japanese markets as a 
+result of significant decreases in Macintosh unit sales and the average revenue 
+per Macintosh system, partially offset by increases in the average revenue per 
+peripheral unit. Overall sales in the European and Japanese markets were 
+negatively affected during the current quarter by the lack of available 
+consumer oriented products. Sales in Asia were also negatively affected by the 
+region's continuing economic problems. Domestic net sales increased slightly 
+in the third quarter of 1998 over the comparable period of 1997 due to 
+
+                                       14
+<PAGE>
+
+increases in unit sales of Macintosh systems, partially offset by decreases in 
+the average revenue per Macintosh system and in peripheral unit sales.
+
+The Company anticipates modest sequential quarterly revenue growth for the 
+fourth quarter of fiscal 1998, and year-over-year quarterly revenue growth is 
+not expected before the first quarter of fiscal 1999. The foregoing statements 
+are forward looking. The Company's actual results could differ because of 
+several factors, including those set forth below in the subsection entitled 
+"Factors That May Affect Future Results and Financial Condition".
+
+Gross Margin
+
+Gross margin increased as a percentage of sales during the third quarter and 
+the first nine months of 1998 compared to the corresponding periods of 1997, 
+and increased from the second quarter of 1998 to the third quarter of 1998 
+from 25% to 26% of sales. These increases were primarily a result of a shift in 
+revenue mix towards the Company's higher margin Power Macintosh G3 systems 
+and newer PowerBook G3 systems, the unusually low volume of lower margin 
+consumer products shipped during the third quarter of 1998, and the continuing 
+benefits derived from new distribution channel policies and improved inventory 
+management.  
+
+As consumer products become a larger share of the Company's net sales over 
+upcoming quarters, management anticipates that gross margins will trend 
+down gradually. The foregoing statement is forward looking. The Company's 
+actual results could differ because of several factors, including those set 
+forth in the following paragraph and below in the subsection entitled 
+"Factors That May Affect Future Results and Financial Condition".
+
+There can be no assurance that anticipated consolidated gross margin levels 
+will be achieved or that current margins on existing individual products will 
+be maintained. In general, gross margins and margins on individual products 
+will remain under significant downward pressure due to a variety of factors, 
+including continued industry wide global pricing pressures, increased 
+competition, compressed product life cycles, and potential changes to the 
+Company's product mix, including higher unit sales of consumer products with 
+lower average selling prices and lower gross margins. In response to these 
+downward pressures, the Company expects it will continue to take pricing 
+actions with respect to its products. Gross margins could also be affected by 
+the Company's ability to effectively manage quality problems and warranty 
+costs and to stimulate demand for certain of its products. The Company's 
+operating strategy and pricing take into account changes in foreign currency 
+exchange rates over time; however, the Company's results of operations can be 
+significantly affected in the short term by fluctuations in exchange rates.
+
+Research and Development
+
+Expenditures for research and development decreased in amount and as a 
+percentage of net sales during the third quarter and the first nine months of 
+
+
+                                       15
+<PAGE>
+
+1998 compared to the corresponding periods of 1997, and remained relatively 
+flat in amount and as a percentage of net sales during the third quarter of 
+1998 compared with the second quarter of 1998. These reductions on a year-
+over-year basis are due to various restructuring actions which resulted in 
+reductions in headcount and cancellation of certain research and development 
+projects. 
+
+Selling, General and Administrative
+
+Selling, general and administrative expenses decreased in amount and as a 
+percentage of net sales during the third quarter and the first nine months of 
+1998 compared to the corresponding periods of 1997 and during the third 
+quarter of 1998 compared to the second quarter of 1998. These decreases are 
+due to various restructuring actions which resulted in reductions in 
+headcount, the closing of facilities, the write-down of assets, and changes to 
+distribution channel policies.
+
+Special Charges
+
+In May 1998, the Company acquired certain technology that was under 
+development.  The acquisition resulted in the recognition of $7 million of 
+purchased in-process research and development which was charged to operations 
+upon acquisition.
+
+During the first nine months of 1997, the Company recognized a $375 million 
+charge for purchased in-process research and development in connection with the 
+acquisition of NeXT Software, Inc. ("NeXT") and a $155 million charge for 
+restructuring costs. For further information regarding the Company's 
+restructuring actions, see Note 3 to the Condensed Consolidated Financial 
+Statements. 
+
+Interest and Other Income (Expense), Net
+
+Interest and other income (expense), net, is comprised of interest income on 
+the Company's cash and investment balances, interest expense on the Company's 
+debt, gains and losses recognized on investments accounted for using the equity 
+method, certain foreign exchange gains and losses and other miscellaneous 
+income and expense items. 
+
+As of March 27, 1998, the Company owned 37.4% of the outstanding stock of ARM 
+Holdings plc ("ARM"), a privately held company in the United Kingdom involved 
+in the design of high performance microprocessors and related technology. The 
+Company accounts for this investment using the equity method. On April 17, 
+1998, ARM completed an initial public offering of its stock on the London 
+Stock Exchange and the NASDAQ National Market. The Company sold 18.9% 
+of its shares in the offering for a gain before foreign taxes of 
+approximately $24 million which was recognized as other income. Foreign taxes 
+recognized on this gain were approximately $7 million. The Company also 
+recognized other income of approximately $16 million to reflect the increase 
+in its remaining 25.9% ownership interest in the net book value of ARM 
+following its initial public offering.
+                                       16
+<PAGE>
+
+Provision for Income Taxes
+
+As of June 26, 1998, the Company had deferred tax assets arising from 
+deductible temporary differences, tax losses, and tax credits of $658 million 
+before being offset against certain deferred tax liabilities for presentation 
+on the Company's balance sheet. A substantial portion of this asset is 
+realizable based on the ability to offset existing deferred tax liabilities. 
+As of June 26, 1998, a valuation allowance of $173 million was recorded against 
+the deferred tax asset for the benefits of tax losses which may not be 
+realized. Realization of approximately $85 million of the asset representing 
+tax loss and credit carryforwards is dependent on the Company's ability to 
+generate approximately $245 million of future U.S. taxable income. Management 
+believes that it is more likely than not that forecasted U.S. income, including 
+income that may be generated as a result of certain tax planning strategies, 
+will be sufficient to utilize the tax carryforwards prior to their expiration 
+in 2011 and 2012 to fully recover this asset. However, there can be no 
+assurance that the Company will meet its expectations of future U.S. taxable 
+income. As a result, the amount of the deferred tax assets considered 
+realizable could be reduced in the near and long term if estimates of future 
+taxable U.S. income are reduced. Such an occurrence could materially adversely 
+affect the Company's consolidated financial results. The Company will continue 
+to evaluate the realizability of the deferred tax assets quarterly by 
+assessing the need for and amount of the valuation allowance. The Company's 
+effective tax rate for the first nine months of 1998 was only 5.6% due 
+primarily to the reversal of a portion of the previously established valuation 
+allowance and certain undistributed foreign earnings for which no U.S. taxes 
+were provided.
+
+Liquidity and Capital Resources
+
+The Company's total cash, cash equivalents, and short-term investments 
+increased to $1,993 million as of June 26, 1998, from $1,459 million as of 
+September 26, 1997. The Company's cash and cash equivalent balances as of 
+June 26, 1998 and September 26, 1997 include $58 million and $165 million, 
+respectively, pledged as collateral to support letters of credit primarily 
+associated with the Company's purchase commitments under the terms of the 1996 
+sale of the Company's Fountain, Colorado, manufacturing facility to SCI. On 
+April 24, 1998, SCI notified the Company that certain performance measures 
+defined within the letter of credit agreement had been met by the Company. As a 
+result, effective as of May 29, 1998, the letter of credit and the amount 
+pledged as collateral by the Company to support the letter of credit was 
+reduced by $100 million to $50 million. Should the Company fail to meet those 
+performance measures in the future, it is possible that some or all of the 
+letter of credit and supporting collateral would have to be reestablished.
+
+Cash generated by operations during the first nine months of 1998 totaled $452 
+million. Cash generated by operations was primarily the result of positive 
+earnings and decreases in accounts receivable and inventories, partially 
+offset by decreases in accounts payable and other current liabilities and 
+payments related to restructuring actions.
+
+                                       17
+<PAGE>
+
+Net cash used for the purchase of property, plant, and equipment totaled $29 
+million in the first nine months of 1998, and consisted primarily of increases 
+in manufacturing equipment and tooling. The Company expects that the level of 
+capital expenditures in the fourth quarter of 1998 will be consistent with 
+those experienced through the first three quarters of 1998.
+
+The Company believes that its existing cash, cash equivalents and short-term 
+investments balances will be sufficient to meet its cash requirements over the 
+next twelve months. Expected cash requirements over the next twelve months 
+include an estimated $60 million to effect actions under the restructuring 
+plan, most of which will be effected during 1998. No assurance can be given 
+that any additional required financing could be obtained should the 
+restructuring plan take longer to implement than anticipated or be 
+unsuccessful. If the Company is unable to obtain such financing, its liquidity, 
+results of operations, and financial condition could be materially adversely 
+affected. 
+
+Over the last two years, the Company's debt ratings have been downgraded to 
+non-investment grade. As of March 27, 1998, the Company's senior and 
+subordinated long-term debt ratings were B- and CCC, respectively, by Standard 
+and Poor's Rating Agency, and B3 and Caa2, respectively, by Moody's Investor 
+Services. In June 1998, Moody's upgraded the Company's senior debt to B2 from 
+B3 and subordinated debt to Caa1 from Caa2 citing strengthened debtholder 
+protection measurements as the major reason for the upgrade.  At the same time, 
+both Moody's and Standard and Poor's revised their outlooks on the Company to 
+"positive" due to the Company's improved profitability and financial 
+flexibility. Despite these recent upgrades, the Company's non-investment grade 
+debt ratings will maintain pressure on the Company's cost of funds in future 
+periods and may require the Company to pledge additional collateral or agree to 
+more stringent debt covenants.
+
+Year 2000 Compliance
+
+Many currently installed computer systems, software products and other 
+equipment utilizing microprocessors are coded to accept only two digit entries 
+in the date code field. These date code fields will need to accept four digit 
+entries to distinguish twenty-first century dates from twentieth century 
+dates.  This is commonly referred to as the "Year 2000 issue". 
+
+The Company is aware of the Year 2000 issue and has commenced a program to 
+identify, remediate, test and develop contingency plans for, the Year 2000 
+issue (the "Y2K Program"), to be substantially completed by the fall of 1999. 
+The Company has established  a Year 2000 Project Management Office which is 
+responsible for managing the Y2K Program as it relates to  (1) the software and 
+systems used in the Company's internal business; (2)  the Company's software 
+and hardware products delivered to customers; and (3) third party vendors, 
+manufacturers and suppliers.  The Company currently does not anticipate that 
+
+
+
+                                       18
+<PAGE>
+
+
+the cost of the Y2K Program will be material to its financial condition or 
+results of operations. Nevertheless, satisfactorily addressing the Year 2000 
+issue is dependent on many factors, some of which are not completely within the 
+Company's control.  Should the Company's internal systems,  its software and/or 
+hardware products to be delivered to customers  or the internal systems of one 
+or more significant vendors, manufacturers or suppliers fail to achieve Year 
+2000 compliance, the Company's business and its results of operations could be 
+adversely affected.
+
+The foregoing statements are forward looking. The Company's actual results 
+could differ because of several factors, including those set forth in the 
+subsection entitled "Factors That May Affect Future Results and Financial 
+Condition".
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                       19
+
+
+<PAGE>
+
+Factors That May Affect Future Results and Financial Condition
+
+The Company operates in a rapidly changing environment that involves a number 
+of uncertainties, some of which are beyond the Company's control.  In addition 
+to the uncertainties described elsewhere in this report, there are many 
+factors that will affect the Company's future results and business which may 
+cause the actual results to differ from those currently expected. The Company's 
+future operating results and financial condition are dependent upon the 
+Company's ability to successfully develop, manufacture, and market 
+technologically innovative products in order to meet dynamic customer demand 
+patterns, and are also dependent upon its ability to effect a change in 
+marketplace perception of the Company's prospects, including the viability of 
+the Macintosh platform. Inherent in this process are a number of factors that 
+the Company must successfully manage in order to achieve favorable future 
+operating results and a favorable financial condition. Potential risks and 
+uncertainties that could affect the Company's future operating results and 
+financial condition include, among other things, continued competitive 
+pressures in the marketplace and the effect of any reaction by the Company to 
+such competitive pressures, including pricing actions by the Company; risks 
+associated with international operations, including economic and labor 
+conditions,  the continuing economic problems being experienced in Asia, 
+political instability, tax laws, and currency fluctuations; increasing 
+dependence on third-parties for manufacturing and other outsourced 
+functions such as logistics; the availability of key components on terms 
+acceptable to the Company; the continued availability of certain components 
+essential to the Company's business currently obtained by the Company from 
+sole or limited sources, including PowerPC RISC microprocessors developed by 
+and obtained from IBM and Motorola; the Company's ability to supply products in 
+certain categories; the Company's ability to supply products free of latent 
+defects or other faults; the Company's ability to make timely delivery to the 
+marketplace of technological innovations, including its ability to continue to 
+make timely delivery of planned enhancements to the current Mac OS and timely 
+delivery of future versions of the Mac OS; the Company's ability to 
+successfully integrate the technologies of NeXT, which was acquired in 1997; 
+the Company's ability to successfully implement its strategic direction and 
+restructuring actions, including reducing its expenditures; the Company's 
+ability to attract, motivate and retain employees; the effects of significant 
+adverse publicity; the availability of third-party software for particular 
+applications; the effect of year 2000 compliance issues; the Company's ability 
+to successfully replace its existing transaction systems in the U.S.; and the 
+impact on the Company's sales, market share and gross margins as a result of 
+the Company winding down its Mac OS licensing program.   
+
+For a discussion of these and other factors affecting the Company's future 
+results and financial condition, see "Item 7 -- Management's Discussion and 
+Analysis -- Factors That May Affect Future Results and Financial Condition" 
+in the Company's 1997 Form 10-K.
+
+
+
+                                       20
+
+<PAGE>
+
+
+
+PART II. OTHER INFORMATION
+
+Item 1. Legal Proceedings
+
+The Company is subject to various legal proceedings and claims which are 
+discussed in detail in the 1997 Form 10-K and in the Form 10-Q for the period 
+ended December 27, 1997. The Company is also subject to certain other legal 
+proceedings and claims which have arisen in the ordinary course of business 
+and which have not been fully adjudicated. The results of legal proceedings 
+cannot be predicted with certainty; however, in the opinion of management, 
+the Company does not have a potential liability related to any legal 
+proceedings and claims that would have a material adverse effect on its 
+financial condition or results of operations.
+
+Item 5. Other Information
+
+The Company anticipates holding its annual meeting of shareholders on March 24, 
+1999.  Shareholders who intend to present proposals at the next annual meeting 
+of shareholders must send such proposals to the Company for receipt no later 
+than October 14, 1998 in order for such proposals to be considered for 
+inclusion in the proxy statement and form of proxy relating to such meeting.
+
+
+
+Item 6.    Exhibits and Reports on Form 8-K
+
+(a)        Exhibits 
+
+Exhibit
+Number     Description
+
+    27     Financial Data Schedule.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                       21
+
+<PAGE>
+
+
+
+                                  SIGNATURES
+
+Pursuant to the requirements of the Securities Exchange Act of 1934, the 
+Registrant has duly caused this report to be signed on its behalf by the 
+undersigned, thereunto duly authorized.
+
+
+
+
+
+
+                             APPLE COMPUTER, INC.
+                                  (Registrant)
+
+
+
+
+
+
+
+
+                                       By:  /s/Fred D. Anderson 
+
+                                       Fred D. Anderson
+                                       Executive Vice President and 
+                                       Chief Financial Officer
+                                       August 10, 1998
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                       22
+<PAGE>
+
+INDEX TO EXHIBITS
+
+Exhibit
+Index
+Number        Description                        Page
+
+
+    27        Financial Data Schedule.           24
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                       23
+<PAGE>
+
+
+
+</TEXT>
+
+</DOCUMENT>
+<DOCUMENT>
+<TYPE>EX-27
+<SEQUENCE>2
+<DESCRIPTION>ART. 5 FDS FOR FY98 FORM 10-K
+<FLAWED>
+<TEXT>
+WARNING: THE EDGAR SYSTEM ENCOUNTERED ERROR(S) WHILE PROCESSING THIS SCHEDULE.
+
+<TABLE> <S> <C>
+
+<ARTICLE>	5
+
+<MULTIPLIER>		1,000,000
+       	
+<S>	<C>
+<PERIOD-TYPE>		9-MOS
+<FISCAL-YEAR-END>	SEP-25-1998
+<PERIOD-END>		JUN-26-1998
+	
+<CASH>                                                1,203
+<SECURITIES>                                            790
+<RECEIVABLES>                                         1,005
+<ALLOWANCES>                                             90
+<INVENTORY>                                             129
+<CURRENT-ASSETS>                                      3,375
+<PP&E>                                                  958
+<DEPRECIATION>                                          593
+<TOTAL-ASSETS>                                        4,041
+<CURRENT-LIABILITIES>                                 1,602
+<BONDS>                                                 953
+<COMMON>                                                592
+<PREFERRED-MANDATORY>                                     0
+<PREFERRED>                                             150
+<OTHER-SE>                                              744
+<TOTAL-LIABILITY-AND-EQUITY>                          4,041
+	
+<SALES>                                               4,385
+<TOTAL-REVENUES>                                      4,385
+<CGS>                                                 3,323
+<TOTAL-COSTS>                                         3,323
+<OTHER-EXPENSES>                                        910
+<LOSS-PROVISION>                                          0
+<INTEREST-EXPENSE>                                       46
+<INCOME-PRETAX>                                         215
+<INCOME-TAX>                                             12
+<INCOME-CONTINUING>                                     203
+<DISCONTINUED>                                            0
+<EXTRAORDINARY>                                           0
+<CHANGES>                                                 0
+<NET-INCOME>                                            203
+<EPS-PRIMARY>                                          1.55
+<EPS-DILUTED>                                          1.40
+
+
+                                     24	
+<PAGE>				
+
+</TEXT>
+</DOCUMENT>
+</SEC-DOCUMENT>
+-----END PRIVACY-ENHANCED MESSAGE-----

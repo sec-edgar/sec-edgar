@@ -1,0 +1,3051 @@
+-----BEGIN PRIVACY-ENHANCED MESSAGE-----
+Proc-Type: 2001,MIC-CLEAR
+Originator-Name: webmaster@www.sec.gov
+Originator-Key-Asymmetric:
+ MFgwCgYEVQgBAQICAf8DSgAwRwJAW2sNKK9AVtBzYZmr6aGjlWyK3XmZv3dTINen
+ TWSM7vrzLADbmYQaionwg5sDW3P6oaM5D3tdezXMm7z1T+B+twIDAQAB
+MIC-Info: RSA-MD5,RSA,
+ RFU36lcz6e6pv1mpGEm037hi1rlrNDs93/+sINIt++nJ+aCHaZSiaQRjf6MRkrHX
+ gYbI1TE/XSIdQNbUdZ5DFw==
+
+<SEC-DOCUMENT>0000320193-99-000009.txt : 19990809
+<SEC-HEADER>0000320193-99-000009.hdr.sgml : 19990809
+ACCESSION NUMBER:		0000320193-99-000009
+CONFORMED SUBMISSION TYPE:	10-Q
+PUBLIC DOCUMENT COUNT:		3
+CONFORMED PERIOD OF REPORT:	19990626
+FILED AS OF DATE:		19990806
+
+FILER:
+
+	COMPANY DATA:	
+		COMPANY CONFORMED NAME:			APPLE COMPUTER INC
+		CENTRAL INDEX KEY:			0000320193
+		STANDARD INDUSTRIAL CLASSIFICATION:	ELECTRONIC COMPUTERS [3571]
+		IRS NUMBER:				942404110
+		STATE OF INCORPORATION:			CA
+		FISCAL YEAR END:			0930
+
+	FILING VALUES:
+		FORM TYPE:		10-Q
+		SEC ACT:		
+		SEC FILE NUMBER:	000-10030
+		FILM NUMBER:		99680016
+
+	BUSINESS ADDRESS:	
+		STREET 1:		1 INFINITE LOOP
+		CITY:			CUPERTINO
+		STATE:			CA
+		ZIP:			95014
+		BUSINESS PHONE:		4089961010
+
+	MAIL ADDRESS:	
+		STREET 1:		ONE INFINITE LOOP
+		CITY:			CUPERTINO
+		STATE:			CA
+		ZIP:			95014
+</SEC-HEADER>
+<DOCUMENT>
+<TYPE>10-Q
+<SEQUENCE>1
+<TEXT>
+
+
+                                 UNITED STATES
+                      SECURITIES AND EXCHANGE COMMISSION
+                            Washington, D.C. 20549
+                                   ___________
+
+                                  Form 10-Q
+                                  ___________
+
+                                  (Mark One)
+
+         _X_ QUARTERLY REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE
+             SECURITIES EXCHANGE ACT OF 1934
+             For the quarterly period ended June 26, 1999 OR
+             TRANSITION REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE
+             SECURITIES EXCHANGE ACT OF 1934
+             For the transition period from _______ to ________.
+
+                        Commission file number 0-10030
+                                  ___________
+
+                             APPLE COMPUTER, INC.
+            (Exact name of Registrant as specified in its charter)
+                                  ___________
+
+            CALIFORNIA                                  942404110
+     (State or other jurisdiction         (I.R.S. Employer Identification No.)
+of incorporation or organization)
+
+         1 Infinite Loop                                95014
+       Cupertino, California                         (Zip Code)
+     (Address of principal executive offices)
+
+      Registrant's telephone number, including area code: (408) 996-1010
+
+        Securities registered pursuant to Section 12(b) of the Act: None
+
+         Securities registered pursuant to Section 12(g) of the Act:
+                          Common Stock, no par value
+                        Common Share Purchase Rights
+                             (Titles of classes)
+                                  ___________
+
+Indicate by check mark whether the Registrant (1) has filed all reports
+required to be filed by Section 13 or 15(d) of the Securities Exchange Act of
+1934 during the preceding 12 months (or for such shorter period that the
+Registrant was required to file such reports), and (2) has been subject to such
+filing requirements for the past 90 days.
+
+                           Yes    X      No  ____
+
+ 160,880,300 shares of Common Stock Issued and Outstanding as of July 30, 1999
+
+<PAGE>
+
+PART I. FINANCIAL INFORMATION
+
+Item 1. Financial Statements
+
+                             APPLE COMPUTER, INC.
+
+          CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited)
+               (in millions, except share and per share amounts)
+<TABLE>
+<CAPTION>
+                                  Three Months Ended       Nine Months Ended
+                               June 26,    June 26,        June 26,    June 26,
+                                   1999        1998            1999        1998
+<S>                                 <C>         <C>             <C>         <C>
+Net sales                        $1,558      $1,402          $4,798      $4,385
+Cost of sales                     1,131       1,042           3,486       3,323
+  Gross margin                      427         360           1,312       1,062
+Operating expenses:
+  Research and development           80          76             232         230
+  Selling, general, and
+    administrative                  243         216             761         673
+  In-process research and
+    development                      --           7              --           7
+  Restructuring costs                --          --               9          --
+     Total operating expenses       323         299           1,002         910
+Operating income                    104          61             310         152
+
+Gain from sales of investment       101          40             188          40
+Interest and other income
+  (expense), net                     24           8              53          23
+    Total interest and other
+      income (expense), net         125          48             241          63
+Income before provision
+  for income taxes                  229         109             551         215
+Provision for income taxes           26           8              61          12
+Net income                       $  203      $  101          $  490      $  203
+
+Earnings per common share:
+
+    Basic                         $1.41       $0.76           $3.54       $1.55
+
+    Diluted                       $1.20       $0.65           $2.99       $1.40
+
+Shares used in computing earnings
+per share (in thousands):
+
+    Basic                       144,054     133,068         138,571     130,971
+
+    Diluted                     174,650     171,786         173,330     145,177
+</TABLE>
+
+    See accompanying notes to condensed consolidated financial statements.
+                                       2
+<PAGE>
+                             APPLE COMPUTER, INC.
+
+               CONDENSED CONSOLIDATED BALANCE SHEETS (Unaudited)
+                      (in millions, except share amounts)
+<TABLE>
+<CAPTION>
+                                    ASSETS
+                                         June 26, 1999      September 25,1998
+<S>                                                  <C>                    <C>
+Current assets:
+Cash and cash equivalents                        $1,773                 $1,481
+    Short-term investments                        1,333                    819
+    Accounts receivable, less allowances of
+      $69 and $81, respectively                     896                    955
+    Inventories                                       7                     78
+    Deferred tax assets                             137                    182
+    Other current assets                            152                    183
+         Total current assets                     4,298                  3,698
+     Property, plant, and equipment, net            313                    348
+    Other assets                                    408                    243
+         Total assets                            $5,019                 $4,289
+</TABLE>
+<TABLE>
+<CAPTION>
+                     LIABILITIES AND SHAREHOLDERS' EQUITY
+<S>                                                  <C>                    <C>
+Current liabilities:
+    Accounts payable                             $  792                 $  719
+    Accrued expenses                                747                    801
+         Total current liabilities                1,539                  1,520
+    Long-term debt                                  300                    954
+    Deferred tax liabilities                        210                    173
+         Total liabilities                        2,049                  2,647
+
+Commitments and contingencies
+
+Shareholders' equity:
+    Series A non-voting convertible preferred
+       stock, no par value; 150,000 shares
+       authorized, issued and outstanding           150                    150
+    Common stock, no par value; 320,000,000
+       shares authorized; 160,126,525 and
+       135,192,769 shares issued and
+       outstanding, respectively                  1,340                    633
+    Retained earnings                             1,388                    898
+    Accumulated other comprehensive
+       income (loss)                                 92                   (39)
+         Total shareholders' equity               2,970                  1,642
+         Total liabilities and
+           shareholders' equity                  $5,019                 $4,289
+</TABLE>
+     See accompanying notes to condensed consolidated financial statements.
+                                       3
+<PAGE>
+                             APPLE COMPUTER, INC.
+          CONDENSED CONSOLIDATED STATEMENTS OF CASH FLOWS (Unaudited)
+                                 (in millions)
+<TABLE>
+<CAPTION>
+                                                     NINE MONTHS ENDED
+                                           June 26, 1999        June 26, 1998
+<S>                                              <C>                        <C>
+Cash and cash equivalents,
+   beginning of the period                       $1,481                 $1,230
+Operating:
+Net income                                          490                    203
+Adjustments to reconcile net income to
+cash generated by operating activities:
+  Depreciation and amortization                      66                     88
+  Provision for deferred income taxes                15                      6
+  Gain on sales of ARM shares                     (188)                   (40)
+  In-process research and development                --                      7
+Changes in operating assets and liabilities:
+  Accounts receivable                                59                    112
+  Inventories                                        71                    308
+  Other current assets                               31                     68
+  Other assets                                        6                     41
+  Accounts payable                                   73                  (112)
+  Other current liabilities                        (43)                  (188)
+     Cash generated by operating activities         580                    493
+
+Investing:
+Purchase of short-term investments              (3,039)                (1,620)
+Proceeds from sales and maturities
+  of short-term investments                       2,525                  1,059
+Net proceeds from property, plant, and
+   equipment retirements                             21                     79
+Purchase of property, plant, and equipment         (31)                   (29)
+Cash paid for acquisition of technology              --                   (10)
+Proceeds from sales of ARM shares                   201                     24
+Other                                               (6)                   (14)
+     Cash used for investing activities           (329)                  (511)
+
+Financing:
+Decrease in notes payable to banks                   --                   (25)
+Increase in long-term borrowings                     --                      2
+Increases in common stock                            41                     14
+     Cash generated (used) by financing activities   41                    (9)
+Total cash generated (used)                         292                   (27)
+Cash and cash equivalents, end of the period     $1,773                 $1,203
+
+Supplemental cash flow disclosures:
+    Cash paid for interest                       $   49                 $   50
+    Cash received for income taxes, net          $  (1)                 $ (14)
+</TABLE>
+     See accompanying notes to condensed consolidated financial statements.
+                                       4
+<PAGE>
+                             APPLE COMPUTER, INC.
+
+       Notes to Condensed Consolidated Financial Statements (Unaudited)
+
+Note 1 - Basis of Presentation
+Interim information is unaudited; however, in the opinion of the Company's
+management, all adjustments of a normal recurring nature necessary for a fair
+statement of interim periods presented have been included. The results for
+interim periods are not necessarily indicative of results to be expected for
+the entire year. These condensed consolidated financial statements and
+accompanying notes should be read in conjunction with the Company's annual
+consolidated financial statements and the notes thereto for the fiscal year
+ended September 25, 1998, included in its Annual Report on Form 10-K for the
+year ended September 25, 1998 (the 1998 Form 10-K).
+
+During the first quarter of 1999, the Company amended its By-laws to provide
+that beginning with the first fiscal quarter of 1999 each of the Company's
+fiscal quarters would end on Saturday rather than Friday. Accordingly, one day
+was added to the first quarter of 1999 so that the quarter ended on Saturday,
+December 26, 1998. This change did not have a material effect on the
+Company's revenue or results of operations for the first, second, or third
+quarters of fiscal 1999 or on the aggregate revenue or results of operations
+for the nine months ended June 26, 1999.
+
+Note 2 - Earnings Per Share
+Basic earnings per share is computed by dividing income available to common
+shareholders by the weighted-average number of common shares outstanding
+during the period. Diluted earnings per share is computed by dividing income
+available to common shareholders by the weighted-average number of common
+shares outstanding during the period increased to include the number of
+additional common shares that would have been outstanding if dilutive
+potential common shares had been issued. The dilutive effect of outstanding
+options is reflected in diluted earnings per share by application of the
+treasury stock method. The dilutive effect of convertible securities is
+reflected using the if-converted method.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                       5
+<PAGE>
+
+
+The following table sets forth the computation of basic and diluted earnings
+per share (in thousands, except net income and per share amounts):
+
+<TABLE>
+<CAPTION>
+                         For the Three Months Ended   For the Nine Months Ended
+                                6/26/99      6/26/98        6/26/99     6/26/98
+<S>                                  <C>         <C>            <C>         <C>
+Numerator:
+Numerator for basic
+  earnings per share -
+  Net income (in millions)       $  203      $   101        $   490     $   203
+Interest expense on
+  convertible debt                    7           11             28          --
+Numerator for diluted
+  earnings per share - Adjusted
+  net income (in millions)       $  210      $   112        $   518     $   203
+
+Denominator:
+Denominator for basic earnings
+  per share - weighted-average
+ shares outstanding             144,054      133,068        138,571     130,971
+
+Effect of dilutive securities:
+    Convertible preferred stock   9,091        9,091          9,091       9,091
+    Convertible debt             15,717       22,642         20,333          --
+    Dilutive options              5,788        6,985          5,335       5,115
+Dilutive potential
+  common shares                  30,596       38,718         34,759      14,206
+
+Denominator for diluted
+  earnings per share - adjusted
+  weighted-average shares and
+  assumed conversions           174,650      171,786        173,330     145,177
+
+Basic earnings per share         $ 1.41      $  0.76       $   3.54     $  1.55
+
+Diluted earnings per share       $ 1.20      $  0.65       $   2.99     $  1.40
+</TABLE>
+
+Options to purchase approximately 80,000 weighted-average shares of
+common stock were outstanding during the quarter ended June 26, 1999, that
+were not included in the computation of diluted earnings per share for the
+three months ended June 26, 1999, because the options' exercise price was
+greater than the average market price of the Company's common stock during
+the period and, therefore, the effect would be antidilutive.
+
+As of the beginning of the third quarter of fiscal 1999, the Company had
+outstanding $661 million of unsecured convertible subordinated debentures (the
+Debentures) which were convertible by their holders into approximately 22.6
+million shares of common stock at a conversion price of $29.205 per share. The
+
+                                       6
+<PAGE>
+weighted average common shares represented by the Debentures upon
+conversion were included in the computation of diluted earnings per share for
+the three and nine month periods ended June 26, 1999, and the three month
+period ended June 26, 1998, as the effect of using the if-converted method was
+dilutive for these periods. The common shares represented by the Debentures
+were not included in the computation of diluted earnings per share for the nine
+month periods ended June 26, 1998, because the effect of using the if-converted
+method for that period was anti-dilutive. For additional disclosures regarding
+the Debentures, see the 1998 Form 10-K and footnote 6 of these Notes to
+Condensed Consolidated Financial Statements. For additional disclosures
+regarding the outstanding preferred stock and employee stock options, see the
+1998 Form 10-K.
+
+Note 3 - Consolidated Financial Statement Details (in millions)
+
+<TABLE>
+<CAPTION>
+Inventories                                             06/26/99        9/25/98
+<S>                                                          <C>            <C>
+         Purchased parts                                 $     1        $   32
+         Work in process                                       0             5
+         Finished goods                                        6            41
+
+         Total inventories                               $     7        $   78
+</TABLE>
+
+<TABLE>
+<CAPTION>
+Property, Plant, and Equipment                          06/26/99        9/25/98
+<S>                                                          <C>            <C>
+         Land and buildings                              $   320        $  338
+         Machinery and equipment                             250           277
+         Office furniture and equipment                       73            80
+         Leasehold improvements                              124           129
+         Accumulated depreciation and amortization          (454)         (476)
+
+         Net property, plant, and equipment              $   313        $  348
+</TABLE>
+
+<TABLE>
+<CAPTION>
+Accrued Expenses                                        06/26/99        9/25/98
+<S>                                                          <C>            <C>
+         Accrued compensation and employee benefits      $   92         $   99
+         Accrued marketing and distribution                 182            205
+         Accrued warranty and related costs                 116            132
+         Other current liabilities                          357            365
+
+         Total accrued expenses                          $  747         $  801
+</TABLE>
+<TABLE>
+<CAPTION>
+Interest and Other Income (Expense)                        Nine Months Ended
+                                                        06/26/99       06/26/98
+<S>                                                          <C>            <C>
+         Interest income                                 $  102         $   71
+         Interest expense                                   (42)           (47)
+         Other income (expense), net                         (7)           (1)
+
+         Interest and other income (expense), net        $   53         $   23
+</TABLE>
+
+                                       7
+<PAGE>
+
+
+Note 4 - Equity Investment Gains
+As of September 25, 1998, the Company owned 25.9% of the outstanding stock
+of ARM Holdings plc (ARM), a publicly held company in the United Kingdom
+involved in the design of high performance microprocessors and related
+technology. All share figures for the sale of ARM stock are adjusted for a 4
+for 1 stock split effected by ARM in April of 1999. During the third quarter
+of fiscal 1999, the Company sold approximately 10 million shares of ARM
+stock for net proceeds of approximately $105 million, recorded a gain before
+taxes of approximately $101 million as other income, and recognized related
+income tax expense of approximately $12 million. During the nine months
+ended June 26, 1999, the Company has sold a total of 29.6 million shares of
+ARM stock for net proceeds of approximately $201 million, recorded a gain
+before taxes of approximately $188 million, and recognized related income tax
+expense of approximately $20 million. During the third quarter of fiscal 1998,
+the Company sold 11.4 million shares of ARM stock which resulted in a total
+gain before taxes of approximately $40 million and related income tax of
+approximately $7 million. As of June 26, 1999, the Company continues to hold
+19 million shares of ARM stock.
+
+Through September 25, 1998, the Company accounted for its investment in
+ARM using the equity method. As a result of the sale of ARM stock in
+October 1998, the Company's ownership interest in ARM  fell to 19%.
+Consequently, beginning in the first quarter of fiscal 1999, the Company
+ceased accounting for its remaining investment in ARM using the equity
+method and has categorized its remaining shares as available for sale
+requiring the shares be carried at fair value, with unrealized gains and
+losses net of taxes reported as a component of accumulated other
+comprehensive income in shareholders' equity. As of June 26, 1999, the
+carrying value of the Company's remaining shares in ARM included in other
+assets was approximately $213 million, and the total unrealized gains net of
+taxes included in equity as a component of accumulated other comprehensive
+income was approximately $134 million.
+
+Note 5 - Comprehensive Income
+The Company adopted Statement of Financial Accounting Standards (SFAS)
+No. 130, "Reporting Comprehensive Income", beginning with the Company's
+first quarter of 1999. SFAS No. 130 separates comprehensive income into two
+components, net income and other comprehensive income. Other comprehensive
+income refers to revenue, expenses, gains and losses that under generally
+accepted accounting principles are recorded as an element of shareholders'
+equity but are excluded from net income. While SFAS No. 130 establishes new
+rules for the reporting and display of comprehensive income, it has no impact
+on the Company's net income or total shareholders' equity. The Company's
+other comprehensive income is comprised of foreign currency translation
+adjustments from those subsidiaries not using the U.S. dollar as their
+functional currency and from unrealized gains and losses on marketable
+securities categorized as available for sale.  See Note 4 regarding unrealized
+gains on available for sale securities.
+
+
+
+                                       8
+<PAGE>
+
+The components of comprehensive income, net of tax, are as
+follows (in millions):
+
+<TABLE>
+<CAPTION>
+                                          For the Three          For the Nine
+                                          Months Ended          Months Ended
+                                       6/26/99    6/26/98    6/26/99    6/26/98
+<S>                                        <C>        <C>        <C>        <C>
+Net income                              $ 203      $ 101     $  490     $  203
+Other comprehensive income:
+  Change in accumulated
+    translation adjustment                 (5)        (5)       (3)        (11)
+  Unrealized gain on investments, net      18         --        273         --
+  Reclassification adjustment for
+    gain included in net income           (89)        --       (139)        --
+
+ Total comprehensive income             $ 127      $  96     $  621     $  192
+</TABLE>
+
+Note 6 - Conversion of Debt
+On April 14, 1999, the Company called for redemption its outstanding 6
+percent convertible subordinated debentures due June 1, 2001. Not including
+approximately $7 million of unamortized debt issuance costs, debentures in an
+aggregate principal amount outstanding totaled approximately $661 million as
+of March 27, 1999. During the third quarter of 1999, debenture holders chose
+to convert virtually all of the outstanding debentures to common stock at a
+rate of $29.205 per share resulting in the issuance of approximately 22.6
+million shares of the Company's common stock.
+
+Note 7 - Restructuring Costs
+During the second quarter of 1999, the Company took certain actions to
+improve the flexibility and efficiency of its manufacturing operations by
+moving final assembly of certain of its products to third-party manufacturers.
+These restructuring actions resulted in the Company recognizing a charge to
+operations of approximately $9 million during the second quarter of 1999
+which was comprised of $6 million for severance benefits to be paid to
+employees involuntarily terminated, $2 million for the write-down of operating
+assets to be disposed of, and $1 million for payments on cancelled contracts.
+As of June 26, 1999, $8 million had been spent. The remaining $1 million is
+expected to be spent before the end of fiscal 1999.
+
+Note 8 -  Recent Accounting Pronouncements
+In June 1997, the Financial Accounting Standards Board issued SFAS No. 131,
+"Disclosures about Segments of an Enterprise and Related Information", and in
+June 1998 issued SFAS No. 133, "Accounting for Derivative Instruments and
+Hedging Activities." A discussion of these accounting standards is included in
+the notes to consolidated financial statements included in the 1998 Form 10-K
+under the subheading "Recent Accounting Pronouncements." Although  the
+Company continues to review the effect of the implementation of SFAS No. 133,
+
+                                       9
+<PAGE>
+
+
+the Company does not currently believe its adoption will have a material impact
+on its consolidated results of operations or financial position and does not
+believe adoption will result in significant changes to its financial risk
+management practices. SFAS No. 133 is effective for fiscal years beginning
+after June 15, 2000.
+
+In March 1998, the AICPA issued Statement of Position (SOP) 98-1,
+"Accounting for the Costs of Computer Software Developed or Obtained for
+Internal Use," which provides guidance on accounting for the costs of computer
+software intended for internal use.  SOP 98-1 must be adopted by the Company
+effective as of fiscal 2000 and is not expected to have a material impact on
+the Company's consolidated results of operations or financial position.
+
+During the first quarter of 1999, the Company adopted AICPA SOP 97-2,
+"Software Revenue Recognition." SOP 97-2 established standards relating to the
+recognition of software revenue. SOP 97-2 was effective for transactions
+entered into by the Company beginning in the first quarter of fiscal 1999. The
+adoption of this accounting standard did not have a material impact on the
+Company's results of operations.
+
+Note 9 - Contingencies
+The Company is subject to various legal proceedings and claims which are
+discussed in detail in the 1998 Form 10-K. The Company is also subject to
+certain other legal proceedings and claims which have arisen in the ordinary
+course of business and which have not been fully adjudicated.  The results of
+legal proceedings cannot be predicted with certainty; however, in the opinion
+of management, the Company does not have a potential liability related to any
+legal proceedings and claims that would have a material adverse effect on its
+financial condition or results of operations.
+
+The Internal Revenue Service ("IRS") has proposed federal income tax
+deficiencies for the years 1984 through 1991, and the Company has made certain
+prepayments thereon. The Company contested the proposed deficiencies by filing
+petitions with the United States Tax Court, and most of the issues in dispute
+have now been resolved. On June 30, 1997, the IRS proposed income tax
+adjustments for the years 1992 through 1994. Although a substantial number of
+issues for these years have been resolved, certain issues still remain in
+dispute and are being contested by the Company. Management believes that
+adequate provision has been made for any adjustments that may result from tax
+examinations.
+
+Note 10 - Reclassifications
+Certain amounts in the  Condensed Consolidated Statement of Cash Flows for
+the nine months ended June 26, 1998, have been reclassified to conform to the
+1999 presentation.
+
+
+
+
+                                       10
+<PAGE>
+
+
+
+
+Note 11 - Subsequent Events
+On July 14, 1999, the Company announced that its board of directors had
+authorized a plan for the Company to repurchase up to $500 million of its
+common stock. The repurchase plan does not obligate the Company to acquire
+any specific number of shares or acquire shares over any specified period of
+time.
+
+On July 28, 1999, the Company announced that it would invest $100 million in
+Samsung Electronics Co., Ltd (Samsung) to further expand Samsung's TFT-
+LCD flat-panel display production capacity. The investment is in the form of
+three year senior unsecured bonds which are convertible into approximately
+550,000 shares of Samsung common stock beginning in July of 2000. The bonds
+carry an annual coupon rate of 2% and pay a total yield to maturity of 5% if
+redeemed at their maturity. The Company is subject to a "lock-up" agreement
+under which it is restricted from selling the bonds for one year.
+
+
+Item 2. Management's Discussion and Analysis of Financial Condition and
+Results of Operations
+This section and other parts of this Form 10-Q contain forward-looking
+statements that involve risks and uncertainties. The Company's actual results
+may differ significantly from the results discussed in the forward-looking
+statements. Factors that might cause such differences include, but are not
+limited to, those discussed in the subsection entitled "Factors That May
+Affect Future Results and Financial Condition" below. The following discussion
+should be read in conjunction with the 1998 Form 10-K and the condensed
+consolidated financial statements and notes thereto included elsewhere in this
+Form 10-Q. All information is based on the Company's fiscal calendar.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                      11
+
+<PAGE>
+
+
+<TABLE>
+<CAPTION>
+Results of Operations
+Tabular information (dollars in millions, except per share amounts):
+
+                              Three Months Ended          Nine Months Ended
+                           6/26/99   6/26/98  Change   6/26/99   6/26/98 Change
+<S>                           <C>      <C>     <C>        <C>      <C>      <C>
+Net sales                   $1,558    $1,402    11%     $4,798    $4,385     9%
+Macintosh CPU
+  unit sales               905,000   644,000    41%  2,676,000 1,929,000    39%
+Gross margin                  $427      $360    19%     $1,312    $1,062    24%
+Percentage of net sales      27.4%     25.7%             27.3%     24.2%
+Research and development      $ 80      $ 76     5%       $232      $230     1%
+Percentage of net sales         5%        5%                5%        5%
+Selling, general and
+  administrative              $243      $216    12%       $761      $673    13%
+Percentage of net sales        16%       15%               16%       15%
+In-process research and
+  development                 $  --      $  7              $ --      $  7
+Restructuring costs           $  --      $ --              $  9      $ --
+Gain from sales of investment $101      $ 40   153%       $188      $ 40   370%
+Other income (expense), net   $ 24      $  8   200%       $ 53      $ 23   130%
+Provision for income taxes    $ 26      $  8   225%       $ 61      $ 12   408%
+Effective tax rate             11%        7%               11%        6%
+Net income                    $203      $101   101%       $490      $203   141%
+Basic earnings per share     $1.41     $0.76    86%      $3.54     $1.55   128%
+Diluted earnings per share   $1.20     $0.65    85%      $2.99     $1.40   114%
+</TABLE>
+
+<TABLE>
+<CAPTION>
+                               Three Months Ended
+                           6/26/99   3/27/99  Change
+<S>                           <C>      <C>     <C>
+Net sales                   $1,558    $1,530     2%
+Macintosh CPU
+  unit sales               905,000   827,000     9%
+Gross margin                  $427      $403     6%
+Percentage of net sales      27.4%     26.3%
+Research and development      $ 80      $ 76     5%
+Percentage of net sales         5%        5%
+Selling, general and
+  administrative              $243      $239     2%
+Percentage of net sales        16%       16%
+Restructuring costs           $ --      $  9
+Gain from sales of investment $101      $ 55    84%
+Other income (expense), net   $ 24      $ 19    26%
+Provision for income taxes    $ 26      $ 18    44%
+Effective tax rate             11%       12%
+Net income                    $203      $135    50%
+Basic earnings per share     $1.41     $0.99    42%
+Diluted earnings per share   $1.20     $0.84    43%
+</TABLE>
+                                      12
+<PAGE>
+
+Net Sales
+Information regarding net sales and Macintosh CPU unit sales by geography
+and product family follows:
+
+                            Net Sales (in millions)
+<TABLE>
+<CAPTION>
+                                                    Three Months Ended
+                                            6/26/99       3/27/99       6/26/98
+<S>                                             <C>           <C>           <C>
+U.S., Canada, South America (Americas)     $    907      $    806      $    873
+Europe, Middle East & Africa (EMEA)             297           374           270
+Japan                                           272           267           186
+Asia Pacific                                     82            83            73
+    Totals for Geographies                 $  1,558      $  1,530      $  1,402
+
+iMac and Performa                          $    516      $    358      $    272
+Power Macintosh G3                              601           756           640
+PowerBook                                       177           146           250
+Non-CPU Revenue                                 264           270           240
+    Totals for Product Families            $  1,558      $  1,530      $  1,402
+</TABLE>
+
+                         Macintosh Units (in thousands)
+<TABLE>
+<CAPTION>
+                                                    Three Months Ended
+                                            6/26/99       3/27/99       6/26/98
+<S>                                             <C>           <C>           <C>
+U.S., Canada, South America (Americas)          519           421           405
+Europe, Middle East & Africa (EMEA)             167           203           118
+Japan                                           175           156            88
+Asia Pacific                                     44            47            33
+    Totals for Geographies                      905           827           644
+
+iMac and Performa                               487           351           182
+Power Macintosh G3                              346           401           344
+PowerBook                                        72            75           118
+Non-CPU Revenue                                   -             -             -
+    Totals for Product Families                 905           827           644
+</TABLE>
+
+Net sales for the third quarter of 1999 were $1.56 billion, an 11% increase
+over the same quarter in 1998. The increase in net sales is primarily
+attributable to a year-over-year 41% increase in quarterly Macintosh CPU unit
+volume. Volumes were favorably affected by sales of iMac, the Company's
+moderately priced Macintosh system designed for education and consumer
+markets introduced during the fourth quarter of 1998, which represented 54%
+or 487,000 of the total Macintosh CPU units sales during the third quarter
+of 1999. The growth in iMac unit sales is primarily due to strong seasonal
+sales in the U.S. education market and continued acceptance of the product
+
+                                      13
+<PAGE>
+
+in consumer markets around the world. The increase in overall unit sales
+was somewhat mitigated by a sequential decrease in Power Macintosh G3 unit
+sales during the third quarter of 1999 resulting from the introduction of
+redesigned Power Macintosh G3 models during the second quarter of 1999. The
+positive effect of increased unit volume on third quarter 1999 net sales was
+partially offset by a decline in the average revenue per Macintosh system, a
+function of total net sales related to hardware shipments and total Macintosh
+CPU unit sales, which fell 21% from $2,129 to $1,683 during the third quarter
+of 1999 as compared to the same quarter in 1998. The decline in the average
+revenue per Macintosh system was the result of lower priced iMac systems
+comprising a significant portion of third quarter 1999 net sales, the decline
+in net sales from the phase out of certain peripheral products, and the
+overall industry trend towards lower priced products.
+
+Net sales for the first nine months of 1999 increased $413 million or 9% over
+the same period in 1998. A 39% increase in Macintosh CPU unit volume was
+the principal cause of the year-over-year increase in net sales. The impact
+of the increase in unit volume was partially offset by a decline in the
+average revenue per Macintosh system described above.
+
+International net sales for the third quarter of 1999 represented 45% of
+consolidated net sales compared to 43% for the same quarter in 1998 and  50%
+for the second quarter of fiscal 1999. In total, international net sales
+during the third quarter of 1999 increased approximately 18% or $109 million
+over the same period in 1998 as a result of year over year increases in
+Macintosh unit shipments in every major international geography. On a year-
+over-year basis, total Macintosh unit sales during the third quarter of 1999
+increased 99% in Japan, 33% in Asia Pacific, and 42% in EMEA. Sequentially,
+international net sales declined $60 million or 8% during the third quarter
+of 1999 as compared to the second quarter reflecting the effect of Power
+Macintosh G3 product transitions during the second quarter of 1999 mentioned
+above and the lessor impact of education sales in markets outside of the
+United States. Net sales in the Americas during the third quarter of 1999
+increased 4% or $34 million over the same period in 1998 and increased $101
+million or 13% over the second quarter of 1999. The significant sequential
+increase was due primarily to a 23% rise in unit shipments in the Americas
+during the third quarter of 1999 as compared to the second quarter which was
+the result of seasonal patterns experienced in the Company's domestic
+education and consumer markets. The smaller year over year increase in net
+sales in the Americas reflects a 28% growth in Macintosh unit shipments
+offset by a decline in the average revenue per Macintosh system caused by
+lower priced iMac systems comprising a significant portion of third quarter
+1999 net sales in the Americas.
+
+
+
+
+
+
+
+                                      14
+<PAGE>
+
+
+Gross Margin
+Gross margin for the third quarter of 1999 was 27.4% compared to 25.7% for
+the same quarter in 1998 and 26.3% for the second quarter of 1999. Gross
+margin for the first nine months of 1999 was 27.3% as compared to 24.2% for
+the same period in 1998. The year-over-year increase in gross margin for both
+the third quarter and the first nine months of the fiscal year is attributable
+to various operational changes made by the Company throughout fiscal 1998 and
+the first nine months of fiscal 1999 that improved operational efficiency and
+reduced product costs. These changes included simplification of the Company's
+product line, reductions in overall inventory levels, focus on the use of
+industry standard parts, outsourcing of various aspects of product
+manufacturing, and streamlining of product distribution channels and policies.
+Margins have also been favorably impacted during the last year by the
+declining cost of various components of the Company's products. The sequential
+increase in gross margin from the second quarter of 1999 to the third quarter
+of 1999 is primarily attributable to lower component prices, particularly for
+DRAM and microprocessors, and strong demand for the Company's products
+which allowed pricing to remain stable.
+
+There can be no assurance that current or targeted consolidated gross margin
+levels will be achieved or that current margins on existing individual products
+will be maintained. In general, gross margins and margins on individual
+products will remain under significant downward pressure due to a variety of
+factors, including continued industry wide global pricing pressures, increased
+competition, compressed product life cycles, potential increases in the cost
+of raw material and outside manufacturing services, and potential changes to
+the Company's product mix, including higher unit sales of consumer products
+with lower average selling prices and lower gross margins. In response to
+these downward pressures, the Company expects that it will continue to take
+pricing actions with respect to its products. Gross margins could also be
+affected by the Company's ability to effectively manage quality problems and
+warranty costs, to stimulate demand for certain of its products, and to
+effectively manage the final assembly of certain of its products by third
+parties. The Company's operating strategy and pricing take into account
+anticipated changes in foreign currency exchange rates over time; however, the
+Company's results of operations can be significantly affected in the short
+term by fluctuations in exchange rates.
+
+Operating Expenses
+Selling, general and administrative expenses, not including restructuring
+costs, increased approximately $27 million or 12% during the third quarter of
+1999 as compared to the same period in 1998 and increase sequentially $4
+million or 2% from the second quarter of 1999. Selling, general and
+administrative expenses for the first nine months of 1999 increased $88
+million or 13% as compared to same period in 1998. The year-over-year
+increases for both the third quarter and the first nine months of the fiscal
+year, were due primarily to higher advertising and marketing costs.
+Expenditures for research and development increased slightly in terms of
+absolute dollars between the third quarter of 1999, the same quarter in 1998,
+and the second quarter of 1999.
+
+                                      15
+<PAGE>
+
+During the second quarter of 1999, the Company took certain actions to improve
+the flexibility and efficiency of its manufacturing operations by moving final
+assembly of certain of its products to third party manufacturers. These
+restructuring actions resulted in the Company recognizing a charge to
+operations of approximately $9 million during the second quarter of 1999
+primarily for severance benefits to be paid to employees to be involuntarily
+terminated.
+
+Total Interest and Other Income (Expense), Net
+Interest and other income (expense), net, is comprised of interest income on
+the Company's cash and investment balances, interest expense on the Company's
+debt, gains and losses recognized on investments accounted for using the
+equity method, realized gains and losses on the sale of securities, certain
+foreign exchange gains and losses, and other miscellaneous income and expense
+items. Net interest income increased during the three and nine month periods
+ended June 26, 1999, compared to the same periods during the prior year as a
+result of increased interest earning cash and investment balances. Also, the
+conversion to common stock of the Company's 6 percent convertible
+subordinated debentures discussed below under the heading "Liquidity" resulted
+in a reduction in interest expense during the third quarter of fiscal 1999
+of $4 million. The conversion of the convertible subordinated debentures will
+reduce quarterly interest expense in future quarters by approximately $11
+million.
+
+As of September 25, 1998, the Company owned 25.9% of the outstanding stock
+of ARM Holdings plc (ARM), a publicly held company in the United Kingdom
+involved in the design of high performance microprocessors and related
+technology. All share figures for the sale of ARM stock are adjusted for a 4
+for 1 stock split effected by ARM in April of 1999. During the third quarter
+of fiscal 1999, the Company sold approximately 10 million shares of ARM stock
+for net proceeds of approximately $105 million, recorded a gain before taxes
+of approximately $101 million as other income, and recognized related income
+tax expense of approximately $12 million. During the nine months ended June
+26, 1999, the Company has sold a total of 29.6 million shares of ARM stock for
+net proceeds of approximately $201 million, recorded a gain before taxes of
+approximately $188 million, and recognized related income tax expense of
+approximately $20 million. During the third quarter of fiscal 1998, the
+Company sold 11.4 million shares of ARM stock which resulted in a total gain
+before taxes of approximately $40 million and related income tax of
+approximately $7 million. As of June 26, 1999, the Company continues to hold
+19 million shares of ARM stock.
+
+
+
+
+
+
+
+
+
+
+                                      16
+<PAGE>
+
+Provision for Income Taxes
+As of  June 26, 1999, the Company had deferred tax assets arising from
+deductible temporary differences, tax losses, and tax credits of $590 million
+before being offset against certain deferred tax liabilities for presentation
+on the Company's balance sheet. A substantial portion of this asset is
+realizable based on the ability to offset existing deferred tax liabilities.
+As of June 26, 1999, a valuation allowance of $87 million was recorded against
+the deferred tax asset for the benefits of tax losses which may not be
+realized. A substantial portion of the valuation allowance is for deferred tax
+assets arising from tax loss carryforwards whose utilization is limited by
+provisions of the tax code. Realization of approximately $73 million of the
+asset representing tax loss and credit carryforwards is dependent on the
+Company's ability to generate approximately $209 million of future U.S.
+taxable income. Management believes that it is more likely than not that
+forecasted U.S. income, including income that may be generated as a result of
+certain tax planning strategies, will be sufficient to utilize the tax
+carryforwards prior to their expiration in 2011 and 2012 to fully recover this
+asset. However, there can be no assurance that the Company will meet its
+expectations of future U.S. taxable income. As a result, the amount of the
+deferred tax assets considered realizable could be reduced in the near and
+long term if estimates of future taxable U.S. income are reduced. Such an
+occurrence could materially adversely affect the Company's consolidated
+financial results. The Company will continue to evaluate the realizability of
+the deferred tax assets quarterly by assessing the need for and amount of the
+valuation allowance.
+
+The Company's effective tax rate for the three and nine months ended June 26,
+1999, was approximately 11%. This effective rate is less than the statutory
+federal income tax rate of 35% due primarily to the reversal of a portion of
+the previously established valuation allowance for tax loss and credit
+carryforwards and certain undistributed foreign earnings for which no U.S.
+taxes were provided.
+
+The Company anticipates that its tax rate for the remainder of fiscal 1999
+will be comparable to that recognized for the nine months ended June 26, 1999.
+The Company anticipates that its tax rate will increase significantly in
+fiscal 2000.  The foregoing statements are forward looking. The Company's
+actual results could differ because of several factors, including those set
+forth below in the subsection entitled "Factors That May Affect Future Results
+and Financial Condition."
+
+
+
+
+
+
+
+
+
+
+                                      17
+<PAGE>
+
+Liquidity and Capital Resources
+The following table presents selected financial information and statistics for
+each of fiscal quarters ending on the dates indicated (dollars in millions):
+
+<TABLE>
+<CAPTION>
+                                        6/26/99       9/25/98         6/26/98
+<S>                                         <C>           <C>             <C>
+Cash, cash equivalents,
+  and short-term investments             $3,106       $ 2,300          $1,993
+Accounts receivable, net                   $896          $955            $915
+Inventory                                  $  7          $ 78            $129
+Working capital	                         $2,759        $2,178          $1,986
+Long-term debt                             $300          $954            $953
+Days sales in accounts receivable (a)        52            56              59
+Days of supply in inventory (b)               1             6              11
+Days payables outstanding (c)                64            60              57
+Operating cash flow                        $ 88          $240            $156
+</TABLE>
+
+(a)  Based on ending net trade receivables and most recent quarterly net sales
+for each period
+(b) Based on ending inventory and most recent quarterly cost of sales for each
+period
+(c) Based on ending accounts payable and most recent quarterly cost of sales
+adjusted for the change in inventory
+
+As of June 26, 1999, the Company had approximately $3.1 billion in cash, cash
+equivalents, and short-term investments, an increase of more than $800 million
+over the same balances at the end of fiscal 1998. For the nine months ended
+June 26, 1999, the most significant sources of cash included $368 million of
+net income excluding a $188 million gain from the sale of ARM stock and $66
+million of depreciation and amortization, a decrease in accounts receivable of
+$59 million, a decrease in inventories of $71 million, an increase in accounts
+payable of $73 million, proceeds from the sale of ARM stock of $201 million,
+and proceeds from the sale of common stock of $41 million. These sources of
+cash were partially offset by the net purchase of short-term investments
+of $514 million and a decrease in other current liabilities of $43 million.
+The Company's cash and cash equivalent balances as of June 26, 1999, and
+September 25, 1998, include $4 million and $56 million, respectively, pledged
+as collateral to support letters of credit.
+
+During the third quarter of fiscal 1999, the Company called for redemption its
+outstanding 6 percent convertible subordinated debentures due June 1, 2001.
+Not including approximately $7 million of unamortized debt issuance costs,
+debentures in an aggregate principal amount outstanding totaled approximately
+$661 million as of March 27, 1999. During the third quarter of 1999, debenture
+holders chose to convert virtually all of the outstanding debentures to common
+stock at a rate of $29.205 per share resulting in the issuance of
+approximately 22.6 million shares of the Company's common stock.
+
+
+                                      18
+<PAGE>
+
+Through September 25, 1998, the Company accounted for its investment in
+ARM using the equity method. As a result of the sale of ARM stock in October
+1998, the Company's ownership interest in ARM  fell to 19%. Consequently,
+beginning in the first quarter of fiscal 1999, the Company ceased accounting
+for its remaining investment in ARM using the equity method and has
+categorized its remaining shares as available for sale requiring the shares be
+carried at fair value, with unrealized gains and losses net of taxes reported
+as a component of accumulated other comprehensive income in shareholders'
+equity. As of June 26, 1999, the carrying value of the Company's remaining
+shares in ARM included in other assets was approximately $213 million, and the
+total unrealized gains net of taxes included in equity as a component of
+accumulated other comprehensive income was approximately $134 million.
+
+On July 14, 1999, the Company announced that its board of directors had
+authorized a plan for the Company to repurchase up to $500 million of its
+common stock. The repurchase plan does not obligate the Company to acquire
+any specific number of shares or acquire shares over any specified period of
+time.
+
+On July 28, 1999, the Company announced that it would invest $100 million in
+Samsung Electronics Co., Ltd (Samsung) to further expand Samsung's TFT-
+LCD flat-panel display production capacity. The investment is in the form of
+three year senior unsecured bonds which are convertible into approximately
+550,000 shares of Samsung common stock beginning in July of 2000. The bonds
+carry an annual coupon rate of 2% and pay a total yield to maturity of 5% if
+redeemed at their maturity. The Company is subject to a  "lock-up" agreement
+under which it is restricted from selling the bonds for one year.
+
+The Company believes that its balances of cash, cash equivalents, and short-
+term investments will be sufficient to meet its cash requirements over the
+next twelve months, including any cash that may be utilized to repurchase
+common stock. However, given the Company's current non-investment grade
+debt ratings, if the Company should need to obtain short-term borrowings, there
+can no assurance that such borrowings could be obtained at favorable rates. The
+inability to obtain such borrowings at favorable rates could materially
+adversely affect the Company's results of operations, financial condition, and
+liquidity.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                      19
+<PAGE>
+Year 2000 Compliance
+The information presented below related to Year 2000 (Y2K) compliance
+contains forward looking statements that are subject to risks and
+uncertainties. The Company's actual results may differ significantly from
+those discussed below and elsewhere in this Form 10-Q regarding Year 2000
+compliance.
+
+Year 2000
+The Year 2000 (Y2K) issue is the result of certain computer hardware, operating
+system software and software application programs having been developed using
+two digits rather than four to define a year.  For example the clock circuit
+in the hardware may be incapable of holding a date beyond the year 1999; some
+operating systems may recognize a date using "00" as the year 1900 rather than
+2000 and certain applications may have limited date processing capabilities.
+These problems could result in the failure of major systems or miscalculations,
+which could have a material impact on companies through business interruption
+or shutdown, financial loss, damage to reputation, and legal liability to third
+parties.
+
+State of Readiness
+The Company's Information Systems and Technology department (IS&T) began
+addressing the Y2K issue in 1996 as part of its Next Generation strategy,
+which addressed the need for ongoing enhancement and replacement of the
+Company's various disparate legacy information technology (IT) Systems.  In
+1998, the Company established a Year 2000 Executive Steering Committee
+(Steering Committee) comprised of senior executives of the Company and the
+Company's Year 2000 Project Management Office (PMO).  The PMO reports to
+the Executive Vice President and Chief Financial Officer, the Steering
+Committee, and the Audit and Finance Committee of the Board of Directors.
+
+The PMO developed and manages the Company's worldwide Y2K strategic plan
+(Y2K Plan) to address the potential impact of Y2K on the Company's operations
+and business processes. In particular, the Y2K Plan addresses four principal
+areas that may be impacted by the Y2K issue: Apple Branded Products; Third
+Party Relationships; Non-IT Business Systems; and IT Systems. With respect to
+the IT Systems and Non-IT Business Systems, the Y2K Plan consists of four
+separate but overlapping phases: Phase I - Inventory and Risk Assessment;
+Phase II - Remediation Cost Estimation; Phase III - Remediation; and Phase IV -
+Remediation Testing. In addition, the Company has an ongoing Y2K Awareness
+Program designed to keep employees informed about Y2K issues.
+
+The Company's goal is to substantially complete Phase III- Remediation during
+the fourth quarter of  fiscal 1999; substantially complete Phase IV -
+Remediation Testing during the first quarter of fiscal 2000, and to continue
+compliance efforts throughout the remainder of calendar year 1999. The current
+schedule reflects management's best estimate of the current status of its Y2K
+Plan. Regardless of the planned or actual status of any of the principal areas
+of the Y2K Plan, the Company continues to review information developed as the
+result of its overall Y2K effort, and all areas of the Y2K Plan remain under
+review and subject to modification as deemed necessary throughout the
+remainder of calendar 1999.
+
+                                      20
+<PAGE>
+The foregoing statements are forward looking. The Company's actual results
+could differ because of several factors, including those set forth throughout
+this subsection entitled "Year 2000 Compliance. "
+
+Apple Branded Products
+The Company designs and manufactures microprocessor-based personal
+computers, related peripherals, operating system software and application
+software, including Macintosh personal computers and the Mac OS which are
+marketed under the "Apple" brand (collectively "Apple Branded Products").
+The Company tested certain Apple Branded Products to determine Y2K
+compliance, although such testing did not include third party products bundled
+with Apple Branded Products and certain Apple Branded Products no longer
+distributed and/or supported by the Company. For purposes of this discussion,
+Y2K compliant means that a product will not produce errors processing date
+data in connection with the year change from December 31, 1999, to January 1,
+2000, when used with accurate date data in accordance with its documentation,
+provided all other products (including other software, firmware and hardware)
+used with it properly exchange date data with it. A Y2K compliant product will
+recognize the Year 2000 as a leap year. Information about testing and Y2K
+compliance of Apple Branded Products is available on the Apple corporate web
+site under the heading "Year 2000 Readiness Disclosure", at
+www.apple.com/about/year/. Such information, which is updated on an ongoing
+basis, is not to be considered part of this quarterly report. The  Company
+believes that the unsupported Apple Branded Products that do not incorporate
+software code from third parties are generally Y2K compliant because, unlike
+other company's personal computers and related products, products designed
+and manufactured by the Company do not rely upon the two digit date format
+but use a long word approach which allows the correct representation of dates
+well beyond the year 2000. Because the Company does not control the design of
+non-Apple Branded Products or third party products that are bundled with Apple
+Branded Products, it cannot assure that such products are Y2K compliant.
+
+For those few Apple Branded Products that are not currently Y2K compliant, the
+Company is in the process of evaluating and providing recommendations as to
+how users may address possible Y2K issues regarding such products. Some
+Apple Branded Products installed at customer sites may require upgrades or
+other remediation. While the Company believes its customers are responsible
+for the Y2K readiness of their IT and business environments, the Company is in
+the process of implementing steps to assist customers in achieving their
+readiness goals.  Apple is issuing software updates (at no additional charge)
+for most, but not all, known issues.
+
+Third Party Relationships
+The Company's business operations are heavily dependent on third party
+corporate service vendors, materials suppliers, outsourced operations partners,
+distributors and others. The Company is working with key external parties to
+identify and attempt to mitigate the potential risks to it of Y2K. The failure
+of external parties to resolve their own Y2K issues in a timely manner could
+result in a material financial risk to the Company.  As  part of its overall
+Y2K program and to establish the state of readiness of certain third parties,
+the Company is actively communicating on an ongoing basis with certain third
+
+                                      21
+<PAGE>
+
+parties whose lack of Y2K compliance would present a high degree of risk to
+the Company. Based on information obtained from various sources, the
+Company believes that it is reasonably possible there will be interruptions
+around the world in critical services such as air traffic control, airfreight
+transportation, customs clearance, telecommunications, and power utilities
+early in calendar year 2000 that could result in shipping delays of raw
+material and finished goods. Such interruptions could result in material
+adverse effects on the Company's consolidated results of operations and
+financial position. See further discussion regarding this issue below under
+the heading "Contingency Plans." The Company believes that its review of
+certain third parties is approximately 65% complete as of the end of the third
+quarter of fiscal 1999. Although  numerous third parties have advised the
+Company that they are addressing their Y2K issues, the readiness of third
+parties overall varies widely. Because the Company's Y2K compliance is
+dependent on the timely Y2K compliance of third parties, there can be no
+assurances that the Company's efforts alone will resolve all Y2K issues. The
+Company continues to communicate with and conduct compliance assessments
+of key third parties. The Company expects to continue these efforts with key
+third parties throughout the remainder of calendar 1999.
+
+
+IT Systems and Non-IT Business Systems
+
+Phase I - Inventory and Risk Assessment:
+This Phase requires an inventory and assessment of the Non-IT Business
+systems used by the Company including systems with embedded technology,
+building access systems, and health and safety systems. This Phase also
+includes inventory and assessment of IT Systems used by the Company which
+include large IS&T systems, desktop hardware and software, and network
+hardware and software. Each such system is evaluated and the business risk is
+quantified as being High, Medium or Low Risk to the Company's business.
+Systems which are High Risk are those which if uncorrected would cause an
+interruption of or complete failure to conduct the Company's business. Medium
+Risks are those which would negatively impact the business but complete
+cessation could be avoided with some inconvenience.  Low Risks are those where
+the risk to business interruption or cessation are remote.  The Company intends
+that High and Medium Risk items will be remediated or replaced, and Low Risk
+items will likely not be addressed prior to the Year 2000. As of the end of
+the third quarter of fiscal 1999, the Company had substantially completed this
+Phase for both IT Systems and Non-IT Systems. However, the Company continues
+to review information developed as the result of its overall Y2K effort which
+could result in additional items being added to its Y2K inventory.
+
+Phase II - Remediation Cost Estimation:
+This Phase involves the analysis of each High and Medium Risk to determine
+how such risks may be remediated and the cost of such remediation. The
+Company has substantially completed this Phase for the IT Systems and is
+approximately 90% complete for the identified Non-IT Business Systems. The
+Company anticipates that this Phase will be substantially completed during the
+fourth quarter of fiscal 1999.
+
+                                      22
+<PAGE>
+
+Phase III - Remediation:
+This Phase includes the replacement or correction of the High and Medium Risk
+Non-IT Business Systems and IT Systems. A detailed project plan for such
+remediation has been developed and is currently being implemented. This Phase
+is substantially complete for the IT Systems and is approximately 70% complete
+for the Non-IT Business Systems. The Company anticipates that this Phase will
+be substantially completed during the fourth quarter of fiscal 1999.
+
+Phase IV - Remediation  Testing:
+This Phase includes the future date testing of the remediation efforts made in
+Phase III to confirm that the changes made bring the affected systems into
+compliance, no new problems have arisen as a result of the remediation, and
+that new systems which replaced noncompliant systems are Y2K compliant.
+This Phase is approximately 50% complete for the IT Systems and 65%
+complete for the Non-IT Systems. The Company anticipates that this Phase will
+be completed during the first quarter of fiscal 2000.
+
+Costs to Address Y2K
+The costs of the Y2K program are primarily costs associated with the
+utilization of existing internal resources and incremental external spending.
+The Company's current estimate of total incremental external spending over the
+life of its Y2K plan to address those risks identified as High or Medium is
+approximately $13 million of which approximately $8.5 million had been spent
+as of June 26, 1999. As the Company's Y2K Plan continues, the actual future
+incremental spending may prove to be higher. Also, this estimate does not
+include the costs that could be incurred by the Company if one or more of its
+significant third party vendors fails to achieve Y2K compliance. The Company
+is not separately identifying and including in these estimates the Y2K costs
+incurred that are the result of utilization of the Company's existing internal
+resources.
+
+Contingency Plans.
+Under the guidance and management of the PMO, the Company is in the process
+of preparing Y2K contingency plans to mitigate the potential impact of various
+Y2K failures. The Company's contingency plans, which will be based in part on
+the assessment of the magnitude and probability of potential risks, will
+primarily focus on proactive steps to prevent Y2K failures from occurring, or
+if they should occur, to detect them quickly, minimize their impact and
+expedite their repair. The Y2K contingency plans will supplement existing
+disaster recovery and business continuity plans, and are expected to consider
+measures such as building finished goods and raw material inventories in
+anticipation of shortages and shipping delays at the beginning of calendar
+2000. The Company believes development of its Y2K contingency plans is
+approximately 15% complete as of the end of the third quarter of fiscal 1999
+and expects such plans to be substantially complete during the first quarter of
+fiscal 2000.
+
+As noted above, the Company believes that it is reasonably possible there will
+be interruptions in air traffic control, airfreight transportation, customs
+clearance, telecommunications, and power utilities early in calendar year 2000
+
+                                      23
+<PAGE>
+that could result in shipping delays of raw material and finished goods and
+other business interruptions. The Company currently believes it can develop
+and implement contingency plans to mitigate the effects of a short-term
+interruption in such services.  However, if the Company fails to develop and
+implement adequate contingency plans, if the interruption in these services
+last for an extended period of time, or if alternative Y2K compliant services
+are not readily available at reasonable cost, there could be material adverse
+effects on the Company's consolidated results of operations and financial
+position.
+
+Risk Factors
+The Company has substantially completed its initial assessment of reasonably
+likely worst case scenarios of Non-IT Business Systems and/or IT Systems
+failures and related consequences. Based on current information, the Company
+believes that the most likely worst case scenario is that it will experience
+minor malfunctions and failures of its IT Systems and Non-IT Business Systems
+at the beginning of the Year 2000 that were not previously detected during the
+Company's inventory and risk assessment and remediation activities. The
+Company currently believes these malfunctions and failures will not have a
+material impact on its consolidated results of operations or financial
+condition. However, there can be no assurance that the Y2K remediation by the
+Company or third parties will be properly and timely completed, and the failure
+to do so could have a material adverse effect on the Company, its business, its
+consolidated results of operations, and its financial condition.
+
+In particular, the Company believes that a lack of Y2K readiness by its
+significant third party vendors could cause material interruption in the
+Company's operations. Completion of third party Y2K assessment may result in
+the identification of additional issues which could have a material adverse
+effect on the Company's results of operations. In addition,  important factors
+that could cause results to differ materially include, but are not limited to,
+the ability of the Company to successfully identify systems and vendors which
+have a Y2K issue, the nature and amount of remediation effort required to fix
+the affected systems, the adequacy of such remediation efforts, the production-
+related contingency plans of competitors with the Company's third party
+suppliers, and the costs and availability of labor and resources to
+successfully address the Y2K issues and/or to execute on any required
+contingency plans.
+
+Factors That May Affect Future Results and Financial Condition
+The Company operates in a rapidly changing environment that involves a
+number of uncertainties, some of which are beyond the Company's control.  In
+addition to the uncertainties described elsewhere in this report, there are
+many factors that will affect the Company's future results and business which
+may cause the actual results to differ from those currently expected. The
+Company's future operating results and financial condition are dependent upon
+the Company's ability to successfully develop, manufacture, and market
+technologically innovative products in order to meet dynamic customer demand
+patterns. Inherent in this process are a number of factors that the Company
+must successfully manage in order to achieve favorable future operating
+results and a favorable financial condition.
+
+                                      24
+<PAGE>
+Potential  risks and uncertainties that could affect the Company's future
+operating results and financial condition include, among other things,
+continued competitive pressures in the marketplace and the effect of any
+reaction by the Company to such competitive pressures, including pricing
+actions by the Company; risks associated with international operations,
+including economic and labor conditions, the continuing economic problems
+being experienced in Asia and Latin America, political instability, tax laws,
+and currency fluctuations; increasing dependence on third-parties for
+manufacturing and other outsourced functions such as logistics; the
+availability of key components on terms acceptable to the Company; the
+continued availability of certain components and services essential to the
+Company's business currently obtained by the Company from sole or limited
+sources, including PowerPC RISC microprocessors developed by and obtained
+from IBM and Motorola and the final assembly of certain of the Company's
+products; the Company's ability to supply products in certain categories; the
+Company's ability to supply products free of latent defects or other faults;
+the Company's ability to make timely delivery to the marketplace of
+technological innovations, including its ability to continue to make timely
+delivery of planned enhancements to the current Mac OS and timely delivery of
+future versions of the Mac OS; the availability of third-party software for
+particular applications; the Company's ability to attract, motivate and retain
+key employees; the effect of Y2K compliance issues; managing the continuing
+impact of the European Union's transition to the Euro as its common legal
+currency; and the Company's ability to retain the operational and cost
+benefits derived from its recently completed restructuring program.
+
+For a discussion of these and other factors affecting the Company's future
+results and financial condition, see "Item 7 -- Management's Discussion and
+Analysis -- Factors That May Affect Future Results and Financial Condition"
+in the Company's 1998 Form 10-K.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                      25
+<PAGE>
+
+Item 3. Quantitative and Qualitative Disclosures about Market Risk
+The information presented below regarding Market Risk contains forward
+looking statements that are subject to risks and uncertainties. The Company's
+actual results may differ significantly from those discussed below and
+elsewhere in this Form 10-Q regarding market risk.  The following discussion
+should be read in conjunction with the 1998 Form 10-K and the condensed
+consolidated financial statements and notes thereto included elsewhere in this
+Form 10-Q.
+
+The Company's exposure to market risk for changes in interest rates relates
+primarily to the Company's investments and long-term debt obligations and
+related derivative financial instruments. The Company places its investments
+with high credit quality issuers and, by policy, limits the amount of credit
+exposure to any one issuer. The Company's general policy is to limit the risk
+of principal loss and ensure the safety of invested funds by limiting market
+and credit risk. All highly liquid investments with a maturity of three months
+or less at the date of purchase are considered to be cash equivalents;
+investments with maturities between three and twelve months are considered
+to be short-term investments. As of June 26, 1999, there are no investments
+with maturities greater than 12 months.
+
+The  Company enters into interest rate derivative transactions, including
+interest rate swaps, collars, and floors, with financial institutions in order
+to better match the Company's floating-rate interest income on its cash
+equivalents and short-term investments with its fixed-rate interest expense
+on its long-term debt, and/or to diversify a portion of the Company's exposure
+away from fluctuations in short-term U.S. interest rates. The Company may
+also enter into interest rate contracts that are intended to reduce the cost
+of the interest  rate risk management program. The Company does not hold or
+transact in such financial instruments for purposes other than risk management.
+
+Overall, the Company is a net receiver of currencies other than the U.S. dollar
+and, as such, benefits from a weaker dollar and is adversely affected by a
+stronger dollar relative to major currencies worldwide. Accordingly, changes
+in exchange rates, and in particular a strengthening of the U.S. dollar, may
+negatively affect the Company's consolidated sales and gross margins as
+expressed in U.S. dollars.
+
+The Company enters into foreign exchange forward and option contracts with
+financial institutions primarily to protect against currency exchange risks
+associated with existing assets and liabilities, certain firmly committed
+transactions, and probable but not firmly committed transactions. The
+Company's foreign exchange risk management policy requires it to hedge a
+majority of its existing material foreign exchange transaction exposures.
+However, the Company may not hedge certain foreign exchange transaction
+exposures that are immaterial either in terms of their minimal U.S. dollar
+value or in terms of the related currency's historically high correlation with
+the U.S. dollar. Foreign exchange forward contracts are carried at fair value
+in other current liabilities. The premium costs of purchased foreign exchange
+option contracts are recorded in other current assets and amortized over the
+life of the option.
+
+                                      26
+<PAGE>
+
+To  ensure the adequacy and effectiveness of the Company's foreign exchange
+and interest rate hedge positions, as well as to monitor the risks and
+opportunities of the nonhedge portfolios, the Company continually monitors its
+foreign exchange forward and option positions, and its interest rate swap,
+option and floor positions both on a stand-alone basis and in conjunction with
+its underlying foreign currency and interest rate-related exposures,
+respectively, from both an accounting and an economic perspective. However,
+given the effective horizons of the Company's risk management activities and
+the anticipatory nature of the exposures intended to hedge, there can be no
+assurance that the aforementioned programs will offset more than a portion of
+the adverse financial impact resulting from unfavorable movements in either
+foreign exchange or interest rates. In addition, the timing of the accounting
+for recognition of gains and losses related to mark-to-market instruments for
+any given period may not coincide with the timing of gains and losses related
+to the underlying economic exposures and, therefore, may adversely affect the
+Company's consolidated operating results and financial position.
+
+For a complete description of the Company's interest rate and foreign currency
+related market risks, see the discussion in Part II, Item 7A of the Company's
+1998 Form 10-K. There has not been a material change in the Company's
+exposure to interest rate and foreign currency risks since the date of the
+1998 Form 10-K.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                      27
+<PAGE>
+
+
+
+
+
+
+PART II. OTHER INFORMATION
+
+Item 1. Legal Proceedings
+
+The Company is subject to various legal proceedings and claims which are
+discussed in the 1998 Form 10-K. The Company is also subject to certain other
+legal proceedings and claims which have arisen in the ordinary course of
+business and which have not been fully adjudicated. The results of legal
+proceedings cannot be predicted with certainty; however, in the opinion of
+management, the Company does not have a potential liability related to any
+legal proceedings and claims that would have a material adverse effect on its
+financial condition or results of operations.
+
+
+Item 6.  Exhibits and Reports on Form 8-K
+
+(a)      Exhibits
+
+Exhibit
+Number   Description
+
+3.3      By-Laws of the Company, as amended through May 25, 1999
+27       Financial Data Schedule.
+
+(b)      Reports on Form 8-K
+
+The Company filed a current report on Form 8-K dated July 16, 1999, to report
+under Item 5 (Other Events) that the Company had approved a plan to repurchase
+up to $500 million of its common stock. The repurchase plan does not obligate
+the Company to acquire any specific number of shares or acquire shares over any
+specified period of time.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                      28
+<PAGE>
+
+
+
+
+                             SIGNATURES
+
+Pursuant to the requirements of the Securities Exchange Act of 1934, the
+Registrant has duly caused this report to be signed on its behalf by the
+undersigned, thereunto duly authorized.
+
+
+
+
+
+
+
+
+                             APPLE COMPUTER, INC.
+                                 (Registrant)
+
+
+
+
+
+
+
+
+                           By: /s/ Fred D. Anderson
+
+                               Fred D. Anderson
+             Executive Vice President and Chief Financial Officer
+                                 August 6, 1999
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                      29
+
+<PAGE>
+
+
+INDEX TO EXHIBITS
+
+Exhibit
+Index
+Number	                 Description                                        Page
+
+
+3.3        By-Laws of the Company, as amended through May 25, 1999           31
+27         Financial Data Schedule.                                          55
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                      30
+
+<PAGE>
+
+
+
+</TEXT>
+
+</DOCUMENT>
+<DOCUMENT>
+<TYPE>EX-3
+<SEQUENCE>2
+<TEXT>
+
+EXHIBIT 3.3
+                                   BY-LAWS
+
+                                      OF
+
+                             APPLE COMPUTER, INC.
+
+                          (a California corporation)
+
+                    (as amended through May 25, 1999)
+
+                                   Article I
+
+                                    OFFICES
+
+    Section 1.1:      Principal Office.  The principal executive office for the
+transaction of the business of this corporation shall be 1 Infinite Loop,
+Cupertino, California 95014.  The Board of Directors is hereby granted full
+power and authority to change the location of the principal executive office
+from one location to another.
+
+    Section 1.2:      Other Offices.  One or more branch or other subordinate
+offices may at any time be fixed and located by the Board of Directors at
+such place or places within or without the State of California as it deems
+appropriate.
+
+                                  Article II
+
+                                  DIRECTORS
+
+    Section 2.1:      Exercise of Corporate Powers.  Except as otherwise
+provided by these By-Laws, by the Articles of Incorporation of this
+corporation or by the laws of the State of California now or hereafter in
+force, the business and affairs of this corporation shall be managed and all
+corporate powers shall be exercised by or under the direction of the Board of
+Directors.
+
+    Section 2.2:      Number.  The number of directors of the corporation
+shall be not less than five (5) nor more than nine (9).  The exact number of
+directors shall be seven (7) until changed within the limits specified above,
+by a by-law amending this section, duly adopted by the Board of Directors or
+by the shareholders.  The indefinite number of directors may be changed, or a
+definite number fixed without provision for an indefinite number, by a duly
+adopted amendment to the Articles of Incorporation or by an amendment to this
+by-law duly adopted by the vote or written consent of holders of a majority of
+the outstanding shares entitled to vote; provided, however, that an amendment
+
+
+
+                                      31
+<PAGE>
+reducing the fixed number or the minimum number of directors to a number
+less than five (5) cannot be adopted if the votes cast against its adoption at
+a meeting of the shareholders, or the shares not consenting in the case of
+action by written consent, are equal to more than 16-2/3% of the outstanding
+shares entitled to vote.  No amendment may change the stated maximum
+number of authorized directors to a number greater than two times the stated
+minimum number of directors minus one.
+
+    Section 2.3:      Need Not Be Shareholders.  The directors of this
+corporation need not be shareholders of this corporation.
+
+    Section 2.4:      Compensation.  Directors and members of committees may
+receive such compensation, if any, for their services as may be fixed or
+determined by resolution of the Board of Directors.  Nothing herein contained
+shall be construed to preclude any director from serving this corporation in
+any other capacity and receiving compensation therefor.
+
+    Section 2.5:      Election and Term of Office. Through and until
+immediately prior to the annual meeting of shareholders to be held in fiscal
+year 2000, the directors shall be divided into two classes,  designated Class I
+and Class II, each consisting of one-half of the directors or  as close an
+approximation as possible, and each director shall serve for a term  running
+until the second annual meeting of shareholders succeeding his or her  election
+and until his or her successor shall have been duly elected and  qualified;
+provided, however, that the terms of all directors shall expire at  the annual
+meeting of shareholders to be held in fiscal year 2000. Commencing at the
+annual meeting of shareholders to be held in fiscal year 2000, each director
+shall be elected to serve until the annual meeting of shareholders held in the
+following fiscal year or until his or her successor shall have been duly
+elected and qualified.
+
+    Section 2.6:      Vacancies.  A vacancy or vacancies on the Board of
+Directors shall exist in case of the death, resignation or removal of any
+director, or if the authorized number of directors is increased, or if the
+shareholders fail, at any annual meeting of shareholders at which any director
+is elected, to elect the full authorized number of directors to be voted for
+at that meeting. The Board of Directors may declare vacant the office of a
+director if he or she is declared of unsound mind by an order of court or
+convicted of a felony or if, within 60 days after notice of his or her
+election, he or she does not accept the office. Any vacancy, except for a
+vacancy created by removal of a director as provided in Section 2.7 hereof,
+may be filled by a person selected by a majority of the remaining directors
+then in office, whether or not less than a quorum, or by a sole remaining
+director. Vacancies occurring in the Board of Directors by reason of removal
+of directors shall be filled only by approval of shareholders. The shareholders
+may elect a director at any time to fill any vacancy not filled by the
+directors. Any such election by written consent requires the consent of a
+majority of the outstanding shares entitled to vote. If, after the filling of
+any vacancy by the directors, the directors then in office who have been
+elected by the shareholders shall constitute less than a majority of the
+
+                                      32
+<PAGE>
+
+
+directors then in office, any holder or holders of an aggregate of 5% or more
+of the total number of shares at the time outstanding having the right to vote
+for such directors may call a special meeting of shareholders to be held to
+elect the entire Board of Directors. The term of office of any director shall
+terminate upon such election of a successor. Any director may resign effective
+upon giving written notice to the Chairman of the Board, if any, the Chief
+Executive Officer, the President, the Secretary or the Board of Directors of
+this corporation, unless the notice specifies a later time for the
+effectiveness of such resignation. If the resignation is effective at a future
+time, a successor may be elected to take office when the resignation becomes
+effective. A reduction of the authorized number of directors shall not remove
+any director prior to the expiration of such director's term of office.
+
+    Section 2.7:      Removal. The entire Board of Directors or any individual
+director may be removed without cause from office by an affirmative vote of a
+majority of the outstanding shares entitled to vote; provided that, unless the
+entire Board of Directors is removed, no director shall be removed when the
+votes cast against removal, or not consenting in writing to such removal,
+would be sufficient to elect such director if voted cumulatively (without
+regard to whether such shares may be voted cumulatively) at an election at
+which the same total number of votes were cast, or, if such action is taken by
+written consent, all shares entitled to vote were voted, and either the number
+of directors elected at the most recent annual meeting of shareholders, or if
+greater, the number of directors for whom removal is being sought, were then
+being elected. If any or all directors are so removed, new directors may be
+elected at the same meeting or at a subsequent meeting. If at any time a
+class or series of shares is entitled to elect one or more directors under
+authority granted by the Articles of Incorporation of this corporation, the
+provisions of this Section 2.7 shall apply to the vote of that class or series
+and not to the vote of the outstanding shares as a whole.
+
+    Section 2.8:      Powers and Duties.  Without limiting the generality or
+extent of the general corporate powers to be exercised by the Board of
+Directors pursuant to Section 2.1 of these By-Laws, it is hereby provided
+that the Board of Directors shall have full power with respect to the
+following matters:
+
+         (a)  To purchase, lease, and acquire any and all kinds of property,
+real, personal or mixed, and at its discretion to pay therefor in money, in
+property and/or in stocks, bonds, debentures or other securities of this
+corporation.
+
+         (b)  To enter into any and all contracts and agreements which in its
+judgment may be beneficial to the interests and purposes of this corporation.
+
+
+         (c)  To fix and determine and to vary from time to time the amount or
+amounts to be set aside or retained as reserve funds or as working capital of
+this corporation or for maintenance, repairs, replacements or enlargements
+of its properties.
+
+                                      33
+<PAGE>
+
+         (d)  To declare and pay dividends in cash, shares and/or property
+out of any funds of this corporation at the time legally available for the
+declaration and payment of dividends on its shares.
+
+         (e)  To adopt such rules and regulations for the conduct of its
+meetings and the management of the affairs of this corporation as it may
+deem proper.
+
+         (f)  To prescribe the manner in which and the person or persons by
+whom any or all of the checks, drafts, notes, bills of exchange, contracts
+and other corporate instruments shall be executed.
+
+         (g)  To accept resignations of directors; to declare vacant the
+office of a director as provided in Section 2.6 hereof; and, in case of
+vacancy in the office of directors, to fill the same to the extent provided in
+Section 2.6 hereof.
+
+         (h)  To create offices in addition to those for which provision is
+made by law or these By-Laws; to elect and remove at pleasure all officers of
+this corporation, fix their terms of office, prescribe their powers and
+duties, limit their authority and fix their salaries in any way it may deem
+advisable which is not contrary to law or these By-Laws; and, if it sees fit,
+to require from the officers or any of them security for faithful service.
+
+         (i)  To designate some person to perform the duties and exercise
+the powers of any officer of this corporation during the temporary absence or
+disability of such officer.
+
+         (j)  To appoint or employ and to remove at pleasure such agents and
+employees as it may see fit, to prescribe their titles, powers and duties,
+limit their authority, and fix their salaries in any way it may deem advisable
+which is not contrary to law or these By-Laws; and, if it sees fit, to require
+from them or any of them security for faithful performance.
+
+         (k)  To fix a time in the future, which shall not be more than 60
+days nor less than 10 days prior to the date of the meeting nor more than
+sixty (60) days prior to any other action for which it is fixed, as a record
+date for the determination of the shareholders entitled to notice of and to
+vote at any meeting, or entitled to receive any payment of any dividend or
+other distribution, or allotment of any rights, or entitled to exercise any
+rights in respect of any other lawful action; and in such case only
+shareholders of record on the date so fixed shall be entitled to notice of
+and to vote at the meeting or to receive the dividend, distribution or
+allotment of rights or to exercise the rights, as the case may be,
+notwithstanding any transfer of any shares on the books of this corporation
+after any record date fixed as aforesaid.  The Board of Directors may close
+the books of this corporation against transfers of shares during the whole or
+any part of such period.
+
+
+                                      34
+<PAGE>
+
+
+         (l)  To fix and locate from time to time the principal office for the
+transaction of the business of this corporation and one or more branch or
+other subordinate office or offices of this corporation within or without the
+State of California; to designate any place within or without the State of
+California for the holding of any meeting or meetings of the shareholders or
+the Board of Directors, as provided in Sections 10.1 and 11.1 hereof; to
+adopt, make and use a corporate seal, and to prescribe the forms of
+certificates for shares and to alter the form of such seal and of such
+certificates from time to time as in its judgment it may deem best, provided
+such seal and such certificates shall at all times comply with the provisions
+of law now or hereafter in effect.
+
+         (m)  To authorize the issuance of shares of stock of this corporation
+in accordance with the laws of the State of California and the Articles of
+Incorporation of this corporation.
+
+         (n)  Subject to the limitation provided in Section 14.2 hereof, to
+adopt, amend or repeal from time to time and at any time these By-Laws and
+any and all amendments thereof.
+
+         (o)  To borrow money and incur indebtedness on behalf of this
+corporation, including the power and authority to borrow money from any of
+the shareholders, directors or officers of this corporation, and to cause to
+be executed and delivered therefor in the corporate name promissory notes,
+bonds, debentures, deeds of trust, mortgages, pledges, hypothecations, or other
+evidences of debt and securities therefor, and the note or other obligation
+given for any indebtedness of this corporation, signed officially by any
+officer or officers thereunto duly authorized by the Board of Directors shall
+be binding on this corporation.
+
+         (p)  To designate and appoint committees of the Board of Directors
+as it may see fit, to prescribe their names, powers and duties and limit their
+authority in any way it may deem advisable which is not contrary to law or
+these By-Laws.
+
+         (q)  Generally to do and perform every act and thing whatsoever that
+may pertain to the office of a director or to a board of directors.
+
+
+                                  Article III
+
+                                  OFFICERS
+
+    Section 3.1:      Election and Qualifications.  The officers of this
+corporation shall consist of a Chief Executive Officer, a President, one or
+more Vice Presidents, a Secretary, a Chief Financial Officer and such other
+officers, including, but not limited to, a Chairman of the Board of Directors,
+a Treasurer, and Assistant Secretaries and Assistant Treasurers as the Board
+
+
+
+                                      35
+<PAGE>
+of Directors shall deem expedient, who shall be chosen in such manner and
+hold their offices for such terms as the Board of Directors may prescribe.
+Any two or more of such offices may be held by the same person.  Any Vice
+President, Assistant Treasurer or Assistant Secretary, respectively, may
+exercise any of the powers of the Chief Executive Officer, the President, the
+Chief Financial Officer, or the Secretary, respectively, as directed by the
+Board of Directors, and shall perform such other duties as are imposed upon
+him or her by the By-Laws or the Board of Directors.
+
+    Section 3.2:      Term of Office and Compensation.  The term of office and
+salary of each of said officers and the manner and time of the payment of such
+salaries shall be fixed and determined by the Board of Directors and may be
+altered by said Board from time to time at its pleasure, subject to the
+rights, if any, of an officer under any contract of employment.  Any officer
+may resign at any time upon written notice to this corporation, without
+prejudice to the rights, if any, of this corporation under any contract to
+which the officer is a party. If any vacancy occurs in any office of this
+corporation, the Board of Directors may elect a successor to fill such vacancy.
+
+
+                                  Article IV
+
+                             CHAIRMAN OF THE BOARD
+
+    Section 4.1:      Powers and Duties.  The Chairman of the Board of
+Directors, if there be one, shall have the power to preside at all meetings of
+the Board of Directors and shall have such other powers and shall be subject
+to such other duties as the Board of Directors may from time to time prescribe.
+
+
+                                  Article V
+
+                           CHIEF EXECUTIVE OFFICER
+
+    Section 5.1:      Powers and Duties.  The powers and duties of the Chief
+Executive Officer are:
+
+         (a)  To act as the general manager and chief executive officer of
+this corporation and, subject to the control of the Board of Directors, to have
+general supervision, direction and control of the business and affairs of this
+corporation.
+
+         (b)  To preside at all meetings of the shareholders and, in the
+absence of the Chairman of the Board or if there be no Chairman, at all
+meetings of the Board of Directors.
+
+         (c)  To call meetings of the shareholders and meetings of the Board
+of Directors to be held at such times and, subject to the limitations
+prescribed by law or by these By-Laws, at such places as he or she shall
+deem proper.
+
+                                      36
+<PAGE>
+
+         (d)  To affix the signature of this corporation to all deeds,
+conveyances, mortgages, leases, obligations, bonds, certificates and other
+papers and instruments in writing which have been authorized by the Board of
+Directors or which, in the judgment of the Chief Executive Officer, should be
+executed on behalf of this corporation; to sign certificates for shares of
+stock of this corporation; and, subject to the direction of the Board of
+Directors, to have general charge of the property of this corporation and to
+supervise and control all officers, agents and employees of this corporation.
+
+                                  Article VA
+
+                                  PRESIDENT
+
+    Section 5A.1:     Powers and Duties.  The powers and duties of the
+President are:
+
+         (a)  To act as the general manager of this corporation and, subject
+to the control of the Board of Directors, to have general supervision,
+direction and control of the business and affairs of this corporation.
+
+         (b)  To preside at all meetings of the shareholders and, in the
+absence of the Chairman of the Board and the Chief Executive Officer or if
+there be no Chairman or Chief Executive Officer, at all meetings of the Board
+of Directors.
+
+         (c)  To affix the signature of this corporation to all deeds,
+conveyances, mortgages, leases, obligations, bonds, certificates and other
+papers and instruments in writing which have been authorized by the Board of
+Directors or which, in the judgment of the President, should be executed on
+behalf of this corporation; to sign certificates for shares of stock of this
+corporation; and, subject to the direction of the Board of Directors, to have
+general charge of the property of this corporation and to supervise and
+control all officers, agents and employees of this corporation.
+
+     Section 5A.2:    President Pro Tem.  If neither the Chairman of the
+Board, the Chief Executive Officer, the President, nor any Vice President is
+present at any meeting of the Board of Directors, a President pro tem may be
+chosen to preside and act at such meeting.  If neither the Chief Executive
+Officer, the President nor any Vice President is present at any meeting of the
+shareholders, a President pro tem may be chosen to preside at such meeting.
+
+                                  Article VI
+
+                                VICE PRESIDENT
+
+     Section. 6.1:    Powers and Duties.  The titles, powers and duties of the
+Vice President or Vice Presidents shall be prescribed by the Board of
+Directors.  In case of the absence, disability or death of the Chief Executive
+Officer, the President, the Vice President, or one of the Vice Presidents,
+shall exercise all his or her powers and perform all his or her duties.  If
+there is more than one Vice President, the order in which the Vice Presidents
+
+                                      37
+<PAGE>
+
+shall succeed to the powers and duties of the Chief Executive Officer or
+President shall be as fixed by the Board of Directors.
+
+
+                                  Article VII
+
+                                  SECRETARY
+
+    Section 7.1:      Powers and Duties.  The powers and duties of the
+Secretary are:
+
+         (a)  To keep a book of minutes at the principal executive office of
+this corporation, or such other place as the Board of Directors may order, of
+all meetings of its directors and shareholders with the time and place of
+holding, whether regular or special, and, if special, how authorized, the
+notice thereof given, the names of those present at directors' meetings, the
+number of shares present or represented at shareholders' meetings and the
+proceedings thereof.
+
+         (b)  To keep the seal of this corporation and to affix the same to
+all instruments which may require it.
+
+         (c)  To keep or cause to be kept at the principal executive office
+of this corporation, or at the office of the transfer agent or agents, a
+record of the shareholders of this corporation, giving the names and
+addresses of all shareholders and the number and class of shares held by each,
+the number and date of certificates issued for shares and the number and date
+of cancellation of every certificate surrendered for cancellation.
+
+         (d)  To keep a supply of certificates for shares of this corporation,
+to fill in all certificates issued, and to make a proper record of each such
+issuance; provided that so long as this corporation shall have one or more
+duly appointed and acting transfer agents of the shares, or any class or
+series of shares, of this corporation, such duties with respect to such shares
+shall be performed by such transfer agent or transfer agents.
+
+         (e)  To transfer upon the share books of this corporation any and all
+shares of this corporation; provided that so long as this corporation shall
+have one or more duly appointed and acting transfer agents of the shares, or
+any class or series of shares, of this corporation, such duties with respect
+to such shares shall be performed by such transfer agent or transfer agents,
+and the method of transfer of each certificate shall be subject to the
+reasonable regulations of the transfer agent to which the certificate is
+presented for transfer and, also, if this corporation then has one or more
+duly appointed and acting registrars, subject to the reasonable regulations of
+the registrar to which a new certificate is presented for registration; and
+provided, further, that no certificate for shares of stock shall be issued or
+delivered or, if issued or delivered, shall have any validity whatsoever until
+and unless it has been signed or authenticated in the manner provided in
+Section 12.3 hereof.
+
+                                      38
+<PAGE>
+
+         (f)  To make service and publication of all notices that may be
+necessary or proper and without command or direction from anyone.  In case of
+the absence, disability, refusal or neglect of the Secretary to make service or
+publication of any notices, then such notices may be served and/or published
+by the Chief Executive Officer, the President or a Vice President, or by any
+person thereunto authorized by either of them or by the Board of Directors or
+by the holders of a majority of the outstanding shares of this corporation.
+
+         (g)  Generally to do and perform all such duties as pertain to such
+office and as may be required by the Board of Directors.
+
+                                 Article VIII
+
+                            CHIEF FINANCIAL OFFICER
+
+    Section 8.1:      Powers and Duties.  The powers and duties of the Chief
+Financial Officer are:
+
+         (a)  To supervise and control the keeping and maintaining of adequate
+and correct accounts of this corporation's properties and business
+transactions, including accounts of its assets, liabilities, receipts,
+disbursements, gains, losses, capital, surplus and shares.  The books of
+account shall at all reasonable times be open to inspection by any director.
+
+         (b)  To have the custody of all funds, securities, evidences of
+indebtedness and other valuable documents of this corporation and, at his or
+her discretion, to cause any or all thereof to be deposited for the account of
+this corporation with such depository as may be designated from time to time
+by the Board of Directors.
+
+         (c)  To receive or cause to be received, and to give or cause to be
+given, receipts and acquittances for moneys paid in for the account of this
+corporation.
+
+         (d)  To disburse, or cause to be disbursed, all funds of this
+corporation as may be directed by the Chief Executive Officer, the President
+or the Board of Directors, taking proper vouchers for such disbursements.
+
+         (e)  To render to the Chief Executive Officer, the President or to the
+Board of Directors, whenever either may require, accounts of all transactions
+as Chief Financial Officer and of the financial condition of this corporation.
+
+         (f)  Generally to do and perform all such duties as pertain to such
+office and as may be required by the Board of Directors.
+
+
+
+
+
+                                      39
+<PAGE>
+
+
+                                  Article VIIIA
+
+                       APPOINTED VICE PRESIDENTS, ETC.
+
+    Section 8A.l:     Appointed Vice Presidents, Etc.; Appointment, Duties,
+etc.  The Chief Executive Officer of the corporation shall have the power, in
+the exercise of his or her discretion, to appoint additional persons to hold
+positions and titles such as vice president of the corporation or a division
+of the corporation or president of a division of the corporation, or similar
+such titles, as the business of the corporation may require, subject to such
+limits in appointment power as the Board may determine.  The Board shall be
+advised of any such appointment at a meeting of the Board, and the
+appointment shall be noted in the minutes of the meeting.  The minutes shall
+clearly state that such persons are non-corporate officers appointed pursuant
+to this Section 8A.l of these By-laws.
+
+              Each such appointee shall have such title, shall serve in such
+capacity and shall have such authority and perform such duties as the Chief
+Executive Officer of the corporation shall determine.
+
+             Appointees may hold titles such as "president" of a division or
+other group within the corporation, or "vice president" of the corporation or
+of a division or other group within the corporation.  However, any such
+appointee, absent specific election by the Board as an elected corporate
+officer, (i) shall not be considered an officer elected by the Board of
+Directors pursuant to Article III of these By-Laws and shall not have the
+executive powers or authority of corporate officers elected pursuant to such
+Article III, (ii) shall not be considered (a) an "officer" of the corporation
+for the purposes of Rule 3b-2 promulgated under the Securities Exchange Act
+of 1934, as amended, and the rules and regulations promulgated thereunder
+(collectively, the "Act") or an "executive officer" of the corporation for the
+purposes of Rule 3b-7 promulgated under the Act, and similarly shall not be
+considered an "officer" of the corporation for the purposes of Section 16 of
+the Act (as such persons shall not be given the access to inside information
+of the corporation enjoyed by officers of the corporation) or an "executive
+officer" of the corporation for the purposes of Section 14 of the Act or (b) a
+"corporate officer" for the purposes of Section 312 of the California
+Corporation Code (the "Code"), except in any such case as otherwise required
+by law, and (iii) shall be empowered to represent himself or herself to third
+parties as an appointed vice president, etc., only, and shall be empowered to
+execute documents, bind the corporation or otherwise act on behalf of the
+corporation only as authorized by the Chief Executive Officer or the President
+of the Corporation or by resolution of the Board of Directors.
+
+              An elected officer of the corporation may also serve in an
+appointed capacity hereunder.
+
+
+
+
+
+                                      40
+<PAGE>
+
+
+                                  Article IX
+
+                             EXECUTIVE COMMITTEE
+
+    Section 9.1:      Appointment and Procedure.  The Board of Directors may,
+by resolution adopted by a majority of the authorized number of directors,
+appoint from among its members an Executive Committee of two or more
+members.  The Executive Committee may make its own rules of procedure
+subject to Section 11.9 hereof, and shall meet as provided by such rules or by
+a resolution adopted by the Board of Directors (which resolution shall take
+precedence).  A majority of the members of the Executive Committee shall
+constitute a quorum, and in every case the affirmative vote of a majority of
+all members of the Committee shall be necessary to the adoption of any
+resolution by such Committee.
+
+    Section 9.2:      Powers.  During the intervals between the meetings of the
+Board of Directors, the Executive Committee, in all cases in which specific
+directions shall not have been given by the Board of Directors, shall have and
+may exercise all the powers and authority of the Board of Directors in the
+management of the business and affairs of this corporation in such manner as
+the Committee may deem best for the interests of this corporation, except with
+respect to:
+         (a)  any action for which California law also requires shareholder
+approval,
+
+         (b)  the filling of vacancies on the Board of Directors or in the
+committee,
+
+         (c)  the fixing of compensation of the directors for serving on the
+Board of Directors or on any committee,
+
+         (d)  the amendment or repeal of By-Laws or the adoption of new By-
+Laws,
+
+         (e)  the amendment or repeal of any resolution of the Board of
+Directors which by its express terms is not so amendable or repealable,
+
+         (f)  a distribution to the shareholders of this corporation, except
+at a rate or in a periodic amount or within a price range determined by the
+Board of Directors,
+
+         (g)  the appointment of other committees of the Board of Directors or
+the members thereof.
+
+
+
+
+
+
+
+                                      41
+<PAGE>
+
+
+                                   Article X
+
+                           MEETINGS OF SHAREHOLDERS
+
+    Section 10.1:     Place of Meetings.  Meetings (whether regular, special or
+adjourned) of the shareholders of this corporation shall be held at the
+principal executive office for the transaction of business of this corporation,
+or at any place within or without the State which may be designated by written
+consent of all the shareholders entitled to vote thereat, or which may be
+designated by resolution of the Board of Directors.  Any meeting shall be
+valid wherever held if held by the written consent of all the shareholders
+entitled to vote thereat, given either before or after the meeting and filed
+with the Secretary of this corporation.
+
+    Section 10.2:     Annual Meetings.  The annual meeting of the shareholders
+shall be held at the hour of 10:00 a.m. on the last Wednesday in January in
+each year , if not a legal holiday, and if a legal holiday, then on the next
+succeeding business day not a legal holiday or at such other time in a
+particular year as may be designated by written consent of all the shareholders
+entitled to vote thereat or which may be designated by resolution of the Board
+of Directors.  Such annual meetings shall be held at the place provided
+pursuant to Section 10.1 hereof.  Said annual meetings shall be held for the
+purpose of the election of directors, for the making of reports of the affairs
+of this corporation and for the transaction of such other business as may come
+before the meeting.
+
+    Section 10.3:     Special Meetings.  Special meetings of the shareholders
+for any purpose or purposes whatsoever may be called at any time by the
+President or by the Board of Directors, or by two or more members thereof, or
+by one or more holders of shares entitled to cast not less than ten percent
+(10%) of the votes on the record date established pursuant to Section 10.8.
+Upon request in writing sent by registered mail to the Chief Executive Officer,
+President, Vice President or Secretary, or delivered to any such officer in
+person, by any person or persons entitled to call a special meeting of
+shareholders (such request, if sent by a shareholder or shareholders, to
+include the information required by Section 10.13), it shall be the duty of
+such officer, subject to the immediately succeeding sentence, to cause notice
+to be given to the shareholders entitled to vote that a meeting will be
+requested by the person or persons calling the meeting, the date of which
+meeting, which shall be set by such officer, to be not less than 35 days nor
+more than 60 days after such request or, if applicable, determination of the
+validity of such request pursuant to the immediately succeeding sentence.
+Within seven days after receiving such a written request from a shareholder or
+shareholders of the corporation, the Board of Directors shall determine
+whether shareholders owning not less than ten percent (10%) of the shares as
+of the record date established pursuant to Section 10.8 for such request
+support the call of a special meeting and notify the requesting party or
+parties of its finding.
+
+
+                                      42
+<PAGE>
+
+
+    Section 10.4:     Notice of Meetings.  Notice of any meeting of
+shareholders shall be given in writing not less than 10 nor more than 60 days
+before the date of the meeting to each shareholder entitled to vote thereat by
+the Secretary or an Assistant Secretary, or other person charged with that
+duty, or if there be no such officer or person, or in case of his or her
+neglect or refusal, by any director or shareholder.  The notice shall state the
+place, date and hour of the meeting and (i) in the case of a special meeting,
+the general nature of the business to be transacted, and no other business may
+be transacted, or (ii) in the case of the annual meeting, those matters which
+the Board of Directors, at the time of the mailing of the notice, intends to
+present for action by the shareholders, but any proper matter may be presented
+at the meeting for such action except that notice must be given or waived in
+writing of any proposal relating to approval of contracts between the
+corporation and any director of this corporation, amendment of the Articles
+of Incorporation, reorganization of this corporation or winding up of this
+corporation. The notice of any meeting at which directors are to be elected
+shall include the names of nominees intended at the time of the notice to be
+presented by management for election. Written notice shall be given by this
+corporation to any shareholder, either (i)  personally or (ii) by mail or
+other means of written communication, charges prepaid, addressed to such
+shareholder at such shareholder's address appearing on the books of this
+corporation or given by such shareholder to this corporation for the purpose
+of notice. If a shareholder gives no address or no such address appears on the
+books of this corporation, notice shall be deemed to have been given if sent
+by mail or other means of written communication addressed to the place where
+the principal executive office of  this corporation is located, or if
+published at least once in a newspaper of general circulation in the county
+in which such office is located. The notice shall be deemed to have been given
+at the time when delivered personally or deposited in the United States mail,
+postage prepaid, or sent by other means of written communication and
+addressed as hereinbefore provided. An affidavit of delivery or mailing of
+any notice in accordance with the provisions of this Section 10.4, executed
+by the Secretary, Assistant Secretary or any transfer agent, shall be prima
+facie evidence of the giving of the notice. If any notice addressed to the
+shareholder at the address of such shareholder appearing on the books of the
+corporation is returned to this corporation by the United States Postal
+Service marked to indicate that the United States Postal Service is unable to
+deliver the notice to the shareholder at such address, all future notices
+shall be deemed to have been duly given without further mailing if the same
+shall be available for the shareholder upon written demand of the shareholder
+at the principal executive office of this corporation for a period of one year
+from the date of the giving of the notice to all other shareholders.
+
+    Section 10.5:     Consent to Shareholders' Meetings. The transactions of
+any meeting of shareholders, however called and noticed, and wherever held,
+are as valid as though had at a meeting duly held after regular call and
+notice, if a quorum is present either in person or by proxy, and if, either
+before or after the meeting, each of the shareholders entitled to vote, not
+present in person or by proxy, signs a written waiver of notice or a consent to
+
+
+                                      43
+<PAGE>
+the holding of such meeting or an approval of the minutes thereof. All such
+waivers, consents or approvals shall be filed with the corporate records or
+made a part of the minutes of the meeting. Attendance of a person at a meeting
+shall constitute a waiver of notice of such meeting, except when the person
+objects, at the beginning of the meeting, to the transaction of any business
+because the meeting is not lawfully called or convened and except that
+attendance at a meeting is not a waiver of any right to object to the
+consideration of matters required by law to be included in the notice but not
+so included, if such objection is expressly made at the meeting. Neither the
+business to be transacted at nor the purpose of any regular or special meeting
+of shareholders need be specified in any written waiver of notice, except as
+to approval of contracts between this corporation and any of its directors,
+amendment of the Articles of Incorporation, reorganization of this corporation
+or winding up the affairs of this corporation.
+
+    Section 10.6:     Quorum. The presence in person or by proxy of the
+holders of a majority of the shares entitled to vote at any meeting of
+shareholders shall constitute a quorum for the transaction of business. Shares
+shall not be counted to make up a quorum for a meeting if voting of such
+shares at the meeting has been enjoined or for any reason they cannot be
+lawfully voted at the meeting. The shareholders present at a duly called or
+held meeting at which a quorum is present may continue to transact business
+until adjournment notwithstanding the withdrawal of enough shareholders to
+leave less than a quorum, if any action taken (other than adjournment) is
+approved by at least a majority of the shares required to constitute a quorum.
+
+    Section 10.7:     Adjourned Meetings. Any shareholders' meeting, whether
+or not a quorum is present, may be adjourned from time to time by the vote of
+a majority of the shares, the holders of which are either present in person or
+represented by proxy thereat, but, except as provided in Section 10.6 hereof,
+in the absence of a quorum, no other business may be transacted at such
+meeting.  When a meeting is adjourned for more than 45 days or if after
+adjournment a new record date is fixed for the adjourned meeting, a notice of
+the adjourned meeting shall be given to each shareholder of record entitled to
+vote at a meeting. Except as aforesaid, it shall not be necessary to give any
+notice of the time and place of the adjourned meeting or of the business to be
+transacted thereat other than by announcement at the meeting at which such
+adjournment is taken. At any adjourned meeting the shareholders may transact
+any business which might have been transacted at the original meeting.
+
+    Section 10.8:     Voting Rights. Only persons in whose names shares
+entitled to vote stand on the stock records of this corporation at the close
+of business on the business day next preceding the day on which notice is
+given or, if notice is waived, at the close of business on the business day
+next preceding the day on which the meeting is held or, if some other day be
+fixed for the determination of shareholders of record pursuant to
+Section 2.8(k) hereof, then on such other day, shall be entitled to vote at
+such meeting. In the absence of any contrary provision in the Articles of
+Incorporation or in any applicable statute relating to the election of
+directors or to other particular matters, each such person shall be entitled
+to one vote for each share.
+
+                                      44
+<PAGE>
+
+   In order that the corporation may determine the shareholders entitled to
+consent to corporate action in writing without a meeting or request a special
+meeting of the shareholders pursuant to Section 10.3, the Board of Directors
+may fix a record date, which record date shall not precede the date upon which
+the resolution fixing the record date is adopted by the Board of Directors,
+and which date shall not be more than fourteen (14) days after the date upon
+which the resolution fixing the record date is adopted by the Board of
+Directors. Any shareholder of record seeking to have the shareholders
+authorize or take corporate action by written consent or request a special
+meeting of the shareholders pursuant to Section 10.3 shall, by written notice
+to the Secretary, request the Board of Directors to fix a record date. The
+Board of Directors shall promptly, but in no event later than twenty eight (28)
+days after the date on which such request is received, adopt a resolution
+fixing the record date.
+
+    Section 10.9:     Action by Written Consents.  Any action which may be
+taken at any annual or special meeting of shareholders may be taken without a
+meeting and without prior notice, if a consent in writing, setting forth the
+action so taken, shall be signed by the holders of outstanding shares having
+not less than the minimum number of votes that would be necessary to
+authorize or take such action at a meeting at which all shares entitled to
+vote thereon were present and voted.  Within fourteen (14) days after receiving
+such written consent or consents from shareholders of the corporation, the
+Board of Directors shall determine whether holders of outstanding shares as of
+the record date established pursuant to Section 10.8 having not less than the
+minimum number of votes which would be necessary to authorize or take such
+action at a meeting at which all shares entitled to vote thereon were present
+and voted have properly consented thereto in writing and notify the requesting
+party of its finding. Unless the consents of all shareholders entitled to vote
+have been solicited in writing, notice of any shareholder approval of (i)
+contracts between this corporation and any of its directors, (ii)
+indemnification of any person, (iii) reorganization of this corporation or (iv)
+distributions to shareholders upon winding up of this corporation in certain
+circumstances without a meeting by less than unanimous written consent shall
+be given at least 10 days before the consummation of the action authorized by
+such approval, and prompt notice shall be given of the taking of any other
+corporate action approved by shareholders without a meeting by less than
+unanimous written consent, to those shareholders entitled to vote who have not
+consented in writing.  All notices given hereunder shall conform to the
+requirements of Section 10.4 hereto and applicable law.  When written consents
+are given with respect to any shares, they shall be given by and accepted from
+the persons in whose names such shares stand on the books of this corporation
+at the time such respective consents are given, or any shareholder's proxy
+holder, or a transferee of the shares or a personal representative of the
+shareholder or their respective proxy holders, may revoke the consent by a
+writing received by this corporation prior to the time that written consents
+of the number of shares required to authorize the proposed action have been
+
+
+
+                                      45
+<PAGE>
+
+filed with the Secretary of this corporation, but may not do so thereafter.
+Such revocation is effective upon its receipt by the Secretary of this
+corporation.  Notwithstanding anything to the contrary, directors may not be
+elected by written consent except by unanimous written consent of all shares
+entitled to vote for the election of directors.
+
+    Section 10.10:    Elections of Directors. In any election of directors, the
+candidates receiving the highest number of affirmative votes of the shares
+entitled to be voted for them up to the number of directors to be elected by
+such shares are elected; votes against the directors and votes withheld with
+respect to the election of the directors shall have no legal effect.
+Elections of directors need not be by ballot except upon demand made by a
+shareholder at the meeting and before the voting begins.
+
+    Section 10.11:    Proxies.  Every person entitled to vote or execute
+consents shall have the right to do so either in person or by one or more
+agents authorized by a written proxy executed by such person or such person's
+duly authorized agent and filed with the Secretary of this corporation.  No
+proxy shall be valid (l) after revocation thereof, unless the proxy is
+specifically made irrevocable and otherwise conforms to this Section 10.11 and
+applicable law, or (2) after the expiration of eleven months from the date
+thereof, unless the person executing it specifies therein the length of time
+for which such proxy is to continue in force.  Revocation may be effected by a
+writing delivered to the Secretary of this corporation stating that the proxy
+is revoked or by a subsequent proxy executed by, or by attendance at the
+meeting and voting in person by, the person executing the proxy.  A proxy is
+not revoked by the death or incapacity of the maker unless, before the vote is
+counted, a written notice of such death or incapacity is received by this
+corporation.  A proxy which states that it is irrevocable is irrevocable for
+the period specified therein when it is held by any of the following or a
+nominee of any of the following: (l) a pledgee, (2) a person who has purchased
+or agreed to purchase or holds an option to purchase the shares or a person
+who has sold a portion of such person's shares in this corporation to the
+maker of the proxy, (3) a creditor or creditors of this corporation or the
+shareholder who extended or continued credit to this corporation or the
+shareholder in consideration of the proxy if the proxy states that it was
+given in consideration of such extension or continuation of credit and the
+name of the person extending or continuing the credit, (4) a person who has
+contracted to perform services as an employee of this corporation, if a proxy
+is required by the contract of employment and if the proxy states that it was
+given in consideration of such contract of employment, the name of the
+employee and the period of employment contracted for, (5) a person designated
+by or under a close corporation shareholder agreement or a voting trust
+agreement.  In addition, a proxy may be made irrevocable if it is given to
+secure the performance of a duty or to protect a title, either legal or
+equitable, until the happening of events which, by its terms, discharge the
+obligation secured by it. Notwithstanding the period of irrevocability
+specified, the proxy becomes revocable when the pledge is redeemed, the option
+or agreement to purchase is terminated or the seller no longer owns any shares
+of this corporation or dies, the debt of this corporation or the shareholder is
+
+
+                                      46
+<PAGE>
+
+paid, the period of employment provided for in the contract of employment has
+terminated or the close corporation shareholder agreement or the voting trust
+agreement has terminated. In addition, a proxy may be revoked,
+notwithstanding a provision making it irrevocable, by a purchaser of shares
+without knowledge of the existence of the provision unless the existence of
+the proxy and its irrevocability appears on the certificate representing such
+shares. Every form of proxy or written consent, which provides an opportunity
+to specify approval or disapproval with respect to any proposal, shall also
+contain an appropriate space marked "abstain", whereby a shareholder may
+indicate a desire to abstain from voting his or her shares on the proposal. A
+proxy marked "abstain" by the shareholder with respect to a particular
+proposal shall not be voted either for or against such proposal.  In any
+election of directors, any form of proxy in which the directors to be voted
+upon are named therein as candidates and which is marked by a shareholder
+"withhold" or otherwise marked in a manner indicating that the authority to
+vote for the election of directors is withheld shall not be voted either for
+or against the election of a director.
+
+    Section 10.12:    Inspectors of Election. Before any meeting of
+shareholders, the Board of Directors may appoint any persons other than
+nominees for office to act as inspectors of election at the meeting or its
+adjournment. If no inspectors of election are so appointed, the Chairman of
+the meeting may, and on the request of any shareholder or a shareholder's
+proxy shall, appoint inspectors of election at the meeting. The number of
+inspectors shall be either one (l) or three (3).  If inspectors are appointed
+at a meeting on the request of one or more shareholders or proxies, the
+holders of a majority of shares or their proxies present at the meeting shall
+determine whether one (l) or three (3) inspectors are to be appointed. If any
+person appointed as inspector fails to appear or fails or refuses to act, the
+Chairman of the meeting may, and upon the request of any shareholder or a
+shareholder's proxy shall, appoint a person to fill that vacancy.
+
+	These inspectors shall:
+
+         (a)  Determine the number of shares outstanding and the voting power
+of each, the shares represented at the meeting, the existence of a quorum, and
+the authenticity, validity, and effect of proxies;
+
+         (b)  Receive votes, ballots, or consents;
+
+         (c)  Hear and determine all challenges and questions in any way
+arising in connection with the right to vote;
+
+         (d)  Count and tabulate all votes or consents;
+
+         (e)  Determine when the polls shall close;
+
+         (f)  Determine the result; and
+
+
+                                      47
+<PAGE>
+
+         (g)  Do any other acts that may be proper to conduct the election or
+vote with fairness to all shareholders.
+
+     Section 10.13:   Advance Notice of Shareholder Proposals and Director
+Nominations.  Shareholders may nominate one or more persons for election as
+directors at a meeting of shareholders or propose business to be brought
+before a meeting of shareholders, or both, only if such shareholder has given
+timely notice in proper written form of such shareholder's intent to make such
+nomination or nominations or to propose such business.  To be timely, a
+shareholder's notice must be received by the Secretary of the Corporation not
+later than 60 days prior to such meeting; provided, however, that in the event
+less than 70 days' notice or prior public disclosure of the date of the
+meeting is given or made to shareholders, notice by the shareholder to be
+timely must be so received not later than the close of business on the 10th
+day following the day on which such notice of the date of the meeting was
+mailed or such public disclosure was made.  To be  in proper written form a
+shareholder's notice to the Secretary shall set forth (i) the name and address
+of the shareholder who intends to make the nominations or propose the
+business and, as the case may be, of the person or persons to be nominated or
+of the business to be proposed, (ii) a representation that the shareholder is a
+holder of record of stock of the Corporation that intends to vote such stock
+at such meeting and, if applicable, intends to appear in person or by proxy at
+the meeting to nominate the person or persons specified in the notice, (iii)
+if applicable, a description of all arrangements or understandings between the
+shareholder and each nominee or any other person or persons (naming such
+person or persons) pursuant to which the nomination or nominations are to be
+made by the shareholder, (iv) such other information regarding each nominee
+or each matter of business to be proposed by such shareholder as would be
+required to be included in a proxy statement filed pursuant to Regulation 14A
+promulgated by the Securities and Exchange Commission pursuant to the
+Securities Exchange Act of 1934 had the nominee been nominated, or intended
+to be nominated, or the matter been proposed, or intended to be proposed, by
+the Board of Directors of the Corporation and (v) if applicable, the consent
+of each nominee as director of the Corporation if so elected.  The chairman of
+a meeting of shareholders may refuse to acknowledge the nomination of any
+person or the proposal of any business not made in compliance with the
+foregoing procedure.
+
+
+                                  Article XI
+
+                            MEETINGS OF DIRECTORS
+
+    Section 11.1:     Place of Meetings.  Meetings (whether regular, special
+or adjourned) of the Board of Directors of this corporation shall be held at
+the principal office of this corporation for the transaction of business, as
+specified in accordance with Section 1.1 hereof, or at any other place within
+or without the State which has been designated from time to time by resolution
+of the Board or which is designated in the notice of the meeting.
+
+
+                                      48
+<PAGE>
+
+    Section 11.2:     Regular Meetings.  Regular meetings of the Board of
+Directors shall be held after the adjournment of each annual meeting of the
+shareholders (which regular directors' meeting shall be designated the
+"Regular Annual Meeting") and at such other times as may be designated from
+time to time by resolution of the Board of Directors.  Notice of the time and
+place of all regular meetings shall be given in the same manner as for special
+meetings, except that no such notice need be given if (l) the time and place
+of such meetings are fixed by the Board of Directors or (2) the Regular Annual
+Meeting is held at the principal place of business provided at Section 1.1
+hereof and on the date specified in Section 10.2 hereof.
+
+    Section 11.3:     Special Meetings.  Special meetings of the Board of
+Directors may be called at any time by the Chairman of the Board, if any, or
+the President, or any Vice President, or the Secretary or by any two or more
+directors.
+
+    Section 11.4:     Notice of Special Meetings.  Special meetings of the
+Board of Directors shall be held upon no less than four days' notice by mail
+or 48 hours' notice delivered personally or by telephone or telegraph to each
+director. Notice need not be given to any director who signs a waiver of
+notice or who attends the meeting without protesting, prior thereto or at its
+commencement, the lack of notice to such director. Any oral notice given
+personally or by telephone may be communicated either to the director or to a
+person at the home or office of the director who the person giving the notice
+has reason to believe will promptly communicate it to the director. A notice
+or waiver of notice need not specify the purpose of any meeting of the Board.
+If the address of a director is not shown on the records and is not readily
+ascertainable, notice shall be addressed to him at the city or place in which
+the meetings of the directors are regularly held. If the meeting is adjourned
+for more than 24 hours, notice of any adjournment to another time or place
+shall be given prior to the time of the adjourned meeting to all directors not
+present at the time of adjournment.
+
+    Section 11.5:     Quorum.  A majority of all directors elected by the
+shareholders and appointed to fill vacancies as provided in Section 2.6 hereof
+shall constitute a quorum of the Board of Directors for the transaction of
+business. Every act or decision done or made by a majority of the directors
+present at a meeting duly held at which a quorum is present is the act of the
+Board of Directors subject to provisions of law relating to interested
+directors and indemnification of agents of this corporation. A majority of the
+directors present, whether or not a quorum is present, may adjourn any meeting
+to another time and place. A meeting at which a quorum is initially present
+may continue to transact business notwithstanding the withdrawal of directors,
+if any action taken is approved by at least a majority of the required quorum
+for such meeting.
+
+    Section 11.6:     Conference Telephone.  Members of the Board of Directors
+may participate in a meeting through use of conference telephone or similar
+communications equipment, so long as all directors participating in such
+meeting can hear one another.  Participation in a meeting pursuant to this
+Section 11.6 constitutes presence in person at such meeting.
+
+                                      49
+<PAGE>
+
+    Section 11.7:     Waiver of Notice and Consent.  The transactions of any
+meeting of the Board of Directors, however called and noticed or wherever
+held, shall be as valid as though had at a meeting duly held after regular
+call and notice, if a quorum is present, and if, either before or after the
+meeting, each of the directors not present signs a written waiver of notice, a
+consent to holding such meeting or an approval of the minutes thereof.  All
+such waivers, consents and approvals shall be filed with the corporate records
+or made a part of the minutes of the meeting.
+
+    Section 11.8:     Action Without a Meeting.  Any action required or
+permitted by law to be taken by the Board of Directors may be taken without a
+meeting, if all members of the Board of Directors shall individually or
+collectively consent in writing to such action.  Such written consent or
+consents shall be filed with the minutes of the proceedings of the Board of
+Directors. Such action by written consent shall have the same force and effect
+as the unanimous vote of such directors.
+
+    Section 11.9:     Committees.  The provisions of this Article XI apply
+also to committees of the Board of Directors and action by such committees,
+mutatis mutandis.
+
+
+                                 Article XII
+
+                              SUNDRY PROVISIONS
+
+    Section 12.1:     Instruments in Writing.  All checks, drafts, demands for
+money and notes of this corporation, and all written contracts of this
+corporation, shall be signed by such officer or officers, agent or agents, as
+the Board of Directors may from time to time designate.  No officer, agent, or
+employee of this corporation shall have the power to bind this corporation by
+contract or otherwise unless authorized to do so by these By-Laws or by the
+Board of Directors.
+
+     Section 12.2:    Shares Held by the Corporation.  Shares in other
+corporations standing in the name of this corporation may be voted or
+represented and all rights incident thereto may be exercised on behalf of the
+corporation by any officer of this corporation authorized so to do by
+resolution of the Board of Directors.
+
+    Section 12.3:     Certificates of Stock.  There shall be issued to every
+holder of shares in this corporation a certificate or certificates signed in
+the name of this corporation by the Chairman of the Board of Directors, if
+any, or the Chief Executive Officer or the President or a Vice President and
+by the Chief Financial Officer or an Assistant Chief Financial Officer or the
+Secretary or any Assistant Secretary, certifying the number of shares and the
+class or series of shares owned by the shareholder.  Any or all of the
+signatures on the certificate may be facsimile.  In case any officer, transfer
+agent or registrar who has signed or whose facsimile signature has been placed
+
+
+                                      50
+<PAGE>
+
+upon a certificate shall have ceased to be such officer, transfer agent or
+registrar before such certificate is issued, it may be issued by this
+corporation with the same effect as if such person were an officer, transfer
+agent or registrar at the date of issue.
+
+    Section 12.4:     Lost Certificates.  Where the owner of any certificate
+for shares of this corporation claims that the certificate has been lost,
+stolen or destroyed, a new certificate shall be issued in place of the original
+certificate if the owner (l) so requests before this corporation has notice
+that the original certificate has been acquired by a bona fide purchaser,
+(2) files with this corporation an indemnity bond in such form and in such
+amount as shall be approved by the Chief Executive Officer, the President or a
+Vice President of this corporation, and (3) satisfies any other reasonable
+requirements imposed by this corporation.  The Board of Directors may adopt
+such other provisions and restrictions with reference to lost certificates,
+not inconsistent with applicable law, as it shall in its discretion deem
+appropriate.
+
+    Section 12.5:     Certification and Inspection of By-Laws.  This
+corporation shall keep at its principal executive or business office the
+original or a copy of these By-Laws as amended or otherwise altered to date,
+which shall be open to inspection by the shareholders at all reasonable times
+during office hours.
+
+    Section 12.6:     Annual Reports.  The making of annual reports to the
+shareholders is dispensed with and the requirement that such annual reports be
+made to shareholders is expressly waived, except as may be directed from time
+to time by the Board of Directors or the President.
+
+    Section 12.7:     Fiscal Quarters.  Each fiscal quarter of the Corporation
+shall be comprised of 13 weeks each of which shall end at midnight on
+Saturday of such week, and the fiscal months in any one calendar quarter shall
+be comprised of at least four consecutive calendar weeks with one week to be
+added, at management's discretion, to any one month during such fiscal year.
+
+    Section 12.8:     Officer Loans and Guaranties.  If the corporation has
+outstanding shares held of record by 100 or more persons on the date of
+approval by the Board of Directors, the corporation may make loans of money
+or property to, or guarantee the obligations of, any officer of the
+corporation or its parent or subsidiaries, whether or not the officer is a
+director, upon the approval of the Board of Directors alone. Such approval by
+the Board of Directors must be determined by a vote of a majority of the
+disinterested directors, if it is determined that such a loan or guaranty may
+reasonably be expected to benefit the corporation. In no event may an officer
+owning 2% or more of the outstanding common shares of the corporation be
+extended a loan under this provision.
+
+
+
+
+
+                                      51
+<PAGE>
+
+                                  Article XIII
+
+                        CONSTRUCTION OF BY-LAWS WITH
+                        REFERENCE TO PROVISIONS OF LAW
+
+    Section 13.1:     By-Law Provisions Additional and Supplemental to
+Provisions of Law.  All restrictions, limitations, requirements and other
+provisions of these By-Laws shall be construed, insofar as possible, as
+supplemental and additional to all provisions of law applicable to the subject
+matter thereof and shall be fully complied with in addition to the said
+provisions of law unless such compliance shall be illegal.
+
+    Section 13.2:     By-Law Provisions Contrary to or Inconsistent with
+Provisions of Law.  Any article, section, subsection, subdivision, sentence,
+clause or phrase of these By-Laws which, upon being construed in the manner
+provided in Section 13.1 hereof, shall be contrary to or inconsistent with any
+applicable provision of law, shall not apply so long as said provisions of law
+shall remain in effect, but such result shall not affect the validity or
+applicability of any other portions of these By-Laws, it being hereby declared
+that these By-Laws, and each article, section, subsection, subdivision,
+sentence, clause, or phrase thereof, would have been adopted irrespective of
+the fact that any one or more articles, sections, subsections, subdivisions,
+sentences, clauses or phrases is or are illegal.
+
+                                  Article XIV
+
+                   ADOPTION, AMENDMENT OR REPEAL OF BY-LAWS
+
+    Section 14.1:     By Shareholders.  By-Laws may be adopted, amended or
+repealed by the vote or written consent of holders of a majority of the
+outstanding shares entitled to vote. By-Laws specifying or changing a fixed
+number of directors  or the maximum or minimum number or changing from a
+fixed to a variable board or vice versa may only be adopted by the
+shareholders; provided, however, that a By-Law or amendment of the Articles
+of Incorporation reducing the number or the minimum number of directors to a
+number less than five cannot be adopted if the votes cast against its adoption
+at a meeting or the shares not consenting in the case of action by written
+consent are equal to more than 16-2/3% of the outstanding shares entitled to
+vote.
+
+    Section 14.2:     By the Board of Directors.  Subject to the right of
+shareholders to adopt, amend or repeal By-Laws, By-Laws, other than a By-
+Law or amendment thereof specifying or changing a fixed number of directors
+or the maximum or minimum number or changing from a fixed to a variable
+board or vice versa, may be adopted, amended or repealed by the Board of
+Directors. A By-Law adopted by the shareholders may restrict or eliminate the
+power of the Board of Directors to adopt, amend or repeal By-Laws.
+
+
+
+
+                                      52
+<PAGE>
+                                  Article XV
+
+                       RESTRICTIONS ON TRANSFER OF STOCK
+
+    Section 15.1:     Subsequent Agreement or By-Law.  If (a) any two or more
+shareholders of this corporation shall enter into any agreement abridging,
+limiting or restricting the rights of any one or more of them to sell, assign,
+transfer, mortgage, pledge, hypothecate or transfer on the books of this
+corporation any or all of the shares of this corporation held by them, and if
+a copy of said agreement shall be filed with this corporation, or if (b)
+shareholders entitled to vote shall adopt any By-Law provision abridging,
+limiting or restricting the aforesaid rights of any shareholders, then, and in
+either of such events, all certificates of shares of stock subject to such
+abridgments, limitations or restrictions shall have a reference thereto
+endorsed thereon by an officer of this corporation and such certificates shall
+not thereafter be transferred on the books of this corporation except in
+accordance with the terms and provisions of such agreement or ByLaw, as the
+case may be; provided, that no restriction shall be binding with respect to
+shares issued prior to adoption of the restriction unless the holders of such
+shares voted in favor of or consented in writing to the restriction.
+
+                                 Article XVI
+
+                    INDEMNIFICATION OF DIRECTORS, OFFICERS,
+                          EMPLOYEES, AND OTHER AGENTS
+
+    Section 16.1:     Indemnification of Directors and Officers.  The
+corporation shall, to the maximum extent and in the manner permitted by the
+Code, indemnify each of its directors and officers against expenses (as
+defined in Section 317(a) of the Code), judgments, fines, settlements, and
+other amounts actually and reasonably incurred in connection with any
+proceeding (as defined in Section 317(a) of the Code), arising by reason of
+the fact that such person is or was an agent of the corporation.  For purposes
+of this Article XVI, a "director" or "officer" of the corporation includes any
+person (i) who is or was a director or officer of the corporation, (ii) who is
+or was serving at the request of the corporation as a director or officer of
+another corporation, partnership, joint venture, trust or other enterprise,
+or (iii) who was a director or officer of a corporation which was a
+predecessor corporation of the corporation or of another enterprise at the
+request of such predecessor corporation.
+
+
+    Section 16.2:     Indemnification of Others.  The corporation shall have
+the power, to the extent and in the manner permitted by the Code, to indemnify
+each of its employees and agents (other than directors and officers) against
+expenses (as defined in Section 317(a) of the Code), judgments, fines,
+settlements, and other amounts actually and reasonably incurred in connection
+with any proceeding (as defined in Section 317(a) of the Code), arising by
+reason of the fact that such person is or was an agent of the corporation.
+For purposes of this Article XVI, an "employee" or "agent" of the corporation
+(other than a director or officer) includes any person (i) who is or was an
+
+                                      53
+<PAGE>
+employee or agent of the corporation, (ii) who is or was serving at the
+request of the corporation as an employee or agent of another corporation,
+partnership, joint venture, trust or other enterprise, or (iii) who was an
+employee or agent of a corporation which was a predecessor corporation of the
+corporation or of another enterprise at the request of such predecessor
+corporation.
+
+    Section 16.3:     Payment of Expenses in Advance.  Expenses incurred in
+defending any civil or criminal action or proceeding for which indemnification
+is required pursuant to Section 16.1 or for which indemnification is permitted
+pursuant to Section 16.2 following authorization thereof by the Board of
+Directors, shall be paid by the corporation in advance of the final
+disposition of such action or proceeding upon receipt of an undertaking by or
+on behalf of the indemnified party to repay such amount if it shall ultimately
+be determined that the indemnified party is not entitled to be indemnified as
+authorized in this Article XVI.
+
+    Section 16.4:     Indemnity Not Exclusive.  The indemnification provided
+by this Article XVI shall not be deemed exclusive of any other rights to which
+those seeking indemnification may be entitled under any bylaw, agreement,
+vote of shareholders or disinterested directors or otherwise, both as to
+action in an official capacity and as to action in another capacity while
+holding such office, to the extent that such additional rights to
+indemnification are authorized in the Articles of Incorporation.
+
+    Section 16.5:     Insurance Indemnification.  The corporation shall have
+the power to purchase and maintain insurance on behalf of any person who is
+or was an Agent of the corporation against any liability asserted against or
+incurred by such person in such capacity or arising out of such person's
+status as such, whether or not the corporation would have the power to
+indemnify him against such liability under the provisions of this Article XVI.
+
+    Section 16.6:     Conflicts.  No indemnification or advance shall be made
+under this Article XVI, except where such indemnification or advance is
+mandated by law or the order, judgment or decree of any court of competent
+jurisdiction, in any circumstance where it appears:
+
+         (a)  That it would be inconsistent with a provision of the Articles
+of Incorporation, these bylaws, a resolution of the shareholders or an
+agreement in effect at the time of the accrual of the alleged cause of the
+action asserted in the proceeding in which the expenses were incurred or other
+amounts were paid, which prohibits or otherwise limits indemnification; or
+
+         (b)  That it would be inconsistent with any condition expressly
+imposed by a court in approving a settlement.
+
+
+
+
+
+                                      54
+<PAGE>
+
+</TEXT>
+</DOCUMENT>
+<DOCUMENT>
+<TYPE>EX-27
+<SEQUENCE>3
+<DESCRIPTION>ART. 5 FDS FOR FY998 FORM 10-K
+<TEXT>
+
+<TABLE> <S> <C>
+
+<ARTICLE>	5
+
+<MULTIPLIER>	                                     1,000,000
+
+<S>                                                   <C>
+<PERIOD-TYPE>                                      9-MOS
+<FISCAL-YEAR-END>                               SEP-25-1999
+<PERIOD-END>	                                   JUN-26-1999
+
+<CASH>                                                1,773
+<SECURITIES>                                          1,333
+<RECEIVABLES>                                           896
+<ALLOWANCES>                                             69
+<INVENTORY>                                               7
+<CURRENT-ASSETS>                                      4,298
+<PP&E>                                                  767
+<DEPRECIATION>                                          454
+<TOTAL-ASSETS>                                        5,019
+<CURRENT-LIABILITIES>                                 1,539
+<BONDS>                                                 300
+<COMMON>                                              1,340
+<PREFERRED-MANDATORY>                                     0
+<PREFERRED>                                             150
+<OTHER-SE>                                               92
+<TOTAL-LIABILITY-AND-EQUITY>                          5,019
+
+<SALES>                                               4,798
+<TOTAL-REVENUES>                                      4,798
+<CGS>                                                 3,486
+<TOTAL-COSTS>                                         3,486
+<OTHER-EXPENSES>                                      1,002
+<LOSS-PROVISION>                                          0
+<INTEREST-EXPENSE>                                       42
+<INCOME-PRETAX>                                         551
+<INCOME-TAX>                                             61
+<INCOME-CONTINUING>                                     490
+<DISCONTINUED>                                            0
+<EXTRAORDINARY>                                           0
+<CHANGES>                                                 0
+<NET-INCOME>                                            490
+<EPS-BASIC>                                          3.54
+<EPS-DILUTED>                                          2.99
+
+
+
+<PAGE>
+
+</TEXT>
+</DOCUMENT>
+</SEC-DOCUMENT>
+-----END PRIVACY-ENHANCED MESSAGE-----

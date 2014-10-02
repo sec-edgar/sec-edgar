@@ -1,0 +1,2815 @@
+-----BEGIN PRIVACY-ENHANCED MESSAGE-----
+Proc-Type: 2001,MIC-CLEAR
+Originator-Name: webmaster@www.sec.gov
+Originator-Key-Asymmetric:
+ MFgwCgYEVQgBAQICAf8DSgAwRwJAW2sNKK9AVtBzYZmr6aGjlWyK3XmZv3dTINen
+ TWSM7vrzLADbmYQaionwg5sDW3P6oaM5D3tdezXMm7z1T+B+twIDAQAB
+MIC-Info: RSA-MD5,RSA,
+ HYxzQWkjfi6BYVRvXvcbcwx4AYuQDwjlAayzCuZiU/KrgJosDTXoxOTb/A24W5JE
+ SHWLG5wP+UiwUcMgCDC42w==
+
+<SEC-DOCUMENT>0000320193-98-000003.txt : 19980414
+<SEC-HEADER>0000320193-98-000003.hdr.sgml : 19980414
+ACCESSION NUMBER:		0000320193-98-000003
+CONFORMED SUBMISSION TYPE:	10-Q
+PUBLIC DOCUMENT COUNT:		3
+CONFORMED PERIOD OF REPORT:	19971226
+FILED AS OF DATE:		19980209
+SROS:			NASD
+
+FILER:
+
+	COMPANY DATA:	
+		COMPANY CONFORMED NAME:			APPLE COMPUTER INC
+		CENTRAL INDEX KEY:			0000320193
+		STANDARD INDUSTRIAL CLASSIFICATION:	3571
+		IRS NUMBER:				942404110
+		STATE OF INCORPORATION:			CA
+		FISCAL YEAR END:			0930
+
+	FILING VALUES:
+		FORM TYPE:		10-Q
+		SEC ACT:		
+		SEC FILE NUMBER:	000-10030
+		FILM NUMBER:		98524718
+
+	BUSINESS ADDRESS:	
+		STREET 1:		1 INFINITE LOOP
+		CITY:			CUPERTINO
+		STATE:			CA
+		ZIP:			95014
+		BUSINESS PHONE:		4089961010
+
+	MAIL ADDRESS:	
+		STREET 1:		ONE INFINITE LOOP
+		CITY:			CUPERTINO
+		STATE:			CA
+		ZIP:			95014
+</SEC-HEADER>
+<DOCUMENT>
+<TYPE>10-Q
+<SEQUENCE>1
+<TEXT>
+
+
+
+                                 UNITED STATES
+                      SECURITIES AND EXCHANGE COMMISSION
+                            Washington, D.C. 20549
+                                   ___________
+
+                                  Form 10-Q
+                                  ___________
+
+                                  (Mark One)
+
+         _X_ QUARTERLY REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE 
+             SECURITIES EXCHANGE ACT OF 1934
+             For the quarterly period ended December 26, 1997 OR
+             TRANSITION REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE 
+             SECURITIES EXCHANGE ACT OF 1934
+             For the transition period from _______ to ________.
+
+                             Commission file number 0-10030
+
+                                  ___________
+ 
+                             APPLE COMPUTER, INC.
+            (Exact name of Registrant as specified in its charter)
+                                  ___________
+
+            CALIFORNIA                    942404110
+     (State or other jurisdiction         (I.R.S. Employer Identification No.)
+of incorporation or organization)
+
+         1 Infinite Loop                                95014
+       Cupertino, California
+     (Address of principal executive offices)           (Zip Code)
+
+      Registrant's telephone number, including area code: (408) 996-1010
+
+        Securities registered pursuant to Section 12(b) of the Act: None
+
+         Securities registered pursuant to Section 12(g) of the Act:
+                          Common Stock, no par value
+                        Common Share Purchase Rights
+                             (Titles of classes)
+                                  ___________
+
+Indicate by check mark whether the Registrant (1) has filed all reports 
+required to be filed by Section 13 or 15(d) of the Securities Exchange Act of 
+1934 during the preceding 12 months (or for such shorter period that the 
+Registrant was required to file such reports), and (2) has been subject to such 
+filing requirements for the past 90 days.
+
+                           Yes    X      No  ____
+
+
+132,768,062 shares of Common Stock Issued and Outstanding as of January 30, 1998
+
+                                      1
+<PAGE>
+
+
+
+PART I. FINANCIAL INFORMATION
+
+Item 1. Financial Statements
+
+                             APPLE COMPUTER, INC.
+
+         CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited)
+                (Dollars in millions, except per share amounts)
+
+<TABLE>
+<CAPTION>	
+                                                     THREE MONTHS ENDED
+
+                                   December 26, 1997          December 27, 1996
+<S>                                              <C>                        <C>
+
+Net sales                                  $   1,578                  $   2,129
+Costs and expenses:
+  Cost of sales                                1,225                      1,732
+  Research and development                        79                        149
+  Selling, general and administrative            234                        372
+                                               1,538                      2,253
+
+Operating income (loss)                           40                      (124)
+Interest and other income (expense), net           7                          4
+
+Income (loss) before provision (benefit) 
+for income taxes                                  47                      (120)
+Provision (benefit) for income taxes              --                         --
+  
+Net income (loss)                          $      47                  $   (120)
+
+Basic earnings (loss) per share            $    0.37                  $  (0.96)
+
+Diluted earnings (loss) per share          $    0.33                  $  (0.96)
+
+Common shares used in the calculations
+ of basic earnings (loss) per share (in 
+thousands)                                   127,989                    124,532
+
+Common and common equivalent shares 
+used in the calculations of diluted 
+earnings (loss) per share (in thousands)     139,839                    124,532
+</TABLE>
+
+See accompanying notes to condensed consolidated financial statements
+(unaudited).
+
+                                      2
+<PAGE>
+
+
+                             APPLE COMPUTER, INC.
+
+                    CONDENSED CONSOLIDATED BALANCE SHEETS
+
+                                    ASSETS
+                                 (In millions)
+<TABLE>
+<CAPTION>	
+                                      December 26, 1997      September 26, 1997
+                                            (Unaudited)
+<S>                                              <C>                        <C>
+
+Current assets:
+
+Cash and cash equivalents                      $  1,193                $  1,230
+Short-term investments                              434                     229
+Accounts receivable, net of allowance
+   for doubtful accounts of $96 ($99 at
+   September 26, 1997)                              902                    1,035
+Inventories:
+  Purchased parts                                    99                     141
+  Work in process                                     5                      15
+  Finished goods                                    300                     281
+                                                    404                     437
+
+Deferred tax assets                                 233                     259
+Other current assets                                207                     234
+
+Total current assets                              3,373                   3,424
+
+Property, plant, and equipment:
+  Land and buildings                                402                     453
+  Machinery and equipment                           416                     460
+  Office furniture and equipment                    100                     110
+  Leasehold improvements                            151                     172
+                                                  1,069                   1,195
+Accumulated depreciation and amortization         (640)                   (709)
+
+  Net property, plant, and equipment                429                     486
+
+Other assets                                        324                     323
+
+                                               $  4,126                $  4,233
+</TABLE>
+
+
+See accompanying notes to condensed consolidated financial statements 
+(unaudited).
+
+
+                                      3
+<PAGE>
+
+
+
+                             APPLE COMPUTER, INC.
+
+              CONDENSED CONSOLIDATED BALANCE SHEETS (Continued)
+
+                     LIABILITIES AND SHAREHOLDERS' EQUITY
+                            (Dollars in millions)
+<TABLE>
+<CAPTION>	
+                                      December 26, 1997      September 26, 1997
+                                          (Unaudited)
+<S>                                              <C>                        <C>
+Current liabilities:
+
+  Notes payable to banks                      $      24               $      25
+  Accounts payable                                  655                     685
+  Accrued compensation and employee benefits         92                      99
+  Accrued marketing and distribution                261                     278
+  Accrued warranty and related                      126                     128
+  Accrued restructuring costs                       144                     180
+  Other current liabilities                         367                     423
+
+           Total current liabilities              1,669                   1,818
+
+Long-term debt                                      952                     951
+Deferred tax liabilities                            261                     264
+Commitments and contingencies
+
+Shareholders' equity:
+
+  Series A non-voting convertible preferred 
+    stock, no par value; 150,000 shares 
+    authorized, issued and outstanding              150                     150
+
+  Common stock, no par value; 320,000,000
+    shares authorized; 128,018,985 shares 
+    issued and outstanding at December 26,
+    1997 (127,949,220 shares at September
+    26, 1997)                                       499                     498 
+  Retained earnings                                 636                     589
+  Other                                            (41)                    (37)
+
+Total shareholders' equity                        1,244                   1,200
+
+                                               $  4,126                $  4,233
+
+</TABLE>
+
+See accompanying notes to condensed consolidated financial statements 
+(unaudited).
+
+                                      4
+<PAGE>
+
+
+                             APPLE COMPUTER, INC.
+
+         CONDENSED CONSOLIDATED STATEMENTS OF CASH FLOWS (Unaudited)
+                            (Dollars in millions)
+<TABLE>
+<CAPTION>	
+                                                         THREE MONTHS ENDED
+
+                                      December 26, 1997       December 27, 1996
+<S>                                                 <C>                     <C>
+Cash and cash equivalents, beginning 
+of the period                                  $  1,230                $  1,552
+
+Operating:
+
+Net income (loss)                                    47                   (120)
+Adjustments to reconcile net income 
+  (loss) to cash generated by operating
+  activities:
+    Depreciation and amortization                    28                      25
+Changes in operating assets and liabilities:
+    Accounts receivable                             133                       4
+    Inventories                                      33                     174
+    Deferred tax assets                              26                      18
+    Other current assets                             27                    (38)
+    Accounts payable                               (30)                      29
+    Accrued restructuring costs                    (36)                    (12)
+    Other current liabilities                      (82)                      30
+    Deferred tax liabilities                        (3)                    (18)
+        Cash generated by operating activities      143                      92
+
+Investing:
+
+Purchase of short-term investments                (399)                   (542)
+Proceeds from sales and maturities of 
+short-term investments                              194                     102
+Net proceeds from sale of property,
+ plant, and equipment                                45                       2
+Purchase of property, plant, and equipment          (7)                    (20)
+Other                                              (14)                    (10)
+        Cash used for investing activities        (181)                   (468)
+
+Financing:
+
+Increase (decrease) in notes payable to banks       (1)                     (6)
+Increase (decrease) in long-term borrowings           1                       1
+Increases in common stock, net of related
+ tax benefits                                         1                       3
+        Cash generated by (used for) 
+          financing activities                        1                     (2)
+
+Total cash used                                    (37)                   (378)
+
+Cash and cash equivalents, end of the period   $  1,193                $  1,174   
+
+
+Supplemental cash flow disclosures:
+  Cash paid during the quarter for interest    $     20                $     20
+  Cash paid(received) during the quarter
+    for income taxes, net                      $   (18)                $     20
+
+</TABLE>
+See accompanying notes to condensed consolidated financial statements 
+(unaudited).
+                                      5
+<PAGE>
+
+
+
+                             APPLE COMPUTER, INC.
+
+       Notes to Condensed Consolidated Financial Statements 
+                             (Unaudited)
+
+1. Interim information is unaudited; however, in the opinion of the Company's 
+management, all adjustments necessary for a fair statement of interim results
+have been included. All adjustments are of a normal recurring nature unless 
+specified in a separate note included in these Notes to Condensed Consolidated 
+Financial Statements. The results for interim periods are not necessarily 
+indicative of results to be expected for the entire year. These financial 
+statements and notes should be read in conjunction with the Company's annual 
+consolidated financial statements and the notes thereto for the fiscal year 
+ended September 26, 1997, included in its Annual Report on Form 10-K for the 
+year ended September 26, 1997 (the "1997 Form 10-K").
+
+2. The Company has adopted Statement of Financial Accounting Standards No. 
+128 ("SFAS 128"), "Earnings Per Share". In accordance with SFAS 128, 
+primary earnings per share have been replaced with basic earnings per share, 
+and fully diluted earnings per share have been replaced with diluted earnings 
+per share which includes potentially dilutive securities such as outstanding 
+options and convertible securities. Prior periods have been presented to 
+conform to SFAS 128, however, as the Company had a net loss in the prior 
+period, basic and diluted loss per share are the same as the primary 
+loss per share previously presented.
+
+Basic earnings per share is computed by dividing income available to common 
+shareholders by the weighted-average number of common shares outstanding 
+during the period. Diluted earnings per share is computed by dividing income 
+available to common shareholders by the weighted-average number of common 
+shares outstanding during the period increased to include the number of 
+additional common shares that would have been outstanding if the dilutive 
+potential common shares had been issued. The dilutive effect of outstanding 
+options is reflected in diluted earnings per share by application of the 
+treasury stock method. The dilutive effect of convertible securities is
+ reflected using the if-converted method. The following table sets forth the 
+computation of basic and diluted earnings per share (in thousands, except net 
+income (loss) and per share amounts):
+
+<TABLE>
+<CAPTION>	                                                    
+                                  For the Quarter ended   For the Quarter ended
+                                    December 27, 1997       December 27, 1996
+<S>                                               <C>                     <C>
+Numerator:
+  Net income (loss)                              $ 47                 $ (120)
+Denominator:
+  Denominator for basic earnings 
+  (loss) per share -- weighted 
+  average shares outstanding                  127,989                 124,532
+
+Effect of Dilutive Securities:
+  Convertible preferred stock                   9,091                      --
+  Dilutive options outstanding                  2,759                      --
+Dilutive potential common shares               11,850                      --
+  Denominator for diluted 
+  earnings per share -- adjusted 
+  weighted-average shares and 
+  assumed conversions                         139,839                 124,532
+
+Basic earnings (loss) per share              $   0.37             $    (0.96)
+
+Diluted earnings (loss) per share            $   0.33             $    (0.96)
+</TABLE>
+
+                                      6
+<PAGE>
+	
+For purposes of calculating diluted earnings per share for the first quarter 
+of 1998, the Company assumed that all employees exchanged their existing 
+options (See Note 5 to the Condensed Consolidated Financial Statements) for 
+new options with an exercise price of $13.6875 effective December 15, 1998. 
+Therefore, all options outstanding as of December 26, 1997, were included in 
+the computation of diluted earnings per share as they were all considered to 
+have exercise prices less than $18.05, the average market price of common 
+shares during the first quarter of 1998.  However, the effect on dilutive 
+earnings per share of approximately 8.5 million of the outstanding options was 
+weighted to reflect that they were only considered outstanding and dilutive 
+options from December 19, 1997, the date of the Company's option exchange 
+offer to its employees, through the end of the quarter. The Company has 
+outstanding $661 million of unsecured convertible subordinated notes (the 
+"Notes") which are convertible by their holders into approximately 22.6 
+million shares of common stock at a conversion price of $29.205 per share 
+subject to the adjustments as defined in the Note agreement. The common 
+shares represented by these Notes were not included in the computation of 
+diluted earnings per share because the effect of using the if-converted method 
+would be anti-dilutive. For additional disclosures regarding the outstanding 
+preferred stock, employee stock options and the Notes, see the 1997 Form 10-K.
+
+3.  In the second quarter of 1996, the Company announced and began to 
+implement a restructuring plan aimed at reducing costs and restoring 
+profitability to the Company's operations. The restructuring plan was 
+necessitated by decreased demand for the Company's products and the 
+Company's adoption of a new strategic direction. These actions resulted in a 
+net charge of $179 million after subsequent adjustments recorded in the fourth 
+quarter of 1996. During 1997, the Company announced and began to 
+implement supplemental restructuring actions to meet the foregoing objectives 
+of the plan. The Company recognized a $217 million charge during 1997 for 
+the estimated incremental costs of those actions, including approximately $8 
+million of costs related to the termination of the Company's former Chief 
+Executive Officer. The combined restructuring actions consist of terminating 
+approximately 3,600 full-time employees, approximately 3,000 of whom have 
+been terminated from the second quarter of 1996 through December 26, 1997, 
+excluding employees who were hired by SCI Systems, Inc. and MCI 
+Systemhouse, the purchasers of the Company's Fountain, Colorado 
+manufacturing facility and the Napa, California data center facility, 
+respectively; canceling or vacating certain facility leases as a result of 
+those employee terminations; writing down certain land, buildings and 
+equipment to be sold as a result of downsizing operations and outsourcing 
+various operational functions; and canceling contracts for projects and 
+technologies that are not central to the Company's core business strategy. The 
+restructuring actions under the plan have resulted in cash expenditures of $195 
+million and noncash asset write-downs of $57 million from the second quarter 
+of 1996 through December 26, 1997. During the third quarter of 1997 
+and the first quarter of 1998, the Company made adjustments to the categories 
+and timing of expected restructure spending based on revised estimates. The 
+Company expects that the remaining $144 million accrued balance as of 
+December 26, 1997 will result in cash expenditures of approximately $102 
+million over the next twelve months and $10 million thereafter. The 
+Company expects that most of the contemplated restructuring actions related to 
+the plan will be completed during fiscal 1998 and will be financed through 
+current working capital and, if necessary, continued short-term borrowings.
+
+                                  7
+<PAGE>
+
+The following table depicts the restructuring activity through 
+ December 26, 1997:
+<TABLE>
+<CAPTION>	
+                                (In millions)
+
+Category                   Balance as of    Spending   Adjustments   Balance as
+                               September      During        During  of December
+                                26, 1997       Q1'98         Q1'98     26, 1997
+<S>                                  <C>         <C>           <C>          <C>
+Payments to employees 
+involuntarily terminated 
+(C)                                $  76        $ 23          $  1        $  54
+Payments on canceled or 
+  vacated facility leases (C)         25           2             3           26
+Write-down of operating 
+  assets to be sold (N)               39           4           (3)           32
+Payments on canceled 
+contracts (C)                         40           7           (1)           32
+
+                                    $180        $ 36         $ --          $144
+</TABLE>
+(C): Cash; (N): Noncash.	
+
+
+4.	In August 1997, the Company agreed to acquire certain assets of 
+Power Computing Corporation ("PCC"), a company which Apple had licensed 
+to distribute the Mac OS operating system. In addition to the acquisition of 
+certain assets such as PCC's customer database and the license to 
+distribute the Mac OS, the Company has the right to retain certain key 
+employees of PCC. The agreement with PCC also includes a release of claims 
+between the parties.
+
+	On January 28, 1998, the Company completed its acquisition of 
+certain assets of PCC. The total purchase price was approximately $115 
+million, which included 4,159,000 shares of the Company's common stock 
+valued at $80 million, the forgiveness of approximately $28 million of 
+receivables due from PCC, assumption by the Company of certain 
+customer support liabilities of PCC, and closing and related costs. The 
+difference between the total purchase price and the $75 million expensed as 
+"Termination of License Agreement" in the fourth quarter of 1997 will be 
+capitalized in the second quarter of 1998 and then amortized over a period of 
+three years.
+
+5.	In order to address concerns regarding the retention of the Company's 
+key employees, in December 1997 the Board of Directors approved an option 
+exchange program which permits employees to exchange all (but not less than 
+all) of their existing options (vested and unvested) with an exercise price of 
+greater than $13.6875 on a one-for-one basis for new options with an exercise 
+price of $13.6875, the fair market value of the Company's common stock on 
+December 19, 1997, and a new four year vesting schedule beginning in 
+December 1997.
+
+6.	In October 1997, the American Institute of Certified Public 
+Accountants issued Statement of Position ("SOP") 97-2, "Software Revenue 
+Recognition." SOP 97-2 establishes standards relating to the recognition of all 
+aspects of software revenue. SOP 97-2 is effective for transactions entered 
+into in fiscal years beginning after December 15, 1997 and may require the 
+Company to modify certain aspects of its revenue recognition policies. The 
+Company does not expect the adoption of SOP 97-2 to have a material impact 
+on the Company's consolidated results of operations.
+
+7.	The Internal Revenue Service ("IRS") has proposed federal income tax 
+deficiencies for the years 1984 through 1991, and the Company has made 
+certain prepayments thereon. The Company contested the proposed deficiencies 
+by filing petitions with the United States Tax Court, and most of the issues in 
+dispute have now been resolved. On June 30, 1997, the IRS proposed income 
+tax adjustments for the years 1992 through 1994. Although a substantial 
+number of issues for these years have been resolved, certain issues still 
+remain in dispute and are being contested by the Company. Management believes 
+that adequate provision has been made for any adjustments that may result from 
+tax examinations.
+
+8.	The information set forth in Item 1 of Part II hereof is hereby 
+incorporated by reference.
+
+                                  8
+<PAGE>
+
+
+Item 2. Management's Discussion and Analysis of 
+Financial Condition and Results of Operations 
+
+This section and other parts of this Form 10-Q contain forward-looking 
+statements that involve risks and uncertainties. The Company's actual results 
+may differ significantly from the results discussed in the forward-looking 
+statements. Factors that might cause such differences include, but are not 
+limited to, those discussed in the subsection entitled "Factors That May 
+Affect Operating Results and Financial Condition" below. 
+
+The following discussion should be read in conjunction with the condensed 
+consolidated financial statements and notes thereto included elsewhere in this 
+Form 10-Q. All information is based on the Company's fiscal calendar. 
+
+Overview
+
+During the first quarter of 1998 the Company experienced significant 
+improvement in its financial performance, reporting its first operating profit 
+since the fourth quarter of 1996 and earning higher gross margins than in both 
+the previous quarter and the same quarter of the prior year. Operating expenses 
+were substantially lower than in the previous quarter and the same 
+quarter from the prior year, reflecting reductions in all functional areas of 
+the Company as a result of continued restructuring actions. However, both net 
+sales and unit sales of Macintosh computer systems fell slightly from the 
+previous quarter and fell substantially from the same quarter in the prior 
+year. The second quarter has historically been the weakest for the Company.  
+Therefore, sequential revenue growth is not expected until at least the third 
+quarter, while year-over-year revenue growth is not expected until at least 
+the fourth quarter. The Company believes that gross margin levels on its 
+current products are sustainable for several quarters and that operating 
+expenses will continue to trend downward through the third quarter.  The 
+foregoing statements are forward looking.  The Company's actual results could 
+differ because of several factors, including those set forth in the following 
+paragraph, and those discussed in the subsection entitled "Factors That May 
+Affect Operating Results and Financial Condition" below.
+
+The Company's future operating results and financial condition are dependent 
+upon the Company's ability to successfully develop, manufacture, and market 
+technologically innovative products in order to meet dynamic customer demand 
+patterns, and are also dependent upon its ability to effect a change in 
+marketplace perception of the Company's prospects, including the viability of 
+the Macintosh platform. Inherent in this process are a number of factors that 
+the Company must successfully manage in order to achieve favorable future 
+operating results and a favorable financial condition. Potential risks and 
+uncertainties that could affect the Company's future operating results and 
+financial condition include, among other things, continued 
+competitive pressures in the marketplace and the effect of any reaction by 
+the Company to such competitive pressures, including pricing actions by the
+Company; the availability of key components on terms acceptable to the 
+Company; the Company's ability to supply products in certain categories; the 
+Company's ability to supply products free of latent defects or other faults;
+the Company's ability to make timely delivery to the marketplace of 
+technological innovations, including its ability to continue to make timely 
+delivery of planned enhancements to the current Mac OS and to make timely 
+delivery of a new and substantially backward-compatible operating system; the 
+Company's ability to successfully integrate the technologies, processes and 
+employees of NeXT Software, Inc. ("NeXT") ,which was acquired by the Company 
+in 1997, with those at Apple; the Company's ability to successfully implement 
+its strategic direction and restructuring actions, including reducing its 
+expenditures; the Company's ability to attract, motivate and retain employees, 
+including a new Chief Executive Officer; the effects of significant adverse 
+publicity; the availability of third-party software for particular 
+applications; and the impact on the Company's sales, market share and gross 
+margins as a result of the Company winding down its Mac OS licensing program. 
+
+
+                                  9
+<PAGE>
+
+
+<TABLE>
+<CAPTION>	
+Results of Operations
+
+                            First    First              First   Fourth
+                          Quarter  Quarter            Quarter  Quarter 
+                             1998     1997  Change       1998     1997   Change 
+(Tabular information: Dollars in millions, except per share amounts)
+<S>                           <C>      <C>     <C>        <C>      <C>      <C>
+
+Net sales                  $1,578   $2,129   (26%)     $1,578   $1,614     (2%)
+Gross margin                 $353     $397   (11%)       $353     $320      10%
+  Percentage of net sales     22%      19%                22%      20%
+Research and development      $79     $149   (47%)        $79      $94    (16%)
+  Percentage of net sales      5%       7%                 5%       6%
+Selling, general and 
+  administrative             $234     $372   (37%)       $234     $259    (10%)
+  Percentage of net sales     15%      17%                15%      16%
+Special Charges
+  Restructuring costs         $--      $--      NM        $--      $62       NM
+    Percentage of net sales    --       --                 --       4%
+  Termination of license 
+    agreement                 $--      $--      NM        $--      $75       NM
+    Percentage of net sales    --       --                 --       5% 
+Interest and other income 
+(expense), net                 $7       $4     75%         $7       $9    (22%)
+Net income (loss)             $47   $(120)    139%        $47   $ (161)    129%
+Basic earnings (loss) 
+per share                   $0.37  $(0.96)    139%      $0.37   $(1.26)    129%
+Diluted earnings (loss)
+ per share                  $0.33  $(0.96)    134%      $0.33   $(1.26)    126%
+
+</TABLE>
+NM: Not Meaningful
+
+Net Sales
+
+Q1 98 Compared with Q1 97
+
+Net sales represent the Company's gross sales net of returns, rebates and 
+discounts. Net sales decreased 26% in the first quarter of 1998 compared with 
+the same quarter of 1997. Total Macintosh computer unit sales and peripheral 
+unit sales decreased 31% and 49%, respectively, in the first quarter of 
+1998, compared with the same period of 1997. The effect on net sales of this 
+decline in computer and peripheral unit sales in the first quarter of 1998 was 
+partially offset by the successful introduction of the Company's Power 
+Macintosh G3 systems in November 1997, which accounted for approximately 
+21% of the 635,000 systems shipped during the first quarter of 1998. The 
+average aggregate revenue per Macintosh unit increased 6% in the first quarter 
+of 1998, compared with the same period of 1997, as a result of a shift in mix 
+from the Company's "Value" (entry level Power Macintosh) products to its 
+"Flagship" line of high-performance Power Macintosh computers and due to 
+increases in the average aggregate revenue across all product lines. In 
+general, the average aggregate revenue per Macintosh computer unit and per 
+peripheral unit is expected to remain under significant downward pressure due 
+to a variety of factors, including industry wide pricing pressures, increased 
+competition, and the need to stimulate demand for the Company's products. 
+
+International net sales represented 50% of total net sales in the first quarter
+ of 1998 compared with 56% of total net sales in the same period of 1997. 
+International net sales declined 34% in the first quarter of 1998 compared with 
+the same period of 1997. Net sales decreased significantly in the European and 
+Japanese markets during the first quarter of 1998 compared with the same 
+period of 1997 as a result of decreases in Macintosh and peripheral unit 
+sales. Further discussion relating to factors contributing to the decline in
+net sales in the Japanese market may be found in this Part I, Item 2 of Form 
+10-Q
+
+                                  10
+<PAGE>
+
+
+under the subheading "Global Market Risks" included under the heading 
+"Factors That May Affect Future Results and Financial Condition," which 
+information is hereby incorporated by reference. 
+
+Domestic net sales declined 16% in the first quarter of 1998 over the 
+comparable period of 1997, due to decreases in unit sales of Macintosh 
+computers and peripheral products, partially offset by increases in the average 
+aggregate revenue per Macintosh and peripheral unit. 
+
+During the first quarter of 1998 compared with the comparable period of 1997, 
+the Company's estimated share of the worldwide and U.S. personal computer 
+markets decreased to 2.6% from 4.3%, and to 3.3% from 5.2%, respectively, 
+based upon current market information provided by industry sources. 
+
+The Company believes that quarterly net sales will be below the level of the 
+prior year's comparable periods through at least the third fiscal quarter of
+1998, if not longer. 
+
+Q1 98 Compared with Q4 97
+
+Net sales decreased 2% in the first quarter of 1998 compared with the fourth 
+quarter of 1997. Total Macintosh computer unit sales decreased 4% in the first 
+quarter of 1998 compared with the prior quarter. The effect on net sales of 
+this decline in unit sales was partially offset by the successful introduction 
+of the Company's Power Macintosh G3 systems in November 1997, which accounted 
+for approximately 21% of the 635,000 systems shipped during the first quarter 
+of 1998. In addition, net sales were positively impacted as the Company began 
+marketing many of its products directly to end users in the U.S. through the 
+Company's on-line store, which opened in November 1997. The Company 
+generated $15 million in revenue from its on-line store during the first 
+quarter of 1998. Unit sales of peripheral products decreased 15% in the first 
+quarter of 1998 compared with the prior quarter. The average aggregate 
+revenue per Macintosh computer unit increased 5% as a result of a shift in mix 
+from the Company's "Value" products to its "Flagship" line of high-
+performance Power Macintosh computers and due to increases in the average 
+aggregate revenue across most other product lines.
+
+International net sales represented 50% of total net sales in the first 
+quarter of 1998, compared with 42% in the fourth quarter of 1997. 
+International net sales increased 16% in the first quarter of 1998 compared 
+with the fourth quarter of 1997, primarily as a result of increases in 
+Macintosh and peripheral unit net sales in Europe and increases in net sales 
+of Macintosh units in Japan.
+
+Domestic net sales decreased 16% in the first quarter of 1998 compared with 
+the prior quarter due to decreases in Macintosh and peripheral unit sales, 
+slightly offset by increases in the average aggregate revenue per Macintosh 
+and peripheral unit. 
+
+During the first quarter of 1998 compared with the fourth quarter of 1997, the 
+Company's estimated share of the worldwide and U.S. personal computer 
+markets decreased to 2.6% from 3.3%, and to 3.3% from 4.6%, respectively, 
+based upon current market information provided by industry sources. 
+
+Backlog
+
+In the Company's experience, the actual amount of product backlog at any 
+particular time is not a meaningful indication of its future business 
+prospects. In particular, backlog often increases in anticipation of or 
+immediately following introduction of new products because of overordering 
+by dealers anticipating shortages. Backlog often is reduced once dealers and 
+customers believe they can obtain sufficient supply. Because of the foregoing, 
+as well as other factors affecting the Company's backlog, backlog should not 
+be considered a reliable indicator of the Company's ability to achieve any 
+particular level of revenue or financial performance. Further information 
+regarding the Company's backlog may be found in Part I, Item 2 of this Form 
+10-Q under the subheading "Product Introductions and Transitions" included 
+under the heading "Factors That May Affect Future Results and Financial 
+Condition," which information is hereby incorporated by reference. 
+
+                                  11
+<PAGE>
+
+
+Gross Margin
+
+Gross margin represents the difference between the Company's net sales and its 
+cost of goods sold. The cost of goods sold is based primarily on the cost of 
+components and, to a lesser extent, direct labor costs. The type and cost of 
+components included in particular configurations of the Company's products 
+(such as memory and disk drives) are often directly related to the need to 
+market products in configurations competitive with other manufacturers. 
+Competition in the personal computer industry is intense and, in the short 
+term, frequent changes in pricing and product configuration are often 
+necessary in order to remain competitive. Accordingly, gross margin as a 
+percentage of net sales can be significantly influenced in the short term by 
+actions undertaken by the Company in response to industry wide competitive 
+pressures. 
+
+Gross margin increased from 18.6% to 22.4% of sales during the first quarter 
+of 1998 compared to the same period of 1997, and increased from 19.8% to 
+22.4% of sales compared to the fourth quarter of 1997. This was primarily as a 
+result of a shift in revenue mix towards the Company's higher margin 
+"Flagship" line of high-performance Power Macintosh computers, including 
+Power Macintosh G3 systems, with relatively stable margins quarter-to-quarter 
+on the Company's "Value" product line.
+
+The gross margin levels in the first quarter of 1998 compared to the fourth 
+quarter of 1997 were not significantly affected by changes in foreign exchange 
+rates. The Company's operating strategy and pricing take into account changes 
+in exchange rates over time; however, the Company's results of operations 
+can be significantly affected in the short term by fluctuations in foreign 
+currency exchange rates. 
+
+While the Company believes the overall gross margin levels achieved in the 
+first quarter of 1998 are sustainable for several quarters, there can be no 
+assurance that such margins will be maintained. In general, gross margins will 
+remain under significant downward pressure due to a variety of factors, 
+including continued industry wide global pricing pressures, increased 
+competition, compressed product life cycles, and potential changes to the 
+Company's product mix. In response to these downward pressures, the 
+Company expects it will continue to take pricing actions with respect to its 
+products. Gross margins could also be affected by the Company's ability to 
+effectively manage quality problems and warranty costs, and to stimulate 
+demand for certain of its products. 
+
+<TABLE>
+<CAPTION>	
+Research and Development
+
+                            First    First              First   Fourth
+                          Quarter  Quarter            Quarter  Quarter 
+                             1998     1997  Change       1998     1997   Change 
+<S>                           <C>      <C>     <C>        <C>      <C>      <C>
+Research and development      $79     $149   (47%)        $79      $94    (16%)
+  Percentage of net sales      5%       7%                 5%       6%
+</TABLE>
+Research and development expenditures decreased in amount and as a 
+percentage of net sales in the first quarter of 1998 compared with the fourth 
+quarter of 1997 and the first quarter of 1997 due to various restructuring 
+actions which resulted in reductions in headcount and cancellation of certain 
+research and development related projects. 
+
+The Company believes that continued and focused investments in research and 
+development are critical to its future growth and competitive position in the 
+marketplace and are directly related to continued, timely development of new 
+and enhanced products that are central to the Company's core business 
+strategy. The Company anticipates that research and development expenditures 
+in the second quarter of 1998 will be comparable to those in the first quarter.
+
+                                  12
+<PAGE>
+<TABLE>
+<CAPTION>	
+Selling, General and Administrative
+
+                            First    First              First   Fourth
+                          Quarter  Quarter            Quarter  Quarter 
+                             1998     1997  Change       1998     1997   Change 
+<S>                           <C>      <C>     <C>        <C>      <C>      <C>
+Selling, general and 
+  administrative             $234     $372   (37%)       $234     $259    (10%)
+  Percentage of net sales     15%      17%                15%      16%
+</TABLE>
+Selling, general and administrative expenditures decreased in amount and as a 
+percentage of net sales in the first quarter of 1998 when compared to the 
+fourth quarter of 1997 and the first quarter of 1997 due to various 
+restructuring actions which resulted in reductions in headcount, the closing 
+of facilities, the write-down of assets, and lower ongoing variable expenses. 
+
+The Company anticipates that selling, general and administrative expenditures 
+will decline further during the second quarter of 1998 as compared to the first 
+quarter of 1998 as the Company completes and more fully realizes the cost 
+reduction benefits of its restructuring plan and lower ongoing variable selling 
+expenses.
+
+<TABLE>
+<CAPTION>	
+Interest and Other Income (Expense), Net
+
+                            First    First              First   Fourth
+                          Quarter  Quarter            Quarter  Quarter 
+                             1998     1997  Change       1998     1997   Change 
+<S>                           <C>      <C>     <C>        <C>      <C>      <C>
+Interest and other income 
+(expense), net                 $7       $4     75%         $7     $9      (22%)
+</TABLE>
+
+Interest and other income (expense), net, is comprised of interest income on 
+the Company's cash and investment balances, interest expense on the 
+Company's debt, gains and losses recognized on investments accounted for 
+using the equity method, foreign exchange gains and losses not allowed 
+to be recognized as revenue or cost of sales, and other 
+miscellaneous income and expense items. Over the last two 
+years, the Company's debt ratings have been downgraded to 
+non-investment grade. The Company's cost of funds may 
+increase in future periods as a result of the downgrading in the 
+second quarter of 1997 of its senior and subordinated long-term 
+debt to B3 and Caa2, respectively, by Moody's Investor 
+Services, and the downgrading in October 1997 of its senior 
+and subordinated long-term debt to B- and CCC, respectively, 
+by Standard and Poor's Rating Agency. 
+
+Provision (Benefit) for Income Taxes
+
+As of December 26, 1997, the Company had deferred tax assets 
+arising from deductible temporary differences, tax losses, and 
+tax credits of $696 million before being offset against certain 
+deferred tax liabilities for presentation on the Company's 
+balance sheet. A substantial portion of this asset is realizable 
+based on the ability to offset existing deferred tax liabilities. 
+As of December 26, 1997, a valuation allowance of $211 
+million was recorded against the deferred tax asset for the 
+benefits of tax losses which may not be realized. Realization 
+of approximately $85 million of the asset representing tax loss 
+and credit carryforwards is dependent on the Company's ability 
+to generate approximately $245 million of future U.S. taxable 
+income. Management believes that it is more likely than not 
+that forecasted U.S. income, including income that may be 
+generated as a result of certain tax planning strategies, will be 
+sufficient to utilize the tax carryforwards prior to their 
+expiration in 2011 and 2012 to fully recover this asset. 
+However, there can be no assurance that the Company will 
+meet its expectations of future U.S. income. As a result, the 
+amount of the deferred tax assets considered realizable could be 
+reduced in the near and long term if estimates of future taxable 
+U.S. income are reduced. Such an occurrence could materially 
+adversely affect the Company's consolidated financial results. 
+The Company will continue to evaluate the realizability of the 
+deferred tax assets quarterly by assessing the need for and 
+amount of the valuation allowance.
+
+                                  13
+<PAGE>
+
+Factors That May Affect Future Results and Financial Condition
+
+Restructuring of Operations
+
+During 1996, the Company began to implement certain 
+restructuring actions aimed at reducing its cost structure, 
+improving its competitiveness, and restoring sustainable 
+profitability. During 1997, the Company announced and began 
+to implement supplemental restructuring actions, including 
+significant headcount reductions, to meet the foregoing 
+objectives. There are several risks inherent in the Company's 
+efforts to transition to a new cost structure. These include the 
+risk that the Company will not be able to reduce expenditures 
+quickly enough to restore sustainable profitability and the risk 
+that cost-cutting initiatives will impair the Company's ability 
+to innovate and remain competitive in the computer industry. 
+
+Implementation of this restructuring involves several risks, 
+including the risk that by simplifying and modifying its product 
+line the Company will increase its dependence on fewer 
+products, potentially reduce overall sales, and increase its 
+reliance on unproven products and technology. Another risk of 
+the restructuring is that by increasing the proportion of the 
+Company's products to be manufactured under outsourcing 
+arrangements, the Company could lose control of the quality or 
+quantity of the products manufactured and distributed, or lose 
+the flexibility to make timely changes in production schedules 
+in order to respond to changing market conditions. As part of 
+its restructuring, the Company announced and opened its on-
+line store in November 1997, which makes available most of 
+its products to end-users in the U.S. There can be no assurance 
+the on-line store will result in greater sales. The Company also 
+began manufacturing products on a build-to-order basis in 
+November 1997. There can be no assurance this manufacturing 
+process will result in decreased costs or increased gross margins. 
+The Company is also reducing the number of wholesale and 
+retail channel partners, particularly in the Americas, which 
+places a greater volume of sales through fewer partners. There 
+can be no assurance that this will not adversely impact the 
+Company. In addition, the actions taken in connection with the 
+restructuring could adversely affect employee morale, thereby 
+damaging the Company's ability to retain and motivate 
+employees. Also, because the Company contemplates relying 
+to a greater extent on collaboration and licensing arrangements 
+with third parties, the Company will have less direct control 
+over certain of its research and development efforts, and its 
+ability to create innovative new products may be reduced. In 
+addition, there can be no assurance that the technologies 
+acquired from NeXT will be successfully exploited, or that key 
+NeXT employees and processes will be retained and successfully 
+integrated with those at Apple. Also, the restructuring includes 
+the winding down of the Company's Mac OS licensing 
+program. There can be no assurance that the winding down of 
+this program will result in greater sales, market share, and 
+increased gross margins to the Company. In addition, there can 
+be no assurance that this action will not result in the 
+availability of fewer application software titles for the Mac OS, 
+which may result in a decrease to the Company's sales, market 
+share and gross margins. Finally, even if the restructuring is 
+successfully implemented, there can be no assurance that it will 
+effectively resolve the various issues currently facing the 
+Company. Although the Company believes that the actions it 
+is taking in connection with the restructuring, including its 
+acquisition of NeXT and the winding down of its Mac OS 
+licensing program, should help restore marketplace confidence 
+in the Company, there can be no assurance that such actions 
+will enable the Company to achieve its objectives of reducing 
+its cost structure, improving its competitiveness, and restoring 
+sustainable profitability. The Company's future consolidated 
+operating results and financial condition could be adversely 
+affected should it encounter difficulty in effectively managing 
+the restructuring and new cost structure. 
+
+Additional information relating to the restructuring of 
+operations may be found in Part I of this Form 10-Q in Note 3 
+of the Notes to Condensed Consolidated Financial Statements 
+(Unaudited), which information is hereby incorporated by 
+reference. 
+
+Product Introductions and Transitions
+
+Due to the highly volatile nature of the personal computer 
+industry, which is characterized by dynamic customer demand 
+patterns and rapid technological advances, the Company must 
+continuously introduce new products and technologies and 
+enhance existing products in order to remain competitive. 
+Recent introductions include certain PowerBook and Power 
+Macintosh products, including the Power Macintosh G3 
+computers in November 1997, and the introduction of Mac OS 
+8 in July 1997. The success of new product introductions is 
+dependent on a number of 
+
+                                  14
+<PAGE>
+
+
+factors, including market acceptance, the Company's ability to 
+manage the risks associated with product transitions, the 
+availability of application software for new products, the 
+effective management of inventory levels in line with 
+anticipated product demand, the availability of products in 
+appropriate quantities to meet anticipated demand, and the risk 
+that new products may have quality or other defects in the early 
+stages of introduction. Accordingly, the Company cannot 
+determine the effect that new products will have on its sales or 
+results of operations. In addition, although the number of new 
+product introductions may decrease as a result of the Company's 
+restructuring actions, the risks and uncertainties associated with 
+new product introductions may increase as the Company 
+refocuses its product offerings on key growth segments and to 
+the extent new product introductions are in markets that are new 
+to the Company. 
+
+The rate of product shipments immediately following 
+introduction of a new product is not necessarily an indication of 
+the future rate of shipments for that product, which depends on 
+many factors, some of which are not under the control of the 
+Company. These factors may include initial large purchases by 
+a small segment of the user population that tends to purchase 
+new technology prior to its acceptance by the majority of users 
+("early adopters"); purchases in satisfaction of pent-up demand 
+by users who anticipated new technology and, as a result, 
+deferred purchases of other products; and overordering by dealers 
+who anticipate shortages due to the aforementioned factors. 
+These factors may be offset by others, such as the deferral of 
+purchases by many users until new technology is accepted as 
+"proven" and for which commonly used software products are 
+available; and the reduction of orders by dealers once they 
+believe they can obtain sufficient supply of products previously 
+in backlog. 
+
+Backlog is often volatile after new product introductions due to 
+the aforementioned demand factors, often increasing coincident 
+with introduction, and then decreasing once dealers and 
+customers believe they can obtain sufficient supply of the new 
+products. The Company has in the past experienced difficulty in 
+anticipating demand for new products, resulting in product 
+shortages which have adversely affected the Company's 
+operating results. 
+
+The measurement of demand for newly introduced products is 
+further complicated by the availability of different product 
+configurations, which may include various types of built-in 
+peripherals and software. Configurations may also require 
+certain localization (such as language) for various markets and, 
+as a result, demand in different geographic areas may be a 
+function of the availability of third-party software in those 
+localized versions. For example, the availability of European-
+language versions of software products manufactured by U.S. 
+producers may lag behind the availability of U.S. versions by a 
+quarter or more. This may result in lower initial demand for the 
+Company's new products outside the U.S., even though 
+localized versions of the Company's products may be available. 
+
+The increasing integration of new or enhanced functions and 
+complexity of operations of the Company's products also 
+increase the risk that latent defects or other faults could be 
+discovered by customers or end-users after volumes of products 
+have been produced or shipped. If such defects were significant, 
+the Company could incur material recall and replacement costs 
+under product warranties. 
+
+The Company has announced plans for two operating systems. 
+The Company plans to continue to introduce major upgrades to 
+the current Mac OS and later introduce a new operating system 
+(code named "Rhapsody") which is expected to offer advanced 
+functionality based on Apple and NeXT software technologies. 
+However, the NeXT software technologies that the Company 
+plans to use in the development of Rhapsody were not 
+originally designed to be compatible with the Mac OS. As a 
+result, there can be no assurance that the development of 
+Rhapsody can be completed at reasonable cost or at all. In 
+addition, Rhapsody may not be fully backward-compatible with 
+all existing applications, which could result in a loss of 
+existing customers. Finally, it is uncertain whether Rhapsody 
+or the planned enhancements to the current Mac OS will gain 
+developer support and market acceptance. Inability to 
+successfully develop and make timely delivery of a substantially 
+backward-compatible Rhapsody or of planned enhancements to 
+the current Mac OS, or to gain developer support and market 
+acceptance for those operating systems, may have an adverse 
+impact on the Company's consolidated operating results and 
+financial condition. 
+
+                                  15
+<PAGE>
+
+
+Competition
+
+The personal computer industry is highly competitive and is 
+characterized by aggressive pricing practices, downward pressure 
+on gross margins, frequent introduction of new products, short 
+product life cycles, continual improvement in product 
+price/performance characteristics, price sensitivity on the part of 
+consumers, and a large number of competitors. The Company's 
+consolidated results of operations and financial condition have 
+been, and in the future may continue to be, adversely affected by 
+industry wide pricing pressures and downward pressures on 
+gross margins. The industry has also been characterized by rapid 
+technological advances in software functionality and hardware 
+performance and features based on existing or emerging industry 
+standards. Many of the Company's competitors have greater 
+financial, marketing, manufacturing, and technological 
+resources, as well as broader product lines and larger installed 
+customer bases than those of the Company. 
+
+The Company's future consolidated operating results and 
+financial condition may be affected by overall demand for 
+personal computers and general customer preferences for one 
+platform over another or one set of product features over 
+another. 
+
+The Company is currently the primary maker of hardware that 
+uses the Mac OS. The Mac OS has a minority market share in 
+the personal computer market, which is dominated by makers of 
+computers that run the Microsoft Windows 95 and Windows 
+NT operating systems. The Company believes that the Mac 
+OS, with its perceived advantages over Windows, and the 
+general reluctance of the Macintosh installed base to incur the 
+costs of switching platforms, have been driving forces behind 
+sales of the Company's personal computer hardware for the past 
+several years. Recent innovations in the Windows platform, 
+including those included in Windows 95 and Windows NT, or 
+those expected to be included in a new version of Windows to 
+be introduced in 1998, have added features to the Windows 
+platform that make the differences between the Mac OS and 
+Microsoft's Windows operating systems less significant. The 
+Company is currently taking and will continue to take steps to 
+respond to the competitive pressures being placed on its 
+personal computer sales as a result of the recent innovations in 
+the Windows platform. The Company's future consolidated 
+operating results and financial condition will be substantially 
+dependent on its ability to maintain continuing improvements 
+to the Macintosh platform in order to maintain perceived 
+functional advantages over competing platforms. 
+
+The Company had previously entered into agreements to license 
+its Mac OS to other personal computer vendors (the "Clone 
+Vendors") as part of an effort to increase the installed base for 
+the Macintosh platform. The Company recently determined that 
+the benefits of licensing the Mac OS to the Clone Vendors 
+under these agreements were more than offset by the impact and 
+costs of the licensing program. As a result, the Company 
+agreed to acquire certain assets, including the license to 
+distribute the Mac OS, of PCC, a Clone Vendor, and has no 
+plans to renew its other Mac OS licensing agreements. 
+Although the Company believes that this winding down of its 
+licensing program will help reduce the adverse impact of the 
+licensing program on the Company's sales, market share and 
+gross margins, there can be no assurance that this will occur. In 
+addition, there can be no assurance that this winding down of 
+the licensing program will not result in the availability of fewer 
+application software titles for the Mac OS, which may result in 
+a decrease to the Company's sales, market share and gross 
+margins. 
+
+As a supplemental means of addressing the competition from 
+Windows and other platforms, the Company had previously 
+devoted substantial resources toward developing personal 
+computer products capable of running application software 
+designed for the Windows operating systems. These products 
+include an add-on card containing a Pentium or 586-class 
+microprocessor that enables users to run applications 
+concurrently that require the Mac OS, Windows 3.1 or 
+Windows 95 operating systems. The Company plans to 
+transition the cross-platform business to third-parties during 
+1998. There can be no assurance that this transition will be 
+successful. 
+
+The Company, International Business Machines Corporation 
+and Motorola, Inc. had agreed upon and announced the 
+availability of specifications for a PowerPC microprocessor-
+based hardware platform (the "Platform"). These specifications 
+defined a "unified" personal computer architecture that would 
+have given the Clone Vendors broad access to the Power 
+Macintosh platform and would have utilized standard industry 
+components. The Company had intended to license the Mac OS 
+to manufacturers of the Platform. However, the Company has 
+decided it will no longer support the Platform based upon its 
+decision to wind down its Mac OS licensing program, and 
+because of 
+
+                                  16
+<PAGE>
+
+
+little industry support for the Platform. The decision not to 
+further develop this Platform may affect the Company's ability 
+to increase the installed base for the Macintosh platform. 
+
+Several competitors of the Company have either targeted or 
+announced their intention to target certain of the Company's 
+key market segments, including education and publishing. 
+Many of these companies have greater financial, marketing, 
+manufacturing, and technological resources than the Company. 
+
+In August 1997, the Company and Microsoft entered into 
+patent cross licensing and technology agreements. Under these 
+agreements, the companies provided patent cross licenses to 
+each other. In addition, for a period of five years from August 
+1997, Microsoft will make future versions of its Microsoft 
+Office and Internet Explorer products for the Mac OS, and the 
+Company will bundle the Internet Explorer product with Mac 
+OS system software releases and make that product the default 
+Internet browser for such releases. In addition, Microsoft 
+purchased 150,000 shares of Apple Series 'A' non-voting 
+convertible preferred stock for $150 million. While the 
+Company believes that its relationship with Microsoft will be 
+beneficial to the Company and to its efforts to increase the 
+installed base for the Mac OS, the Microsoft relationship is for 
+a limited term and does not cover many of the areas in which 
+the Company competes with Microsoft, including the Windows 
+platform. In addition, the Microsoft relationship may have an 
+adverse effect on, among other things, the Company's 
+relationship with other partners. There can be no assurance that 
+the benefits to the Company of the Microsoft relationship will 
+not be offset by the disadvantages. 
+
+Support from Third-Party Software Developers
+
+Decisions by customers to purchase the Company's personal 
+computers, as opposed to Windows-based systems, are often 
+based on the availability of third-party software for particular 
+applications. The Company believes that the availability of 
+third-party application software for the Company's hardware 
+products depends in part on third-party developers' perception 
+and analysis of the relative benefits of developing, maintaining, 
+and upgrading such software for the Company's products versus 
+software for the larger Windows market. This analysis is based 
+on factors such as the perceived strength of the Company and 
+its products, the anticipated potential revenue that may be 
+generated, and the costs of developing such software products. 
+To the extent the Company's recent financial losses and 
+declining demand for the Company's products, as well as the 
+Company's decision to wind down its Mac OS licensing 
+program, have caused software developers to question the 
+Company's prospects in the personal computer market, 
+developers could be less inclined to develop new application 
+software or upgrade existing software for the Company's 
+products and more inclined to devote their resources to 
+developing and upgrading software for the larger Windows 
+market. Moreover, the Company's current plan to introduce a 
+new operating system (code named "Rhapsody") could cause 
+software developers to stop developing software for the current 
+Mac OS. In addition, there can be no assurance that software 
+developers will decide to develop software for the new operating 
+system on a timely basis or at all. 
+
+Microsoft is an important developer of application software for 
+the Company's products. Although the Company has entered 
+into a relationship with Microsoft, which includes Microsoft's 
+agreement to develop and ship future versions of its Microsoft 
+Office and Internet Explorer products and certain other Microsoft 
+tools for the Mac OS, such relationship is for a limited term 
+and does not cover many areas in which the Company competes 
+with Microsoft. Accordingly, Microsoft's interest in producing 
+application software for the Mac OS not covered by the 
+relationship or upon expiration of the relationship may be 
+influenced by Microsoft's perception of its interests as the 
+vendor of the Windows operating system. 
+
+Global Market Risks
+
+A large portion of the Company's revenue is derived from its 
+international operations. As a result, the Company's 
+consolidated operations and financial results could be 
+significantly affected by risks associated with international 
+activities, including economic and labor conditions, political 
+instability, tax laws (including U.S. taxes on foreign 
+subsidiaries), and changes in the value of the U.S. dollar versus 
+the local currency in which the products are sold. 
+
+Countries in the Asia Pacific region, including Japan, have 
+recently experienced weaknesses in their currency, banking and 
+equity markets. These weaknesses could adversely affect 
+consumer demand for the Company's products, 
+
+
+                                  17
+<PAGE>
+
+
+the U.S. dollar value of the Company's foreign currency 
+denominated sales, the availability and supply of product 
+components to the Company, and ultimately the Company's 
+consolidated results of operations. 
+
+When the U.S. dollar strengthens against other currencies, the 
+U.S. dollar value of non-U.S. dollar-based sales decreases. 
+When the U.S. dollar weakens, the U.S. dollar value of non-
+U.S. dollar-based sales increases. Correspondingly, the U.S. 
+dollar value of non-U.S. dollar-based costs increases when the 
+U.S. dollar weakens and decreases when the U.S. dollar 
+strengthens. Overall, the Company is a net receiver of 
+currencies other than the U.S. dollar and, as such, benefits from 
+a weaker dollar and is adversely affected by a stronger dollar 
+relative to major currencies worldwide. Accordingly, changes in 
+exchange rates, and in particular a strengthening of the U.S. 
+dollar, may negatively affect the Company's consolidated sales 
+and gross margins (as expressed in U.S. dollars). 
+
+While the Company is exposed with respect to fluctuations in 
+the interest rates of many of the world's leading industrialized 
+countries, the Company's interest income and expense is most 
+sensitive to fluctuations in the general level of U.S. interest 
+rates. In this regard, changes in U.S. interest rates affect the 
+interest earned on the Company's cash, cash equivalents, and 
+short-term investments as well as costs associated with foreign 
+currency hedges. To mitigate the impact of fluctuations in U.S. 
+interest rates, the Company has entered into interest rate swap, 
+collar, and floor transactions. 
+
+To ensure the adequacy and effectiveness of the Company's 
+foreign exchange and interest rate hedge positions, as well as to 
+monitor the risks and opportunities of the nonhedge portfolios, 
+the Company continually monitors its foreign exchange forward 
+and option positions, and its interest rate swap, option and floor 
+positions both on a stand-alone basis and in conjunction with 
+its underlying foreign currency- and interest rate-related 
+exposures, respectively, from both an accounting and an 
+economic perspective. However, given the effective horizons of 
+the Company's risk management activities, there can be no 
+assurance that the aforementioned programs will offset more 
+than a portion of the adverse financial impact resulting from 
+unfavorable movements in either foreign exchange or interest 
+rates. In addition, the timing of the accounting for recognition 
+of gains and losses related to mark-to-market instruments for 
+any given period may not coincide with the timing of gains and 
+losses related to the underlying economic exposures and, 
+therefore, may adversely affect the Company's consolidated 
+operating results and financial position. The Company does not 
+engage in leveraged hedging. 
+
+The Company's current financial condition may increase the 
+costs of its hedging transactions, as well as affect the nature of 
+the hedging transactions into which the Company's 
+counterparties are willing to enter. 
+
+Inventory and Supply
+
+The Company makes a provision for inventories of products 
+that have become obsolete or are in excess of anticipated 
+demand, accrues for any cancellation fees of orders for 
+inventories that have been canceled, and accrues for the 
+estimated costs to correct any product quality problems. 
+Although the Company believes its inventory and related 
+provisions are adequate given the rapid and unpredictable pace of 
+product obsolescence in the computer industry, no assurance can 
+be given that the Company will not incur additional inventory 
+and related charges. In addition, such charges have had, and may 
+again have, a material effect on the Company's consolidated 
+financial position and results of operations. 
+
+The Company must order components for its products and build 
+inventory well in advance of product shipments. Because the 
+Company's markets are volatile and subject to rapid technology 
+and price changes, there is a risk that the Company will forecast 
+incorrectly and produce excess or insufficient inventories of 
+particular products. The Company's consolidated operating 
+results and financial condition have been in the past and may in 
+the future be materially adversely affected by the Company's 
+ability to manage its inventory levels and respond to short-term 
+shifts in customer demand patterns. 
+
+Certain of the Company's products are manufactured in whole 
+or in part by third-party manufacturers, either pursuant to design 
+specifications of the Company or otherwise. As part of its 
+restructuring actions, the Company sold its Fountain, 
+Colorado, manufacturing facility to SCI and entered into a 
+related manufacturing outsourcing agreement with SCI; sold its 
+Singapore printed circuit board manufacturing assets to NatSteel 
+Electronics Pte., Ltd., which is 
+
+                                  18
+<PAGE>
+
+
+expected to supply main logic boards to the Company under a 
+manufacturing outsourcing agreement; entered into an 
+agreement with Ryder Integrated Logistics, Inc. to outsource the 
+Company's domestic operations transportation and logistics 
+management; and has entered into other similar agreements to 
+outsource the Company's European operations transportation 
+and logistics management. As a result of the foregoing actions, 
+the proportion of the Company's products produced and 
+distributed under outsourcing arrangements will continue to 
+increase. While outsourcing arrangements may lower the fixed 
+cost of operations, they will also reduce the direct control the 
+Company has over production and distribution. It is uncertain 
+what effect such diminished control will have on the quality or 
+quantity of the products manufactured, or the flexibility of the 
+Company to respond to changing market conditions. 
+Furthermore, any efforts by the Company to manage its 
+inventory under outsourcing arrangements could subject the 
+Company to liquidated damages or cancellation of the 
+arrangement. Moreover, although arrangements with such 
+manufacturers may contain provisions for warranty expense 
+reimbursement, the Company remains at least initially 
+responsible to the ultimate consumer for warranty service. 
+Accordingly, in the event of product defects or warranty 
+liability, the Company may remain primarily liable. Any 
+unanticipated product defect or warranty liability, whether 
+pursuant to arrangements with contract manufacturers or 
+otherwise, could adversely affect the Company's future 
+consolidated operating results and financial condition. 
+
+Although certain components essential to the Company's 
+business are generally available from multiple sources, other 
+key components (including microprocessors and application 
+specific integrated circuits ("ASICs")) are currently obtained by 
+the Company from single sources. If the supply of a key 
+single-sourced component were to be delayed or curtailed, the 
+Company's business and financial performance could be 
+adversely affected, depending on the time required to obtain 
+sufficient quantities from the original source, or to identify and 
+obtain sufficient quantities from an alternate source. The 
+Company believes that the availability from suppliers to the 
+personal computer industry of microprocessors and ASICs 
+presents the most significant potential for constraining the 
+Company's ability to manufacture products. Some advanced 
+microprocessors are currently in the early stages of ramp-up for 
+production and thus have limited availability. The Company 
+and other producers in the personal computer industry also 
+compete for other semiconductor products with other industries 
+that have experienced increased demand for such products, due to 
+either increased consumer demand or increased use of 
+semiconductors in their products (such as the cellular phone and 
+automotive industries). Finally, the Company uses some 
+components that are not common to the rest of the personal 
+computer industry (including certain microprocessors and 
+ASICs). Continued availability of these components may be 
+affected if producers were to decide to concentrate on the 
+production of common components instead of components 
+customized to meet the Company's requirements. Such product 
+supply constraints and corresponding increased costs could 
+decrease the Company's net sales and adversely affect the 
+Company's consolidated operating results and financial 
+condition. 
+
+The Company's ability to produce and market competitive 
+products is also dependent on the ability and desire of IBM and 
+Motorola, the sole suppliers of the PowerPC RISC 
+microprocessor for the Company's Macintosh computers, to 
+supply to the Company in adequate numbers microprocessors 
+that produce superior price/performance results compared with 
+those supplied to the Company's competitors by Intel 
+Corporation, and other developers and producers of the 
+microprocessors used by most personal computers using the 
+Windows operating systems. The desire of IBM and Motorola 
+to continue producing these microprocessors may be influenced 
+by Microsoft's decision not to adapt its Windows NT operating 
+system software to run on the PowerPC microprocessor. IBM 
+produces personal computers based on Intel microprocessors as 
+well as workstations based on the PowerPC microprocessor, 
+and is also the developer of OS/2, a competing operating 
+system to the Company's Mac OS. Accordingly, IBM's interest 
+in supplying the Company with microprocessors for the 
+Company's products may be influenced by IBM's perception of 
+its interests as a competing manufacturer of personal computers 
+and as a competing operating system vendor. In addition, 
+Motorola has recently announced its intention to stop producing 
+Macintosh clones. As a result, Motorola may be less inclined 
+to continue to produce PowerPC microprocessors. 
+
+The Company's current financial condition and uncertainties 
+related to recent events could affect the terms on which 
+suppliers are willing to supply the Company with their 
+products. There can be no assurance that the Company's current 
+suppliers will continue to supply the Company on terms 
+acceptable to the Company or that the Company will be able to 
+obtain comparable products from alternate sources on such 
+terms. The Company's future consolidated operating results and 
+financial condition could be adversely affected if the Company 
+is unable to continue to obtain key components on terms 
+substantially similar to those currently available to the 
+Company. 
+
+                                  19
+<PAGE>
+
+
+Marketing and Distribution
+
+A number of uncertainties may affect the marketing and 
+distribution of the Company's products. Currently, the 
+Company distributes its products through wholesalers, resellers, 
+mass merchants, and cataloguers (collectively referred to as 
+"resellers") and direct to higher education institutions. In 
+addition, in November 1997 the Company began selling many 
+of its products directly to end users in the U.S. through the 
+Company's on-line store. Many of the Company's significant 
+resellers operate on narrow product margins. Most such resellers 
+also distribute products from competing manufacturers. The 
+Company's business and financial results could be adversely 
+affected if the financial condition of these resellers weakened or 
+if resellers within consumer channels were to decide not to 
+continue to distribute the Company's products. 
+
+Uncertainty over demand for the Company's products may 
+continue to cause resellers to reduce their ordering and 
+marketing of the Company's products. In addition, the 
+Company has in the past and may in the future experience 
+delays in ordering by resellers in light of uncertain demand for 
+the Company's products. Under the Company's arrangements 
+with its resellers, resellers have the option to reduce or 
+eliminate unfilled orders previously placed, in most instances 
+without financial penalty. Resellers also have the option to 
+return products to the Company without penalty within certain 
+limits, beyond which they may be assessed fees. The Company 
+has recently revised its channel program, including decreasing 
+the number of resellers and reducing returns, price protection 
+and certain rebate programs, in an effort to reduce channel 
+inventory, increase inventory turns, increase product support 
+within the channel and improve gross margins. In addition, in 
+November 1997 the Company opened its on-line store in the 
+U.S. which makes many of the Company's products available 
+directly to the end-user. Although the Company believes the 
+foregoing changes will improve its consolidated operating 
+results and financial condition, there can be no assurance that 
+this will occur. 
+
+Change in Senior Management
+
+On July 9, 1997, the Company announced that Dr. Gilbert F. 
+Amelio had resigned his positions as Chairman of the Board and 
+Chief Executive Officer and that the Company was initiating a 
+search for a new Chief Executive Officer. While the Company 
+intends to name a new Chief Executive Officer as soon as 
+practicable, there can be no assurance that the change in senior 
+management and related uncertainties will not adversely affect 
+the Company's consolidated operating results and financial 
+condition during the period until a new Chief Executive Officer 
+is hired and afterward. In addition, certain members of the 
+Company's senior management have been with the Company 
+for less than twelve months. There can be no assurance that 
+new members of the management team can be successfully 
+assimilated, that the Company will be able to satisfactorily 
+allocate responsibilities or that such new members of its 
+management will succeed in their roles in a timely and efficient 
+manner. The Company's failure to recruit, retain and assimilate 
+new executives, or the failure of any such executive to perform 
+effectively, or the loss of any such executive, could have a 
+material adverse impact on the Company's business, financial 
+condition and results of operations. 
+
+Changes to Board of Directors
+
+The Company announced on August 6, 1997 significant 
+changes to its Board of Directors, replacing all but two former 
+directors. The continuing directors are Gareth C.C. Chang, 
+Corporate Senior Vice President, Marketing, Hughes 
+Electronics and President, Hughes International, and Edgar S. 
+Woolard, Jr., retired Chairman of E.I. DuPont de Nemours & 
+Company. The new directors are William V. Campbell, 
+President and CEO of Intuit Corp.; Lawrence J. Ellison, 
+Chairman and Chief Executive Officer of Oracle Corp.; Steven 
+P. Jobs, Chairman and Chief Executive Officer of Pixar 
+Animation Studios; and Jerome B. York, Vice Chairman of 
+Tracinda Corporation and former Chief Financial Officer of IBM 
+and Chrysler Corporation. 
+
+Dependence on Key Employees
+
+During the past several years, the Company has experienced 
+significant voluntary employee turnover as a result of 
+employees' concerns over the Company's prospects, as well as 
+the abundance of career opportunities available elsewhere. The 
+Company is dependent on its key employees in order to achieve 
+its business plan. There can be no assurance the Company will 
+be able to attract, motivate and retain key employees. Failure to 
+do so may have a significant effect on the Company's 
+consolidated operating results and financial condition. 
+                                  20
+<PAGE>
+
+
+Other Factors
+
+The Company is in the process of identifying operating and 
+application software challenges related to the year 2000. While 
+the Company expects to resolve year 2000 compliance issues 
+substantially through normal replacement and upgrades of 
+software, there can be no assurance that there will not be 
+interruption of operations or other limitations of system 
+functionality or that the Company will not incur substantial 
+costs to avoid such limitations. Any failure to effectively 
+monitor, implement or improve the Company's operational, 
+financial, management and technical support systems could 
+have a material adverse effect on the Company's business and 
+consolidated results of operations. 
+
+The majority of the Company's research and development 
+activities, its corporate headquarters, and other critical business 
+operations, including certain major vendors, are located near 
+major seismic faults. The Company's consolidated operating 
+results and financial condition could be materially adversely 
+affected in the event of a major earthquake. 
+
+Production and marketing of products in certain states and 
+countries may subject the Company to environmental and other 
+regulations which include, in some instances, the requirement 
+that the Company provide consumers with the ability to return 
+to the Company product at the end of its useful life, and leave 
+responsibility for environmentally safe disposal or recycling 
+with the Company. It is unclear what effect such regulations 
+will have on the Company's future consolidated operating 
+results and financial condition. 
+
+The Company recently decided to replace its existing transaction 
+systems in the U.S. (which include order management, product 
+procurement, distribution, and finance) with a single integrated 
+system as part of its ongoing effort to increase operational 
+efficiency. Substantially all of the transaction systems in the 
+European operations were replaced with the same integrated 
+system in 1997. The Company's future consolidated operating 
+results and financial condition could be adversely affected if the 
+Company is unable to implement and effectively manage the 
+transition to this new integrated system. 
+
+Because of the foregoing factors, as well as other factors 
+affecting the Company's consolidated operating results and 
+financial condition, past financial performance should not be 
+considered to be a reliable indicator of future performance, and 
+investors should not use historical trends to anticipate results or 
+trends in future periods. In addition, the Company's 
+participation in a highly dynamic industry often results in 
+significant volatility of the Company's common stock price. 
+
+                                      21
+<PAGE>
+
+Liquidity and Capital Resources
+
+The Company's consolidated financial position with respect to 
+cash, cash equivalents, and short-term investments increased to 
+$1,627 million as of December 26, 1997, from $1,459 million 
+as of September 26, 1997. The Company's cash and cash 
+equivalent balances as of December 26, 1997 and September 26, 
+1997 include $164 million and $165 million, respectively, 
+pledged as collateral to support letters of credit primarily 
+associated with the Company's purchase commitments under 
+the terms of the sale of the Company's Fountain, Colorado, 
+manufacturing facility to SCI. 
+
+Cash generated by operations during the first quarter of 1998 
+totaled $143 million. Cash generated by operations was 
+primarily the result of positive earnings and decreases in 
+accounts receivable and inventories, partially offset by  
+decreases in accounts payable and other current liabilities and 
+payments related to restructuring actions.
+
+Net cash used for the purchase of property, plant, and equipment 
+totaled $7 million in the first quarter of 1998, and consisted 
+primarily of increases in manufacturing machinery and 
+equipment. The Company expects that the level of capital 
+expenditures in the second quarter of 1998 will increase slightly 
+as compared to the first quarter.
+
+Over the last two years, the Company's debt ratings have been 
+downgraded to non-investment grade. In October 1997, the 
+Company's senior and subordinated long-term debt were 
+downgraded to B- and CCC, respectively, by Standard and 
+Poor's Rating Agency. The Company's senior and subordinated 
+long-term debt ratings by Moody's Investor Services remain 
+unchanged from the second quarter of 1997, when they were 
+downgraded to B3 and Caa2, respectively. Both Standard and 
+Poor's Rating Agency and Moody's Investor Services have the 
+Company on negative outlook. These actions may increase the 
+Company's cost of funds in future periods. In addition, the 
+Company may be required to pledge additional collateral with 
+respect to certain of its borrowings and letters of credit and to 
+agree to more stringent covenants than in the past. 
+
+The Company believes that its balances of cash and cash 
+equivalents and short-term investments, and continued short-
+term borrowings from banks, will be sufficient to meet its cash 
+requirements over the next twelve months. Expected cash 
+requirements over the next twelve months include an estimated 
+$102 million to effect actions under the restructuring plan, 
+most of which will be effected during fiscal 1998. No assurance 
+can be given that any additional required financing could be 
+obtained should the restructuring plan take longer to implement 
+than anticipated or be unsuccessful. If the Company is unable 
+to obtain such financing, its liquidity, results of operations, and 
+financial condition could be materially adversely affected. 
+
+The Internal Revenue Service ("IRS") has proposed federal 
+income tax deficiencies for the years 1984 through 1991, and 
+the Company has made certain prepayments thereon. The 
+Company contested the proposed deficiencies by filing petitions 
+with the U.S. Tax Court, and most of the issues in dispute 
+have now been resolved. On June 30, 1997, the IRS proposed 
+income tax adjustments for the years 1992 through 1994. 
+Although a substantial number of the issues for these years 
+have been resolved, certain issues still remain in dispute and are 
+being contested by the Company. Management believes that 
+adequate provision has been made for any adjustments that may 
+result from tax examinations. 
+
+
+
+
+
+
+
+
+
+
+                                  22
+<PAGE>
+
+PART II. OTHER INFORMATION
+
+Item 1. Legal Proceedings
+
+Abraham and Evelyn Kostick Trust v. Peter Crisp et al.
+In January 1996, a purported shareholder class action styled 
+Abraham and Evelyn Kostick Trust v. Peter Crisp et. al was 
+filed in the California Superior Court for Santa Clara County 
+naming the Company and its then directors as defendants. The 
+complaint sought injunctive relief and damages and alleged that 
+acts of mismanagement resulted in a depressed price for the 
+Company. In February 1996, the complaint was amended to add 
+a former director as a defendant and to add purported class and 
+derivative claims based on theories such as breach of fiduciary 
+duty, misrepresentation, and insider trading. In July 1996, the 
+Court sustained defendants' demurrer and dismissed the amended 
+complaint on a variety of grounds and granted plaintiffs leave to 
+amend the complaint. In October 1996, the plaintiffs filed a 
+second amended complaint naming the Company's then 
+directors and certain former directors as defendants and again 
+alleging purported class and derivative claims, seeking 
+injunctive relief and damages (compensatory and punitive) based 
+on theories such as breach of fiduciary duty, misrepresentation, 
+and insider trading. In July 1997, the Court granted in part and 
+denied in part the Company's motion to strike most of the 
+substantive allegations of the second amended complaint. The 
+Court sustained the demurrer to plaintiffs' class claims but 
+overruled the demurrer to the shareholder derivative claims. In 
+September 1997, the Company brought a motion to reconsider 
+portions of the court order. The Third Amended Complaint 
+was filed in October 1997, and eliminated the class action 
+claims and restated claims against certain directors and former 
+directors. In November 1997, the Company's Board of Directors 
+appointed a special investigation committee and engaged 
+independent counsel to assist in the investigation of the claims 
+made in the Third Amended Complaint. Also in November 
+1997, the Company filed a demurrer to the Third Amended 
+Complaint. A hearing is set for February 1998.
+
+LS Men's Clothing Defined Benefit Pension Fund v. Michael Spindler et al.
+In May 1996, an action was filed in the California Superior 
+Court for Alameda County naming as defendants the Company 
+and certain of its current and former officers and directors. The 
+complaint seeks compensatory and punitive damages and 
+generally alleges that the defendants misrepresented or omitted 
+material facts about the Company's operations and financial 
+results, which plaintiff contends artificially inflated the price of 
+the Company's stock. The case was transferred to the California 
+Superior Court for Santa Clara County. In July 1997, the 
+Court sustained the Company's demurrer dismissing the 
+amended complaint with leave to amend, after which plaintiff 
+served a second amended complaint. In September 1997, the 
+Company and the two remaining individual defendants (former 
+directors Markkula and Spindler) brought a motion to dismiss 
+the second amended complaint. In October 1997, the Court 
+granted the motion to dismiss in its entirety with leave to 
+amend as to certain defendants and claims. In November 1997, 
+the plaintiff filed a third amended complaint, adding a former 
+director as a defendant and alleging further misrepresentations by 
+the defendants about the Company's operations and financial 
+results. In January 1998, the Company and the three individual 
+defendants brought a motion to dismiss the third amended 
+complaint, which is set for hearing in February 1998.
+
+"Repetitive Stress Injury" Litigation
+The Company is named in approximately 60 lawsuits, alleging 
+that plaintiffs incurred so-called "repetitive stress" injuries to 
+their upper extremities as a result of using keyboards and/or 
+mouse input devices sold by the Company. These actions are 
+similar to those filed against other major suppliers of personal 
+computers. In October 1996, the Company prevailed in the first 
+full trial to go to verdict against the Company. Since then, 
+approximately ten lawsuits have been dismissed with prejudice 
+by the plaintiffs, and two others have been dismissed by court 
+order. The remaining actions are in various stages of pretrial 
+activity. Ultimate resolution of these cases may depend on 
+industry-wide progress in resolving similar litigation, as well as 
+on the impact of the recent decision handed down by the New 
+York Court of Appeals in the case of Blanco v. American 
+Telephone and Telegraph Co. (a majority of the cases naming 
+the Company as a defendant were filed in New York, and are 
+subject to the decision). In that decision, the court announced a 
+new standard for determining when the statute of limitations 
+period begins to accrue in so-
+
+                                  23
+<PAGE>
+
+
+called "repetitive stress" injury cases. While the decision could 
+result in the revival of some cases which were previously 
+dismissed, the decision will not cause the Company to alter its 
+strategy in these cases.
+
+Monitor-Size Litigation
+In August 1995, the Company was named, along with 41 other 
+entities, including computer manufacturers and computer 
+monitor vendors, in a putative nationwide class action filed in 
+the California Superior Court for Orange County, styled Keith 
+Long et al. v. AAmazing Technologies Corp. et al. The 
+complaint alleges that each of the defendants engaged in false or 
+misleading advertising with respect to the size of computer 
+monitor screens. Also in August 1995, the Company was 
+named as the sole defendant in a purported class action alleging 
+similar claims filed in the New Jersey Superior Court for 
+Camden County, entitled Mahendri Shah v. Apple Computer, 
+Inc. Subsequently, in November 1995, the Company, along 
+with 26 other entities, was named in a purported class action 
+alleging similar claims filed in the New Jersey Superior Court 
+for Essex County, entitled Maizes & Maizes v. Apple 
+Computer, Inc. et al. Similar putative class actions have been 
+filed in other California counties in which the Company was 
+not named as a defendant. The complaints in all of these cases 
+seek restitution in the form of refunds or product exchange, 
+damages, punitive damages, and attorneys fees. In December 
+1995, the California Judicial Council ordered all of the 
+California actions, including Long, coordinated for purposes of 
+pretrial proceedings and trial before a single judge, the 
+Honorable William Cahill, sitting in the County of San 
+Francisco. All of the California actions were subsequently 
+coordinated under the name In re Computer Monitor Litigation, 
+and a master consolidated complaint was filed superseding all of 
+the individual complaints in those actions. In July 1996, Judge 
+Cahill ordered all of the California cases dismissed without 
+leave to amend as to plaintiffs residing in California on the 
+ground that a stipulated judgment entered in September 1995 in 
+a prior action brought by the California Attorney General 
+alleging the same cause of action was res judicata as to the 
+plaintiffs in the consolidated California class action suits. This 
+order may be subject to appellate review at a later stage of the 
+proceedings. Both the New Jersey cases and the consolidated 
+California cases are at a preliminary stage, with no discovery 
+having taken place. In March 1997, the Court in the case styled 
+In re Computer Monitor Litigation  preliminarily approved a 
+proposed settlement to which the Company and all but three of 
+the other defendants in the action would be parties and 
+provisionally certified a nationwide settlement class with 
+respect thereto. A hearing regarding final approval of the 
+proposed settlement was held on June 30, 1997 and the Court's 
+decision is pending. If approved, the Company does not 
+anticipate its obligations pursuant to the proposed settlement 
+will have a material adverse effect on its consolidated results of 
+operations or financial condition as reported in the 
+accompanying financial statements. 
+
+Exponential Technology v. Apple
+Plaintiff alleges in a lawsuit styled Exponential Technology, 
+Inc. v. Apple Computer, Inc. that the Company, which was an 
+investor in Exponential, breached its fiduciary duty to 
+Exponential by misusing confidential information about its 
+financial situation to cause Exponential to fail, and that the 
+Company fraudulently misrepresented the facts about allowing 
+Exponential to sell its processors to the Company Mac OS 
+licensees. The lawsuit is filed in California State Court in 
+Santa Clara County. In November 1997, the Company filed a 
+demurrer to portions of the complaint, which the court granted 
+in part. In January 1998, plaintiff filed an Amended Complaint.
+
+Other
+On August 21, 1997, the Federal Trade Commission issued its 
+consent decree against the Company, regarding the Company's 
+past processor upgrade practices, specifically certain 
+advertisements which the Commission deemed to have 
+misrepresented the Company's marketing of certain 
+microprocessor upgrade products. Pursuant to the order, the 
+Company is ordered to cease and desist from any such allegedly 
+misleading advertising, to give notice to consumers, and to 
+implement certain programs enabling consumers who are 
+within the order's scope to obtain upgrade kits or rebates, in 
+connection with any purchases within the scope of the order. 
+The Company has complied with all provisions of the order 
+currently effective, and has filed its 60-day compliance with the 
+Commission on October 17, 1997.
+
+The Company has various other claims, lawsuits, disputes with 
+third parties, investigations and pending actions involving 
+allegations of false or misleading advertising, product defects, 
+discrimination, infringement of intellectual property rights, and 
+breach of contract and other matters against the Company and 
+its subsidiaries incident to the operation of its business. The 
+liability, if any, associated with these matters is not 
+determinable. 
+
+                                  24
+<PAGE>
+
+
+The Company believes the resolution of the matters cited above 
+will not have a material adverse effect on its financial condition 
+as reported in the accompanying financial statements. However, 
+depending on the amount and timing of any unfavorable 
+resolution of these lawsuits, it is possible that the Company's 
+future consolidated results of operations or cash flows could be 
+materially affected in a particular period.
+
+
+
+
+
+
+
+                                  25
+<PAGE>
+
+
+
+Item 6. Exhibits and Reports on Form 8-K
+
+(a)	Exhibits 
+
+Exhibit
+Number	Description
+
+10.A.5	1990 Stock Option Plan, as amended through November 5, 1997.
+
+27	Financial Data Schedule.
+
+
+
+
+
+
+
+
+				26
+
+<PAGE>
+
+
+
+                                  SIGNATURES
+
+Pursuant to the requirements of the Securities Exchange Act of 1934, the 
+Registrant has duly caused this report to be signed on its behalf by the 
+undersigned, thereunto duly authorized.
+
+
+
+                        APPLE COMPUTER, INC.
+                        (Registrant)
+
+                        By:  /s/Fred D. Anderson 
+
+                        Fred D. Anderson
+                        Executive Vice President and Chief Financial Officer
+                        February  6, 1998
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                      27
+<PAGE>
+
+
+INDEX TO EXHIBITS
+
+Exhibit
+Index
+Number	Description                                                     Page
+
+10.A.5   1990 Stock Option Plan, as amended through November 5, 1997.  29
+27       Financial Data Schedule.                                      38
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                      28
+<PAGE>
+
+
+
+
+</TEXT>
+
+</DOCUMENT>
+<DOCUMENT>
+<TYPE>EX-10
+<SEQUENCE>2
+<TEXT>
+			  
+
+EXHIBIT 10.A.5			
+
+                          APPLE COMPUTER, INC.
+                            1990 STOCK OPTION PLAN
+                         (as amended through 11/5/97)
+
+	1.	Purposes of the Plan.  The purposes of this 1990 Stock 
+Option Plan are to attract and retain high quality personnel for 
+positions of substantial responsibility, to provide additional 
+incentive to Employees of the Company, its Subsidiaries and its 
+Affiliated Companies and to promote the success of the Company's 
+business.  This Plan succeeds to and replaces the Company's 1981 
+Stock Option Plan.  Options granted under the Plan may be incentive 
+stock options (as defined under Section 422 of the Code) or non-
+statutory stock options, as determined by the Administrator at the 
+time of grant of an option and subject to the applicable provisions of 
+Section 422 of the Code, and the regulations promulgated 
+thereunder.  Stock appreciation rights ("SARs") may be granted 
+under the Plan in connection with Options or independently of 
+Options.
+
+	2.	Definitions.  As used herein, the following definitions 
+shall apply:
+
+	(a)	"Administrator" means the Board or any of its 
+Committees, as shall be administering the Plan from time to time 
+pursuant to Section 4 of the Plan.
+
+	(b)	"Affiliated Company" means a corporation which is not a 
+Subsidiary but with respect to which the Company owns, directly or 
+indirectly through one or more Subsidiaries, at least 20% of the total 
+voting power, unless the Administrator determines in its discretion 
+that such corporation is not an Affiliated Company.
+
+	(c)	"Board" means the Board of Directors of the Company.
+
+	(d)	"Common Stock" means the Common Stock, no par 
+value, of the Company.
+
+	(e)	"Company" means Apple Computer, Inc., a California 
+corporation, or its successor.
+
+	(f)	"Committee" means a Committee, if any, appointed by 
+the Board in accordance with paragraph (a) of Section 4 of the Plan.
+
+	(g)	"Code" means the Internal Revenue Code of 1986, as 
+amended from time to time, and any successor thereto.
+
+	(h)	"Continuous Status as an Employee" means the absence of 
+any interruption or termination of the employment relationship with the Company
+ or any Subsidiary or Affiliated Company.  Continuous Status as an Employee 
+shall not be considered interrupted in the case of (i) medical leave, military 
+leave, family leave, or any other leave of absence approved by the 
+Administrator, provided, in each case, that such leave does not result in 
+termination of the employment relationship with the Company or any 
+Subsidiary or Affiliated Company, as the case may be, under the terms of the 
+respective Company policy for such leave; or (ii) in the case of transfers 
+between locations of the Company or between the Company, its Subsidiaries, 
+its successor or its Affiliated Companies.
+
+	(i)	"Director" means a member of the Board.
+
+	(j)	"Employee" means any person, including Officers and 
+Directors, employed by and on the payroll of the Company, any Subsidiary or 
+any Affiliated Company.  The payment of Directors' fees by the Company shall 
+not be sufficient to constitute "employment" by the Company.
+
+	(k)	"Exchange Act" means the Securities Exchange Act of 
+1934, as amended.
+                                       29
+<PAGE>
+	(l)	"Fair Market Value" means the value of Common Stock 
+determined as follows:
+
+	(i)	If the Common Stock is listed on any established stock 
+exchange or a national market system (including without limitation the 
+National Market System of the National Association of Securities Dealers, 
+Inc. Automated Quotation ("NASDAQ") System), its Fair Market Value shall be the 
+closing sales price for such stock or the closing bid if no sales were 
+reported, as quoted on such system or exchange (or the exchange with the 
+greatest volume of trading in the Common Stock) for the date of determination 
+or, if the date of determination is not a trading day, the immediately 
+preceding trading day, as reported in The Wall Street Journal or such other 
+source as the Administrator deems reliable.
+
+	(ii)	If the Common Stock is regularly quoted on the NASDAQ System (but not 
+on the National Market System) or quoted by a recognized securities dealer but 
+selling prices are not reported, its Fair Market Value shall be the mean 
+between the high and low asked prices for the Common Stock on the date of 
+determination or, if there are no quoted prices on the date of determination, 
+on the last day on which there are quoted prices prior to the date of 
+determination.
+
+(iii)   	In the absence of an established market for the Common Stock, the Fair 
+Market Value thereof shall be determined in good faith by the Administrator.
+
+	(m)	"Officer" means an officer of the Company within the meaning of Section 
+16 of the Exchange Act and the rules and regulations promulgated thereunder.
+
+	(n)	"Nonstatutory Stock Option" means an Option that is not 
+an Incentive Stock Option.
+
+	(o)	"Incentive Stock Option" means an Option that satisfies the provisions 
+of Section 422 of the Code and is expressly designated by the Administrator 
+at the time of grant as an incentive stock option.
+
+	(p)	"Option" means an Option granted pursuant to the Plan.
+
+	(q)	"Optioned Stock" means the Common Stock subject to an 
+Option or SAR.
+
+	(r)	"Optionee" means an Employee who receives an Option 
+or SAR.
+
+	(s)	"Parent" corporation shall have the meaning defined in 
+Section 424(e) of the Code.
+
+	(t)	"Plan" means this 1990 Stock Option Plan.
+
+	(u)	"SAR" means a stock appreciation right granted 
+pursuant to Section 9 below.
+
+	(v)	"Share" means a share of the Common Stock, as 
+adjusted in accordance with Section 12 of the Plan.
+
+	(w)	"Subsidiary" corporation has the meaning defined in 
+Section 424(f) of the Code.
+
+	In addition, the terms "Rule 16b-3" and "Applicable Laws", the term 
+"Insiders", the term "Tax Date" and the terms "Change in Control" and "Change 
+in Control Price", shall have the meanings set forth, respectively, in 
+Sections 4, 9, 10 and 12 below.
+
+	3.	Stock Subject to the Plan.  Subject to the provisions of  Section 12 
+of the Plan, the maximum aggregate number of Shares which may be optioned and
+sold under the Plan or for which SARs may be granted and exercised is 
+52,200,000 Shares (including Shares issued under the 1981 Stock Option Plan, 
+to which this Plan is a successor).  The Shares may be authorized but unissued 
+or reacquired Common Stock.
+
+	In the discretion of the Administrator, any or all of the Shares authorized 
+under the Plan may be subject to SARs issued pursuant to the Plan.
+
+                                      30
+<PAGE>
+
+	If an Option or SAR issued under this Plan or under the Company's 1981 Stock 
+Option Plan should expire or become unexercisable for any reason without 
+having been exercised in full, the unpurchased Shares which were subject 
+thereto shall, unless this Plan shall have been terminated, become available
+ for other Options or SARs under this Plan.  However, should the Company 
+reacquire Shares which were issued pursuant to the exercise of an Option or 
+SAR, such Shares shall not become available for future grant under the Plan.
+
+	Anything in the Plan to the contrary notwithstanding, no Employee may be
+granted Options and SARs covering in the aggregate more than 1.5 million 
+shares of Common Stock (the "Limit") in a fiscal year beginning on or after 
+September 30, 1995.  Each share underlying a SAR not granted in tandem with
+an Option shall be applied against the Limit, regardless of the number of 
+shares deliverable or delivered upon exercise of the SAR; provided, however, 
+that shares of Common Stock underlying a tandem grant of Options and SARs 
+shall be counted only once in calculating the Limit.  The Limit shall not 
+apply to grants of Options and SARs made prior to September 30, 1995."
+
+	4.	Administration of the Plan.
+
+		(a)	Composition of Administrator.
+
+			(1)	Multiple Administrative Bodies.  If 
+permitted by Rule 16b-3 promulgated under the Exchange Act or 
+any successor rule thereto, as in effect at the time that discretion is 
+being exercised with respect to the Plan ("Rule 16b-3"), and by the 
+legal requirements relating to the administration of stock plans such 
+as the Plan, if any, of applicable securities laws, California corporate 
+law and the Code (collectively, "Applicable Laws"), the Plan may 
+(but need not) be administered by different administrative bodies 
+with respect to (A) Directors who are not Employees, (B) Directors 
+who are Employees, (C) Officers who are not Directors and (D) 
+Employees who are neither Directors nor Officers.
+
+				(2)	Administration with respect to 
+Directors and Officers.  With respect to grants and awards to 
+Employees who are also Officers or Directors of the Company, the 
+Plan may be administered by (A) the Board, if the Board may 
+administer the Plan in compliance with Rule 16b-3 as it applies to 
+grants to Officers and Directors, or (B) a Committee designated by 
+the Board to administer the Plan, which Committee shall be 
+constituted (I) in such a manner as to permit the Plan and grants and 
+awards thereunder to comply with Rule 16b-3 as it applies to grants 
+to Officers and Directors and (II) in such a manner as to satisfy the 
+Applicable Laws.
+
+				(3)	Administration with respect to Other 
+Persons.  With respect to grants and awards to Employees who are 
+neither Directors nor Officers of the Company, the Plan may be 
+administered by (A) the Board or (B) a Committee designated by the 
+Board, which Committee shall be constituted in such a manner as to 
+satisfy the Applicable Laws.
+
+				(4)	General.  Once a Committee has 
+been appointed pursuant to subsection (2) or (3) of this Section 4(a), 
+such Committee shall continue to serve in its designated capacity 
+until otherwise directed by the Board.  From time to time the Board 
+may increase the size of any Committee and appoint additional 
+members thereof, remove members (with or without cause) and 
+appoint new members in substitution therefor, fill vacancies 
+(however caused) and remove all members of a Committee and 
+thereafter directly administer the Plan, all to the extent permitted by 
+the Applicable Laws and, in the case of a Committee appointed 
+under subsection (2) to the extent permitted by Rule 16b-3 as it 
+applies to grants to Officers and Directors.
+
+		(b)	Powers of the Administrator.  Subject to the 
+provisions of the Plan and, in the case of a Committee, subject to the 
+specific duties delegated by the Board to such Committee, the 
+Administrator shall have the authority, in its discretion: (i) to 
+determine the Fair Market Value of the Common Stock in accordance 
+with Section 2(l) of the Plan; (ii) to determine, in accordance with 
+Section 8(a) of the Plan, the exercise price per Share of Options and 
+SARs to be granted; (iii) to determine the Employees to whom, and 
+the time or times at which, Options and SARs shall be granted and 
+the number of Shares to be represented by each Option or SAR 
+(including without limitation whether or not a corporation shall be 
+excluded from the definition of Affiliated Company under Section 
+2(b)); (iv) to interpret the Plan; (v) to determine the terms and 
+conditions, not inconsistent with the terms of the Plan, of any Option 
+or SAR granted hereunder (including, but not limited to, any 
+restriction or limitation, or any vesting acceleration or waiver of 
+forfeiture restrictions regarding any Option or SAR and/or the 
+Shares relating thereto, based in each case on such factors as the 
+Administrator shall determine, in its sole discretion); (vi) to approve 
+forms of agreement for use under the Plan; (vii) to prescribe, amend 
+and rescind rules and regulations relating to the Plan; (viii) to 
+modify or amend each Option or SAR (with the consent of the 
+Optionee) or accelerate the exercise date of any Option or SAR; (ix) 
+to reduce the exercise price of any Option or SAR to the then current 
+Fair Market Value if the Fair Market Value of the Common Stock 
+covered by such Option or SAR shall have declined since the date the 
+Option or SAR was granted; (x) to authorize any person to execute 
+on behalf of the Company any instrument required to effectuate the 
+grant of an Option or SAR previously granted by the Administrator; 
+and (xi) to make all other determinations deemed necessary or 
+advisable for the administration of the Plan.
+
+                                      31
+<PAGE>
+		(c)	Effect of Decisions by the Administrator.  All 
+decisions, determinations and interpretations of the Administrator 
+shall be final and binding on all Optionees and any other holders of 
+any Options.
+
+		(d)	Anything in the Plan to the contrary 
+notwithstanding, on and after September 30, 1995, grants of Options 
+and SARs under the Plan to Officers shall be made only by a 
+Committee consisting of at least two directors of the Company who 
+qualify as "outside directors" within the meaning of Section 162(m) 
+of the Code, and such Committee shall exercise all of the authority 
+delegated under the Plan to the Administrator with respect to grants 
+to Officers made on and after that date.
+
+	5.	Eligibility.  Options and SARs may be granted only to 
+Employees. An Employee who has been granted an Option or SAR 
+may, if he or she is otherwise eligible, be granted an additional 
+Option or Options, SAR or SARs. Each Option shall be evidenced by 
+a written Option agreement, which shall expressly identify the 
+Options as Incentive Stock Options or as Nonstatutory Stock 
+Options, and which shall be in such form and contain such 
+provisions as the Administrator shall from time to time deem 
+appropriate.  However, notwithstanding such designation, to the 
+extent that the aggregate Fair Market Value of the Shares with 
+respect to which Options designated as Incentive Stock Options and 
+options granted under other plans of the Company or any Parent or 
+Subsidiary that are designated as incentive stock options are 
+exercisable for the first time by an Optionee during any calendar 
+year exceeds $100,000, such excess Options shall be treated as 
+Nonstatutory Stock Options.  For purposes of the preceding 
+sentence, (i) Options shall be taken into account in the order in which 
+they were granted, and (ii) the Fair Market Value of the Shares shall 
+be determined as of the time the Option or other incentive stock 
+option with respect to such Shares is granted.  Without limiting the 
+foregoing, the Administrator may, at any time, or from time to time, 
+authorize the Company, with the consent of the respective recipients, 
+to issue new Options or Options in exchange for the surrender and 
+cancellation of any or all outstanding Options, other options, SARs 
+or other stock appreciation rights.
+
+	Neither the Plan nor any Option or SAR agreement shall 
+confer upon any Optionee any right with respect to continuation of 
+employment by the Company (or any Parent, Subsidiary or 
+Affiliated Company), nor shall it interfere in any way with the 
+Optionee's right or the right of the Company (or any Parent, 
+Subsidiary or Affiliated Company) to terminate the Optionee's 
+employment at any time or for any reason.
+
+	6.	Term of Plan.  The Plan shall become effective upon its 
+adoption by the Board or its approval by vote of the holders of a 
+majority of the outstanding Shares of the Company entitled to vote 
+on the adoption of the Plan, whichever is earlier.  It shall continue in 
+effect for a term of ten (10) years unless sooner terminated under 
+Section 14 of the Plan.
+
+	7.	Term of Option.  The term of each Option shall be ten 
+(10) years from the date of grant thereof or such shorter term as may 
+be provided in the Option agreement.  However, in the case of an 
+Incentive Stock Option granted to an Optionee who, at the time the 
+Incentive Stock Option is granted, owns stock representing more 
+than ten percent (10%) of the voting power of all classes of stock of 
+the Company or any Parent or Subsidiary, the term of the Option 
+shall be five (5) years from the date of grant thereof or such shorter 
+time as may be provided in the Option agreement.
+                                      32
+<PAGE>
+	8.	Exercise Price and Consideration.
+
+		(a)	Exercise Price.  The per Share exercise price for 
+the Shares issuable pursuant to an Option shall be such price as is 
+determined by the Administrator, but shall in no event be less than 
+100% of the Fair Market Value of Common Stock, determined as of 
+the date of grant of the Option.  In the event that the Administrator 
+shall reduce the exercise price, the exercise price shall be no less than 
+100% of the Fair Market Value as of the date of that reduction.  In no 
+event shall the per Share exercise price be less than 110% of the Fair 
+Market Value per Share as of the date of grant in the case of an 
+Incentive Stock Option granted to an Optionee who, immediately 
+before the grant of such Option, owns Shares representing more than 
+10% of the voting power or value of all classes of stock of the 
+Company or any Parent or Subsidiary.
+		(b)	Method of Payment.  The consideration to be paid 
+for the Shares to be issued upon exercise of an Option, including the 
+method of payment, shall be determined by the Administrator (and, 
+in the case of an Incentive Stock Option, shall be determined at the 
+time of grant) and may consist of (i) cash, (ii) check, (iii) promissory 
+note, (iv) other Shares which have a Fair Market Value on the date of 
+surrender equal to the aggregate exercise price of the Shares as to 
+which said Option shall be exercised, (v) delivery of a properly 
+executed exercise notice together with irrevocable instructions to a 
+broker to promptly deliver to the Company the amount of sale or 
+loan proceeds required to pay the exercise price, or (vi) any 
+combination of the foregoing methods of payment and/or any other 
+consideration or method of payment as shall be permitted under 
+applicable corporate law.
+
+	9.	Stock Appreciation Rights.
+
+		(a)	Granted in Connection with Options.  At the sole 
+discretion of the Administrator, SARs may be granted in connection 
+with all or any part of an Option, either concurrently with the grant 
+of the Option or at any time thereafter during the term of the Option.  
+The following provisions apply to SARs that are granted in 
+connection with Options:
+
+			(i)	The SAR shall entitle the Optionee to 
+exercise the SAR by surrendering to the Company unexercised a 
+portion of the related Option.  The Optionee shall receive in 
+exchange from the Company an amount equal to the excess of (x) the 
+Fair Market Value on the date of exercise of the SAR of the Common 
+Stock covered by the surrendered portion of the related Option over 
+(y) the exercise price of the Common Stock covered by the 
+surrendered portion of the related Option.  Notwithstanding the 
+foregoing, the Administrator may place limits on the amount that 
+may be paid upon exercise of an SAR; provided, however, that such 
+limit shall not restrict the exercisability of the related Option.
+
+		(ii)	When an SAR is exercised, the related Option, to 
+the extent surrendered, shall no longer be exercisable.
+
+		(iii)	An SAR shall be exercisable only when and to 
+the extent that the related Option is exercisable and shall 
+expire no later than the date on which the related Option 
+expires.
+
+			(iv)	An SAR may only be exercised at a time 
+when the Fair Market Value of the Common Stock covered by the 
+related Option exceeds the exercise price of the Common Stock 
+covered by the related Option.
+ 
+ 		(b)	Independent SARs.  At the sole discretion of the 
+Administrator, SARs may be granted without related Options.  The 
+following provisions apply to SARs that are not granted in 
+connection with Options:
+
+		(i)	The SAR shall entitle the Optionee, by exercising 
+the SAR, to receive from the Company an amount equal to the 
+excess of (x) the Fair Market Value of the Common Stock 
+covered by exercised portion of the SAR, as of the date of such 
+exercise, over (y) the Fair Market Value of the Common Stock 
+covered by the exercised portion of the SAR, as of the date on 
+which the SAR was granted; provided, however, that the 
+Administrator may place limits on the amount that may be 
+paid upon exercise of an SAR.
+                                      33
+<PAGE>
+		(ii)	SARs shall be exercisable, in whole or in part, at 
+such times as the Administrator shall specify in the Optionee's 
+SAR agreement. 
+
+		(c)	Form of Payment.  The Company's obligation 
+arising upon the exercise of an SAR may be paid in Common Stock 
+or in cash, or in any combination of Common Stock and cash, as the 
+Administrator, in its sole discretion, may determine.  Shares issued 
+upon the exercise of an SAR shall be valued at their Fair Market 
+Value as of the date of exercise.
+
+		(d)	Rule 16b-3.  SARs granted to persons who are 
+subject to Section 16 of the Exchange Act ("Insiders") shall contain 
+such additional restrictions as may be required to be contained in the 
+plan or SAR agreement in order for the SAR to qualify for the 
+maximum exemption provided by Rule 16b-3.
+
+	10.	Method of Exercise.
+
+		(a)	Procedure for Exercise; Rights as a Shareholder.  Any 
+Option or SAR granted hereunder shall be exercisable at such times 
+and under such conditions as determined by the Administrator and 
+as shall be permissible under the terms of the Plan.
+
+		An Option or SAR shall be deemed to be exercised 
+when written notice of such exercise has been given to the Company 
+in accordance with the terms of the Option or SAR by the person 
+entitled to exercise the Option or SAR and full payment for the 
+Shares with respect to which the Option is exercised has been 
+received by the Company.  Full payment may, as authorized by the 
+Administrator (and, in the case of an Incentive Stock Option, 
+determined at the time of grant) and permitted by the Option 
+agreement, consist of any consideration and method of payment 
+allowable under Section 8(b) of the Plan.  Until the issuance (as 
+evidenced by the appropriate entry on the books of the Company or 
+of a duly authorized transfer agent of the Company) of the stock 
+certificate evidencing such Shares, no right to vote or receive 
+dividends or any other rights as a shareholder shall exist with 
+respect to the Optioned Stock, notwithstanding the exercise of the 
+Option.  No adjustment will be made for a dividend or other right 
+for which the record date is prior to the date the stock certificate is 
+issued, except as provided in Section 12 of the Plan.  An Option or 
+SAR may not be exercised with respect to a fraction of a Share.
+
+		Exercise of an Option in any manner shall result in a 
+decrease in the number of Shares which thereafter shall be available, 
+both for purposes of the Plan and for sale under the Option, by the 
+number of Shares as to which the Option is exercised.  Exercise of an 
+SAR in any manner shall, to the extent the SAR is exercised, result in 
+a decrease in the number of Shares which thereafter shall be 
+available for purposes of the Plan, and the SAR shall cease to be 
+exercisable to the extent it has been exercised.
+
+		(b)	Rule 16b-3.  Options and SARs granted to 
+Insiders must comply with Rule 16b-3 and shall contain such 
+additional conditions or restrictions as may be required thereunder 
+to be contained in the Plan or the agreement to qualify for the 
+maximum exemption from Section 16 of the Exchange Act with 
+respect to Plan transactions.
+
+		(c)	Termination of Continuous Employment.  Upon 
+termination of an Optionee's Continuous Status as Employee (other 
+than termination by reason of the Optionee's death), the Optionee 
+may, but only within ninety (90) days after the date of such 
+termination, exercise his or her Option or SAR to the extent that it 
+was exercisable at the date of such termination.  Notwithstanding the 
+foregoing, however, an Option or SAR may not be exercised after the 
+date the Option or SAR would otherwise expire by its terms due to 
+the passage of time from the date of grant.
+
+		(d)	Death of Optionee.  In the event of the death of an 
+Optionee:
+
+		(1)	Who is at the time of death an Employee and who shall have been in 
+Continuous Status as an Employee since the date of grant of the Option, the 
+Option or SAR may be exercised at any time within six (6) months (or such 
+other period of time not exceeding twelve (12) months as determined by the
+Administrator) following the date of death by the Optionee's estate or by a 
+person who acquired the right to exercise the Option by bequest or 
+inheritance, but only to the extent of the right to exercise that would have 
+                                      34
+<PAGE>
+accrued had the Optionee continued living and terminated his or her employment 
+six (6) months (or such other period of time not exceeding twelve (12) months 
+as determined by the Administrator) after the date of death; or
+
+		(2)	Within ninety (90) days after the termination of 
+Continuous Status as an Employee, the Option or SAR may be 
+exercised, at any time within six (6) months (or such other 
+period of time not exceeding twelve (12) months as 
+determined by the Administrator) following the date of death 
+by the Optionee's estate or by a person who acquired the right 
+to exercise the Option by bequest or inheritance, but only to 
+the extent of the right to exercise that had accrued at the date 
+of termination.
+
+		Notwithstanding the foregoing, however, an Option or 
+SAR may not be exercised after the date the Option or SAR would 
+otherwise expire by its terms due to the passage of time from the 
+date of grant.
+
+		(e)	Stock Withholding to Satisfy Withholding Tax 
+Obligations.  When an Optionee incurs tax liability in connection with 
+the exercise of an Option or SAR, which tax liability is subject to tax 
+withholding under applicable tax laws, and the Optionee is 
+obligated to pay the Company an amount required to be withheld 
+under applicable tax laws, the Optionee may satisfy the withholding 
+tax obligation (including, at the election of the Optionee, any 
+additional amount which the Optionee desires to have withheld in 
+order to satisfy in whole or in part the Optionee's full estimated tax 
+in connection with the exercise) by electing to have the Company 
+withhold from the Shares to be issued upon exercise of the Option, 
+or the Shares to be issued upon exercise of the SAR, if any, that 
+number of Shares having a Fair Market Value equal to the amount 
+required to be withheld (and any additional amount desired to be 
+withheld, as aforesaid).  The Fair Market Value of the Shares to be 
+withheld shall be determined on the date that the amount of tax to be 
+withheld is to be determined (the "Tax Date").
+
+		All elections by an Optionee to have Shares withheld 
+for this purpose shall be made in writing in a form acceptable to the 
+Administrator and shall be subject to the following restrictions:
+
+			(i)	the election must be made on or prior to 
+the applicable Tax Date; and
+			(ii)	all elections shall be subject to the consent 
+or disapproval of the Administrator.
+
+		In the event the election to have Shares withheld is 
+made by an Optionee and the Tax Date is deferred under Section 83 
+of the Code because no election is filed under Section 83(b) of the 
+Code, the Optionee shall receive the full number of Shares with 
+respect to which the Option or SAR is exercised but such Optionee 
+shall be unconditionally obligated to tender back to the Company the 
+proper number of Shares on the Tax Date.
+
+	11.	Non-Transferability of Options.  Options and SARs may 
+not be sold, pledged, assigned, hypothecated, transferred or 
+disposed of in any manner other than by will or by the laws of 
+descent or distribution or pursuant to a qualified domestic relations 
+order as defined by the Code or Title I of the Employee Retirement 
+Income Security Act, or the rules thereunder, provided, however, 
+that the Administrator may grant non-qualified stock options that 
+are freely transferable.  The designation of a beneficiary by an 
+Optionee or holder of an SAR does not constitute a transfer.  An 
+Option or an SAR may be exercised, during the lifetime of the 
+Optionee or SAR holder, only by the Optionee or SAR holder or by a 
+transferee permitted by this Section 11.
+
+	12.	Adjustments Upon Changes in Capitalization or Merger.
+
+		(a)	Changes in Capitalization.  Subject to any required action by 
+the shareholders of the Company, the number of Shares covered by each 
+outstanding Option and SAR, and the number of Shares which have been 
+authorized for issuance under the Plan but as to which no Options or SARs have 
+yet been granted or which have been returned to the Plan upon cancellation or 
+expiration of an Option or SAR, as well as the price per Share covered by each 
+such outstanding Option or SAR, shall be proportionately adjusted for any 
+increase or decrease in the number of issued Shares resulting from a stock 
+split, reverse stock split, stock dividend, combination or reclassification of 
+the Common Stock, or any other increase or decrease in the aggregate number 
+of issued Shares effected without receipt of consideration by the Company; 
+provided, however, that conversion of any convertible securities of the 
+Company shall not be deemed to have been "effected without receipt of 
+consideration."  Such adjustment shall be made by the Administrator, whose 
+                                      35
+<PAGE>
+determination in that respect shall be final, binding and conclusive.  
+Except as expressly provided herein, no issuance by the Company of 
+shares of stock of any class, or securities convertible into shares of 
+stock of any class, shall affect, and no adjustment by reason thereof 
+shall be made with respect to, the number or price of Shares subject 
+to an Option or SAR.
+
+		(b)	Dissolution or Liquidation.  In the event of the 
+proposed dissolution or liquidation of the Company, all outstanding 
+Options and SARs will terminate immediately prior to the 
+consummation of such proposed action, unless otherwise provided 
+by the Administrator.  The Administrator may, in the exercise of its 
+sole discretion in such instances, declare that any Option or SAR 
+shall terminate as of a date fixed by the Administrator and give each 
+Optionee the right to exercise his or her Option or SAR as to all or 
+any part of the Optioned Stock or SAR, including Shares as to which 
+the Option or SAR would not otherwise be exercisable.
+
+		(c)	Sale of Assets or Merger. Subject to the provisions 
+of paragraph (d) hereof, in the event of a proposed sale of all or 
+substantially all of the assets of the Company, or the merger of the 
+Company with or into another corporation, each outstanding Option 
+and SAR shall be assumed or an equivalent option or stock 
+appreciation right shall be substituted by such successor corporation 
+or a parent or subsidiary of such successor corporation, unless the 
+Administrator determines, in the exercise of its sole discretion and in 
+lieu of such assumption or substitution, that the Optionee shall have 
+the right to exercise the Option or SAR as to all of the Optioned 
+Stock, including Shares as to which the Option or SAR would not 
+otherwise be exercisable.  If the Administrator makes an Option or 
+SAR fully exercisable in lieu of assumption or substitution in the 
+event of a merger or sale of assets, the Company shall notify the 
+Optionee that the Option or SAR shall be fully exercisable for a 
+period of thirty (30) days from the date of such notice, and the 
+Option or SAR will terminate upon the expiration of such period.  
+For purposes of this paragraph, an Option granted under the Plan 
+shall be deemed to be assumed if, following the sale of assets or 
+merger, the Option confers the right to purchase, for each Share of 
+Optioned Stock subject to the Option immediately prior to the sale of 
+assets or merger, the consideration (whether stock, cash or other 
+securities or property) received in the sale of assets or merger by 
+holders of Common Stock for each Share held on the effective date of 
+the transaction (and if such holders were offered a choice of 
+consideration, the type of consideration chosen by the holders of a 
+majority of the outstanding Shares); provided, however, that if such 
+consideration received in the sale of assets or merger was not solely 
+Common Stock of the successor corporation or its parent, the 
+Administrator may, with the consent of the successor corporation 
+and the participant, provide for the per share consideration to be 
+received upon exercise of the Option to be solely Common Stock of 
+the successor corporation or its parent equal in Fair Market Value to 
+the per share consideration received by holders of Common Stock in 
+the sale of assets or merger.
+
+		(d)	Change in Control.  In the event of a "Change in 
+Control" of the Company, as defined in paragraph (e) below, unless 
+otherwise determined by the Administrator prior to the occurrence 
+of such Change in Control, the following acceleration and valuation 
+provisions shall apply:
+
+		(1)	Any Options and SARs outstanding as of the 
+date such Change in Control is determined to have occurred 
+that are not yet exercisable and vested on such date shall 
+become fully exercisable and vested; and
+
+		(2)	The value of all outstanding Options and SARs 
+shall, unless otherwise determined by the Administrator at or 
+after grant, be cashed-out.  The amount at which such Options 
+and SARs shall be cashed out shall be equal to the excess of (x) 
+the Change in Control Price (as defined below) over (y) the 
+exercise price of the Common Stock covered by the Option or 
+SAR.  The cash-out proceeds shall be paid to the Optionee or, 
+in the event of death of an Optionee prior to payment, to the 
+estate of the Optionee or to a person who acquired the right to 
+exercise the Option or SAR by bequest or inheritance.
+
+		(e)	Definition of "Change in Control".  For purposes of 
+this Section 12, a "Change in Control" means the happening of any of 
+the following:
+
+		( i )	When any "person", as such term is used in 
+Sections 13(d) and 14(d) of the Exchange Act (other than the 
+Company, a Subsidiary or a Company employee benefit plan, 
+including any trustee of such plan acting as trustee) is or 
+becomes the "beneficial owner" (as defined in Rule 13d-3 
+                                     36
+<PAGE>
+under the Exchange Act), directly or indirectly, of securities of 
+the Company representing fifty percent (50%) or more of the 
+combined voting power of the Company's then outstanding 
+securities; or
+
+		(ii)	The occurrence of a transaction requiring 
+shareholder approval, and involving the sale of all or 
+substantially all of the assets of the Company or the merger of 
+the Company with or into another corporation.
+
+		(f)	Change in Control Price.  For purposes of this 
+Section 12, "Change in Control Price" shall be, as determined by the 
+Administrator, (i) the highest Fair Market Value at any time within 
+the 60-day period immediately preceding the date of determination 
+of the Change in Control Price by the Administrator (the "60-Day 
+Period"), or (ii) the highest price paid or offered, as determined by 
+the Administrator, in any bona fide transaction or bona fide offer 
+related to the Change in Control of the Company, at any time within 
+the 60-Day Period.
+
+	13.	Time of Granting Options and SARs.  The date of grant of 
+an Option or SAR shall, for all purposes, be the date on which the 
+Administrator makes the determination granting such Option or 
+SAR.  Notice of the determination shall be given to each Employee to 
+whom an Option or SAR is so granted within a reasonable time after 
+the date of such grant.
+
+	14.	Amendment and Termination of the Plan.
+
+		(a)	Amendment and Termination.  The Board may at 
+any time amend, alter, suspend or terminate the Plan, as it may 
+deem advisable; provided that, to the extent necessary and desirable 
+to comply with Applicable Laws, regulations or rules, including 
+Section 422 of the Code, or, for periods on and after September 30, 
+1995, with Section 162(m) of the Code, the Company shall obtain 
+shareholder approval of any Plan amendment in such a manner and 
+to such a degree as is required.
+
+		(b)	Effect of Amendment or Termination.  Any such 
+amendment, alteration, suspension or termination of the Plan shall 
+not impair the rights of any Optionee or SAR holder under any grant 
+theretofore made without his or her consent.  Such Options and 
+SARs shall remain in full force and effect as if this Plan had not been 
+amended or terminated.
+
+	15.	Conditions Upon Issuance of Shares.  Shares shall not be 
+issued with respect to an Option or SAR unless the exercise of such 
+Option or SAR and the issuance and delivery of such Shares 
+pursuant thereto shall comply with all relevant provisions of law, 
+including, without limitation, the Securities Act of 1933, as amended, 
+the Exchange Act, the rules and regulations promulgated 
+thereunder, and the requirements of any stock exchange or quotation 
+system upon which the Shares may then be listed or quoted, and 
+shall be further subject to the approval of counsel for the Company 
+with respect to such compliance.
+
+		As a condition to the exercise of an Option or SAR or 
+the issuance of Shares upon exercise of an Option or SAR, the 
+Company may require the person exercising such Option or SAR to 
+represent and warrant at the time of any such exercise that the 
+Shares are being purchased only for investment and without any 
+present intention to sell or distribute such Shares if, in the opinion of 
+counsel for the Company, such a representation is required by any of 
+the aforementioned relevant provisions of law.
+
+		Inability of the Company to obtain authority from any 
+regulatory body having jurisdiction, which authority is deemed by 
+the Company's counsel to be necessary to the lawful issuance and 
+sale of any Shares hereunder, shall relieve the Company of any 
+liability in respect of the non-issuance or sale of such Shares as to 
+which such requisite authority shall not have been obtained.
+
+	16.	Reservation of Shares.  The Company, during the term of 
+this Plan, will at all times reserve and keep available such number of 
+Shares as shall be sufficient to satisfy the requirements of the Plan.
+
+                                      37
+<PAGE>
+
+</TEXT>
+</DOCUMENT>
+<DOCUMENT>
+<TYPE>EX-27
+<SEQUENCE>3
+<DESCRIPTION>ART. 5 FDS FOR FY98 FORM 10-K
+<TEXT>
+
+<TABLE> <S> <C>
+
+<ARTICLE>	5
+
+<MULTIPLIER>		1,000,000
+       	
+<S>	<C>
+<PERIOD-TYPE>		3-MOS
+<FISCAL-YEAR-END>	SEP-25-1998
+<PERIOD-END>		DEC-26-1997
+	
+<CASH>                                                1,193
+<SECURITIES>                                            434
+<RECEIVABLES>                                           998
+<ALLOWANCES>                                             96
+<INVENTORY>	                                            404
+<CURRENT-ASSETS>                                      3,373
+<PP&E>                                                1,069
+<DEPRECIATION>                                          640
+<TOTAL-ASSETS>                                        4,126
+<CURRENT-LIABILITIES>                                 1,669
+<BONDS>                                                 952
+<COMMON>                                                499
+<PREFERRED-MANDATORY>                                     0
+<PREFERRED>                                             150
+<OTHER-SE>                                              595
+<TOTAL-LIABILITY-AND-EQUITY>                          4,126
+	
+<SALES>                                               1,578
+<TOTAL-REVENUES>                                      1,578
+<CGS>                                                 1,225
+<TOTAL-COSTS>                                         1,225
+<OTHER-EXPENSES>                                        313
+<LOSS-PROVISION>                                          0
+<INTEREST-EXPENSE>	                                      16
+<INCOME-PRETAX>                                          47
+<INCOME-TAX>                                              0
+<INCOME-CONTINUING>                                      47
+<DISCONTINUED>                                            0
+<EXTRAORDINARY>                                           0
+<CHANGES>                                                 0
+<NET-INCOME>                                             47
+<EPS-PRIMARY>                                          0.37
+<EPS-DILUTED>                                          0.33
+			
+<PAGE>				
+
+</TEXT>
+</DOCUMENT>
+</SEC-DOCUMENT>
+-----END PRIVACY-ENHANCED MESSAGE-----
