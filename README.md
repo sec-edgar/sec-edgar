@@ -1,9 +1,11 @@
-Edgar-Crawler
+SEC-Edgar-Crawler
 =============
 
- Getting filings of various comapanies at once is really a pain but Edgar-Crawler does that for you.
+ Getting filings of various comapanies at once is really a pain but SEC-Edgar-Crawler does that for you.
  you can Download all companies  periodic reports, filings and forms from EDGAR database in a single command.
- 
+
+Installation
+------------- 
  You may have to install the package using pip.
  ```bash
  $ pip install SEC-Edgar
@@ -17,15 +19,48 @@ Edgar-Crawler
  $ python setup.py install
  ```
 
- Change file.txt to add the name of company's, CIK code and date (prior to) to get the filings of that company.
+Runing
+-------
+ Check [data.txt][1] to see the format in which name of company's, CIK code date (prior to) to get the filings of that company and count is given.
  
- Now to run it
+ Now to run it start pyton shell
    ```bash
- $ python allinone.py
+  >>> from SECEdgar.crawler import SecCrawler
+  >>> seccralwer = SecCralwer()
+  >>> seccrawler.filing_10K('AAPL', '0000320193', '20010101', '10')
    ```
- This will download the company's 8-K, 10-K, 10-Q filings of company's listed in file.txt. The data will be saved in "Crawled
- Data" folder in the same folder where allinone.py is.
- 
- The pypy package will be available soon.
- 
+ This will download the AAPL company's 10-K filings and the data will be saved in "SEC-Edgar-data" folder which will be created on the run time.
 
+
+Example Snippet
+---------------
+	```python
+	import time
+	from SECEdgar.crawler import SecCrawler
+
+	def get_filings():
+		t1 = time.time()
+		
+		# create object
+		seccrawler = SecCrawler()
+
+		companyCode = 'AAPL'    # company code for apple 
+		cik = '0000320193'      # cik code for apple
+		date = '20010101'       # date from which filings should be downloaded
+		count = '10'            # no of filings
+		
+		seccrawler.filing_10Q(str(companyCode), str(cik), str(date), str(count))
+		seccrawler.filing_10K(str(companyCode), str(cik), str(date), str(count))
+		seccrawler.filing_8K(str(companyCode), str(cik), str(date), str(count))
+
+		t2 = time.time()
+		print "Total Time taken: ",
+		print (t2-t1)
+		
+	if __name__ == '__main__':
+		get_filings()	
+	```
+Also I have maintained a list of companies with their cik code and the file can be downlaoded from [here][2].
+
+[1]: https://github.com/rahulrrixe/SEC-Edgar/blob/master/SECEdgar/data.txt
+[2]: https://github.com/rahulrrixe/SEC-Edgar/blob/master/SECEdgar/companylist.txt

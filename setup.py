@@ -19,7 +19,7 @@ if sys.version_info <= (2, 4):
 
 setup(
     name='SECEdgar',
-    version='0.0.1',
+    version='0.1.1',
     packages=find_packages(),
     package_dir={'SECEdgar': 'SECEdgar'},
     url='https://github.com/rahulrrixe/SEC-Edgar',
