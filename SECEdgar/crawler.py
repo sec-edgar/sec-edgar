@@ -6,7 +6,7 @@ import re
 import requests
 import os
 
-class SecCralwer():
+class SecCrawler():
 
 	def __init__(self):
 		self.hello = "Welcome to Sec Cralwer!"
