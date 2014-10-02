@@ -21,7 +21,7 @@ Installation
 
 Runing
 -------
- Check [data.txt][1] to see the format in which name of company's, CIK code date (prior to) to get the filings of that company and count is given.
+ Check [data.txt][1] to see the format in which name of company's, CIK code date (prior to) and count is given to get the filings of that company.
  
  Now to run it start pyton shell
    ```bash
@@ -34,7 +34,7 @@ Runing
 
 Example Snippet
 ---------------
-	```python
+	```Python
 	import time
 	from SECEdgar.crawler import SecCrawler
 
