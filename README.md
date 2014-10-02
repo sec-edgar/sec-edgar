@@ -32,8 +32,8 @@ Runing
  This will download the AAPL company's 10-K filings and the data will be saved in "SEC-Edgar-data" folder which will be created on the run time.
 
 
-Example Snippet
----------------
+Example 
+--------
 ```python
 import time
 from SECEdgar.crawler import SecCrawler
@@ -52,6 +52,7 @@ def get_filings():
 	seccrawler.filing_10Q(str(companyCode), str(cik), str(date), str(count))
 	seccrawler.filing_10K(str(companyCode), str(cik), str(date), str(count))
 	seccrawler.filing_8K(str(companyCode), str(cik), str(date), str(count))
+	seccrawler.filing_13F(str(companyCode), str(cik), str(date), str(count))
 
 	t2 = time.time()
 	print "Total Time taken: ",
@@ -60,7 +61,17 @@ def get_filings():
 if __name__ == '__main__':
 	get_filings()	
 ```
-Also I have maintained a list of companies with their cik code and the file can be downlaoded from [here][2].
+
+Supported Methods
+-----------------
+Currently this cralwer supports only 4 filings 
+*  10-K
+*  10-Q
+*   8-K
+*  13-F
+
+
+I have maintained a list of companies with their cik code and the file can be downlaoded from [here][2].
 
 [1]: https://github.com/rahulrrixe/SEC-Edgar/blob/master/SECEdgar/data.txt
 [2]: https://github.com/rahulrrixe/SEC-Edgar/blob/master/SECEdgar/companylist.txt
