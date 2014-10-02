@@ -18,10 +18,10 @@ if sys.version_info <= (2, 4):
     sys.exit(1)
 
 setup(
-    name='SEC-Edgar',
+    name='SECEdgar',
     version='0.0.1',
     packages=find_packages(),
-    package_dir={'SEC-Edgar': 'SEC-Edgar'},
+    package_dir={'SECEdgar': 'SECEdgar'},
     url='https://github.com/rahulrrixe/SEC-Edgar',
     license='Apache License (2.0)',
     author='Rahul Ranjan',
@@ -36,7 +36,7 @@ setup(
     cmdclass={
         'install': install,
     },
-    install_requires=['requests', 'beautifulsoup4', 'configparser', 'urllib2']
+    install_requires=['requests', 'beautifulsoup4', 'configparser',],
     keywords=['SEC', 'Edgar', 'Crawler', 'filings'],
     tests_require=['unittest2'],
     classifiers=[

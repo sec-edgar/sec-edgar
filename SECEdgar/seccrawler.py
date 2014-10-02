@@ -2,20 +2,20 @@
 # provided that of company symbol and its cik code.
 
 from bs4 import BeautifulSoup
-import re, urllib2
+import re
 import requests
 import os
 
 def filing_10Q(companyCode, cik, priorto):
 	# Making the directory to save comapny filings
-	if not os.path.exists("SEC-Edgar/"):
-		os.makedirs("SEC-Edgar/")
-	if not os.path.exists("SEC-Edgar/"+str(companyCode)):
-		os.makedirs("SEC-Edgar/"+str(companyCode))
-	if not os.path.exists("SEC-Edgar/"+str(companyCode)+"/"+str(cik)):
-		os.makedirs("SEC-Edgar/"+str(companyCode)+"/"+str(cik))
-	if not os.path.exists("SEC-Edgar/"+str(companyCode)+"/"+str(cik)+"/"+str("10-Q")):
-		os.makedirs("SEC-Edgar/"+str(companyCode)+"/"+str(cik)+"/"+str("10-Q"))
+	if not os.path.exists("SEC-Edgar-data/"):
+		os.makedirs("SEC-Edgar-data/")
+	if not os.path.exists("SEC-Edgar-data/"+str(companyCode)):
+		os.makedirs("SEC-Edgar-data/"+str(companyCode))
+	if not os.path.exists("SEC-Edgar-data/"+str(companyCode)+"/"+str(cik)):
+		os.makedirs("SEC-Edgar-data/"+str(companyCode)+"/"+str(cik))
+	if not os.path.exists("SEC-Edgar-data/"+str(companyCode)+"/"+str(cik)+"/"+str("10-Q")):
+		os.makedirs("SEC-Edgar-data/"+str(companyCode)+"/"+str(cik)+"/"+str("10-Q"))
 	
 	#generate the url to crawl 
 	base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="+str(cik)+"&type=10-Q&dateb="+str(priorto)+"&owner=exclude&output=xml&count=100"	
@@ -48,20 +48,20 @@ def filing_10Q(companyCode, cik, priorto):
 		base_url = docList[j]
 		r = requests.get(base_url)
 		data = r.text
-		path = "SEC-Edgar/"+str(companyCode)+"/"+str(cik)+"/"+str("10-Q")+"/"+str(docNameList[j])
+		path = "SEC-Edgar-data/"+str(companyCode)+"/"+str(cik)+"/"+str("10-Q")+"/"+str(docNameList[j])
 		filename = open(path,"a")
 		filename.write(data.encode('ascii', 'ignore'))	
 
 def filing_10K(companyCode, cik, priorto):
 	#Making the directory to save comapny filings
-	if not os.path.exists("SEC-Edgar/"):
-		os.makedirs("SEC-Edgar/")
-	if not os.path.exists("SEC-Edgar/"+str(companyCode)):
-		os.makedirs("SEC-Edgar/"+str(companyCode))
-	if not os.path.exists("SEC-Edgar/"+str(companyCode)+"/"+str(cik)):
-		os.makedirs("SEC-Edgar/"+str(companyCode)+"/"+str(cik))
-	if not os.path.exists("SEC-Edgar/"+str(companyCode)+"/"+str(cik)+"/"+str("10-K")):
-		os.makedirs("SEC-Edgar/"+str(companyCode)+"/"+str(cik)+"/"+str("10-K"))
+	if not os.path.exists("SEC-Edgar-data/"):
+		os.makedirs("SEC-Edgar-data/")
+	if not os.path.exists("SEC-Edgar-data/"+str(companyCode)):
+		os.makedirs("SEC-Edgar-data/"+str(companyCode))
+	if not os.path.exists("SEC-Edgar-data/"+str(companyCode)+"/"+str(cik)):
+		os.makedirs("SEC-Edgar-data/"+str(companyCode)+"/"+str(cik))
+	if not os.path.exists("SEC-Edgar-data/"+str(companyCode)+"/"+str(cik)+"/"+str("10-K")):
+		os.makedirs("SEC-Edgar-data/"+str(companyCode)+"/"+str(cik)+"/"+str("10-K"))
 	
 	#generate the url to crawl 
 	base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="+str(cik)+"&type=10-K&dateb="+str(priorto)+"&owner=exclude&output=xml&count=100"	
@@ -93,20 +93,20 @@ def filing_10K(companyCode, cik, priorto):
 		base_url = docList[j]
 		r = requests.get(base_url)
 		data = r.text
-		path = "SEC-Edgar/"+str(companyCode)+"/"+str(cik)+"/"+str("10-K")+"/"+str(docNameList[j])
+		path = "SEC-Edgar-data/"+str(companyCode)+"/"+str(cik)+"/"+str("10-K")+"/"+str(docNameList[j])
 		filename = open(path,"a")
 		filename.write(data.encode('ascii', 'ignore'))	
 
 def filing_8K(companyCode, cik, priorto):
 	#Making the directory to save comapny filings
-	if not os.path.exists("SEC-Edgar/"):
-		os.makedirs("SEC-Edgar/")
-	if not os.path.exists("SEC-Edgar/"+str(companyCode)):
-		os.makedirs("SEC-Edgar/"+str(companyCode))
-	if not os.path.exists("SEC-Edgar/"+str(companyCode)+"/"+str(cik)):
-		os.makedirs("SEC-Edgar/"+str(companyCode)+"/"+str(cik))
-	if not os.path.exists("SEC-Edgar/"+str(companyCode)+"/"+str(cik)+"/"+str("8-K")):
-		os.makedirs("SEC-Edgar/"+str(companyCode)+"/"+str(cik)+"/"+str("8-K"))
+	if not os.path.exists("SEC-Edgar-data/"):
+		os.makedirs("SEC-Edgar-data/")
+	if not os.path.exists("SEC-Edgar-data/"+str(companyCode)):
+		os.makedirs("SEC-Edgar-data/"+str(companyCode))
+	if not os.path.exists("SEC-Edgar-data/"+str(companyCode)+"/"+str(cik)):
+		os.makedirs("SEC-Edgar-data/"+str(companyCode)+"/"+str(cik))
+	if not os.path.exists("SEC-Edgar-data/"+str(companyCode)+"/"+str(cik)+"/"+str("8-K")):
+		os.makedirs("SEC-Edgar-data/"+str(companyCode)+"/"+str(cik)+"/"+str("8-K"))
 	
 	#generate the url to crawl 
 	base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="+str(cik)+"&type=8-K&dateb="+str(priorto)+"&owner=exclude&output=xml&count=100"	
@@ -138,20 +138,20 @@ def filing_8K(companyCode, cik, priorto):
 		base_url = docList[j]
 		r = requests.get(base_url)
 		data = r.text
-		path = "SEC-Edgar/"+str(companyCode)+"/"+str(cik)+"/"+str("8-K")+"/"+str(docNameList[j])
+		path = "SEC-Edgar-data/"+str(companyCode)+"/"+str(cik)+"/"+str("8-K")+"/"+str(docNameList[j])
 		filename = open(path,"a")
 		filename.write(data.encode('ascii', 'ignore'))	
 
 def filing_13F(companyCode, cik, priorto):
 	# Making the directory to save comapny filings
-	if not os.path.exists("SEC-Edgar/"):
-		os.makedirs("SEC-Edgar/")
-	if not os.path.exists("SEC-Edgar/"+str(companyCode)):
-		os.makedirs("SEC-Edgar/"+str(companyCode))
-	if not os.path.exists("SEC-Edgar/"+str(companyCode)+"/"+str(cik)):
-		os.makedirs("SEC-Edgar/"+str(companyCode)+"/"+str(cik))
-	if not os.path.exists("SEC-Edgar/"+str(companyCode)+"/"+str(cik)+"/"+str("13-F")):
-		os.makedirs("SEC-Edgar/"+str(companyCode)+"/"+str(cik)+"/"+str("13-F"))
+	if not os.path.exists("SEC-Edgar-data/"):
+		os.makedirs("SEC-Edgar-data/")
+	if not os.path.exists("SEC-Edgar-data/"+str(companyCode)):
+		os.makedirs("SEC-Edgar-data/"+str(companyCode))
+	if not os.path.exists("SEC-Edgar-data/"+str(companyCode)+"/"+str(cik)):
+		os.makedirs("SEC-Edgar-data/"+str(companyCode)+"/"+str(cik))
+	if not os.path.exists("SEC-Edgar-data/"+str(companyCode)+"/"+str(cik)+"/"+str("13-F")):
+		os.makedirs("SEC-Edgar-data/"+str(companyCode)+"/"+str(cik)+"/"+str("13-F"))
 	
 	#generate the url to crawl 
 	base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="+str(cik)+"&type=13F&dateb="+str(priorto)+"&owner=exclude&output=xml&count=100"	
@@ -184,6 +184,6 @@ def filing_13F(companyCode, cik, priorto):
 		base_url = docList[j]
 		r = requests.get(base_url)
 		data = r.text
-		path = "SEC-Edgar/"+str(companyCode)+"/"+str(cik)+"/"+str("13-F")+"/"+str(docNameList[j])
+		path = "SEC-Edgar-data/"+str(companyCode)+"/"+str(cik)+"/"+str("13-F")+"/"+str(docNameList[j])
 		filename = open(path,"a")
 		filename.write(data.encode('ascii', 'ignore'))	

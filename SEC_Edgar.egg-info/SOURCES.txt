@@ -1,0 +1,14 @@
+setup.py
+SEC-Edgar/10-K Crawler.py
+SEC-Edgar/10-Q Crawler.py
+SEC-Edgar/13-F Crawler.py
+SEC-Edgar/8-K Crawler.py
+SEC-Edgar/__init__.py
+SEC-Edgar/sec.py
+SEC-Edgar/test.py
+SEC_Edgar.egg-info/PKG-INFO
+SEC_Edgar.egg-info/SOURCES.txt
+SEC_Edgar.egg-info/dependency_links.txt
+SEC_Edgar.egg-info/entry_points.txt
+SEC_Edgar.egg-info/requires.txt
+SEC_Edgar.egg-info/top_level.txt
