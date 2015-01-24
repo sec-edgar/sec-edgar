@@ -1,3 +1,2 @@
 Quote   CIK        priorto(YYYYMMDD) Count
 AAPL  0000320193     20010101         10
-ACN   00001467373    20051010         20
