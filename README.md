@@ -23,7 +23,7 @@ Runing
 -------
  Check [data.txt][1] to see the format in which name of company's, CIK code date (prior to) and count is given to get the filings of that company.
  
- Now to run it start pyton shell
+ Now to run it start python shell
    ```bash
   >>> from SECEdgar.crawler import SecCrawler
   >>> seccralwer = SecCralwer()
