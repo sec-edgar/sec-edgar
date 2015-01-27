@@ -26,8 +26,8 @@ Runing
  Now to run it start python shell
    ```bash
   >>> from SECEdgar.crawler import SecCrawler
-  >>> seccralwer = SecCralwer()
-  >>> seccrawler.filing_10K('AAPL', '0000320193', '20010101', '10')
+  >>> secCrawler = SecCrawler()
+  >>> secCrawler.filing_10K('AAPL', '0000320193', '20010101', '10')
    ```
  This will download the AAPL company's 10-K filings and the data will be saved in "SEC-Edgar-data" folder which will be created on the run time.
 
