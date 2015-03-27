@@ -75,3 +75,7 @@ I have maintained a list of companies with their cik code and the file can be do
 
 [1]: https://github.com/rahulrrixe/SEC-Edgar/blob/master/SECEdgar/data.txt
 [2]: https://github.com/rahulrrixe/SEC-Edgar/blob/master/SECEdgar/companylist.txt
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/rahulrrixe/sec-edgar/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
