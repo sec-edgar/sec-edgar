@@ -9,10 +9,12 @@ from bs4 import BeautifulSoup
 from config import DEFAULT_DATA_PATH
 
 
+
 class SecCrawler():
 
     def __init__(self):
         self.hello = "Welcome to Sec Cralwer!"
+        print DEFAULT_DATA_PATH
 
     def make_directory(self, company_code, cik, priorto, filing_type):
         # Making the directory to save comapny filings
@@ -31,8 +33,8 @@ class SecCrawler():
             base_url = doc_list[j]
             r = requests.get(base_url)
             data = r.text
-            path = os.join.path(DEFAULT_DATA_PATH, company_code, cik, filing_type,
-                doc_name_list[j])
+            path = os.join.path(DEFAULT_DATA_PATH, company_code, cik,
+                filing_type, doc_name_list[j])
 
             with open(path, "a+") as f:
                 f.write(data.encode('ascii', 'ignore'))
