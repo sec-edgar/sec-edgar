@@ -1,0 +1,9 @@
+0.1.1
+=====
+* Add API for 10-K
+* Create a central API point using class
+
+0.1.2
+=====
+* fix issue related to file saving
+* remove platform dependent file path
