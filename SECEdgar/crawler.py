@@ -9,12 +9,10 @@ from bs4 import BeautifulSoup
 from config import DEFAULT_DATA_PATH
 
 
-
 class SecCrawler():
 
     def __init__(self):
         self.hello = "Welcome to Sec Cralwer!"
-        print DEFAULT_DATA_PATH
 
     def make_directory(self, company_code, cik, priorto, filing_type):
         # Making the directory to save comapny filings
@@ -27,13 +25,14 @@ class SecCrawler():
                 if exception.errno != errno.EEXIST:
                     raise
 
-    def save_in_directory(self, company_code, cik, priorto, doc_list, doc_name_list, filing_type):
+    def save_in_directory(self, company_code, cik, priorto, doc_list,
+        doc_name_list, filing_type):
         # Save every text document into its respective folder
         for j in range(len(doc_list)):
             base_url = doc_list[j]
             r = requests.get(base_url)
             data = r.text
-            path = os.join.path(DEFAULT_DATA_PATH, company_code, cik,
+            path = os.path.join(DEFAULT_DATA_PATH, company_code, cik,
                 filing_type, doc_name_list[j])
 
             with open(path, "a+") as f:
@@ -45,35 +44,12 @@ class SecCrawler():
 
         # generate the url to crawl
         base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="+str(cik)+"&type=10-Q&dateb="+str(priorto)+"&owner=exclude&output=xml&count="+str(count)
-        print ("started 10-Q" + str(company_code))
+        print ("started 10-Q " + str(company_code))
         r = requests.get(base_url)
         data = r.text
-        soup = BeautifulSoup(data)
-        link_list = list()
 
-        # If the link is .htm convert it to .html
-        for link in soup.find_all('filinghref'):
-            url = link.string
-            if link.string.split(".")[len(link.string.split("."))-1] == "htm":
-                url += "l"
-                link_list.append(url)
-        link_list_final = link_list
-
-        print ("Number of files to download %s", len(link_list_final))
-        print ("Starting download....")
-
-        # List of URL to the text documents
-        doc_list = list()
-        # List of document names
-        doc_name_list = list()
-
-        # Get all the doc
-        for k in range(len(link_list_final)):
-            required_url = str(link_list_final[k])[0:len(link_list_final[k]) - 11]
-            txtdoc = required_url + ".txt"
-            docname = txtdoc.split("/")[len(txtdoc.split("/")) - 1]
-            doc_list.append(txtdoc)
-            doc_name_list.append(docname)
+        # get doc list data
+        doc_list, doc_name_list = self.create_document_list(data)
 
         try:
             self.save_in_directory(company_code, cik, priorto, doc_list, doc_name_list, '10-Q')
@@ -83,130 +59,100 @@ class SecCrawler():
         print "Successfully downloaded all the files"
 
 
-    def filing_10K(self, companyCode, cik, priorto, count):
-        try:
-            self.make_directory(companyCode,cik, priorto, '10-K')
-        except Exception,e:
-             print str(e)
+    def filing_10K(self, company_code, cik, priorto, count):
 
-        #generate the url to crawl
+        self.make_directory(company_code,cik, priorto, '10-K')
+
+        # generate the url to crawl
         base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="+str(cik)+"&type=10-K&dateb="+str(priorto)+"&owner=exclude&output=xml&count="+str(count)
-        print ("started 10-K"+str(companyCode))
+        print ("started 10-K " + str(company_code))
+
         r = requests.get(base_url)
         data = r.text
-        soup = BeautifulSoup(data) # Initializing to crawl again
-        linkList=[] # List of all links from the CIK page
 
-        # If the link is .htm convert it to .html
-        for link in soup.find_all('filinghref'):
-            URL = link.string
-            if link.string.split(".")[len(link.string.split("."))-1] == "htm":
-                URL+="l"
-                linkList.append(URL)
-        linkListFinal = linkList
-
-        print ("Number of files to download %s", len(linkListFinal))
-        print ("Starting download....")
-
-        docList = [] # List of URL to the text documents
-        docNameList = [] # List of document names
-
-        for k in range(len(linkListFinal)):
-            requiredURL = str(linkListFinal[k])[0:len(linkListFinal[k])-11]
-            txtdoc = requiredURL+".txt"
-            docname = txtdoc.split("/")[len(txtdoc.split("/"))-1]
-            docList.append(txtdoc)
-            docNameList.append(docname)
+        # get doc list data
+        doc_list, doc_name_list = self.create_document_list(data)
 
         try:
-            self.save_in_directory(companyCode, cik, priorto, docList, docNameList, '10-K')
+            self.save_in_directory(company_code, cik, priorto, doc_list, doc_name_list, '10-K')
         except Exception,e:
             print str(e)
 
         print "Successfully downloaded all the files"
 
-    def filing_8K(self, companyCode, cik, priorto, count):
+    def filing_8K(self, company_code, cik, priorto, count):
         try:
-            self.make_directory(companyCode,cik, priorto, '8-K')
+            self.make_directory(company_code,cik, priorto, '8-K')
         except Exception,e:
             print str(e)
 
-        #generate the url to crawl
+        # generate the url to crawl
         base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="+str(cik)+"&type=8-K&dateb="+str(priorto)+"&owner=exclude&output=xml&count="+str(count)
-        print ("started 8-K" + str(companyCode))
+
+        print ("started 8-K" + str(company_code))
         r = requests.get(base_url)
         data = r.text
-        soup = BeautifulSoup(data) # Initializing to crawl again
-        linkList=[] # List of all links from the CIK page
 
-        # If the link is .htm convert it to .html
-        for link in soup.find_all('filinghref'):
-            URL = link.string
-            if link.string.split(".")[len(link.string.split("."))-1] == "htm":
-                URL+="l"
-                linkList.append(URL)
-        linkListFinal = linkList
-
-        print ("Number of files to download %s", len(linkListFinal))
-        print ("Starting download....")
-
-        docList = [] # List of URL to the text documents
-        docNameList = [] # List of document names
-
-        for k in range(len(linkListFinal)):
-            requiredURL = str(linkListFinal[k])[0:len(linkListFinal[k])-11]
-            txtdoc = requiredURL+".txt"
-            docname = txtdoc.split("/")[len(txtdoc.split("/"))-1]
-            docList.append(txtdoc)
-            docNameList.append(docname)
+        # get doc list data
+        doc_list, doc_name_list = self.create_document_list(data)
 
         try:
-            self.save_in_directory(companyCode, cik, priorto, docList, docNameList, '8-K')
-        except Exception,e:
+            self.save_in_directory(company_code, cik, priorto, doc_list, doc_name_list, '8-K')
+        except Exception, e:
             print str(e)
 
         print "Successfully downloaded all the files"
 
-    def filing_13F(self, companyCode, cik, priorto, count):
+    def filing_13F(self, company_code, cik, priorto, count):
         try:
-            self.make_directory(companyCode,cik, priorto, '13-F')
-        except Exception,e:
+            self.make_directory(company_code, cik, priorto, '13-F')
+        except Exception, e:
             print str(e)
 
-        #generate the url to crawl
+        # generate the url to crawl
         base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="+str(cik)+"&type=13F&dateb="+str(priorto)+"&owner=exclude&output=xml&count="+str(count)
-        print ("started 10-Q"+str(companyCode))
+        print ("started 10-Q "+ str(company_code))
         r = requests.get(base_url)
         data = r.text
-        soup = BeautifulSoup(data) # Initializing to crawl again
-        linkList=[] # List of all links from the CIK page
+
+        doc_list, doc_name_list = self.create_document_list(data)
+
+        try:
+            self.save_in_directory(company_code, cik, priorto, doc_list,
+                doc_name_list, '13-F')
+        except Exception, e:
+            print str(e)
+
+        print "Successfully downloaded all the files"
+
+    def create_document_list(self, data):
+        # parse fetched data using beatifulsoup
+        soup = BeautifulSoup(data)
+        # store the link in the list
+        link_list = list()
 
         # If the link is .htm convert it to .html
         for link in soup.find_all('filinghref'):
-            URL = link.string
+            url = link.string
             if link.string.split(".")[len(link.string.split("."))-1] == "htm":
-                URL+="l"
-                linkList.append(URL)
-        linkListFinal = linkList
+                url += "l"
+            link_list.append(url)
+        link_list_final = link_list
 
-        print ("Number of files to download %s", len(linkListFinal))
+        print ("Number of files to download {0}".format(len(link_list_final)))
         print ("Starting download....")
 
-        docList = [] # List of URL to the text documents
-        docNameList = [] # List of document names
+        # List of url to the text documents
+        doc_list = list()
+        # List of document names
+        doc_name_list = list()
 
         # Get all the doc
-        for k in range(len(linkListFinal)):
-            requiredURL = str(linkListFinal[k])[0:len(linkListFinal[k])-11]
-            txtdoc = requiredURL+".txt"
-            docname = txtdoc.split("/")[len(txtdoc.split("/"))-1]
-            docList.append(txtdoc)
-            docNameList.append(docname)
-
-        try:
-            self.save_in_directory(companyCode, cik, priorto, docList, docNameList, '13-F')
-        except Exception,e:
-            print str(e)
-
-        print "Successfully downloaded all the files"
+        for k in range(len(link_list_final)):
+            required_url = link_list_final[k].replace('-index.html', '')
+            txtdoc = required_url + ".txt"
+            docname = txtdoc.split("/")[-1]
+            doc_list.append(txtdoc)
+            doc_name_list.append(docname)
+        return doc_list, doc_name_list
 
