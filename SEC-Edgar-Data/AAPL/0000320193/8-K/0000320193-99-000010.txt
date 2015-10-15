@@ -1,0 +1,334 @@
+-----BEGIN PRIVACY-ENHANCED MESSAGE-----
+Proc-Type: 2001,MIC-CLEAR
+Originator-Name: webmaster@www.sec.gov
+Originator-Key-Asymmetric:
+ MFgwCgYEVQgBAQICAf8DSgAwRwJAW2sNKK9AVtBzYZmr6aGjlWyK3XmZv3dTINen
+ TWSM7vrzLADbmYQaionwg5sDW3P6oaM5D3tdezXMm7z1T+B+twIDAQAB
+MIC-Info: RSA-MD5,RSA,
+ TtnKkNfMEKi9UEIzn7og1qWgmyPtzyLq5Eqr1SCVfsI5xssx2eADdF6b6cORWNOq
+ uW1CJLpLtFtup8r+8TmmOg==
+
+<SEC-DOCUMENT>0000320193-99-000010.txt : 19990908
+<SEC-HEADER>0000320193-99-000010.hdr.sgml : 19990908
+ACCESSION NUMBER:		0000320193-99-000010
+CONFORMED SUBMISSION TYPE:	8-K
+PUBLIC DOCUMENT COUNT:		1
+CONFORMED PERIOD OF REPORT:	19990903
+ITEM INFORMATION:		
+FILED AS OF DATE:		19990907
+
+FILER:
+
+	COMPANY DATA:	
+		COMPANY CONFORMED NAME:			APPLE COMPUTER INC
+		CENTRAL INDEX KEY:			0000320193
+		STANDARD INDUSTRIAL CLASSIFICATION:	ELECTRONIC COMPUTERS [3571]
+		IRS NUMBER:				942404110
+		STATE OF INCORPORATION:			CA
+		FISCAL YEAR END:			0930
+
+	FILING VALUES:
+		FORM TYPE:		8-K
+		SEC ACT:		
+		SEC FILE NUMBER:	000-10030
+		FILM NUMBER:		99706624
+
+	BUSINESS ADDRESS:	
+		STREET 1:		1 INFINITE LOOP
+		CITY:			CUPERTINO
+		STATE:			CA
+		ZIP:			95014
+		BUSINESS PHONE:		4089961010
+
+	MAIL ADDRESS:	
+		STREET 1:		ONE INFINITE LOOP
+		CITY:			CUPERTINO
+		STATE:			CA
+		ZIP:			95014
+</SEC-HEADER>
+<DOCUMENT>
+<TYPE>8-K
+<SEQUENCE>1
+<TEXT>
+
+
+
+
+
+                      SECURITIES AND EXCHANGE COMMISSION
+                            Washington, D. C.  20549
+
+
+                                   FORM 8-K
+
+
+                                CURRENT REPORT
+
+
+    Pursuant to Section 13 or 15(d) of  the Securities Exchange Act of 1934
+
+
+                           Date of Report:   	September 3, 1999
+                           Date of earliest
+                           event reported:   	September 3, 1999
+
+
+                              Apple Computer, Inc.
+             (Exact name of registrant as specified in its charter)
+
+
+          California                      0-10030             94-2404110
+(State or other jurisdiction of      (Commission File     (I.R.S. Employer
+incorporation or organization)       Number)              Identification No.)
+
+
+
+	                1 Infinite Loop, Cupertino, California 95014
+                    (Address of principal executive offices)
+
+
+      Registrant's telephone number, including area code:   (408) 996-1010
+
+
+                                 Not Applicable
+        (Former name or former address, if changed since last report.)
+
+
+
+
+
+
+
+
+Exhibit Index on Page 4
+
+
+
+
+
+                                       1
+<PAGE>
+
+
+                      INFORMATION INCLUDED IN THIS REPORT
+
+Items 1 through 4, 6 and 8 Not Applicable.
+
+Item 5.	Other Events.
+
+     (i)   Reference is made to the press release issued to the public by the
+registrant on September 3, 1999, the text of which is attached hereto as an
+exhibit, for a description of the events reported pursuant to this Form 8-K.
+
+
+Item 7.    Financial Statements, Pro Forma Financial Information and
+           Exhibits.
+
+           (c)       Exhibits
+
+           99.1      Text of press release dated September 3, 1999.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                       2
+<PAGE>
+
+
+
+
+
+
+
+                                  SIGNATURE
+
+Pursuant to the requirements of the Securities Exchange Act of 1934, the
+registrant has duly caused this report to be signed on its behalf by the
+undersigned, thereunto duly authorized.
+
+
+                                       APPLE COMPUTER, INC.
+
+
+
+                                       By:/S/ Fred D. Anderson
+                                       Fred D. Anderson,
+                                       Executive Vice President and Chief
+                                       Financial Officer
+
+
+Date: September 3, 1999
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                       3
+<PAGE>
+
+
+
+
+
+
+
+                               INDEX TO EXHIBITS
+
+Exhibit            Document                                               Page
+99.1               Text of Press Release dated September 3, 1999          5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                       4
+ <PAGE>
+
+
+
+
+
+           Apple Reaches Settlement of Shareholder Derivative Action
+
+CUPERTINO, California -- September 3, 1999 -- Apple today announced it has
+reached a settlement, subject to court approval, of shareholder derivative
+action known as Kostick vs. Crisp, which has been pending since January 1996.
+
+Under the settlement, Apple's Board of Directors will take certain corporate
+governance actions involving amendments to the Company's by-laws and the
+Company's policy concerning trading in Company securities.  More details
+regarding the settlement terms can be obtained from the formal notice which
+was published in Investor's Business Daily today, September 3, 1999, or by
+contacting Apple legal department at (408) 974-0770.
+
+About Apple Computer
+Apple Computer, Inc. ignited the personal computer revolution in the 1970s
+with the Apple II, and reinvented the personal computer in the 1980s with the
+Macintosh. Apple is now recommitted to its original mission to bring the best
+personal computing products and support to students, educators, designers,
+scientists, engineers, businesspersons and consumers in over 140 countries
+around the world.
+
+       Press Contact:
+       Rhona Hamilton
+       Apple Computer, Inc.
+       (408) 974-6439
+       hamiton@apple.com
+
+NOTE TO EDITORS: For additional information visit Apple's PR web site
+(www.apple.com/pr/) or call Apple's Media Helpline at (408) 974-2042.
+
+Apple, the Apple logo and Macintosh are registered trademarks of Apple
+Computer, Inc. Additional company and product names may be trademarks or
+registered trademarks of the individual companies and are respectfully
+acknowledged.
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                       5
+<PAGE>
+
+</TEXT>
+
+</DOCUMENT>
+</SEC-DOCUMENT>
+-----END PRIVACY-ENHANCED MESSAGE-----

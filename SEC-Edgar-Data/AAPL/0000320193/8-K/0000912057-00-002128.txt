@@ -1,0 +1,204 @@
+-----BEGIN PRIVACY-ENHANCED MESSAGE-----
+Proc-Type: 2001,MIC-CLEAR
+Originator-Name: webmaster@www.sec.gov
+Originator-Key-Asymmetric:
+ MFgwCgYEVQgBAQICAf8DSgAwRwJAW2sNKK9AVtBzYZmr6aGjlWyK3XmZv3dTINen
+ TWSM7vrzLADbmYQaionwg5sDW3P6oaM5D3tdezXMm7z1T+B+twIDAQAB
+MIC-Info: RSA-MD5,RSA,
+ Qr8nxKWJutxQ/pyxrBydGb58sGbQPXAxqQB81yQVNFZ5B+Ce0hVk9ooBB8RXwYQX
+ H7jJBtERXT4f5AKrMJ8xyQ==
+
+<SEC-DOCUMENT>0000912057-00-002128.txt : 20000203
+<SEC-HEADER>0000912057-00-002128.hdr.sgml : 20000203
+ACCESSION NUMBER:		0000912057-00-002128
+CONFORMED SUBMISSION TYPE:	8-K
+PUBLIC DOCUMENT COUNT:		2
+CONFORMED PERIOD OF REPORT:	20000119
+ITEM INFORMATION:		
+ITEM INFORMATION:		
+FILED AS OF DATE:		20000124
+
+FILER:
+
+	COMPANY DATA:	
+		COMPANY CONFORMED NAME:			APPLE COMPUTER INC
+		CENTRAL INDEX KEY:			0000320193
+		STANDARD INDUSTRIAL CLASSIFICATION:	ELECTRONIC COMPUTERS [3571]
+		IRS NUMBER:				942404110
+		STATE OF INCORPORATION:			CA
+		FISCAL YEAR END:			0930
+
+	FILING VALUES:
+		FORM TYPE:		8-K
+		SEC ACT:		
+		SEC FILE NUMBER:	000-10030
+		FILM NUMBER:		512113
+
+	BUSINESS ADDRESS:	
+		STREET 1:		1 INFINITE LOOP
+		CITY:			CUPERTINO
+		STATE:			CA
+		ZIP:			95014
+		BUSINESS PHONE:		4089961010
+
+	MAIL ADDRESS:	
+		STREET 1:		ONE INFINITE LOOP
+		CITY:			CUPERTINO
+		STATE:			CA
+		ZIP:			95014
+</SEC-HEADER>
+<DOCUMENT>
+<TYPE>8-K
+<SEQUENCE>1
+<DESCRIPTION>8-K
+<TEXT>
+
+<PAGE>
+
+
+                       SECURITIES AND EXCHANGE COMMISSION
+
+                             Washington, D. C. 20549
+
+                                    FORM 8-K
+
+                                 CURRENT REPORT
+
+     Pursuant to Section 13 or 15(d) of the Securities Exchange Act of 1934
+
+                     Date of Report:           January 19, 2000
+                     Date of earliest
+                     event reported:           January 19,2000
+
+                              Apple Computer, Inc.
+                              --------------------
+             (Exact name of registrant as specified in its charter)
+
+           California                        0-10030            94-2404110
+          ------------                      ---------          ------------
+   (State or other jurisdiction          (Commission File    (I.R.S. Employer
+ of incorporation or organization)            Number)       Identification No.)
+
+                  1 Infinite Loop, Cupertino, California 95014
+                  --------------------------------------------
+                    (Address of principal executive offices)
+
+       Registrant's telephone number, including area code: (408) 996-1010
+
+                                 Not Applicable
+                                 --------------
+         (Former name or former address, if changed since last report.)
+
+<PAGE>
+
+                       INFORMATION INCLUDED IN THIS REPORT
+
+Items 1 through 4, 6 and 8 Not Applicable.
+
+Item 5.     OTHER EVENTS.
+
+       (i)  Reference is made to the press release issued to the public by the
+registrant on January 19, 2000, the text of which is attached hereto as an
+exhibit, for a description of the events reported pursuant to this Form 8-K.
+
+Item 7.     FINANCIAL STATEMENTS, PRO FORMA FINANCIAL INFORMATION AND EXHIBITS.
+
+            (c)         Exhibits
+
+            99.1.       Text of press release dated January 19, 2000.
+
+
+                                       2
+
+<PAGE>
+
+                                    SIGNATURE
+
+Pursuant to the requirements of the Securities Exchange Act of 1934, the
+registrant has duly caused this report to be signed on its behalf by the
+undersigned, thereunto duly authorized.
+
+                                          APPLE COMPUTER, INC.
+
+                                          By: /s/ Fred Anderson
+                                                  -------------
+                                              Executive Vice President and Chief
+                                              Financial Officer
+
+Date: January 21, 2000
+
+
+                                       3
+
+<PAGE>
+
+                                INDEX TO EXHIBITS
+
+Exhibit            Document
+- ------             --------
+
+99.1               Text of Press Release dated January 19, 2000
+
+
+                                       4
+</TEXT>
+</DOCUMENT>
+<DOCUMENT>
+<TYPE>EX-99.1
+<SEQUENCE>2
+<DESCRIPTION>EXHIBIT 99.1
+<TEXT>
+
+<PAGE>
+
+
+               Apple Board of Directors Announces CEO Compensation
+
+CUPERTINO, California--January 19, 2000--Apple-Registered Trademark- today
+announced that its Board of Directors has unanimously voted to grant the
+Company's CEO Steve Jobs stock options to purchase ten million shares of
+Apple common stock and to give him a Gulfstream V airplane in recognition of
+his service to the Company during the past two and a half years.
+
+      "Apple's market cap has risen from less than $2 billion to over $16
+      billion under Steve's leadership since his return to the Company two and a
+      half years ago," said Apple Board member Ed Woolard.
+
+      "Steve has taken no compensation thus far, and we are therefore delighted
+      to give him this airplane in appreciation of the great job he has done for
+      our shareholders during this period."
+
+      "Steve's stock options were granted a week ago at the then-market price,
+      and will gain value only as Apple's stock price rises, to the benefit of
+      all shareholders," said Apple Board member Jerry York. "This grant
+      reflects Steve's and the Board's confidence in the future value of Apple."
+
+Steve's salary will remain at $1 per year.
+
+Apple ignited the personal computer revolution in the 1970s with the Apple II
+and reinvented the personal computer in the 1980s with the Macintosh. Apple is
+committed to bringing the best personal computing experience to students,
+educators, creative professionals and consumers around the world through its
+innovative hardware, software and Internet offerings.
+
+       Press Contacts:
+       Rhona Hamilton
+       Apple
+       (408) 974-6439
+       hamilton@apple.com
+
+       Katie Cotton
+       Apple
+       (408) 974-7269
+       katiec@apple.com
+
+NOTE TO EDITORS: For additional information visit Apple's PR web site
+(www.apple.com/pr/) or call Apple's Media Helpline at (408) 974-2042.
+
+- -C- 2000 Apple. All rights reserved. Apple, the Apple logo and Macintosh are
+either registered trademarks or trademarks of Apple. Other company and product
+names may be trademarks of their respective owners.
+</TEXT>
+</DOCUMENT>
+</SEC-DOCUMENT>
+-----END PRIVACY-ENHANCED MESSAGE-----
