@@ -13,6 +13,7 @@ class SecCrawler():
 
     def __init__(self):
         self.hello = "Welcome to Sec Cralwer!"
+        print("Path of the directory where data will be saved: " + DEFAULT_DATA_PATH)
 
     def make_directory(self, company_code, cik, priorto, filing_type):
         # Making the directory to save comapny filings
