@@ -54,10 +54,10 @@ class SecCrawler():
 
         try:
             self.save_in_directory(company_code, cik, priorto, doc_list, doc_name_list, '10-Q')
-        except Exception, e:
-            print str(e)
+        except Exception as e:
+            print (str(e))
 
-        print "Successfully downloaded all the files"
+        print ("Successfully downloaded all the files")
 
 
     def filing_10K(self, company_code, cik, priorto, count):
@@ -76,16 +76,16 @@ class SecCrawler():
 
         try:
             self.save_in_directory(company_code, cik, priorto, doc_list, doc_name_list, '10-K')
-        except Exception,e:
-            print str(e)
+        except Exception as e:
+            print (str(e))
 
-        print "Successfully downloaded all the files"
+        print ("Successfully downloaded all the files")
 
     def filing_8K(self, company_code, cik, priorto, count):
         try:
             self.make_directory(company_code,cik, priorto, '8-K')
-        except Exception,e:
-            print str(e)
+        except Exception as e:
+            print (str(e))
 
         # generate the url to crawl
         base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="+str(cik)+"&type=8-K&dateb="+str(priorto)+"&owner=exclude&output=xml&count="+str(count)
@@ -99,16 +99,16 @@ class SecCrawler():
 
         try:
             self.save_in_directory(company_code, cik, priorto, doc_list, doc_name_list, '8-K')
-        except Exception, e:
-            print str(e)
+        except Exception as e:
+            print (str(e))
 
-        print "Successfully downloaded all the files"
+        print ("Successfully downloaded all the files")
 
     def filing_13F(self, company_code, cik, priorto, count):
         try:
             self.make_directory(company_code, cik, priorto, '13-F')
-        except Exception, e:
-            print str(e)
+        except Exception as e:
+            print (str(e))
 
         # generate the url to crawl
         base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="+str(cik)+"&type=13F&dateb="+str(priorto)+"&owner=exclude&output=xml&count="+str(count)
@@ -121,10 +121,10 @@ class SecCrawler():
         try:
             self.save_in_directory(company_code, cik, priorto, doc_list,
                 doc_name_list, '13-F')
-        except Exception, e:
-            print str(e)
+        except Exception as e:
+            print (str(e))
 
-        print "Successfully downloaded all the files"
+        print ("Successfully downloaded all the files")
 
     def create_document_list(self, data):
         # parse fetched data using beatifulsoup
