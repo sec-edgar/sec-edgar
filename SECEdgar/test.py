@@ -16,7 +16,7 @@ def test():
     try:
         crs = open("data.txt", "r")
     except:
-        print "No input file Found"
+        print ("No input file Found")
 
     # get the comapny  quotes and cik number from the file.
     for columns in (raw.strip().split() for raw in crs):
@@ -35,7 +35,7 @@ def test():
             str(date_list[i]), str(count_list[i]))
 
     t2 = time.time()
-    print "Total Time taken: ",
+    print ("Total Time taken: "),
     print (t2 - t1)
     crs.close()
 

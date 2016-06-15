@@ -7,3 +7,5 @@
 =====
 * fix issue related to file saving
 * remove platform dependent file path
+
+fixed bugs for python3

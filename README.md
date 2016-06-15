@@ -55,7 +55,7 @@ def get_filings():
 	seccrawler.filing_13F(str(companyCode), str(cik), str(date), str(count))
 
 	t2 = time.time()
-	print "Total Time taken: ",
+	print ("Total Time taken: "),
 	print (t2-t1)
 	
 if __name__ == '__main__':
