@@ -10,14 +10,15 @@ from config import DEFAULT_DATA_PATH
 
 
 class SecCrawler():
-
-    def __init__(self):
+     
+    def __init__(self, output_directory = None):
         self.hello = "Welcome to Sec Cralwer!"
-        print("Path of the directory where data will be saved: " + DEFAULT_DATA_PATH)
+        self.output = output_directory or DEFAULT_DATA_PATH     
+        print("Path of the directory where data will be saved: " + self.output)
 
     def make_directory(self, company_code, cik, priorto, filing_type):
         # Making the directory to save comapny filings
-        path = os.path.join(DEFAULT_DATA_PATH, company_code, cik, filing_type)
+        path = os.path.join(self.output, company_code, cik, filing_type)
 
         if not os.path.exists(path):
             try:
@@ -33,7 +34,7 @@ class SecCrawler():
             base_url = doc_list[j]
             r = requests.get(base_url)
             data = r.text
-            path = os.path.join(DEFAULT_DATA_PATH, company_code, cik,
+            path = os.path.join(self.output, company_code, cik,
                 filing_type, doc_name_list[j])
 
             with open(path, "a+") as f:
