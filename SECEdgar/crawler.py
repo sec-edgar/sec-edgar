@@ -36,7 +36,7 @@ class SecCrawler():
             path = os.path.join(DEFAULT_DATA_PATH, company_code, cik,
                 filing_type, doc_name_list[j])
 
-            with open(path, "a+") as f:
+            with open(path, "ab") as f:
                 f.write(data.encode('ascii', 'ignore'))
 
     def filing_10Q(self, company_code, cik, priorto, count):
