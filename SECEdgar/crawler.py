@@ -126,6 +126,28 @@ class SecCrawler():
 
         print ("Successfully downloaded all the files")
 
+    def filing_4(self, company_code, cik, priorto, count):
+        try:
+            self.make_directory(company_code, cik, priorto, '4')
+        except Exception as e:
+            print (str(e))
+
+        # generate the url to crawl
+        base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="+str(cik)+"&type=4&dateb="+str(priorto)+"&owner=include&output=xml&count="+str(count)
+        print ("started 4 "+ str(company_code))
+        r = requests.get(base_url)
+        data = r.text
+
+        doc_list, doc_name_list = self.create_document_list(data, '4')
+
+        try:
+            self.save_in_directory(company_code, cik, priorto, doc_list,
+                doc_name_list, '4')
+        except Exception as e:
+            print (str(e))
+
+        print ("Successfully downloaded all the files")
+
     def create_document_list(self, data, form_type):
         # parse fetched data using beatifulsoup
         soup = BeautifulSoup(data)
