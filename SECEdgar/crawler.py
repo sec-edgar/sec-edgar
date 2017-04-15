@@ -157,3 +157,38 @@ class SecCrawler():
             doc_name_list.append(docname)
         return doc_list, doc_name_list
 
+    def get_ciks_for_company_name(self, company_name):
+        url = 'https://www.sec.gov/cgi-bin/cik_lookup'
+        
+        payload = {
+                'company':str(company_name),
+                'submit':'Submit'
+                }
+        
+        r = requests.post(url, payload)
+        data = r.text
+        
+        soup = BeautifulSoup(data)
+        
+        cik_list = []
+        company_list = []
+        
+        for pre in soup.find_all('pre'):
+            for a in pre.find_all('a'):
+                if 'CIK=' in a['href']:
+                    cik_list.append(a.get_text())
+                    company_list.append(str(a.next_sibling).strip())
+        
+        return cik_list, company_list
+    
+    def get_cik_for_ticker(self, ticker):
+        url = 'http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=' + str(ticker)
+        
+        r = requests.get(url)
+        data = r.text
+        
+        soup = BeautifulSoup(data)
+        
+        cik = str(soup.find('input', {'name':'CIK'})['value'])
+        
+        return cik
