@@ -33,12 +33,12 @@ class SecCrawler():
     def _save_in_directory(self, company_code, cik, priorto, doc_list,
                            doc_name_list, filing_type):
         """Save every text document into its respective folder."""
-        for j in range(len(doc_list)):
-            base_url = doc_list[j]
-            r = requests.get(base_url)
-            data = r.text
-            path = "SEC-Edgar-data/" + str(company_code) + "/" + str(cik)
-            path = path + "/" + str(filing_type) + "/" + str(doc_name_list[j])
+        base_path = self.path + str(company_code) + "/" + str(cik)
+        base_path = base_path + "/" + str(filing_type) + "/"
+
+        for doc_url, doc_name in zip(doc_list, doc_name_list):
+            data = requests.get(doc_url).text
+            path = base_path + str(doc_name)
 
             try:
                 with open(path, "ab") as filename:
@@ -47,11 +47,9 @@ class SecCrawler():
                 with open(path, "wb") as filename:
                     filename.write(data.encode('utf-8', 'ignore'))
 
-    def _create_document_list(self, base_url):
-        # URL request
-        r = requests.get(base_url)
+    def _create_document_list(self, data):
         # parse fetched data using beatifulsoup
-        soup = BeautifulSoup(r.text)
+        soup = BeautifulSoup(data)
         # store the link in the list
         link_list = list()
 
@@ -98,8 +96,12 @@ class SecCrawler():
         # Get base_url to pull information from
         base_url = self._get_base_url(cik, ftype, priorto, count)
 
+        # URL request
+        r = requests.get(base_url)
+        data = r.text
+
         # Retrieve list of documents
-        doc_list, doc_name_list = self._create_document_list(base_url=base_url)
+        doc_list, doc_name_list = self._create_document_list(data=data)
 
         # Save documents in the appropriate directory
         self._save_in_directory(
