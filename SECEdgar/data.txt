@@ -1,2 +1,0 @@
-Quote   CIK        priorto(YYYYMMDD) Count
-AAPL  0000320193     20010101         10
