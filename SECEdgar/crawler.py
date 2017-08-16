@@ -9,7 +9,33 @@ from bs4 import BeautifulSoup
 from config import DEFAULT_DATA_PATH
 
 
+class SECCrawlerException(Exception):
+    pass
+
+
+class UnknownFormTypeError(SECCrawlerException):
+    pass
+
+
 class SecCrawler():
+
+    FORM_10K = '10-K'
+    FORM_10Q = '10-Q'
+    FORM_8K = '8-K'
+    FORM_13F = '13F'
+    FORM_SD = 'SD'
+    FORM_PREM14A = 'PREM14A'
+
+    FORM_TYPES = (
+        FORM_10K,
+        FORM_10Q,
+        FORM_8K,
+        FORM_13F,
+        FORM_SD,
+        FORM_PREM14A,
+    )
+
+    BASE_URL = "http://www.sec.gov/cgi-bin/browse-edgar"
 
     def __init__(self):
         self.hello = "Welcome to Sec Cralwer!"
@@ -39,112 +65,49 @@ class SecCrawler():
             with open(path, "ab") as f:
                 f.write(data.encode('ascii', 'ignore'))
 
-    def filing_10Q(self, company_code, cik, priorto, count):
+    def filing_generic_form(self, company_code, cik, prior_to, count, form_type, include_owner=False):
+        if form_type not in self.FORM_TYPES:
+            raise UnknownFormTypeError()
 
-        self.make_directory(company_code, cik, priorto, '10-Q')
+        self.make_directory(company_code, cik, prior_to, form_type)
+        print ("started {form_type} {company_code}".format(form_type=form_type, company_code=company_code))
 
-        # generate the url to crawl
-        base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="+str(cik)+"&type=10-Q&dateb="+str(priorto)+"&owner=exclude&output=xml&count="+str(count)
-        print ("started 10-Q " + str(company_code))
-        r = requests.get(base_url)
-        data = r.text
+        params = {
+            'action': 'getcompany',
+            'CIK': str(cik),
+            'type': form_type,
+            'dateb': str(prior_to),
+            'owner': 'include' if include_owner else 'exclude',
+            'output': 'xml',
+            'count': str(count),
+        }
 
-        # get doc list data
+        response = requests.get(self.BASE_URL, params=params)
+
+        data = response.text
         doc_list, doc_name_list = self.create_document_list(data)
 
         try:
-            self.save_in_directory(company_code, cik, priorto, doc_list, doc_name_list, '10-Q')
+            self.save_in_directory(company_code, cik, prior_to, doc_list, doc_name_list, form_type)
         except Exception as e:
             print (str(e))
 
         print ("Successfully downloaded all the files")
 
+    def filing_10Q(self, company_code, cik, priorto, count):
+        self.filing_generic_form(company_code, cik, priorto, count, self.FORM_10Q)
 
     def filing_10K(self, company_code, cik, priorto, count):
-
-        self.make_directory(company_code,cik, priorto, '10-K')
-
-        # generate the url to crawl
-        base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="+str(cik)+"&type=10-K&dateb="+str(priorto)+"&owner=exclude&output=xml&count="+str(count)
-        print ("started 10-K " + str(company_code))
-
-        r = requests.get(base_url)
-        data = r.text
-
-        # get doc list data
-        doc_list, doc_name_list = self.create_document_list(data)
-
-        try:
-            self.save_in_directory(company_code, cik, priorto, doc_list, doc_name_list, '10-K')
-        except Exception as e:
-            print (str(e))
-
-        print ("Successfully downloaded all the files")
+        self.filing_generic_form(company_code, cik, priorto, count, self.FORM_10K)
 
     def filing_8K(self, company_code, cik, priorto, count):
-        try:
-            self.make_directory(company_code,cik, priorto, '8-K')
-        except Exception as e:
-            print (str(e))
-
-        # generate the url to crawl
-        base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="+str(cik)+"&type=8-K&dateb="+str(priorto)+"&owner=exclude&output=xml&count="+str(count)
-
-        print ("started 8-K" + str(company_code))
-        r = requests.get(base_url)
-        data = r.text
-
-        # get doc list data
-        doc_list, doc_name_list = self.create_document_list(data)
-
-        try:
-            self.save_in_directory(company_code, cik, priorto, doc_list, doc_name_list, '8-K')
-        except Exception as e:
-            print (str(e))
-
-        print ("Successfully downloaded all the files")
+        self.filing_generic_form(company_code, cik, priorto, count, self.FORM_8K)
 
     def filing_13F(self, company_code, cik, priorto, count):
-        try:
-            self.make_directory(company_code, cik, priorto, '13-F')
-        except Exception as e:
-            print (str(e))
-
-        # generate the url to crawl
-        base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="+str(cik)+"&type=13F&dateb="+str(priorto)+"&owner=exclude&output=xml&count="+str(count)
-        print ("started 10-Q "+ str(company_code))
-        r = requests.get(base_url)
-        data = r.text
-
-        doc_list, doc_name_list = self.create_document_list(data)
-
-        try:
-            self.save_in_directory(company_code, cik, priorto, doc_list,
-                doc_name_list, '13-F')
-        except Exception as e:
-            print (str(e))
-
-        print ("Successfully downloaded all the files")
+        self.filing_generic_form(company_code, cik, priorto, count, self.FORM_13F)
 
     def filing_SD(self, company_code, cik, priorto, count):
-
-        self.make_directory(company_code, cik, priorto, 'SD')
-
-        # generate the url to crawl
-        base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="+str(cik)+"&type=sd&dateb="+str(priorto)+"&owner=exclude&output=xml&count="+str(count)
-        print ("started SD " + str(company_code))
-        r = requests.get(base_url)
-        data = r.text
-
-        # get doc list data
-        doc_list, doc_name_list = self.create_document_list(data)
-
-        try:
-            self.save_in_directory(company_code, cik, priorto, doc_list, doc_name_list, 'SD')
-        except Exception as e:
-            print (str(e))
-
-        print ("Successfully downloaded all the files")
+        self.filing_generic_form(company_code, cik, priorto, count, self.FORM_SD)
 
     def create_document_list(self, data):
         # parse fetched data using beatifulsoup
@@ -171,9 +134,9 @@ class SecCrawler():
         # Get all the doc
         for k in range(len(link_list_final)):
             required_url = link_list_final[k].replace('-index.html', '')
-            txtdoc = required_url + ".txt"
-            docname = txtdoc.split("/")[-1]
-            doc_list.append(txtdoc)
-            doc_name_list.append(docname)
+            txt_doc = required_url + ".txt"
+            doc_name = txt_doc.split("/")[-1]
+            doc_list.append(txt_doc)
+            doc_name_list.append(doc_name)
         return doc_list, doc_name_list
 
