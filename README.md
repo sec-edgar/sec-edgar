@@ -1,8 +1,8 @@
 SEC-Edgar-Crawler
 =============
 
- Getting filings of various comapanies at once is really a pain but SEC-Edgar-Crawler does that for you.
- you can Download all companies  periodic reports, filings and forms from EDGAR database in a single command.
+ Getting filings of various companies at once is really a pain but SEC-Edgar-Crawler does that for you.
+ You can download all companies' periodic reports, filings and forms from the EDGAR database in a single command.
 
 Installation
 ------------- 
@@ -19,18 +19,17 @@ Installation
  $ python setup.py install
  ```
 
-Runing
+Running
 -------
- Check [data.txt][1] to see the format in which name of company's, CIK code date (prior to) and count is given to get the filings of that company.
- 
+ Check [data.txt][1] to see the format in which the company names, CIK code date (prior to), and count is given to get the filings of that company.
+
  Now to run it start python shell
    ```bash
   >>> from SECEdgar.crawler import SecCrawler
   >>> secCrawler = SecCrawler()
   >>> secCrawler.filing_10K('AAPL', '0000320193', '20010101', '10')
    ```
- This will download the AAPL company's 10-K filings and the data will be saved in "SEC-Edgar-data" folder which will be created on the run time.
-
+This will download AAPL's 10-K filings and the data will be saved in "SEC-Edgar-data" folder which will be created at run time.
 
 Example 
 --------
@@ -64,18 +63,13 @@ if __name__ == '__main__':
 
 Supported Methods
 -----------------
-Currently this cralwer supports only 4 filings 
+Currently this crawler supports only 4 filings 
 *  10-K
 *  10-Q
 *   8-K
 *  13-F
 
-
-I have maintained a list of companies with their cik code and the file can be downlaoded from [here][2].
+I have maintained a list of companies with their CIK code and the file can be downloaded from [here][2].
 
 [1]: https://github.com/rahulrrixe/SEC-Edgar/blob/master/SECEdgar/data.txt
 [2]: https://github.com/rahulrrixe/SEC-Edgar/blob/master/SECEdgar/companylist.txt
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/rahulrrixe/sec-edgar/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
