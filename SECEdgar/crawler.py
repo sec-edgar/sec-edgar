@@ -18,7 +18,6 @@ class UnknownFormTypeError(SECCrawlerException):
 
 
 class SecCrawler():
-
     FORM_10K = '10-K'
     FORM_10Q = '10-Q'
     FORM_8K = '8-K'
@@ -38,8 +37,8 @@ class SecCrawler():
     BASE_URL = "http://www.sec.gov/cgi-bin/browse-edgar"
 
     def __init__(self):
-        self.hello = "Welcome to Sec Cralwer!"
         print("Path of the directory where data will be saved: " + DEFAULT_DATA_PATH)
+        pass
 
     def make_directory(self, company_code, cik, priorto, filing_type):
         # Making the directory to save comapny filings
@@ -53,25 +52,25 @@ class SecCrawler():
                     raise
 
     def save_in_directory(self, company_code, cik, priorto, doc_list,
-        doc_name_list, filing_type):
+                          doc_name_list, filing_type):
         # Save every text document into its respective folder
         for j in range(len(doc_list)):
-            base_url = doc_list[j]
-            r = requests.get(base_url)
-            data = r.text
+            document_link = doc_list[j]
+            data = self.get_document(document_link)
             path = os.path.join(DEFAULT_DATA_PATH, company_code, cik,
-                filing_type, doc_name_list[j])
+                                filing_type, doc_name_list[j])
 
             with open(path, "ab") as f:
                 f.write(data.encode('ascii', 'ignore'))
 
-    def filing_generic_form(self, company_code, cik, prior_to, count, form_type, include_owner=False):
-        if form_type not in self.FORM_TYPES:
-            raise UnknownFormTypeError()
+    @staticmethod
+    def get_document(doc_link):
+        response = requests.get(doc_link)
+        if response.status_code != 200:
+            raise SECCrawlerException("Could not fetch document")
+        return response.text
 
-        self.make_directory(company_code, cik, prior_to, form_type)
-        print ("started {form_type} {company_code}".format(form_type=form_type, company_code=company_code))
-
+    def retrieve_generic_form_document_list(self, cik, prior_to, count, form_type, include_owner=False):
         params = {
             'action': 'getcompany',
             'CIK': str(cik),
@@ -81,11 +80,26 @@ class SecCrawler():
             'output': 'xml',
             'count': str(count),
         }
-
         response = requests.get(self.BASE_URL, params=params)
 
-        data = response.text
-        doc_list, doc_name_list = self.create_document_list(data)
+        if response.status_code != 200:
+            raise SECCrawlerException('Could not retrieve documents from SEC')
+
+        return self.create_document_list(response.text)
+
+    def filing_generic_form(self, company_code, cik, prior_to, count, form_type, include_owner=False):
+        if form_type not in self.FORM_TYPES:
+            raise UnknownFormTypeError()
+
+        self.make_directory(company_code, cik, prior_to, form_type)
+        print ("started {form_type} {company_code}".format(form_type=form_type, company_code=company_code))
+
+        doc_info_list = self.retrieve_generic_form_document_list(cik, prior_to, count, form_type, include_owner)
+
+        doc_list, doc_name_list = [], []
+        for item in doc_info_list:
+            doc_list.append(item['link'])
+            doc_name_list.append(item['name'])
 
         try:
             self.save_in_directory(company_code, cik, prior_to, doc_list, doc_name_list, form_type)
@@ -118,25 +132,21 @@ class SecCrawler():
         # If the link is .htm convert it to .html
         for link in soup.find_all('filinghref'):
             url = link.string
-            if link.string.split(".")[len(link.string.split("."))-1] == "htm":
+            if link.string.split(".")[len(link.string.split(".")) - 1] == "htm":
                 url += "l"
             link_list.append(url)
         link_list_final = link_list
 
         print ("Number of files to download {0}".format(len(link_list_final)))
-        print ("Starting download....")
 
-        # List of url to the text documents
-        doc_list = list()
-        # List of document names
-        doc_name_list = list()
+        doc_list = []
 
         # Get all the doc
         for k in range(len(link_list_final)):
             required_url = link_list_final[k].replace('-index.html', '')
             txt_doc = required_url + ".txt"
             doc_name = txt_doc.split("/")[-1]
-            doc_list.append(txt_doc)
-            doc_name_list.append(doc_name)
-        return doc_list, doc_name_list
-
+            doc_list.append(
+                {"link": txt_doc, "name": doc_name}
+            )
+        return doc_list
