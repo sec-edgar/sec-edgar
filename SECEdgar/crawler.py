@@ -23,6 +23,7 @@ class SecCrawler():
     FORM_8K = '8-K'
     FORM_13F = '13F'
     FORM_SD = 'SD'
+    FORM_4 = '4'
     FORM_PREM14A = 'PREM14A'
 
     FORM_TYPES = (
@@ -31,17 +32,18 @@ class SecCrawler():
         FORM_8K,
         FORM_13F,
         FORM_SD,
+        FORM_4,
         FORM_PREM14A,
     )
 
     BASE_URL = "http://www.sec.gov/cgi-bin/browse-edgar"
 
     def __init__(self):
-        print("Path of the directory where data will be saved: " + DEFAULT_DATA_PATH)
         pass
 
     def make_directory(self, company_code, cik, priorto, filing_type):
         # Making the directory to save comapny filings
+        print("Path of the directory where data will be saved: " + DEFAULT_DATA_PATH)
         path = os.path.join(DEFAULT_DATA_PATH, company_code, cik, filing_type)
 
         if not os.path.exists(path):
