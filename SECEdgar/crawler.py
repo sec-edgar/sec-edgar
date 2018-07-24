@@ -112,7 +112,7 @@ class SecCrawler():
 
         # generate the url to crawl
         base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="+str(cik)+"&type=13F&dateb="+str(priorto)+"&owner=exclude&output=xml&count="+str(count)
-        print ("started 10-Q "+ str(company_code))
+        print ("started 13-F "+ str(company_code))
         r = requests.get(base_url)
         data = r.text
 
