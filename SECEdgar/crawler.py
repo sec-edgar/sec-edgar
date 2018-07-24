@@ -12,7 +12,7 @@ from config import DEFAULT_DATA_PATH
 class SecCrawler():
 
     def __init__(self):
-        self.hello = "Welcome to Sec Cralwer!"
+        self.hello = "Welcome to SEC Cralwer!"
         print("Path of the directory where data will be saved: " + DEFAULT_DATA_PATH)
 
     def make_directory(self, company_code, cik, priorto, filing_type):
