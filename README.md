@@ -71,7 +71,7 @@ Currently this cralwer supports only 4 filings
 *  13-F
 
 
-I have maintained a list of companies with their cik code and the file can be downlaoded from [here][2].
+I have maintained a list of companies with their cik code and the file can be downloaded from [here][2].
 
 [1]: https://github.com/rahulrrixe/SEC-Edgar/blob/master/SECEdgar/data.txt
 [2]: https://github.com/rahulrrixe/SEC-Edgar/blob/master/SECEdgar/companylist.txt
