@@ -26,8 +26,8 @@ Runing
  Now to run it start python shell
    ```bash
   >>> from SECEdgar.crawler import SecCrawler
-  >>> secCrawler = SecCrawler()
-  >>> secCrawler.filing_10K('AAPL', '0000320193', '20010101', '10')
+  >>> seccrawler = SecCrawler()
+  >>> seccrawler.filing_10K('AAPL', '0000320193', '20010101', '10')
    ```
  This will download the AAPL company's 10-K filings and the data will be saved in "SEC-Edgar-data" folder which will be created on the run time.
 
@@ -71,7 +71,7 @@ Currently this cralwer supports only 4 filings
 *  13-F
 
 
-I have maintained a list of companies with their cik code and the file can be downlaoded from [here][2].
+I have maintained a list of companies with their cik code and the file can be downloaded from [here][2].
 
 [1]: https://github.com/rahulrrixe/SEC-Edgar/blob/master/SECEdgar/data.txt
 [2]: https://github.com/rahulrrixe/SEC-Edgar/blob/master/SECEdgar/companylist.txt
