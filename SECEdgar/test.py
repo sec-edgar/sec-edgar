@@ -27,11 +27,13 @@ def test():
 
     # call different  API from the crawler
     for i in range(1, len(cik_list)):
-        seccrawler.filing_10Q(str(company_code_list[i]), str(cik_list[i]),
+        seccrawler.filing_SD(str(company_code_list[i]), str(cik_list[i]),
             str(date_list[i]), str(count_list[i]))
         seccrawler.filing_10K(str(company_code_list[i]), str(cik_list[i]),
             str(date_list[i]), str(count_list[i]))
         seccrawler.filing_8K(str(company_code_list[i]), str(cik_list[i]),
+            str(date_list[i]), str(count_list[i]))
+        seccrawler.filing_10Q(str(company_code_list[i]), str(cik_list[i]),
             str(date_list[i]), str(count_list[i]))
 
     t2 = time.time()

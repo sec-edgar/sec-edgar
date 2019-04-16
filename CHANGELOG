@@ -8,4 +8,9 @@
 * fix issue related to file saving
 * remove platform dependent file path
 
+0.1.3
+=====
+* Add support for SD forms
+
+
 fixed bugs for python3
