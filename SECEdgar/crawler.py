@@ -7,8 +7,7 @@ import requests
 import os
 import errno
 from bs4 import BeautifulSoup
-from config import DEFAULT_DATA_PATH
-
+from SECEdgar.config import DEFAULT_DATA_PATH
 
 class SecCrawler():
 
