@@ -13,8 +13,9 @@ SUPPORTED_VERSIONS = ['2.5', '2.6', '2.7', 'PyPy', ]
 
 if sys.version_info <= (2, 4):
     version = '.'.join([str(x) for x in sys.version_info[:3]])
-    print('Version ' + version + ' is not supported. Supported versions are ' +
-          ', '.join(SUPPORTED_VERSIONS))
+    suppored_versions = ', '.join(SUPPORTED_VERSIONS)
+    print('Version {version} is not supported. Supported versions are {supported_versions}'.format(version=version, supported_versions=supported_versions)
+          )
     sys.exit(1)
 
 setup(
@@ -36,9 +37,9 @@ setup(
     cmdclass={
         'install': install,
     },
-    install_requires=['requests', 'beautifulsoup4', 'configparser',],
+    install_requires=['requests', 'beautifulsoup4', 'configparser', ],
     keywords=['SEC', 'Edgar', 'Crawler', 'filings'],
-    tests_require=['unittest2'],
+    tests_require=['pytest'],
     classifiers=[
         'Environment :: Console',
         'License :: OSI Approved :: Apache Software License',
