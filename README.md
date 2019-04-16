@@ -1,8 +1,8 @@
 SEC-Edgar-Crawler
 =============
 
- Getting filings of various companies at once is really a pain but SEC-Edgar-Crawler does that for you.
- You can download all company's periodic reports, filings and forms from EDGAR database in a single command.
+ Getting filings of various companies at once is really a pain, but SEC-Edgar-Crawler does that for you.
+ You can download all of a company's periodic reports, filings and forms from the EDGAR database in a single command.
 
 Installation
 ------------- 
@@ -49,14 +49,14 @@ def get_filings():
 	date = '20010101'       # date from which filings should be downloaded
 	count = '10'            # no of filings
 	
-	seccrawler.filing_10Q(str(companyCode), str(cik), str(date), str(count))
-	seccrawler.filing_10K(str(companyCode), str(cik), str(date), str(count))
-	seccrawler.filing_8K(str(companyCode), str(cik), str(date), str(count))
-	seccrawler.filing_13F(str(companyCode), str(cik), str(date), str(count))
+	seccrawler.filing_10Q(companyCode, cik, date, count)
+	seccrawler.filing_10K(companyCode, cik, date, count)
+	seccrawler.filing_8K(companyCode, cik, date, count)
+	seccrawler.filing_13F(companyCode, cik, date, count)
+
 
 	t2 = time.time()
-	print ("Total Time taken: "),
-	print (t2-t1)
+	print ("Total Time taken: {0}".format(t2-t1))
 	
 if __name__ == '__main__':
 	get_filings()	
