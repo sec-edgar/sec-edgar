@@ -1,4 +1,6 @@
 language: python
+os:
+  - linux
 python:
   - "2.5"
   - "2.6"
@@ -6,10 +8,11 @@ python:
   - "3.5"
   - "3.6"
   - "3.7"
-
+  - "pypy"
 install:
-  - pip install -r requirements.txt
+  - "pip install flake8"
+  - "pip install -r requirements.txt"
+before_script:
+  - "flake8 ."
 script:
   - py.test tests --runslow # or pytest for Python versions 3.6 and above
-os:
-  - linux
