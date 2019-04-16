@@ -12,7 +12,7 @@ from config import DEFAULT_DATA_PATH
 class SecCrawler():
 
     def __init__(self):
-        self.hello = "Welcome to Sec Cralwer!"
+        self.hello = "Welcome to SEC Cralwer!"
         print("Path of the directory where data will be saved: " + DEFAULT_DATA_PATH)
 
     def make_directory(self, company_code, cik, priorto, filing_type):
@@ -112,7 +112,7 @@ class SecCrawler():
 
         # generate the url to crawl
         base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="+str(cik)+"&type=13F&dateb="+str(priorto)+"&owner=exclude&output=xml&count="+str(count)
-        print ("started 10-Q "+ str(company_code))
+        print ("started 13-F "+ str(company_code))
         r = requests.get(base_url)
         data = r.text
 
