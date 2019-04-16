@@ -24,6 +24,9 @@ pip-log.txt
 #Translations
 *.mo
 
+# Data
+SEC-Edgar-Data/
+
 # temporary files
 *~
 *.swp
