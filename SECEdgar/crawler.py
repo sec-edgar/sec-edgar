@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 # This script will download all the 10-K, 10-Q and 8-K
 # provided that of company symbol and its cik code.
+from __future__ import print_function  # Compatibility with Python 2
 
 import requests
 import os
