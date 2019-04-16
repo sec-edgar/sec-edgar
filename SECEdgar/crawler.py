@@ -57,8 +57,8 @@ class SecCrawler():
             link_list.append(url)
         link_list_final = link_list
 
-        print ("Number of files to download {0}".format(len(link_list_final)))
-        print ("Starting download....")
+        print("Number of files to download: {0}".format(len(link_list_final)))
+        print("Starting download...")
 
         # List of url to the text documents
         doc_list = list()
