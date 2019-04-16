@@ -1,8 +1,8 @@
 SEC-Edgar-Crawler
 =============
 
- Getting filings of various comapanies at once is really a pain but SEC-Edgar-Crawler does that for you.
- you can Download all companies  periodic reports, filings and forms from EDGAR database in a single command.
+ Getting filings of various companies at once is really a pain but SEC-Edgar-Crawler does that for you.
+ You can download all company's periodic reports, filings and forms from EDGAR database in a single command.
 
 Installation
 ------------- 
@@ -19,7 +19,7 @@ Installation
  $ python setup.py install
  ```
 
-Runing
+Running
 -------
  Check [data.txt][1] to see the format in which name of company's, CIK code date (prior to) and count is given to get the filings of that company.
  
