@@ -9,6 +9,7 @@ import errno
 from bs4 import BeautifulSoup
 from config import DEFAULT_DATA_PATH
 
+
 class SecCrawler():
 
     def __init__(self):
@@ -16,7 +17,7 @@ class SecCrawler():
         print("Path of the directory where data will be saved: " + DEFAULT_DATA_PATH)
 
     @staticmethod
-    def make_directory(company_code, cik, priorto, filing_type):
+    def _make_directory(company_code, cik, priorto, filing_type):
         # Making the directory to save comapny filings
         path = os.path.join(DEFAULT_DATA_PATH, company_code, cik, filing_type)
 
@@ -28,7 +29,7 @@ class SecCrawler():
                     raise
 
     @staticmethod
-    def save_in_directory(company_code, cik, priorto, doc_list,
+    def _save_in_directory(company_code, cik, priorto, doc_list,
                           doc_name_list, filing_type):
         # Save every text document into its respective folder
         for j in range(len(doc_list)):
@@ -43,7 +44,7 @@ class SecCrawler():
 
     def create_document_list(self, data, form_type):
         # parse fetched data using beatifulsoup
-        soup = BeautifulSoup(data)
+        soup = BeautifulSoup(data, features='html.parser') # Explicit parser needed
         # store the link in the list
         link_list = list()
 
@@ -64,7 +65,7 @@ class SecCrawler():
         # List of document names
         doc_name_list = list()
 
-        # Get all the doc
+        # Get all the docs
         for k in range(len(link_list_final)):
             required_url = link_list_final[k].replace('-index.html', '')
             txtdoc = required_url + ".txt"
@@ -73,43 +74,43 @@ class SecCrawler():
             doc_name_list.append(docname)
         return doc_list, doc_name_list
 
-    def fetch_report(self, company_code, cik, priorto, count, filing_type):
-        self.make_directory(company_code, cik, priorto, filing_type)
+    def _fetch_report(self, company_code, cik, priorto, count, filing_type):
+        self._make_directory(company_code, cik, priorto, filing_type)
 
         # generate the url to crawl
         base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany"
-        url = "{base}&CIK={cik}&type={filing_type}&dateb={priorto}&owner=exclude&output=xml&count={count}".format(
-            base=base_url, cik=cik, filing_type=filing_type, priorto=priorto, count=count)
+        params = {'action': 'getcompany', 'owner': 'exclude', 'output': 'xml',
+                  'CIK': cik, 'type': filing_type, 'dateb': priorto, 'count': count}
         print("started {filing_type} {company_code}".format(
             filing_type=filing_type, company_code=company_code))
-        r = requests.get(url)
+        r = requests.get(base_url, params=params)
         data = r.text
 
         # get doc list data
-        doc_list, doc_name_list = self.create_document_list(data)
+        doc_list, doc_name_list = self._create_document_list(data)
 
         try:
-            self.save_in_directory(
+            self._save_in_directory(
                 company_code, cik, priorto, doc_list, doc_name_list, filing_type)
         except Exception as e:
-            print(str(e))
+            print(str(e))  # Need to use str for Python 2.5
 
         print("Successfully downloaded all the files")
 
     def filing_10Q(self, company_code, cik, priorto, count):
-        self.fetch_report(company_code, cik, priorto, count, '10-Q')
+        self._fetch_report(company_code, cik, priorto, count, '10-Q')
 
     def filing_10K(self, company_code, cik, priorto, count):
-        self.fetch_report(company_code, cik, priorto, count, '10-K')
+        self._fetch_report(company_code, cik, priorto, count, '10-K')
 
     def filing_8K(self, company_code, cik, priorto, count):
-        self.fetch_report(company_code, cik, priorto, count, '8-K')
+        self._fetch_report(company_code, cik, priorto, count, '8-K')
 
     def filing_13F(self, company_code, cik, priorto, count):
-        self.fetch_report(company_code, cik, priorto, count, '13-F')
+        self._fetch_report(company_code, cik, priorto, count, '13-F')
 
     def filing_SD(self, company_code, cik, priorto, count):
-        self.fetch_report(company_code, cik, priorto, count, 'SD')
+        self._fetch_report(company_code, cik, priorto, count, 'SD')
     
     def filing_4(self, company_code, cik, priorto, count):
-        self.fetch_report(company_code, cik, priorto, count, '4')
+        self._fetch_report(company_code, cik, priorto, count, '4')
