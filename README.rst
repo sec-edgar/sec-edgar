@@ -30,7 +30,7 @@ To run it, start python shell
     >>> crawler = SecCrawler()
     Path of the directory where data will be saved: /path/to/your/dir
 
-    >>> secCrawler.filing_10K('AAPL', '0000320193', '20010101', '10')
+    >>> crawler.filing_10K('AAPL', '0000320193', '20010101', '10')
     started 10-K AAPL
     Number of files to download: 8
     Starting download...
