@@ -70,7 +70,7 @@ class SecCrawler(object):
             if len(date) != 8:
                 raise TypeError('Date must be of the form YYYYMMDD')
         elif isinstance(date, int):
-            if date < 10_000_000 or date > 100_000_000:
+            if date < 10**7 or date > 10**8:
                 raise TypeError('Date must be of the form YYYYMMDD')
 
     def _fetch_report(self, company_code, cik, priorto, count, filing_type):
