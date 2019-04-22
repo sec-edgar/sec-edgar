@@ -7,19 +7,24 @@ import requests
 import os
 import errno
 from bs4 import BeautifulSoup
-from config import DEFAULT_DATA_PATH
+import datetime
+
+DEFAULT_DATA_PATH = os.path.abspath(os.path.join(
+    os.path.dirname(__file__), '..', 'SEC-Edgar-Data'))
 
 
-class SecCrawler():
+class SecCrawler(object):
 
-    def __init__(self):
-        self.hello = "Welcome to SEC Cralwer!"
-        print("Path of the directory where data will be saved: " + DEFAULT_DATA_PATH)
+    def __init__(self, data_path=DEFAULT_DATA_PATH):
+        self.data_path = data_path
+        print("Path of the directory where data will be saved: " + self.data_path)
 
-    @staticmethod
-    def _make_directory(company_code, cik, priorto, filing_type):
+    def __repr__(self):
+        return "SecCrawler(data_path={0})".format(self.data_path)
+
+    def _make_directory(self, company_code, cik, priorto, filing_type):
         # Making the directory to save comapny filings
-        path = os.path.join(DEFAULT_DATA_PATH, company_code, cik, filing_type)
+        path = os.path.join(self.data_path, company_code, cik, filing_type)
 
         if not os.path.exists(path):
             try:
