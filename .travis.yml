@@ -15,4 +15,4 @@ install:
 before_script:
   - "flake8 ."
 script:
-  - py.test tests --runslow # or pytest for Python versions 3.6 and above
+  - py.test tests # or pytest for Python versions 3.6 and above
