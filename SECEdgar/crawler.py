@@ -40,7 +40,7 @@ class SecCrawler(object):
             data = r.text
             path = os.path.join(self.data_path, company_code, cik,
                                 filing_type, doc_name)
-            
+
             with open(path, "ab") as f:
                 f.write(data.encode('ascii', 'ignore'))
 
@@ -72,7 +72,6 @@ class SecCrawler(object):
         elif isinstance(date, int):
             if date < 10_000_000 or date > 100_000_000:
                 raise TypeError('Date must be of the form YYYYMMDD')
-
 
     def _fetch_report(self, company_code, cik, priorto, count, filing_type):
         priorto = self._sanitize_date(priorto)

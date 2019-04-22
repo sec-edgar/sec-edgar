@@ -1,20 +1,16 @@
 # -*- coding:utf-8 -*-
-import os
 import sys
 
 from setuptools import setup, find_packages
-from setuptools import Command
 from setuptools.command.install import install
-from subprocess import call
-from glob import glob
-from os.path import splitext, basename, join as pjoin
 
 SUPPORTED_VERSIONS = ['2.5', '2.6', '2.7', 'PyPy', ]
 
 if sys.version_info <= (2, 4):
     version = '.'.join([str(x) for x in sys.version_info[:3]])
     suppored_versions = ', '.join(SUPPORTED_VERSIONS)
-    print('Version {version} is not supported. Supported versions are {supported_versions}'.format(version=version, supported_versions=supported_versions)
+    print('Version {version} is not supported. Supported versions are {supported_versions}'
+          .format(version=version, supported_versions=SUPPORTED_VERSIONS)
           )
     sys.exit(1)
 
@@ -27,10 +23,10 @@ setup(
     license='Apache License (2.0)',
     author='Rahul Ranjan',
     author_email='rahul.rrixe@gmail.com',
-    description='SEC-Edgar implements a basic Sphinx crwaler for downloading the   \
-                 filings. It provides an interface to extract the filing from the SEC.gov site \
-                 You might find it most useful for tasks involving automated  \
-                 data collection of filings from SEC.gov',
+    description="""SEC-Edgar implements a basic Sphinx crwaler for downloading the 
+                 filings. It provides an interface to extract the filing from 
+                 the SEC.gov site. You might find it most useful for tasks 
+                 involving automated data collection of filings from SEC.gov""",
     entry_points='''
             [console_scripts]
             ''',
