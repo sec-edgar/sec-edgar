@@ -33,57 +33,51 @@ class SecCrawler(object):
                 if exception.errno != errno.EEXIST:
                     raise
 
-    @staticmethod
-    def _save_in_directory(company_code, cik, priorto, doc_list,
-                          doc_name_list, filing_type):
+    def _save_in_directory(self, company_code, cik, priorto, filing_type, docs):
         # Save every text document into its respective folder
-        for j in range(len(doc_list)):
-            base_url = doc_list[j]
-            r = requests.get(base_url)
+        for (url, doc_name) in docs:
+            r = requests.get(url)
             data = r.text
-            path = os.path.join(DEFAULT_DATA_PATH, company_code, cik,
-                                filing_type, doc_name_list[j])
+            path = os.path.join(self.data_path, company_code, cik,
+                                filing_type, doc_name)
 
             with open(path, "ab") as f:
                 f.write(data.encode('ascii', 'ignore'))
 
     def create_document_list(self, data, form_type):
         # parse fetched data using beatifulsoup
-        soup = BeautifulSoup(data, features='html.parser') # Explicit parser needed
+        # Explicit parser needed
+        soup = BeautifulSoup(data, features='html.parser')
         # store the link in the list
-        link_list = list()
+        link_list = [link.string for link in soup.find_all('filinghref')]
 
-        # If the link is .htm convert it to .html
-        for link in soup.find_all('filing'):
-            url = link.filinghref.string
-            if link.filinghref.string.split(".")[len(link.filinghref.string.split("."))-1] == "htm":
-                url += "l"
-            if link.type.string == form_type:
-                link_list.append(url)
-        link_list_final = link_list
-
-        print("Number of files to download: {0}".format(len(link_list_final)))
+        print("Number of files to download: {0}".format(len(link_list)))
         print("Starting download...")
 
         # List of url to the text documents
-        doc_list = list()
-        # List of document names
-        doc_name_list = list()
+        txt_urls = [link[:link.rfind("-")] + ".txt" for link in link_list]
+        # List of document doc_names
+        doc_names = [url.split("/")[-1] for url in txt_urls]
 
-        # Get all the docs
-        for k in range(len(link_list_final)):
-            required_url = link_list_final[k].replace('-index.html', '')
-            txtdoc = required_url + ".txt"
-            docname = txtdoc.split("/")[-1]
-            doc_list.append(txtdoc)
-            doc_name_list.append(docname)
-        return doc_list, doc_name_list
+        return list(zip(txt_urls, doc_names))
+
+    @staticmethod
+    def _sanitize_date(date):
+        if isinstance(date, datetime.datetime):
+            return date.strftime("%Y%m%d")
+        elif isinstance(date, str):
+            if len(date) != 8:
+                raise TypeError('Date must be of the form YYYYMMDD')
+        elif isinstance(date, int):
+            if date < 10_000_000 or date > 100_000_000:
+                raise TypeError('Date must be of the form YYYYMMDD')
 
     def _fetch_report(self, company_code, cik, priorto, count, filing_type):
+        priorto = self._sanitize_date(priorto)
         self._make_directory(company_code, cik, priorto, filing_type)
 
         # generate the url to crawl
-        base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany"
+        base_url = "http://www.sec.gov/cgi-bin/browse-edgar"
         params = {'action': 'getcompany', 'owner': 'exclude', 'output': 'xml',
                   'CIK': cik, 'type': filing_type, 'dateb': priorto, 'count': count}
         print("started {filing_type} {company_code}".format(
@@ -92,11 +86,11 @@ class SecCrawler(object):
         data = r.text
 
         # get doc list data
-        doc_list, doc_name_list = self._create_document_list(data)
+        docs = self._create_document_list(data)
 
         try:
             self._save_in_directory(
-                company_code, cik, priorto, doc_list, doc_name_list, filing_type)
+                company_code, cik, priorto, filing_type, docs)
         except Exception as e:
             print(str(e))  # Need to use str for Python 2.5
 
@@ -116,6 +110,6 @@ class SecCrawler(object):
 
     def filing_SD(self, company_code, cik, priorto, count):
         self._fetch_report(company_code, cik, priorto, count, 'SD')
-    
+
     def filing_4(self, company_code, cik, priorto, count):
         self._fetch_report(company_code, cik, priorto, count, '4')
