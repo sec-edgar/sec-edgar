@@ -14,8 +14,13 @@ sdist
 develop-eggs
 .installed.cfg
 
+# Virtual environment
+venv/
 # Installer logs
 pip-log.txt
+
+# Editors
+.vscode/
 
 # Unit test / coverage reports
 .coverage
@@ -31,3 +36,4 @@ SEC-Edgar-Data/
 *~
 *.swp
 *.swo
+*.env
