@@ -2,3 +2,6 @@ beautifulsoup4==4.3.2
 future==0.13.1
 requests>=2.21.0
 wsgiref==0.1.2
+pytest
+hypothesis
+pyflakes
