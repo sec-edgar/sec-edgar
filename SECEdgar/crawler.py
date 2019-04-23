@@ -44,7 +44,12 @@ class SecCrawler(object):
             with open(path, "ab") as f:
                 f.write(data.encode('ascii', 'ignore'))
 
+<<<<<<< HEAD
     def _create_document_list(self, data, form_type):
+=======
+    @staticmethod
+    def _create_document_list(data):
+>>>>>>> 1db65ed153d6c6461fb7c53dbe53d5757c28ebe7
         # parse fetched data using beatifulsoup
         # Explicit parser needed
         soup = BeautifulSoup(data, features='html.parser')
@@ -110,6 +115,9 @@ class SecCrawler(object):
 
     def filing_SD(self, company_code, cik, priorto, count):
         self._fetch_report(company_code, cik, priorto, count, 'SD')
+<<<<<<< HEAD
 
     def filing_4(self, company_code, cik, priorto, count):
         self._fetch_report(company_code, cik, priorto, count, '4')
+=======
+>>>>>>> 1db65ed153d6c6461fb7c53dbe53d5757c28ebe7
