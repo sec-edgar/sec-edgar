@@ -44,7 +44,7 @@ class SecCrawler(object):
             with open(path, "ab") as f:
                 f.write(data.encode('ascii', 'ignore'))
 
-    def create_document_list(self, data, form_type):
+    def _create_document_list(self, data, form_type):
         # parse fetched data using beatifulsoup
         # Explicit parser needed
         soup = BeautifulSoup(data, features='html.parser')
