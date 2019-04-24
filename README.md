@@ -1,9 +1,10 @@
-# SEC-Edgar-Crawler
+SEC-Edgar-Crawler
+=================
 
 Getting filings of various companies at once is really a pain, but SEC-Edgar does that for you. You can download all of a company's periodic reports, filings and forms from the EDGAR database with a single command.
 
 Installation
-============
+------------
 
 You may have to install the package using pip:
 ```bash
@@ -19,7 +20,7 @@ $ python setup.py install
 ```
 
 Running
-=======
+-------
 
 Check
 [data.txt](https://github.com/rahulrrixe/SEC-Edgar/blob/master/SECEdgar/data.txt) to see the format in which name of company's, CIK code date (prior to) and count is given to get the filings of that company.
@@ -45,7 +46,7 @@ This will download the AAPL company's 10-K filings. By default, the data will be
 ```
 
 Example
-=======
+-------
 
 ``` python
 import time
@@ -74,7 +75,7 @@ if __name__ == '__main__':
 ```
 
 Supported Methods
-=================
+-----------------
 
 Currently this crawler only supports 4 filings
 
