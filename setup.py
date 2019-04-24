@@ -4,7 +4,7 @@ import sys
 from setuptools import setup, find_packages
 from setuptools.command.install import install
 
-SUPPORTED_VERSIONS = ['2.5', '2.6', '2.7', 'PyPy', ]
+SUPPORTED_VERSIONS = ['2.7', '3.5', '3.6', 'PyPy', ]
 
 if sys.version_info <= (2, 4):
     version = '.'.join([str(x) for x in sys.version_info[:3]])
@@ -13,6 +13,14 @@ if sys.version_info <= (2, 4):
           .format(version=version, supported_versions=SUPPORTED_VERSIONS)
           )
     sys.exit(1)
+
+
+def parse_requirements(filename):
+
+    with open(filename) as f:
+        required = f.read().splitlines()
+        return required
+
 
 setup(
     name='SECEdgar',
@@ -33,17 +41,17 @@ setup(
     cmdclass={
         'install': install,
     },
-    install_requires=['requests', 'beautifulsoup4', 'configparser', ],
+    install_requires=parse_requirements('requirements.txt'),
     keywords=['SEC', 'Edgar', 'Crawler', 'filings'],
-    tests_require=['pytest'],
+    tests_require=parse_requirements('requirements.txt'),
     classifiers=[
         'Environment :: Console',
         'License :: OSI Approved :: Apache Software License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Topic :: Software Development :: Libraries :: Python Modules',
-        'Programming Language :: Python :: 2.5',
-        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: Implementation :: PyPy']
 )
