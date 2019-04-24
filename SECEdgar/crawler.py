@@ -7,19 +7,24 @@ import requests
 import os
 import errno
 from bs4 import BeautifulSoup
-from config import DEFAULT_DATA_PATH
+import datetime
+
+DEFAULT_DATA_PATH = os.path.abspath(os.path.join(
+    os.path.dirname(__file__), '..', 'SEC-Edgar-Data'))
 
 
-class SecCrawler():
+class SecCrawler(object):
 
-    def __init__(self):
-        self.hello = "Welcome to SEC Cralwer!"
-        print("Path of the directory where data will be saved: " + DEFAULT_DATA_PATH)
+    def __init__(self, data_path=DEFAULT_DATA_PATH):
+        self.data_path = data_path
+        print("Path of the directory where data will be saved: " + self.data_path)
 
-    @staticmethod
-    def make_directory(company_code, cik, priorto, filing_type):
+    def __repr__(self):
+        return "SecCrawler(data_path={0})".format(self.data_path)
+
+    def _make_directory(self, company_code, cik, priorto, filing_type):
         # Making the directory to save comapny filings
-        path = os.path.join(DEFAULT_DATA_PATH, company_code, cik, filing_type)
+        path = os.path.join(self.data_path, company_code, cik, filing_type)
 
         if not os.path.exists(path):
             try:
@@ -28,196 +33,84 @@ class SecCrawler():
                 if exception.errno != errno.EEXIST:
                     raise
 
-    @staticmethod
-    def save_in_directory(company_code, cik, priorto, doc_list,
-                          doc_name_list, filing_type):
+    def _save_in_directory(self, company_code, cik, priorto, filing_type, docs):
         # Save every text document into its respective folder
-        for j in range(len(doc_list)):
-            base_url = doc_list[j]
-            r = requests.get(base_url)
+        for (url, doc_name) in docs:
+            r = requests.get(url)
             data = r.text
-            path = os.path.join(DEFAULT_DATA_PATH, company_code, cik,
-                                filing_type, doc_name_list[j])
+            path = os.path.join(self.data_path, company_code, cik,
+                                filing_type, doc_name)
 
             with open(path, "ab") as f:
                 f.write(data.encode('ascii', 'ignore'))
 
-
-    def filing_10Q(self, company_code, cik, priorto, count):
-
-        self.make_directory(company_code, cik, priorto, '10-Q')
-
-        # generate the url to crawl
-        base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="+str(cik)+"&type=10-Q&dateb="+str(priorto)+"&owner=exclude&output=xml&count="+str(count)
-        print ("started 10-Q " + str(company_code))
-        r = requests.get(base_url)
-        data = r.text
-
-        # get doc list data
-        doc_list, doc_name_list = self.create_document_list(data, '10-Q')
-
-        try:
-            self.save_in_directory(company_code, cik, priorto, doc_list, doc_name_list, '10-Q')
-        except Exception as e:
-            print (str(e))
-
-        print ("Successfully downloaded all the files")
-
-
-    def filing_10K(self, company_code, cik, priorto, count):
-
-        self.make_directory(company_code,cik, priorto, '10-K')
-
-        # generate the url to crawl
-        base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="+str(cik)+"&type=10-K&dateb="+str(priorto)+"&owner=exclude&output=xml&count="+str(count)
-        print ("started 10-K " + str(company_code))
-
-        r = requests.get(base_url)
-        data = r.text
-
-        # get doc list data
-        doc_list, doc_name_list = self.create_document_list(data, '10-K')
-
-        try:
-            self.save_in_directory(company_code, cik, priorto, doc_list, doc_name_list, '10-K')
-        except Exception as e:
-            print (str(e))
-
-        print ("Successfully downloaded all the files")
-
-    def filing_8K(self, company_code, cik, priorto, count):
-        try:
-            self.make_directory(company_code,cik, priorto, '8-K')
-        except Exception as e:
-            print (str(e))
-
-        # generate the url to crawl
-        base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="+str(cik)+"&type=8-K&dateb="+str(priorto)+"&owner=exclude&output=xml&count="+str(count)
-
-        print ("started 8-K" + str(company_code))
-        r = requests.get(base_url)
-        data = r.text
-
-        # get doc list data
-        doc_list, doc_name_list = self.create_document_list(data, '8-K')
-
-        try:
-            self.save_in_directory(company_code, cik, priorto, doc_list, doc_name_list, '8-K')
-        except Exception as e:
-            print (str(e))
-
-        print ("Successfully downloaded all the files")
-
-    def filing_13F(self, company_code, cik, priorto, count):
-        try:
-            self.make_directory(company_code, cik, priorto, '13-F')
-        except Exception as e:
-            print (str(e))
-
-        # generate the url to crawl
-        base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="+str(cik)+"&type=13F&dateb="+str(priorto)+"&owner=exclude&output=xml&count="+str(count)
-        print ("started 10-Q "+ str(company_code))
-        r = requests.get(base_url)
-        data = r.text
-
-        doc_list, doc_name_list = self.create_document_list(data, '13F')
-
-        try:
-            self.save_in_directory(company_code, cik, priorto, doc_list,
-                doc_name_list, '13-F')
-        except Exception as e:
-            print (str(e))
-
-        print ("Successfully downloaded all the files")
-
-    def filing_4(self, company_code, cik, priorto, count):
-        try:
-            self.make_directory(company_code, cik, priorto, '4')
-        except Exception as e:
-            print (str(e))
-
-        # generate the url to crawl
-        base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="+str(cik)+"&type=4&dateb="+str(priorto)+"&owner=include&output=xml&count="+str(count)
-        print ("started 4 "+ str(company_code))
-        r = requests.get(base_url)
-        data = r.text
-
-        doc_list, doc_name_list = self.create_document_list(data, '4')
-
-        try:
-            self.save_in_directory(company_code, cik, priorto, doc_list,
-                doc_name_list, '4')
-        except Exception as e:
-            print (str(e))
-
-        print ("Successfully downloaded all the files")
-
-    def create_document_list(self, data, form_type):
+    @staticmethod
+    def _create_document_list(data):
         # parse fetched data using beatifulsoup
-        soup = BeautifulSoup(data)
+        # Explicit parser needed
+        soup = BeautifulSoup(data, features='html.parser')
         # store the link in the list
-        link_list = list()
+        link_list = [link.string for link in soup.find_all('filinghref')]
 
-        # If the link is .htm convert it to .html
-        for link in soup.find_all('filing'):
-            url = link.filinghref.string
-            if link.filinghref.string.split(".")[len(link.filinghref.string.split("."))-1] == "htm":
-                url += "l"
-            if link.type.string == form_type:
-                link_list.append(url)
-        link_list_final = link_list
-
-        print("Number of files to download: {0}".format(len(link_list_final)))
+        print("Number of files to download: {0}".format(len(link_list)))
         print("Starting download...")
 
         # List of url to the text documents
-        doc_list = list()
-        # List of document names
-        doc_name_list = list()
+        txt_urls = [link[:link.rfind("-")] + ".txt" for link in link_list]
+        # List of document doc_names
+        doc_names = [url.split("/")[-1] for url in txt_urls]
 
-        # Get all the doc
-        for k in range(len(link_list_final)):
-            required_url = link_list_final[k].replace('-index.html', '')
-            txtdoc = required_url + ".txt"
-            docname = txtdoc.split("/")[-1]
-            doc_list.append(txtdoc)
-            doc_name_list.append(docname)
-        return doc_list, doc_name_list
+        return list(zip(txt_urls, doc_names))
 
-    def fetch_report(self, company_code, cik, priorto, count, filing_type):
-        self.make_directory(company_code, cik, priorto, filing_type)
+    @staticmethod
+    def _sanitize_date(date):
+        if isinstance(date, datetime.datetime):
+            return date.strftime("%Y%m%d")
+        elif isinstance(date, str):
+            if len(date) != 8:
+                raise TypeError('Date must be of the form YYYYMMDD')
+        elif isinstance(date, int):
+            if date < 10**7 or date > 10**8:
+                raise TypeError('Date must be of the form YYYYMMDD')
+
+    def _fetch_report(self, company_code, cik, priorto, count, filing_type):
+        priorto = self._sanitize_date(priorto)
+        self._make_directory(company_code, cik, priorto, filing_type)
 
         # generate the url to crawl
-        base_url = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany"
-        url = "{base}&CIK={cik}&type={filing_type}&dateb={priorto}&owner=exclude&output=xml&count={count}".format(
-            base=base_url, cik=cik, filing_type=filing_type, priorto=priorto, count=count)
+        base_url = "http://www.sec.gov/cgi-bin/browse-edgar"
+        params = {'action': 'getcompany', 'owner': 'exclude', 'output': 'xml',
+                  'CIK': cik, 'type': filing_type, 'dateb': priorto, 'count': count}
         print("started {filing_type} {company_code}".format(
             filing_type=filing_type, company_code=company_code))
-        r = requests.get(url)
+        r = requests.get(base_url, params=params)
         data = r.text
 
         # get doc list data
-        doc_list, doc_name_list = self.create_document_list(data)
+        docs = self._create_document_list(data)
 
         try:
-            self.save_in_directory(
-                company_code, cik, priorto, doc_list, doc_name_list, filing_type)
+            self._save_in_directory(
+                company_code, cik, priorto, filing_type, docs)
         except Exception as e:
-            print(str(e))
+            print(str(e))  # Need to use str for Python 2.5
 
         print("Successfully downloaded all the files")
 
     def filing_10Q(self, company_code, cik, priorto, count):
-        self.fetch_report(company_code, cik, priorto, count, '10-Q')
+        self._fetch_report(company_code, cik, priorto, count, '10-Q')
 
     def filing_10K(self, company_code, cik, priorto, count):
-        self.fetch_report(company_code, cik, priorto, count, '10-K')
+        self._fetch_report(company_code, cik, priorto, count, '10-K')
 
     def filing_8K(self, company_code, cik, priorto, count):
-        self.fetch_report(company_code, cik, priorto, count, '8-K')
+        self._fetch_report(company_code, cik, priorto, count, '8-K')
 
     def filing_13F(self, company_code, cik, priorto, count):
-        self.fetch_report(company_code, cik, priorto, count, '13-F')
+        self._fetch_report(company_code, cik, priorto, count, '13-F')
 
     def filing_SD(self, company_code, cik, priorto, count):
-        self.fetch_report(company_code, cik, priorto, count, 'SD')
+        self._fetch_report(company_code, cik, priorto, count, 'SD')
+
+    def filing_4(self, company_code, cik, priorto, count):
+        self._fetch_report(company_code, cik, priorto, count, '4')

@@ -14,8 +14,13 @@ sdist
 develop-eggs
 .installed.cfg
 
+# Virtual environment
+venv/
 # Installer logs
 pip-log.txt
+
+# Editors
+.vscode/
 
 # Unit test / coverage reports
 .coverage
@@ -24,7 +29,11 @@ pip-log.txt
 #Translations
 *.mo
 
+# Data
+SEC-Edgar-Data/
+
 # temporary files
 *~
 *.swp
 *.swo
+*.env

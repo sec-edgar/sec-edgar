@@ -1,0 +1,14 @@
+language: python
+os:
+  - linux
+python:
+  - "2.7"
+  - "3.5"
+  - "3.6"
+  - "pypy"
+install:
+  - "pip install -r requirements.txt"
+before_script:
+  - "flake8 . --exit-zero"
+script:
+  - py.test tests # or pytest for Python versions 3.6 and above
