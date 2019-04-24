@@ -8,6 +8,7 @@ import os
 import errno
 from bs4 import BeautifulSoup
 import datetime
+from SECEdgar.exceptions import EDGARQueryError
 
 DEFAULT_DATA_PATH = os.path.abspath(os.path.join(
     os.path.dirname(__file__), '..', 'SEC-Edgar-Data'))
@@ -84,16 +85,18 @@ class SecCrawler(object):
         print("started {filing_type} {company_code}".format(
             filing_type=filing_type, company_code=company_code))
         r = requests.get(base_url, params=params)
-        data = r.text
+        if r.status_code == 200:
+            data = r.text
+            # get doc list data
+            docs = self._create_document_list(data)
 
-        # get doc list data
-        docs = self._create_document_list(data)
-
-        try:
-            self._save_in_directory(
-                company_code, cik, priorto, filing_type, docs)
-        except Exception as e:
-            print(str(e))  # Need to use str for Python 2.5
+            try:
+                self._save_in_directory(
+                    company_code, cik, priorto, filing_type, docs)
+            except Exception as e:
+                print(str(e))  # Need to use str for Python 2.5
+        else:
+            raise EDGARQueryError(r.status_code)
 
         print("Successfully downloaded all the files")
 
