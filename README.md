@@ -1,6 +1,8 @@
 SEC-Edgar-Crawler
 =================
 
+[![Build Status](https://travis-ci.com/coyo8/sec-edgar.svg?branch=master)](https://travis-ci.com/coyo8/sec-edgar)
+
 Getting filings of various companies at once is really a pain, but SEC-Edgar does that for you. You can download all of a company's periodic reports, filings and forms from the EDGAR database with a single command.
 
 Installation
