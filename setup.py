@@ -24,7 +24,7 @@ def parse_requirements(filename):
 
 setup(
     name='SECEdgar',
-    version='0.1.3',
+    version='0.1.4',
     packages=find_packages(),
     package_dir={'SECEdgar': 'SECEdgar'},
     url='https://github.com/rahulrrixe/SEC-Edgar',
