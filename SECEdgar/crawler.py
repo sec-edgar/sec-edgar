@@ -8,7 +8,7 @@ import os
 import errno
 from bs4 import BeautifulSoup
 import datetime
-from SECEdgar.exceptions import EDGARQueryError
+from SECEdgar.exceptions import EDGARQueryError, CIKError
 
 DEFAULT_DATA_PATH = os.path.abspath(os.path.join(
     os.path.dirname(__file__), '..', 'SEC-Edgar-Data'))
@@ -74,8 +74,19 @@ class SecCrawler(object):
             if date < 10**7 or date > 10**8:
                 raise TypeError('Date must be of the form YYYYMMDD')
 
+    @staticmethod
+    def _check_cik(cik):
+        invalid_str = isinstance(cik, str) and len(cik) != 10
+        invalid_int = isinstance(cik, int) and not (999_999_999 < cik < 10_000_000_000)
+        invalid_type = not isinstance(cik, (int, str))
+        if invalid_str or invalid_int or invalid_type:
+            raise CIKError(cik)
+        else:
+            return cik
+
     def _fetch_report(self, company_code, cik, priorto, count, filing_type):
         priorto = self._sanitize_date(priorto)
+        cik = self._check_cik(cik)
         self._make_directory(company_code, cik, priorto, filing_type)
 
         # generate the url to crawl
