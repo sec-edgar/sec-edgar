@@ -11,6 +11,10 @@
 0.1.3
 =====
 * Add support for SD forms
+* fixed bugs for python3
 
-
-fixed bugs for python3
+0.1.4
+======
+* Refactor code to have common method for fetching filings
+* Provide user to add their own repo path where filings can be downloaded
+* Adding CI pipeline using travis 
