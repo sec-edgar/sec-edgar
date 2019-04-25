@@ -7,7 +7,9 @@ class EDGARQueryError(Exception):
         self.response = response
 
     def __str__(self):
-        return "An error occured while making the query. Received {response} response".format(response=self.response)
+        return "An error occured while making the query. Received {response} response".format(
+            response=self.response
+        )
 
 
 class EDGARFieldError(Exception):
@@ -20,7 +22,9 @@ class EDGARFieldError(Exception):
         self.field = field
 
     def __str__(self):
-        return "Field {field} not found in endpoint {endpoint}".format(field=self.field, endpoint=self.endpoint)
+        return "Field {field} not found in endpoint {endpoint}".format(
+            field=self.field, endpoint=self.endpoint
+        )
 
 
 class CIKError(Exception):
