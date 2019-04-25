@@ -20,4 +20,16 @@ class EDGARFieldError(Exception):
         self.field = field
 
     def __str__(self):
-        return "Field {field} not found in endpoint {endpoint}".format(self.field, self.endpoint)
+        return "Field {field} not found in endpoint {endpoint}".format(field=self.field, endpoint=self.endpoint)
+
+
+class CIKError(Exception):
+    """
+    This error is thrown when an invalid CIK is given.
+    """
+
+    def __init__(self, cik):
+        self.cik = cik
+
+    def __str__(self):
+        return "CIK {cik} is not valid. Must be str or int with 10 digits.".format(cik=self.cik)
