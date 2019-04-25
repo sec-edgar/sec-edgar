@@ -77,7 +77,7 @@ class SecCrawler(object):
     @staticmethod
     def _check_cik(cik):
         invalid_str = isinstance(cik, str) and len(cik) != 10
-        invalid_int = isinstance(cik, int) and not (999_999_999 < cik < 10_000_000_000)
+        invalid_int = isinstance(cik, int) and not (999999999 < cik < 10**10)
         invalid_type = not isinstance(cik, (int, str))
         if invalid_str or invalid_int or invalid_type:
             raise CIKError(cik)
