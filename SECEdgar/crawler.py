@@ -8,6 +8,7 @@ import os
 import errno
 from bs4 import BeautifulSoup
 import datetime
+from SECEdgar.exceptions import EDGARQueryError, CIKError
 
 DEFAULT_DATA_PATH = os.path.abspath(os.path.join(
     os.path.dirname(__file__), '..', 'SEC-Edgar-Data'))
@@ -73,8 +74,19 @@ class SecCrawler(object):
             if date < 10**7 or date > 10**8:
                 raise TypeError('Date must be of the form YYYYMMDD')
 
+    @staticmethod
+    def _check_cik(cik):
+        invalid_str = isinstance(cik, str) and len(cik) != 10
+        invalid_int = isinstance(cik, int) and not (999999999 < cik < 10**10)
+        invalid_type = not isinstance(cik, (int, str))
+        if invalid_str or invalid_int or invalid_type:
+            raise CIKError(cik)
+        else:
+            return cik
+
     def _fetch_report(self, company_code, cik, priorto, count, filing_type):
         priorto = self._sanitize_date(priorto)
+        cik = self._check_cik(cik)
         self._make_directory(company_code, cik, priorto, filing_type)
 
         # generate the url to crawl
@@ -84,16 +96,18 @@ class SecCrawler(object):
         print("started {filing_type} {company_code}".format(
             filing_type=filing_type, company_code=company_code))
         r = requests.get(base_url, params=params)
-        data = r.text
+        if r.status_code == 200:
+            data = r.text
+            # get doc list data
+            docs = self._create_document_list(data)
 
-        # get doc list data
-        docs = self._create_document_list(data)
-
-        try:
-            self._save_in_directory(
-                company_code, cik, priorto, filing_type, docs)
-        except Exception as e:
-            print(str(e))  # Need to use str for Python 2.5
+            try:
+                self._save_in_directory(
+                    company_code, cik, priorto, filing_type, docs)
+            except Exception as e:
+                print(str(e))  # Need to use str for Python 2.5
+        else:
+            raise EDGARQueryError(r.status_code)
 
         print("Successfully downloaded all the files")
 

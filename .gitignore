@@ -32,6 +32,9 @@ pip-log.txt
 # Data
 SEC-Edgar-Data/
 
+# Sphinx
+docs/build
+
 # temporary files
 *~
 *.swp
