@@ -35,6 +35,9 @@ SEC-Edgar-Data/
 # Sphinx
 docs/build
 
+# macOS specific
+.DS_Store
+
 # temporary files
 *~
 *.swp

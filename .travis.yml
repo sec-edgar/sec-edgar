@@ -11,4 +11,4 @@ install:
 before_script:
   - "flake8 . --exit-zero"
 script:
-  - py.test tests # or pytest for Python versions 3.6 and above
+  - py.test SECEdgar/tests # or pytest for Python versions 3.6 and above
