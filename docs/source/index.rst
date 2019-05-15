@@ -19,6 +19,7 @@ Welcome to SECEdgar's documentation!
    whatsnew
    install
    usage
+   crawler
 
 .. _package_info:
 
