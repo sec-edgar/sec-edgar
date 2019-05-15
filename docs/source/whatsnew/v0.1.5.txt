@@ -1,0 +1,14 @@
+.. _whatsnew015:
+
+v0.1.5
+------
+
+Highlights:
+~~~~~~~~~~~
+
+* Add Python 3.7 support to Travis CI
+
+Testing:
+~~~~~~~~
+
+* Change xfails to use ``pytest.raises`` for various tests
