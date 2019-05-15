@@ -1,5 +1,6 @@
 import datetime
 
+
 def _sanitize_date(date):
     if isinstance(date, datetime.datetime):
         return date.strftime("%Y%m%d")

@@ -7,7 +7,6 @@ import requests
 import os
 from bs4 import BeautifulSoup
 import errno
-import datetime
 from SECEdgar.exceptions import EDGARQueryError, CIKError
 from SECEdgar.util import _sanitize_date
 
@@ -17,6 +16,7 @@ DEFAULT_DATA_PATH = os.path.abspath(os.path.join(
 
 class SecCrawler(object):
     """Main crawler object for SEC filings. """
+
     def __init__(self, data_path=DEFAULT_DATA_PATH):
         self.data_path = data_path
         print("Path of the directory where data will be saved: " + self.data_path)
@@ -61,7 +61,7 @@ class SecCrawler(object):
               See https://www.sec.gov/edgar/searchedgar/cik.htm to search for
               a company's CIK.
           priorto (Union[str, datetime.datetime]): Most recent report to consider.
-              Must be in form 'YYYYMMDD' or 
+              Must be in form 'YYYYMMDD' or
               valid ``datetime.datetime`` object.
           filing_type (str): Choose from list of valid filing types.
               Includes '10-Q', '10-K', '8-K', '13-F', 'SD'.
@@ -87,7 +87,7 @@ class SecCrawler(object):
           data (str): Raw HTML from SEC Edgar lookup.
 
         Returns:
-          list: Zipped list with tuples of the form 
+          list: Zipped list with tuples of the form
                 (<url for txt file>, <doc name>)
         """
         soup = BeautifulSoup(data, features='html.parser')
@@ -136,7 +136,7 @@ class SecCrawler(object):
               See https://www.sec.gov/edgar/searchedgar/cik.htm to search for
               a company's CIK.
           priorto (Union[str, datetime.datetime]): Most recent report to consider.
-              Must be in form 'YYYYMMDD' or 
+              Must be in form 'YYYYMMDD' or
               valid ``datetime.datetime`` object.
           filing_type (str): Choose from list of valid filing types.
               Includes '10-Q', '10-K', '8-K', '13-F', 'SD'.
@@ -180,7 +180,7 @@ class SecCrawler(object):
               See https://www.sec.gov/edgar/searchedgar/cik.htm to search for
               a company's CIK.
           priorto (Union[str, datetime.datetime]): Most recent report to consider.
-              Must be in form 'YYYYMMDD' or 
+              Must be in form 'YYYYMMDD' or
               valid ``datetime.datetime`` object.
           filing_type (str): Choose from list of valid filing types.
               Includes '10-Q', '10-K', '8-K', '13-F', 'SD'.
@@ -200,7 +200,7 @@ class SecCrawler(object):
               See https://www.sec.gov/edgar/searchedgar/cik.htm to search for
               a company's CIK.
           priorto (Union[str, datetime.datetime]): Most recent report to consider.
-              Must be in form 'YYYYMMDD' or 
+              Must be in form 'YYYYMMDD' or
               valid ``datetime.datetime`` object.
           filing_type (str): Choose from list of valid filing types.
               Includes '10-Q', '10-K', '8-K', '13-F', 'SD'.
@@ -220,7 +220,7 @@ class SecCrawler(object):
               See https://www.sec.gov/edgar/searchedgar/cik.htm to search for
               a company's CIK.
           priorto (Union[str, datetime.datetime]): Most recent report to consider.
-              Must be in form 'YYYYMMDD' or 
+              Must be in form 'YYYYMMDD' or
               valid ``datetime.datetime`` object.
           filing_type (str): Choose from list of valid filing types.
               Includes '10-Q', '10-K', '8-K', '13-F', 'SD'.
@@ -240,7 +240,7 @@ class SecCrawler(object):
               See https://www.sec.gov/edgar/searchedgar/cik.htm to search for
               a company's CIK.
           priorto (Union[str, datetime.datetime]): Most recent report to consider.
-              Must be in form 'YYYYMMDD' or 
+              Must be in form 'YYYYMMDD' or
               valid ``datetime.datetime`` object.
           filing_type (str): Choose from list of valid filing types.
               Includes '10-Q', '10-K', '8-K', '13-F', 'SD'.
@@ -260,7 +260,7 @@ class SecCrawler(object):
               See https://www.sec.gov/edgar/searchedgar/cik.htm to search for
               a company's CIK.
           priorto (Union[str, datetime.datetime]): Most recent report to consider.
-              Must be in form 'YYYYMMDD' or 
+              Must be in form 'YYYYMMDD' or
               valid ``datetime.datetime`` object.
           filing_type (str): Choose from list of valid filing types.
               Includes '10-Q', '10-K', '8-K', '13-F', 'SD'.
@@ -280,7 +280,7 @@ class SecCrawler(object):
               See https://www.sec.gov/edgar/searchedgar/cik.htm to search for
               a company's CIK.
           priorto (Union[str, datetime.datetime]): Most recent report to consider.
-              Must be in form 'YYYYMMDD' or 
+              Must be in form 'YYYYMMDD' or
               valid ``datetime.datetime`` object.
           filing_type (str): Choose from list of valid filing types.
               Includes '10-Q', '10-K', '8-K', '13-F', 'SD'.
