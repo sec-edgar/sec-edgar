@@ -5,16 +5,17 @@ from __future__ import print_function  # Compatibility with Python 2
 
 import requests
 import os
-import errno
 from bs4 import BeautifulSoup
-import datetime
+import errno
 from SECEdgar.exceptions import EDGARQueryError, CIKError
+from SECEdgar.util import _sanitize_date
 
 DEFAULT_DATA_PATH = os.path.abspath(os.path.join(
     os.path.dirname(__file__), '..', 'SEC-Edgar-Data'))
 
 
 class SecCrawler(object):
+    """Main crawler object for SEC filings. """
 
     def __init__(self, data_path=DEFAULT_DATA_PATH):
         self.data_path = data_path
@@ -24,7 +25,23 @@ class SecCrawler(object):
         return "SecCrawler(data_path={0})".format(self.data_path)
 
     def _make_directory(self, company_code, cik, priorto, filing_type):
-        # Making the directory to save comapny filings
+        """Make directory based on filing info.
+
+        Args:
+          company_code (str): Code used to help find company filings.
+              Often the company's ticker is used.
+          cik (Union[str, int]): Central Index Key assigned by SEC.
+              See https://www.sec.gov/edgar/searchedgar/cik.htm to search for
+              a company's CIK.
+          priorto (Union[str, datetime.datetime]): Most recent report to consider.
+              Must be in form 'YYYYMMDD' or
+              valid ``datetime.datetime`` object.
+          filing_type (str): Choose from list of valid filing types.
+              Includes '10-Q', '10-K', '8-K', '13-F', 'SD'.
+
+        Returns:
+          None
+        """
         path = os.path.join(self.data_path, company_code, cik, filing_type)
 
         if not os.path.exists(path):
@@ -35,7 +52,24 @@ class SecCrawler(object):
                     raise
 
     def _save_in_directory(self, company_code, cik, priorto, filing_type, docs):
-        # Save every text document into its respective folder
+        """Save in directory based on filing info.
+
+        Args:
+          company_code (str): Code used to help find company filings.
+              Often the company's ticker is used.
+          cik (Union[str, int]): Central Index Key assigned by SEC.
+              See https://www.sec.gov/edgar/searchedgar/cik.htm to search for
+              a company's CIK.
+          priorto (Union[str, datetime.datetime]): Most recent report to consider.
+              Must be in form 'YYYYMMDD' or
+              valid ``datetime.datetime`` object.
+          filing_type (str): Choose from list of valid filing types.
+              Includes '10-Q', '10-K', '8-K', '13-F', 'SD'.
+          docs (str): List of doc paths.
+
+        Returns:
+          None
+        """
         for (url, doc_name) in docs:
             r = requests.get(url)
             data = r.text
@@ -47,8 +81,15 @@ class SecCrawler(object):
 
     @staticmethod
     def _create_document_list(data):
-        # parse fetched data using beatifulsoup
-        # Explicit parser needed
+        """Create list of txt urls and doc names.
+
+        Args:
+          data (str): Raw HTML from SEC Edgar lookup.
+
+        Returns:
+          list: Zipped list with tuples of the form
+                (<url for txt file>, <doc name>)
+        """
         soup = BeautifulSoup(data, features='html.parser')
         # store the link in the list
         link_list = [link.string for link in soup.find_all('filinghref')]
@@ -64,18 +105,19 @@ class SecCrawler(object):
         return list(zip(txt_urls, doc_names))
 
     @staticmethod
-    def _sanitize_date(date):
-        if isinstance(date, datetime.datetime):
-            return date.strftime("%Y%m%d")
-        elif isinstance(date, str):
-            if len(date) != 8:
-                raise TypeError('Date must be of the form YYYYMMDD')
-        elif isinstance(date, int):
-            if date < 10**7 or date > 10**8:
-                raise TypeError('Date must be of the form YYYYMMDD')
-
-    @staticmethod
     def _check_cik(cik):
+        """Check if CIK is valid.
+
+        Args:
+          cik (Union[str, int]): Central Index Key assigned by SEC.
+              See https://www.sec.gov/edgar/searchedgar/cik.htm to search for
+
+        Returns:
+          (Union[str, int]): Valid CIK
+
+        Raises:
+          CIKError: An error occured while verifying the CIK.
+        """
         invalid_str = isinstance(cik, str) and len(cik) != 10
         invalid_int = isinstance(cik, int) and not (999999999 < cik < 10**10)
         invalid_type = not isinstance(cik, (int, str))
@@ -85,7 +127,24 @@ class SecCrawler(object):
             return cik
 
     def _fetch_report(self, company_code, cik, priorto, count, filing_type):
-        priorto = self._sanitize_date(priorto)
+        """Fetch filings.
+
+        Args:
+          company_code (str): Code used to help find company filings.
+              Often the company's ticker is used.
+          cik (Union[str, int]): Central Index Key assigned by SEC.
+              See https://www.sec.gov/edgar/searchedgar/cik.htm to search for
+              a company's CIK.
+          priorto (Union[str, datetime.datetime]): Most recent report to consider.
+              Must be in form 'YYYYMMDD' or
+              valid ``datetime.datetime`` object.
+          filing_type (str): Choose from list of valid filing types.
+              Includes '10-Q', '10-K', '8-K', '13-F', 'SD'.
+
+        Returns:
+          None
+        """
+        priorto = _sanitize_date(priorto)
         cik = self._check_cik(cik)
         self._make_directory(company_code, cik, priorto, filing_type)
 
@@ -112,19 +171,121 @@ class SecCrawler(object):
         print("Successfully downloaded all the files")
 
     def filing_10Q(self, company_code, cik, priorto, count):
+        """Fetch 10Q reports before priorto date.
+
+        Args:
+          company_code (str): Code used to help find company filings.
+              Often the company's ticker is used.
+          cik (Union[str, int]): Central Index Key assigned by SEC.
+              See https://www.sec.gov/edgar/searchedgar/cik.htm to search for
+              a company's CIK.
+          priorto (Union[str, datetime.datetime]): Most recent report to consider.
+              Must be in form 'YYYYMMDD' or
+              valid ``datetime.datetime`` object.
+          filing_type (str): Choose from list of valid filing types.
+              Includes '10-Q', '10-K', '8-K', '13-F', 'SD'.
+
+        Returns:
+          None
+        """
         self._fetch_report(company_code, cik, priorto, count, '10-Q')
 
     def filing_10K(self, company_code, cik, priorto, count):
+        """Fetch 10K reports before priorto date.
+
+        Args:
+          company_code (str): Code used to help find company filings.
+              Often the company's ticker is used.
+          cik (Union[str, int]): Central Index Key assigned by SEC.
+              See https://www.sec.gov/edgar/searchedgar/cik.htm to search for
+              a company's CIK.
+          priorto (Union[str, datetime.datetime]): Most recent report to consider.
+              Must be in form 'YYYYMMDD' or
+              valid ``datetime.datetime`` object.
+          filing_type (str): Choose from list of valid filing types.
+              Includes '10-Q', '10-K', '8-K', '13-F', 'SD'.
+
+        Returns:
+          None
+        """
         self._fetch_report(company_code, cik, priorto, count, '10-K')
 
     def filing_8K(self, company_code, cik, priorto, count):
+        """Fetch 8K reports before priorto date.
+
+        Args:
+          company_code (str): Code used to help find company filings.
+              Often the company's ticker is used.
+          cik (Union[str, int]): Central Index Key assigned by SEC.
+              See https://www.sec.gov/edgar/searchedgar/cik.htm to search for
+              a company's CIK.
+          priorto (Union[str, datetime.datetime]): Most recent report to consider.
+              Must be in form 'YYYYMMDD' or
+              valid ``datetime.datetime`` object.
+          filing_type (str): Choose from list of valid filing types.
+              Includes '10-Q', '10-K', '8-K', '13-F', 'SD'.
+
+        Returns:
+          None
+        """
         self._fetch_report(company_code, cik, priorto, count, '8-K')
 
     def filing_13F(self, company_code, cik, priorto, count):
+        """Fetch 13F reports before priorto date.
+
+        Args:
+          company_code (str): Code used to help find company filings.
+              Often the company's ticker is used.
+          cik (Union[str, int]): Central Index Key assigned by SEC.
+              See https://www.sec.gov/edgar/searchedgar/cik.htm to search for
+              a company's CIK.
+          priorto (Union[str, datetime.datetime]): Most recent report to consider.
+              Must be in form 'YYYYMMDD' or
+              valid ``datetime.datetime`` object.
+          filing_type (str): Choose from list of valid filing types.
+              Includes '10-Q', '10-K', '8-K', '13-F', 'SD'.
+
+        Returns:
+          None
+        """
         self._fetch_report(company_code, cik, priorto, count, '13-F')
 
     def filing_SD(self, company_code, cik, priorto, count):
+        """Fetch SD reports before priorto date.
+
+        Args:
+          company_code (str): Code used to help find company filings.
+              Often the company's ticker is used.
+          cik (Union[str, int]): Central Index Key assigned by SEC.
+              See https://www.sec.gov/edgar/searchedgar/cik.htm to search for
+              a company's CIK.
+          priorto (Union[str, datetime.datetime]): Most recent report to consider.
+              Must be in form 'YYYYMMDD' or
+              valid ``datetime.datetime`` object.
+          filing_type (str): Choose from list of valid filing types.
+              Includes '10-Q', '10-K', '8-K', '13-F', 'SD'.
+
+        Returns:
+          None
+        """
         self._fetch_report(company_code, cik, priorto, count, 'SD')
 
     def filing_4(self, company_code, cik, priorto, count):
+        """Fetch '4' reports before priorto date.
+
+        Args:
+          company_code (str): Code used to help find company filings.
+              Often the company's ticker is used.
+          cik (Union[str, int]): Central Index Key assigned by SEC.
+              See https://www.sec.gov/edgar/searchedgar/cik.htm to search for
+              a company's CIK.
+          priorto (Union[str, datetime.datetime]): Most recent report to consider.
+              Must be in form 'YYYYMMDD' or
+              valid ``datetime.datetime`` object.
+          filing_type (str): Choose from list of valid filing types.
+              Includes '10-Q', '10-K', '8-K', '13-F', 'SD'.
+
+        Returns:
+          None
+        """
         self._fetch_report(company_code, cik, priorto, count, '4')

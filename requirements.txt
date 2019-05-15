@@ -1,5 +1,2 @@
-beautifulsoup4==4.4.0
-future==0.13.1
-requests>=2.21.0
-pytest==3.6.3
-flake8
+beautifulsoup4
+requests

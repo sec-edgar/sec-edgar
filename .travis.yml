@@ -1,14 +1,26 @@
+sudo: false
+
 language: python
-os:
-  - linux
-python:
-  - "2.7"
-  - "3.5"
-  - "3.6"
-  - "pypy"
+
+matrix:
+  include:
+    - python: 2.7
+      dist: trusty
+    - python: 3.5
+      dist: trusty
+    - python: 3.6
+      dist: trusty
+    - python: 3.7
+      dist: xenial
+      sudo: true
+
+
 install:
-  - "pip install -r requirements.txt"
-before_script:
-  - "flake8 . --exit-zero"
+  - pip install -r requirements.txt
+  - pip install -r requirements-dev.txt
+  - python setup.py install
+
 script:
-  - py.test SECEdgar/tests # or pytest for Python versions 3.6 and above
+  - flake8 --version
+  - flake8 SECEdgar
+  - pytest SECEdgar/tests

@@ -6,7 +6,7 @@ import codecs
 from setuptools import setup, find_packages
 from setuptools.command.install import install
 
-SUPPORTED_VERSIONS = ['2.7', '3.5', '3.6', 'PyPy', ]
+SUPPORTED_VERSIONS = ['2.7', '3.5', '3.6', '3.7', ]
 here = os.path.abspath(os.path.dirname(__file__))
 
 
@@ -50,10 +50,9 @@ setup(
     license='Apache License (2.0)',
     author='Rahul Ranjan',
     author_email='rahul.rrixe@gmail.com',
-    description="""SEC-Edgar implements a basic Sphinx crwaler for downloading the 
-                 filings. It provides an interface to extract the filing from 
-                 the SEC.gov site. You might find it most useful for tasks 
-                 involving automated data collection of filings from SEC.gov""",
+    description="""SEC-Edgar implements a basic crawler for downloading 
+                 filings from the SEC Edgar database. It is most useful 
+                 for automatically collecting public filings from the SEC.""",
     long_description=long_description,
     long_description_content_type='text/x-rst',
     entry_points='''
@@ -74,7 +73,8 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: Implementation :: PyPy'],
+        'Programming Language :: Python :: 3.7',
+    ],
     package_data={
         'SECEdgar': [],
     }
