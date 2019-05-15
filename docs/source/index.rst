@@ -16,6 +16,7 @@ Welcome to SECEdgar's documentation!
    :maxdepth: 1
    :caption: Getting Started
 
+   whatsnew
    install
    usage
 
