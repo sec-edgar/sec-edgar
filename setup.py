@@ -6,7 +6,7 @@ import codecs
 from setuptools import setup, find_packages
 from setuptools.command.install import install
 
-SUPPORTED_VERSIONS = ['2.7', '3.5', '3.6', 'PyPy', ]
+SUPPORTED_VERSIONS = ['2.7', '3.5', '3.6', '3.7', ]
 here = os.path.abspath(os.path.dirname(__file__))
 
 
@@ -73,7 +73,8 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: Implementation :: PyPy'],
+        'Programming Language :: Python :: 3.7',
+    ],
     package_data={
         'SECEdgar': [],
     }
