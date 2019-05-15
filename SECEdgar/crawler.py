@@ -7,8 +7,9 @@ import requests
 import os
 from bs4 import BeautifulSoup
 import errno
+import datetime
 from SECEdgar.exceptions import EDGARQueryError, CIKError
-from util import _sanitize_date
+from SECEdgar.util import _sanitize_date
 
 DEFAULT_DATA_PATH = os.path.abspath(os.path.join(
     os.path.dirname(__file__), '..', 'SEC-Edgar-Data'))
