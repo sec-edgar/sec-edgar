@@ -26,8 +26,13 @@ class _FilingBase(object):
         self.pause = kwargs.get("pause", 0.5)
         self.count = kwargs.get("count", 10)
         self.dateb = _sanitize_date(kwargs.get("dateb", datetime.datetime.today()))
-        self.params = {'action': 'getcompany', 'owner': 'exclude',
-                       'output': 'xml', 'start': 0, 'count': 100, 'CIK': cik}
+        self.cik = cik
+        self._params = {'action': 'getcompany', 'owner': 'exclude',
+                        'output': 'xml', 'start': 0, 'count': 100, 'CIK': self.cik}
+
+    @property
+    def params(self):
+        return self._params
 
     @property
     def url(self):
@@ -123,7 +128,11 @@ class Filing10K(_FilingBase):
 
     def __init__(self, cik, **kwargs):
         super(Filing10K, self).__init__(cik, **kwargs)
-        self.params['type'] = "10-K"
+
+    @property
+    def params(self):
+        self._params['type'] = "10-K"
+        return self._params
 
     @property
     def url(self):
@@ -134,7 +143,11 @@ class Filing10Q(_FilingBase):
 
     def __init__(self, cik, **kwargs):
         super(Filing10Q, self).__init__(cik, **kwargs)
-        self.params['type'] = "10-Q"
+
+    @property
+    def params(self):
+        self._params['type'] = "10-Q"
+        return self._params
 
     @property
     def url(self):
@@ -145,7 +158,11 @@ class Filing8K(_FilingBase):
 
     def __init__(self, cik, **kwargs):
         super(Filing8K, self).__init__(cik, **kwargs)
-        self.params['type'] = "8-K"
+
+    @property
+    def params(self):
+        self._params['type'] = "8-K"
+        return self._params
 
     @property
     def url(self):
@@ -156,7 +173,11 @@ class FilingSD(_FilingBase):
 
     def __init__(self, cik, **kwargs):
         super(FilingSD, self).__init__(cik, **kwargs)
-        self.params['type'] = "SD"
+
+    @property
+    def params(self):
+        self._params['type'] = "SD"
+        return self._params
 
     @property
     def url(self):
@@ -167,7 +188,11 @@ class Filing13F(_FilingBase):
 
     def __init__(self, cik, **kwargs):
         super(Filing13F, self).__init__(cik, **kwargs)
-        self.params['type'] = "13-F"
+
+    @property
+    def params(self):
+        self._params['type'] = "13-F"
+        return self._params
 
     @property
     def url(self):
@@ -178,7 +203,11 @@ class Filing4(_FilingBase):
 
     def __init__(self, cik, **kwargs):
         super(Filing4, self).__init__(cik, **kwargs)
-        self.params['type'] = "4"
+
+    @property
+    def params(self):
+        self._params['type'] = "4"
+        return self._params
 
     @property
     def url(self):
