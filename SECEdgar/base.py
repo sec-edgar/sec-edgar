@@ -136,7 +136,10 @@ class _FilingBase(_EDGARBase):
         raise NotImplementedError
 
     def _get_urls(self):
-        """Get urls
+        """Get urls for txt files.
+
+        Returns:
+            urls (list): List of urls for txt files to download.
         """
         url = self._prepare_query()
         data = self._execute_query(url)
