@@ -7,8 +7,24 @@ Highlights:
 ~~~~~~~~~~~
 
 * Add Python 3.7 support to Travis CI
+* Prepare to deprecate :class:`SECEdgar.crawler.SecCrawler` in favor of separate filing classes
+* Modularize crawler for more general requests
+* Fix count attribute to correctly fetch specified number of filings (or max available)
+* Add MANIFEST.in file to include requirements.txt, LICENSE, and README
+* Add What's New section to docs
 
 Testing:
 ~~~~~~~~
 
 * Change xfails to use ``pytest.raises`` for various tests
+* Add ``TestFilings`` class to tests
+
+Bugs:
+~~~~~
+
+* Fix count attribute to fetch desired number of filings. ``SECEdgar`` will now either fetch specified number or, if not enough filings exist, all filings will be fetched.
+
+Enhancements:
+~~~~~~~~~~~~~
+
+* Introduce ``_EDGARBase`` and ``_FilingBase`` classes 
