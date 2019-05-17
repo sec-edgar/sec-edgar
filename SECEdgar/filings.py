@@ -27,8 +27,8 @@ class _FilingBase(object):
         self.count = kwargs.get("count", 10)
         self.dateb = _sanitize_date(kwargs.get("dateb", datetime.datetime.today()))
         self.cik = cik
-        self._params = {'action': 'getcompany', 'owner': 'exclude',
-                        'output': 'xml', 'start': 0, 'count': 100, 'CIK': self.cik}
+        self._params = {"action": "getcompany", "owner": "exclude",
+                        "output": "xml", "start": 0, "count": 100, "CIK": self.cik}
 
     @property
     def params(self):
@@ -36,6 +36,10 @@ class _FilingBase(object):
 
     @property
     def url(self):
+        return "browse-edgar"
+
+    @property
+    def filing_type(self):
         raise NotImplementedError
 
     def _execute_query(self, url):
@@ -51,7 +55,6 @@ class _FilingBase(object):
             EDGARQueryError: If problems arise when making query.
         """
         for _ in range(self.retry_count + 1):
-            print("URL: {url}, Params: {params}".format(url=url, params=self.params))
             response = requests.get(url=url, params=self.params)
             if response.status_code == 200:
                 try:
@@ -75,7 +78,7 @@ class _FilingBase(object):
         """
         if "The value you submitted is not valid" in response.text:
             raise EDGARQueryError()
-        return BeautifulSoup(response.text, features='html.parser')
+        return BeautifulSoup(response.text, features="html.parser")
 
     def _handle_error(self, response):
         """Handles all responses which return an error status code.
@@ -103,7 +106,7 @@ class _FilingBase(object):
             raise EDGARQueryError()
 
     def _prepare_query(self):
-        """Prepares the query URL.
+        """Prepares the query url.
 
         Returns:
             url (str): A formatted url.
@@ -130,13 +133,13 @@ class Filing10K(_FilingBase):
         super(Filing10K, self).__init__(cik, **kwargs)
 
     @property
-    def params(self):
-        self._params['type'] = "10-K"
-        return self._params
+    def filing_type(self):
+        return "10-K"
 
     @property
-    def url(self):
-        return 'browse-edgar'
+    def params(self):
+        self._params["type"] = self.filing_type
+        return self._params
 
 
 class Filing10Q(_FilingBase):
@@ -145,13 +148,13 @@ class Filing10Q(_FilingBase):
         super(Filing10Q, self).__init__(cik, **kwargs)
 
     @property
-    def params(self):
-        self._params['type'] = "10-Q"
-        return self._params
+    def filing_type(self):
+        return "10-Q"
 
     @property
-    def url(self):
-        return 'browse-edgar'
+    def params(self):
+        self._params["type"] = self.filing_type
+        return self._params
 
 
 class Filing8K(_FilingBase):
@@ -160,13 +163,13 @@ class Filing8K(_FilingBase):
         super(Filing8K, self).__init__(cik, **kwargs)
 
     @property
-    def params(self):
-        self._params['type'] = "8-K"
-        return self._params
+    def filing_type(self):
+        return "8-K"
 
     @property
-    def url(self):
-        return 'browse-edgar'
+    def params(self):
+        self._params["type"] = self.filing_type
+        return self._params
 
 
 class FilingSD(_FilingBase):
@@ -175,13 +178,13 @@ class FilingSD(_FilingBase):
         super(FilingSD, self).__init__(cik, **kwargs)
 
     @property
-    def params(self):
-        self._params['type'] = "SD"
-        return self._params
+    def filing_type(self):
+        return "SD"
 
     @property
-    def url(self):
-        return 'browse-edgar'
+    def params(self):
+        self._params["type"] = self.filing_type
+        return self._params
 
 
 class Filing13F(_FilingBase):
@@ -190,13 +193,13 @@ class Filing13F(_FilingBase):
         super(Filing13F, self).__init__(cik, **kwargs)
 
     @property
-    def params(self):
-        self._params['type'] = "13-F"
-        return self._params
+    def filing_type(self):
+        return "13-F"
 
     @property
-    def url(self):
-        return 'browse-edgar'
+    def params(self):
+        self._params["type"] = self.filing_type
+        return self._params
 
 
 class Filing4(_FilingBase):
@@ -205,10 +208,10 @@ class Filing4(_FilingBase):
         super(Filing4, self).__init__(cik, **kwargs)
 
     @property
-    def params(self):
-        self._params['type'] = "4"
-        return self._params
+    def filing_type(self):
+        return "4"
 
     @property
-    def url(self):
-        return 'browse-edgar'
+    def params(self):
+        self._params["type"] = self.filing_type
+        return self._params
