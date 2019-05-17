@@ -9,7 +9,16 @@ import time
 
 
 class _EDGARBase(object):
+    """Base class for EDGAR requests.
 
+    Attributes:
+        retry_count (int, optional): Desired number of retries if a request fails.
+            Defaults to 3.
+        pause (float, optional): Pause time between retry attempts.
+            Defaults to 0.5.
+        count (int, optional): Number of reports to fetch. Defaults to 10.
+            Will fetch all if total available is less than count.
+    """
     _BASE = "http://www.sec.gov/cgi-bin/"
 
     def __init__(self, **kwargs):
@@ -102,14 +111,9 @@ class _FilingBase(_EDGARBase):
     """Base class for receiving EDGAR filings.
 
     Attributes:
-        retry_count (int, optional): Desired number of retries if a request fails.
-            Defaults to 3.
-        pause (float, optional): Pause time between retry attempts.
-            Defaults to 0.5.
-        count (int, optional): Number of reports to fetch. Defaults to 10.
-            Will fetch all if total available is less than count.
         dateb (Union[str, datetime.datetime], optional): Date after which not to fetch reports.
             Defaults to today.
+        cik (str): Central Index Key (CIK) for company of interest.
     """
 
     def __init__(self, cik, **kwargs):
