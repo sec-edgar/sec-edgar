@@ -7,8 +7,8 @@ import requests
 import os
 from bs4 import BeautifulSoup
 import errno
-from SECEdgar.exceptions import EDGARQueryError, CIKError
-from SECEdgar.util import _sanitize_date
+from SECEdgar.utils.exceptions import EDGARQueryError, CIKError
+from SECEdgar.utils import _sanitize_date
 
 DEFAULT_DATA_PATH = os.path.abspath(os.path.join(
     os.path.dirname(__file__), '..', 'SEC-Edgar-Data'))
@@ -47,8 +47,8 @@ class SecCrawler(object):
         if not os.path.exists(path):
             try:
                 os.makedirs(path)
-            except OSError as exception:
-                if exception.errno != errno.EEXIST:
+            except OSError as e:
+                if e.errno != errno.EEXIST:
                     raise
 
     def _save_in_directory(self, company_code, cik, priorto, filing_type, docs):
