@@ -1,6 +1,5 @@
 # Tests if filings are correctly received from EDGAR
 import pytest
-from SECEdgar.filings import Filing10Q
 import datetime
 import requests
 
