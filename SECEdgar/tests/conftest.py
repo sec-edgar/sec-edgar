@@ -1,5 +1,6 @@
 import pytest
 from SECEdgar.crawler import SecCrawler
+from SECEdgar.filings import Filing10Q
 
 
 @pytest.fixture(scope='module')
@@ -22,5 +23,9 @@ def valid_fetch_report_args(valid_make_dir_args):
 
 @pytest.fixture(scope='module')
 def crawler():
-    obj = SecCrawler()
-    return obj
+    return SecCrawler()
+
+
+@pytest.fixture(scope='class')
+def filing_10Q():
+    return Filing10Q('0000320193', count=3)

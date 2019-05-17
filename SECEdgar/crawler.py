@@ -7,8 +7,9 @@ import requests
 import os
 from bs4 import BeautifulSoup
 import errno
-from SECEdgar.exceptions import EDGARQueryError, CIKError
-from SECEdgar.util import _sanitize_date
+from SECEdgar.utils.exceptions import EDGARQueryError, CIKError
+from SECEdgar.utils import _sanitize_date
+import warnings
 
 DEFAULT_DATA_PATH = os.path.abspath(os.path.join(
     os.path.dirname(__file__), '..', 'SEC-Edgar-Data'))
@@ -16,6 +17,9 @@ DEFAULT_DATA_PATH = os.path.abspath(os.path.join(
 
 class SecCrawler(object):
     """Main crawler object for SEC filings. """
+    warnings.warn("The SecCrawler class will be deprecated "
+                  "in favor of the classes in "
+                  "SECEdgar.filings beginning in v0.2.0.")
 
     def __init__(self, data_path=DEFAULT_DATA_PATH):
         self.data_path = data_path
@@ -47,8 +51,8 @@ class SecCrawler(object):
         if not os.path.exists(path):
             try:
                 os.makedirs(path)
-            except OSError as exception:
-                if exception.errno != errno.EEXIST:
+            except OSError as e:
+                if e.errno != errno.EEXIST:
                     raise
 
     def _save_in_directory(self, company_code, cik, priorto, filing_type, docs):
