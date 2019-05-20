@@ -59,7 +59,7 @@ class Filing(_EDGARBase):
             FilingTypeError: If filing type is not supported/valid.
 
         Returns:
-            filing_type (str): If filing type is valid, given filing 
+            filing_type (str): If filing type is valid, given filing
                 type will be returned.
         """
         if filing_type.lower() not in self._VALID_FILING_TYPES:

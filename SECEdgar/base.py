@@ -1,10 +1,6 @@
-from SECEdgar.utils.exceptions import EDGARQueryError
-from SECEdgar.utils import _sanitize_date
 from bs4 import BeautifulSoup
-import datetime
-import errno
-import os
 import requests
+from SECEdgar.utils.exceptions import EDGARQueryError
 import time
 
 

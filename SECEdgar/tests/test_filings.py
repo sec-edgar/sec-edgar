@@ -4,43 +4,36 @@ import datetime
 import requests
 from SECEdgar.utils.exceptions import FilingTypeError
 from SECEdgar.filings import Filing
-import shutil
 
 
 def test_10Q_requires_args(crawler):
     with pytest.raises(TypeError):
         return crawler.filing_10Q()
-    shutil.rmtree(crawler.data_path)
 
 
 def test_10K_requires_args(crawler):
     with pytest.raises(TypeError):
         return crawler.filing_10K()
-    shutil.rmtree(crawler.data_path)
 
 
 def test_SD_requires_args(crawler):
     with pytest.raises(TypeError):
         return crawler.filing_SD()
-    shutil.rmtree(crawler.data_path)
 
 
 def test_8K_requires_args(crawler):
     with pytest.raises(TypeError):
         return crawler.filing_8K()
-    shutil.rmtree(crawler.data_path)
 
 
 def test_13F_requires_args(crawler):
     with pytest.raises(TypeError):
         return crawler.filing_13F()
-    shutil.rmtree(crawler.data_path)
 
 
 def test_4_requires_args(crawler):
     with pytest.raises(TypeError):
         return crawler.filing_4()
-    shutil.rmtree(crawler.data_path)
 
 
 class TestFilings(object):
