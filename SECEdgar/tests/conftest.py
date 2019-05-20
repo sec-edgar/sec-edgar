@@ -1,6 +1,6 @@
 import pytest
 from SECEdgar.crawler import SecCrawler
-from SECEdgar.filings import Filing10Q
+from SECEdgar.filings import Filings
 
 
 @pytest.fixture(scope='module')
@@ -27,5 +27,5 @@ def crawler():
 
 
 @pytest.fixture(scope='class')
-def filing_10Q():
-    return Filing10Q('0000320193', count=3)
+def filing():
+    return Filings('0000320193', "10q", count=3)

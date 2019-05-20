@@ -32,3 +32,10 @@ class CIKError(Exception):
 
     def __str__(self):
         return "CIK {cik} is not valid. Must be str or int with 10 digits.".format(cik=self.cik)
+
+
+class FilingTypeError(Exception):
+    """This error is thrown when an invalid filing type is given. """
+
+    def __str__(self):
+        return "The filing type given is not valid."
