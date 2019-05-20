@@ -7,20 +7,22 @@ from SECEdgar.utils import _sanitize_date
 from SECEdgar.utils.exceptions import FilingTypeError
 
 
-class Filings(_EDGARBase):
+class Filing(_EDGARBase):
     """Base class for receiving EDGAR filings.
 
     Attributes:
+        cik (str): Central Index Key (CIK) for company of interest.
+        filing_type (str): Valid filing type (case-insensitive).
         dateb (Union[str, datetime.datetime], optional): Date after which not to fetch reports.
             Defaults to today.
-        cik (str): Central Index Key (CIK) for company of interest.
+
     """
-    _VALID_FILINGS = ["10q", "10-q", "10k",
-                      "10-k", "8k", "8-k",
-                      "13f", "13-f", "4", "sd"]
+    _VALID_FILING_TYPES = ["10q", "10-q", "10k",
+                           "10-k", "8k", "8-k",
+                           "13f", "13-f", "4", "sd"]
 
     def __init__(self, cik, filing_type, **kwargs):
-        super(Filings, self).__init__(**kwargs)
+        super(Filing, self).__init__(**kwargs)
         self._dateb = kwargs.get("dateb", datetime.datetime.today())
         self._filing_type = self._validate_filing_type(filing_type)
         self.cik = cik
@@ -48,7 +50,19 @@ class Filings(_EDGARBase):
         self._filing_type = self._validate_filing_type(ft)
 
     def _validate_filing_type(self, filing_type):
-        if filing_type.lower() not in self._VALID_FILINGS:
+        """Validates that given filing type is valid.
+
+        Args:
+            filing_type (str): Valid filing type (case-insensitive).
+
+        Raises:
+            FilingTypeError: If filing type is not supported/valid.
+
+        Returns:
+            filing_type (str): If filing type is valid, given filing 
+                type will be returned.
+        """
+        if filing_type.lower() not in self._VALID_FILING_TYPES:
             raise FilingTypeError()
         return filing_type
 
@@ -72,6 +86,15 @@ class Filings(_EDGARBase):
 
     def _make_dir(self, dir):
         """Make directory based on filing info.
+
+        Args:
+            dir (str): Base directory where filings should be saved from.
+
+        Raises:
+            OSError: If there is a problem making the directory.
+
+        Returns:
+            None
         """
         path = os.path.join(dir, self.cik, self.filing_type)
 
@@ -80,7 +103,7 @@ class Filings(_EDGARBase):
                 os.makedirs(path)
             except OSError as e:
                 if e.errno != errno.EEXIST:
-                    raise
+                    raise OSError
 
     @staticmethod
     def _sanitize_path(dir):
@@ -88,6 +111,7 @@ class Filings(_EDGARBase):
 
     def save(self, dir):
         """Save files in specified directory.
+
         Args:
             dir (str): Path to directory where files should be saved.
 
