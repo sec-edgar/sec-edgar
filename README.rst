@@ -34,64 +34,30 @@ To run it, start python shell
 
 .. code:: console
 
-   >>> from SECEdgar.crawler import SecCrawler
+    >>> from SECEdgar.filings import Filing()
+    >>> my_filings = Filing(cik='0000320193', filing_type='10q', count=15) # 10-Q filings for Apple (NYSE: AAPL)
+    >>> my_filings.save('~/path/to/dir') # Saves last 15 10Q reports from AAPL to ~/path/to/dir
 
-   >>> crawler = SecCrawler()
-   Path of the directory where data will be saved: /path/to/your/dir
-
-   >>> crawler.filing_10K('AAPL', '0000320193', '20010101', '10')
-   started 10-K AAPL
-   Number of files to download: 8
-   Starting download...
-   Successfully downloaded all the files
-
-This will download the AAPL company’s 10-K filings. By default, the data
-will be saved in the “SEC-Edgar-data” folder which will be created on
-the run time. If you would like to save the data at a different
-location, you can use
-
-.. code:: console
-
-   >>> crawler = SecCrawler('/path/to/location')
-
-Example
--------
-
-.. code:: python
-
-   import time
-   from SECEdgar.crawler import SecCrawler
-
-   def get_filings():
-       t1 = time.time()
-       seccrawler = SecCrawler() # create object
-
-       companyCode = 'AAPL'    # company code for apple
-       cik = '0000320193'      # cik code for apple
-       date = '20010101'       # date from which filings should be downloaded
-       count = '10'            # no of filings
-
-       seccrawler.filing_10Q(companyCode, cik, date, count)
-       seccrawler.filing_10K(companyCode, cik, date, count)
-       seccrawler.filing_8K(companyCode, cik, date, count)
-       seccrawler.filing_13F(companyCode, cik, date, count)
-
-
-       t2 = time.time()
-       print ("Total Time taken: {0}".format(t2-t1))
-
-   if __name__ == '__main__':
-       get_filings()
+This will download the past 15 10-Q filings made by Apple.
 
 Supported Methods
 -----------------
 
-Currently this crawler only supports 4 filings
+Currently this crawler supports 6 filings. Each has its own class of the form 
+``Filing*`` (replace * with filing name and remove any hyphens).
 
 -  10-K
 -  10-Q
 -  8-K
 -  13-F
+-  4
+-  SD
+
+License
+-------
+
+Copyright © 2019 Rahul Ranjan
+See LICENSE for details
 
 .. |Build Status| image:: https://travis-ci.com/coyo8/sec-edgar.svg?branch=master
    :target: https://travis-ci.com/coyo8/sec-edgar

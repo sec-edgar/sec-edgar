@@ -3,38 +3,30 @@
 Filings
 =======
 
-Filings can be downloaded using the classes found in the ``SECEdgar.filings`` module. 
-These classes inherit from the :class:`SECEdgar.base._FilingBase` class which inherits from the 
-:class:`SECEdgar.base._EDGARBase` class. These classes provide relevant ``**kwargs`` 
-that are relevant to making requests and the number of filings to fetch.
+Filings can be downloaded using the :class:`SECEdgar.base.Filing` class found in the ``SECEdgar.filings`` module. 
+These classes inherit from the :class:`SECEdgar.base._EDGARBase` class. This class provides relevant ``**kwargs`` 
+for making requests and the number of filings to fetch.
 
-Currently, the following filings can be accessed through the ``SECEdgar.filings`` module:
-
-* :class:`SECEdgar.filings.Filing10Q`
-* :class:`SECEdgar.filings.Filing10K`
-* :class:`SECEdgar.filings.Filing8K`
-* :class:`SECEdgar.filings.Filing13F`
-* :class:`SECEdgar.filings.Filing4`
-* :class:`SECEdgar.filings.FilingSD`
-
-Base Classes
-------------
+Base Class
+----------
 
 .. autoclass:: SECEdgar.base._EDGARBase
 
-.. autoclass:: SECEdgar.base._FilingBase
+Filings
+-------
 
-Available Filings
------------------
+.. note::
+    SECEdgar tries to be flexible when interpreting what filing type 
+    you want. Filing types of the form Number-Letter such as 10-K can 
+    either be expressed as "10-k" or "10k" (case-insensitive).
 
-.. autoclass:: SECEdgar.filings.Filing10Q
+Supported filing types include:
 
-.. autoclass:: SECEdgar.filings.Filing10K
+   -  10-K
+   -  10-Q
+   -  8-K
+   -  13-F
+   -  4
+   -  SD
 
-.. autoclass:: SECEdgar.filings.Filing8K
-
-.. autoclass:: SECEdgar.filings.Filing13F
-
-.. autoclass:: SECEdgar.filings.Filing4
-
-.. autoclass:: SECEdgar.filings.FilingSD
+.. autoclass:: SECEdgar.filings.Filing
