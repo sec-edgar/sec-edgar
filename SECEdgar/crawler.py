@@ -41,7 +41,7 @@ class SecCrawler(object):
               Must be in form 'YYYYMMDD' or
               valid ``datetime.datetime`` object.
           filing_type (str): Choose from list of valid filing types.
-              Includes '10-Q', '10-K', '8-K', '13-F', 'SD'.
+              Includes '10-Q', '10-K', '8-K', '13-F', 'SD', '4'.
 
         Returns:
           None
