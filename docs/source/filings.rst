@@ -20,5 +20,13 @@ Filings
     you want. Filing types of the form Number-Letter such as 10-K can 
     either be expressed as "10-k" or "10k" (case-insensitive).
 
+Supported filing types include:
+
+   -  10-K
+   -  10-Q
+   -  8-K
+   -  13-F
+   -  4
+   -  SD
 
 .. autoclass:: SECEdgar.filings.Filing
