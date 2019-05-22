@@ -16,7 +16,13 @@ DEFAULT_DATA_PATH = os.path.abspath(os.path.join(
 
 
 class SecCrawler(object):
-    """Main crawler object for SEC filings. """
+    """Main crawler object for SEC filings. 
+
+    Args:
+        data_path (str): Path where data will be saved.
+
+    .. versionadded:: 0.1.4
+    """
     warnings.warn("The SecCrawler class will be deprecated "
                   "in favor of the classes in "
                   "SECEdgar.filings beginning in v0.2.0.")

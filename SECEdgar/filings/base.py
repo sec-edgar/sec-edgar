@@ -16,6 +16,7 @@ class Filing(_EDGARBase):
         dateb (Union[str, datetime.datetime], optional): Date after which not to fetch reports.
             Defaults to today.
 
+    .. versionadded:: 0.1.5
     """
     _VALID_FILING_TYPES = ["10q", "10-q", "10k",
                            "10-k", "8k", "8-k",
