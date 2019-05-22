@@ -14,6 +14,8 @@ class _EDGARBase(object):
             Defaults to 0.5.
         count (int, optional): Number of reports to fetch. Defaults to 10.
             Will fetch all if total available is less than count.
+
+    .. versionadded:: 0.1.5
     """
     _BASE = "http://www.sec.gov/cgi-bin/"
 
