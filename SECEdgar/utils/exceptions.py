@@ -3,13 +3,8 @@ class EDGARQueryError(Exception):
     This error is thrown when a query receives a response that is not a 200 response.
     """
 
-    def __init__(self, response):
-        self.response = response
-
     def __str__(self):
-        return "An error occured while making the query. Received {response} response".format(
-            response=self.response
-        )
+        return "An error occured while making the query."
 
 
 class EDGARFieldError(Exception):
@@ -37,3 +32,10 @@ class CIKError(Exception):
 
     def __str__(self):
         return "CIK {cik} is not valid. Must be str or int with 10 digits.".format(cik=self.cik)
+
+
+class FilingTypeError(Exception):
+    """This error is thrown when an invalid filing type is given. """
+
+    def __str__(self):
+        return "The filing type given is not valid."

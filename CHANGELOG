@@ -1,6 +1,12 @@
 0.1.5
 =====
 * Add Python 3.7 support to Travis CI
+* Prepare to deprecate SecCrawler in favor of separate filing class
+* Modularize crawler for more general requests
+* Fix count attribute to correctly fetch specified number of filings (or max available)
+* Add TestFilings class to tests
+* Add MANIFEST.in file to include requirements, license, and README
+* Add whatsnew section to docs
 
 0.1.4
 ======

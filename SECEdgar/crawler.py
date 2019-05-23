@@ -7,15 +7,25 @@ import requests
 import os
 from bs4 import BeautifulSoup
 import errno
-from SECEdgar.exceptions import EDGARQueryError, CIKError
-from SECEdgar.util import _sanitize_date
+from SECEdgar.utils.exceptions import EDGARQueryError, CIKError
+from SECEdgar.utils import _sanitize_date
+import warnings
 
 DEFAULT_DATA_PATH = os.path.abspath(os.path.join(
     os.path.dirname(__file__), '..', 'SEC-Edgar-Data'))
 
 
 class SecCrawler(object):
-    """Main crawler object for SEC filings. """
+    """Main crawler object for SEC filings.
+
+    Args:
+        data_path (str): Path where data will be saved.
+
+    .. versionadded:: 0.1.4
+    """
+    warnings.warn("The SecCrawler class will be deprecated "
+                  "in favor of the classes in "
+                  "SECEdgar.filings beginning in v0.2.0.")
 
     def __init__(self, data_path=DEFAULT_DATA_PATH):
         self.data_path = data_path
@@ -37,7 +47,7 @@ class SecCrawler(object):
               Must be in form 'YYYYMMDD' or
               valid ``datetime.datetime`` object.
           filing_type (str): Choose from list of valid filing types.
-              Includes '10-Q', '10-K', '8-K', '13-F', 'SD'.
+              Includes '10-Q', '10-K', '8-K', '13-F', 'SD', '4'.
 
         Returns:
           None
@@ -47,8 +57,8 @@ class SecCrawler(object):
         if not os.path.exists(path):
             try:
                 os.makedirs(path)
-            except OSError as exception:
-                if exception.errno != errno.EEXIST:
+            except OSError as e:
+                if e.errno != errno.EEXIST:
                     raise
 
     def _save_in_directory(self, company_code, cik, priorto, filing_type, docs):
