@@ -12,13 +12,15 @@ Highlights:
 * Fix count attribute to correctly fetch specified number of filings (or max available)
 * Add :class:`SECEdgar.filings.Filing` for fetching SEC filings
 * Add MANIFEST.in file to include requirements.txt, LICENSE, and README
-* Add What's New section to docs
+* Add What's New section to docs (replaces CHANGELOG)
 
 Testing:
 ~~~~~~~~
 
 * Change xfails to use ``pytest.raises`` for various tests
 * Add ``TestFilings`` class to tests
+* Add tox for testing
+* Make Travis CI use setup used by PyPi to catch problems with setup.py
 
 Bugs:
 ~~~~~
