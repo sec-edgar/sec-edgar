@@ -1,5 +1,4 @@
 # -*- coding:utf-8 -*-
-import sys
 import os
 import re
 import codecs
@@ -36,7 +35,8 @@ def parse_requirements(*files):
             required.append(f.read().splitlines())
     return required
 
-    # Get the long description from the relevant file
+
+# Get the long description from the relevant file
 with codecs.open('README.rst', encoding='utf-8') as f:
     LONG_DESCRIPTION = f.read()
 
@@ -53,7 +53,7 @@ setup(
     author_email='rahul.rrixe@gmail.com',
     description="""SEC-Edgar implements a basic crawler for downloading 
                  filings from the SEC Edgar database. It is most useful 
-                 for automatically collecting public filings from the SEC.""",
+                 for automatically collecting public filings from the SEC.""",  # noqa: W291
     long_description=LONG_DESCRIPTION,
     long_description_content_type='text/x-rst',
     entry_points='''
