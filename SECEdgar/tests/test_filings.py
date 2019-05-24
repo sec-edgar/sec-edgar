@@ -47,6 +47,12 @@ class TestFilings(object):
         if not filing.dateb == '20150101':
             raise AssertionError("The dateb param was not correctly sanitized.")
 
+    def test_date_is_sanitized_when_changed(self, filing):
+        filing.dateb = '20150101'
+        filing.dateb = datetime.datetime(2016, 1, 1)
+        if not filing.dateb == '20160101':
+            raise AssertionError("The dateb param was not correctly sanitized.")
+
     def test_txt_urls(self, filing):
         r = requests.get(filing._get_urls()[0])
         print(r.text)
