@@ -55,7 +55,8 @@ class _EDGARBase(object):
             time.sleep(self.pause)
         return self._handle_error(response)
 
-    def _validate_response(self, response):
+    @staticmethod
+    def _validate_response(response):
         """Ensures response from EDGAR is valid.
 
         Args:
@@ -71,7 +72,8 @@ class _EDGARBase(object):
             raise EDGARQueryError()
         return BeautifulSoup(response.text, features="html.parser")
 
-    def _handle_error(self, response):
+    @staticmethod
+    def _handle_error(response):
         """Handles all responses which return an error status code.
 
         Args:

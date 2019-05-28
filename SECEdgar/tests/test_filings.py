@@ -2,7 +2,7 @@
 import pytest
 import datetime
 import requests
-from SECEdgar.utils.exceptions import FilingTypeError
+from SECEdgar.utils.exceptions import FilingTypeError, CIKError
 from SECEdgar.filings import Filing
 
 
@@ -64,3 +64,16 @@ class TestFilings(object):
             Filing(cik='0000320193', filing_type='10j')
             Filing(cik='0000320193', filing_type='10--k')
             Filing(cik='0000320193', filing_type='ssd')
+
+    def test_validate_cik(self):
+        with pytest.raises(CIKError):
+            Filing(cik='0notvalid0', filing_type='10-k')
+            Filing(cik='123', filing_type='10-k')
+            Filing(cik='012345678910', filing_type='10-k')
+            Filing(cik=1234567891011, filing_type='10-k')
+        with pytest.raises(ValueError):
+            Filing(cik=123.0, filing_type='10-k')
+
+    def test_setting_invalid_cik(self, filing):
+        with pytest.raises(CIKError):
+            filing.cik = 'notavalidcik'
