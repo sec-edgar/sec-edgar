@@ -1,10 +1,6 @@
-from SECEdgar.utils.exceptions import EDGARQueryError
-from SECEdgar.utils import _sanitize_date
 from bs4 import BeautifulSoup
-import datetime
-import errno
-import os
 import requests
+from SECEdgar.utils.exceptions import EDGARQueryError
 import time
 
 
@@ -18,6 +14,8 @@ class _EDGARBase(object):
             Defaults to 0.5.
         count (int, optional): Number of reports to fetch. Defaults to 10.
             Will fetch all if total available is less than count.
+
+    .. versionadded:: 0.1.5
     """
     _BASE = "http://www.sec.gov/cgi-bin/"
 
@@ -57,7 +55,8 @@ class _EDGARBase(object):
             time.sleep(self.pause)
         return self._handle_error(response)
 
-    def _validate_response(self, response):
+    @staticmethod
+    def _validate_response(response):
         """Ensures response from EDGAR is valid.
 
         Args:
@@ -73,7 +72,8 @@ class _EDGARBase(object):
             raise EDGARQueryError()
         return BeautifulSoup(response.text, features="html.parser")
 
-    def _handle_error(self, response):
+    @staticmethod
+    def _handle_error(response):
         """Handles all responses which return an error status code.
 
         Args:
@@ -105,89 +105,3 @@ class _EDGARBase(object):
             url (str): A formatted url.
         """
         return "%s%s" % (self._BASE, self.url)
-
-
-class _FilingBase(_EDGARBase):
-    """Base class for receiving EDGAR filings.
-
-    Attributes:
-        dateb (Union[str, datetime.datetime], optional): Date after which not to fetch reports.
-            Defaults to today.
-        cik (str): Central Index Key (CIK) for company of interest.
-    """
-
-    def __init__(self, cik, **kwargs):
-        super(_FilingBase, self).__init__(**kwargs)
-        self._dateb = kwargs.get("dateb", datetime.datetime.today())
-        self.cik = cik
-        self._params.update({"action": "getcompany", "owner": "exclude",
-                             "output": "xml", "start": 0, "count": 100, "CIK": self.cik})
-
-    @property
-    def url(self):
-        return "browse-edgar"
-
-    @property
-    def dateb(self):
-        return _sanitize_date(self._dateb)
-
-    @dateb.setter
-    def dateb(self, val):
-        self._dateb = _sanitize_date(val)
-
-    @property
-    def filing_type(self):
-        raise NotImplementedError
-
-    def _get_urls(self):
-        """Get urls for txt files.
-
-        Returns:
-            urls (list): List of urls for txt files to download.
-        """
-        url = self._prepare_query()
-        data = self._execute_query(url)
-        links = []
-        while len(links) < self.count:
-            links.extend([link.string for link in data.find_all("filinghref")])
-            self.params["start"] += 100
-            if len(data.find_all("filinghref")) == 0:
-                break
-        self.params["start"] = 0
-        txt_urls = [link[:link.rfind("-")] + ".txt" for link in links]
-        return txt_urls[:self.count]
-
-    def _make_dir(self, dir):
-        """Make directory based on filing info.
-        """
-        path = os.path.join(dir, self.cik, self.filing_type)
-
-        if not os.path.exists(path):
-            try:
-                os.makedirs(path)
-            except OSError as e:
-                if e.errno != errno.EEXIST:
-                    raise
-
-    @staticmethod
-    def _sanitize_path(dir):
-        return os.path.expanduser(dir)
-
-    def save(self, dir):
-        """Save files in specified directory.
-        Args:
-            dir (str): Path to directory where files should be saved.
-
-        Returns:
-            None
-        """
-        dir = self._sanitize_path(dir)
-        self._make_dir(dir)
-        txt_urls = self._get_urls()
-        doc_names = [url.split("/")[-1] for url in txt_urls]
-        for (url, doc_name) in list(zip(txt_urls, doc_names)):
-            r = requests.get(url)
-            data = r.text
-            path = os.path.join(dir, self.cik, self.filing_type, doc_name)
-            with open(path, "ab") as f:
-                f.write(data.encode("ascii", "ignore"))

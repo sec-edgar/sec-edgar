@@ -34,8 +34,8 @@ To run it, start python shell
 
 .. code:: console
 
-    >>> from SECEdgar.filings import Filing10Q
-    >>> my_filings = Filing10Q('0000320193', count=15) # 0000320193 is CIK for Apple (NYSE: AAPL)
+    >>> from SECEdgar.filings import Filing()
+    >>> my_filings = Filing(cik='0000320193', filing_type='10q', count=15) # 10-Q filings for Apple (NYSE: AAPL)
     >>> my_filings.save('~/path/to/dir') # Saves last 15 10Q reports from AAPL to ~/path/to/dir
 
 This will download the past 15 10-Q filings made by Apple.

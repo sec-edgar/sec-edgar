@@ -2,6 +2,8 @@
 import pytest
 import datetime
 import requests
+from SECEdgar.utils.exceptions import FilingTypeError, CIKError
+from SECEdgar.filings import Filing
 
 
 def test_10Q_requires_args(crawler):
@@ -35,23 +37,43 @@ def test_4_requires_args(crawler):
 
 
 class TestFilings(object):
-    def test_count_returns_exact(self, filing_10Q):
-        if not len(filing_10Q._get_urls()) == 3:
+    def test_count_returns_exact(self, filing):
+        if not len(filing._get_urls()) == 3:
             raise AssertionError("Count should return exact number of filings.")
 
-    def test_date_is_sanitized(self, filing_10Q):
+    def test_date_is_sanitized(self, filing):
         date = datetime.datetime(2015, 1, 1)
-        filing_10Q.dateb = date
-        if not filing_10Q.dateb == '20150101':
+        filing.dateb = date
+        if not filing.dateb == '20150101':
             raise AssertionError("The dateb param was not correctly sanitized.")
 
-    def test_txt_urls(self, filing_10Q):
-        r = requests.get(filing_10Q._get_urls()[0])
+    def test_date_is_sanitized_when_changed(self, filing):
+        filing.dateb = '20150101'
+        filing.dateb = datetime.datetime(2016, 1, 1)
+        if not filing.dateb == '20160101':
+            raise AssertionError("The dateb param was not correctly sanitized.")
+
+    def test_txt_urls(self, filing):
+        r = requests.get(filing._get_urls()[0])
         print(r.text)
         if not r.text:
             raise AssertionError("Text file returned as empty.")
 
-    def test_filing_type_immutable(self, filing_10Q):
-        """The filing_type property should be immutable. """
-        with pytest.raises(AttributeError):
-            filing_10Q.filing_type = "10-K"
+    def test_valid_filing_types(self):
+        with pytest.raises(FilingTypeError):
+            Filing(cik='0000320193', filing_type='10j')
+            Filing(cik='0000320193', filing_type='10--k')
+            Filing(cik='0000320193', filing_type='ssd')
+
+    def test_validate_cik(self):
+        with pytest.raises(CIKError):
+            Filing(cik='0notvalid0', filing_type='10-k')
+            Filing(cik='123', filing_type='10-k')
+            Filing(cik='012345678910', filing_type='10-k')
+            Filing(cik=1234567891011, filing_type='10-k')
+        with pytest.raises(ValueError):
+            Filing(cik=123.0, filing_type='10-k')
+
+    def test_setting_invalid_cik(self, filing):
+        with pytest.raises(CIKError):
+            filing.cik = 'notavalidcik'

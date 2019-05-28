@@ -5,8 +5,8 @@ Crawler
 
 .. warning::
     The ``SecCrawler`` class will be deprecated in v0.2.0 in favor of the 
-    newly released filing classes (found in ``SECEdgar.filings``). 
-    See the complete list :doc:`here <filings.rst>`.
+    newly released `Filing` class (found in ``SECEdgar.filings``). 
+    See the complete list, reference :ref:`filings`.
 
 The ``SECEdgar`` module is largely centered around the ``SecCrawler`` class.
 This class fetches the filing information.

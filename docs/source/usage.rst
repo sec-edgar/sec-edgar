@@ -13,3 +13,17 @@ This package is useful for obtaining important financial information about publi
 - Business Profile
 - Letter to Shareholders
 - Management's Analysis
+
+The ``Filing`` class provides a simple API to fetch SEC filings.
+
+.. ipython:: python
+
+   from SECEdgar.filings import Filing
+   my_cik = '0000320193'
+   my_filings = Filing(cik=my_cik, filing_type='10-q', count=15)
+
+In order to save all fetched filings to a specific directory, use the ``save`` method.
+
+.. ipython:: python
+
+   my_filings.save('~/tempdir')
