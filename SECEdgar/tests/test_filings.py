@@ -48,7 +48,6 @@ class TestFilings(object):
             raise AssertionError("The dateb param was not correctly sanitized.")
 
     def test_date_is_sanitized_when_changed(self, filing):
-        filing.dateb = '20150101'
         filing.dateb = datetime.datetime(2016, 1, 1)
         if not filing.dateb == '20160101':
             raise AssertionError("The dateb param was not correctly sanitized.")
