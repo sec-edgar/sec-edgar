@@ -4,7 +4,7 @@ import os
 import requests
 from SECEdgar.base import _EDGARBase
 from SECEdgar.utils import _sanitize_date
-from SECEdgar.utils.exceptions import FilingTypeError
+from SECEdgar.utils.exceptions import FilingTypeError, CIKError
 
 
 class Filing(_EDGARBase):
@@ -26,7 +26,7 @@ class Filing(_EDGARBase):
         super(Filing, self).__init__(**kwargs)
         self._dateb = kwargs.get("dateb", datetime.datetime.today())
         self._filing_type = self._validate_filing_type(filing_type)
-        self.cik = cik
+        self._cik = cik
         self._params.update({"action": "getcompany", "owner": "exclude",
                              "output": "xml", "start": 0, "count": 100, "CIK": self.cik})
 
@@ -50,6 +50,14 @@ class Filing(_EDGARBase):
     def filing_type(self, ft):
         self._filing_type = self._validate_filing_type(ft)
 
+    @property
+    def cik(self):
+        return self._validate_cik(self._cik)
+
+    @cik.setter
+    def cik(self, val):
+        self._cik = self._validate_cik(val)
+
     def _validate_filing_type(self, filing_type):
         """Validates that given filing type is valid.
 
@@ -66,6 +74,33 @@ class Filing(_EDGARBase):
         if filing_type.lower() not in self._VALID_FILING_TYPES:
             raise FilingTypeError()
         return filing_type
+
+    def _validate_cik(self, cik):
+        """Validates that given CIK *could* be valid.
+
+        Args:
+            cik (Union[str, int]): Central index key (CIK) to validate.
+
+        Returns:
+            cik (Union[str, int]): Validated CIK.
+                Note that the CIK is only validated in
+                that it *could* be valid. All CIKs
+                must be 10 digits, but not all 10 digit
+                numbers are valid CIKs.
+
+        Raises:
+            ValueError: If given cik is not str or int
+            CIKError: If cik is not a 10 digit number.
+        """
+        if not isinstance(cik, (str, int)):
+            raise ValueError("CIK must be of type str or int.")
+        elif isinstance(cik, str):
+            if len(cik) != 10 or not cik.isdigit():
+                raise CIKError(cik)
+        elif isinstance(cik, int):
+            if cik not in range(10**9, 10**10):
+                raise CIKError(cik)
+        return cik
 
     def _get_urls(self):
         """Get urls for txt files.
@@ -85,11 +120,11 @@ class Filing(_EDGARBase):
         txt_urls = [link[:link.rfind("-")] + ".txt" for link in links]
         return txt_urls[:self.count]
 
-    def _make_dir(self, dir):
+    def _make_dir(self, directory):
         """Make directory based on filing info.
 
         Args:
-            dir (str): Base directory where filings should be saved from.
+            directory (str): Base directory where filings should be saved from.
 
         Raises:
             OSError: If there is a problem making the directory.
@@ -97,7 +132,7 @@ class Filing(_EDGARBase):
         Returns:
             None
         """
-        path = os.path.join(dir, self.cik, self.filing_type)
+        path = os.path.join(directory, self.cik, self.filing_type)
 
         if not os.path.exists(path):
             try:
@@ -110,22 +145,22 @@ class Filing(_EDGARBase):
     def _sanitize_path(dir):
         return os.path.expanduser(dir)
 
-    def save(self, dir):
+    def save(self, directory):
         """Save files in specified directory.
 
         Args:
-            dir (str): Path to directory where files should be saved.
+            directory (str): Path to directory where files should be saved.
 
         Returns:
             None
         """
-        dir = self._sanitize_path(dir)
-        self._make_dir(dir)
+        directory = self._sanitize_path(directory)
+        self._make_dir(directory)
         txt_urls = self._get_urls()
         doc_names = [url.split("/")[-1] for url in txt_urls]
         for (url, doc_name) in list(zip(txt_urls, doc_names)):
             r = requests.get(url)
             data = r.text
-            path = os.path.join(dir, self.cik, self.filing_type, doc_name)
+            path = os.path.join(directory, self.cik, self.filing_type, doc_name)
             with open(path, "ab") as f:
                 f.write(data.encode("ascii", "ignore"))
