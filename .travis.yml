@@ -10,17 +10,37 @@ matrix:
       dist: trusty
     - python: 3.6
       dist: trusty
+      env: DOCBUILD=true
     - python: 3.7
       dist: xenial
       sudo: true
 
+env:
+  global:
+    secure: "<your secure key from Doctr here>"
 
 install:
   - pip install -qq flake8
   - pip install pytest
+  - if [[ $DOCBUILD ]]; then
+      pip install doctr sphinx sphinx_rtd_theme ipython
+    fi
   - python setup.py install
 
 script:
+  - set -e
   - flake8 --version
   - flake8 SECEdgar
   - pytest SECEdgar/tests
+  - |
+    if [[ $DOCBUILD]]; then
+      cd docs
+      make html
+      cd ..
+      doctr deploy devel --build-tags
+      if [[ -z ${TRAVIS_TAG} ]]; then
+        echo "Not a tagged build."
+      else
+        doctr deploy stable --build-tags
+      fi
+    fi
