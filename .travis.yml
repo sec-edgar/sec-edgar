@@ -3,6 +3,8 @@ sudo: false
 language: python
 
 matrix:
+  allow_failures:
+   - python: 2.7
   include:
     - python: 2.7
       dist: trusty
@@ -17,13 +19,14 @@ matrix:
 
 env:
   global:
-    secure: "<your secure key from Doctr here>"
+    # Doctr deploy key for coyo8/sec-edgar
+    - secure: "Yli1M7XnE5EmLhSkfSajLelrNs9rjxcMT59e7G7586OaOdzgEviJA285HCChwJdkfYNyoa3msMwx/ciQHn6tQ7xWm8EowG4v+L7WVgFZ9MacdG4nYqOrDIKfQUpK64rfbD5GGlTd8ptmgCN2+RtY8xkJ1Ajbbb7GqBc2XeSDTbzrCp8feIkV9gV3Nvcz7O4g1zBuyiuR+w9fO66rzcVEvqraZWavt5mrMqB1T8ghqWBGYGgnL3NXBcbdkgyaD8IPtR9twpGc3x1b9jwzQdYKBZ4bvbNwn3qYQwkFkXOt9rBZN+Ba70vKwGGptI10QPCrkxkYGM6HkcX8lTPJyhAFJ4iIGqkQ/kC63SHXgQ0rEBTwu2wXQ835dYJ5H83718mDkQ3jO03ucKFq343oQJcJfdIiVV2YOQamTXlqtpaJ6kpGk94rjrWa0INPl8PJ8lrowP1CrDEIOS20T6hUtGI3dzf/5Ei1nGluuScOobFJSDAg4ea0aTOjktmOcVyruCqpjdF74GnoLIkij96oPE7t/ear4CQjUM5VICSYDJL9kBEg+ptTsIeJE73KSc/SnVT13maf/HVpav6xdKWrwQBxkmdo4Nwe8LFWDD3wQmcICJpY0mxrTqwvpCRFPBhJMciJdJPp7Z+IiHGvoJ0eT8j6ERZL0hdaUV4VfUq9aA5L4gk="
 
 install:
   - pip install -qq flake8
   - pip install pytest
   - if [[ $DOCBUILD ]]; then
-      pip install doctr sphinx sphinx_rtd_theme ipython
+      pip install doctr sphinx sphinx_rtd_theme ipython matplotlib;
     fi
   - python setup.py install
 
@@ -33,14 +36,7 @@ script:
   - flake8 SECEdgar
   - pytest SECEdgar/tests
   - |
-    if [[ $DOCBUILD]]; then
-      cd docs
-      make html
-      cd ..
-      doctr deploy devel --build-tags
-      if [[ -z ${TRAVIS_TAG} ]]; then
-        echo "Not a tagged build."
-      else
-        doctr deploy stable --build-tags
-      fi
+    if [[ $DOCBUILD ]]; then
+      make -C docs html
+      doctr deploy . --built-docs docs/build/html/
     fi
