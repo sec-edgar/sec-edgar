@@ -43,8 +43,8 @@ This will download the past 15 10-Q filings made by Apple.
 Supported Methods
 -----------------
 
-Currently this crawler supports 6 filings. Each has its own class of the form 
-``Filing*`` (replace * with filing name and remove any hyphens).
+Currently this crawler supports 6 filings. Any of the following can be used in conjunction 
+with the `Filing` class.
 
 -  10-K
 -  10-Q
