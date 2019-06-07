@@ -53,6 +53,10 @@ with the `Filing` class.
 -  4
 -  SD
 
+Documentation
+--------------
+To learn more about the APIs and latest changes in the project, read the [official documentation](https://www.rudrakos.com/sec-edgar/).
+
 License
 -------
 
