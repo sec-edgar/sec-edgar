@@ -55,7 +55,7 @@ with the `Filing` class.
 
 Documentation
 --------------
-To learn more about the APIs and latest changes in the project; read the [official documentation](https://www.rudrakos.com/sec-edgar/).
+To learn more about the APIs and latest changes in the project, read the [official documentation](https://www.rudrakos.com/sec-edgar/).
 
 License
 -------
