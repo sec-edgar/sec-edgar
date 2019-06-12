@@ -1,0 +1,9 @@
+.. _whatsnew016:
+
+v0.1.6
+------
+
+Highlights:
+~~~~~~~~~~~
+
+* Introduced EDGARExtractor, a class to extract the documents AND their metadata from the .txt files downloaded from EDGAR. You can also save and extract the document in one class by passing extract=True to Filings.save()
