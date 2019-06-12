@@ -1,9 +1,6 @@
-import pytest
 import shutil
-
 from SECEdgar.filings import Filing
-from SECEdgar.extractor import EDGARExtractor
-from SECEdgar.utils.exceptions import FilingTypeError
+
 
 class TestExtractor(object):
     def test_aapl_10k(self):

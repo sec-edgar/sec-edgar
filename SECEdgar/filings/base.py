@@ -153,7 +153,8 @@ class Filing(_EDGARBase):
             directory (str): Path to directory where files should be saved.
             extract (bool): whether to extract the documents from the downloaded .txt files
             extract_dir (str): Path to the directory where documents should be extracted.
-            If extract is True and extract_dir is None, the documents will be extracted to the smae directory where the .txt file is saved
+            If extract is True and extract_dir is None, the documents will
+            be extracted to the same directory where the .txt file is saved
 
         Returns:
             None
