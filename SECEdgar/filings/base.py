@@ -7,6 +7,7 @@ from SECEdgar.utils import _sanitize_date
 from SECEdgar.utils.exceptions import FilingTypeError, CIKError
 from SECEdgar.extractor.EDGARExtractor import EDGARExtractor
 
+
 class Filing(_EDGARBase):
     """Base class for receiving EDGAR filings.
 
@@ -151,7 +152,8 @@ class Filing(_EDGARBase):
         Args:
             directory (str): Path to directory where files should be saved.
             extract (bool): whether to extract the documents from the downloaded .txt files
-            extract_dir (str): Path to the directory where documents should be extracted. If extract is True and extract_dir is None, the documents will be extracted to the smae directory where the .txt file is saved
+            extract_dir (str): Path to the directory where documents should be extracted.
+            If extract is True and extract_dir is None, the documents will be extracted to the smae directory where the .txt file is saved
 
         Returns:
             None

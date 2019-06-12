@@ -4,10 +4,6 @@ import os.path
 import logging
 import uu
 
-# RE PRIMER
-# (?!...)
-# Matches if ... doesn’t match next.
-# This is a negative lookahead assertion. For example, Isaac (?!Asimov) will match 'Isaac ' only if it’s not followed by 'Asimov'.
 
 class EDGARExtractor():
 
@@ -15,7 +11,7 @@ class EDGARExtractor():
     # Note that re.search() does not have a starting position argument
     # but the search() method of a Pattern object (a compiled regex) has a pos argument
     re_doc = re.compile("<DOCUMENT>(.*?)</DOCUMENT>", flags=re.DOTALL)
-    re_sec_header =  re.compile("<SEC-HEADER>.*?\n(.*?)</SEC-HEADER>", flags=re.DOTALL)
+    re_sec_header = re.compile("<SEC-HEADER>.*?\n(.*?)</SEC-HEADER>", flags=re.DOTALL)
     re_sec_doc = re.compile("<SEC-DOCUMENT>(.*?)</SEC-DOCUMENT>", flags=re.DOTALL)
     re_text = re.compile("<TEXT>(.*?)</TEXT>", flags=re.DOTALL)
 
@@ -43,9 +39,6 @@ class EDGARExtractor():
         sec_doc_cursor = 0
         sec_doc_count = intxt.count("<SEC-DOCUMENT>")
         for sec_doc_num in range(sec_doc_count):
-
-            #print("sec_doc_num {}, sec_doc_cursor {}".format(sec_doc_num, sec_doc_cursor))
-
             # Extract the <SEC-DOCUMENT> part
             sec_doc_m = self.re_sec_doc.search(intxt, pos=sec_doc_cursor)
             if not sec_doc_m:
@@ -66,10 +59,7 @@ class EDGARExtractor():
             doc_count = documents.count("<DOCUMENT>")
             doc_cursor = 0
             for doc_num in range(doc_count):
-
-                #print("doc num {}, doc_cursor {}".format(doc_num, doc_cursor))
-
-                #Pattern.search(string[, pos[, endpos]])
+                # Pattern.search(string[, pos[, endpos]])
                 doc_m = self.re_doc.search(documents, pos=doc_cursor)
                 doc = doc_m.group(1)
                 doc_cursor = doc_m.span()[1]
@@ -79,21 +69,23 @@ class EDGARExtractor():
                 # Get file type
                 filetype = os.path.splitext(metadata["documents"][doc_num]["filename"])[1][1:]
                 filedata = self.re_text.search(doc).group(1).strip()
-                outfn = os.path.join(out_dir, in_filename + "." + str(sec_doc_num) + "." + str(doc_num) + "." + filetype)
+                outfn = os.path.join(out_dir, in_filename + "." + str(sec_doc_num)
+                                     + "." + str(doc_num) + "." + filetype)
 
                 # DEBUG ONLY: Write filedata to file
-                #filedata_filename = os.path.join(out_dir, in_filename + "." + str(doc_num) + ".data_" + filetype)
-                #with open(filedata_filename, "w", encoding="utf8") as outfh:
+                # filedata_filename = os.path.join(out_dir, in_filename
+                #                   + "." + str(doc_num) + ".data_" + filetype)
+                # with open(filedata_filename, "w", encoding="utf8") as outfh:
                 #    outfh.write(filedata)
 
-                #is the file uuencoded?
+                # Is the file uu-encoded?
                 is_uuencoded = filedata.find("begin 644 ") != -1
 
                 # File is uu-encoded
                 if is_uuencoded:
-                    #print("UU-ENCODED")
                     logging.info("{} contains an uu-encoded file".format(in_file))
-                    encfn = os.path.join(out_dir, in_filename + "." + str(doc_num) + ".txt_" + filetype)
+                    encfn = os.path.join(out_dir, in_filename + "." + str(doc_num)
+                                         + ".txt_" + filetype)
                     with open(encfn, "w", encoding="utf8") as encfh:
                         encfh.write(filedata)
                     uu.decode(encfn, outfn)
@@ -101,7 +93,6 @@ class EDGARExtractor():
 
                 # Plain file (no conversion needed)
                 else:
-                    #print("NOT ENCODED")
                     logging.info("{} contains an non uu-encoded file".format(in_file))
                     with open(outfn, "w", encoding="utf8") as outfh:
                         outfh.write(filedata)
@@ -112,11 +103,12 @@ class EDGARExtractor():
 
     @staticmethod
     def procKeyStr(s):
-        return s.replace(" ","_")
+        return s.replace(" ", "_")
 
     @staticmethod
     def jsonPretty(dict_data):
-        return json.dumps(dict_data, sort_keys=True, indent=4, separators=(',', ': '), ensure_ascii=False)
+        return json.dumps(dict_data, sort_keys=True, indent=4,
+                          separators=(',', ': '), ensure_ascii=False)
 
     def procDocMetadata(self, doc):
         metadata_doc = dict()
@@ -157,7 +149,7 @@ class EDGARExtractor():
 
             # e.g. "CONFORMED SUBMISSION TYPE:	8-K"
             # *+ -> possessive quantifier
-            m = re.match("^(\w.*):\t*([^\t]+)$", line)
+            m = re.match(r"^(\w.*):\t*([^\t]+)$", line)
             if m:
                 if self.metadata_debug:
                     logging.debug("Match A:B")
@@ -192,7 +184,8 @@ class EDGARExtractor():
             if m:
                 out_dict[levels[0]][m.group(1)] = m.group(2)
                 if self.metadata_debug:
-                    logging.debug("Level 1 data. Levels[0]={}; group={}".format(levels[0], m.group(1)))
+                    logging.debug("Level 1 data. Levels[0]={}; group={}"
+                                  .format(levels[0], m.group(1)))
                 continue
 
             # Level 2 data
