@@ -9,31 +9,41 @@ class EDGARExtractor():
 
     # Compile regular expressions
     # Note that re.search() does not have a starting position argument
-    # but the search() method of a Pattern object (a compiled regex) has a pos argument
+    # but the search() method of a Pattern object
+    # (a compiled regex) has a pos argument
     re_doc = re.compile("<DOCUMENT>(.*?)</DOCUMENT>", flags=re.DOTALL)
-    re_sec_header = re.compile("<SEC-HEADER>.*?\n(.*?)</SEC-HEADER>", flags=re.DOTALL)
-    re_sec_doc = re.compile("<SEC-DOCUMENT>(.*?)</SEC-DOCUMENT>", flags=re.DOTALL)
+    re_sec_header = re.compile("<SEC-HEADER>.*?\n(.*?)</SEC-HEADER>",
+                               flags=re.DOTALL)
+    re_sec_doc = re.compile("<SEC-DOCUMENT>(.*?)</SEC-DOCUMENT>",
+                            flags=re.DOTALL)
     re_text = re.compile("<TEXT>(.*?)</TEXT>", flags=re.DOTALL)
 
-    def __init__(self, in_file, out_dir=None, metadata_debug=False):
+    def __init__(self, in_file, out_dir=None, metadata_debug=False,
+                  create_subdir=True, rm_infile=False):
         """
-        Extract the embedded documents and their respective metadata from an EDGAR txt file
+        Extract the embedded documents and
+        their respective metadata from an EDGAR txt file
         """
         self.metadata_debug = metadata_debug
         if out_dir is None:
             out_dir = os.path.dirname(os.path.abspath(in_file))
-        self.procTxtFile(in_file, out_dir)
+        self.procTxtFile(in_file, out_dir,
+                         create_subdir=create_subdir,
+                         rm_infile=rm_infile)
 
-    def procTxtFile(self, in_file, out_dir):
+    def procTxtFile(self, in_file, out_dir, create_subdir=True, rm_infile=False):
 
         if os.path.splitext(in_file)[1] != ".txt":
             raise Exception("ERROR: " + in_file + " is not a .txt file")
 
-        in_filename = os.path.splitext(os.path.basename(in_file))[0]
-
         # Read input txt file
         with open(in_file, encoding="utf8") as intxtfh:
             intxt = intxtfh.read()
+
+        # Create a subdirectory with the same name of the input .txt file
+        if create_subdir:
+            out_dir = os.path.join(out_dir, os.path.basename(in_file))
+            os.makedirs(out_dir)
 
         # Loop for every "<SEC-DOCUMENT>" in the file
         sec_doc_cursor = 0
@@ -49,7 +59,8 @@ class EDGARExtractor():
             # Process metadata
             metadata_txt_match = self.re_sec_header.search(sec_document)
             metadata_txt = metadata_txt_match.group(1)
-            metadata_file = os.path.join(out_dir, in_filename + "." + str(sec_doc_num) + ".json")
+            metadata_filename = "secdoc" + str(sec_doc_num) + ".metadata.json"
+            metadata_file = os.path.join(out_dir, metadata_filename)
             metadata = self.processMetadata(metadata_txt)
             logging.info("Metadata written into {}".format(metadata_file))
 
@@ -66,26 +77,31 @@ class EDGARExtractor():
                 doc_metadata = self.procDocMetadata(doc)
                 metadata["documents"].append(doc_metadata)
 
-                # Get file type
-                filetype = os.path.splitext(metadata["documents"][doc_num]["filename"])[1][1:]
+                # Get file data and file name
+                doc_filename = doc_metadata["filename"]
                 filedata = self.re_text.search(doc).group(1).strip()
-                outfn = os.path.join(out_dir, in_filename + "." + str(sec_doc_num)
-                                     + "." + str(doc_num) + "." + filetype)
+                outfn = os.path.join(out_dir, doc_filename)
+                if os.path.isfile(outfn):
+                    doc_filename_split = os.path.splitext(doc_filename)[0]
+                    outfn = os.path.join(out_dir, doc_filename_split[0]
+                                         + "." + str(sec_doc_num)
+                                         + "." + str(doc_num)
+                                         + "." + doc_filename_split[1])
 
                 # DEBUG ONLY: Write filedata to file
-                # filedata_filename = os.path.join(out_dir, in_filename
-                #                   + "." + str(doc_num) + ".data_" + filetype)
+                # filedata_filename = os.path.join(out_dir,
+                # in_filename + "." + str(doc_num) + ".data_" + filetype)
                 # with open(filedata_filename, "w", encoding="utf8") as outfh:
                 #    outfh.write(filedata)
 
-                # Is the file uu-encoded?
+                # Is the file uuencoded?
                 is_uuencoded = filedata.find("begin 644 ") != -1
 
                 # File is uu-encoded
                 if is_uuencoded:
-                    logging.info("{} contains an uu-encoded file".format(in_file))
-                    encfn = os.path.join(out_dir, in_filename + "." + str(doc_num)
-                                         + ".txt_" + filetype)
+                    logging.info("{} contains an uu-encoded file"
+                                 .format(in_file))
+                    encfn = outfn + ".uu"
                     with open(encfn, "w", encoding="utf8") as encfh:
                         encfh.write(filedata)
                     uu.decode(encfn, outfn)
@@ -93,13 +109,19 @@ class EDGARExtractor():
 
                 # Plain file (no conversion needed)
                 else:
-                    logging.info("{} contains an non uu-encoded file".format(in_file))
+                    logging.info("{} contains an non uu-encoded file"
+                                 .format(in_file))
                     with open(outfn, "w", encoding="utf8") as outfh:
                         outfh.write(filedata)
+            # doc-num loop end
 
             # Save SEC-DOCUMENT metadata to file
             with open(metadata_file, "w", encoding="utf8") as fileh:
                 fileh.write(self.jsonPretty(metadata))
+        # sec_doc_num loop end
+
+        if(rm_infile):
+            os.remove(in_file)
 
     @staticmethod
     def procKeyStr(s):
@@ -107,8 +129,9 @@ class EDGARExtractor():
 
     @staticmethod
     def jsonPretty(dict_data):
-        return json.dumps(dict_data, sort_keys=True, indent=4,
-                          separators=(',', ': '), ensure_ascii=False)
+        return json.dumps(dict_data, sort_keys=True,
+                          indent=4, separators=(',', ': '),
+                          ensure_ascii=False)
 
     def procDocMetadata(self, doc):
         metadata_doc = dict()
@@ -140,7 +163,8 @@ class EDGARExtractor():
                 logging.debug("Line: '{}'".format(line))
 
             if "<ACCEPTANCE-DATETIME>" in line:
-                out_dict["acceptance-datetime"] = line[len("<ACCEPTANCE-DATETIME>"):]
+                out_dict["acceptance-datetime"] = \
+                    line[len("<ACCEPTANCE-DATETIME>"):]
                 continue
 
             if "<DESCRIPTION>" in line:
@@ -165,7 +189,8 @@ class EDGARExtractor():
                 if levels[0] not in out_dict:
                     out_dict[levels[0]] = dict()
                     if self.metadata_debug:
-                        logging.debug("Creating level 1 header {}".format(levels[0]))
+                        logging.debug("Creating level 1 header {}"
+                                      .format(levels[0]))
                 continue
 
             # Level 2 header (must be before the data for correct matching)
@@ -176,7 +201,8 @@ class EDGARExtractor():
                 if levels[1] not in out_dict[levels[0]]:
                     out_dict[levels[0]][levels[1]] = dict()
                     if self.metadata_debug:
-                        logging.debug("Creating level 2 header {}".format(levels[1]))
+                        logging.debug("Creating level 2 header {}"
+                                      .format(levels[1]))
                 continue
 
             # Level 1 data
@@ -193,7 +219,8 @@ class EDGARExtractor():
             if m:
                 if self.metadata_debug:
                     logging.debug("Level 2 data")
-                out_dict[levels[0]][levels[1]][self.procKeyStr(m.group(1))] = m.group(2)
+                key = self.procKeyStr(m.group(1))
+                out_dict[levels[0]][levels[1]][key] = m.group(2)
                 continue
 
         # Return metadata dict
