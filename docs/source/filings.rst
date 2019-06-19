@@ -1,5 +1,9 @@
 .. _filings:
 
+.. warning::
+   The ``SECEdgar.Filings`` class will be added in v0.1.5. If you would like to make use of this functionality, 
+   please install the `latest development version <https://github.com/coyo8/sec-edgar>`_ from GitHub.
+
 Filings
 =======
 

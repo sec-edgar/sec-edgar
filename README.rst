@@ -30,6 +30,9 @@ You can clone the project or download it as zip.
 Running
 -------
 
+
+:warning: The following code is experimental in v0.1.5. Please refer to docs on how to use the `SecCrawler` class if installing v0.1.4 or earlier. :warning:
+
 To run it, start python shell
 
 .. code:: console
