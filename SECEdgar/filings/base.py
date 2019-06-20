@@ -26,7 +26,7 @@ class Filing(_EDGARBase):
         self._filing_type = self._validate_filing_type(filing_type)
         self._cik = cik
         self._params.update({"action": "getcompany", "owner": "exclude",
-                             "output": "xml", "start": 0, "count": 100, "CIK": self.cik,
+                             "output": "xml", "start": 0, "count": 100, "CIK": self._cik,
                              "type":self._filing_type}})
 
     @property
