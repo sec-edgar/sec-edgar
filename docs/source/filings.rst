@@ -19,11 +19,6 @@ Base Class
 Filings
 -------
 
-.. note::
-    SECEdgar tries to be flexible when interpreting what filing type 
-    you want. Filing types of the form Number-Letter such as 10-K can 
-    either be expressed as "10-k" or "10k" (case-insensitive).
-
 Supported filing types include:
 
    -  10-K

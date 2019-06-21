@@ -21,6 +21,7 @@ Welcome to SECEdgar's documentation!
    usage
    crawler
    filings
+   filingtypes
 
 .. _package_info:
 
