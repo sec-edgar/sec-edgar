@@ -1,6 +1,7 @@
 ./_sources/about.rst.txt
 ./_sources/crawler.rst.txt
 ./_sources/filings.rst.txt
+./_sources/filingtypes.rst.txt
 ./_sources/index.rst.txt
 ./_sources/install.rst.txt
 ./_sources/usage.rst.txt
@@ -61,6 +62,7 @@
 ./about.html
 ./crawler.html
 ./filings.html
+./filingtypes.html
 ./genindex.html
 ./index.html
 ./install.html

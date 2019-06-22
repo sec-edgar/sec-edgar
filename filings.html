@@ -36,7 +36,7 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="About" href="about.html" />
+    <link rel="next" title="Filing Types" href="filingtypes.html" />
     <link rel="prev" title="Crawler" href="crawler.html" /> 
 </head>
 
@@ -96,6 +96,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#id2">Filings</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="filingtypes.html">Filing Types</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Package Information</span></p>
 <ul>
@@ -164,8 +165,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="filings">
-<span id="id1"></span><h1>Filings<a class="headerlink" href="#filings" title="Permalink to this headline">¶</a></h1>
+  <div class="admonition warning" id="filings">
+<p class="admonition-title">Warning</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">SECEdgar.Filings</span></code> class will be added in v0.1.5. If you would like to make use of this functionality,
+please install the <a class="reference external" href="https://github.com/coyo8/sec-edgar">latest development version</a> from GitHub.</p>
+</div>
+<div class="section" id="id1">
+<h1>Filings<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>Filings can be downloaded using the <code class="xref py py-class docutils literal notranslate"><span class="pre">SECEdgar.base.Filing</span></code> class found in the <code class="docutils literal notranslate"><span class="pre">SECEdgar.filings</span></code> module.
 These classes inherit from the <a class="reference internal" href="#SECEdgar.base._EDGARBase" title="SECEdgar.base._EDGARBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">SECEdgar.base._EDGARBase</span></code></a> class. This class provides relevant <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code>
 for making requests and the number of filings to fetch.</p>
@@ -219,12 +225,6 @@ Will fetch all if total available is less than count.</p>
 </div>
 <div class="section" id="id2">
 <h2>Filings<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>SECEdgar tries to be flexible when interpreting what filing type
-you want. Filing types of the form Number-Letter such as 10-K can
-either be expressed as “10-k” or “10k” (case-insensitive).</p>
-</div>
 <p>Supported filing types include:</p>
 <blockquote>
 <div><ul class="simple">
@@ -290,7 +290,7 @@ Defaults to today.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="about.html" class="btn btn-neutral float-right" title="About" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="filingtypes.html" class="btn btn-neutral float-right" title="Filing Types" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="crawler.html" class="btn btn-neutral float-left" title="Crawler" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
