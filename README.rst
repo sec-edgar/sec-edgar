@@ -31,7 +31,7 @@ Running
 -------
 
 
-:warning: The following code is experimental in v0.1.5. Please refer to docs on how to use the `SecCrawler` class if installing v0.1.4 or earlier. :warning:
+⚠️ The following code is experimental in v0.1.5. Please refer to docs on how to use the `SecCrawler` class if installing v0.1.4 or earlier. ⚠️
 
 To run it, start python shell
 
@@ -47,23 +47,25 @@ Supported Methods
 -----------------
 
 Currently this crawler supports 6 filings. Any of the following can be used in conjunction 
-with the `Filing` class.
+with the `Filing` class. Suggestions for supporting other filings (using the issues tab) is always welcome.
 
--  10-K
--  10-Q
--  8-K
--  13-F
--  4
--  SD
+-  **10-K**: Annual reports of company standing, includes financials
+-  **10-Q**: Quarterly reports of company standing, includes financials
+-  **8-K**: Timely reports of information that may be important for shareholders or potential investors
+-  **13-F**: Institutional investor disclosure of holdings (for institutions with over $100 million under management)
+-  **4**: Statement of change in beneficial ownership
+-  **SD**: Special disclosures required by the Dodd-Frank Wall Street Reform and Consumer Protection Act relating to conflict minerals contained in products that reporting companies manufacture or contract to be manufactured and necessary to the functionality or production of those products
+
 
 Documentation
 --------------
-To learn more about the APIs and latest changes in the project, read the [official documentation](https://www.rudrakos.com/sec-edgar/).
+To learn more about the APIs and latest changes in the project, read the `official documentation <https://www.rudrakos.com/sec-edgar/>`_.
 
 License
 -------
 
 Copyright © 2019 Rahul Ranjan
+
 See LICENSE for details
 
 .. |Build Status| image:: https://travis-ci.com/coyo8/sec-edgar.svg?branch=master
