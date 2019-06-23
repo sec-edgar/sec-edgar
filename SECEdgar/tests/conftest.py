@@ -31,4 +31,4 @@ def crawler():
 
 @pytest.fixture(scope="class")
 def filing():
-    return Filing("0000320193", "10q", count=3)
+    return Filing("0000320193", "10-q", count=3)

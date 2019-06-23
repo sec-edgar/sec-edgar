@@ -18,9 +18,9 @@ class Filing(_EDGARBase):
 
     .. versionadded:: 0.1.5
     """
-    _VALID_FILING_TYPES = ["10q", "10-q", "10k",
-                           "10-k", "8k", "8-k",
-                           "13f", "13-f", "4", "sd"]
+    _VALID_FILING_TYPES = ("10-q", "10-k",
+                           "8-k", "13-f",
+                           "4", "sd")
 
     def __init__(self, cik, filing_type, **kwargs):
         super(Filing, self).__init__(**kwargs)
