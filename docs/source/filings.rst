@@ -1,5 +1,9 @@
 .. _filings:
 
+.. warning::
+   The ``SECEdgar.Filings`` class will be added in v0.1.5. If you would like to make use of this functionality, 
+   please install the `latest development version <https://github.com/coyo8/sec-edgar>`_ from GitHub.
+
 Filings
 =======
 
@@ -14,11 +18,6 @@ Base Class
 
 Filings
 -------
-
-.. note::
-    SECEdgar tries to be flexible when interpreting what filing type 
-    you want. Filing types of the form Number-Letter such as 10-K can 
-    either be expressed as "10-k" or "10k" (case-insensitive).
 
 Supported filing types include:
 
