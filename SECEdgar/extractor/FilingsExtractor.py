@@ -29,7 +29,7 @@ class SECDocument():
 
     def add_document(self, in_doc):
         if not isinstance(in_doc, EmbeddedDocument):
-            raise Exception("Trying to add a document which is not a SECDocument")
+            raise Exception("Trying to add a document which is not a EmbeddedDocument")
         self.docslist.append(in_doc)
 
 class EmbeddedDocument():
@@ -85,11 +85,11 @@ class FilingsExtracted():
                 if(type(doc.contents)==str):
                     with open(outfn, "w", encoding="utf8") as fh:
                         fh.write(doc.contents)
-                elif(type(doc.contents)==bytearray):
+                elif(type(doc.contents)==bytes):
                     with open(outfn, "wb") as fh:
                         fh.write(doc.contents)
                 else:
-                    raise Exception("Unrecognized doc.contents type")
+                    raise Exception("Unrecognized doc.contents type '{}'".format(type(doc.contents)))
 
                 # Append file metadata to sec-document metadata
                 if "documents" not in sec_doc.metadata:
@@ -121,7 +121,7 @@ class FilingsExtractor():
         re_sec_header = re.compile("<SEC-HEADER>.*?\n(.*?)</SEC-HEADER>", flags=re.DOTALL)
         re_doc = re.compile("<DOCUMENT>(.*?)</DOCUMENT>", flags=re.DOTALL)
         re_text = re.compile("<TEXT>(.*?)</TEXT>", flags=re.DOTALL)
-        re_uu_cont = re.compile("begin 644 .*\n(.*?)\nend", flags=re.DOTALL)
+        re_uu_cont = re.compile("begin 644 .*?\n(.*)\nend", flags=re.DOTALL)
         re_dict = {
             "doc" : re_doc,
             "sec_header" : re_sec_header,
@@ -180,11 +180,8 @@ class FilingsExtractor():
 
                 # File is uu-encoded
                 if is_uuencoded:
-                    purified = self.re_dict["uu_cont"].match(document.contents).group(1)
-                    outbytes = bytearray()
-                    for line in purified.split("\n"):
-                        outbytes += binascii.a2b_uu(line)
-                    document.contents = outbytes
+                    document.contents += "\n"
+                    document.contents = codecs.decode(document.contents.encode("ascii"), "uu")
 
                 # Save <DOCUMENT> to the <SEC-DOCUMENT> object
                 sec_document.add_document(document)
