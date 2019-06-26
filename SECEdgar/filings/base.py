@@ -146,27 +146,17 @@ class Filing(_EDGARBase):
     def _sanitize_path(dir):
         return os.path.expanduser(dir)
 
-    def save(self, directory, extract=False, extract_dir=None):
+    def save(self, directory):
         """Save files in specified directory.
 
         Args:
             directory (str): Path to directory where files should be saved.
-            extract (bool): whether to extract the documents from the downloaded .txt files
-            extract_dir (str): Path to the directory where documents should be extracted.
-            If extract is True and extract_dir is None, the documents will
-            be extracted to the same directory where the .txt file is saved
 
         Returns:
             None
         """
         directory = self._sanitize_path(directory)
         self._make_dir(directory)
-        if extract:
-            if extract_dir is None:
-                extract_dir = directory
-            else:
-                extract_dir = self._sanitize_path(extract_dir)
-                self._make_dir(extract_dir)
         txt_urls = self._get_urls()
         doc_names = [url.split("/")[-1] for url in txt_urls]
         for (url, doc_name) in list(zip(txt_urls, doc_names)):
@@ -175,6 +165,3 @@ class Filing(_EDGARBase):
             path = os.path.join(directory, self.cik, self.filing_type, doc_name)
             with open(path, "ab") as f:
                 f.write(data.encode("ascii", "ignore"))
-            if extract:
-                extractor = EDGARExtractor(path, extract_dir)
-                return extractor

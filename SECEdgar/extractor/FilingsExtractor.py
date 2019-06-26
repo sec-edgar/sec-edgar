@@ -57,6 +57,7 @@ class FilingsExtracted():
         # Create output dir
         if out_dir is None:
             out_dir = os.path.dirname(os.path.abspath(self.in_txt_file))
+            out_dir = os.path.join(out_dir, self.in_txt_file)
         os.makedirs(out_dir, exist_ok=True)
 
         # Loop through <SEC-DOCUMENT>
