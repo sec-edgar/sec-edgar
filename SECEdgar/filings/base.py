@@ -163,7 +163,6 @@ class Filing(_EDGARBase):
         doc_names = [url.split("/")[-1] for url in txt_urls]
         if len(doc_names) == 0:
             raise Exception("No docs found")
-
         for (url, doc_name) in list(zip(txt_urls, doc_names)):
             r = requests.get(url)
             data = r.text
