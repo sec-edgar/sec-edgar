@@ -157,6 +157,8 @@ class Filing(_EDGARBase):
         directory = self._sanitize_path(directory)
         self._make_dir(directory)
         txt_urls = self._get_urls()
+        if len(txt_urls) == 0:
+            raise Exception("No text urls")
         doc_names = [url.split("/")[-1] for url in txt_urls]
         for (url, doc_name) in list(zip(txt_urls, doc_names)):
             r = requests.get(url)
