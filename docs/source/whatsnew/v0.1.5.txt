@@ -26,6 +26,7 @@ Bugs:
 ~~~~~
 
 * Fix count attribute to fetch desired number of filings. ``SECEdgar`` will now either fetch specified number or, if not enough filings exist, all filings will be fetched.
+* Fix `_VALID_FILING_TYPES` so that EDGAR fetches correct filing type (thanks @raffam)
 
 Enhancements:
 ~~~~~~~~~~~~~
