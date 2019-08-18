@@ -46,7 +46,7 @@ This will download the past 15 10-Q filings made by Apple.
 Supported Methods
 -----------------
 
-Currently this crawler supports the filings listed below. Any of the following can be used in conjunction 
+Currently this crawler supports the filings listed below. Any of the following can be used in conjunction
 with the `Filing` class. Suggestions for supporting other filings (using the issues tab) is always welcome.
 
 -  **10-K**: Annual reports of company standing, includes financials

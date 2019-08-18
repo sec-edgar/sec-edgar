@@ -97,10 +97,8 @@ class Filing(_EDGARBase):
             if len(cik) != 10 or not cik.isdigit():
                 raise CIKError(cik)
         elif isinstance(cik, int):
-            if cik > 10**10:
+            if cik not in range(10**9, 10**10):
                 raise CIKError(cik)
-            elif cik < 10**9:
-                return str(cik).zfill(10)  # pad with zeros if less than 10 digits given
         return cik
 
     def _get_urls(self):
