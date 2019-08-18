@@ -7,6 +7,7 @@ Highlights:
 ~~~~~~~~~~~
 
 * Add Python 3.7 support to Travis CI
+* Add support for DEF 14A form
 * Prepare to deprecate :class:`SECEdgar.crawler.SecCrawler` in favor of separate filing class
 * Modularize crawler for more general requests
 * Fix count attribute to correctly fetch specified number of filings (or max available)
