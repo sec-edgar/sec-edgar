@@ -38,7 +38,7 @@ To run it, start python shell
 .. code:: console
 
     >>> from SECEdgar.filings import Filing()
-    >>> my_filings = Filing(cik='0000320193', filing_type='10q', count=15) # 10-Q filings for Apple (NYSE: AAPL)
+    >>> my_filings = Filing(cik='0000320193', filing_type='10-q', count=15) # 10-Q filings for Apple (NYSE: AAPL)
     >>> my_filings.save('~/path/to/dir') # Saves last 15 10Q reports from AAPL to ~/path/to/dir
 
 This will download the past 15 10-Q filings made by Apple.
@@ -46,7 +46,7 @@ This will download the past 15 10-Q filings made by Apple.
 Supported Methods
 -----------------
 
-Currently this crawler supports 6 filings. Any of the following can be used in conjunction 
+Currently this crawler supports the filings listed below. Any of the following can be used in conjunction 
 with the `Filing` class. Suggestions for supporting other filings (using the issues tab) is always welcome.
 
 -  **10-K**: Annual reports of company standing, includes financials
@@ -55,7 +55,8 @@ with the `Filing` class. Suggestions for supporting other filings (using the iss
 -  **13-F**: Institutional investor disclosure of holdings (for institutions with over $100 million under management)
 -  **4**: Statement of change in beneficial ownership
 -  **SD**: Special disclosures required by the Dodd-Frank Wall Street Reform and Consumer Protection Act relating to conflict minerals contained in products that reporting companies manufacture or contract to be manufactured and necessary to the functionality or production of those products
-
+-  **DEF 14A**: Definitive proxy statement. Required ahead of annual meeting when firm is soliciting shareholder votes.
+-  **DEFA 14A**: Additional materials to DEF 14A.
 
 Documentation
 --------------

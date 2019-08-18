@@ -60,3 +60,11 @@ the Dodd-Frank Wall Street Reform and Consumer Protection Act relating to confli
 in products that reporting companies manufacture or contract to be manufactured and necessary to the 
 functionality or production of those products." 
 (`Thompson Reuters <https://content.next.westlaw.com/Document/Icf49605def0a11e28578f7ccc38dcbee/View/FullText.html?contextData=(sc.Default)&transitionType=Default&firstPage=true&bhcp=1>`_) 
+
+Form DEF 14A
+------------
+Definitive proxy statement. Required ahead of annual meeting when firm is soliciting shareholder votes.
+
+Form DEFA 14A
+------------
+Additional information for DEF 14A form.
