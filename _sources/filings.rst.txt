@@ -27,5 +27,7 @@ Supported filing types include:
    -  13-F
    -  4
    -  SD
+   -  DEF 14A
+   -  DEFA 14A
 
 .. autoclass:: SECEdgar.filings.Filing
