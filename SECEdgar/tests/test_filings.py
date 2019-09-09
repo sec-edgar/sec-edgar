@@ -67,7 +67,6 @@ class TestFilings(object):
     def test_validate_cik(self):
         with pytest.raises(CIKError):
             Filing(cik='0notvalid0', filing_type='10-k')
-            Filing(cik='123', filing_type='10-k')
             Filing(cik='012345678910', filing_type='10-k')
             Filing(cik=1234567891011, filing_type='10-k')
         with pytest.raises(ValueError):

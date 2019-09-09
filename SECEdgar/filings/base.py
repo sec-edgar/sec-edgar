@@ -18,9 +18,11 @@ class Filing(_EDGARBase):
 
     .. versionadded:: 0.1.5
     """
-    _VALID_FILING_TYPES = ("10-q", "10-k",
-                           "8-k", "13-f",
-                           "4", "sd", "def 14a",
+    _VALID_FILING_TYPES = ("1", "1-a",
+                            "1-e", "1-k", "1-n", "1-sa", "1-u", "1-z", "2-e", "3", "4", "5", "6-k", "7-m", "8-a", "8-k", "8-m", "9-m", "10", "10-d"
+                           "10-k", "10-m", "10-q", "11-k", "12b-25", 
+                        "13f", "13h", "15", "15f", "17-h", "18", "18-k", "19b-4", "19b4(e)", "19b-7", "20-F", "24F-2", "25", "40-F"
+                           "sd", "def 14a",
                            "defa14a")
 
     def __init__(self, cik, filing_type, **kwargs):
@@ -100,8 +102,10 @@ class Filing(_EDGARBase):
             if len(cik) != 10 or not cik.isdigit():
                 raise CIKError(cik)
         elif isinstance(cik, int):
-            if cik not in range(10**9, 10**10):
+            if cik > 10**10:
                 raise CIKError(cik)
+            elif cik < 10**9:
+                return str(cik).zfill(10)  # pad with zeros if less than 10 digits given
         return cik
 
     def _get_urls(self):
