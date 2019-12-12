@@ -37,5 +37,5 @@ class CIKError(Exception):
 class FilingTypeError(Exception):
     """This error is thrown when an invalid filing type is given. """
 
-    def __str__(self):
-        return "The filing type given is not valid."
+    def __str__(self, acceptable_filings):
+        return "The filing type given is not valid. Filing type must be in {}".format(acceptable_filings)
