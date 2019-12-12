@@ -7,23 +7,23 @@ from SECEdgar.filings import Filing, FilingType
 
 
 class TestLegacySecCrawler(object):
-    def test_10Q_requires_args(self, crawler):
+    def test_10q_requires_args(self, crawler):
         with pytest.raises(TypeError):
             return crawler.filing_10Q()
 
-    def test_10K_requires_args(self, crawler):
+    def test_10k_requires_args(self, crawler):
         with pytest.raises(TypeError):
             return crawler.filing_10K()
 
-    def test_SD_requires_args(self, crawler):
+    def test_sd_requires_args(self, crawler):
         with pytest.raises(TypeError):
             return crawler.filing_SD()
 
-    def test_8K_requires_args(self, crawler):
+    def test_8k_requires_args(self, crawler):
         with pytest.raises(TypeError):
             return crawler.filing_8K()
 
-    def test_13F_requires_args(self, crawler):
+    def test_13f_requires_args(self, crawler):
         with pytest.raises(TypeError):
             return crawler.filing_13F()
 
