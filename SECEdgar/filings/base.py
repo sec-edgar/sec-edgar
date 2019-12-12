@@ -5,6 +5,7 @@ import requests
 from SECEdgar.base import _EDGARBase
 from SECEdgar.utils import _sanitize_date
 from SECEdgar.utils.exceptions import FilingTypeError, CIKError
+from SECEdgar.filings.filing_types import FilingType
 
 
 class Filing(_EDGARBase):
