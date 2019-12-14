@@ -6,6 +6,7 @@ from SECEdgar.base import _EDGARBase
 from SECEdgar.utils import _sanitize_date
 from SECEdgar.utils.exceptions import FilingTypeError, CIKError
 from SECEdgar.filings.filing_types import FilingType
+from SECEdgar.filings.cik import CIK
 
 
 class Filing(_EDGARBase):
@@ -24,9 +25,9 @@ class Filing(_EDGARBase):
         super(Filing, self).__init__(**kwargs)
         self._dateb = kwargs.get("dateb", datetime.datetime.today())
         self._filing_type = self._validate_filing_type(filing_type)
-        self._cik = cik
+        self._cik = self._validate_cik(cik)
         self._params.update({"action": "getcompany", "owner": "exclude",
-                             "output": "xml", "start": 0, "count": self.count, "CIK": self.cik,
+                             "output": "xml", "start": 0, "count": self.count,
                              "type": self.filing_type.value})
 
     @property
@@ -43,7 +44,7 @@ class Filing(_EDGARBase):
 
     @property
     def filing_type(self):
-        return self._validate_filing_type(self._filing_type)
+        return Filing._validate_filing_type(self._filing_type)
 
     @filing_type.setter
     def filing_type(self, ft):
@@ -51,13 +52,10 @@ class Filing(_EDGARBase):
 
     @property
     def cik(self):
-        return self._validate_cik(self._cik)
+        return Filing._validate_cik(self._cik)
 
-    @cik.setter
-    def cik(self, val):
-        self._cik = self._validate_cik(val)
-
-    def _validate_filing_type(self, filing_type):
+    @staticmethod
+    def _validate_filing_type(filing_type):
         """Validates that given filing type is valid.
 
         Args:
@@ -75,11 +73,12 @@ class Filing(_EDGARBase):
 
         return filing_type
 
-    def _validate_cik(self, cik):
+    @staticmethod
+    def _validate_cik(cik):
         """Validates that given CIK *could* be valid.
 
         Args:
-            cik (Union[str, int]): Central index key (CIK) to validate.
+            cik (Union[CIK, str, int]): Central index key (CIK) to validate.
 
         Returns:
             cik (Union[str, int]): Validated CIK.
@@ -89,20 +88,24 @@ class Filing(_EDGARBase):
                 numbers are valid CIKs.
 
         Raises:
-            ValueError: If given cik is not str or int
-            CIKError: If cik is not a 10 digit number.
+            ValueError: If given cik is not str, int, or CIK
+            CIKError: If cik is not a 10 digit number or valid CIK object
         """
-        if not isinstance(cik, (str, int)):
-            raise ValueError("CIK must be of type str or int.")
-        elif isinstance(cik, str):
-            if len(cik) != 10 or not cik.isdigit():
-                raise CIKError(cik)
-        elif isinstance(cik, int):
-            if cik > 10**10:
-                raise CIKError(cik)
-            elif cik < 10**9:
-                return str(cik).zfill(10)  # pad with zeros if less than 10 digits given
-        return cik
+        # creating CIK object should check to see if ciks are valid
+        if not isinstance(cik, CIK):
+            if not isinstance(cik, (str, int)):
+                raise ValueError("CIK must be of type str or int.")
+            elif isinstance(cik, str):
+                if len(cik) != 10 or not cik.isdigit():
+                    raise CIKError(cik)
+            elif isinstance(cik, int):
+                if cik > 10**10:
+                    raise CIKError(cik)
+                elif cik < 10**9:
+                    return str(cik).zfill(10)  # pad with zeros if less than 10 digits given
+            return cik
+        else:
+            return cik.cik
 
     def _get_urls(self):
         """Get urls for txt files.
@@ -110,8 +113,18 @@ class Filing(_EDGARBase):
         Returns:
             urls (list): List of urls for txt files to download.
         """
-        url = self._prepare_query()
-        data = self._execute_query(url)
+        if isinstance(self._cik, (list, tuple, set)):
+            urls = list()
+            for cik in self._cik:
+                urls.append(self._get_cik_urls(cik))
+            return urls
+        else:
+            return self._get_cik_urls(self._cik)
+
+    def _get_cik_urls(self, cik):
+        self.params['CIK'] = cik
+        self._prepare_query()
+        data = self._execute_query()
         links = []
         while len(links) < self.count:
             links.extend([link.string for link in data.find_all("filinghref")])
@@ -144,8 +157,13 @@ class Filing(_EDGARBase):
                     raise OSError
 
     @staticmethod
-    def _sanitize_path(dir):
-        return os.path.expanduser(dir)
+    def _sanitize_path(directory):
+        return os.path.expanduser(directory)
+
+    @staticmethod
+    def _get_filing(url):
+        response = requests.get(url)
+        return response.text
 
     def save(self, directory):
         """Save files in specified directory.
@@ -155,16 +173,18 @@ class Filing(_EDGARBase):
 
         Returns:
             None
+
+        Raises:
+            ValueError: If no text urls are available for given filing object.
         """
         directory = self._sanitize_path(directory)
         self._make_dir(directory)
-        txt_urls = self._get_urls()
-        if len(txt_urls) == 0:
-            raise Exception("No text urls")
-        doc_names = [url.split("/")[-1] for url in txt_urls]
-        for (url, doc_name) in list(zip(txt_urls, doc_names)):
-            r = requests.get(url)
-            data = r.text
+        urls = self._get_urls()
+        if len(urls) == 0:
+            raise ValueError("No text urls available.")
+        doc_names = [url.split("/")[-1] for url in urls]
+        for (url, doc_name) in list(zip(urls, doc_names)):
+            data = self._get_filing(url)
             path = os.path.join(directory, self.cik, self.filing_type, doc_name)
             with open(path, "ab") as f:
                 f.write(data.encode("ascii", "ignore"))

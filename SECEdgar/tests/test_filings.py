@@ -71,7 +71,3 @@ class TestFiling(object):
             Filing(cik=1234567891011, filing_type=FilingType.FILING_10K)
         with pytest.raises(ValueError):
             Filing(cik=123.0, filing_type=FilingType.FILING_10K)
-
-    def test_setting_invalid_cik(self, valid_filing_10k):
-        with pytest.raises(CIKError):
-            valid_filing_10k.cik = 'notavalidcik'

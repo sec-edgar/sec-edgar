@@ -34,7 +34,7 @@ class _EDGARBase(ABC):
     def params(self):
         return self._params
 
-    def _execute_query(self, url):
+    def _execute_query(self):
         """Executes HTTP request.
 
         Args:
@@ -46,8 +46,9 @@ class _EDGARBase(ABC):
         Raises:
             EDGARQueryError: If problems arise when making query.
         """
+        response = None
         for _ in range(self.retry_count + 1):
-            response = requests.get(url=url, params=self.params)
+            response = requests.get(url=self._prepare_query(), params=self.params)
             if response.status_code == 200:
                 try:
                     return self._validate_response(response)
@@ -71,6 +72,8 @@ class _EDGARBase(ABC):
         """
         if "The value you submitted is not valid" in response.text:
             raise EDGARQueryError()
+        elif "No matching Ticker Symbol." in response.text:
+            raise EDGARQueryError()
         return BeautifulSoup(response.text, features="html.parser")
 
     @staticmethod
@@ -83,6 +86,8 @@ class _EDGARBase(ABC):
         Raises:
             EDGARQueryError: If response returns error code.
         """
+        if response is None:
+            raise EDGARQueryError("None returned.")
         status_code = response.status_code
         if 400 <= status_code < 500:
             if status_code == 400:
@@ -105,4 +110,4 @@ class _EDGARBase(ABC):
         Returns:
             url (str): A formatted url.
         """
-        return "%s%s" % (self._BASE, self.url)
+        return "%s%s" % (_EDGARBase._BASE, self.url)
