@@ -3,6 +3,13 @@ import requests
 from SECEdgar.utils.exceptions import EDGARQueryError
 import time
 from abc import ABC
+import abc
+import sys
+
+if sys.version_info >= (3, 4):
+    ABC = ABC
+else:
+    ABC = abc.ABCMeta(str('ABC'), (), {})
 
 
 class _EDGARBase(ABC):
