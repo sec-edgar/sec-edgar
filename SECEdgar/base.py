@@ -2,12 +2,11 @@ from bs4 import BeautifulSoup
 import requests
 from SECEdgar.utils.exceptions import EDGARQueryError
 import time
-from abc import ABC
 import abc
 import sys
 
 if sys.version_info >= (3, 4):
-    ABC = ABC
+    ABC = abc.ABC
 else:
     ABC = abc.ABCMeta(str('ABC'), (), {})
 
