@@ -201,10 +201,10 @@ class Filing(_EDGARBase):
         self._make_dir(directory)
         urls = self._get_urls()
         if len(urls) == 0:
-            raise ValueError("No text urls available.")
+            raise ValueError("No urls available.")
         doc_names = [url.split("/")[-1] for url in urls]
         for (url, doc_name) in list(zip(urls, doc_names)):
             data = self._get_filing(url)
-            path = os.path.join(directory, self.cik, self.filing_type, doc_name)
+            path = os.path.join(directory, self.cik, self.filing_type.value, doc_name)
             with open(path, "ab") as f:
                 f.write(data.encode("ascii", "ignore"))
