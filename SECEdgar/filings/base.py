@@ -158,7 +158,7 @@ class Filing(_EDGARBase):
         Returns:
             None
         """
-        path = os.path.join(directory, self.cik, self.filing_type)
+        path = os.path.join(directory, self.cik, self.filing_type.value)
 
         if not os.path.exists(path):
             try:
