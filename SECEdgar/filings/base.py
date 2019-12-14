@@ -59,13 +59,13 @@ class Filing(_EDGARBase):
         """Validates that given filing type is valid.
 
         Args:
-            filing_type (str): Valid filing type (case-insensitive).
+            filing_type (filings.FilingType): Valid filing type enum.
 
         Raises:
             FilingTypeError: If filing type is not supported/valid.
 
         Returns:
-            filing_type (filing_types.FilingType): If filing type is valid, given filing
+            filing_type (filings.FilingType): If filing type is valid, given filing
                 type will be returned.
         """
         if not isinstance(filing_type, FilingType):
@@ -81,14 +81,14 @@ class Filing(_EDGARBase):
             cik (Union[CIK, str, int]): Central index key (CIK) to validate.
 
         Returns:
-            cik (Union[str, int]): Validated CIK.
+            cik (Union[str, list of str]): Validated CIK.
                 Note that the CIK is only validated in
-                that it *could* be valid. All CIKs
-                must be 10 digits, but not all 10 digit
+                that it *could* be valid. CIKs formatted as
+                10 digits, but not all 10 digit
                 numbers are valid CIKs.
 
         Raises:
-            ValueError: If given cik is not str, int, or CIK
+            ValueError: If given cik is not str, int, or CIK object.
             CIKError: If cik is not a 10 digit number or valid CIK object
         """
         # creating CIK object should check to see if ciks are valid
@@ -103,12 +103,12 @@ class Filing(_EDGARBase):
                     raise CIKError(cik)
                 elif cik < 10**9:
                     return str(cik).zfill(10)  # pad with zeros if less than 10 digits given
-            return cik
+            return str(cik)
         else:
             return cik.cik
 
     def _get_urls(self):
-        """Get urls for txt files.
+        """Get urls for all CIKs given to Filing object.
 
         Returns:
             urls (list): List of urls for txt files to download.
@@ -122,6 +122,17 @@ class Filing(_EDGARBase):
             return self._get_cik_urls(self._cik)
 
     def _get_cik_urls(self, cik):
+        """
+        Get all urls for specific company according to CIK that match
+        dateb, filing_type, and count parameters.
+
+        Args:
+            cik (str): CIK for company.
+
+        Returns:
+            txt_urls (list of str): Up to the desired number of URLs for that specific company
+            if available.
+        """
         self.params['CIK'] = cik
         self._prepare_query()
         data = self._execute_query()
@@ -162,6 +173,15 @@ class Filing(_EDGARBase):
 
     @staticmethod
     def _get_filing(url):
+        """
+        Returns all text data from given filing url.
+
+        Args:
+            url (str): URL for specific filing.
+
+        Returns:
+            response.text (str): All text from filing.
+        """
         response = requests.get(url)
         return response.text
 
