@@ -5,6 +5,7 @@ import requests
 from SECEdgar.base import _EDGARBase
 from SECEdgar.utils import _sanitize_date
 from SECEdgar.utils.exceptions import FilingTypeError, CIKError
+from SECEdgar.filings.filing_types import FilingType
 
 
 class Filing(_EDGARBase):
@@ -18,10 +19,6 @@ class Filing(_EDGARBase):
 
     .. versionadded:: 0.1.5
     """
-    _VALID_FILING_TYPES = ("10-q", "10-k",
-                           "8-k", "13-f",
-                           "4", "sd", "def 14a",
-                           "defa14a")
 
     def __init__(self, cik, filing_type, **kwargs):
         super(Filing, self).__init__(**kwargs)
@@ -29,8 +26,8 @@ class Filing(_EDGARBase):
         self._filing_type = self._validate_filing_type(filing_type)
         self._cik = cik
         self._params.update({"action": "getcompany", "owner": "exclude",
-                             "output": "xml", "start": 0, "count": 100, "CIK": self.cik,
-                             "type": self.filing_type})
+                             "output": "xml", "start": 0, "count": self.count, "CIK": self.cik,
+                             "type": self.filing_type.value})
 
     @property
     def url(self):
@@ -70,11 +67,12 @@ class Filing(_EDGARBase):
             FilingTypeError: If filing type is not supported/valid.
 
         Returns:
-            filing_type (str): If filing type is valid, given filing
+            filing_type (filing_types.FilingType): If filing type is valid, given filing
                 type will be returned.
         """
-        if filing_type.lower() not in self._VALID_FILING_TYPES:
-            raise FilingTypeError()
+        if not isinstance(filing_type, FilingType):
+            raise FilingTypeError(FilingType)
+
         return filing_type
 
     def _validate_cik(self, cik):
@@ -100,8 +98,10 @@ class Filing(_EDGARBase):
             if len(cik) != 10 or not cik.isdigit():
                 raise CIKError(cik)
         elif isinstance(cik, int):
-            if cik not in range(10**9, 10**10):
+            if cik > 10**10:
                 raise CIKError(cik)
+            elif cik < 10**9:
+                return str(cik).zfill(10)  # pad with zeros if less than 10 digits given
         return cik
 
     def _get_urls(self):

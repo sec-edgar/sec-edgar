@@ -2,10 +2,11 @@ from bs4 import BeautifulSoup
 import requests
 from SECEdgar.utils.exceptions import EDGARQueryError
 import time
+from abc import ABC
 
 
-class _EDGARBase(object):
-    """Base class for EDGAR requests.
+class _EDGARBase(ABC):
+    """Abstract Base Class for EDGAR requests.
 
     Attributes:
         retry_count (int, optional): Desired number of retries if a request fails.
@@ -53,7 +54,7 @@ class _EDGARBase(object):
                 except EDGARQueryError:
                     continue
             time.sleep(self.pause)
-        return self._handle_error(response)
+        self._handle_error(response)
 
     @staticmethod
     def _validate_response(response):
@@ -80,7 +81,7 @@ class _EDGARBase(object):
             response(requests.response): Response object.
 
         Raises:
-            EDGARQueryError: If response throws error.
+            EDGARQueryError: If response returns error code.
         """
         status_code = response.status_code
         if 400 <= status_code < 500:
