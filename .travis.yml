@@ -17,7 +17,6 @@ matrix:
       dist: xenial
       sudo: true
     - python: 3.8
-      dist: trusty
 
 env:
   global:
