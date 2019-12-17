@@ -19,7 +19,7 @@ Base Class
 Filings
 -------
 
-Supported filing types include:
+Supported filing types include (but are not limited to, as of v0.1.5):
 
    -  10-K
    -  10-Q
