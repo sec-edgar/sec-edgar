@@ -180,7 +180,7 @@ for making requests and the number of filings to fetch.</p>
 <dl class="class">
 <dt id="SECEdgar.base._EDGARBase">
 <em class="property">class </em><code class="sig-prename descclassname">SECEdgar.base.</code><code class="sig-name descname">_EDGARBase</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#SECEdgar.base._EDGARBase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Base class for EDGAR requests.</p>
+<dd><p>Abstract Base Class for EDGAR requests.</p>
 <dl class="attribute">
 <dt id="SECEdgar.base._EDGARBase.retry_count">
 <code class="sig-name descname">retry_count</code><a class="headerlink" href="#SECEdgar.base._EDGARBase.retry_count" title="Permalink to this definition">¶</a></dt>
@@ -225,7 +225,7 @@ Will fetch all if total available is less than count.</p>
 </div>
 <div class="section" id="id2">
 <h2>Filings<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>Supported filing types include:</p>
+<p>Supported filing types include (but are not limited to, as of v0.1.5):</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>10-K</p></li>
