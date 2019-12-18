@@ -15,7 +15,7 @@ class CIK(_EDGARBase):
         super(CIK, self).__init__(**kwargs)
         self._lookup = lookup
         self._cik = self._get_all_ciks()
-        self.params.update({'action': 'getcompany'})
+        self._params['action'] = 'getcompany'
 
     @property
     def url(self):
@@ -62,6 +62,6 @@ class CIK(_EDGARBase):
             no such CIK is returned for given ticker.
         """
         self.params['CIK'] = lookup
-        soup = self._execute_query()
+        soup = self.get_soup()
         span = soup.find('span', {'class': 'companyName'})
         return span.find('a').getText().split()[0]  # get CIK number
