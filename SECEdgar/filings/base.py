@@ -14,21 +14,26 @@ class Filing(_EDGARBase):
 
     Attributes:
         cik (str): Central Index Key (CIK) for company of interest.
-        filing_type (str): Valid filing type (case-insensitive).
+        filing_type (SECEdgar.filings.filing_types.FilingType): Valid filing type enum.
         dateb (Union[str, datetime.datetime], optional): Date after which not to fetch reports.
             Defaults to today.
 
     .. versionadded:: 0.1.5
     """
 
-    def __init__(self, cik, filing_type, **kwargs):
+    def __init__(self, cik, filing_type, dateb=datetime.datetime.today(), **kwargs):
         super(Filing, self).__init__(**kwargs)
-        self._dateb = kwargs.get("dateb", datetime.datetime.today())
-        self._filing_type = self._validate_filing_type(filing_type)
+        self._dateb = _sanitize_date(dateb)
+        if not isinstance(filing_type, FilingType):
+            raise FilingTypeError(FilingType)
+        self._filing_type = filing_type
         self._cik = self._validate_cik(cik)
-        self._params.update({"action": "getcompany", "owner": "exclude",
-                             "output": "xml", "start": 0, "count": self.count,
-                             "type": self.filing_type.value})
+        self._params['action'] = 'getcompany'
+        self._params['owner'] = 'exclude'
+        self._params['output'] = 'xml'
+        self._params['start'] = 0
+        self._params['type'] = self.filing_type.value
+        self._params['dateb'] = self._dateb
 
     @property
     def url(self):
@@ -44,34 +49,17 @@ class Filing(_EDGARBase):
 
     @property
     def filing_type(self):
-        return Filing._validate_filing_type(self._filing_type)
+        return self._filing_type
 
     @filing_type.setter
-    def filing_type(self, ft):
-        self._filing_type = self._validate_filing_type(ft)
+    def filing_type(self, filing_type):
+        if not isinstance(filing_type, FilingType):
+            raise FilingTypeError(FilingType)
+        self._filing_type = filing_type
 
     @property
     def cik(self):
         return Filing._validate_cik(self._cik)
-
-    @staticmethod
-    def _validate_filing_type(filing_type):
-        """Validates that given filing type is valid.
-
-        Args:
-            filing_type (filings.FilingType): Valid filing type enum.
-
-        Raises:
-            FilingTypeError: If filing type is not supported/valid.
-
-        Returns:
-            filing_type (filings.FilingType): If filing type is valid, given filing
-                type will be returned.
-        """
-        if not isinstance(filing_type, FilingType):
-            raise FilingTypeError(FilingType)
-
-        return filing_type
 
     @staticmethod
     def _validate_cik(cik):
@@ -107,16 +95,14 @@ class Filing(_EDGARBase):
         else:
             return cik.cik
 
-    def _get_urls(self):
+    def get_urls(self):
         """Get urls for all CIKs given to Filing object.
 
         Returns:
             urls (list): List of urls for txt files to download.
         """
         if isinstance(self._cik, (list, tuple, set)):
-            urls = list()
-            for cik in self._cik:
-                urls.append(self._get_cik_urls(cik))
+            urls = [self._get_cik_urls(cik) for cik in self._cik]
             return urls
         else:
             return self._get_cik_urls(self._cik)
@@ -134,17 +120,18 @@ class Filing(_EDGARBase):
             if available.
         """
         self.params['CIK'] = cik
-        self._prepare_query()
-        data = self._execute_query()
+        data = self.get_soup()
         links = []
-        while len(links) < self.count:
+
+        # paginate
+        while len(links) < self._client.count:
             links.extend([link.string for link in data.find_all("filinghref")])
             self.params["start"] += 100
             if len(data.find_all("filinghref")) == 0:
                 break
-        self.params["start"] = 0
+        self.params["start"] = 0  # set start back to 0 after paginating
         txt_urls = [link[:link.rfind("-")] + ".txt" for link in links]
-        return txt_urls[:self.count]
+        return txt_urls[:self._client.count]
 
     def _make_dir(self, directory):
         """Make directory based on filing info.
@@ -172,7 +159,7 @@ class Filing(_EDGARBase):
         return os.path.expanduser(directory)
 
     @staticmethod
-    def _get_filing(url):
+    def get_filing(url):
         """
         Returns all text data from given filing url.
 
@@ -182,8 +169,7 @@ class Filing(_EDGARBase):
         Returns:
             response.text (str): All text from filing.
         """
-        response = requests.get(url)
-        return response.text
+        return requests.get(url).text
 
     def save(self, directory):
         """Save files in specified directory.
@@ -199,12 +185,12 @@ class Filing(_EDGARBase):
         """
         directory = self._sanitize_path(directory)
         self._make_dir(directory)
-        urls = self._get_urls()
+        urls = self.get_urls()
         if len(urls) == 0:
             raise ValueError("No urls available.")
         doc_names = [url.split("/")[-1] for url in urls]
         for (url, doc_name) in list(zip(urls, doc_names)):
-            data = self._get_filing(url)
+            data = self.get_filing(url)
             path = os.path.join(directory, self.cik, self.filing_type.value, doc_name)
             with open(path, "ab") as f:
                 f.write(data.encode("ascii", "ignore"))

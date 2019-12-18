@@ -34,7 +34,7 @@ class TestLegacySecCrawler(object):
 
 class TestFiling(object):
     def test_count_returns_exact(self, valid_filing_10k):
-        if len(valid_filing_10k._get_urls()) != valid_filing_10k.count:
+        if len(valid_filing_10k.get_urls()) != valid_filing_10k.client.count:
             raise AssertionError("Count should return exact number of filings.")
 
     def test_date_is_sanitized(self, valid_filing_10k):
@@ -49,7 +49,7 @@ class TestFiling(object):
             raise AssertionError("The dateb param was not correctly sanitized after change.")
 
     def test_txt_urls(self, valid_filing_10k):
-        r = requests.get(valid_filing_10k._get_urls()[0])
+        r = requests.get(valid_filing_10k.get_urls()[0])
         if not r.text:
             raise AssertionError("Text file returned as empty.")
 
