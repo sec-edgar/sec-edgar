@@ -1,12 +1,14 @@
 import datetime
 import errno
 import os
+
 import requests
+
 from SECEdgar.base import _EDGARBase
+from SECEdgar.filings.cik import CIK
+from SECEdgar.filings.filing_types import FilingType
 from SECEdgar.utils import _sanitize_date
 from SECEdgar.utils.exceptions import FilingTypeError, CIKError
-from SECEdgar.filings.filing_types import FilingType
-from SECEdgar.filings.cik import CIK
 
 
 class Filing(_EDGARBase):
@@ -24,10 +26,8 @@ class Filing(_EDGARBase):
     def __init__(self, cik, filing_type, dateb=datetime.datetime.today(), **kwargs):
         super(Filing, self).__init__(**kwargs)
         self._dateb = _sanitize_date(dateb)
-        if not isinstance(filing_type, FilingType):
-            raise FilingTypeError(FilingType)
-        self._filing_type = filing_type
-        self._cik = self._validate_cik(cik)
+        self._filing_type = self._validate_filing_type(filing_type)
+        self._cik = self._validate_cik(cik).ciks
         self._params['action'] = 'getcompany'
         self._params['owner'] = 'exclude'
         self._params['output'] = 'xml'
@@ -101,13 +101,9 @@ class Filing(_EDGARBase):
         Returns:
             urls (list): List of urls for txt files to download.
         """
-        if isinstance(self._cik, (list, tuple, set)):
-            urls = [self._get_cik_urls(cik) for cik in self._cik]
-            return urls
-        else:
-            return self._get_cik_urls(self._cik)
+        return list(*[self._get_urls_for_cik(cik) for cik in self.cik])
 
-    def _get_cik_urls(self, cik):
+    def _get_urls_for_cik(self, cik):
         """
         Get all urls for specific company according to CIK that match
         dateb, filing_type, and count parameters.
@@ -131,7 +127,7 @@ class Filing(_EDGARBase):
                 break
         self.params["start"] = 0  # set start back to 0 after paginating
         txt_urls = [link[:link.rfind("-")] + ".txt" for link in links]
-        return txt_urls[:self._client.count]
+        return txt_urls[:self.client.count]
 
     def _make_dir(self, directory):
         """Make directory based on filing info.
@@ -158,19 +154,6 @@ class Filing(_EDGARBase):
     def _sanitize_path(directory):
         return os.path.expanduser(directory)
 
-    @staticmethod
-    def get_filing(url):
-        """
-        Returns all text data from given filing url.
-
-        Args:
-            url (str): URL for specific filing.
-
-        Returns:
-            response.text (str): All text from filing.
-        """
-        return requests.get(url).text
-
     def save(self, directory):
         """Save files in specified directory.
 
@@ -190,7 +173,7 @@ class Filing(_EDGARBase):
             raise ValueError("No urls available.")
         doc_names = [url.split("/")[-1] for url in urls]
         for (url, doc_name) in list(zip(urls, doc_names)):
-            data = self.get_filing(url)
+            data = requests.get(url).text
             path = os.path.join(directory, self.cik, self.filing_type.value, doc_name)
             with open(path, "ab") as f:
                 f.write(data.encode("ascii", "ignore"))
