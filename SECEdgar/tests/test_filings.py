@@ -1,9 +1,11 @@
 # Tests if filings are correctly received from EDGAR
-import pytest
 import datetime
+
+import pytest
 import requests
-from SECEdgar.utils.exceptions import FilingTypeError, CIKError
+
 from SECEdgar.filings import Filing, FilingType
+from SECEdgar.utils.exceptions import FilingTypeError, CIKError, EDGARQueryError
 
 
 class TestLegacySecCrawler(object):
@@ -34,8 +36,11 @@ class TestLegacySecCrawler(object):
 
 class TestFiling(object):
     def test_count_returns_exact(self, valid_filing_10k):
-        if len(valid_filing_10k.get_urls()) != valid_filing_10k.client.count:
-            raise AssertionError("Count should return exact number of filings.")
+        urls = valid_filing_10k.get_urls()
+        if len(urls) != valid_filing_10k.client.count:
+            raise AssertionError("""Count should return exact number of filings.
+                                 Got {0}, but expected {1} URLs.""".format(
+                    urls, valid_filing_10k.client.count))
 
     def test_date_is_sanitized(self, valid_filing_10k):
         date = datetime.datetime(2015, 1, 1)
@@ -63,11 +68,14 @@ class TestFiling(object):
                 Filing(cik='0000320193', filing_type=t)
 
     def test_validate_cik(self):
-        with pytest.raises(CIKError):
+        # string remains unchecked until query to allow for possibility of
+        # using company name, ticker, or CIK as string
+        with pytest.raises(EDGARQueryError):
             Filing(cik='0notvalid0', filing_type=FilingType.FILING_10K)
-        with pytest.raises(CIKError):
+        with pytest.raises(EDGARQueryError):
             Filing(cik='012345678910', filing_type=FilingType.FILING_10K)
+        # float and int not accepted, raising CIKError
         with pytest.raises(CIKError):
             Filing(cik=1234567891011, filing_type=FilingType.FILING_10K)
-        with pytest.raises(ValueError):
+        with pytest.raises(CIKError):
             Filing(cik=123.0, filing_type=FilingType.FILING_10K)
