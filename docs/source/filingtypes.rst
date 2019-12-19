@@ -71,3 +71,5 @@ Form DEFA 14A
 Additional information for DEF 14A form.
 
 .. autoclass:: SECEdgar.filings.FilingType
+   :members:
+   :undoc-members:
