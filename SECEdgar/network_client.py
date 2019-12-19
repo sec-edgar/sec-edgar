@@ -1,6 +1,8 @@
-import requests
-from SECEdgar.utils.exceptions import EDGARQueryError
 import time
+
+import requests
+
+from SECEdgar.utils.exceptions import EDGARQueryError
 
 
 class NetworkClient(object):
@@ -123,4 +125,6 @@ class NetworkClient(object):
         elif "The value you submitted is not valid" in response.text:
             raise EDGARQueryError()
         elif "No matching Ticker Symbol." in response.text:
+            raise EDGARQueryError()
+        elif "No matching CIK." in response.text:
             raise EDGARQueryError()
