@@ -59,41 +59,33 @@ class Filing(_EDGARBase):
 
     @property
     def cik(self):
-        return Filing._validate_cik(self._cik)
+        return self._cik
 
     @staticmethod
     def _validate_cik(cik):
-        """Validates that given CIK *could* be valid.
+        """
+        Converts string CIK to CIK object if given as string.
 
         Args:
-            cik (Union[CIK, str, int]): Central index key (CIK) to validate.
+            cik: CIK to check.
 
         Returns:
-            cik (Union[str, list of str]): Validated CIK.
-                Note that the CIK is only validated in
-                that it *could* be valid. CIKs formatted as
-                10 digits, but not all 10 digit
-                numbers are valid CIKs.
+            cik (CIK): CIK converted to CIK object, if valid.
 
         Raises:
-            ValueError: If given cik is not str, int, or CIK object.
-            CIKError: If cik is not a 10 digit number or valid CIK object
+            CIKError: If CIK is not valid.
         """
-        # creating CIK object should check to see if ciks are valid
-        if not isinstance(cik, CIK):
-            if not isinstance(cik, (str, int)):
-                raise ValueError("CIK must be of type str or int.")
-            elif isinstance(cik, str):
-                if len(cik) != 10 or not cik.isdigit():
-                    raise CIKError(cik)
-            elif isinstance(cik, int):
-                if cik > 10**10:
-                    raise CIKError(cik)
-                elif cik < 10**9:
-                    return str(cik).zfill(10)  # pad with zeros if less than 10 digits given
-            return str(cik)
-        else:
-            return cik.cik
+        if isinstance(cik, str):
+            return CIK(cik)
+        elif not isinstance(cik, CIK):
+            raise CIKError(cik)
+        return cik
+
+    @staticmethod
+    def _validate_filing_type(filing_type):
+        if not isinstance(filing_type, FilingType):
+            raise FilingTypeError(FilingType)
+        return filing_type
 
     def get_urls(self):
         """Get urls for all CIKs given to Filing object.
