@@ -1,6 +1,8 @@
-from bs4 import BeautifulSoup
 import abc
 import sys
+
+from bs4 import BeautifulSoup
+
 from SECEdgar.network_client import NetworkClient
 
 if sys.version_info >= (3, 4):
@@ -13,7 +15,8 @@ class _EDGARBase(ABC):
     """Abstract Base Class for EDGAR requests.
 
     Attributes:
-        client (SECEdgar.network_client.NetworkClient) : NetworkClient object that handles getting data from EDGAR.
+        client (SECEdgar.network_client.NetworkClient) : NetworkClient object that handles
+            getting data from EDGAR.
         url (str): URL endpoint.
         params (dict): Dictionary of parameters to add.
 
