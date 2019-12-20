@@ -27,7 +27,7 @@ class Filing(_EDGARBase):
         super(Filing, self).__init__(**kwargs)
         self._dateb = _sanitize_date(dateb)
         self._filing_type = self._validate_filing_type(filing_type)
-        self._cik = self._validate_cik(cik).ciks
+        self._ciks = self._validate_cik(cik).ciks
         self._params['action'] = 'getcompany'
         self._params['owner'] = 'exclude'
         self._params['output'] = 'xml'
@@ -41,7 +41,7 @@ class Filing(_EDGARBase):
 
     @property
     def dateb(self):
-        return _sanitize_date(self._dateb)
+        return self._dateb
 
     @dateb.setter
     def dateb(self, val):
@@ -58,8 +58,8 @@ class Filing(_EDGARBase):
         self._filing_type = filing_type
 
     @property
-    def cik(self):
-        return self._cik
+    def ciks(self):
+        return self._ciks
 
     @staticmethod
     def _validate_cik(cik):
@@ -93,7 +93,10 @@ class Filing(_EDGARBase):
         Returns:
             urls (list): List of urls for txt files to download.
         """
-        return list(*[self._get_urls_for_cik(cik) for cik in self.cik])
+        urls = []
+        for cik in self.ciks:
+            urls += self._get_urls_for_cik(cik)
+        return urls
 
     def _get_urls_for_cik(self, cik):
         """
@@ -121,19 +124,19 @@ class Filing(_EDGARBase):
         txt_urls = [link[:link.rfind("-")] + ".txt" for link in links]
         return txt_urls[:self.client.count]
 
-    def _make_dir(self, directory):
+    @staticmethod
+    def _make_path(path):
         """Make directory based on filing info.
 
         Args:
-            directory (str): Base directory where filings should be saved from.
+            path (str): Path to be made if it doesn't exist.
 
         Raises:
-            OSError: If there is a problem making the directory.
+            OSError: If there is a problem making the path.
 
         Returns:
             None
         """
-        path = os.path.join(directory, self.cik, self.filing_type.value)
 
         if not os.path.exists(path):
             try:
@@ -142,12 +145,10 @@ class Filing(_EDGARBase):
                 if e.errno != errno.EEXIST:
                     raise OSError
 
-    @staticmethod
-    def _sanitize_path(directory):
-        return os.path.expanduser(directory)
-
     def save(self, directory):
         """Save files in specified directory.
+        Each txt url looks something like:
+        https://www.sec.gov/Archives/edgar/data/1018724/000101872419000043/0001018724-19-000043.txt
 
         Args:
             directory (str): Path to directory where files should be saved.
@@ -158,14 +159,16 @@ class Filing(_EDGARBase):
         Raises:
             ValueError: If no text urls are available for given filing object.
         """
-        directory = self._sanitize_path(directory)
-        self._make_dir(directory)
+        directory = os.path.expanduser(directory)
         urls = self.get_urls()
         if len(urls) == 0:
             raise ValueError("No urls available.")
         doc_names = [url.split("/")[-1] for url in urls]
         for (url, doc_name) in list(zip(urls, doc_names)):
+            cik = doc_name.split('-')[0]
             data = requests.get(url).text
-            path = os.path.join(directory, self.cik, self.filing_type.value, doc_name)
+            path = os.path.join(directory, cik, self.filing_type.value)
+            self._make_path(path)
+            path = os.path.join(path, doc_name)
             with open(path, "ab") as f:
                 f.write(data.encode("ascii", "ignore"))
