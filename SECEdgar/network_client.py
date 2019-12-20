@@ -107,6 +107,10 @@ class NetworkClient(object):
         Raises:
             EDGARQueryError: If response contains EDGAR error message.
         """
+        error_messages = ("The value you submitted is not valid",
+                          "No matching Ticker Symbol.",
+                          "No matching CIK.",
+                          "No matching companies.")
         if response is None:
             raise EDGARQueryError("No response.")
         status_code = response.status_code
@@ -122,9 +126,5 @@ class NetworkClient(object):
             raise EDGARQueryError("The query could not be completed. "
                                   "There was a server-side error with "
                                   "your request.")
-        elif "The value you submitted is not valid" in response.text:
-            raise EDGARQueryError()
-        elif "No matching Ticker Symbol." in response.text:
-            raise EDGARQueryError()
-        elif "No matching CIK." in response.text:
+        elif any(error_message in response.text for error_message in error_messages):
             raise EDGARQueryError()

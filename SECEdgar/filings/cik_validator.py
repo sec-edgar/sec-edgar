@@ -1,5 +1,5 @@
 from SECEdgar.base import _EDGARBase
-from SECEdgar.utils.exceptions import CIKError
+from SECEdgar.utils.exceptions import CIKError, EDGARQueryError
 
 
 class CIKValidator(_EDGARBase):
@@ -40,12 +40,17 @@ class CIKValidator(_EDGARBase):
         Get cik for lookup value.
         """
         self._validate_lookup(lookup)  # make sure lookup is valid
-        self._params['CIK'] = lookup
-        soup = self.get_soup()
-        print(self.get_response().url)
-        # TODO: Handle case where multiple companies returned for lookup value
+        try:  # try to lookup by CIK
+            self._params['CIK'] = lookup
+            soup = self.get_soup()
+            del self._params['CIK']
+        except EDGARQueryError:  # fallback to lookup by company name
+            # TODO: Handle case where multiple companies returned for lookup value
+            self._params['company'] = lookup
+            soup = self.get_soup()
+            del self._params['company']
         span = soup.find('span', {'class': 'companyName'})
-        return span.find('a').getText().split()[0]  # get CIK number
+        return span.find('a').getText().split()[0]  # returns CIK
 
     @staticmethod
     def _validate_cik(cik):
