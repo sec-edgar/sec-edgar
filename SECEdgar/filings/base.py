@@ -141,7 +141,6 @@ class Filing(_EDGARBase):
         Raises:
             ValueError: If no text urls are available for given filing object.
         """
-        directory = os.path.expanduser(directory)
         urls = self.get_urls()
         if len(urls) == 0:
             raise ValueError("No filings available.")
