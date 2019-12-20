@@ -1,4 +1,7 @@
+import pytest
+
 from SECEdgar.filings import CIK
+from SECEdgar.utils.exceptions import EDGARQueryError
 
 
 class TestCIK(object):
@@ -21,3 +24,16 @@ class TestCIK(object):
         returned_ciks = CIK(multiple_result_companies).lookup_dict
         for company_name in multiple_result_companies:
             print(company_name)
+
+    def test_validate_cik(self):
+        # string remains unchecked until query to allow for possibility of
+        # using company name, ticker, or CIK as string
+        with pytest.raises(EDGARQueryError):
+            CIK('0notvalid0')
+        with pytest.raises(EDGARQueryError):
+            CIK('012345678910')
+        # float and int not accepted, raising CIKError
+        with pytest.raises(TypeError):
+            CIK(1234567891011)
+        with pytest.raises(TypeError):
+            CIK(123.0)

@@ -5,7 +5,7 @@ import pytest
 import requests
 
 from SECEdgar.filings import Filing, FilingType, CIK
-from SECEdgar.utils.exceptions import FilingTypeError, CIKError, EDGARQueryError
+from SECEdgar.utils.exceptions import FilingTypeError, EDGARQueryError
 
 
 class TestLegacySecCrawler(object):
@@ -74,10 +74,10 @@ class TestFiling(object):
             Filing(cik='0notvalid0', filing_type=FilingType.FILING_10K)
         with pytest.raises(EDGARQueryError):
             Filing(cik='012345678910', filing_type=FilingType.FILING_10K)
-        # float and int not accepted, raising CIKError
-        with pytest.raises(CIKError):
+        # float and int not accepted, raising TypeError from CIK Validator
+        with pytest.raises(TypeError):
             Filing(cik=1234567891011, filing_type=FilingType.FILING_10K)
-        with pytest.raises(CIKError):
+        with pytest.raises(TypeError):
             Filing(cik=123.0, filing_type=FilingType.FILING_10K)
 
     def test_filing_save_multiple_ciks(self, multiple_valid_ciks):

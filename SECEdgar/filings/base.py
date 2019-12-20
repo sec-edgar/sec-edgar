@@ -8,7 +8,7 @@ from SECEdgar.base import _EDGARBase
 from SECEdgar.filings.cik import CIK
 from SECEdgar.filings.filing_types import FilingType
 from SECEdgar.utils import _sanitize_date
-from SECEdgar.utils.exceptions import FilingTypeError, CIKError
+from SECEdgar.utils.exceptions import FilingTypeError
 
 
 class Filing(_EDGARBase):
@@ -27,7 +27,9 @@ class Filing(_EDGARBase):
         super(Filing, self).__init__(**kwargs)
         self._dateb = _sanitize_date(dateb)
         self._filing_type = self._validate_filing_type(filing_type)
-        self._ciks = self._validate_cik(cik).ciks
+        if not isinstance(cik, CIK):  # make CIK for users if not given
+            cik = CIK(cik)
+        self._ciks = cik.ciks
         self._params['action'] = 'getcompany'
         self._params['owner'] = 'exclude'
         self._params['output'] = 'xml'
@@ -60,26 +62,6 @@ class Filing(_EDGARBase):
     @property
     def ciks(self):
         return self._ciks
-
-    @staticmethod
-    def _validate_cik(cik):
-        """
-        Converts string CIK to CIK object if given as string.
-
-        Args:
-            cik: CIK to check.
-
-        Returns:
-            cik (CIK): CIK converted to CIK object, if valid.
-
-        Raises:
-            CIKError: If CIK is not valid.
-        """
-        if isinstance(cik, str):
-            return CIK(cik)
-        elif not isinstance(cik, CIK):
-            raise CIKError(cik)
-        return cik
 
     @staticmethod
     def _validate_filing_type(filing_type):
@@ -162,7 +144,7 @@ class Filing(_EDGARBase):
         directory = os.path.expanduser(directory)
         urls = self.get_urls()
         if len(urls) == 0:
-            raise ValueError("No urls available.")
+            raise ValueError("No filings available.")
         doc_names = [url.split("/")[-1] for url in urls]
         for (url, doc_name) in list(zip(urls, doc_names)):
             cik = doc_name.split('-')[0]
@@ -170,5 +152,5 @@ class Filing(_EDGARBase):
             path = os.path.join(directory, cik, self.filing_type.value)
             self._make_path(path)
             path = os.path.join(path, doc_name)
-            with open(path, "ab") as f:
-                f.write(data.encode("ascii", "ignore"))
+            with open(path, "w") as f:
+                f.write(data)

@@ -8,7 +8,12 @@ class CIKValidator(_EDGARBase):
         if isinstance(lookups, str):
             self._lookups = [lookups]
         else:
-            self._lookups = lookups
+            try:
+                if not all(type(o) is str for o in lookups):
+                    raise TypeError("CIKs must be given as string or iterable.")
+                self._lookups = lookups
+            except TypeError:
+                raise TypeError("CIKs must be given as string or iterable.")
         self._params['action'] = 'getcompany'
 
     @property
