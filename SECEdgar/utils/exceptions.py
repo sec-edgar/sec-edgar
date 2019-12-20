@@ -31,12 +31,15 @@ class CIKError(Exception):
         self.cik = cik
 
     def __str__(self):
-        return "CIK {cik} not found.".format(cik=self.cik)
+        return "CIK {cik} not valid.".format(cik=self.cik)
 
 
 class FilingTypeError(Exception):
     """This error is thrown when an invalid filing type is given. """
 
-    def __str__(self, acceptable_filings):
+    def __init__(self, acceptable_filings):
+        self.acceptable_filings = acceptable_filings
+
+    def __str__(self):
         return "The filing type given is not valid. " \
-               "Filing type must be in {}".format(acceptable_filings)
+               "Filing type must be in {0}".format(self.acceptable_filings)
