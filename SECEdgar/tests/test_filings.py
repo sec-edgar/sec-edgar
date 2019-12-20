@@ -4,7 +4,7 @@ import datetime
 import pytest
 import requests
 
-from SECEdgar.filings import Filing, FilingType
+from SECEdgar.filings import Filing, FilingType, CIK
 from SECEdgar.utils.exceptions import FilingTypeError, CIKError, EDGARQueryError
 
 
@@ -79,3 +79,17 @@ class TestFiling(object):
             Filing(cik=1234567891011, filing_type=FilingType.FILING_10K)
         with pytest.raises(CIKError):
             Filing(cik=123.0, filing_type=FilingType.FILING_10K)
+
+    def test_filing_save_multiple_ciks(self, multiple_valid_ciks):
+        f = Filing(multiple_valid_ciks, FilingType.FILING_10Q, count=3)
+        f.save('SEC-Edgar-Data')
+
+    def test_filing_save_single_cik(self, single_valid_cik):
+        f = Filing(single_valid_cik, FilingType.FILING_10Q, count=3)
+        f.save('SEC-Edgar-Data')
+
+    def test_filing_get_urls_returns_single_list_of_urls(self):
+        ciks = CIK(['aapl', 'msft', 'amzn'])
+        f = Filing(ciks, FilingType.FILING_10Q, count=3)
+        if len(f.get_urls()) != 9:
+            raise AssertionError("Expected list of length 9.")
