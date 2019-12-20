@@ -19,6 +19,7 @@ class TestCIK(object):
                 raise AssertionError("CIK for {0} expected "
                                      "{1}, got {2}".format(company_name, cik, returned_ciks[company_name]))
 
+    @pytest.mark.skip(reason='This feature is currently in progress.')
     def test_multiple_results_company_name_search(self, multiple_result_companies):
         # TODO: Add support for when lookup returns multiple companies
         returned_ciks = CIK(multiple_result_companies).lookup_dict

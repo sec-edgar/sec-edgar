@@ -80,13 +80,13 @@ class TestFiling(object):
         with pytest.raises(TypeError):
             Filing(cik=123.0, filing_type=FilingType.FILING_10K)
 
-    def test_filing_save_multiple_ciks(self, multiple_valid_ciks):
+    def test_filing_save_multiple_ciks(self, multiple_valid_ciks, tmp_data_directory):
         f = Filing(multiple_valid_ciks, FilingType.FILING_10Q, count=3)
-        f.save('SEC-Edgar-Data')
+        f.save(tmp_data_directory)
 
-    def test_filing_save_single_cik(self, single_valid_cik):
+    def test_filing_save_single_cik(self, single_valid_cik, tmp_data_directory):
         f = Filing(single_valid_cik, FilingType.FILING_10Q, count=3)
-        f.save('SEC-Edgar-Data')
+        f.save(tmp_data_directory)
 
     def test_filing_get_urls_returns_single_list_of_urls(self):
         ciks = CIK(['aapl', 'msft', 'amzn'])

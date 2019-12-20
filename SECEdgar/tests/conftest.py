@@ -79,3 +79,8 @@ def multiple_valid_ciks():
 @pytest.fixture(scope="class")
 def single_valid_cik():
     return CIK('aapl')
+
+
+@pytest.fixture(scope="session")
+def tmp_data_directory(tmpdir_factory):
+    return tmpdir_factory.mktemp("tmp_data")
