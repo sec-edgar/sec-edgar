@@ -83,4 +83,4 @@ def single_valid_cik():
 
 @pytest.fixture(scope="session")
 def tmp_data_directory(tmpdir_factory):
-    return tmpdir_factory.mktemp("tmp_data")
+    return str(tmpdir_factory.mktemp("tmp_data"))
