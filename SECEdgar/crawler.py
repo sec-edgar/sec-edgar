@@ -100,7 +100,7 @@ class SecCrawler(object):
           list: Zipped list with tuples of the form
                 (<url for txt file>, <doc name>)
         """
-        soup = BeautifulSoup(data, features='html.parser')
+        soup = BeautifulSoup(data, features='lxml')
         # store the link in the list
         link_list = [link.string for link in soup.find_all('filinghref')]
 

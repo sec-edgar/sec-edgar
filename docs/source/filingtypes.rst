@@ -67,7 +67,7 @@ Form DEF 14A
 Definitive proxy statement. Required ahead of annual meeting when firm is soliciting shareholder votes.
 
 Form DEFA 14A
-------------
+-------------
 Additional information for DEF 14A form.
 
 .. autoclass:: SECEdgar.filings.FilingType

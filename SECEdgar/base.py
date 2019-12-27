@@ -40,7 +40,7 @@ class _EDGARBase(ABC):
         return self._client
 
     def get_soup(self):
-        return BeautifulSoup(self.get_response().text)
+        return BeautifulSoup(self.get_response().text, features='lxml')
 
     def get_response(self):
         return self._client.get_response(self.url, self.params)
