@@ -12,8 +12,13 @@
 #
 import os
 import sys
+
 sys.path.insert(0, os.path.abspath('..'))
 sys.path.insert(0, os.path.abspath('../..'))
+sys.path.insert(0, os.path.abspath('../../..'))
+
+import SECEdgar
+
 
 
 # -- Project information -----------------------------------------------------
@@ -23,9 +28,10 @@ copyright = '2019, Rahul Ranjan'
 author = 'Rahul Ranjan'
 
 # The short X.Y version.
-version = '0.1.4'
+version = SECEdgar.__version__
+print(version)
 # The full version, including alpha/beta/rc tags.
-release = '0.1.4'
+release = SECEdgar.__version__
 
 
 # -- General configuration ---------------------------------------------------

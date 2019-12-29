@@ -6,7 +6,7 @@ class CIK(object):
     Class to get and validate CIK by ticker.
 
     Attributes:
-        lookup (Union[str, list]): Ticker or list of tickers.
+        lookup (Union[str, list]): Ticker, company name, or list of tickers and/or company names.
 
     .. versionadded:: 0.1.5
     """
