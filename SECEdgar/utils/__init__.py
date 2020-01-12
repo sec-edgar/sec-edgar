@@ -1,7 +1,7 @@
 import datetime
 
 
-def _sanitize_date(date):
+def sanitize_date(date):
     """Sanitizes date to be in acceptable format for EDGAR.
 
     Args:
@@ -9,6 +9,9 @@ def _sanitize_date(date):
 
     Returns:
         date (str): Properly formatted date in 'YYYYMMDD' format.
+
+    Raises:
+        TypeError: If date is not in format YYYYMMDD as str or int.
     """
     if isinstance(date, datetime.datetime):
         return date.strftime("%Y%m%d")

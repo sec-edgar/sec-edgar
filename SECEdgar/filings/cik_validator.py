@@ -3,6 +3,10 @@ from SECEdgar.utils.exceptions import CIKError, EDGARQueryError
 
 
 class CIKValidator(_EDGARBase):
+    """
+    .. versionadded:: 0.1.5
+    """
+
     def __init__(self, lookups, **kwargs):
         super(CIKValidator, self).__init__(**kwargs)
         if isinstance(lookups, str):
@@ -18,7 +22,7 @@ class CIKValidator(_EDGARBase):
 
     @property
     def url(self):
-        return "browse-edgar"
+        return "cgi-bin/browse-edgar"
 
     def get_ciks(self):
         """

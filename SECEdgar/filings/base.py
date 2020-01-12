@@ -1,5 +1,4 @@
 import datetime
-import errno
 import os
 
 import requests
@@ -7,7 +6,7 @@ import requests
 from SECEdgar.base import _EDGARBase
 from SECEdgar.filings.cik import CIK
 from SECEdgar.filings.filing_types import FilingType
-from SECEdgar.utils import _sanitize_date
+from SECEdgar.utils import sanitize_date
 from SECEdgar.utils.exceptions import FilingTypeError
 
 
@@ -18,15 +17,15 @@ class Filing(_EDGARBase):
         cik (str): Central Index Key (CIK) for company of interest.
         filing_type (SECEdgar.filings.filing_types.FilingType): Valid filing type enum.
         dateb (Union[str, datetime.datetime], optional): Date after which not to fetch reports.
-            Defaults to today.
+            Stands for "date before." Defaults to today.
 
     .. versionadded:: 0.1.5
     """
 
     def __init__(self, cik, filing_type, dateb=datetime.datetime.today(), **kwargs):
         super(Filing, self).__init__(**kwargs)
-        self._dateb = _sanitize_date(dateb)
-        self._filing_type = self._validate_filing_type(filing_type)
+        self.dateb = dateb
+        self.filing_type = filing_type
         if not isinstance(cik, CIK):  # make CIK for users if not given
             cik = CIK(cik)
         self._ciks = cik.ciks
@@ -35,11 +34,11 @@ class Filing(_EDGARBase):
         self._params['output'] = 'xml'
         self._params['start'] = 0
         self._params['type'] = self.filing_type.value
-        self._params['dateb'] = self._dateb
+        self._params['dateb'] = self.dateb
 
     @property
     def url(self):
-        return "browse-edgar"
+        return "cgi-bin/browse-edgar"
 
     @property
     def dateb(self):
@@ -47,7 +46,7 @@ class Filing(_EDGARBase):
 
     @dateb.setter
     def dateb(self, val):
-        self._dateb = _sanitize_date(val)
+        self._dateb = sanitize_date(val)
 
     @property
     def filing_type(self):
@@ -62,12 +61,6 @@ class Filing(_EDGARBase):
     @property
     def ciks(self):
         return self._ciks
-
-    @staticmethod
-    def _validate_filing_type(filing_type):
-        if not isinstance(filing_type, FilingType):
-            raise FilingTypeError(FilingType)
-        return filing_type
 
     def get_urls(self):
         """Get urls for all CIKs given to Filing object.
@@ -106,27 +99,6 @@ class Filing(_EDGARBase):
         txt_urls = [link[:link.rfind("-")] + ".txt" for link in links]
         return txt_urls[:self.client.count]
 
-    @staticmethod
-    def _make_path(path):
-        """Make directory based on filing info.
-
-        Args:
-            path (str): Path to be made if it doesn't exist.
-
-        Raises:
-            OSError: If there is a problem making the path.
-
-        Returns:
-            None
-        """
-
-        if not os.path.exists(path):
-            try:
-                os.makedirs(path)
-            except OSError as e:
-                if e.errno != errno.EEXIST:
-                    raise OSError
-
     def save(self, directory):
         """Save files in specified directory.
         Each txt url looks something like:
@@ -149,7 +121,7 @@ class Filing(_EDGARBase):
             cik = doc_name.split('-')[0]
             data = requests.get(url).text
             path = os.path.join(directory, cik, self.filing_type.value)
-            self._make_path(path)
+            super()._make_path(path)
             path = os.path.join(path, doc_name)
             with open(path, "w") as f:
                 f.write(data)

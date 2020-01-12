@@ -5,7 +5,7 @@ import codecs
 from setuptools import setup, find_packages
 from setuptools.command.install import install
 
-SUPPORTED_VERSIONS = ['2.7', '3.5', '3.6', '3.7', ]
+SUPPORTED_VERSIONS = ['2.7', '3.5', '3.6', '3.7', '3.8']
 here = os.path.abspath(os.path.dirname(__file__))
 
 
@@ -67,7 +67,7 @@ setup(
     # project is installed.
     install_requires=parse_requirements('requirements.txt'),
     keywords=['SEC', 'Edgar', 'Crawler', 'filings'],
-    tests_require=parse_requirements('requirements.txt'),
+    tests_require=parse_requirements('requirements.txt', 'requirements-dev.txt'),
     classifiers=[
         'Environment :: Console',
         'License :: OSI Approved :: Apache Software License',
@@ -78,11 +78,15 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
     ],
     # If there are data files included in your packages that need to be
     # installed, specify them here. If using Python 2.6 or less, then these
     # have to be included in MANIFEST.in as well.
     package_data={
-        'SECEdgar': [],
+        'SECEdgar': ['requirements.txt',
+                     'requirements-dev.txt',
+                     'README.rst',
+                     'LICENSE'],
     }
 )

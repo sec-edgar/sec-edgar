@@ -13,12 +13,12 @@ class NetworkClient(object):
 
     """
 
-    _BASE = "http://www.sec.gov/cgi-bin/"
+    _BASE = "http://www.sec.gov/"
 
     def __init__(self, **kwargs):
-        self._retry_count = kwargs.get("retry_count", 3)
-        self._pause = kwargs.get("pause", 0.5)
-        self._count = kwargs.get("count", 10)
+        self.retry_count = kwargs.get("retry_count", 3)
+        self.pause = kwargs.get("pause", 0.5)
+        self.count = kwargs.get("count", 10)
         self.response = None
 
     @property
@@ -69,7 +69,7 @@ class NetworkClient(object):
         """
         return "%s%s" % (NetworkClient._BASE, url)
 
-    def get_response(self, url, params):
+    def get_response(self, url, params, **kwargs):
         """Executes HTTP request and returns response if valid.
 
         Args:
@@ -86,7 +86,7 @@ class NetworkClient(object):
         prepared_url = self._prepare_query(url)
         response = None
         for _ in range(self.retry_count + 1):
-            response = requests.get(url=prepared_url, params=params)
+            response = requests.get(url=prepared_url, params=params, **kwargs)
             if response.status_code == 200:
                 try:
                     self._validate_response(response)

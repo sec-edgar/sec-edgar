@@ -1,6 +1,7 @@
 import abc
 import sys
-
+import os
+import errno
 from bs4 import BeautifulSoup
 
 from SECEdgar.network_client import NetworkClient
@@ -42,5 +43,26 @@ class _EDGARBase(ABC):
     def get_soup(self):
         return BeautifulSoup(self.get_response().text, features='lxml')
 
-    def get_response(self):
-        return self._client.get_response(self.url, self.params)
+    def get_response(self, **kwargs):
+        return self._client.get_response(self.url, self.params, **kwargs)
+
+    @staticmethod
+    def _make_path(path, **kwargs):
+        """Make directory based on filing info.
+
+        Args:
+            path (str): Path to be made if it doesn't exist.
+
+        Raises:
+            OSError: If there is a problem making the path.
+
+        Returns:
+            None
+        """
+
+        if not os.path.exists(path):
+            try:
+                os.makedirs(path, **kwargs)
+            except OSError as e:
+                if e.errno != errno.EEXIST:
+                    raise OSError

@@ -8,11 +8,11 @@ import os
 from bs4 import BeautifulSoup
 import errno
 from SECEdgar.utils.exceptions import EDGARQueryError, CIKError
-from SECEdgar.utils import _sanitize_date
+from SECEdgar.utils import sanitize_date
 import warnings
 
 DEFAULT_DATA_PATH = os.path.abspath(os.path.join(
-    os.path.dirname(__file__), '..', 'SEC-Edgar-Data'))
+        os.path.dirname(__file__), '..', 'SEC-Edgar-Data'))
 
 
 class SecCrawler(object):
@@ -154,7 +154,7 @@ class SecCrawler(object):
         Returns:
           None
         """
-        priorto = _sanitize_date(priorto)
+        priorto = sanitize_date(priorto)
         cik = self._check_cik(cik)
         self._make_directory(company_code, cik, priorto, filing_type)
 
@@ -163,7 +163,7 @@ class SecCrawler(object):
         params = {'action': 'getcompany', 'owner': 'exclude', 'output': 'xml',
                   'CIK': cik, 'type': filing_type, 'dateb': priorto, 'count': count}
         print("started {filing_type} {company_code}".format(
-            filing_type=filing_type, company_code=company_code))
+                filing_type=filing_type, company_code=company_code))
         r = requests.get(base_url, params=params)
         if r.status_code == 200:
             data = r.text
@@ -172,7 +172,7 @@ class SecCrawler(object):
 
             try:
                 self._save_in_directory(
-                    company_code, cik, priorto, filing_type, docs)
+                        company_code, cik, priorto, filing_type, docs)
             except Exception as e:
                 print(str(e))  # Need to use str for Python 2.5
         else:
