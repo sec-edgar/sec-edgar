@@ -1,12 +1,12 @@
 import datetime
 import os
-
 import requests
 
 from SECEdgar.base import _EDGARBase
+from SECEdgar.utils import sanitize_date
+
 from SECEdgar.filings.cik import CIK
 from SECEdgar.filings.filing_types import FilingType
-from SECEdgar.utils import sanitize_date
 from SECEdgar.utils.exceptions import FilingTypeError
 
 

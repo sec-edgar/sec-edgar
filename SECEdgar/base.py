@@ -1,7 +1,8 @@
 import abc
-import sys
-import os
 import errno
+import os
+import sys
+
 from bs4 import BeautifulSoup
 
 from SECEdgar.network_client import NetworkClient

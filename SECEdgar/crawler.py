@@ -1,15 +1,16 @@
-# -*- coding:utf-8 -*-
 # This script will download all the 10-K, 10-Q and 8-K
 # provided that of company symbol and its cik code.
 from __future__ import print_function  # Compatibility with Python 2
-
-import requests
-import os
-from bs4 import BeautifulSoup
 import errno
-from SECEdgar.utils.exceptions import EDGARQueryError, CIKError
-from SECEdgar.utils import sanitize_date
+import os
+import requests
 import warnings
+
+from bs4 import BeautifulSoup
+
+from SECEdgar.utils import sanitize_date
+
+from SECEdgar.utils.exceptions import EDGARQueryError, CIKError
 
 DEFAULT_DATA_PATH = os.path.abspath(os.path.join(
         os.path.dirname(__file__), '..', 'SEC-Edgar-Data'))
@@ -129,7 +130,7 @@ class SecCrawler(object):
           CIKError: An error occured while verifying the CIK.
         """
         invalid_str = isinstance(cik, str) and len(cik) != 10
-        invalid_int = isinstance(cik, int) and not (999999999 < cik < 10**10)
+        invalid_int = isinstance(cik, int) and not (999999999 < cik < 10 ** 10)
         invalid_type = not isinstance(cik, (int, str))
         if invalid_str or invalid_int or invalid_type:
             raise CIKError(cik)

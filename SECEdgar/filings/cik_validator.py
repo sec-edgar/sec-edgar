@@ -1,9 +1,19 @@
 from SECEdgar.base import _EDGARBase
+
 from SECEdgar.utils.exceptions import CIKError, EDGARQueryError
 
 
 class CIKValidator(_EDGARBase):
-    """
+    """Validates company tickers and/or company names based on CIK availability.
+
+    Used internally by the CIK class. Not intended for outside use.
+
+    Args:
+        lookups (Union[str, list, tuple]): List of tickers and/or company names for
+            which to find CIKs.
+        **kwargs: Any keyword arguments needed to be passed to
+            _EDGARBase (see class for more details).
+
     .. versionadded:: 0.1.5
     """
 

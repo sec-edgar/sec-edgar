@@ -3,7 +3,7 @@ from SECEdgar.filings.cik_validator import CIKValidator
 
 class CIK(object):
     """
-    Class to get and validate CIK by ticker.
+    Validates CIKs (Central Index Keys) by ticker.
 
     Attributes:
         lookup (Union[str, list]): Ticker, company name, or list of tickers and/or company names.

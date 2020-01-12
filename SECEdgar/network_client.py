@@ -1,6 +1,5 @@
-import time
-
 import requests
+import time
 
 from SECEdgar.utils.exceptions import EDGARQueryError
 
@@ -10,7 +9,9 @@ class NetworkClient(object):
     Class in charge of sending and handling requests to EDGAR database.
 
     Attributes:
-
+        retry_count (int): Number of times to retry connecting to URL if not successful.
+        pause (float): Time (in seconds) to wait before retrying if not successful.
+        count (int): Number of filings to receive (helpful if pagination needed).
     """
 
     _BASE = "http://www.sec.gov/"

@@ -1,10 +1,10 @@
 # Tests if filings are correctly received from EDGAR
 import datetime
-
 import pytest
 import requests
 
 from SECEdgar.filings import Filing, FilingType, CIK
+
 from SECEdgar.utils.exceptions import FilingTypeError, EDGARQueryError
 
 
