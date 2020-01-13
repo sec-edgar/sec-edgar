@@ -71,16 +71,19 @@ class CIKValidator(_EDGARBase):
             span = soup.find('span', {'class': 'companyName'})
             return span.find('a').getText().split()[0]  # returns CIK
         except AttributeError:
-            warnings.warn("Lookup '{0}' will be skipped. Found multiple companies matching '{0}':".format(lookup))
+            warnings.warn("Lookup '{0}' will be skipped. "
+                          "Found multiple companies matching '{0}':".format(lookup))
             warnings.warn('\n'.join(self._get_cik_possibilities(soup)))
 
     @staticmethod
     def _get_cik_possibilities(soup):
-        table_rows = soup.find('table', {'summary': 'Results'}).find_all('tr')[1:]  # Exclude table header
+        # Exclude table header
+        table_rows = soup.find('table', {'summary': 'Results'}).find_all('tr')[1:]
         company_possibilities = []
         for row in table_rows:
+            # Company names are in second column of table
             company_possibilities.append(
-                    ''.join(row.find_all('td')[1].find_all(text=True)))  # Company names are in second column of table
+                    ''.join(row.find_all('td')[1].find_all(text=True)))
         return company_possibilities
 
     @staticmethod
