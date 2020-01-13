@@ -20,11 +20,12 @@ class TestCIK(object):
                                      "{1}, got {2}".format(company_name,
                                                            cik, returned_ciks[company_name]))
 
-    @pytest.mark.skip(reason='This feature is currently in progress.')
     def test_multiple_results_company_name_search(self, multiple_result_companies):
-        # TODO: Add support for when lookup returns multiple companies
-        for company_name in multiple_result_companies:
-            pass
+        assert len(CIK(multiple_result_companies).ciks) == 0
+
+    def test_multiple_results_raises_warnings(self, multiple_result_companies):
+        with pytest.warns(UserWarning):
+            CIK(multiple_result_companies)
 
     def test_validate_cik(self):
         # string remains unchecked until query to allow for possibility of
@@ -33,7 +34,7 @@ class TestCIK(object):
             CIK('0notvalid0')
         with pytest.raises(EDGARQueryError):
             CIK('012345678910')
-        # float and int not accepted, raising CIKError
+        # float and int not accepted, raising TypeError
         with pytest.raises(TypeError):
             CIK(1234567891011)
         with pytest.raises(TypeError):

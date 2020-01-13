@@ -68,7 +68,7 @@ def single_result_companies():
 
 @pytest.fixture(scope="class")
 def multiple_result_companies():
-    return 'apple', 'amazon', 'microsoft', 'tesla'
+    return 'paper', 'company'
 
 
 @pytest.fixture(scope="class")

@@ -1,3 +1,5 @@
+import warnings
+
 from SECEdgar.base import _EDGARBase
 
 from SECEdgar.utils.exceptions import CIKError, EDGARQueryError
@@ -44,9 +46,12 @@ class CIKValidator(_EDGARBase):
         """
         ciks = dict()
         for lookup in self._lookups:
-            result = self._get_cik(lookup)
-            self._validate_cik(result)  # raises error if not valid CIK
-            ciks[lookup] = result
+            try:
+                result = self._get_cik(lookup)
+                self._validate_cik(result)  # raises error if not valid CIK
+                ciks[lookup] = result
+            except CIKError:
+                pass  # If multiple companies, found, just print out warnings
         return ciks
 
     def _get_cik(self, lookup):
@@ -59,12 +64,24 @@ class CIKValidator(_EDGARBase):
             soup = self.get_soup()
             del self._params['CIK']
         except EDGARQueryError:  # fallback to lookup by company name
-            # TODO: Handle case where multiple companies returned for lookup value
             self._params['company'] = lookup
             soup = self.get_soup()
             del self._params['company']
-        span = soup.find('span', {'class': 'companyName'})
-        return span.find('a').getText().split()[0]  # returns CIK
+        try:
+            span = soup.find('span', {'class': 'companyName'})
+            return span.find('a').getText().split()[0]  # returns CIK
+        except AttributeError:
+            warnings.warn("Lookup '{0}' will be skipped. Found multiple companies matching '{0}':".format(lookup))
+            warnings.warn('\n'.join(self._get_cik_possibilities(soup)))
+
+    @staticmethod
+    def _get_cik_possibilities(soup):
+        table_rows = soup.find('table', {'summary': 'Results'}).find_all('tr')[1:]  # Exclude table header
+        company_possibilities = []
+        for row in table_rows:
+            company_possibilities.append(
+                    ''.join(row.find_all('td')[1].find_all(text=True)))  # Company names are in second column of table
+        return company_possibilities
 
     @staticmethod
     def _validate_cik(cik):
