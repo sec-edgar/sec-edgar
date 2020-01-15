@@ -33,7 +33,7 @@ class CIKValidator(_EDGARBase):
         self._params['action'] = 'getcompany'
 
     @property
-    def url(self):
+    def path(self):
         return "cgi-bin/browse-edgar"
 
     def get_ciks(self):

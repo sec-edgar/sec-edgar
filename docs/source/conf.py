@@ -13,13 +13,9 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath('..'))
 sys.path.insert(0, os.path.abspath('../..'))
-sys.path.insert(0, os.path.abspath('../../..'))
 
 import SECEdgar
-
-
 
 # -- Project information -----------------------------------------------------
 
@@ -32,7 +28,6 @@ version = SECEdgar.__version__
 print(version)
 # The full version, including alpha/beta/rc tags.
 release = SECEdgar.__version__
-
 
 # -- General configuration ---------------------------------------------------
 

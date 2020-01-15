@@ -30,14 +30,15 @@ class Filing(_EDGARBase):
             cik = CIK(cik)
         self._ciks = cik.ciks
         self._params['action'] = 'getcompany'
-        self._params['owner'] = 'exclude'
+        self._params['count'] = kwargs.get('count', 10)
+        self._params['dateb'] = self.dateb
         self._params['output'] = 'xml'
+        self._params['owner'] = 'exclude'
         self._params['start'] = 0
         self._params['type'] = self.filing_type.value
-        self._params['dateb'] = self.dateb
 
     @property
-    def url(self):
+    def path(self):
         return "cgi-bin/browse-edgar"
 
     @property
@@ -70,7 +71,7 @@ class Filing(_EDGARBase):
         """
         urls = []
         for cik in self.ciks:
-            urls += self._get_urls_for_cik(cik)
+            urls.extend(self._get_urls_for_cik(cik))
         return urls
 
     def _get_urls_for_cik(self, cik):

@@ -30,7 +30,7 @@ class _EDGARBase(ABC):
         self._params = {'count': self._client.count}
 
     @property
-    def url(self):
+    def path(self):
         raise NotImplementedError
 
     @property
