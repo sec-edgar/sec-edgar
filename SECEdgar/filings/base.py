@@ -3,7 +3,8 @@ import os
 import requests
 
 from SECEdgar.base import _EDGARBase
-from SECEdgar.utils import sanitize_date
+from SECEdgar.network_client import NetworkClient
+from SECEdgar.utils import sanitize_date, make_path
 
 from SECEdgar.filings.cik import CIK
 from SECEdgar.filings.filing_types import FilingType
@@ -22,24 +23,38 @@ class Filing(_EDGARBase):
     .. versionadded:: 0.1.5
     """
 
-    def __init__(self, cik, filing_type, dateb=datetime.datetime.today(), **kwargs):
-        super(Filing, self).__init__(**kwargs)
+    # TODO: Maybe allow NetworkClient to take in kwargs
+    #  (set to None and if None, create NetworkClient with kwargs)
+    def __init__(self, cik, filing_type, dateb=datetime.datetime.today(), client=None, **kwargs):
         self.dateb = dateb
         self.filing_type = filing_type
         if not isinstance(cik, CIK):  # make CIK for users if not given
             cik = CIK(cik)
         self._ciks = cik.ciks
-        self._params['action'] = 'getcompany'
-        self._params['count'] = kwargs.get('count', 10)
-        self._params['dateb'] = self.dateb
-        self._params['output'] = 'xml'
-        self._params['owner'] = 'exclude'
-        self._params['start'] = 0
-        self._params['type'] = self.filing_type.value
+        self._params = {
+            'action': 'getcompany',
+            'count': kwargs.get('count', 10),
+            'dateb': self.dateb,
+            'output': 'xml',
+            'owner': 'exclude',
+            'start': 0,
+            'type': self.filing_type.value
+        }
+        # Make default client NetworkClient and pass in kwargs
+        if client is None:
+            self._client = NetworkClient(**kwargs)
 
     @property
     def path(self):
         return "cgi-bin/browse-edgar"
+
+    @property
+    def params(self):
+        return self._params
+
+    @property
+    def client(self):
+        return self._client
 
     @property
     def dateb(self):
@@ -63,34 +78,38 @@ class Filing(_EDGARBase):
     def ciks(self):
         return self._ciks
 
-    def get_urls(self):
+    def get_urls(self, **kwargs):
         """Get urls for all CIKs given to Filing object.
+
+        Args:
+            kwargs: Anything to be passed to requests when making get request.
 
         Returns:
             urls (list): List of urls for txt files to download.
         """
         urls = []
         for cik in self.ciks:
-            urls.extend(self._get_urls_for_cik(cik))
+            urls.extend(self._get_urls_for_cik(cik, **kwargs))
         return urls
 
-    def _get_urls_for_cik(self, cik):
+    def _get_urls_for_cik(self, cik, **kwargs):
         """
         Get all urls for specific company according to CIK that match
         dateb, filing_type, and count parameters.
 
         Args:
             cik (str): CIK for company.
+            kwargs: Anything to be passed to requests when making get request.
 
         Returns:
             txt_urls (list of str): Up to the desired number of URLs for that specific company
             if available.
         """
         self.params['CIK'] = cik
-        data = self.get_soup()
+        data = self._client.get_soup(self.path, self.params, **kwargs)
         links = []
 
-        # paginate
+        # TODO: Make paginate utility outside of this class
         while len(links) < self._client.count:
             links.extend([link.string for link in data.find_all("filinghref")])
             self.params["start"] += 100
@@ -100,6 +119,7 @@ class Filing(_EDGARBase):
         txt_urls = [link[:link.rfind("-")] + ".txt" for link in links]
         return txt_urls[:self.client.count]
 
+    # TODO: break this method down further
     def save(self, directory):
         """Save files in specified directory.
         Each txt url looks something like:
@@ -122,7 +142,7 @@ class Filing(_EDGARBase):
             cik = doc_name.split('-')[0]
             data = requests.get(url).text
             path = os.path.join(directory, cik, self.filing_type.value)
-            super()._make_path(path)
+            make_path(path)
             path = os.path.join(path, doc_name)
             with open(path, "w") as f:
                 f.write(data)

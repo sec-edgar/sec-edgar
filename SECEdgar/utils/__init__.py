@@ -1,4 +1,6 @@
 import datetime
+import errno
+import os
 
 
 def sanitize_date(date):
@@ -19,6 +21,27 @@ def sanitize_date(date):
         if len(date) != 8:
             raise TypeError('Date must be of the form YYYYMMDD')
     elif isinstance(date, int):
-        if date < 10**7 or date > 10**8:
+        if date < 10 ** 7 or date > 10 ** 8:
             raise TypeError('Date must be of the form YYYYMMDD')
     return date
+
+
+def make_path(path, **kwargs):
+    """Make directory based on filing info.
+
+    Args:
+        path (str): Path to be made if it doesn't exist.
+
+    Raises:
+        OSError: If there is a problem making the path.
+
+    Returns:
+        None
+    """
+
+    if not os.path.exists(path):
+        try:
+            os.makedirs(path, **kwargs)
+        except OSError as e:
+            if e.errno != errno.EEXIST:
+                raise OSError

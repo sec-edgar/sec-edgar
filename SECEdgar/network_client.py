@@ -1,9 +1,12 @@
 import requests
 import time
 
+from bs4 import BeautifulSoup
+
 from SECEdgar.utils.exceptions import EDGARQueryError
 
 
+# TODO: Make ABC Client class from which this will inherit
 class NetworkClient(object):
     """
     Class in charge of sending and handling requests to EDGAR database.
@@ -97,6 +100,19 @@ class NetworkClient(object):
         self._validate_response(response)
         self.response = response
         return self.response
+
+    def get_soup(self, path, params, **kwargs):
+        """ Return BeautifulSoup object from response text. Uses lxml parser.
+
+        Args:
+            path (str): A properly-formatted path
+            params (dict): Dictionary of parameters to pass
+            to request.
+
+        Returns:
+            BeautifulSoup object from response text.
+        """
+        return BeautifulSoup(self.get_response(path, params, **kwargs).text, features='lxml')
 
     @staticmethod
     def _validate_response(response):

@@ -1,11 +1,10 @@
 import warnings
 
-from SECEdgar.base import _EDGARBase
-
+from SECEdgar.network_client import NetworkClient
 from SECEdgar.utils.exceptions import CIKError, EDGARQueryError
 
 
-class CIKValidator(_EDGARBase):
+class CIKValidator(object):
     """Validates company tickers and/or company names based on CIK availability.
 
     Used internally by the CIK class. Not intended for outside use.
@@ -19,8 +18,7 @@ class CIKValidator(_EDGARBase):
     .. versionadded:: 0.1.5
     """
 
-    def __init__(self, lookups, **kwargs):
-        super(CIKValidator, self).__init__(**kwargs)
+    def __init__(self, lookups, client=None, **kwargs):
         if isinstance(lookups, str):
             self._lookups = [lookups]
         else:
@@ -30,11 +28,21 @@ class CIKValidator(_EDGARBase):
                 self._lookups = lookups
             except TypeError:
                 raise TypeError("CIKs must be given as string or iterable.")
-        self._params['action'] = 'getcompany'
+        self._params = {'action': 'getcompany'}
+        if client is None:
+            self._client = NetworkClient(**kwargs)
 
     @property
     def path(self):
         return "cgi-bin/browse-edgar"
+
+    @property
+    def client(self):
+        return self._client
+
+    @property
+    def params(self):
+        return self._params
 
     def get_ciks(self):
         """
@@ -61,11 +69,11 @@ class CIKValidator(_EDGARBase):
         self._validate_lookup(lookup)  # make sure lookup is valid
         try:  # try to lookup by CIK
             self._params['CIK'] = lookup
-            soup = self.get_soup()
+            soup = self._client.get_soup(self.path, self.params)
             del self._params['CIK']
         except EDGARQueryError:  # fallback to lookup by company name
             self._params['company'] = lookup
-            soup = self.get_soup()
+            soup = self._client.get_soup(self.path, self.params)
             del self._params['company']
         try:
             span = soup.find('span', {'class': 'companyName'})

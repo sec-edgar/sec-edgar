@@ -14,6 +14,7 @@ class CIK(object):
     def __init__(self, lookups, **kwargs):
         super(CIK, self).__init__(**kwargs)
         self._validator = CIKValidator(lookups)
+        # TODO: Differ validation until later?
         self._lookup_dict = self._validator.get_ciks()
         self._ciks = self._lookup_dict.values()
 
