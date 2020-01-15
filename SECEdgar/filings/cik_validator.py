@@ -24,7 +24,7 @@ class CIKValidator(object):
         else:
             try:
                 if not all(type(o) is str for o in lookups):
-                    raise TypeError("CIKs must be given as string or iterable.")
+                    raise TypeError
                 self._lookups = lookups
             except TypeError:
                 raise TypeError("CIKs must be given as string or iterable.")
