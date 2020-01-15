@@ -59,7 +59,7 @@ class NetworkClient(object):
         self._count = value
 
     @staticmethod
-    def _prepare_query(url):
+    def _prepare_query(path):
         """Prepares the query url.
 
         Args:
@@ -68,13 +68,13 @@ class NetworkClient(object):
         Returns:
             url (str): A formatted url.
         """
-        return "%s%s" % (NetworkClient._BASE, url)
+        return "%s%s" % (NetworkClient._BASE, path)
 
-    def get_response(self, url, params, **kwargs):
+    def get_response(self, path, params, **kwargs):
         """Executes HTTP request and returns response if valid.
 
         Args:
-            url (str): A properly-formatted url
+            path (str): A properly-formatted path
             params (dict): Dictionary of parameters to pass
             to request.
 
@@ -84,7 +84,7 @@ class NetworkClient(object):
         Raises:
             EDGARQueryError: If problems arise when making query.
         """
-        prepared_url = self._prepare_query(url)
+        prepared_url = self._prepare_query(path)
         response = None
         for _ in range(self.retry_count + 1):
             response = requests.get(url=prepared_url, params=params, **kwargs)
