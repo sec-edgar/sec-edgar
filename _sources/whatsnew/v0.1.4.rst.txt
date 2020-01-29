@@ -1,0 +1,11 @@
+.. _whatsnew014:
+
+v0.1.4
+------
+
+Highlights
+~~~~~~~~~~
+
+* Refactor code to have a common method for fetching filings
+* Provide user to add their own repo path where filings can be downloaded
+* Add CI pipeline using Travis

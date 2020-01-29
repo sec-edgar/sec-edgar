@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>What’s New &mdash; SECEdgar 0.1.4 documentation</title>
+  <title>What’s New &mdash; SECEdgar 0.1.5 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                0.1.4
+                0.1.5
               </div>
             
           
@@ -89,26 +89,26 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">What’s New</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#v0-1-5">v0.1.5</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#highlights">Highlights:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#testing">Testing:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#bugs">Bugs:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#enhancements">Enhancements:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#highlights">Highlights</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#testing">Testing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bugs">Bugs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enhancements">Enhancements</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#v0-1-4">v0.1.4</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">Highlights:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Highlights</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#v0-1-3">v0.1.3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">Highlights:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Highlights</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#v0-1-2">v0.1.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id3">Highlights:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Highlights</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#v0-1-1">v0.1.1</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id4">Highlights:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Highlights</a></li>
 </ul>
 </li>
 </ul>
@@ -116,6 +116,7 @@
 <li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Common Usage Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="crawler.html">Crawler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cik.html">CIK</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filings.html">Filings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filingtypes.html">Filing Types</a></li>
 </ul>
@@ -190,49 +191,49 @@
 <span id="whatsnew"></span><h1>What’s New<a class="headerlink" href="#what-s-new" title="Permalink to this headline">¶</a></h1>
 <p>New features, bug fixes, and improvements for each release.</p>
 <div class="section" id="v0-1-5">
-<span id="whatsnew015"></span><h2>v0.1.5<a class="headerlink" href="#v0-1-5" title="Permalink to this headline">¶</a></h2>
+<h2>v0.1.5<a class="headerlink" href="#v0-1-5" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="highlights">
-<h3>Highlights:<a class="headerlink" href="#highlights" title="Permalink to this headline">¶</a></h3>
+<h3>Highlights<a class="headerlink" href="#highlights" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>Add Python 3.7 support to Travis CI</p></li>
-<li><p>Add support for DEF 14A form, among many others</p></li>
+<li><p>Add Python 3.7, 3.8 support to Travis CI</p></li>
+<li><p>Add support for over 100 forms using <a class="reference internal" href="filingtypes.html#SECEdgar.filings.FilingType" title="SECEdgar.filings.FilingType"><code class="xref py py-class docutils literal notranslate"><span class="pre">SECEdgar.filings.FilingType</span></code></a></p></li>
 <li><p>Prepare to deprecate <a class="reference internal" href="crawler.html#SECEdgar.crawler.SecCrawler" title="SECEdgar.crawler.SecCrawler"><code class="xref py py-class docutils literal notranslate"><span class="pre">SECEdgar.crawler.SecCrawler</span></code></a> in favor of separate filing class</p></li>
 <li><p>Modularize crawler for more general requests</p></li>
 <li><p>Fix count attribute to correctly fetch specified number of filings (or max available)</p></li>
 <li><p>Add <a class="reference internal" href="filings.html#SECEdgar.filings.Filing" title="SECEdgar.filings.Filing"><code class="xref py py-class docutils literal notranslate"><span class="pre">SECEdgar.filings.Filing</span></code></a> for fetching SEC filings</p></li>
-<li><p>Add <a class="reference internal" href="filingtypes.html#SECEdgar.filings.FilingType" title="SECEdgar.filings.FilingType"><code class="xref py py-class docutils literal notranslate"><span class="pre">SECEdgar.filings.FilingType</span></code></a> for verifying filing type is valid</p></li>
-<li><p>Add <code class="xref py py-class docutils literal notranslate"><span class="pre">SECEdgar.filings.CIK</span></code> for getting company CIK by company ticker</p></li>
+<li><p>Add <a class="reference internal" href="cik.html#SECEdgar.filings.CIK" title="SECEdgar.filings.CIK"><code class="xref py py-class docutils literal notranslate"><span class="pre">SECEdgar.filings.CIK</span></code></a> for getting company CIK by company ticker or company name</p></li>
 <li><p>Add MANIFEST.in file to include requirements.txt, LICENSE, and README</p></li>
 <li><p>Add What’s New section to docs (replaces CHANGELOG)</p></li>
 </ul>
 </div>
 <div class="section" id="testing">
-<h3>Testing:<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h3>
+<h3>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Change xfails to use <code class="docutils literal notranslate"><span class="pre">pytest.raises</span></code> for various tests</p></li>
 <li><p>Add <code class="docutils literal notranslate"><span class="pre">TestFilings</span></code> class to tests</p></li>
+<li><p>Add tests for saving filings</p></li>
+<li><p>Add tests for ticker/company name verification</p></li>
 <li><p>Add tox for testing</p></li>
 <li><p>Make Travis CI use setup used by PyPi to catch problems with setup.py</p></li>
 </ul>
 </div>
 <div class="section" id="bugs">
-<h3>Bugs:<a class="headerlink" href="#bugs" title="Permalink to this headline">¶</a></h3>
+<h3>Bugs<a class="headerlink" href="#bugs" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Fix count attribute to fetch desired number of filings. <code class="docutils literal notranslate"><span class="pre">SECEdgar</span></code> will now either fetch specified number or, if not enough filings exist, all filings will be fetched.</p></li>
-<li><p>Fix <cite>_VALID_FILING_TYPES</cite> so that EDGAR fetches correct filing type (thanks &#64;raffam)</p></li>
 </ul>
 </div>
 <div class="section" id="enhancements">
-<h3>Enhancements:<a class="headerlink" href="#enhancements" title="Permalink to this headline">¶</a></h3>
+<h3>Enhancements<a class="headerlink" href="#enhancements" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>Introduce <code class="docutils literal notranslate"><span class="pre">_EDGARBase</span></code> class</p></li>
+<li><p>Introduce <a class="reference internal" href="filings.html#SECEdgar.base._EDGARBase" title="SECEdgar.base._EDGARBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">SECEdgar.base._EDGARBase</span></code></a> class as abstract base class</p></li>
 </ul>
 </div>
 </div>
 <div class="section" id="v0-1-4">
 <span id="whatsnew014"></span><h2>v0.1.4<a class="headerlink" href="#v0-1-4" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id1">
-<h3>Highlights:<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<h3>Highlights<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Refactor code to have a common method for fetching filings</p></li>
 <li><p>Provide user to add their own repo path where filings can be downloaded</p></li>
@@ -243,7 +244,7 @@
 <div class="section" id="v0-1-3">
 <span id="whatsnew013"></span><h2>v0.1.3<a class="headerlink" href="#v0-1-3" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id2">
-<h3>Highlights:<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<h3>Highlights<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Add support for SD forms</p></li>
 <li><p>Fixed bugs for python3</p></li>
@@ -253,7 +254,7 @@
 <div class="section" id="v0-1-2">
 <span id="whatsnew012"></span><h2>v0.1.2<a class="headerlink" href="#v0-1-2" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id3">
-<h3>Highlights:<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<h3>Highlights<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Fix issue related to file saving</p></li>
 <li><p>Remove platform dependent file path</p></li>
@@ -263,7 +264,7 @@
 <div class="section" id="v0-1-1">
 <span id="whatsnew011"></span><h2>v0.1.1<a class="headerlink" href="#v0-1-1" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id4">
-<h3>Highlights:<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h3>Highlights<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Add API for 10-K</p></li>
 <li><p>Create a central API point using class</p></li>

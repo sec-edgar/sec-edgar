@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Filings &mdash; SECEdgar 0.1.4 documentation</title>
+  <title>Filings &mdash; SECEdgar 0.1.5 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Filing Types" href="filingtypes.html" />
-    <link rel="prev" title="Crawler" href="crawler.html" /> 
+    <link rel="prev" title="CIK" href="cik.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                0.1.4
+                0.1.5
               </div>
             
           
@@ -91,6 +91,7 @@
 <li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Common Usage Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="crawler.html">Crawler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cik.html">CIK</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Filings</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#base-class">Base Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id2">Filings</a></li>
@@ -179,40 +180,38 @@ for making requests and the number of filings to fetch.</p>
 <h2>Base Class<a class="headerlink" href="#base-class" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="SECEdgar.base._EDGARBase">
-<em class="property">class </em><code class="sig-prename descclassname">SECEdgar.base.</code><code class="sig-name descname">_EDGARBase</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#SECEdgar.base._EDGARBase" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">SECEdgar.base.</code><code class="sig-name descname">_EDGARBase</code><a class="headerlink" href="#SECEdgar.base._EDGARBase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Abstract Base Class for EDGAR requests.</p>
 <dl class="attribute">
-<dt id="SECEdgar.base._EDGARBase.retry_count">
-<code class="sig-name descname">retry_count</code><a class="headerlink" href="#SECEdgar.base._EDGARBase.retry_count" title="Permalink to this definition">¶</a></dt>
-<dd><p>Desired number of retries if a request fails.
-Defaults to 3.</p>
+<dt id="SECEdgar.base._EDGARBase.client">
+<code class="sig-name descname">client</code><a class="headerlink" href="#SECEdgar.base._EDGARBase.client" title="Permalink to this definition">¶</a></dt>
+<dd><p>NetworkClient object that handles
+getting data from EDGAR.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>int, optional</p>
+<dd class="field-odd"><p>SECEdgar.network_client.NetworkClient</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="SECEdgar.base._EDGARBase.pause">
-<code class="sig-name descname">pause</code><a class="headerlink" href="#SECEdgar.base._EDGARBase.pause" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pause time between retry attempts.
-Defaults to 0.5.</p>
+<dt id="SECEdgar.base._EDGARBase.url">
+<code class="sig-name descname">url</code><a class="headerlink" href="#SECEdgar.base._EDGARBase.url" title="Permalink to this definition">¶</a></dt>
+<dd><p>URL endpoint.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>float, optional</p>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="SECEdgar.base._EDGARBase.count">
-<code class="sig-name descname">count</code><a class="headerlink" href="#SECEdgar.base._EDGARBase.count" title="Permalink to this definition">¶</a></dt>
-<dd><p>Number of reports to fetch. Defaults to 10.
-Will fetch all if total available is less than count.</p>
+<dt id="SECEdgar.base._EDGARBase.params">
+<code class="sig-name descname">params</code><a class="headerlink" href="#SECEdgar.base._EDGARBase.params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary of parameters to add.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>int, optional</p>
+<dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
 </dd></dl>
@@ -225,22 +224,10 @@ Will fetch all if total available is less than count.</p>
 </div>
 <div class="section" id="id2">
 <h2>Filings<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>Supported filing types include (but are not limited to, as of v0.1.5):</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>10-K</p></li>
-<li><p>10-Q</p></li>
-<li><p>8-K</p></li>
-<li><p>13-F</p></li>
-<li><p>4</p></li>
-<li><p>SD</p></li>
-<li><p>DEF 14A</p></li>
-<li><p>DEFA 14A</p></li>
-</ul>
-</div></blockquote>
+<p>Supported filing types can be found at <a class="reference internal" href="filingtypes.html#filingtypes"><span class="std std-ref">Filing Types</span></a></p>
 <dl class="class">
 <dt id="SECEdgar.filings.Filing">
-<em class="property">class </em><code class="sig-prename descclassname">SECEdgar.filings.</code><code class="sig-name descname">Filing</code><span class="sig-paren">(</span><em class="sig-param">cik</em>, <em class="sig-param">filing_type</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#SECEdgar.filings.Filing" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">SECEdgar.filings.</code><code class="sig-name descname">Filing</code><span class="sig-paren">(</span><em class="sig-param">cik</em>, <em class="sig-param">filing_type</em>, <em class="sig-param">dateb=datetime.datetime(2020</em>, <em class="sig-param">1</em>, <em class="sig-param">29</em>, <em class="sig-param">1</em>, <em class="sig-param">13</em>, <em class="sig-param">44</em>, <em class="sig-param">330192)</em>, <em class="sig-param">client=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#SECEdgar.filings.Filing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class for receiving EDGAR filings.</p>
 <dl class="attribute">
 <dt id="SECEdgar.filings.Filing.cik">
@@ -256,10 +243,10 @@ Will fetch all if total available is less than count.</p>
 <dl class="attribute">
 <dt id="SECEdgar.filings.Filing.filing_type">
 <code class="sig-name descname">filing_type</code><a class="headerlink" href="#SECEdgar.filings.Filing.filing_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>Valid filing type (case-insensitive).</p>
+<dd><p>Valid filing type enum.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>str</p>
+<dd class="field-odd"><p>SECEdgar.filings.filing_types.FilingType</p>
 </dd>
 </dl>
 </dd></dl>
@@ -268,7 +255,7 @@ Will fetch all if total available is less than count.</p>
 <dt id="SECEdgar.filings.Filing.dateb">
 <code class="sig-name descname">dateb</code><a class="headerlink" href="#SECEdgar.filings.Filing.dateb" title="Permalink to this definition">¶</a></dt>
 <dd><p>Date after which not to fetch reports.
-Defaults to today.</p>
+Stands for “date before.” Defaults to today.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>Union[str, datetime.datetime], optional</p>
@@ -295,7 +282,7 @@ Defaults to today.</p>
         <a href="filingtypes.html" class="btn btn-neutral float-right" title="Filing Types" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="crawler.html" class="btn btn-neutral float-left" title="Crawler" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="cik.html" class="btn btn-neutral float-left" title="CIK" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Common Usage Examples &mdash; SECEdgar 0.1.5 documentation</title>
+  <title>CIK &mdash; SECEdgar 0.1.5 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Crawler" href="crawler.html" />
-    <link rel="prev" title="Install" href="install.html" /> 
+    <link rel="next" title="Filings" href="filings.html" />
+    <link rel="prev" title="Crawler" href="crawler.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -89,9 +89,9 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s New</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Common Usage Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Common Usage Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="crawler.html">Crawler</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cik.html">CIK</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">CIK</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filings.html">Filings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filingtypes.html">Filing Types</a></li>
 </ul>
@@ -143,13 +143,13 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Common Usage Examples</li>
+      <li>CIK</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/usage.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/cik.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -162,37 +162,53 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="common-usage-examples">
-<span id="usage"></span><h1>Common Usage Examples<a class="headerlink" href="#common-usage-examples" title="Permalink to this headline">¶</a></h1>
-<p>SECEdgar provides a simple way to download multiple filings from the
-<a class="reference external" href="https://www.sec.gov/edgar/searchedgar/companysearch.html">SEC Edgar database</a>.</p>
-<p>This package is useful for obtaining important financial information about public companies such as</p>
-<ul class="simple">
-<li><p>Financials</p></li>
-<li><p>Business Profile</p></li>
-<li><p>Letter to Shareholders</p></li>
-<li><p>Management’s Analysis</p></li>
-</ul>
-<p>The <code class="docutils literal notranslate"><span class="pre">Filing</span></code> class provides a simple API to fetch SEC filings.</p>
-<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">SECEdgar.filings</span> <span class="kn">import</span> <span class="n">Filing</span><span class="p">,</span> <span class="n">FilingType</span>
+  <div class="section" id="cik">
+<span id="id1"></span><h1>CIK<a class="headerlink" href="#cik" title="Permalink to this headline">¶</a></h1>
+<p>The CIK class allows users to get company filings using company tickers and/or company names. For example,
+the code below fetches the past 15 10Q reports for the tickers AAPL, MSFT, and FB (Apple, Microsoft, and Facebook).</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">SECEdgar.filings</span> <span class="kn">import</span> <span class="n">Filing</span><span class="p">,</span> <span class="n">FilingType</span><span class="p">,</span> <span class="n">CIK</span>
 
-<span class="gp">In [2]: </span><span class="n">my_cik</span> <span class="o">=</span> <span class="s1">&#39;0000320193&#39;</span>
+<span class="gp">In [2]: </span><span class="n">my_ciks</span> <span class="o">=</span> <span class="n">CIK</span><span class="p">([</span><span class="s1">&#39;aapl&#39;</span><span class="p">,</span> <span class="s1">&#39;msft&#39;</span><span class="p">,</span> <span class="s1">&#39;fb&#39;</span><span class="p">])</span>
 
-<span class="gp">In [3]: </span><span class="n">my_filings</span> <span class="o">=</span> <span class="n">Filing</span><span class="p">(</span><span class="n">cik</span><span class="o">=</span><span class="n">my_cik</span><span class="p">,</span> <span class="n">filing_type</span><span class="o">=</span><span class="n">FilingType</span><span class="o">.</span><span class="n">FILING_10Q</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="gp">In [3]: </span><span class="n">my_filings</span> <span class="o">=</span> <span class="n">Filing</span><span class="p">(</span><span class="n">cik</span><span class="o">=</span><span class="n">my_ciks</span><span class="p">,</span> <span class="n">filing_type</span><span class="o">=</span><span class="n">FilingType</span><span class="o">.</span><span class="n">FILING_10Q</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">CIK</span></code> class can also be used to lookup company filings by company name or ticker.</p>
+<p>The CIK class can also look for CIK values by using the company name.</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [4]: </span><span class="kn">from</span> <span class="nn">SECEdgar.filings</span> <span class="kn">import</span> <span class="n">Filing</span><span class="p">,</span> <span class="n">FilingType</span><span class="p">,</span> <span class="n">CIK</span>
 
-<span class="gp">In [5]: </span><span class="n">my_ciks</span> <span class="o">=</span> <span class="n">CIK</span><span class="p">([</span><span class="s1">&#39;aapl&#39;</span><span class="p">,</span> <span class="s1">&#39;msft&#39;</span><span class="p">,</span> <span class="s1">&#39;Facebook&#39;</span><span class="p">])</span>
+<span class="gp">In [5]: </span><span class="n">my_ciks</span> <span class="o">=</span> <span class="n">CIK</span><span class="p">([</span><span class="s1">&#39;Apple Inc.&#39;</span><span class="p">,</span> <span class="s1">&#39;Microsoft Corp&#39;</span><span class="p">,</span> <span class="s1">&#39;Facebook&#39;</span><span class="p">])</span>
 
 <span class="gp">In [6]: </span><span class="n">my_filings</span> <span class="o">=</span> <span class="n">Filing</span><span class="p">(</span><span class="n">cik</span><span class="o">=</span><span class="n">my_ciks</span><span class="p">,</span> <span class="n">filing_type</span><span class="o">=</span><span class="n">FilingType</span><span class="o">.</span><span class="n">FILING_10Q</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>In order to save all fetched filings to a specific directory, use the <code class="docutils literal notranslate"><span class="pre">save</span></code> method.</p>
-<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [7]: </span><span class="n">my_filings</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;~/tempdir&#39;</span><span class="p">)</span>
+<p>A mix of tickers and company names is also allowed.</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [7]: </span><span class="kn">from</span> <span class="nn">SECEdgar.filings</span> <span class="kn">import</span> <span class="n">Filing</span><span class="p">,</span> <span class="n">FilingType</span><span class="p">,</span> <span class="n">CIK</span>
+
+<span class="gp">In [8]: </span><span class="n">my_ciks</span> <span class="o">=</span> <span class="n">CIK</span><span class="p">([</span><span class="s1">&#39;aapl&#39;</span><span class="p">,</span> <span class="s1">&#39;msft&#39;</span><span class="p">,</span> <span class="s1">&#39;Facebook&#39;</span><span class="p">])</span>
+
+<span class="gp">In [9]: </span><span class="n">my_filings</span> <span class="o">=</span> <span class="n">Filing</span><span class="p">(</span><span class="n">cik</span><span class="o">=</span><span class="n">my_ciks</span><span class="p">,</span> <span class="n">filing_type</span><span class="o">=</span><span class="n">FilingType</span><span class="o">.</span><span class="n">FILING_10Q</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
 </pre></div>
 </div>
+<dl class="class">
+<dt id="SECEdgar.filings.CIK">
+<em class="property">class </em><code class="sig-prename descclassname">SECEdgar.filings.</code><code class="sig-name descname">CIK</code><span class="sig-paren">(</span><em class="sig-param">lookups</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#SECEdgar.filings.CIK" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates CIKs (Central Index Keys) by ticker.</p>
+<dl class="attribute">
+<dt id="SECEdgar.filings.CIK.lookup">
+<code class="sig-name descname">lookup</code><a class="headerlink" href="#SECEdgar.filings.CIK.lookup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ticker, company name, or list of tickers and/or company names.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Union[str, list]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.1.5.</span></p>
+</div>
+</dd></dl>
+
 </div>
 
 
@@ -203,10 +219,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="crawler.html" class="btn btn-neutral float-right" title="Crawler" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="filings.html" class="btn btn-neutral float-right" title="Filings" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="install.html" class="btn btn-neutral float-left" title="Install" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="crawler.html" class="btn btn-neutral float-left" title="Crawler" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

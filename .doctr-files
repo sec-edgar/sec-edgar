@@ -1,4 +1,5 @@
 ./_sources/about.rst.txt
+./_sources/cik.rst.txt
 ./_sources/crawler.rst.txt
 ./_sources/filings.rst.txt
 ./_sources/filingtypes.rst.txt
@@ -6,6 +7,11 @@
 ./_sources/install.rst.txt
 ./_sources/usage.rst.txt
 ./_sources/whatsnew.rst.txt
+./_sources/whatsnew/v0.1.1.rst.txt
+./_sources/whatsnew/v0.1.2.rst.txt
+./_sources/whatsnew/v0.1.3.rst.txt
+./_sources/whatsnew/v0.1.4.rst.txt
+./_sources/whatsnew/v0.1.5.rst.txt
 ./_static/basic.css
 ./_static/css/badge_only.css
 ./_static/css/theme.css
@@ -60,6 +66,7 @@
 ./_static/underscore-1.3.1.js
 ./_static/underscore.js
 ./about.html
+./cik.html
 ./crawler.html
 ./filings.html
 ./filingtypes.html
@@ -71,3 +78,8 @@
 ./searchindex.js
 ./usage.html
 ./whatsnew.html
+./whatsnew/v0.1.1.html
+./whatsnew/v0.1.2.html
+./whatsnew/v0.1.3.html
+./whatsnew/v0.1.4.html
+./whatsnew/v0.1.5.html
