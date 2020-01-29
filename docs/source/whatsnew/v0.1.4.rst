@@ -3,8 +3,8 @@
 v0.1.4
 ------
 
-Highlights:
-~~~~~~~~~~~
+Highlights
+~~~~~~~~~~
 
 * Refactor code to have a common method for fetching filings
 * Provide user to add their own repo path where filings can be downloaded

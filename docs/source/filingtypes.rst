@@ -3,9 +3,10 @@
 Filing Types
 ============
 
-The SECEdgar package provides a ``Filing`` class which acts as an API to SEC EDGAR document filings.
-This page aims to explain briefly what information is contained in each filing type. *Note that this
-list of filing types is not exhaustive.* :class:`SECEdgar.filings.FilingType` supports over 100 filing types.
+This page aims to explain briefly what information is contained in some of the most popular filing types.
+*Note that this list of filing types is not exhaustive.*
+The complete list of filing types is at :class:`SECEdgar.filings.FilingType`.
+This class supports over 100 filing types.
 
 Form 10-K
 ---------
@@ -67,7 +68,12 @@ Form DEF 14A
 Definitive proxy statement. Required ahead of annual meeting when firm is soliciting shareholder votes.
 
 Form DEFA 14A
-------------
+-------------
 Additional information for DEF 14A form.
 
+Supported Filing Types
+----------------------
+
 .. autoclass:: SECEdgar.filings.FilingType
+   :members:
+   :undoc-members:

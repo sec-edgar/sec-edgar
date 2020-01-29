@@ -20,6 +20,7 @@ Welcome to SECEdgar's documentation!
    install
    usage
    crawler
+   cik
    filings
    filingtypes
 

@@ -2,7 +2,10 @@ from enum import Enum
 
 
 class FilingType(Enum):
-    """Available filing types to be used when creating Filing object. """
+    """Available filing types to be used when creating Filing object.
+
+    .. versionadded:: 0.1.5
+    """
 
     FILING_1 = '1'
     FILING_1A = '1-a'

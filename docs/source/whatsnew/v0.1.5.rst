@@ -1,37 +1,36 @@
-.. _whatsnew015:
 
 v0.1.5
 ------
 
-Highlights:
-~~~~~~~~~~~
+Highlights
+~~~~~~~~~~
 
-* Add Python 3.7 support to Travis CI
-* Add support for DEF 14A form, among many others
+* Add Python 3.7, 3.8 support to Travis CI
+* Add support for over 100 forms using :class:`SECEdgar.filings.FilingType`
 * Prepare to deprecate :class:`SECEdgar.crawler.SecCrawler` in favor of separate filing class
 * Modularize crawler for more general requests
 * Fix count attribute to correctly fetch specified number of filings (or max available)
 * Add :class:`SECEdgar.filings.Filing` for fetching SEC filings
-* Add :class:`SECEdgar.filings.FilingType` for verifying filing type is valid
-* Add :class:`SECEdgar.filings.CIK` for getting company CIK by company ticker
+* Add :class:`SECEdgar.filings.CIK` for getting company CIK by company ticker or company name
 * Add MANIFEST.in file to include requirements.txt, LICENSE, and README
 * Add What's New section to docs (replaces CHANGELOG)
 
-Testing:
-~~~~~~~~
+Testing
+~~~~~~~
 
 * Change xfails to use ``pytest.raises`` for various tests
 * Add ``TestFilings`` class to tests
+* Add tests for saving filings
+* Add tests for ticker/company name verification
 * Add tox for testing
 * Make Travis CI use setup used by PyPi to catch problems with setup.py
 
-Bugs:
-~~~~~
+Bugs
+~~~~
 
 * Fix count attribute to fetch desired number of filings. ``SECEdgar`` will now either fetch specified number or, if not enough filings exist, all filings will be fetched.
-* Fix `_VALID_FILING_TYPES` so that EDGAR fetches correct filing type (thanks @raffam)
 
-Enhancements:
-~~~~~~~~~~~~~
+Enhancements
+~~~~~~~~~~~~
 
-* Introduce ``_EDGARBase`` class
+* Introduce :class:`SECEdgar.base._EDGARBase` class as abstract base class

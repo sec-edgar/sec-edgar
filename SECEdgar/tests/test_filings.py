@@ -1,9 +1,11 @@
 # Tests if filings are correctly received from EDGAR
-import pytest
 import datetime
+import pytest
 import requests
-from SECEdgar.utils.exceptions import FilingTypeError, CIKError
-from SECEdgar.filings import Filing, FilingType
+
+from SECEdgar.filings import Filing, FilingType, CIK
+
+from SECEdgar.utils.exceptions import FilingTypeError, EDGARQueryError
 
 
 class TestLegacySecCrawler(object):
@@ -34,8 +36,11 @@ class TestLegacySecCrawler(object):
 
 class TestFiling(object):
     def test_count_returns_exact(self, valid_filing_10k):
-        if len(valid_filing_10k._get_urls()) != valid_filing_10k.count:
-            raise AssertionError("Count should return exact number of filings.")
+        urls = valid_filing_10k.get_urls()
+        if len(urls) != valid_filing_10k.client.count:
+            raise AssertionError("""Count should return exact number of filings.
+                                 Got {0}, but expected {1} URLs.""".format(
+                    urls, valid_filing_10k.client.count))
 
     def test_date_is_sanitized(self, valid_filing_10k):
         date = datetime.datetime(2015, 1, 1)
@@ -49,7 +54,7 @@ class TestFiling(object):
             raise AssertionError("The dateb param was not correctly sanitized after change.")
 
     def test_txt_urls(self, valid_filing_10k):
-        r = requests.get(valid_filing_10k._get_urls()[0])
+        r = requests.get(valid_filing_10k.get_urls()[0])
         if not r.text:
             raise AssertionError("Text file returned as empty.")
 
@@ -63,11 +68,28 @@ class TestFiling(object):
                 Filing(cik='0000320193', filing_type=t)
 
     def test_validate_cik(self):
-        with pytest.raises(CIKError):
+        # string remains unchecked until query to allow for possibility of
+        # using company name, ticker, or CIK as string
+        with pytest.raises(EDGARQueryError):
             Filing(cik='0notvalid0', filing_type=FilingType.FILING_10K)
-        with pytest.raises(CIKError):
+        with pytest.raises(EDGARQueryError):
             Filing(cik='012345678910', filing_type=FilingType.FILING_10K)
-        with pytest.raises(CIKError):
+        # float and int not accepted, raising TypeError from CIK Validator
+        with pytest.raises(TypeError):
             Filing(cik=1234567891011, filing_type=FilingType.FILING_10K)
-        with pytest.raises(ValueError):
+        with pytest.raises(TypeError):
             Filing(cik=123.0, filing_type=FilingType.FILING_10K)
+
+    def test_filing_save_multiple_ciks(self, multiple_valid_ciks, tmp_data_directory):
+        f = Filing(multiple_valid_ciks, FilingType.FILING_10Q, count=3)
+        f.save(tmp_data_directory)
+
+    def test_filing_save_single_cik(self, single_valid_cik, tmp_data_directory):
+        f = Filing(single_valid_cik, FilingType.FILING_10Q, count=3)
+        f.save(tmp_data_directory)
+
+    def test_filing_get_urls_returns_single_list_of_urls(self):
+        ciks = CIK(['aapl', 'msft', 'amzn'])
+        f = Filing(ciks, FilingType.FILING_10Q, count=3)
+        if len(f.get_urls()) != 9:
+            raise AssertionError("Expected list of length 9.")

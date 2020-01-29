@@ -1,6 +1,7 @@
 import pytest  # noqa: F401
+
 from SECEdgar.crawler import SecCrawler
-from SECEdgar.filings import Filing, FilingType
+from SECEdgar.filings import Filing, FilingType, CIK
 
 aapl_cik = "0000320193"
 
@@ -55,3 +56,31 @@ def valid_companies():
             'msft': '0000789019',
             'amzn': '0001018724',
             'fb': '0001326801'}
+
+
+@pytest.fixture(scope="class")
+def single_result_companies():
+    return {'Apple Inc.': '0000320193',
+            'Microsoft Corp': '0000789019',
+            'Amazon Com Inc': '0001018724',
+            'Facebook': '0001326801'}
+
+
+@pytest.fixture(scope="class")
+def multiple_result_companies():
+    return 'paper', 'company'
+
+
+@pytest.fixture(scope="class")
+def multiple_valid_ciks():
+    return CIK(['aapl', 'msft', 'amzn', 'fb'])
+
+
+@pytest.fixture(scope="class")
+def single_valid_cik():
+    return CIK('aapl')
+
+
+@pytest.fixture(scope="session")
+def tmp_data_directory(tmpdir_factory):
+    return str(tmpdir_factory.mktemp("tmp_data"))

@@ -1,12 +1,14 @@
 import datetime
-import errno
 import os
 import requests
+
 from SECEdgar.base import _EDGARBase
-from SECEdgar.utils import _sanitize_date
-from SECEdgar.utils.exceptions import FilingTypeError, CIKError
-from SECEdgar.filings.filing_types import FilingType
+from SECEdgar.network_client import NetworkClient
+from SECEdgar.utils import sanitize_date, make_path
+
 from SECEdgar.filings.cik import CIK
+from SECEdgar.filings.filing_types import FilingType
+from SECEdgar.utils.exceptions import FilingTypeError
 
 
 class Filing(_EDGARBase):
@@ -14,179 +16,114 @@ class Filing(_EDGARBase):
 
     Attributes:
         cik (str): Central Index Key (CIK) for company of interest.
-        filing_type (str): Valid filing type (case-insensitive).
+        filing_type (SECEdgar.filings.filing_types.FilingType): Valid filing type enum.
         dateb (Union[str, datetime.datetime], optional): Date after which not to fetch reports.
-            Defaults to today.
+            Stands for "date before." Defaults to today.
 
     .. versionadded:: 0.1.5
     """
 
-    def __init__(self, cik, filing_type, **kwargs):
-        super(Filing, self).__init__(**kwargs)
-        self._dateb = kwargs.get("dateb", datetime.datetime.today())
-        self._filing_type = self._validate_filing_type(filing_type)
-        self._cik = self._validate_cik(cik)
-        self._params.update({"action": "getcompany", "owner": "exclude",
-                             "output": "xml", "start": 0, "count": self.count,
-                             "type": self.filing_type.value})
+    # TODO: Maybe allow NetworkClient to take in kwargs
+    #  (set to None and if None, create NetworkClient with kwargs)
+    def __init__(self, cik, filing_type, dateb=datetime.datetime.today(), client=None, **kwargs):
+        self.dateb = dateb
+        self.filing_type = filing_type
+        if not isinstance(cik, CIK):  # make CIK for users if not given
+            cik = CIK(cik)
+        self._ciks = cik.ciks
+        self._params = {
+            'action': 'getcompany',
+            'count': kwargs.get('count', 10),
+            'dateb': self.dateb,
+            'output': 'xml',
+            'owner': 'exclude',
+            'start': 0,
+            'type': self.filing_type.value
+        }
+        # Make default client NetworkClient and pass in kwargs
+        if client is None:
+            self._client = NetworkClient(**kwargs)
 
     @property
-    def url(self):
-        return "browse-edgar"
+    def path(self):
+        return "cgi-bin/browse-edgar"
+
+    @property
+    def params(self):
+        return self._params
+
+    @property
+    def client(self):
+        return self._client
 
     @property
     def dateb(self):
-        return _sanitize_date(self._dateb)
+        return self._dateb
 
     @dateb.setter
     def dateb(self, val):
-        self._dateb = _sanitize_date(val)
+        self._dateb = sanitize_date(val)
 
     @property
     def filing_type(self):
-        return Filing._validate_filing_type(self._filing_type)
+        return self._filing_type
 
     @filing_type.setter
-    def filing_type(self, ft):
-        self._filing_type = self._validate_filing_type(ft)
-
-    @property
-    def cik(self):
-        return Filing._validate_cik(self._cik)
-
-    @staticmethod
-    def _validate_filing_type(filing_type):
-        """Validates that given filing type is valid.
-
-        Args:
-            filing_type (filings.FilingType): Valid filing type enum.
-
-        Raises:
-            FilingTypeError: If filing type is not supported/valid.
-
-        Returns:
-            filing_type (filings.FilingType): If filing type is valid, given filing
-                type will be returned.
-        """
+    def filing_type(self, filing_type):
         if not isinstance(filing_type, FilingType):
             raise FilingTypeError(FilingType)
+        self._filing_type = filing_type
 
-        return filing_type
+    @property
+    def ciks(self):
+        return self._ciks
 
-    @staticmethod
-    def _validate_cik(cik):
-        """Validates that given CIK *could* be valid.
+    def get_urls(self, **kwargs):
+        """Get urls for all CIKs given to Filing object.
 
         Args:
-            cik (Union[CIK, str, int]): Central index key (CIK) to validate.
-
-        Returns:
-            cik (Union[str, list of str]): Validated CIK.
-                Note that the CIK is only validated in
-                that it *could* be valid. CIKs formatted as
-                10 digits, but not all 10 digit
-                numbers are valid CIKs.
-
-        Raises:
-            ValueError: If given cik is not str, int, or CIK object.
-            CIKError: If cik is not a 10 digit number or valid CIK object
-        """
-        # creating CIK object should check to see if ciks are valid
-        if not isinstance(cik, CIK):
-            if not isinstance(cik, (str, int)):
-                raise ValueError("CIK must be of type str or int.")
-            elif isinstance(cik, str):
-                if len(cik) != 10 or not cik.isdigit():
-                    raise CIKError(cik)
-            elif isinstance(cik, int):
-                if cik > 10**10:
-                    raise CIKError(cik)
-                elif cik < 10**9:
-                    return str(cik).zfill(10)  # pad with zeros if less than 10 digits given
-            return str(cik)
-        else:
-            return cik.cik
-
-    def _get_urls(self):
-        """Get urls for all CIKs given to Filing object.
+            kwargs: Anything to be passed to requests when making get request.
 
         Returns:
             urls (list): List of urls for txt files to download.
         """
-        if isinstance(self._cik, (list, tuple, set)):
-            urls = list()
-            for cik in self._cik:
-                urls.append(self._get_cik_urls(cik))
-            return urls
-        else:
-            return self._get_cik_urls(self._cik)
+        urls = []
+        for cik in self.ciks:
+            urls.extend(self._get_urls_for_cik(cik, **kwargs))
+        return urls
 
-    def _get_cik_urls(self, cik):
+    def _get_urls_for_cik(self, cik, **kwargs):
         """
         Get all urls for specific company according to CIK that match
         dateb, filing_type, and count parameters.
 
         Args:
             cik (str): CIK for company.
+            kwargs: Anything to be passed to requests when making get request.
 
         Returns:
             txt_urls (list of str): Up to the desired number of URLs for that specific company
             if available.
         """
         self.params['CIK'] = cik
-        self._prepare_query()
-        data = self._execute_query()
+        data = self._client.get_soup(self.path, self.params, **kwargs)
         links = []
-        while len(links) < self.count:
+
+        # TODO: Make paginate utility outside of this class
+        while len(links) < self._client.count:
             links.extend([link.string for link in data.find_all("filinghref")])
             self.params["start"] += 100
             if len(data.find_all("filinghref")) == 0:
                 break
-        self.params["start"] = 0
+        self.params["start"] = 0  # set start back to 0 after paginating
         txt_urls = [link[:link.rfind("-")] + ".txt" for link in links]
-        return txt_urls[:self.count]
+        return txt_urls[:self.client.count]
 
-    def _make_dir(self, directory):
-        """Make directory based on filing info.
-
-        Args:
-            directory (str): Base directory where filings should be saved from.
-
-        Raises:
-            OSError: If there is a problem making the directory.
-
-        Returns:
-            None
-        """
-        path = os.path.join(directory, self.cik, self.filing_type.value)
-
-        if not os.path.exists(path):
-            try:
-                os.makedirs(path)
-            except OSError as e:
-                if e.errno != errno.EEXIST:
-                    raise OSError
-
-    @staticmethod
-    def _sanitize_path(directory):
-        return os.path.expanduser(directory)
-
-    @staticmethod
-    def _get_filing(url):
-        """
-        Returns all text data from given filing url.
-
-        Args:
-            url (str): URL for specific filing.
-
-        Returns:
-            response.text (str): All text from filing.
-        """
-        response = requests.get(url)
-        return response.text
-
+    # TODO: break this method down further
     def save(self, directory):
         """Save files in specified directory.
+        Each txt url looks something like:
+        https://www.sec.gov/Archives/edgar/data/1018724/000101872419000043/0001018724-19-000043.txt
 
         Args:
             directory (str): Path to directory where files should be saved.
@@ -197,14 +134,15 @@ class Filing(_EDGARBase):
         Raises:
             ValueError: If no text urls are available for given filing object.
         """
-        directory = self._sanitize_path(directory)
-        self._make_dir(directory)
-        urls = self._get_urls()
+        urls = self.get_urls()
         if len(urls) == 0:
-            raise ValueError("No urls available.")
+            raise ValueError("No filings available.")
         doc_names = [url.split("/")[-1] for url in urls]
         for (url, doc_name) in list(zip(urls, doc_names)):
-            data = self._get_filing(url)
-            path = os.path.join(directory, self.cik, self.filing_type.value, doc_name)
-            with open(path, "ab") as f:
-                f.write(data.encode("ascii", "ignore"))
+            cik = doc_name.split('-')[0]
+            data = requests.get(url).text
+            path = os.path.join(directory, cik, self.filing_type.value)
+            make_path(path)
+            path = os.path.join(path, doc_name)
+            with open(path, "w") as f:
+                f.write(data)

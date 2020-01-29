@@ -19,15 +19,6 @@ Base Class
 Filings
 -------
 
-Supported filing types include (but are not limited to, as of v0.1.5):
-
-   -  10-K
-   -  10-Q
-   -  8-K
-   -  13-F
-   -  4
-   -  SD
-   -  DEF 14A
-   -  DEFA 14A
+Supported filing types can be found at :ref:`filingtypes`
 
 .. autoclass:: SECEdgar.filings.Filing

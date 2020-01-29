@@ -22,6 +22,15 @@ The ``Filing`` class provides a simple API to fetch SEC filings.
    my_cik = '0000320193'
    my_filings = Filing(cik=my_cik, filing_type=FilingType.FILING_10Q, count=15)
 
+The ``CIK`` class can also be used to lookup company filings by company name or ticker.
+
+.. ipython:: python
+
+   from SECEdgar.filings import Filing, FilingType, CIK
+   my_ciks = CIK(['aapl', 'msft', 'Facebook'])
+   my_filings = Filing(cik=my_ciks, filing_type=FilingType.FILING_10Q, count=15)
+
+
 In order to save all fetched filings to a specific directory, use the ``save`` method.
 
 .. ipython:: python
