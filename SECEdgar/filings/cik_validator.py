@@ -20,10 +20,11 @@ class CIKValidator(object):
 
     def __init__(self, lookups, client=None, **kwargs):
         if isinstance(lookups, str):
-            self._lookups = [lookups]
+            self._lookups = [lookups]  # make single string into list
         else:
             try:
-                if not all(type(o) is str for o in lookups):
+                # Check that iterable only contains strings and is not empty
+                if not lookups or not all(type(o) is str for o in lookups):
                     raise TypeError
                 self._lookups = lookups
             except TypeError:
