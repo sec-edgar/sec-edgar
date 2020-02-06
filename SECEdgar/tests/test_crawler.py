@@ -1,5 +1,6 @@
 # Tests internal functions from SecCrawler
 import os
+import pytest
 
 
 def test_fetch_report(crawler, valid_fetch_report_args):
