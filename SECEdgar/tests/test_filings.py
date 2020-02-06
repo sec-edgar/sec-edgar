@@ -8,32 +8,6 @@ from SECEdgar.filings import Filing, FilingType, CIK
 from SECEdgar.utils.exceptions import FilingTypeError, EDGARQueryError
 
 
-class TestLegacySecCrawler(object):
-    def test_10q_requires_args(self, crawler):
-        with pytest.raises(TypeError):
-            return crawler.filing_10Q()
-
-    def test_10k_requires_args(self, crawler):
-        with pytest.raises(TypeError):
-            return crawler.filing_10K()
-
-    def test_sd_requires_args(self, crawler):
-        with pytest.raises(TypeError):
-            return crawler.filing_SD()
-
-    def test_8k_requires_args(self, crawler):
-        with pytest.raises(TypeError):
-            return crawler.filing_8K()
-
-    def test_13f_requires_args(self, crawler):
-        with pytest.raises(TypeError):
-            return crawler.filing_13F()
-
-    def test_4_requires_args(self, crawler):
-        with pytest.raises(TypeError):
-            return crawler.filing_4()
-
-
 class TestFiling(object):
     def test_count_returns_exact(self, valid_filing_10k):
         urls = valid_filing_10k.get_urls()
