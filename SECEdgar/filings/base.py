@@ -3,7 +3,7 @@ import os
 import requests
 
 from SECEdgar.base import _EDGARBase
-from SECEdgar.network_client import NetworkClient
+from SECEdgar.client.network_client import NetworkClient
 from SECEdgar.utils import sanitize_date, make_path
 
 from SECEdgar.filings.cik import CIK

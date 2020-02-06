@@ -3,11 +3,11 @@ import time
 
 from bs4 import BeautifulSoup
 
+from SECEdgar.client.base import Client
 from SECEdgar.utils.exceptions import EDGARQueryError
 
 
-# TODO: Make ABC Client class from which this will inherit
-class NetworkClient(object):
+class NetworkClient(Client):
     """
     Class in charge of sending and handling requests to EDGAR database.
 

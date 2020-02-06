@@ -1,6 +1,6 @@
 import warnings
 
-from SECEdgar.network_client import NetworkClient
+from SECEdgar.client.network_client import NetworkClient
 from SECEdgar.utils.exceptions import CIKError, EDGARQueryError
 
 
