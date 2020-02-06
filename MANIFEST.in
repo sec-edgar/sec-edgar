@@ -2,4 +2,4 @@ include requirements.txt
 include README.rst
 include LICENSE
 include requirements-dev.txt
-recursive-include tests/data *
+recursive-include SECEdgar/tests/data *
