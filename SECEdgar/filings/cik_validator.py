@@ -35,14 +35,17 @@ class CIKValidator(object):
 
     @property
     def path(self):
+        """str: Path to add to client base."""
         return "cgi-bin/browse-edgar"
 
     @property
     def client(self):
+        """``SECEdgar.client.base``: Client to use to fetch requests."""
         return self._client
 
     @property
     def params(self):
+        """:obj:`dict` Search parameters to add to client."""
         return self._params
 
     def get_ciks(self):
@@ -67,7 +70,7 @@ class CIKValidator(object):
         """
         Get cik for lookup value.
         """
-        self._validate_lookup(lookup)  # make sure lookup is valid
+        self._validate_lookup(lookup)
         try:  # try to lookup by CIK
             self._params['CIK'] = lookup
             soup = self._client.get_soup(self.path, self.params)
@@ -76,34 +79,44 @@ class CIKValidator(object):
             self._params['company'] = lookup
             soup = self._client.get_soup(self.path, self.params)
             del self._params['company']
-        try:
+        try:  # try to get single CIK for lookup
             span = soup.find('span', {'class': 'companyName'})
-            return span.find('a').getText().split()[0]  # returns CIK
-        except AttributeError:
+            return span.find('a').getText().split()[0]  # returns single CIK
+        except AttributeError:  # warn and skip if multiple possibilities for CIK found
             warnings.warn("Lookup '{0}' will be skipped. "
                           "Found multiple companies matching '{0}':".format(lookup))
             warnings.warn('\n'.join(self._get_cik_possibilities(soup)))
 
     @staticmethod
     def _get_cik_possibilities(soup):
+        """Get all CIK possibilities if multiple are listed.
+
+        Args:
+            soup (BeautifulSoup): BeautifulSoup object to search through.
+
+        Returns:
+            All possible companies that match lookup.
+        """
         # Exclude table header
         table_rows = soup.find('table', {'summary': 'Results'}).find_all('tr')[1:]
-        company_possibilities = []
-        for row in table_rows:
-            # Company names are in second column of table
-            company_possibilities.append(
-                    ''.join(row.find_all('td')[1].find_all(text=True)))
-        return company_possibilities
+        # Company names are in second column of table
+        return [''.join(row.find_all('td')[1].find_all(text=True)) for row in table_rows]
 
     @staticmethod
     def _validate_cik(cik):
-        """
-        Check if CIK is 10 digit string.
-        """
+        """Check if CIK is 10 digit string."""
         if not (isinstance(cik, str) and len(cik) == 10 and cik.isdigit()):
             raise CIKError(cik)
 
     @staticmethod
     def _validate_lookup(lookup):
+        """Ensure that lookup is string.
+
+        Args:
+            lookup: Value to lookup.
+
+        Raises:
+            TypeError: If lookup is not string.
+        """
         if not isinstance(lookup, str):
             raise TypeError("Lookup value must be string. Given type {0}.".format(type(lookup)))
