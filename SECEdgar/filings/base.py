@@ -46,18 +46,22 @@ class Filing(_EDGARBase):
 
     @property
     def path(self):
+        """str: Path added to client base."""
         return "cgi-bin/browse-edgar"
 
     @property
     def params(self):
+        """:obj:`dict`: Parameters to include in requests."""
         return self._params
 
     @property
     def client(self):
+        """``SECEdgar.client.base``: Client to use to make requests."""
         return self._client
 
     @property
     def dateb(self):
+        """Union([datetime.datetime, str]): Date after which no filings are fetched."""
         return self._dateb
 
     @dateb.setter
@@ -66,6 +70,7 @@ class Filing(_EDGARBase):
 
     @property
     def filing_type(self):
+        """``SECEdgar.filings.FilingType``: FilingType enum of filing."""
         return self._filing_type
 
     @filing_type.setter
@@ -76,6 +81,7 @@ class Filing(_EDGARBase):
 
     @property
     def ciks(self):
+        """:obj:`list` of :obj:`str`: List of CIK strings."""
         return self._ciks
 
     def get_urls(self, **kwargs):

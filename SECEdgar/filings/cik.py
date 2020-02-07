@@ -20,8 +20,10 @@ class CIK(object):
 
     @property
     def ciks(self):
+        """:obj:`list` of :obj:`str`: List of CIKs (as string of digits) transformed from lookups."""
         return self._ciks
 
     @property
     def lookup_dict(self):
+        """:obj:`dict`: Dictionary that makes tickers and company names to CIKs."""
         return self._lookup_dict

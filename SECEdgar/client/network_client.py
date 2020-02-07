@@ -27,6 +27,7 @@ class NetworkClient(Client):
 
     @property
     def retry_count(self):
+        """int: Number of times to retry request."""
         return self._retry_count
 
     @retry_count.setter
@@ -39,6 +40,7 @@ class NetworkClient(Client):
 
     @property
     def pause(self):
+        """Amount of time to pause between each unsuccessful request before making another."""
         return self._pause
 
     @pause.setter
@@ -51,6 +53,7 @@ class NetworkClient(Client):
 
     @property
     def count(self):
+        """Number of results to show per page."""
         return self._count
 
     @count.setter
