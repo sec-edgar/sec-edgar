@@ -1,3 +1,4 @@
+import os
 import pytest
 import requests
 
@@ -10,12 +11,22 @@ def client():
     return NetworkClient()
 
 
+def datapath(*args):
+    """Get the path to a data file.
+
+    Returns:
+        path including ``SECEdgar/tests``.
+    """
+    base_path = os.path.join(os.path.dirname(__file__), 'data')
+    return os.path.join(base_path, *args)
+
+
 class MockNoCIKFoundBadResponse:
     """Returns response with 'No matching CIK' message."""
 
     def __init__(self, *args, **kwargs):
         self.status_code = 200
-        with open('./data/cik_not_found.html') as f:
+        with open(datapath('cik_not_found.html')) as f:
             self.text = f.read()
 
 
@@ -24,7 +35,7 @@ class MockMultipleFilingTypesGoodResponse:
 
     def __init__(self, *args, **kwargs):
         self.status_code = 200
-        with open('./data/single_cik_search_result.html', encoding='iso-8859-1') as f:
+        with open(datapath('single_cik_search_result.html'), encoding='iso-8859-1') as f:
             self.text = f.read()
 
 
@@ -33,7 +44,7 @@ class MockSingleFilingTypeGoodResponse:
 
     def __init__(self, *args, **kwargs):
         self.status_code = 200
-        with open('./data/single_cik_multiple_filings_10k.html') as f:
+        with open(datapath('single_cik_multiple_filings_10k.html')) as f:
             self.text = f.read()
 
 
@@ -42,7 +53,7 @@ class MockMultipleCIKResultsGoodResponse:
 
     def __init__(self, *args, **kwargs):
         self.status_code = 200
-        with open('./data/cik_multiple_results.html') as f:
+        with open(datapath('cik_multiple_results.html')) as f:
             self.text = f.read()
 
 
@@ -51,7 +62,7 @@ class MockSingleFilingPageGoodResponse:
 
     def __init__(self, *args, **kwargs):
         self.status_code = 200
-        with open('./data/single_filing_page.html') as f:
+        with open(datapath('single_filing_page.html')) as f:
             self.text = f.read()
 
 
