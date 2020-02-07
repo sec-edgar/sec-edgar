@@ -1,4 +1,4 @@
-import pytest  # noqa: F401
+import pytest
 
 from SECEdgar.crawler import SecCrawler
 from SECEdgar.filings import Filing, FilingType, CIK
