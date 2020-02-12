@@ -1,7 +1,17 @@
 import pytest
 
+from SECEdgar.tests.utils import datapath
+
 from SECEdgar.filings import CIK
+from SECEdgar.client import NetworkClient
 from SECEdgar.utils.exceptions import EDGARQueryError
+
+
+class MockSingleCIKLookupResponse:
+    def __init__(self, *args):
+        self.status_code = 200
+        with open(datapath("single_cik_search_result.html")) as f:
+            self.text = f.read()
 
 
 class TestCIK(object):
@@ -20,20 +30,21 @@ class TestCIK(object):
                                      "{1}, got {2}".format(company_name,
                                                            cik, returned_ciks[company_name]))
 
-    def test_multiple_results_company_name_search(self, multiple_result_companies):
+    def test_multiple_results_company_name_search(self, monkeypatch, multiple_result_companies):
+        monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKLookupResponse)
         assert len(CIK(multiple_result_companies).ciks) == 0
 
     def test_multiple_results_raises_warnings(self, multiple_result_companies):
         with pytest.warns(UserWarning):
-            CIK(multiple_result_companies)
+            CIK(multiple_result_companies).ciks()
 
     def test_validate_cik(self):
         # string remains unchecked until query to allow for possibility of
         # using company name, ticker, or CIK as string
         with pytest.raises(EDGARQueryError):
-            CIK('0notvalid0')
+            CIK('0notvalid0').ciks()
         with pytest.raises(EDGARQueryError):
-            CIK('012345678910')
+            CIK('012345678910').ciks()
         # float and int not accepted, raising TypeError
         with pytest.raises(TypeError):
             CIK(1234567891011)

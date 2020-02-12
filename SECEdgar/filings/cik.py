@@ -15,15 +15,21 @@ class CIK(object):
         super(CIK, self).__init__(**kwargs)
         self._validator = CIKValidator(lookups)
         # TODO: Differ validation until later?
-        self._lookup_dict = self._validator.get_ciks()
-        self._ciks = self._lookup_dict.values()
+        self._lookup_dict = None
+        self._ciks = None
 
     @property
     def ciks(self):
         """:obj:`list` of :obj:`str`: List of CIKs (as string of digits) transformed from lookups."""
-        return self._ciks
+        if self._ciks is None:
+            self._lookup_dict = self._validator.get_ciks()
+            self._ciks = self._lookup_dict.values()
+        else:
+            return self._ciks
 
     @property
     def lookup_dict(self):
         """:obj:`dict`: Dictionary that makes tickers and company names to CIKs."""
+        if self._lookup_dict is None:
+            self._lookup_dict = self._validator.get_ciks()
         return self._lookup_dict
