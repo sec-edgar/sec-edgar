@@ -1,4 +1,3 @@
-import os
 import pytest
 import requests
 
@@ -9,16 +8,6 @@ from SECEdgar.utils.exceptions import EDGARQueryError
 @pytest.fixture
 def client():
     return NetworkClient()
-
-
-def datapath(*args):
-    """Get the path to a data file.
-
-    Returns:
-        path including ``SECEdgar/tests/data``.
-    """
-    base_path = os.path.join(os.path.dirname(__file__), 'data')
-    return os.path.join(base_path, *args)
 
 
 class MockNoCIKFoundBadResponse:
