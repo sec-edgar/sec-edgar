@@ -24,8 +24,7 @@ class CIK(object):
         if self._ciks is None:
             self._lookup_dict = self._validator.get_ciks()
             self._ciks = self._lookup_dict.values()
-        else:
-            return self._ciks
+        return self._ciks
 
     @property
     def lookup_dict(self):
