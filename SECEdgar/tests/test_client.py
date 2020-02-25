@@ -3,6 +3,7 @@ import requests
 
 from SECEdgar.client import NetworkClient
 from SECEdgar.utils.exceptions import EDGARQueryError
+from SECEdgar.tests.utils import datapath
 
 
 @pytest.fixture
@@ -15,7 +16,7 @@ class MockNoCIKFoundBadResponse:
 
     def __init__(self, *args, **kwargs):
         self.status_code = 200
-        with open(datapath('cik_not_found.html')) as f:
+        with open(datapath('CIK', 'cik_not_found.html')) as f:
             self.text = f.read()
 
 
@@ -24,7 +25,7 @@ class MockMultipleFilingTypesGoodResponse:
 
     def __init__(self, *args, **kwargs):
         self.status_code = 200
-        with open(datapath('single_cik_search_result.html'), encoding='iso-8859-1') as f:
+        with open(datapath('CIK', 'single_cik_search_result.html'), encoding='iso-8859-1') as f:
             self.text = f.read()
 
 
@@ -33,7 +34,7 @@ class MockSingleFilingTypeGoodResponse:
 
     def __init__(self, *args, **kwargs):
         self.status_code = 200
-        with open(datapath('single_cik_multiple_filings_10k.html')) as f:
+        with open(datapath('CIK', 'single_cik_multiple_filings_10k.html')) as f:
             self.text = f.read()
 
 
@@ -42,7 +43,7 @@ class MockMultipleCIKResultsGoodResponse:
 
     def __init__(self, *args, **kwargs):
         self.status_code = 200
-        with open(datapath('cik_multiple_results.html')) as f:
+        with open(datapath('CIK', 'cik_multiple_results.html')) as f:
             self.text = f.read()
 
 
@@ -51,7 +52,7 @@ class MockSingleFilingPageGoodResponse:
 
     def __init__(self, *args, **kwargs):
         self.status_code = 200
-        with open(datapath('single_filing_page.html')) as f:
+        with open(datapath('CIK', 'single_filing_page.html')) as f:
             self.text = f.read()
 
 

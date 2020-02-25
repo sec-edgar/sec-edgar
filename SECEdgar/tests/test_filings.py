@@ -27,6 +27,7 @@ class TestFiling(object):
         if not valid_filing_10k.dateb == '20160101':
             raise AssertionError("The dateb param was not correctly sanitized after change.")
 
+    # TODO: Monkeypatch with example response
     def test_txt_urls(self, valid_filing_10k):
         r = requests.get(valid_filing_10k.get_urls()[0])
         if not r.text:

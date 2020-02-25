@@ -10,7 +10,7 @@ from SECEdgar.utils.exceptions import EDGARQueryError
 class MockSingleCIKLookupResponse:
     def __init__(self, *args):
         self.status_code = 200
-        with open(datapath("single_cik_search_result.html")) as f:
+        with open(datapath("CIK", "single_cik_search_result.html")) as f:
             self.text = f.read()
 
 
