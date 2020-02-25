@@ -3,11 +3,11 @@ import time
 
 from bs4 import BeautifulSoup
 
-from SECEdgar.client.base import Client
+from SECEdgar.client.base import AbstractClient
 from SECEdgar.utils.exceptions import EDGARQueryError
 
 
-class NetworkClient(Client):
+class NetworkClient(AbstractClient):
     """
     Class in charge of sending and handling requests to EDGAR database.
 
