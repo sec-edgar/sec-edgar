@@ -2,7 +2,7 @@ import datetime
 import os
 import requests
 
-from SECEdgar.base import _EDGARBase
+from SECEdgar.filings.base import AbstractFiling
 from SECEdgar.client.network_client import NetworkClient
 from SECEdgar.utils import sanitize_date, make_path
 
@@ -11,22 +11,25 @@ from SECEdgar.filings.filing_types import FilingType
 from SECEdgar.utils.exceptions import FilingTypeError
 
 
-class Filing(_EDGARBase):
+class Filing(AbstractFiling):
     """Base class for receiving EDGAR filings.
 
     Attributes:
         cik (str): Central Index Key (CIK) for company of interest.
         filing_type (SECEdgar.filings.filing_types.FilingType): Valid filing type enum.
-        dateb (Union[str, datetime.datetime], optional): Date after which not to fetch reports.
+        end_date (Union[str, datetime.datetime], optional): Date after which not to fetch reports.
             Stands for "date before." Defaults to today.
+        start_date (Union[str, datetime.datetime], optional): Date before which not to fetch reports.
+            Stands for "date after." Defaults to None (will fetch all filings before end_date).
 
     .. versionadded:: 0.1.5
     """
 
     # TODO: Maybe allow NetworkClient to take in kwargs
     #  (set to None and if None, create NetworkClient with kwargs)
-    def __init__(self, cik, filing_type, dateb=datetime.datetime.today(), client=None, **kwargs):
-        self.dateb = dateb
+    def __init__(self, cik, filing_type, end_date=datetime.datetime.today(), start_date=None, client=None, **kwargs):
+        self._start_date = sanitize_date(start_date)
+        self._end_date = sanitize_date(end_date)
         self.filing_type = filing_type
         if not isinstance(cik, CIK):  # make CIK for users if not given
             cik = CIK(cik)
@@ -35,12 +38,14 @@ class Filing(_EDGARBase):
         self._params = {
             'action': 'getcompany',
             'count': kwargs.get('count', 10),
-            'dateb': self.dateb,
+            'dateb': self.end_date,
             'output': 'xml',
             'owner': 'exclude',
             'start': 0,
             'type': self.filing_type.value
         }
+        if end_date is not None:
+            self._params['datea'] = start_date
         # Make default client NetworkClient and pass in kwargs
         if client is None:
             self._client = NetworkClient(**kwargs)
@@ -61,13 +66,22 @@ class Filing(_EDGARBase):
         return self._client
 
     @property
-    def dateb(self):
-        """Union([datetime.datetime, str]): Date after which no filings are fetched."""
-        return self._dateb
+    def start_date(self):
+        """Union([datetime.datetime, str]): Date before which no filings are fetched."""
+        return self._start_date
 
-    @dateb.setter
-    def dateb(self, val):
-        self._dateb = sanitize_date(val)
+    @start_date.setter
+    def start_date(self, val):
+        self._start_date = sanitize_date(val)
+
+    @property
+    def end_date(self):
+        """Union([datetime.datetime, str]): Date after which no filings are fetched."""
+        return self._end_date
+
+    @end_date.setter
+    def end_date(self, val):
+        self._end_date = sanitize_date(val)
 
     @property
     def filing_type(self):
@@ -115,7 +129,7 @@ class Filing(_EDGARBase):
     def _get_urls_for_cik(self, cik, **kwargs):
         """
         Get all urls for specific company according to CIK that match
-        dateb, filing_type, and count parameters.
+        start date, end date, filing_type, and count parameters.
 
         Args:
             cik (str): CIK for company.
@@ -136,7 +150,7 @@ class Filing(_EDGARBase):
             # TODO: Consider making client adopt most efficient count based on number of filings wanted
             self.params["start"] += self._client.count
             if len(data.find_all("filinghref")) == 0:
-                break
+                break  # break if no more filings left
 
         txt_urls = [link[:link.rfind("-")] + ".txt" for link in links]
         return txt_urls[:self.client.count]

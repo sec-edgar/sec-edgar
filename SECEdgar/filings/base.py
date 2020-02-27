@@ -2,7 +2,10 @@ from abc import ABC, abstractmethod
 
 
 class AbstractFiling(ABC):
-    """Abstract base class for all SEC EDGAR filings."""
+    """Abstract base class for all SEC EDGAR filings.
+
+    .. versionadded:: 0.1.5
+    """
 
     @property
     @abstractmethod
