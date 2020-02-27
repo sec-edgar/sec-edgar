@@ -74,11 +74,10 @@ class CIKValidator(object):
         try:  # try to lookup by CIK
             self._params['CIK'] = lookup
             soup = self._client.get_soup(self.path, self.params)
-            del self._params['CIK']
         except EDGARQueryError:  # fallback to lookup by company name
+            del self._params['CIK']  # delete this parameter so no conflicts arise
             self._params['company'] = lookup
             soup = self._client.get_soup(self.path, self.params)
-            del self._params['company']
         try:  # try to get single CIK for lookup
             span = soup.find('span', {'class': 'companyName'})
             return span.find('a').getText().split()[0]  # returns single CIK
@@ -86,6 +85,12 @@ class CIKValidator(object):
             warnings.warn("Lookup '{0}' will be skipped. "
                           "Found multiple companies matching '{0}':".format(lookup))
             warnings.warn('\n'.join(self._get_cik_possibilities(soup)))
+        finally:
+            # Delete parameters after lookup
+            if self._params.get('company') is not None:
+                del self._params['company']
+            if self._params.get('CIK') is not None:
+                del self._params['CIK']
 
     @staticmethod
     def _get_cik_possibilities(soup):
@@ -97,10 +102,13 @@ class CIKValidator(object):
         Returns:
             All possible companies that match lookup.
         """
-        # Exclude table header
-        table_rows = soup.find('table', {'summary': 'Results'}).find_all('tr')[1:]
-        # Company names are in second column of table
-        return [''.join(row.find_all('td')[1].find_all(text=True)) for row in table_rows]
+        try:
+            # Exclude table header
+            table_rows = soup.find('table', {'summary': 'Results'}).find_all('tr')[1:]
+            # Company names are in second column of table
+            return [''.join(row.find_all('td')[1].find_all(text=True)) for row in table_rows]
+        except AttributeError:
+            raise EDGARQueryError  # If there are no CIK possibilities, then no results were returned
 
     @staticmethod
     def _validate_cik(cik):
