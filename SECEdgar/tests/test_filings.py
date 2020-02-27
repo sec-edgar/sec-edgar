@@ -60,7 +60,7 @@ class TestFiling(object):
         assert aapl.start_date == '20150101'
         aapl.start_date = datetime.datetime(2010, 1, 1)
         assert aapl.start_date == datetime.datetime(2010, 1, 1)
-        assert aapl._params['datea'] == '20100101'
+        assert aapl.params['datea'] == '20100101'
 
     # TODO: Monkeypatch with example response
     @pytest.mark.slow
