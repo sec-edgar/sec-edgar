@@ -7,14 +7,12 @@
 Filings
 =======
 
-Filings can be downloaded using the :class:`SECEdgar.base.Filing` class found in the ``SECEdgar.filings`` module. 
-These classes inherit from the :class:`SECEdgar.base._EDGARBase` class. This class provides relevant ``**kwargs`` 
-for making requests and the number of filings to fetch.
+Filings can be downloaded using the :class:`SECEdgar.base.Filing` class found in the ``SECEdgar.filings`` module.
 
 Base Class
 ----------
 
-.. autoclass:: SECEdgar.base._EDGARBase
+.. autoclass:: SECEdgar.filings.base.AbstractFiling
 
 Filings
 -------

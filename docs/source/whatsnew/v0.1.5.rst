@@ -1,4 +1,3 @@
-
 v0.1.5
 ------
 
@@ -33,4 +32,4 @@ Bugs
 Enhancements
 ~~~~~~~~~~~~
 
-* Introduce :class:`SECEdgar.base._EDGARBase` class as abstract base class
+* Introduce :class:`SECEdgar.filings.base.AbstractFiling` class as abstract base class
