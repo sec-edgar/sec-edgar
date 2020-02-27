@@ -23,7 +23,7 @@ class CIK(object):
         """:obj:`list` of :obj:`str`: List of CIKs (as string of digits) transformed from lookups."""
         if self._ciks is None:
             self._lookup_dict = self._validator.get_ciks()
-            self._ciks = self._lookup_dict.values()
+            self._ciks = list(self._lookup_dict.values())
         return self._ciks
 
     @property
