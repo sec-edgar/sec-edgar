@@ -6,6 +6,7 @@ import requests
 from SECEdgar.client import NetworkClient
 from SECEdgar.filings import Filing, FilingType, CIK
 
+from SECEdgar.filings.cik_validator import CIKValidator
 from SECEdgar.tests.utils import datapath
 from SECEdgar.utils.exceptions import FilingTypeError, EDGARQueryError
 
@@ -17,32 +18,58 @@ class MockSingleCIKNotFound:
             self.text = f.read()
 
 
+class MockSingleCIKFiling:
+    def __init__(self, *args):
+        self.status_code = 200
+        with open(datapath('filings', 'aapl_10q_filings.xml')) as f:
+            self.text = f.read()
+
+
+class MockCIKValidatorGetCIKs:
+    def __init__(self, *args):
+        pass
+
+    @staticmethod
+    def get_ciks(self):
+        return {'aapl': '0000320193'}
+
+
 class TestFiling(object):
     @pytest.mark.slow
-    def test_count_returns_exact(self, valid_filing_10k):
-        urls = valid_filing_10k.get_urls()
-        if len(urls) != valid_filing_10k.client.count:
+    def test_count_returns_exact(self, monkeypatch):
+        aapl = Filing(cik='aapl', filing_type=FilingType.FILING_10Q, count=10)
+        monkeypatch.setattr(CIKValidator, "get_ciks", MockCIKValidatorGetCIKs.get_ciks)
+        monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKFiling)
+        urls = aapl.get_urls()
+        if len(urls) != aapl.client.count:
             raise AssertionError("""Count should return exact number of filings.
                                  Got {0}, but expected {1} URLs.""".format(
-                    urls, valid_filing_10k.client.count))
+                    urls, aapl.client.count))
 
-    def test_date_is_sanitized(self, valid_filing_10k):
-        date = datetime.datetime(2015, 1, 1)
-        valid_filing_10k.end_date = date
-        if not valid_filing_10k.end_date == '20150101':
-            raise AssertionError("The end date was not correctly sanitized.")
+    def test_date_is_sanitized(self, monkeypatch):
+        start_date = datetime.datetime(2012, 3, 1)
+        end_date = datetime.datetime(2015, 1, 1)
+        aapl = Filing(cik='aapl', filing_type=FilingType.FILING_10Q, count=10, start_date=start_date, end_date=end_date)
+        assert aapl.params['dateb'] == '20150101'
+        assert aapl.params['datea'] == '20120301'
+        assert aapl.start_date == datetime.datetime(2012, 3, 1)
+        assert aapl.end_date == datetime.datetime(2015, 1, 1)
 
-    def test_date_is_sanitized_when_changed(self, valid_filing_10k):
-        valid_filing_10k.end_date = datetime.datetime(2016, 1, 1)
-        if not valid_filing_10k.end_date == '20160101':
-            raise AssertionError("The end date was not correctly sanitized after change.")
+    def test_date_is_sanitized_when_changed(self):
+        aapl = Filing(cik='aapl', filing_type=FilingType.FILING_10Q, count=10, start_date='20150101')
+        assert aapl.start_date == '20150101'
+        aapl.start_date = datetime.datetime(2010, 1, 1)
+        assert aapl.start_date == datetime.datetime(2010, 1, 1)
+        assert aapl._params['datea'] == '20100101'
 
     # TODO: Monkeypatch with example response
     @pytest.mark.slow
-    def test_txt_urls(self, valid_filing_10k):
-        r = requests.get(valid_filing_10k.get_urls()[0])
-        if not r.text:
-            raise AssertionError("Text file returned as empty.")
+    def test_txt_urls(self, monkeypatch):
+        aapl = Filing(cik='aapl', filing_type=FilingType.FILING_10Q, count=10)
+        monkeypatch.setattr(CIKValidator, "get_ciks", MockCIKValidatorGetCIKs.get_ciks)
+        monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKFiling)
+        first_txt_url = aapl.get_urls()[0]
+        assert first_txt_url.split('.')[-1] == 'txt'
 
     def test_invalid_filing_type_enum(self):
         with pytest.raises(AttributeError):
@@ -69,9 +96,10 @@ class TestFiling(object):
         f = Filing(multiple_valid_ciks, FilingType.FILING_10Q, count=3)
         f.save(tmp_data_directory)
 
-    @pytest.mark.slow
-    def test_filing_save_single_cik(self, single_valid_cik, tmp_data_directory):
-        f = Filing(single_valid_cik, FilingType.FILING_10Q, count=3)
+    def test_filing_save_single_cik(self, tmp_data_directory, monkeypatch):
+        f = Filing('aapl', FilingType.FILING_10Q, count=3)
+        monkeypatch.setattr(CIKValidator, "get_ciks", MockCIKValidatorGetCIKs.get_ciks)
+        monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKFiling)
         f.save(tmp_data_directory)
 
     @pytest.mark.slow
