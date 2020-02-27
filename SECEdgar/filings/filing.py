@@ -28,9 +28,11 @@ class Filing(AbstractFiling):
     # TODO: Maybe allow NetworkClient to take in kwargs
     #  (set to None and if None, create NetworkClient with kwargs)
     def __init__(self, cik, filing_type, end_date=datetime.datetime.today(), start_date=None, client=None, **kwargs):
-        self._start_date = sanitize_date(start_date)
-        self._end_date = sanitize_date(end_date)
-        self.filing_type = filing_type
+        self._start_date = start_date
+        self._end_date = end_date
+        if not isinstance(filing_type, FilingType):
+            raise FilingTypeError
+        self._filing_type = filing_type
         if not isinstance(cik, CIK):  # make CIK for users if not given
             cik = CIK(cik)
         self._cik = cik
@@ -38,14 +40,14 @@ class Filing(AbstractFiling):
         self._params = {
             'action': 'getcompany',
             'count': kwargs.get('count', 10),
-            'dateb': self.end_date,
+            'dateb': sanitize_date(self.end_date),
             'output': 'xml',
             'owner': 'exclude',
             'start': 0,
             'type': self.filing_type.value
         }
         if end_date is not None:
-            self._params['datea'] = start_date
+            self._params['datea'] = sanitize_date(start_date)
         # Make default client NetworkClient and pass in kwargs
         if client is None:
             self._client = NetworkClient(**kwargs)
@@ -72,7 +74,8 @@ class Filing(AbstractFiling):
 
     @start_date.setter
     def start_date(self, val):
-        self._start_date = sanitize_date(val)
+        self._start_date = val
+        self._params['datea'] = sanitize_date(val)
 
     @property
     def end_date(self):
@@ -81,7 +84,8 @@ class Filing(AbstractFiling):
 
     @end_date.setter
     def end_date(self, val):
-        self._end_date = sanitize_date(val)
+        self._end_date = val
+        self._params['dateb'] = sanitize_date(val)
 
     @property
     def filing_type(self):
@@ -91,8 +95,9 @@ class Filing(AbstractFiling):
     @filing_type.setter
     def filing_type(self, filing_type):
         if not isinstance(filing_type, FilingType):
-            raise FilingTypeError(FilingType)
+            raise FilingTypeError
         self._filing_type = filing_type
+        self._params['type'] = filing_type.value
 
     @property
     def accession_numbers(self):

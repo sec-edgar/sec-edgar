@@ -18,7 +18,7 @@ class EDGARFieldError(Exception):
 
     def __str__(self):
         return "Field {field} not found in endpoint {endpoint}".format(
-            field=self.field, endpoint=self.endpoint
+                field=self.field, endpoint=self.endpoint
         )
 
 
@@ -37,9 +37,5 @@ class CIKError(Exception):
 class FilingTypeError(Exception):
     """This error is thrown when an invalid filing type is given. """
 
-    def __init__(self, acceptable_filings):
-        self.acceptable_filings = acceptable_filings
-
     def __str__(self):
-        return "The filing type given is not valid. " \
-               "Filing type must be in {0}".format(self.acceptable_filings)
+        return "The filing type given is not valid. Filing type must be in valid filing type from FilingType class"
