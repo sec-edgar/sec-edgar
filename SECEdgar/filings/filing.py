@@ -52,7 +52,7 @@ class Filing(AbstractFiling):
             'start': 0,
             'type': self.filing_type.value
         }
-        if kwargs.get(count) is not None:
+        if kwargs.get('count') is not None:
             self._params['count'] = kwargs.get('count')
         if start_date is not None:
             self._params['datea'] = sanitize_date(start_date)
