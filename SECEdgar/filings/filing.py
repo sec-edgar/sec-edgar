@@ -17,11 +17,11 @@ class Filing(AbstractFiling):
     Attributes:
         cik (str): Central Index Key (CIK) for company of interest.
         filing_type (SECEdgar.filings.filing_types.FilingType): Valid filing type enum.
-        end_date (Union[str, datetime.datetime], optional): Date after which not to fetch reports.
-            Stands for "date before." Defaults to today.
         start_date (Union[str, datetime.datetime], optional): Date before which not to
             fetch reports. Stands for "date after."
             Defaults to None (will fetch all filings before end_date).
+        end_date (Union[str, datetime.datetime], optional): Date after which not to fetch reports.
+            Stands for "date before." Defaults to today.
 
     .. versionadded:: 0.1.5
     """
@@ -31,8 +31,8 @@ class Filing(AbstractFiling):
     def __init__(self,
                  cik,
                  filing_type,
-                 end_date=datetime.datetime.today(),
                  start_date=None,
+                 end_date=datetime.datetime.today(),
                  client=None,
                  **kwargs):
         self._start_date = start_date
@@ -46,14 +46,15 @@ class Filing(AbstractFiling):
         self._accession_numbers = []
         self._params = {
             'action': 'getcompany',
-            'count': kwargs.get('count', 10),
             'dateb': sanitize_date(self.end_date),
             'output': 'xml',
             'owner': 'exclude',
             'start': 0,
             'type': self.filing_type.value
         }
-        if end_date is not None:
+        if kwargs.get(count) is not None:
+            self._params['count'] = kwargs.get('count')
+        if start_date is not None:
             self._params['datea'] = sanitize_date(start_date)
         # Make default client NetworkClient and pass in kwargs
         if client is None:
@@ -128,14 +129,6 @@ class Filing(AbstractFiling):
         for cik in self.ciks:
             urls.extend(self._get_urls_for_cik(cik, **kwargs))
         return urls
-
-    @property
-    def get_txt_urls(self):
-        return
-
-    @property
-    def get_xbrl_urls(self):
-        return
 
     # TODO: Change this to return accession numbers that are turned into URLs later
     def _get_urls_for_cik(self, cik, **kwargs):
