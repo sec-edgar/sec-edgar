@@ -3,7 +3,7 @@ import time
 
 from bs4 import BeautifulSoup
 
-from SECEdgar.client.base import AbstractClient
+from SECEdgar.client._base import AbstractClient
 from SECEdgar.utils.exceptions import EDGARQueryError
 
 

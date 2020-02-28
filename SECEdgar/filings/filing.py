@@ -2,7 +2,7 @@ import datetime
 import os
 import requests
 
-from SECEdgar.filings.base import AbstractFiling
+from SECEdgar.filings._base import AbstractFiling
 from SECEdgar.client.network_client import NetworkClient
 from SECEdgar.utils import sanitize_date, make_path
 

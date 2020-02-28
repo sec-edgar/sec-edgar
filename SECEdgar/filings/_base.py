@@ -19,6 +19,18 @@ class AbstractFiling(ABC):
         """``SECEdgar.filings.FilingType``: FilingType enum of filing."""
         pass
 
+    @abstractmethod
+    def get_urls(self, **kwargs):
+        """Get all URLs for filings.
+
+        Args:
+            kwargs: Anything to be passed to requests when making GET request.
+
+        Returns:
+            urls (list): List of urls for txt files to download.
+        """
+        pass
+
     @property
     @abstractmethod
     def params(self):
@@ -29,18 +41,6 @@ class AbstractFiling(ABC):
     @abstractmethod
     def path(self):
         """str: Path added to client base."""
-        pass
-
-    @abstractmethod
-    def get_urls(self, **kwargs):
-        """Get all URLs for filings.
-
-        Args:
-            kwargs: Anything to be passed to requests when making get request.
-
-        Returns:
-            urls (list): List of urls for txt files to download.
-        """
         pass
 
     @abstractmethod
