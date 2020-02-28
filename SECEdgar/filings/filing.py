@@ -48,7 +48,7 @@ class Filing(AbstractFiling):
             'action': 'getcompany',
             'dateb': sanitize_date(self.end_date),
             'output': 'xml',
-            'owner': 'exclude',
+            'owner': 'include',
             'start': 0,
             'type': self.filing_type.value
         }
