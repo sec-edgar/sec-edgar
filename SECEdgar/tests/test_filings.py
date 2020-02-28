@@ -120,7 +120,8 @@ class TestFiling(object):
 
     def test_filing_get_urls_returns_single_list_of_urls(self, monkeypatch):
         monkeypatch.setattr(CIKValidator, "get_ciks", MockCIKValidatorMultipleCIKs.get_ciks)
-        monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKFiling)  # Use same response for each request
+        # Use same response for each request
+        monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKFiling)
         ciks = CIK(['aapl', 'msft', 'amzn'])
         f = Filing(ciks, FilingType.FILING_10Q, count=3)
         assert len(f.get_urls()) == 9
