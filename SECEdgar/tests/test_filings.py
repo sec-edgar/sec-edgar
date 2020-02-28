@@ -1,7 +1,6 @@
 # Tests if filings are correctly received from EDGAR
 import datetime
 import pytest
-import requests
 
 from SECEdgar.client import NetworkClient
 from SECEdgar.filings import Filing, FilingType, CIK
@@ -49,14 +48,21 @@ class TestFiling(object):
     def test_date_is_sanitized(self, monkeypatch):
         start_date = datetime.datetime(2012, 3, 1)
         end_date = datetime.datetime(2015, 1, 1)
-        aapl = Filing(cik='aapl', filing_type=FilingType.FILING_10Q, count=10, start_date=start_date, end_date=end_date)
+        aapl = Filing(cik='aapl',
+                      filing_type=FilingType.FILING_10Q,
+                      count=10,
+                      start_date=start_date,
+                      end_date=end_date)
         assert aapl.params['dateb'] == '20150101'
         assert aapl.params['datea'] == '20120301'
         assert aapl.start_date == datetime.datetime(2012, 3, 1)
         assert aapl.end_date == datetime.datetime(2015, 1, 1)
 
     def test_date_is_sanitized_when_changed(self):
-        aapl = Filing(cik='aapl', filing_type=FilingType.FILING_10Q, count=10, start_date='20150101')
+        aapl = Filing(cik='aapl',
+                      filing_type=FilingType.FILING_10Q,
+                      count=10,
+                      start_date='20150101')
         assert aapl.start_date == '20150101'
         aapl.start_date = datetime.datetime(2010, 1, 1)
         assert aapl.start_date == datetime.datetime(2010, 1, 1)

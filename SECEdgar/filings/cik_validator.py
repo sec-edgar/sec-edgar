@@ -108,7 +108,8 @@ class CIKValidator(object):
             # Company names are in second column of table
             return [''.join(row.find_all('td')[1].find_all(text=True)) for row in table_rows]
         except AttributeError:
-            raise EDGARQueryError  # If there are no CIK possibilities, then no results were returned
+            # If there are no CIK possibilities, then no results were returned
+            raise EDGARQueryError
 
     @staticmethod
     def _validate_cik(cik):

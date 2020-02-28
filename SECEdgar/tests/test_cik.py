@@ -43,7 +43,7 @@ class TestCIK(object):
         multiple_results_cik = CIK('paper')
         monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKMultipleResultsResponse)
         with pytest.warns(UserWarning):
-            cik = multiple_results_cik.ciks
+            _ = multiple_results_cik.ciks
 
     def test_validate_cik_is_string(self):
         # float and int not accepted, raising TypeError
@@ -57,4 +57,4 @@ class TestCIK(object):
         # using company name, ticker, or CIK as string
         monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKNotFound)
         with pytest.raises(EDGARQueryError):
-            cik = CIK('0notvalid0').ciks
+            _ = CIK('0notvalid0').ciks

@@ -38,4 +38,5 @@ class FilingTypeError(Exception):
     """This error is thrown when an invalid filing type is given. """
 
     def __str__(self):
-        return "The filing type given is not valid. Filing type must be in valid filing type from FilingType class"
+        return "The filing type given is not valid. " \
+               "Filing type must be in valid filing type from FilingType class"

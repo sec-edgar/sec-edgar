@@ -19,15 +19,22 @@ class Filing(AbstractFiling):
         filing_type (SECEdgar.filings.filing_types.FilingType): Valid filing type enum.
         end_date (Union[str, datetime.datetime], optional): Date after which not to fetch reports.
             Stands for "date before." Defaults to today.
-        start_date (Union[str, datetime.datetime], optional): Date before which not to fetch reports.
-            Stands for "date after." Defaults to None (will fetch all filings before end_date).
+        start_date (Union[str, datetime.datetime], optional): Date before which not to
+            fetch reports. Stands for "date after."
+            Defaults to None (will fetch all filings before end_date).
 
     .. versionadded:: 0.1.5
     """
 
     # TODO: Maybe allow NetworkClient to take in kwargs
     #  (set to None and if None, create NetworkClient with kwargs)
-    def __init__(self, cik, filing_type, end_date=datetime.datetime.today(), start_date=None, client=None, **kwargs):
+    def __init__(self,
+                 cik,
+                 filing_type,
+                 end_date=datetime.datetime.today(),
+                 start_date=None,
+                 client=None,
+                 **kwargs):
         self._start_date = start_date
         self._end_date = end_date
         if not isinstance(filing_type, FilingType):
@@ -152,7 +159,7 @@ class Filing(AbstractFiling):
         while len(links) < self._client.count:
             data = self._client.get_soup(self.path, self.params, **kwargs)
             links.extend([link.string for link in data.find_all("filinghref")])
-            # TODO: Consider making client adopt most efficient count based on number of filings wanted
+            # TODO: Consider making client adopt most efficient count
             self.params["start"] += self._client.count
             if len(data.find_all("filinghref")) == 0:
                 break  # break if no more filings left
@@ -163,7 +170,8 @@ class Filing(AbstractFiling):
     @staticmethod
     def _get_accession_numbers(links):
         """Gets accession numbers given list of links of the form
-        https://www.sec.gov/Archives/edgar/data/<cik>/<first part of accession number before '-'>/<accession number>-index.htm
+        https://www.sec.gov/Archives/edgar/data/<cik>/<first part of accession number before '-'>
+        /<accession number>-index.htm
 
         Args:
             links (list): List of links to extract accession numbers from.
