@@ -33,6 +33,15 @@ class MockCIKValidatorGetCIKs:
         return {'aapl': '0000320193'}
 
 
+class MockCIKValidatorMultipleCIKs:
+    def __init__(self, *args):
+        pass
+
+    @staticmethod
+    def get_ciks(self):
+        return {'aapl': '0000320193', 'msft': '', 'amzn': ''}
+
+
 class TestFiling(object):
     @pytest.mark.slow
     def test_count_returns_exact(self, monkeypatch):
@@ -97,9 +106,10 @@ class TestFiling(object):
         with pytest.raises(EDGARQueryError):
             _ = Filing(cik='0notvalid0', filing_type=FilingType.FILING_10K).ciks
 
-    @pytest.mark.slow
-    def test_filing_save_multiple_ciks(self, multiple_valid_ciks, tmp_data_directory):
-        f = Filing(multiple_valid_ciks, FilingType.FILING_10Q, count=3)
+    def test_filing_save_multiple_ciks(self, tmp_data_directory, monkeypatch):
+        monkeypatch.setattr(CIKValidator, "get_ciks", MockCIKValidatorMultipleCIKs.get_ciks)
+        monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKFiling)
+        f = Filing(['aapl', 'amzn', 'msft'], FilingType.FILING_10Q, count=3)
         f.save(tmp_data_directory)
 
     def test_filing_save_single_cik(self, tmp_data_directory, monkeypatch):
@@ -108,9 +118,9 @@ class TestFiling(object):
         monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKFiling)
         f.save(tmp_data_directory)
 
-    @pytest.mark.slow
-    def test_filing_get_urls_returns_single_list_of_urls(self):
+    def test_filing_get_urls_returns_single_list_of_urls(self, monkeypatch):
+        monkeypatch.setattr(CIKValidator, "get_ciks", MockCIKValidatorMultipleCIKs.get_ciks)
+        monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKFiling)  # Use same response for each request
         ciks = CIK(['aapl', 'msft', 'amzn'])
         f = Filing(ciks, FilingType.FILING_10Q, count=3)
-        if len(f.get_urls()) != 9:
-            raise AssertionError("Expected list of length 9.")
+        assert len(f.get_urls()) == 9
