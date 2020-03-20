@@ -8,9 +8,9 @@ import warnings
 
 from bs4 import BeautifulSoup
 
-from SECEdgar.utils import sanitize_date
+from secedgar.utils import sanitize_date
 
-from SECEdgar.utils.exceptions import EDGARQueryError, CIKError
+from secedgar.utils.exceptions import EDGARQueryError, CIKError
 
 DEFAULT_DATA_PATH = os.path.abspath(os.path.join(
         os.path.dirname(__file__), '..', 'SEC-Edgar-Data'))
@@ -26,7 +26,7 @@ class SecCrawler(object):
     """
     warnings.warn("The SecCrawler class will be deprecated "
                   "in favor of the classes in "
-                  "SECEdgar.filings beginning in v0.2.0.")
+                  "secedgar.filings beginning in v0.2.0.")
 
     def __init__(self, data_path=DEFAULT_DATA_PATH):
         self.data_path = data_path

@@ -1,9 +1,9 @@
 import pytest
 import requests
 
-from SECEdgar.client import NetworkClient
-from SECEdgar.utils.exceptions import EDGARQueryError
-from SECEdgar.tests.utils import datapath
+from secedgar.client import NetworkClient
+from secedgar.utils.exceptions import EDGARQueryError
+from secedgar.tests.utils import datapath
 
 
 @pytest.fixture

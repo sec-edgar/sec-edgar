@@ -1,7 +1,7 @@
 import warnings
 
-from SECEdgar.client.network_client import NetworkClient
-from SECEdgar.utils.exceptions import CIKError, EDGARQueryError
+from secedgar.client.network_client import NetworkClient
+from secedgar.utils.exceptions import CIKError, EDGARQueryError
 
 
 class CIKValidator(object):
@@ -40,7 +40,7 @@ class CIKValidator(object):
 
     @property
     def client(self):
-        """``SECEdgar.client.base``: Client to use to fetch requests."""
+        """``secedgar.client.base``: Client to use to fetch requests."""
         return self._client
 
     @property

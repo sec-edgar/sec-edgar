@@ -15,19 +15,19 @@ import sys
 
 sys.path.insert(0, os.path.abspath('../..'))
 
-import SECEdgar
+import secedgar
 
 # -- Project information -----------------------------------------------------
 
-project = 'SECEdgar'
+project = 'secedgar'
 copyright = '2019, Rahul Ranjan'
 author = 'Rahul Ranjan'
 
 # The short X.Y version.
-version = SECEdgar.__version__
+version = secedgar.__version__
 print(version)
 # The full version, including alpha/beta/rc tags.
-release = SECEdgar.__version__
+release = secedgar.__version__
 
 # -- General configuration ---------------------------------------------------
 

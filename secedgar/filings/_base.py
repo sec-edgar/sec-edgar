@@ -10,13 +10,13 @@ class AbstractFiling(ABC):
     @property
     @abstractmethod
     def client(self):
-        """``SECEdgar.client.base``: Client to use to make requests."""
+        """``secedgar.client.base``: Client to use to make requests."""
         pass
 
     @property
     @abstractmethod
     def filing_type(self):
-        """``SECEdgar.filings.FilingType``: FilingType enum of filing."""
+        """``secedgar.filings.FilingType``: FilingType enum of filing."""
         pass
 
     @abstractmethod

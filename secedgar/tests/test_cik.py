@@ -1,10 +1,10 @@
 import pytest
 
-from SECEdgar.tests.utils import datapath
+from secedgar.tests.utils import datapath
 
-from SECEdgar.filings import CIK
-from SECEdgar.client import NetworkClient
-from SECEdgar.utils.exceptions import EDGARQueryError
+from secedgar.filings import CIK
+from secedgar.client import NetworkClient
+from secedgar.utils.exceptions import EDGARQueryError
 
 
 class MockSingleCIKLookupResponse:

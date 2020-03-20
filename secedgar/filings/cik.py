@@ -1,4 +1,4 @@
-from SECEdgar.filings.cik_validator import CIKValidator
+from secedgar.filings.cik_validator import CIKValidator
 
 
 class CIK(object):

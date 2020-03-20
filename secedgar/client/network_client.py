@@ -3,8 +3,8 @@ import time
 
 from bs4 import BeautifulSoup
 
-from SECEdgar.client._base import AbstractClient
-from SECEdgar.utils.exceptions import EDGARQueryError
+from secedgar.client._base import AbstractClient
+from secedgar.utils.exceptions import EDGARQueryError
 
 
 class NetworkClient(AbstractClient):

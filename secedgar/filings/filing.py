@@ -2,13 +2,13 @@ import datetime
 import os
 import requests
 
-from SECEdgar.filings._base import AbstractFiling
-from SECEdgar.client.network_client import NetworkClient
-from SECEdgar.utils import sanitize_date, make_path
+from secedgar.filings._base import AbstractFiling
+from secedgar.client.network_client import NetworkClient
+from secedgar.utils import sanitize_date, make_path
 
-from SECEdgar.filings.cik import CIK
-from SECEdgar.filings.filing_types import FilingType
-from SECEdgar.utils.exceptions import FilingTypeError
+from secedgar.filings.cik import CIK
+from secedgar.filings.filing_types import FilingType
+from secedgar.utils.exceptions import FilingTypeError
 
 
 class Filing(AbstractFiling):
@@ -72,7 +72,7 @@ class Filing(AbstractFiling):
 
     @property
     def client(self):
-        """``SECEdgar.client.base``: Client to use to make requests."""
+        """``secedgar.client.base``: Client to use to make requests."""
         return self._client
 
     @property
@@ -97,7 +97,7 @@ class Filing(AbstractFiling):
 
     @property
     def filing_type(self):
-        """``SECEdgar.filings.FilingType``: FilingType enum of filing."""
+        """``secedgar.filings.FilingType``: FilingType enum of filing."""
         return self._filing_type
 
     @filing_type.setter

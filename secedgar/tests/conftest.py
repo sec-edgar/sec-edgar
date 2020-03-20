@@ -1,7 +1,6 @@
 import pytest
 
-from SECEdgar.crawler import SecCrawler
-from SECEdgar.filings import Filing, FilingType, CIK
+from secedgar.crawler import SecCrawler
 
 aapl_cik = "0000320193"
 

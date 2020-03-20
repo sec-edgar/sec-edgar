@@ -2,12 +2,12 @@
 import datetime
 import pytest
 
-from SECEdgar.client import NetworkClient
-from SECEdgar.filings import Filing, FilingType, CIK
+from secedgar.client import NetworkClient
+from secedgar.filings import Filing, FilingType, CIK
 
-from SECEdgar.filings.cik_validator import CIKValidator
-from SECEdgar.tests.utils import datapath
-from SECEdgar.utils.exceptions import FilingTypeError, EDGARQueryError
+from secedgar.filings.cik_validator import CIKValidator
+from secedgar.tests.utils import datapath
+from secedgar.utils.exceptions import FilingTypeError, EDGARQueryError
 
 
 class MockSingleCIKNotFound:
