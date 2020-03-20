@@ -100,6 +100,7 @@ class FilingType(Enum):
     FILING_NCEN = 'n-cen'
     FILING_NCR = 'n-cr'
     FILING_NCSR = 'n-csr'
+    FILING_NCSRS = 'n-csrs'
     FILING_NLIQUID = 'n-liquid'
     FILING_NMFP = 'n-mfp'
     FILING_NPORT = 'n-port'
