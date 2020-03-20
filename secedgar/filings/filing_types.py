@@ -40,6 +40,7 @@ class FilingType(Enum):
     FILING_3 = '3'
     FILING_4 = '4'
     FILING_40F = '40-f'
+    FILING_8K = '8-k'
     FILING_ABS15G = 'abs-15g'
     FILING_ABSEE = 'abs-ee'
     FILING_ADV = 'adv'
