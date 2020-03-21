@@ -15,7 +15,7 @@ You may have to install the package using pip:
 
 .. code:: bash
 
-   $ pip install SECEdgar
+   $ pip install secedgar
 
 or
 
