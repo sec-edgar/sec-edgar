@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Common Usage Examples &mdash; SECEdgar 0.1.5 documentation</title>
+  <title>Common Usage Examples &mdash; secedgar 0.1.5 documentation</title>
   
 
   
@@ -51,7 +51,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> SECEdgar
+            <a href="index.html" class="icon icon-home"> secedgar
           
 
           
@@ -112,7 +112,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">SECEdgar</a>
+          <a href="index.html">secedgar</a>
         
       </nav>
 
@@ -164,7 +164,7 @@
             
   <div class="section" id="common-usage-examples">
 <span id="usage"></span><h1>Common Usage Examples<a class="headerlink" href="#common-usage-examples" title="Permalink to this headline">¶</a></h1>
-<p>SECEdgar provides a simple way to download multiple filings from the
+<p>secedgar provides a simple way to download multiple filings from the
 <a class="reference external" href="https://www.sec.gov/edgar/searchedgar/companysearch.html">SEC Edgar database</a>.</p>
 <p>This package is useful for obtaining important financial information about public companies such as</p>
 <ul class="simple">
@@ -174,7 +174,7 @@
 <li><p>Management’s Analysis</p></li>
 </ul>
 <p>The <code class="docutils literal notranslate"><span class="pre">Filing</span></code> class provides a simple API to fetch SEC filings.</p>
-<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">SECEdgar.filings</span> <span class="kn">import</span> <span class="n">Filing</span><span class="p">,</span> <span class="n">FilingType</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">secedgar.filings</span> <span class="kn">import</span> <span class="n">Filing</span><span class="p">,</span> <span class="n">FilingType</span>
 
 <span class="gp">In [2]: </span><span class="n">my_cik</span> <span class="o">=</span> <span class="s1">&#39;0000320193&#39;</span>
 
@@ -182,7 +182,7 @@
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">CIK</span></code> class can also be used to lookup company filings by company name or ticker.</p>
-<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [4]: </span><span class="kn">from</span> <span class="nn">SECEdgar.filings</span> <span class="kn">import</span> <span class="n">Filing</span><span class="p">,</span> <span class="n">FilingType</span><span class="p">,</span> <span class="n">CIK</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [4]: </span><span class="kn">from</span> <span class="nn">secedgar.filings</span> <span class="kn">import</span> <span class="n">Filing</span><span class="p">,</span> <span class="n">FilingType</span><span class="p">,</span> <span class="n">CIK</span>
 
 <span class="gp">In [5]: </span><span class="n">my_ciks</span> <span class="o">=</span> <span class="n">CIK</span><span class="p">([</span><span class="s1">&#39;aapl&#39;</span><span class="p">,</span> <span class="s1">&#39;msft&#39;</span><span class="p">,</span> <span class="s1">&#39;Facebook&#39;</span><span class="p">])</span>
 

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>What’s New &mdash; SECEdgar 0.1.5 documentation</title>
+  <title>What’s New &mdash; secedgar 0.1.5 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Install" href="install.html" />
-    <link rel="prev" title="Welcome to SECEdgar’s documentation!" href="index.html" /> 
+    <link rel="prev" title="Welcome to secedgar’s documentation!" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -51,7 +51,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> SECEdgar
+            <a href="index.html" class="icon icon-home"> secedgar
           
 
           
@@ -137,7 +137,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">SECEdgar</a>
+          <a href="index.html">secedgar</a>
         
       </nav>
 
@@ -196,12 +196,12 @@
 <h3>Highlights<a class="headerlink" href="#highlights" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Add Python 3.7, 3.8 support to Travis CI</p></li>
-<li><p>Add support for over 100 forms using <a class="reference internal" href="filingtypes.html#SECEdgar.filings.FilingType" title="SECEdgar.filings.FilingType"><code class="xref py py-class docutils literal notranslate"><span class="pre">SECEdgar.filings.FilingType</span></code></a></p></li>
-<li><p>Prepare to deprecate <a class="reference internal" href="crawler.html#SECEdgar.crawler.SecCrawler" title="SECEdgar.crawler.SecCrawler"><code class="xref py py-class docutils literal notranslate"><span class="pre">SECEdgar.crawler.SecCrawler</span></code></a> in favor of separate filing class</p></li>
+<li><p>Add support for over 100 forms using <a class="reference internal" href="filingtypes.html#secedgar.filings.FilingType" title="secedgar.filings.FilingType"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.filings.FilingType</span></code></a></p></li>
+<li><p>Prepare to deprecate <a class="reference internal" href="crawler.html#secedgar.crawler.SecCrawler" title="secedgar.crawler.SecCrawler"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.crawler.SecCrawler</span></code></a> in favor of separate filing class</p></li>
 <li><p>Modularize crawler for more general requests</p></li>
 <li><p>Fix count attribute to correctly fetch specified number of filings (or max available)</p></li>
-<li><p>Add <a class="reference internal" href="filings.html#SECEdgar.filings.Filing" title="SECEdgar.filings.Filing"><code class="xref py py-class docutils literal notranslate"><span class="pre">SECEdgar.filings.Filing</span></code></a> for fetching SEC filings</p></li>
-<li><p>Add <a class="reference internal" href="cik.html#SECEdgar.filings.CIK" title="SECEdgar.filings.CIK"><code class="xref py py-class docutils literal notranslate"><span class="pre">SECEdgar.filings.CIK</span></code></a> for getting company CIK by company ticker or company name</p></li>
+<li><p>Add <a class="reference internal" href="filings.html#secedgar.filings.Filing" title="secedgar.filings.Filing"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.filings.Filing</span></code></a> for fetching SEC filings</p></li>
+<li><p>Add <a class="reference internal" href="cik.html#secedgar.filings.CIK" title="secedgar.filings.CIK"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.filings.CIK</span></code></a> for getting company CIK by company ticker or company name</p></li>
 <li><p>Add MANIFEST.in file to include requirements.txt, LICENSE, and README</p></li>
 <li><p>Add What’s New section to docs (replaces CHANGELOG)</p></li>
 </ul>
@@ -220,13 +220,13 @@
 <div class="section" id="bugs">
 <h3>Bugs<a class="headerlink" href="#bugs" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>Fix count attribute to fetch desired number of filings. <code class="docutils literal notranslate"><span class="pre">SECEdgar</span></code> will now either fetch specified number or, if not enough filings exist, all filings will be fetched.</p></li>
+<li><p>Fix count attribute to fetch desired number of filings. <code class="docutils literal notranslate"><span class="pre">secedgar</span></code> will now either fetch specified number or, if not enough filings exist, all filings will be fetched.</p></li>
 </ul>
 </div>
 <div class="section" id="enhancements">
 <h3>Enhancements<a class="headerlink" href="#enhancements" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>Introduce <a class="reference internal" href="filings.html#SECEdgar.base._EDGARBase" title="SECEdgar.base._EDGARBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">SECEdgar.base._EDGARBase</span></code></a> class as abstract base class</p></li>
+<li><p>Introduce <code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.filings.base.AbstractFiling</span></code> class as abstract base class</p></li>
 </ul>
 </div>
 </div>
@@ -284,7 +284,7 @@
         <a href="install.html" class="btn btn-neutral float-right" title="Install" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to SECEdgar’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to secedgar’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

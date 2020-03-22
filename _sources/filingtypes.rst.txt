@@ -5,7 +5,7 @@ Filing Types
 
 This page aims to explain briefly what information is contained in some of the most popular filing types.
 *Note that this list of filing types is not exhaustive.*
-The complete list of filing types is at :class:`SECEdgar.filings.FilingType`.
+The complete list of filing types is at :class:`secedgar.filings.FilingType`.
 This class supports over 100 filing types.
 
 Form 10-K
@@ -74,6 +74,6 @@ Additional information for DEF 14A form.
 Supported Filing Types
 ----------------------
 
-.. autoclass:: SECEdgar.filings.FilingType
+.. autoclass:: secedgar.filings.FilingType
    :members:
    :undoc-members:

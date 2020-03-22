@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Filings &mdash; SECEdgar 0.1.5 documentation</title>
+  <title>Filings &mdash; secedgar 0.1.5 documentation</title>
   
 
   
@@ -51,7 +51,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> SECEdgar
+            <a href="index.html" class="icon icon-home"> secedgar
           
 
           
@@ -116,7 +116,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">SECEdgar</a>
+          <a href="index.html">secedgar</a>
         
       </nav>
 
@@ -168,70 +168,25 @@
             
   <div class="admonition warning" id="filings">
 <p class="admonition-title">Warning</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">SECEdgar.Filings</span></code> class will be added in v0.1.5. If you would like to make use of this functionality,
+<p>The <code class="docutils literal notranslate"><span class="pre">secedgar.Filings</span></code> class will be added in v0.1.5. If you would like to make use of this functionality,
 please install the <a class="reference external" href="https://github.com/coyo8/sec-edgar">latest development version</a> from GitHub.</p>
 </div>
 <div class="section" id="id1">
 <h1>Filings<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<p>Filings can be downloaded using the <code class="xref py py-class docutils literal notranslate"><span class="pre">SECEdgar.base.Filing</span></code> class found in the <code class="docutils literal notranslate"><span class="pre">SECEdgar.filings</span></code> module.
-These classes inherit from the <a class="reference internal" href="#SECEdgar.base._EDGARBase" title="SECEdgar.base._EDGARBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">SECEdgar.base._EDGARBase</span></code></a> class. This class provides relevant <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code>
-for making requests and the number of filings to fetch.</p>
+<p>Filings can be downloaded using the <code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.base.Filing</span></code> class found in the <code class="docutils literal notranslate"><span class="pre">secedgar.filings</span></code> module.</p>
 <div class="section" id="base-class">
 <h2>Base Class<a class="headerlink" href="#base-class" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="SECEdgar.base._EDGARBase">
-<em class="property">class </em><code class="sig-prename descclassname">SECEdgar.base.</code><code class="sig-name descname">_EDGARBase</code><a class="headerlink" href="#SECEdgar.base._EDGARBase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Abstract Base Class for EDGAR requests.</p>
-<dl class="attribute">
-<dt id="SECEdgar.base._EDGARBase.client">
-<code class="sig-name descname">client</code><a class="headerlink" href="#SECEdgar.base._EDGARBase.client" title="Permalink to this definition">¶</a></dt>
-<dd><p>NetworkClient object that handles
-getting data from EDGAR.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>SECEdgar.network_client.NetworkClient</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="SECEdgar.base._EDGARBase.url">
-<code class="sig-name descname">url</code><a class="headerlink" href="#SECEdgar.base._EDGARBase.url" title="Permalink to this definition">¶</a></dt>
-<dd><p>URL endpoint.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="SECEdgar.base._EDGARBase.params">
-<code class="sig-name descname">params</code><a class="headerlink" href="#SECEdgar.base._EDGARBase.params" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dictionary of parameters to add.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-
-<div class="versionadded">
-<p><span class="versionmodified added">New in version 0.1.5.</span></p>
-</div>
-</dd></dl>
-
 </div>
 <div class="section" id="id2">
 <h2>Filings<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>Supported filing types can be found at <a class="reference internal" href="filingtypes.html#filingtypes"><span class="std std-ref">Filing Types</span></a></p>
 <dl class="class">
-<dt id="SECEdgar.filings.Filing">
-<em class="property">class </em><code class="sig-prename descclassname">SECEdgar.filings.</code><code class="sig-name descname">Filing</code><span class="sig-paren">(</span><em class="sig-param">cik</em>, <em class="sig-param">filing_type</em>, <em class="sig-param">dateb=datetime.datetime(2020</em>, <em class="sig-param">3</em>, <em class="sig-param">6</em>, <em class="sig-param">13</em>, <em class="sig-param">39</em>, <em class="sig-param">2</em>, <em class="sig-param">166684)</em>, <em class="sig-param">client=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#SECEdgar.filings.Filing" title="Permalink to this definition">¶</a></dt>
+<dt id="secedgar.filings.Filing">
+<em class="property">class </em><code class="sig-prename descclassname">secedgar.filings.</code><code class="sig-name descname">Filing</code><span class="sig-paren">(</span><em class="sig-param">cik</em>, <em class="sig-param">filing_type</em>, <em class="sig-param">start_date=None</em>, <em class="sig-param">end_date=datetime.datetime(2020</em>, <em class="sig-param">3</em>, <em class="sig-param">22</em>, <em class="sig-param">14</em>, <em class="sig-param">54</em>, <em class="sig-param">50</em>, <em class="sig-param">916672)</em>, <em class="sig-param">client=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.Filing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class for receiving EDGAR filings.</p>
 <dl class="attribute">
-<dt id="SECEdgar.filings.Filing.cik">
-<code class="sig-name descname">cik</code><a class="headerlink" href="#SECEdgar.filings.Filing.cik" title="Permalink to this definition">¶</a></dt>
+<dt id="secedgar.filings.Filing.cik">
+<code class="sig-name descname">cik</code><a class="headerlink" href="#secedgar.filings.Filing.cik" title="Permalink to this definition">¶</a></dt>
 <dd><p>Central Index Key (CIK) for company of interest.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -241,19 +196,32 @@ getting data from EDGAR.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="SECEdgar.filings.Filing.filing_type">
-<code class="sig-name descname">filing_type</code><a class="headerlink" href="#SECEdgar.filings.Filing.filing_type" title="Permalink to this definition">¶</a></dt>
+<dt id="secedgar.filings.Filing.filing_type">
+<code class="sig-name descname">filing_type</code><a class="headerlink" href="#secedgar.filings.Filing.filing_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Valid filing type enum.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>SECEdgar.filings.filing_types.FilingType</p>
+<dd class="field-odd"><p>secedgar.filings.filing_types.FilingType</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="SECEdgar.filings.Filing.dateb">
-<code class="sig-name descname">dateb</code><a class="headerlink" href="#SECEdgar.filings.Filing.dateb" title="Permalink to this definition">¶</a></dt>
+<dt id="secedgar.filings.Filing.start_date">
+<code class="sig-name descname">start_date</code><a class="headerlink" href="#secedgar.filings.Filing.start_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Date before which not to
+fetch reports. Stands for “date after.”
+Defaults to None (will fetch all filings before end_date).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Union[str, datetime.datetime], optional</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="secedgar.filings.Filing.end_date">
+<code class="sig-name descname">end_date</code><a class="headerlink" href="#secedgar.filings.Filing.end_date" title="Permalink to this definition">¶</a></dt>
 <dd><p>Date after which not to fetch reports.
 Stands for “date before.” Defaults to today.</p>
 <dl class="field-list simple">

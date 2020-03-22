@@ -1,4 +1,3 @@
-
 v0.1.5
 ------
 
@@ -6,12 +5,12 @@ Highlights
 ~~~~~~~~~~
 
 * Add Python 3.7, 3.8 support to Travis CI
-* Add support for over 100 forms using :class:`SECEdgar.filings.FilingType`
-* Prepare to deprecate :class:`SECEdgar.crawler.SecCrawler` in favor of separate filing class
+* Add support for over 100 forms using :class:`secedgar.filings.FilingType`
+* Prepare to deprecate :class:`secedgar.crawler.SecCrawler` in favor of separate filing class
 * Modularize crawler for more general requests
 * Fix count attribute to correctly fetch specified number of filings (or max available)
-* Add :class:`SECEdgar.filings.Filing` for fetching SEC filings
-* Add :class:`SECEdgar.filings.CIK` for getting company CIK by company ticker or company name
+* Add :class:`secedgar.filings.Filing` for fetching SEC filings
+* Add :class:`secedgar.filings.CIK` for getting company CIK by company ticker or company name
 * Add MANIFEST.in file to include requirements.txt, LICENSE, and README
 * Add What's New section to docs (replaces CHANGELOG)
 
@@ -28,9 +27,9 @@ Testing
 Bugs
 ~~~~
 
-* Fix count attribute to fetch desired number of filings. ``SECEdgar`` will now either fetch specified number or, if not enough filings exist, all filings will be fetched.
+* Fix count attribute to fetch desired number of filings. ``secedgar`` will now either fetch specified number or, if not enough filings exist, all filings will be fetched.
 
 Enhancements
 ~~~~~~~~~~~~
 
-* Introduce :class:`SECEdgar.base._EDGARBase` class as abstract base class
+* Introduce :class:`secedgar.filings.base.AbstractFiling` class as abstract base class

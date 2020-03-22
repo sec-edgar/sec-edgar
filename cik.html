@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>CIK &mdash; SECEdgar 0.1.5 documentation</title>
+  <title>CIK &mdash; secedgar 0.1.5 documentation</title>
   
 
   
@@ -51,7 +51,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> SECEdgar
+            <a href="index.html" class="icon icon-home"> secedgar
           
 
           
@@ -112,7 +112,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">SECEdgar</a>
+          <a href="index.html">secedgar</a>
         
       </nav>
 
@@ -166,7 +166,7 @@
 <span id="id1"></span><h1>CIK<a class="headerlink" href="#cik" title="Permalink to this headline">¶</a></h1>
 <p>The CIK class allows users to get company filings using company tickers and/or company names. For example,
 the code below fetches the past 15 10Q reports for the tickers AAPL, MSFT, and FB (Apple, Microsoft, and Facebook).</p>
-<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">SECEdgar.filings</span> <span class="kn">import</span> <span class="n">Filing</span><span class="p">,</span> <span class="n">FilingType</span><span class="p">,</span> <span class="n">CIK</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">secedgar.filings</span> <span class="kn">import</span> <span class="n">Filing</span><span class="p">,</span> <span class="n">FilingType</span><span class="p">,</span> <span class="n">CIK</span>
 
 <span class="gp">In [2]: </span><span class="n">my_ciks</span> <span class="o">=</span> <span class="n">CIK</span><span class="p">([</span><span class="s1">&#39;aapl&#39;</span><span class="p">,</span> <span class="s1">&#39;msft&#39;</span><span class="p">,</span> <span class="s1">&#39;fb&#39;</span><span class="p">])</span>
 
@@ -174,7 +174,7 @@ the code below fetches the past 15 10Q reports for the tickers AAPL, MSFT, and F
 </pre></div>
 </div>
 <p>The CIK class can also look for CIK values by using the company name.</p>
-<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [4]: </span><span class="kn">from</span> <span class="nn">SECEdgar.filings</span> <span class="kn">import</span> <span class="n">Filing</span><span class="p">,</span> <span class="n">FilingType</span><span class="p">,</span> <span class="n">CIK</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [4]: </span><span class="kn">from</span> <span class="nn">secedgar.filings</span> <span class="kn">import</span> <span class="n">Filing</span><span class="p">,</span> <span class="n">FilingType</span><span class="p">,</span> <span class="n">CIK</span>
 
 <span class="gp">In [5]: </span><span class="n">my_ciks</span> <span class="o">=</span> <span class="n">CIK</span><span class="p">([</span><span class="s1">&#39;Apple Inc.&#39;</span><span class="p">,</span> <span class="s1">&#39;Microsoft Corp&#39;</span><span class="p">,</span> <span class="s1">&#39;Facebook&#39;</span><span class="p">])</span>
 
@@ -182,7 +182,7 @@ the code below fetches the past 15 10Q reports for the tickers AAPL, MSFT, and F
 </pre></div>
 </div>
 <p>A mix of tickers and company names is also allowed.</p>
-<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [7]: </span><span class="kn">from</span> <span class="nn">SECEdgar.filings</span> <span class="kn">import</span> <span class="n">Filing</span><span class="p">,</span> <span class="n">FilingType</span><span class="p">,</span> <span class="n">CIK</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [7]: </span><span class="kn">from</span> <span class="nn">secedgar.filings</span> <span class="kn">import</span> <span class="n">Filing</span><span class="p">,</span> <span class="n">FilingType</span><span class="p">,</span> <span class="n">CIK</span>
 
 <span class="gp">In [8]: </span><span class="n">my_ciks</span> <span class="o">=</span> <span class="n">CIK</span><span class="p">([</span><span class="s1">&#39;aapl&#39;</span><span class="p">,</span> <span class="s1">&#39;msft&#39;</span><span class="p">,</span> <span class="s1">&#39;Facebook&#39;</span><span class="p">])</span>
 
@@ -190,12 +190,12 @@ the code below fetches the past 15 10Q reports for the tickers AAPL, MSFT, and F
 </pre></div>
 </div>
 <dl class="class">
-<dt id="SECEdgar.filings.CIK">
-<em class="property">class </em><code class="sig-prename descclassname">SECEdgar.filings.</code><code class="sig-name descname">CIK</code><span class="sig-paren">(</span><em class="sig-param">lookups</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#SECEdgar.filings.CIK" title="Permalink to this definition">¶</a></dt>
+<dt id="secedgar.filings.CIK">
+<em class="property">class </em><code class="sig-prename descclassname">secedgar.filings.</code><code class="sig-name descname">CIK</code><span class="sig-paren">(</span><em class="sig-param">lookups</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.CIK" title="Permalink to this definition">¶</a></dt>
 <dd><p>Validates CIKs (Central Index Keys) by ticker.</p>
 <dl class="attribute">
-<dt id="SECEdgar.filings.CIK.lookup">
-<code class="sig-name descname">lookup</code><a class="headerlink" href="#SECEdgar.filings.CIK.lookup" title="Permalink to this definition">¶</a></dt>
+<dt id="secedgar.filings.CIK.lookup">
+<code class="sig-name descname">lookup</code><a class="headerlink" href="#secedgar.filings.CIK.lookup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Ticker, company name, or list of tickers and/or company names.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>

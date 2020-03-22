@@ -7,7 +7,7 @@ Install
 Dependencies
 ------------
 
-SECEdgar relies on:
+secedgar relies on:
 
 -  `beautifulsoup4 <https://www.crummy.com/software/BeautifulSoup/bs4/doc/>`__
 -  `requests <http://docs.python-requests.org>`__
@@ -19,20 +19,20 @@ Latest stable release via pip (recommended):
 
 .. code:: bash
 
-    $ pip install SECEdgar
+    $ pip install secedgar
 
 Latest development version:
 
 .. code:: bash
 
-    $ pip install git+https://github.com/coyo8/SECEdgar.git
+    $ pip install git+https://github.com/coyo8/sec-edgar.git
 
 or
 
 .. code:: bash
 
-     $ git clone https://github.com/coyo8/SECEdgar.git
-     $ cd SECEdgar
+     $ git clone https://github.com/coyo8/sec-edgar.git
+     $ cd sec-edgar
      $ pip install .
 
 **Note:**

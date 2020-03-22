@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Crawler &mdash; SECEdgar 0.1.5 documentation</title>
+  <title>Crawler &mdash; secedgar 0.1.5 documentation</title>
   
 
   
@@ -51,7 +51,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> SECEdgar
+            <a href="index.html" class="icon icon-home"> secedgar
           
 
           
@@ -112,7 +112,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">SECEdgar</a>
+          <a href="index.html">secedgar</a>
         
       </nav>
 
@@ -167,14 +167,14 @@
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">SecCrawler</span></code> class will be deprecated in v0.2.0 in favor of the
-newly released <cite>Filing</cite> class (found in <code class="docutils literal notranslate"><span class="pre">SECEdgar.filings</span></code>).
+newly released <cite>Filing</cite> class (found in <code class="docutils literal notranslate"><span class="pre">secedgar.filings</span></code>).
 See the complete list, reference <span class="xref std std-ref">filings</span>.</p>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">SECEdgar</span></code> module is largely centered around the <code class="docutils literal notranslate"><span class="pre">SecCrawler</span></code> class.
+<p>The <code class="docutils literal notranslate"><span class="pre">secedgar</span></code> module is largely centered around the <code class="docutils literal notranslate"><span class="pre">SecCrawler</span></code> class.
 This class fetches the filing information.</p>
 <dl class="class">
-<dt id="SECEdgar.crawler.SecCrawler">
-<em class="property">class </em><code class="sig-prename descclassname">SECEdgar.crawler.</code><code class="sig-name descname">SecCrawler</code><span class="sig-paren">(</span><em class="sig-param">data_path='/home/travis/build/coyo8/sec-edgar/SEC-Edgar-Data'</em><span class="sig-paren">)</span><a class="headerlink" href="#SECEdgar.crawler.SecCrawler" title="Permalink to this definition">¶</a></dt>
+<dt id="secedgar.crawler.SecCrawler">
+<em class="property">class </em><code class="sig-prename descclassname">secedgar.crawler.</code><code class="sig-name descname">SecCrawler</code><span class="sig-paren">(</span><em class="sig-param">data_path='/home/travis/build/coyo8/sec-edgar/SEC-Edgar-Data'</em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.crawler.SecCrawler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Main crawler object for SEC filings.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -189,8 +189,8 @@ This class fetches the filing information.</p>
 <p>The crawler has many different methods to fetch different filings from the Edgar
 database. Each method will create new documents in the specified data path.</p>
 <dl class="method">
-<dt id="SECEdgar.crawler.SecCrawler.filing_10Q">
-<code class="sig-prename descclassname">SecCrawler.</code><code class="sig-name descname">filing_10Q</code><span class="sig-paren">(</span><em class="sig-param">company_code</em>, <em class="sig-param">cik</em>, <em class="sig-param">priorto</em>, <em class="sig-param">count</em><span class="sig-paren">)</span><a class="headerlink" href="#SECEdgar.crawler.SecCrawler.filing_10Q" title="Permalink to this definition">¶</a></dt>
+<dt id="secedgar.crawler.SecCrawler.filing_10Q">
+<code class="sig-prename descclassname">SecCrawler.</code><code class="sig-name descname">filing_10Q</code><span class="sig-paren">(</span><em class="sig-param">company_code</em>, <em class="sig-param">cik</em>, <em class="sig-param">priorto</em>, <em class="sig-param">count</em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.crawler.SecCrawler.filing_10Q" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch 10Q reports before priorto date.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -214,8 +214,8 @@ Includes ‘10-Q’, ‘10-K’, ‘8-K’, ‘13-F’, ‘SD’.</p></li>
 </dd></dl>
 
 <dl class="method">
-<dt id="SECEdgar.crawler.SecCrawler.filing_10K">
-<code class="sig-prename descclassname">SecCrawler.</code><code class="sig-name descname">filing_10K</code><span class="sig-paren">(</span><em class="sig-param">company_code</em>, <em class="sig-param">cik</em>, <em class="sig-param">priorto</em>, <em class="sig-param">count</em><span class="sig-paren">)</span><a class="headerlink" href="#SECEdgar.crawler.SecCrawler.filing_10K" title="Permalink to this definition">¶</a></dt>
+<dt id="secedgar.crawler.SecCrawler.filing_10K">
+<code class="sig-prename descclassname">SecCrawler.</code><code class="sig-name descname">filing_10K</code><span class="sig-paren">(</span><em class="sig-param">company_code</em>, <em class="sig-param">cik</em>, <em class="sig-param">priorto</em>, <em class="sig-param">count</em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.crawler.SecCrawler.filing_10K" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch 10K reports before priorto date.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -239,8 +239,8 @@ Includes ‘10-Q’, ‘10-K’, ‘8-K’, ‘13-F’, ‘SD’.</p></li>
 </dd></dl>
 
 <dl class="method">
-<dt id="SECEdgar.crawler.SecCrawler.filing_8K">
-<code class="sig-prename descclassname">SecCrawler.</code><code class="sig-name descname">filing_8K</code><span class="sig-paren">(</span><em class="sig-param">company_code</em>, <em class="sig-param">cik</em>, <em class="sig-param">priorto</em>, <em class="sig-param">count</em><span class="sig-paren">)</span><a class="headerlink" href="#SECEdgar.crawler.SecCrawler.filing_8K" title="Permalink to this definition">¶</a></dt>
+<dt id="secedgar.crawler.SecCrawler.filing_8K">
+<code class="sig-prename descclassname">SecCrawler.</code><code class="sig-name descname">filing_8K</code><span class="sig-paren">(</span><em class="sig-param">company_code</em>, <em class="sig-param">cik</em>, <em class="sig-param">priorto</em>, <em class="sig-param">count</em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.crawler.SecCrawler.filing_8K" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch 8K reports before priorto date.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -264,8 +264,8 @@ Includes ‘10-Q’, ‘10-K’, ‘8-K’, ‘13-F’, ‘SD’.</p></li>
 </dd></dl>
 
 <dl class="method">
-<dt id="SECEdgar.crawler.SecCrawler.filing_13F">
-<code class="sig-prename descclassname">SecCrawler.</code><code class="sig-name descname">filing_13F</code><span class="sig-paren">(</span><em class="sig-param">company_code</em>, <em class="sig-param">cik</em>, <em class="sig-param">priorto</em>, <em class="sig-param">count</em><span class="sig-paren">)</span><a class="headerlink" href="#SECEdgar.crawler.SecCrawler.filing_13F" title="Permalink to this definition">¶</a></dt>
+<dt id="secedgar.crawler.SecCrawler.filing_13F">
+<code class="sig-prename descclassname">SecCrawler.</code><code class="sig-name descname">filing_13F</code><span class="sig-paren">(</span><em class="sig-param">company_code</em>, <em class="sig-param">cik</em>, <em class="sig-param">priorto</em>, <em class="sig-param">count</em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.crawler.SecCrawler.filing_13F" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch 13F reports before priorto date.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -289,8 +289,8 @@ Includes ‘10-Q’, ‘10-K’, ‘8-K’, ‘13-F’, ‘SD’.</p></li>
 </dd></dl>
 
 <dl class="method">
-<dt id="SECEdgar.crawler.SecCrawler.filing_SD">
-<code class="sig-prename descclassname">SecCrawler.</code><code class="sig-name descname">filing_SD</code><span class="sig-paren">(</span><em class="sig-param">company_code</em>, <em class="sig-param">cik</em>, <em class="sig-param">priorto</em>, <em class="sig-param">count</em><span class="sig-paren">)</span><a class="headerlink" href="#SECEdgar.crawler.SecCrawler.filing_SD" title="Permalink to this definition">¶</a></dt>
+<dt id="secedgar.crawler.SecCrawler.filing_SD">
+<code class="sig-prename descclassname">SecCrawler.</code><code class="sig-name descname">filing_SD</code><span class="sig-paren">(</span><em class="sig-param">company_code</em>, <em class="sig-param">cik</em>, <em class="sig-param">priorto</em>, <em class="sig-param">count</em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.crawler.SecCrawler.filing_SD" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch SD reports before priorto date.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -314,8 +314,8 @@ Includes ‘10-Q’, ‘10-K’, ‘8-K’, ‘13-F’, ‘SD’.</p></li>
 </dd></dl>
 
 <dl class="method">
-<dt id="SECEdgar.crawler.SecCrawler.filing_4">
-<code class="sig-prename descclassname">SecCrawler.</code><code class="sig-name descname">filing_4</code><span class="sig-paren">(</span><em class="sig-param">company_code</em>, <em class="sig-param">cik</em>, <em class="sig-param">priorto</em>, <em class="sig-param">count</em><span class="sig-paren">)</span><a class="headerlink" href="#SECEdgar.crawler.SecCrawler.filing_4" title="Permalink to this definition">¶</a></dt>
+<dt id="secedgar.crawler.SecCrawler.filing_4">
+<code class="sig-prename descclassname">SecCrawler.</code><code class="sig-name descname">filing_4</code><span class="sig-paren">(</span><em class="sig-param">company_code</em>, <em class="sig-param">cik</em>, <em class="sig-param">priorto</em>, <em class="sig-param">count</em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.crawler.SecCrawler.filing_4" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch ‘4’ reports before priorto date.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
