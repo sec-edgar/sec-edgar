@@ -34,8 +34,8 @@ install:
 script:
   - set -e
   - flake8 --version
-  - flake8 SECEdgar
-  - pytest SECEdgar/tests
+  - flake8 secedgar
+  - pytest secedgar/tests
   - |
     if [[ $DOCBUILD ]]; then
       make -C docs html

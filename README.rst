@@ -15,7 +15,7 @@ You may have to install the package using pip:
 
 .. code:: bash
 
-   $ pip install SECEdgar
+   $ pip install secedgar
 
 or
 
@@ -37,7 +37,11 @@ To run it, start python shell
 
 .. code:: console
 
-    >>> from SECEdgar.filings import Filing, FilingType
+    >>> from secedgar.filings import Filing, FilingType
+        >>> my_filings = Filing(cik='0000320193', filing_type=FilingType.FILING_10Q) # 10-Q filings for Apple (NYSE: AAPL)
+        >>> my_filings.save('~/path/to/dir') # Saves last 15 10Q reports from AAPL to ~/path/to/dir
+
+    This will download the past 15 10-Q filings made by Apple.
     >>> my_filings = Filing(cik='0000320193', filing_type=FilingType.FILING_10Q) # 10-Q filings for Apple (NYSE: AAPL)
     >>> my_filings.save('~/path/to/dir') # Saves last 15 10Q reports from AAPL to ~/path/to/dir
 

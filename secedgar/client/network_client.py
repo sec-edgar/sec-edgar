@@ -3,11 +3,11 @@ import time
 
 from bs4 import BeautifulSoup
 
-from SECEdgar.utils.exceptions import EDGARQueryError
+from secedgar.client._base import AbstractClient
+from secedgar.utils.exceptions import EDGARQueryError
 
 
-# TODO: Make ABC Client class from which this will inherit
-class NetworkClient(object):
+class NetworkClient(AbstractClient):
     """
     Class in charge of sending and handling requests to EDGAR database.
 
@@ -27,6 +27,7 @@ class NetworkClient(object):
 
     @property
     def retry_count(self):
+        """int: Number of times to retry request."""
         return self._retry_count
 
     @retry_count.setter
@@ -39,6 +40,7 @@ class NetworkClient(object):
 
     @property
     def pause(self):
+        """Amount of time to pause between each unsuccessful request before making another."""
         return self._pause
 
     @pause.setter
@@ -51,6 +53,7 @@ class NetworkClient(object):
 
     @property
     def count(self):
+        """Number of results to show per page."""
         return self._count
 
     @count.setter

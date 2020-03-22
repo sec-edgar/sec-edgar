@@ -42,10 +42,10 @@ with codecs.open('README.rst', encoding='utf-8') as f:
 
 
 setup(
-    name='SECEdgar',
-    version=find_version('SECEdgar', '__init__.py'),
+    name='secedgar',
+    version=find_version('secedgar', '__init__.py'),
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
-    package_dir={'SECEdgar': 'SECEdgar'},
+    package_dir={'secedgar': 'secedgar'},
     url='https://github.com/rahulrrixe/SEC-Edgar',
     download_url='https://github.com/rahulrrixe/SEC-Edgar/releases',
     license='Apache License (2.0)',
@@ -84,7 +84,7 @@ setup(
     # installed, specify them here. If using Python 2.6 or less, then these
     # have to be included in MANIFEST.in as well.
     package_data={
-        'SECEdgar': ['requirements.txt',
+        'secedgar': ['requirements.txt',
                      'requirements-dev.txt',
                      'README.rst',
                      'LICENSE'],

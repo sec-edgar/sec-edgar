@@ -4,7 +4,7 @@
 Common Usage Examples
 =====================
 
-SECEdgar provides a simple way to download multiple filings from the 
+secedgar provides a simple way to download multiple filings from the
 `SEC Edgar database <https://www.sec.gov/edgar/searchedgar/companysearch.html>`__.
 
 This package is useful for obtaining important financial information about public companies such as 
@@ -18,7 +18,7 @@ The ``Filing`` class provides a simple API to fetch SEC filings.
 
 .. ipython:: python
 
-   from SECEdgar.filings import Filing, FilingType
+   from secedgar.filings import Filing, FilingType
    my_cik = '0000320193'
    my_filings = Filing(cik=my_cik, filing_type=FilingType.FILING_10Q, count=15)
 
@@ -26,7 +26,7 @@ The ``CIK`` class can also be used to lookup company filings by company name or 
 
 .. ipython:: python
 
-   from SECEdgar.filings import Filing, FilingType, CIK
+   from secedgar.filings import Filing, FilingType, CIK
    my_ciks = CIK(['aapl', 'msft', 'Facebook'])
    my_filings = Filing(cik=my_ciks, filing_type=FilingType.FILING_10Q, count=15)
 

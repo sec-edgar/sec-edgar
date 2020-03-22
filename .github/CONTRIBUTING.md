@@ -1,8 +1,8 @@
-# Contributing to SECEdgar
+# Contributing to secedgar
 
 :+1::tada: First off, thanks for taking the time to contribute! :tada::+1:
 
-The following is a set of guidelines for contributing to SECEdgar. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
+The following is a set of guidelines for contributing to secedgar. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
 
 #### Table Of Contents
 [How Can I Contribute](#how-can-i-contribute)
@@ -18,7 +18,7 @@ The following is a set of guidelines for contributing to SECEdgar. These are mos
 ## How Can I Contribute?
 
 ### Reporting Bugs
-This section guides you through submitting a bug report for SECEdgar. Following these guidelines helps maintainers and the community understand your report :pencil:, reproduce the behavior :computer:, and find related reports :mag_right:.
+This section guides you through submitting a bug report for secedgar. Following these guidelines helps maintainers and the community understand your report :pencil:, reproduce the behavior :computer:, and find related reports :mag_right:.
 
 Before creating bug reports, please check [this list](#before-submitting-a-bug-report) as you might find out that you don't need to create one. When you are creating a bug report, please [include as many details as possible](#how-do-i-submit-a-good-bug-report). Fill out [the required template](ISSUE_TEMPLATE.md), the information it asks for helps us resolve issues faster.
 
@@ -42,13 +42,13 @@ Explain the problem and include additional details to help maintainers reproduce
 * **Include screenshots and animated GIFs** which show you following the described steps and clearly demonstrate the problem. You can use [this tool](https://www.cockos.com/licecap/) to record GIFs on macOS and Windows, and [this tool](https://github.com/colinkeenan/silentcast) or [this tool](https://github.com/GNOME/byzanz) on Linux.
 
 Include details about your configuration and environment:
-* **Which version of SECEdgar are you using?** You can get the exact version by running `pip show SECEdgar` in your terminal.
+* **Which version of secedgar are you using?** You can get the exact version by running `pip show secedgar` in your terminal.
 * **What's the name and version of the OS you're using?**
 * **Which packages do you have installed?** You can list all packages installed by using `pip list`.
 
 ### Suggesting Enhancements
 
-This section guides you through submitting an enhancement suggestion for SECEdgar, including completely new features and minor improvements to existing functionality. Following these guidelines helps maintainers and the community understand your suggestion :pencil: and find related suggestions :mag_right:.
+This section guides you through submitting an enhancement suggestion for secedgar, including completely new features and minor improvements to existing functionality. Following these guidelines helps maintainers and the community understand your suggestion :pencil: and find related suggestions :mag_right:.
 
 Before creating enhancement suggestions, please check [this list](#before-submitting-an-enhancement-suggestion) as you might find out that you don't need to create one. When you are creating an enhancement suggestion, please [include as many details as possible](#how-do-i-submit-a-good-enhancement-suggestion). Fill in [the template](ISSUE_TEMPLATE.md), including the steps that you imagine you would take if the feature you're requesting existed.
 
@@ -64,11 +64,11 @@ Before creating enhancement suggestions, please check [this list](#before-submit
 * **Provide specific examples to demonstrate the steps**. Include copy/pasteable snippets which you use in those examples, as [Markdown code blocks](https://help.github.com/articles/markdown-basics/#multiple-lines).
 * **Describe the current behavior** and **explain which behavior you expected to see instead** and why.
 * **Include screenshots and animated GIFs** which help you demonstrate the steps or point out the part of Atom which the suggestion is related to. You can use [this tool](https://www.cockos.com/licecap/) to record GIFs on macOS and Windows, and [this tool](https://github.com/colinkeenan/silentcast) or [this tool](https://github.com/GNOME/byzanz) on Linux.
-* **Explain why this enhancement would be useful** to most SECEdgar users.
+* **Explain why this enhancement would be useful** to most secedgar users.
 
 ### Your First Code Contribution
 
-Unsure where to begin contributing to SECEdgar? You can start by looking through these `beginner` and `help-wanted` issues:
+Unsure where to begin contributing to secedgar? You can start by looking through these `beginner` and `help-wanted` issues:
 
 * [Beginner issues][beginner] - issues which should only require a few lines of code, and a test or two.
 * [Help wanted issues][help-wanted] - issues which should be a bit more involved than `beginner` issues.
@@ -83,10 +83,10 @@ Refer to the [README](../README.md) to see how to properly setup a virtual envir
 
 The process described here has several goals:
 
-- Maintain SECEdgar's quality
+- Maintain secedgar's quality
 - Fix problems that are important to users
-- Engage the community in working toward the best possible SECEdgar
-- Enable a sustainable system for SECEdgar's maintainers to review contributions
+- Engage the community in working toward the best possible secedgar
+- Enable a sustainable system for secedgar's maintainers to review contributions
 
 Please follow these steps to have your contribution considered by the maintainers:
 

@@ -1,7 +1,7 @@
 import warnings
 
-from SECEdgar.network_client import NetworkClient
-from SECEdgar.utils.exceptions import CIKError, EDGARQueryError
+from secedgar.client.network_client import NetworkClient
+from secedgar.utils.exceptions import CIKError, EDGARQueryError
 
 
 class CIKValidator(object):
@@ -20,10 +20,11 @@ class CIKValidator(object):
 
     def __init__(self, lookups, client=None, **kwargs):
         if isinstance(lookups, str):
-            self._lookups = [lookups]
+            self._lookups = [lookups]  # make single string into list
         else:
             try:
-                if not all(type(o) is str for o in lookups):
+                # Check that iterable only contains strings and is not empty
+                if not lookups or not all(type(o) is str for o in lookups):
                     raise TypeError
                 self._lookups = lookups
             except TypeError:
@@ -34,19 +35,22 @@ class CIKValidator(object):
 
     @property
     def path(self):
+        """str: Path to add to client base."""
         return "cgi-bin/browse-edgar"
 
     @property
     def client(self):
+        """``secedgar.client.base``: Client to use to fetch requests."""
         return self._client
 
     @property
     def params(self):
+        """:obj:`dict` Search parameters to add to client."""
         return self._params
 
     def get_ciks(self):
         """
-        Validate lookup values and return corresponding CIKs in order.
+        Validate lookup values and return corresponding CIKs.
 
         Returns:
             ciks (dict): Dictionary with lookup terms as keys and CIKs as values.
@@ -66,43 +70,62 @@ class CIKValidator(object):
         """
         Get cik for lookup value.
         """
-        self._validate_lookup(lookup)  # make sure lookup is valid
+        self._validate_lookup(lookup)
         try:  # try to lookup by CIK
             self._params['CIK'] = lookup
             soup = self._client.get_soup(self.path, self.params)
-            del self._params['CIK']
         except EDGARQueryError:  # fallback to lookup by company name
+            del self._params['CIK']  # delete this parameter so no conflicts arise
             self._params['company'] = lookup
             soup = self._client.get_soup(self.path, self.params)
-            del self._params['company']
-        try:
+        try:  # try to get single CIK for lookup
             span = soup.find('span', {'class': 'companyName'})
-            return span.find('a').getText().split()[0]  # returns CIK
-        except AttributeError:
+            return span.find('a').getText().split()[0]  # returns single CIK
+        except AttributeError:  # warn and skip if multiple possibilities for CIK found
             warnings.warn("Lookup '{0}' will be skipped. "
                           "Found multiple companies matching '{0}':".format(lookup))
             warnings.warn('\n'.join(self._get_cik_possibilities(soup)))
+        finally:
+            # Delete parameters after lookup
+            if self._params.get('company') is not None:
+                del self._params['company']
+            if self._params.get('CIK') is not None:
+                del self._params['CIK']
 
     @staticmethod
     def _get_cik_possibilities(soup):
-        # Exclude table header
-        table_rows = soup.find('table', {'summary': 'Results'}).find_all('tr')[1:]
-        company_possibilities = []
-        for row in table_rows:
+        """Get all CIK possibilities if multiple are listed.
+
+        Args:
+            soup (BeautifulSoup): BeautifulSoup object to search through.
+
+        Returns:
+            All possible companies that match lookup.
+        """
+        try:
+            # Exclude table header
+            table_rows = soup.find('table', {'summary': 'Results'}).find_all('tr')[1:]
             # Company names are in second column of table
-            company_possibilities.append(
-                    ''.join(row.find_all('td')[1].find_all(text=True)))
-        return company_possibilities
+            return [''.join(row.find_all('td')[1].find_all(text=True)) for row in table_rows]
+        except AttributeError:
+            # If there are no CIK possibilities, then no results were returned
+            raise EDGARQueryError
 
     @staticmethod
     def _validate_cik(cik):
-        """
-        Check if CIK is 10 digit string.
-        """
+        """Check if CIK is 10 digit string."""
         if not (isinstance(cik, str) and len(cik) == 10 and cik.isdigit()):
             raise CIKError(cik)
 
     @staticmethod
     def _validate_lookup(lookup):
+        """Ensure that lookup is string.
+
+        Args:
+            lookup: Value to lookup.
+
+        Raises:
+            TypeError: If lookup is not string.
+        """
         if not isinstance(lookup, str):
             raise TypeError("Lookup value must be string. Given type {0}.".format(type(lookup)))
