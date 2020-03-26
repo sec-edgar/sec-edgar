@@ -6,7 +6,7 @@ from secedgar.filings._base import AbstractFiling
 from secedgar.client.network_client import NetworkClient
 from secedgar.utils import sanitize_date, make_path
 
-from secedgar.filings.cik import CIK
+from secedgar.filings.cik_lookup import CIKLookup
 from secedgar.filings.filing_types import FilingType
 from secedgar.utils.exceptions import FilingTypeError
 
@@ -15,7 +15,7 @@ class Filing(AbstractFiling):
     """Base class for receiving EDGAR filings.
 
     Attributes:
-        cik (str): Central Index Key (CIK) for company of interest.
+        cik_lookup (str): Central Index Key (CIK) for company of interest.
         filing_type (secedgar.filings.filing_types.FilingType): Valid filing type enum.
         start_date (Union[str, datetime.datetime], optional): Date before which not to
             fetch reports. Stands for "date after."
@@ -29,7 +29,7 @@ class Filing(AbstractFiling):
     # TODO: Maybe allow NetworkClient to take in kwargs
     #  (set to None and if None, create NetworkClient with kwargs)
     def __init__(self,
-                 cik,
+                 cik_lookup,
                  filing_type,
                  start_date=None,
                  end_date=datetime.datetime.today(),
@@ -40,9 +40,9 @@ class Filing(AbstractFiling):
         if not isinstance(filing_type, FilingType):
             raise FilingTypeError
         self._filing_type = filing_type
-        if not isinstance(cik, CIK):  # make CIK for users if not given
-            cik = CIK(cik)
-        self._cik = cik
+        if not isinstance(cik_lookup, CIKLookup):  # make CIK for users if not given
+            cik_lookup = CIKLookup(cik_lookup)
+        self._cik_lookup = cik_lookup
         self._accession_numbers = []
         self._params = {
             'action': 'getcompany',
@@ -112,9 +112,9 @@ class Filing(AbstractFiling):
         return self._accession_numbers
 
     @property
-    def ciks(self):
-        """:obj:`list` of :obj:`str`: List of CIK strings."""
-        return self._cik.ciks
+    def cik_lookup(self):
+        """``secedgar.cik.CIKLookup``: CIKLookupobject."""
+        return self._cik_lookup
 
     def get_urls(self, **kwargs):
         """Get urls for all CIKs given to Filing object.
@@ -125,9 +125,9 @@ class Filing(AbstractFiling):
         Returns:
             urls (list): List of urls for txt files to download.
         """
-        urls = []
-        for cik in self.ciks:
-            urls.extend(self._get_urls_for_cik(cik, **kwargs))
+        urls = {}
+        for key, cik in self.cik_lookup.lookup_dict.items():
+            urls[key] = self._get_urls_for_cik(cik, **kwargs)
         return urls
 
     # TODO: Change this to return accession numbers that are turned into URLs later
@@ -157,7 +157,7 @@ class Filing(AbstractFiling):
             if len(data.find_all("filinghref")) == 0:
                 break  # break if no more filings left
 
-        txt_urls = [link[:link.rfind("-")] + ".txt" for link in links]
+        txt_urls = [link[:link.rfind("-")].strip() + ".txt" for link in links]
         return txt_urls[:self.client.count]
 
     @staticmethod
@@ -190,14 +190,15 @@ class Filing(AbstractFiling):
             ValueError: If no text urls are available for given filing object.
         """
         urls = self.get_urls()
-        if len(urls) == 0:
+        if all(len(urls[cik]) == 0 for cik in urls.keys()):
             raise ValueError("No filings available.")
-        doc_names = [url.split("/")[-1] for url in urls]
-        for (url, doc_name) in list(zip(urls, doc_names)):
-            cik = doc_name.split('-')[0]
-            data = requests.get(url).text
-            path = os.path.join(directory, cik, self.filing_type.value)
-            make_path(path)
-            path = os.path.join(path, doc_name)
-            with open(path, "w") as f:
-                f.write(data)
+
+        for cik, links in urls.items():
+            for link in links:
+                data = requests.get(link).text
+                accession_number = link.split("/")[-1]
+                path = os.path.join(directory, cik, self.filing_type.value)
+                make_path(path)
+                path = os.path.join(path, accession_number)
+                with open(path, "w") as f:
+                    f.write(data)
