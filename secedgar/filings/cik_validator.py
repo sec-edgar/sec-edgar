@@ -4,7 +4,7 @@ from secedgar.client.network_client import NetworkClient
 from secedgar.utils.exceptions import CIKError, EDGARQueryError
 
 
-class CIKValidator(object):
+class _CIKValidator(object):
     """Validates company tickers and/or company names based on CIK availability.
 
     Used internally by the CIK class. Not intended for outside use.
@@ -47,6 +47,11 @@ class CIKValidator(object):
     def params(self):
         """:obj:`dict` Search parameters to add to client."""
         return self._params
+
+    @property
+    def lookups(self):
+        """`list` of `str` to lookup (to get CIK values)."""
+        return self._lookups
 
     def get_ciks(self):
         """
