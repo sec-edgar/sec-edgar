@@ -131,8 +131,6 @@ class NetworkClient(AbstractClient):
                           "No matching Ticker Symbol.",
                           "No matching CIK.",
                           "No matching companies.")
-        if response is None:
-            raise EDGARQueryError("No response.")
         status_code = response.status_code
         if 400 <= status_code < 500:
             if status_code == 400:
