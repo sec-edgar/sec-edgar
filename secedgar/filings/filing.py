@@ -125,10 +125,10 @@ class Filing(AbstractFiling):
         Returns:
             urls (list): List of urls for txt files to download.
         """
-        urls = {}
-        for key, cik in self.cik_lookup.lookup_dict.items():
-            urls[key] = self._get_urls_for_cik(cik, **kwargs)
-        return urls
+        return {
+            key: self._get_urls_for_cik(cik, **kwargs)
+            for key, cik in self.cik_lookup.lookup_dict.items()
+        }
 
     # TODO: Change this to return accession numbers that are turned into URLs later
     def _get_urls_for_cik(self, cik, **kwargs):
