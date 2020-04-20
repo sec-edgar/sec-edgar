@@ -18,7 +18,7 @@ class AbstractClient(ABC):
         Raises:
             EDGARQueryError: If problems arise when making query.
         """
-        pass
+        pass  # pragma: no cover
 
     @abstractmethod
     def get_soup(self, path, params, **kwargs):
@@ -32,10 +32,10 @@ class AbstractClient(ABC):
         Returns:
             BeautifulSoup object from response text.
         """
-        pass
+        pass  # pragma: no cover
 
     @property
     @abstractmethod
     def count(self):
         """Number of results per page searched. Increasing can improve speed for large requests."""
-        pass
+        pass  # pragma: no cover
