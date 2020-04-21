@@ -24,7 +24,7 @@ class _CIKValidator(object):
         else:
             try:
                 # Check that iterable only contains strings and is not empty
-                if not lookups or not all(type(o) is str for o in lookups):
+                if not (lookups and all(type(o) is str for o in lookups)):
                     raise TypeError
                 self._lookups = lookups
             except TypeError:
@@ -61,7 +61,7 @@ class _CIKValidator(object):
             ciks (dict): Dictionary with lookup terms as keys and CIKs as values.
 
         """
-        ciks = dict()
+        ciks = {}
         for lookup in self._lookups:
             try:
                 result = self._get_cik(lookup)
