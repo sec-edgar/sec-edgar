@@ -1,9 +1,9 @@
-from secedgar.filings.cik_validator import CIKValidator
+from secedgar.filings.cik_validator import _CIKValidator
 
 
-class CIK(object):
-    """
-    Validates CIKs (Central Index Keys) by ticker.
+class CIKLookup(object):
+    """CIK Lookup object. Given list of tickers/company names to lookup,
+    this object can return associated CIKs.
 
     Attributes:
         lookup (Union[str, list]): Ticker, company name, or list of tickers and/or company names.
@@ -12,8 +12,8 @@ class CIK(object):
     """
 
     def __init__(self, lookups, **kwargs):
-        super(CIK, self).__init__(**kwargs)
-        self._validator = CIKValidator(lookups)
+        super(CIKLookup, self).__init__(**kwargs)
+        self._validator = _CIKValidator(lookups)
         # TODO: Differ validation until later?
         self._lookup_dict = None
         self._ciks = None
@@ -25,6 +25,11 @@ class CIK(object):
             self._lookup_dict = self._validator.get_ciks()
             self._ciks = list(self._lookup_dict.values())
         return self._ciks
+
+    @property
+    def lookups(self):
+        """List of lookup terms."""
+        return self._validator.lookups
 
     @property
     def lookup_dict(self):

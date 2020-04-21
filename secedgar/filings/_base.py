@@ -11,13 +11,13 @@ class AbstractFiling(ABC):
     @abstractmethod
     def client(self):
         """``secedgar.client.base``: Client to use to make requests."""
-        pass
+        pass  # pragma: no cover
 
     @property
     @abstractmethod
     def filing_type(self):
         """``secedgar.filings.FilingType``: FilingType enum of filing."""
-        pass
+        pass  # pragma: no cover
 
     @abstractmethod
     def get_urls(self, **kwargs):
@@ -29,19 +29,19 @@ class AbstractFiling(ABC):
         Returns:
             urls (list): List of urls for txt files to download.
         """
-        pass
+        pass  # pragma: no cover
 
     @property
     @abstractmethod
     def params(self):
         """:obj:`dict`: Parameters to include in requests."""
-        pass
+        pass  # pragma: no cover
 
     @property
     @abstractmethod
     def path(self):
         """str: Path added to client base."""
-        pass
+        pass  # pragma: no cover
 
     @abstractmethod
     def save(self, directory):
@@ -53,4 +53,4 @@ class AbstractFiling(ABC):
         Returns:
             None
         """
-        pass
+        pass  # pragma: no cover

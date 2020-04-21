@@ -20,6 +20,18 @@ class MockNoCIKFoundBadResponse:
             self.text = f.read()
 
 
+class MockBadStatusCodeResponse:
+    """Returns mock response with bad status code."""
+
+    def __init__(self, status_code):
+        if (status_code == 200):
+            raise ValueError("status_code should not equal 200.")
+        self.status_code = status_code
+
+    def __call__(self, *args, **kwargs):
+        return self
+
+
 class MockMultipleFilingTypesGoodResponse:
     """Returns response with list of filings (multiple types) for single CIK."""
 
@@ -73,3 +85,53 @@ class TestClient:
     def test_client_good_response_single_filing_passes(self, monkeypatch, client):
         monkeypatch.setattr(requests, 'get', MockSingleFilingPageGoodResponse)
         assert client.get_response('path', {})
+
+    @pytest.mark.parametrize(
+        "status_code,expectation",
+        [
+            (400, pytest.raises(EDGARQueryError)),
+            (401, pytest.raises(EDGARQueryError)),
+            (500, pytest.raises(EDGARQueryError)),
+            (501, pytest.raises(EDGARQueryError))
+        ]
+    )
+    def test_client_bad_response_codes(self, status_code, expectation, monkeypatch, client):
+        monkeypatch.setattr(requests, 'get', MockBadStatusCodeResponse(status_code))
+        with expectation:
+            client.get_response('path', {})
+
+    @pytest.mark.parametrize(
+        "test_input,expectation",
+        [
+            (0.5, pytest.raises(TypeError)),
+            ("2", pytest.raises(TypeError)),
+            (-1, pytest.raises(ValueError))
+        ]
+    )
+    def test_client_bad_retry_count_setter(self, test_input, expectation, client):
+        with expectation:
+            client.retry_count = test_input
+
+    @pytest.mark.parametrize(
+        "test_input,expectation",
+        [
+            ("2", pytest.raises(TypeError)),
+            (-0.5, pytest.raises(ValueError)),
+            (-1, pytest.raises(ValueError))
+        ]
+    )
+    def test_client_bad_pause_setter(self, test_input, expectation, client):
+        with expectation:
+            client.pause = test_input
+
+    @pytest.mark.parametrize(
+        "test_input,expectation",
+        [
+            (0.5, pytest.raises(TypeError)),
+            ("1", pytest.raises(TypeError)),
+            (0, pytest.raises(ValueError))
+        ]
+    )
+    def test_client_bad_count_setter(self, test_input, expectation, client):
+        with expectation:
+            client.count = test_input

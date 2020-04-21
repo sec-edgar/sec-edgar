@@ -4,7 +4,7 @@ from secedgar.client.network_client import NetworkClient
 from secedgar.utils.exceptions import CIKError, EDGARQueryError
 
 
-class CIKValidator(object):
+class _CIKValidator(object):
     """Validates company tickers and/or company names based on CIK availability.
 
     Used internally by the CIK class. Not intended for outside use.
@@ -12,26 +12,22 @@ class CIKValidator(object):
     Args:
         lookups (Union[str, list, tuple]): List of tickers and/or company names for
             which to find CIKs.
-        **kwargs: Any keyword arguments needed to be passed to
-            _EDGARBase (see class for more details).
+        **kwargs: Any kwargs will be passed to NetworkClient if no client is given.
 
     .. versionadded:: 0.1.5
     """
 
     def __init__(self, lookups, client=None, **kwargs):
-        if isinstance(lookups, str):
+        # Make sure lookups is not empty string
+        if lookups and isinstance(lookups, str):
             self._lookups = [lookups]  # make single string into list
         else:
-            try:
-                # Check that iterable only contains strings and is not empty
-                if not lookups or not all(type(o) is str for o in lookups):
-                    raise TypeError
-                self._lookups = lookups
-            except TypeError:
+            # Check that iterable only contains strings and is not empty
+            if not (lookups and all(type(o) is str for o in lookups)):
                 raise TypeError("CIKs must be given as string or iterable.")
+            self._lookups = lookups
         self._params = {'action': 'getcompany'}
-        if client is None:
-            self._client = NetworkClient(**kwargs)
+        self._client = client if client is not None else NetworkClient(**kwargs)
 
     @property
     def path(self):
@@ -48,6 +44,11 @@ class CIKValidator(object):
         """:obj:`dict` Search parameters to add to client."""
         return self._params
 
+    @property
+    def lookups(self):
+        """`list` of `str` to lookup (to get CIK values)."""
+        return self._lookups
+
     def get_ciks(self):
         """
         Validate lookup values and return corresponding CIKs.
@@ -56,7 +57,7 @@ class CIKValidator(object):
             ciks (dict): Dictionary with lookup terms as keys and CIKs as values.
 
         """
-        ciks = dict()
+        ciks = {}
         for lookup in self._lookups:
             try:
                 result = self._get_cik(lookup)
@@ -125,7 +126,7 @@ class CIKValidator(object):
             lookup: Value to lookup.
 
         Raises:
-            TypeError: If lookup is not string.
+            TypeError: If lookup is not a non-empty string.
         """
-        if not isinstance(lookup, str):
+        if not (lookup and isinstance(lookup, str)):
             raise TypeError("Lookup value must be string. Given type {0}.".format(type(lookup)))

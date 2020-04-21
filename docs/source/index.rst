@@ -1,7 +1,7 @@
 .. secedgar documentation master file, created by
-   sphinx-quickstart on Tue Apr 30 10:32:49 2019.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+sphinx-quickstart on Tue Apr 30 10:32:49 2019.
+You can adapt this file completely to your liking, but it should at least
+contain the root `toctree` directive.
 
 Welcome to secedgar's documentation!
 ====================================
@@ -20,7 +20,7 @@ Welcome to secedgar's documentation!
    install
    usage
    crawler
-   cik
+   ciklookup
    filings
    filingtypes
 
