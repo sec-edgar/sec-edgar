@@ -41,7 +41,6 @@ To run it, start python shell
     my_filings = Filing(cik='0000320193', filing_type=FilingType.FILING_10Q) # 10Q filings for AAPL
     my_filings.save('~/path/to/dir')
 
-    # This will download the past 15 10-Q filings made by Apple.
     my_filings = Filing(cik='0000320193', filing_type=FilingType.FILING_10Q)
     my_filings.save('~/path/to/dir')
 
