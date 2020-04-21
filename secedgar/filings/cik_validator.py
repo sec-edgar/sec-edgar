@@ -128,5 +128,5 @@ class _CIKValidator(object):
         Raises:
             TypeError: If lookup is not a non-empty string.
         """
-        if not isinstance(lookup, str):
+        if not (lookup and isinstance(lookup, str)):
             raise TypeError("Lookup value must be string. Given type {0}.".format(type(lookup)))
