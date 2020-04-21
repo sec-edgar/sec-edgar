@@ -22,7 +22,7 @@ class _CIKValidator(object):
         if lookups and isinstance(lookups, str):
             self._lookups = [lookups]  # make single string into list
         else:
-                # Check that iterable only contains strings and is not empty
+            # Check that iterable only contains strings and is not empty
             if not (lookups and all(type(o) is str for o in lookups)):
                 raise TypeError("CIKs must be given as string or iterable.")
             self._lookups = lookups
