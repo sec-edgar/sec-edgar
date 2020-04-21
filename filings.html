@@ -180,11 +180,11 @@ please install the <a class="reference external" href="https://github.com/coyo8/
 <div class="section" id="id2">
 <h2>Filings<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>Supported filing types can be found at <a class="reference internal" href="filingtypes.html#filingtypes"><span class="std std-ref">Filing Types</span></a></p>
-<dl class="class">
+<dl class="py class">
 <dt id="secedgar.filings.Filing">
-<em class="property">class </em><code class="sig-prename descclassname">secedgar.filings.</code><code class="sig-name descname">Filing</code><span class="sig-paren">(</span><em class="sig-param">cik</em>, <em class="sig-param">filing_type</em>, <em class="sig-param">start_date=None</em>, <em class="sig-param">end_date=datetime.datetime(2020</em>, <em class="sig-param">3</em>, <em class="sig-param">25</em>, <em class="sig-param">16</em>, <em class="sig-param">11</em>, <em class="sig-param">25</em>, <em class="sig-param">231237)</em>, <em class="sig-param">client=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.Filing" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">secedgar.filings.</code><code class="sig-name descname">Filing</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cik</span></em>, <em class="sig-param"><span class="n">filing_type</span></em>, <em class="sig-param"><span class="n">start_date</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end_date</span><span class="o">=</span><span class="default_value">datetime.datetime(2020, 4, 21, 18, 33, 38, 540532)</span></em>, <em class="sig-param"><span class="n">client</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.Filing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class for receiving EDGAR filings.</p>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="secedgar.filings.Filing.cik">
 <code class="sig-name descname">cik</code><a class="headerlink" href="#secedgar.filings.Filing.cik" title="Permalink to this definition">¶</a></dt>
 <dd><p>Central Index Key (CIK) for company of interest.</p>
@@ -195,7 +195,7 @@ please install the <a class="reference external" href="https://github.com/coyo8/
 </dl>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="secedgar.filings.Filing.filing_type">
 <code class="sig-name descname">filing_type</code><a class="headerlink" href="#secedgar.filings.Filing.filing_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Valid filing type enum.</p>
@@ -206,7 +206,7 @@ please install the <a class="reference external" href="https://github.com/coyo8/
 </dl>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="secedgar.filings.Filing.start_date">
 <code class="sig-name descname">start_date</code><a class="headerlink" href="#secedgar.filings.Filing.start_date" title="Permalink to this definition">¶</a></dt>
 <dd><p>Date before which not to
@@ -219,7 +219,7 @@ Defaults to None (will fetch all filings before end_date).</p>
 </dl>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="secedgar.filings.Filing.end_date">
 <code class="sig-name descname">end_date</code><a class="headerlink" href="#secedgar.filings.Filing.end_date" title="Permalink to this definition">¶</a></dt>
 <dd><p>Date after which not to fetch reports.
