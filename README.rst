@@ -33,8 +33,6 @@ Running
 
 ⚠️ The following code is experimental in v0.1.5. Please refer to docs on how to use the `SecCrawler` class if installing v0.1.4 or earlier. ⚠️
 
-Example:
-
 .. code:: python
 
     from secedgar.filings import Filing, FilingType
@@ -43,8 +41,6 @@ Example:
 
     my_filings = Filing(cik='0000320193', filing_type=FilingType.FILING_10Q)
     my_filings.save('~/path/to/dir')
-
-This will download the past 15 10-Q filings made by Apple.
 
 Supported Methods
 -----------------
