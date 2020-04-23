@@ -13,12 +13,6 @@ class AbstractFiling(ABC):
         """``secedgar.client.base``: Client to use to make requests."""
         pass  # pragma: no cover
 
-    @property
-    @abstractmethod
-    def filing_type(self):
-        """``secedgar.filings.FilingType``: FilingType enum of filing."""
-        pass  # pragma: no cover
-
     @abstractmethod
     def get_urls(self, **kwargs):
         """Get all URLs for filings.
