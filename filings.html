@@ -37,7 +37,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Filing Types" href="filingtypes.html" />
-    <link rel="prev" title="CIK" href="cik.html" /> 
+    <link rel="prev" title="CIK Lookup" href="ciklookup.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -91,7 +91,7 @@
 <li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Common Usage Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="crawler.html">Crawler</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cik.html">CIK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ciklookup.html">CIK Lookup</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Filings</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#base-class">Base Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id2">Filings</a></li>
@@ -176,17 +176,26 @@ please install the <a class="reference external" href="https://github.com/coyo8/
 <p>Filings can be downloaded using the <code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.base.Filing</span></code> class found in the <code class="docutils literal notranslate"><span class="pre">secedgar.filings</span></code> module.</p>
 <div class="section" id="base-class">
 <h2>Base Class<a class="headerlink" href="#base-class" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="secedgar.filings._base.AbstractFiling">
+<em class="property">class </em><code class="sig-prename descclassname">secedgar.filings._base.</code><code class="sig-name descname">AbstractFiling</code><a class="headerlink" href="#secedgar.filings._base.AbstractFiling" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract base class for all SEC EDGAR filings.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.1.5.</span></p>
+</div>
+</dd></dl>
+
 </div>
 <div class="section" id="id2">
 <h2>Filings<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>Supported filing types can be found at <a class="reference internal" href="filingtypes.html#filingtypes"><span class="std std-ref">Filing Types</span></a></p>
 <dl class="py class">
 <dt id="secedgar.filings.Filing">
-<em class="property">class </em><code class="sig-prename descclassname">secedgar.filings.</code><code class="sig-name descname">Filing</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cik</span></em>, <em class="sig-param"><span class="n">filing_type</span></em>, <em class="sig-param"><span class="n">start_date</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end_date</span><span class="o">=</span><span class="default_value">datetime.datetime(2020, 4, 21, 18, 33, 38, 540532)</span></em>, <em class="sig-param"><span class="n">client</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.Filing" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">secedgar.filings.</code><code class="sig-name descname">Filing</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cik_lookup</span></em>, <em class="sig-param"><span class="n">filing_type</span></em>, <em class="sig-param"><span class="n">start_date</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end_date</span><span class="o">=</span><span class="default_value">datetime.datetime(2020, 5, 4, 2, 41, 54, 447798)</span></em>, <em class="sig-param"><span class="n">client</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.Filing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class for receiving EDGAR filings.</p>
 <dl class="py attribute">
-<dt id="secedgar.filings.Filing.cik">
-<code class="sig-name descname">cik</code><a class="headerlink" href="#secedgar.filings.Filing.cik" title="Permalink to this definition">¶</a></dt>
+<dt id="secedgar.filings.Filing.cik_lookup">
+<code class="sig-name descname">cik_lookup</code><a class="headerlink" href="#secedgar.filings.Filing.cik_lookup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Central Index Key (CIK) for company of interest.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -250,7 +259,7 @@ Stands for “date before.” Defaults to today.</p>
         <a href="filingtypes.html" class="btn btn-neutral float-right" title="Filing Types" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="cik.html" class="btn btn-neutral float-left" title="CIK" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="ciklookup.html" class="btn btn-neutral float-left" title="CIK Lookup" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

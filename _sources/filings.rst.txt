@@ -12,7 +12,7 @@ Filings can be downloaded using the :class:`secedgar.base.Filing` class found in
 Base Class
 ----------
 
-.. autoclass:: secedgar.filings.base.AbstractFiling
+.. autoclass:: secedgar.filings._base.AbstractFiling
 
 Filings
 -------
