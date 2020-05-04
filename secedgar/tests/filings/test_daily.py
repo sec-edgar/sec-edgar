@@ -19,5 +19,8 @@ class TestDaily:
             (datetime(2020, 12, 31), 4)
         ]
     )
-    def test_get_quarter(self, date, expected):
-        assert DailyFilings(date=date)._get_quarter() == expected
+    def test_quarter(self, date, expected):
+        assert DailyFilings(date=date).quarter == expected
+
+    def test_get_urls(self, monkeypatch):
+        pass

@@ -24,13 +24,14 @@ class DailyFilings(AbstractFiling):
     def client(self):
         return self._client
 
-    def _get_quarter(self):
+    @property
+    def quarter(self):
         """Get quarter number from date attribute."""
         return (self._date.month - 1) // 3 + 1
 
     @property
     def path(self):
-        return "Archives/edgar/daily-index/{year}/QTR{num}".format(year=self._date.year, num=self._get_quarter())
+        return "Archives/edgar/daily-index/{year}/QTR{num}".format(year=self._date.year, num=self.quarter)
 
     @property
     def params(self):
