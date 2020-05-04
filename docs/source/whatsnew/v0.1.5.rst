@@ -10,7 +10,7 @@ Highlights
 * Modularize crawler for more general requests
 * Fix count attribute to correctly fetch specified number of filings (or max available)
 * Add :class:`secedgar.filings.Filing` for fetching SEC filings
-* Add :class:`secedgar.filings.CIK` for getting company CIK by company ticker or company name
+* Add :class:`secedgar.filings.CIKLookup` for getting company CIKs by company ticker or company name
 * Add MANIFEST.in file to include requirements.txt, LICENSE, and README
 * Add What's New section to docs (replaces CHANGELOG)
 

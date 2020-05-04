@@ -23,8 +23,8 @@ You can clone the project or download it as zip.
 
 .. code:: bash
 
-   $ git clone https://github.com/rahulrrixe/SEC-Edgar.git  
-   $ cd SEC-Edgar  
+   $ git clone https://github.com/rahulrrixe/SEC-Edgar.git
+   $ cd SEC-Edgar
    $ python setup.py install
 
 Running
@@ -33,34 +33,17 @@ Running
 
 ⚠️ The following code is experimental in v0.1.5. Please refer to docs on how to use the `SecCrawler` class if installing v0.1.4 or earlier. ⚠️
 
-To run it, start python shell
+.. code:: python
 
-.. code:: console
-
-    >>> from secedgar.filings import Filing, FilingType
-        >>> my_filings = Filing(cik='0000320193', filing_type=FilingType.FILING_10Q) # 10-Q filings for Apple (NYSE: AAPL)
-        >>> my_filings.save('~/path/to/dir') # Saves last 15 10Q reports from AAPL to ~/path/to/dir
-
-    This will download the past 15 10-Q filings made by Apple.
-    >>> my_filings = Filing(cik='0000320193', filing_type=FilingType.FILING_10Q) # 10-Q filings for Apple (NYSE: AAPL)
-    >>> my_filings.save('~/path/to/dir') # Saves last 15 10Q reports from AAPL to ~/path/to/dir
-
-This will download the past 15 10-Q filings made by Apple.
+    from secedgar.filings import Filing, FilingType
+    my_filings = Filing(cik_lookup='0000320193', filing_type=FilingType.FILING_10Q) # 10Q filings for AAPL
+    my_filings.save('~/path/to/dir')
 
 Supported Methods
 -----------------
 
-Currently this crawler supports the filings listed below (among others). Any of the following can be used in conjunction
-with the `Filing` class. Suggestions for supporting other filings (using the issues tab) is always welcome.
-
--  **10-K**: Annual reports of company standing, includes financials
--  **10-Q**: Quarterly reports of company standing, includes financials
--  **8-K**: Timely reports of information that may be important for shareholders or potential investors
--  **13-F**: Institutional investor disclosure of holdings (for institutions with over $100 million under management)
--  **4**: Statement of change in beneficial ownership
--  **SD**: Special disclosures required by the Dodd-Frank Wall Street Reform and Consumer Protection Act relating to conflict minerals contained in products that reporting companies manufacture or contract to be manufactured and necessary to the functionality or production of those products
--  **DEF 14A**: Definitive proxy statement. Required ahead of annual meeting when firm is soliciting shareholder votes.
--  **DEFA 14A**: Additional materials to DEF 14A.
+Currently this crawler supports many different filing types. To see the full list, please refer to the docs. If you don't see a filing type you would like
+to be supported, please create an issue on GitHub.
 
 Documentation
 --------------
@@ -69,7 +52,7 @@ To learn more about the APIs and latest changes in the project, read the `offici
 License
 -------
 
-Copyright © 2019 Rahul Ranjan
+Copyright © 2020 Rahul Ranjan
 
 See LICENSE for details
 
