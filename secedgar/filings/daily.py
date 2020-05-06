@@ -117,7 +117,7 @@ class DailyFilings(AbstractFiling):
             self._filings_dict = {}  # Will have CIK as keys and list of FilingEntry namedtuples as values
             FilingEntry = namedtuple(
                 "FilingEntry", ["cik", "company_name", "form_type", "date_filed", "file_name"])
-            # TODO: Read in filing entries
+            # idx file will have lines of the form CIK|Company Name|Form Type|Date Filed|File Name
             entries = re.findall(r'^[0-9]+[|].+[|].+[|][0-9]+[|].+$', idx_file, re.MULTILINE)
             for entry in entries:
                 fields = entry.split("|")
