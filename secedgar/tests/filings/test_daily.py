@@ -3,6 +3,14 @@ import pytest
 from datetime import datetime
 
 from secedgar.filings.daily import DailyFilings
+from secedgar.tests.utils import datapath
+
+
+class MockQuarterDirectory:
+    def __init__(self, *args):
+        self.status_code = 200
+        with open(datapath("filings", "daily", "daily_index_2018_QTR4.htm")) as f:
+            self.text = f.read()
 
 
 class TestDaily:
@@ -24,3 +32,9 @@ class TestDaily:
 
     def test_get_urls(self, monkeypatch):
         pass
+
+    def test_get_quarterly_directory(self, monkeypatch):
+        monkeypatch.setattr(DailyFilings, "_get_quarterly_directory", MockQuarterDirectory)
+        assert DailyFilings(datetime(2018, 12, 31))._get_quarterly_directory().status_code == 200
+        assert "master.20181231.idx" in DailyFilings(
+            datetime(2018, 12, 31))._get_quarterly_directory().text
