@@ -31,7 +31,8 @@ class DailyFilings(AbstractFiling):
         self._quarterly_directory = None
         self._master_idx_file = None
         self._filings_dict = None
-        self._urls = None
+        self._paths = []
+        self._urls = []
 
     @property
     def client(self):
@@ -99,11 +100,14 @@ class DailyFilings(AbstractFiling):
         Returns:
             urls (list of str): List of urls.
         """
-        if len(self._urls) == 0:
+        if len(self._paths) == 0:
             for _, entries in self._filings_dict:
                 for entry in entries:
-                    self._urls.extend(entry.file_name)  # Will be of the form
-        return self._urls
+                    # Will be of the form
+                    self._paths.extend(
+                        "Archives/{file_name}".format(
+                            file_name=entry.file_name))
+        return self._paths
 
     def get_filings_dict(self, update_cache=False, **kwargs):
         """Get all filings for day.
@@ -128,5 +132,19 @@ class DailyFilings(AbstractFiling):
                     self._filings_dict[fields[0]] = [FilingEntry(*fields)]
         return self._filings_dict
 
+    def get_urls(self):
+        """Get all URLs for day. """
+        if len(self._urls) == 0:
+            paths = self.get_paths()
+            self._urls = ["{base}/{path}".format(base=self.client._BASE, path=path)
+                          for path in paths]
+        return self._urls
+
     def save(self, directory):
+        """Save all daily filings.
+
+        Args:
+            directory (str): Directory where filings should be stored. Will be broken down further by company name
+                and form type.
+        """
         pass
