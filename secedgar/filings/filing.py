@@ -23,6 +23,9 @@ class Filing(AbstractFiling):
         end_date (Union[str, datetime.datetime], optional): Date after which not to fetch reports.
             Stands for "date before." Defaults to today.
 
+    Keyword Args:
+        count (int): Number of filings to get per request. Passed to client.
+
     .. versionadded:: 0.1.5
     """
 
@@ -122,6 +125,9 @@ class Filing(AbstractFiling):
         Args:
             kwargs: Anything to be passed to requests when making get request.
 
+        Keyword Args:
+            See keyword arguments accepted for ``secedgar.client._base.AbstractClient.get_soup``
+
         Returns:
             urls (list): List of urls for txt files to download.
         """
@@ -139,6 +145,9 @@ class Filing(AbstractFiling):
         Args:
             cik (str): CIK for company.
             kwargs: Anything to be passed to requests when making get request.
+
+        Keyword Args:
+            See keyword arguments accepted for ``secedgar.client._base.AbstractClient.get_soup``
 
         Returns:
             txt_urls (list of str): Up to the desired number of URLs for that specific company
