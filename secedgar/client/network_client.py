@@ -85,22 +85,22 @@ class NetworkClient(AbstractClient):
             to request.
 
         Returns:
-            response (requests.response): A requests.response object.
+            response (requests.Response): A `requests.Response` object.
 
         Raises:
             EDGARQueryError: If problems arise when making query.
         """
         prepared_url = self._prepare_query(path)
         response = None
-        for _ in range(self.retry_count + 1):
-            response = requests.get(url=prepared_url, params=params, **kwargs)
-            if response.status_code == 200:
-                try:
-                    self._validate_response(response)
-                except EDGARQueryError:
-                    continue
-            time.sleep(self.pause)
-        self._validate_response(response)
+        for i in range(self.retry_count + 1):
+            with requests.Session() as session:
+                response = session.get(prepared_url, params=params, **kwargs)
+            try:
+                self._validate_response(response)
+            except EDGARQueryError:
+                time.sleep(self.pause)
+                if i == self.retry_count:
+                    raise EDGARQueryError()
         self.response = response
         return self.response
 
@@ -145,4 +145,7 @@ class NetworkClient(AbstractClient):
                                   "There was a server-side error with "
                                   "your request.")
         elif any(error_message in response.text for error_message in error_messages):
+            raise EDGARQueryError()
+        # Need to check for error messages before checking for 200 status code
+        elif status_code != 200:
             raise EDGARQueryError()
