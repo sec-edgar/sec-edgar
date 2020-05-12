@@ -52,9 +52,9 @@ class TestFiling(object):
         if len(urls) != aapl.client.count:
             raise AssertionError("""Count should return exact number of filings.
                                  Got {0}, but expected {1} URLs.""".format(
-                    urls, aapl.client.count))
+                urls, aapl.client.count))
 
-    def test_date_is_sanitized(self, monkeypatch):
+    def test_date_is_sanitized(self):
         start_date = datetime.datetime(2012, 3, 1)
         end_date = datetime.datetime(2015, 1, 1)
         aapl = Filing(cik_lookup='aapl',
@@ -77,7 +77,20 @@ class TestFiling(object):
         assert aapl.start_date == datetime.datetime(2010, 1, 1)
         assert aapl.params['datea'] == '20100101'
 
-    # TODO: Monkeypatch with example response
+    @pytest.mark.parametrize(
+        "date,expected",
+        [
+            ("20120101", "20120101"),
+            (20120101, 20120101),
+            (datetime.datetime(2012, 1, 1), "20120101")
+        ]
+    )
+    def test_end_date_setter(self, date, expected):
+        f = Filing('aapl', FilingType.FILING_10Q, start_date=datetime.datetime(
+            2010, 1, 1), end_date=datetime.datetime(2015, 1, 1))
+        f.end_date = date
+        assert f.end_date == date and f.params.get("dateb") == expected
+
     @pytest.mark.slow
     def test_txt_urls(self, monkeypatch):
         aapl = Filing(cik_lookup='aapl', filing_type=FilingType.FILING_10Q, count=10)
