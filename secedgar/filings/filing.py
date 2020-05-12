@@ -24,13 +24,12 @@ class Filing(AbstractFiling):
             Stands for "date before." Defaults to today.
 
     Keyword Args:
-        count (int): Number of filings to get per request. Passed to client.
+        count (int): Number of filings to get per request. Passed to NetworkClient
+            created on initialization if none given.
 
     .. versionadded:: 0.1.5
     """
 
-    # TODO: Maybe allow NetworkClient to take in kwargs
-    #  (set to None and if None, create NetworkClient with kwargs)
     def __init__(self,
                  cik_lookup,
                  filing_type,
