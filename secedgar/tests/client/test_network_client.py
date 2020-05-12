@@ -27,6 +27,7 @@ class MockBadStatusCodeResponse:
         if (status_code == 200):
             raise ValueError("status_code should not equal 200.")
         self.status_code = status_code
+        self.text = "BAD REQUEST"
 
     def __call__(self, *args, **kwargs):
         return self
