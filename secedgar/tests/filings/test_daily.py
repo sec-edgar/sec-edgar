@@ -38,6 +38,18 @@ class TestDaily:
         assert DailyFilings(date=date).quarter == expected
 
     @pytest.mark.parametrize(
+        "bad_date",
+        [
+            1.0,
+            12,
+            "12/31/2018"
+        ]
+    )
+    def test_bad_date_format_fails(self, bad_date):
+        with pytest.raises(TypeError):
+            DailyFilings(bad_date)
+
+    @pytest.mark.parametrize(
         "url",
         [
             "http://www.sec.gov/Archives/edgar/data/1000228/0001209191-18-064398.txt",
@@ -76,3 +88,26 @@ class TestDaily:
 
         # All company names above should be in file
         assert company_name in daily_filing._get_master_idx_file()
+
+    @pytest.mark.parametrize(
+        "year,month,day,quarter",
+        [
+            (2018, 1, 1, 1),
+            (2017, 5, 1, 2),
+            (2016, 6, 30, 2),
+            (2015, 7, 1, 3),
+            (2014, 9, 30, 3),
+            (2013, 10, 1, 4),
+            (2012, 11, 20, 4),
+            (2011, 12, 31, 4)
+        ]
+    )
+    def test_path_property(self, year, month, day, quarter):
+        daily_filing = DailyFilings(datetime(year, month, day))
+        assert daily_filing.path == "Archives/edgar/daily-index/{year}/QTR{quarter}".format(
+            year=year, quarter=quarter)
+
+    def test_no_params(self):
+        daily_filing = DailyFilings(datetime(2020, 1, 1))
+        # params should always be empty
+        assert not daily_filing.params
