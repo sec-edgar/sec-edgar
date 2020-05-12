@@ -21,7 +21,7 @@ class DailyFilings(AbstractFiling):
     def __init__(self, date, client=None):
         if not isinstance(date, datetime.datetime):
             raise TypeError(
-                "Date must be given as datetime object. Was given type {t}.".format(type(date)))
+                "Date must be given as datetime object. Was given type {type}.".format(type=type(date)))
         self._date = date
         self._client = client if client is not None else NetworkClient()
         # Caches for responses
@@ -84,9 +84,11 @@ class DailyFilings(AbstractFiling):
                 master_idx_url = "{path}/master.{date}.idx".format(
                     path=self.path, date=formatted_date)
                 self._master_idx_file = self.client.get_response(master_idx_url, **kwargs).text
-            raise EDGARQueryError("""File master.{date}.idx not found.
+            else:
+                # idx file not found
+                raise EDGARQueryError("""File master.{date}.idx not found.
                                      There may be no filings for this day.""".format(
-                date=formatted_date))  # idx file not found
+                    date=formatted_date))
         return self._master_idx_file
 
     def get_paths(self, update_cache=False, **kwargs):
