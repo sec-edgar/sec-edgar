@@ -6,9 +6,6 @@ from collections import namedtuple
 from secedgar.filings._base import AbstractFiling
 from secedgar.client import NetworkClient
 
-import requests
-
-from bs4 import BeautifulSoup
 from secedgar.utils.exceptions import EDGARQueryError
 
 
@@ -45,7 +42,8 @@ class DailyFilings(AbstractFiling):
 
     @property
     def path(self):
-        return "Archives/edgar/daily-index/{year}/QTR{num}".format(year=self._date.year, num=self.quarter)
+        return "Archives/edgar/daily-index/{year}/QTR{num}".format(
+            year=self._date.year, num=self.quarter)
 
     @property
     def params(self):
@@ -72,8 +70,8 @@ class DailyFilings(AbstractFiling):
         """Get master file with all filings from given date.
 
         Args:
-            update_cache (bool, optional): Whether master index should be updated on method call. Defaults
-                    to False.
+            update_cache (bool, optional): Whether master index should be updated
+                method call. Defaults to False.
             kwargs: Keyword arguments to pass to `client.get_response`.
 
         Returns:
@@ -81,11 +79,13 @@ class DailyFilings(AbstractFiling):
         """
         if self._master_idx_file is None or update_cache:
             formatted_date = datetime.datetime.strftime("%y%m%d", self._date)
-            if "master.{date}.idx".format(date=formatted_date) in self._get_quarterly_directory().text:
+            formatted_file_name = "master.{date}.idx".format(date=formatted_date)
+            if formatted_file_name in self._get_quarterly_directory().text:
                 master_idx_url = "{path}/master.{date}.idx".format(
                     path=self.path, date=formatted_date)
                 self._master_idx_file = self.client.get_response(master_idx_url, **kwargs).text
-            raise EDGARQueryError("File master.{date}.idx not found. There may be no filings for this day.".format(
+            raise EDGARQueryError("""File master.{date}.idx not found.
+                                     There may be no filings for this day.""".format(
                 date=formatted_date))  # idx file not found
         return self._master_idx_file
 
@@ -113,12 +113,13 @@ class DailyFilings(AbstractFiling):
         """Get all filings for day.
 
         Args:
-            update_cache (bool, optional): Whether filings dict should be updated on each method call.
-                Defaults to False.
+            update_cache (bool, optional): Whether filings dict should be
+                updated on each method call. Defaults to False.
         """
         if self._filings_dict is None or update_cache:
             idx_file = self._get_master_idx_file(**kwargs)
-            self._filings_dict = {}  # Will have CIK as keys and list of FilingEntry namedtuples as values
+            # Will have CIK as keys and list of FilingEntry namedtuples as values
+            self._filings_dict = {}
             FilingEntry = namedtuple(
                 "FilingEntry", ["cik", "company_name", "form_type", "date_filed", "file_name"])
             # idx file will have lines of the form CIK|Company Name|Form Type|Date Filed|File Name
@@ -150,7 +151,7 @@ class DailyFilings(AbstractFiling):
         """Save all daily filings.
 
         Args:
-            directory (str): Directory where filings should be stored. Will be broken down further by company name
-                and form type.
+            directory (str): Directory where filings should be stored. Will be broken down
+                further by company name and form type.
         """
         pass
