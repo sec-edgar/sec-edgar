@@ -34,6 +34,10 @@ class TestCIKLookup(object):
         monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKLookupResponse)
         assert aapl.ciks == ['0000320193']
 
+    def test_cik_lookup_lookups_property(self):
+        multiple_company_lookup = CIKLookup(['aapl', 'msft', 'fb'])
+        assert multiple_company_lookup.lookups == ['aapl', 'msft', 'fb']
+
     def test_multiple_results_company_name_search(self, monkeypatch):
         multiple_results_cik = CIKLookup('paper')
         monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKMultipleResultsResponse)
