@@ -101,10 +101,10 @@ class DailyFilings(AbstractFiling):
             urls (list of str): List of urls.
         """
         if len(self._paths) == 0:
-            for _, entries in self._filings_dict:
+            for entries in self.get_filings_dict().values():
                 for entry in entries:
                     # Will be of the form
-                    self._paths.extend(
+                    self._paths.append(
                         "Archives/{file_name}".format(
                             file_name=entry.file_name))
         return self._paths
@@ -133,10 +133,16 @@ class DailyFilings(AbstractFiling):
         return self._filings_dict
 
     def get_urls(self):
-        """Get all URLs for day. """
+        """Get all URLs for day.
+
+        Expects client _BASE to have trailing "/" for final URLs.
+
+        Returns:
+            urls (list of str): List of all URLs to get.
+        """
         if len(self._urls) == 0:
             paths = self.get_paths()
-            self._urls = ["{base}/{path}".format(base=self.client._BASE, path=path)
+            self._urls = ["{base}{path}".format(base=self.client._BASE, path=path)
                           for path in paths]
         return self._urls
 

@@ -15,13 +15,9 @@ class MockQuarterDirectory:
             self.text = f.read()
 
 
-class MockMasterIdxFile:
-    """Mock response object for master.20181231.idx file. """
-
-    def __init__(self, *args):
-        self.status_code = 200
-        with open(datapath("filings", "daily", "master.20181231.idx")) as f:
-            self.text = f.read()
+def mock_master_idx_file(*args):
+    with open(datapath("filings", "daily", "master.20181231.idx")) as f:
+        return f.read()
 
 
 class TestDaily:
@@ -41,8 +37,21 @@ class TestDaily:
     def test_quarter(self, date, expected):
         assert DailyFilings(date=date).quarter == expected
 
-    def test_get_urls(self, monkeypatch):
-        pass
+    @pytest.mark.parametrize(
+        "url",
+        [
+            "http://www.sec.gov/Archives/edgar/data/1000228/0001209191-18-064398.txt",
+            "http://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046093.txt",
+            "http://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046095.txt",
+            "http://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046101.txt",
+            "http://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046102.txt"
+        ]
+    )
+    def test_get_urls(self, monkeypatch, url):
+        daily_filing = DailyFilings(datetime(2018, 12, 31))
+        monkeypatch.setattr(DailyFilings, "_get_quarterly_directory", MockQuarterDirectory)
+        monkeypatch.setattr(DailyFilings, "_get_master_idx_file", mock_master_idx_file)
+        assert url in daily_filing.get_urls()
 
     def test_get_quarterly_directory(self, monkeypatch):
         monkeypatch.setattr(DailyFilings, "_get_quarterly_directory", MockQuarterDirectory)
@@ -63,7 +72,7 @@ class TestDaily:
     def test_get_master_idx_file(self, monkeypatch, company_name):
         daily_filing = DailyFilings(datetime(2018, 12, 31))
         monkeypatch.setattr(DailyFilings, "_get_quarterly_directory", MockQuarterDirectory)
-        monkeypatch.setattr(DailyFilings, "_get_master_idx_file", MockMasterIdxFile)
+        monkeypatch.setattr(DailyFilings, "_get_master_idx_file", mock_master_idx_file)
 
         # All company names above should be in file
-        assert company_name in daily_filing._get_master_idx_file().text
+        assert company_name in daily_filing._get_master_idx_file()
