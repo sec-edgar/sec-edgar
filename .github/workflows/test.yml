@@ -20,6 +20,9 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: ${{ matrix.python-version }}
+      - name: Install lxml dependencies
+        run: |
+        sudo apt-get install python3-lxml
       - name: Install dependencies
         run: |
           pip install -qq flake8
