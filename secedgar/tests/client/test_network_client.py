@@ -27,7 +27,6 @@ class MockBadStatusCodeResponse:
         if (status_code == 200):
             raise ValueError("status_code should not equal 200.")
         self.status_code = status_code
-        self.text = "BAD REQUEST"
 
     def __call__(self, *args, **kwargs):
         return self
@@ -75,46 +74,42 @@ class TestClient:
         with pytest.raises(EDGARQueryError):
             client.get_response('path', {})
 
-    @pytest.mark.parametrize(
-        "response",
-        [
-            MockSingleFilingTypeGoodResponse,
-            MockMultipleCIKResultsGoodResponse,
-            MockSingleFilingPageGoodResponse
-        ]
-    )
-    def test_good_responses(self, monkeypatch, client, response):
-        monkeypatch.setattr(requests, 'get', response)
+    def test_client_good_response_single_filing_type_passes(self, monkeypatch, client):
+        monkeypatch.setattr(requests, 'get', MockSingleFilingTypeGoodResponse)
+        assert client.get_response('path', {})
+
+    def test_client_good_response_multiple_cik_results_passes(self, monkeypatch, client):
+        monkeypatch.setattr(requests, 'get', MockMultipleCIKResultsGoodResponse)
+        assert client.get_response('path', {})
+
+    def test_client_good_response_single_filing_passes(self, monkeypatch, client):
+        monkeypatch.setattr(requests, 'get', MockSingleFilingPageGoodResponse)
         assert client.get_response('path', {})
 
     @pytest.mark.parametrize(
-        "status_code",
+        "status_code,expectation",
         [
-            204,
-            400,
-            401,
-            403,
-            404,
-            500,
-            501,
-            502
+            (400, pytest.raises(EDGARQueryError)),
+            (401, pytest.raises(EDGARQueryError)),
+            (500, pytest.raises(EDGARQueryError)),
+            (501, pytest.raises(EDGARQueryError))
         ]
     )
-    def test_client_bad_response_codes(self, status_code, monkeypatch, client):
+    def test_client_bad_response_codes(self, status_code, expectation, monkeypatch, client):
         monkeypatch.setattr(requests, 'get', MockBadStatusCodeResponse(status_code))
-        with pytest.raises(EDGARQueryError):
+        with expectation:
             client.get_response('path', {})
 
     @pytest.mark.parametrize(
-        "test_input,error",
+        "test_input,expectation",
         [
-            (0.5, TypeError),
-            ("2", TypeError),
-            (-1, ValueError)
+            (0.5, pytest.raises(TypeError)),
+            ("2", pytest.raises(TypeError)),
+            (-1, pytest.raises(ValueError))
         ]
     )
-    def test_client_bad_retry_count_setter(self, test_input, error, client):
-        with pytest.raises(error):
+    def test_client_bad_retry_count_setter(self, test_input, expectation, client):
+        with expectation:
             client.retry_count = test_input
 
     @pytest.mark.parametrize(

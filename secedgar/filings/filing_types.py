@@ -60,6 +60,7 @@ class FilingType(Enum):
     FILING_CFPORTAL = 'cfportal'
     FILING_CUSTODY = 'custody'
     FILING_D = 'd'
+    FILING_DEF_14A = 'def 14a'
     FILING_F1 = 'f-1'
     FILING_F10 = 'f-10'
     FILING_F3 = 'f-3'
