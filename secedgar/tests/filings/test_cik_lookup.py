@@ -41,7 +41,8 @@ class TestCIKLookup(object):
     def test_multiple_results_company_name_search(self, monkeypatch):
         multiple_results_cik = CIKLookup('paper')
         monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKMultipleResultsResponse)
-        assert len(multiple_results_cik.ciks) == 0
+        with pytest.warns(UserWarning):
+            assert len(multiple_results_cik.ciks) == 0
 
     def test_multiple_results_raises_warnings(self, monkeypatch):
         multiple_results_cik = CIKLookup('paper')
