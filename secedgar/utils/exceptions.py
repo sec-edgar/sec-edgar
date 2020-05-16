@@ -12,7 +12,7 @@ class EDGARFieldError(Exception):
     This error is thrown when an invalid field is given to an endpoint.
     """
 
-    def __init__(self, endpoint, field):
+    def __init__(self, endpoint, field):  # pragma: no cover
         self.endpoint = endpoint
         self.field = field
 
