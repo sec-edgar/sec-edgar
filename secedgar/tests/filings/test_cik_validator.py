@@ -65,5 +65,4 @@ class TestCIKValidator:
     def test_params_reset_after_get_cik(self, ticker_lookups, client):
         validator = _CIKValidator(lookups=ticker_lookups, client=client)
         validator._get_cik(ticker_lookups[0])
-        assert validator.params.get("CIK") is None
-        assert validator.params.get("company") is None
+        assert validator.params.get("CIK") is None and validator.params.get("company") is None
