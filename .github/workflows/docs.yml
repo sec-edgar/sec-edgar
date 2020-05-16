@@ -23,6 +23,7 @@ jobs:
       - name: Install dependencies
         run: |
           python setup.py install
+          pip install sphinx sphinx_rtd_theme ipython
       - name: Build Docs
         run: |
           cd docs
