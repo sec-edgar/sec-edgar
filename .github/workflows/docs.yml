@@ -22,8 +22,7 @@ jobs:
           python-version: 3.6
       - name: Install dependencies
         run: |
-          python setup.py install
-          pip install sphinx sphinx_rtd_theme ipython
+          ./ci/install_dependencies.sh docs
       - name: Build Docs
         run: |
           cd docs
