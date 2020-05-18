@@ -22,15 +22,10 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
-          sudo apt-get update && sudo apt-get install python-dev libxml2-dev libxslt-dev libz-dev
-          pip install -qq flake8
-          pip install pytest
-          python setup.py install
-      - name: Lint with flake8
+          ./ci/install_dependencies.sh
+      - name: Lint code and docstrings
         run: |
-          set -e
-          flake8 --version
-          flake8 secedgar --count --show-source --statistics
+          ./ci/lint.sh docstring
       - name: Test with pytest
         run: |
-          pytest secedgar/tests
+          ./ci/run_tests.sh
