@@ -1,7 +1,7 @@
 SEC-Edgar-Crawler
 =================
 
-|Build Status|
+|Tests Status| |Docs Status|
 
 Getting filings of various companies at once is really a pain, but
 SEC-Edgar does that for you. You can download all of a company’s
@@ -56,5 +56,7 @@ Copyright © 2020 Rahul Ranjan
 
 See LICENSE for details
 
-.. |Build Status| image:: https://travis-ci.com/coyo8/sec-edgar.svg?branch=master
-   :target: https://travis-ci.com/coyo8/sec-edgar
+.. |Tests Status| image:: https://github.com/sec-edgar/sec-edgar/workflows/Tests/badge.svg
+   :target: https://github.com/sec-edgar/sec-edgar/actions?query=workflow%3ATests
+.. |Docs Status| image:: https://github.com/sec-edgar/sec-edgar/workflows/Build%20Docs/badge.svg
+   :target: https://github.com/sec-edgar/sec-edgar/actions?query=workflow%3A%22Build+Docs%22
