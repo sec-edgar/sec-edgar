@@ -50,8 +50,7 @@ class _CIKValidator(object):
         return self._lookups
 
     def get_ciks(self):
-        """
-        Validate lookup values and return corresponding CIKs.
+        """Validate lookup values and return corresponding CIKs.
 
         Returns:
             ciks (dict): Dictionary with lookup terms as keys and CIKs as values.

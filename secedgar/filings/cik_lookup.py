@@ -2,8 +2,9 @@ from secedgar.filings.cik_validator import _CIKValidator
 
 
 class CIKLookup(object):
-    """CIK Lookup object. Given list of tickers/company names to lookup,
-    this object can return associated CIKs.
+    """CIK Lookup object.
+
+    Given list of tickers/company names to lookup, this object can return associated CIKs.
 
     Attributes:
         lookup (Union[str, list]): Ticker, company name, or list of tickers and/or company names.

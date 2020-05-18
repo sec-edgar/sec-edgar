@@ -13,7 +13,7 @@ from secedgar.utils import sanitize_date
 from secedgar.utils.exceptions import EDGARQueryError, CIKError
 
 DEFAULT_DATA_PATH = os.path.abspath(os.path.join(
-        os.path.dirname(__file__), '..', 'SEC-Edgar-Data'))
+    os.path.dirname(__file__), '..', 'SEC-Edgar-Data'))
 
 
 class SecCrawler(object):
@@ -24,6 +24,7 @@ class SecCrawler(object):
 
     .. versionadded:: 0.1.4
     """
+
     warnings.warn("The SecCrawler class will be deprecated "
                   "in favor of the classes in "
                   "secedgar.filings beginning in v0.2.0.")
@@ -164,7 +165,7 @@ class SecCrawler(object):
         params = {'action': 'getcompany', 'owner': 'exclude', 'output': 'xml',
                   'CIK': cik, 'type': filing_type, 'dateb': priorto, 'count': count}
         print("started {filing_type} {company_code}".format(
-                filing_type=filing_type, company_code=company_code))
+            filing_type=filing_type, company_code=company_code))
         r = requests.get(base_url, params=params)
         if r.status_code == 200:
             data = r.text
@@ -173,7 +174,7 @@ class SecCrawler(object):
 
             try:
                 self._save_in_directory(
-                        company_code, cik, priorto, filing_type, docs)
+                    company_code, cik, priorto, filing_type, docs)
             except Exception as e:
                 print(str(e))  # Need to use str for Python 2.5
         else:
