@@ -3,12 +3,12 @@
 # Sets up dependencies
 #
 # Usage:
-#     $ ./ci/deps.sh      # runs python setup.py install
-#     $ ./ci/deps.sh dev  # set up only dev dependencies
+#     $ ./ci/install_dependencies.sh      # runs python setup.py install
+#     $ ./ci/install_dependencies.sh dev  # set up dev dependencies as well
 python setup.py install
 
 if [[ $(uname) == "Linux" ]]; then
-    # Install lxml deps
+    # Install lxml dependencies
     sudo apt-get update && sudo apt-get install python-dev libxml2-dev libxslt-dev libz-dev
 fi
 
