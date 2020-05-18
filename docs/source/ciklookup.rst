@@ -2,29 +2,16 @@
 
 CIK Lookup
 ==========
-The ``CIKLookup`` class allows users to get company filings using company tickers and/or company names. For example,
-the code below fetches the past 15 10Q reports for the tickers AAPL, MSFT, and FB (Apple, Microsoft, and Facebook).
+The ``CIKLookup`` class allows users to get company filings using company tickers and/or company names.
+
+.. note::
+   By default, the ``Filing`` class wraps any given string or an iterable with string objects (e.g. a list of strings or a tuple
+   of strings). You will probably not need to use this class. However, it can be useful if you wish to save the CIKs for lookup terms.
+
+Below is an example of how you can retrieve lookup CIKs by using the ``CIKLookup`` class.
 
 .. ipython:: python
 
-   from secedgar.filings import Filing, FilingType, CIKLookup
-   lookup = CIKLookup(['aapl', 'msft', 'fb'])
-   my_filings = Filing(cik_lookup=lookup, filing_type=FilingType.FILING_10Q, count=15)
-
-The ``CIKLookup`` class can also look for CIK values by using the company name.
-
-.. ipython:: python
-
-   from secedgar.filings import Filing, FilingType, CIKLookup
-   lookup = CIKLookup(['Apple Inc.', 'Microsoft Corp', 'Facebook'])
-   my_filings = Filing(cik_lookup=lookup, filing_type=FilingType.FILING_10Q, count=15)
-
-A mix of tickers and company names is also allowed.
-
-.. ipython:: python
-
-   from secedgar.filings import Filing, FilingType, CIKLookup
-   lookup = CIKLookup(['aapl', 'msft', 'Facebook'])
-   my_filings = Filing(cik_lookup=lookup, filing_type=FilingType.FILING_10Q, count=15)
-
-.. autoclass:: secedgar.filings.CIKLookup
+   from secedgar.filings.cik_lookup import CIKLookup
+   lookups = CIKLookup(['aapl', 'msft', 'Facebook'])
+   lookups.lookup_dict
