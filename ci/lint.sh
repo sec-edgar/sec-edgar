@@ -10,3 +10,6 @@
 
 echo "Using flake8 version $(flake8 --version)"
 flake8 secedgar --count --show-source --statistics
+
+echo "Running docstring style check"
+pydocstyle secedgar/ --convention=google --count --add-ignore=D100,D104,D105,D107
