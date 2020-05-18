@@ -171,8 +171,8 @@ class Filing(AbstractFiling):
     def _get_accession_numbers(self, links):
         """Gets accession numbers given list of links.
 
-        Of the form https://www.sec.gov/Archives/edgar/data/<cik>/<first part of accession number before '-'>
-        /<accession number>-index.htm.
+        Of the form https://www.sec.gov/Archives/edgar/data/<cik>/
+        <first part of accession number before '-'>/<accession number>-index.htm.
 
         Args:
             links (list): List of links to extract accession numbers from.
