@@ -22,7 +22,7 @@ jobs:
           python-version: 3.6
       - name: Install dependencies
         run: |
-          python setup.py install
+          ./ci/install_dependencies.sh docs
       - name: Build Docs
         run: |
           cd docs
@@ -32,4 +32,4 @@ jobs:
         with:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: build # The folder the action should deploy.
+          FOLDER: docs/build/html # The folder the action should deploy.

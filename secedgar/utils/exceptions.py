@@ -1,16 +1,12 @@
 class EDGARQueryError(Exception):
-    """
-    This error is thrown when a query receives a response that is not a 200 response.
-    """
+    """This error is thrown when a query receives a response that is not a 200 response."""
 
     def __str__(self):  # pragma: no cover
         return "An error occured while making the query."
 
 
 class EDGARFieldError(Exception):
-    """
-    This error is thrown when an invalid field is given to an endpoint.
-    """
+    """This error is thrown when an invalid field is given to an endpoint."""
 
     def __init__(self, endpoint, field):  # pragma: no cover
         self.endpoint = endpoint
@@ -23,9 +19,7 @@ class EDGARFieldError(Exception):
 
 
 class CIKError(Exception):
-    """
-    This error is thrown when an invalid CIK is given.
-    """
+    """This error is thrown when an invalid CIK is given."""
 
     def __init__(self, cik):
         self.cik = cik
@@ -35,7 +29,7 @@ class CIKError(Exception):
 
 
 class FilingTypeError(Exception):
-    """This error is thrown when an invalid filing type is given. """
+    """This error is thrown when an invalid filing type is given."""
 
     def __str__(self):  # pragma: no cover
         return "The filing type given is not valid. " \

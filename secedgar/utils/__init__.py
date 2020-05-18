@@ -38,7 +38,6 @@ def make_path(path, **kwargs):
     Returns:
         None
     """
-
     if not os.path.exists(path):
         try:
             os.makedirs(path, **kwargs)

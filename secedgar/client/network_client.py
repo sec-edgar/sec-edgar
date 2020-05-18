@@ -1,3 +1,4 @@
+"""Client to communicate with EDGAR database."""
 import requests
 import time
 
@@ -8,8 +9,7 @@ from secedgar.utils.exceptions import EDGARQueryError
 
 
 class NetworkClient(AbstractClient):
-    """
-    Class in charge of sending and handling requests to EDGAR database.
+    """Class in charge of sending and handling requests to EDGAR database.
 
     Attributes:
         retry_count (int): Number of times to retry connecting to URL if not successful.
@@ -53,7 +53,7 @@ class NetworkClient(AbstractClient):
 
     @property
     def count(self):
-        """Number of results to show per page."""
+        """The Number of results to show per page."""
         return self._count
 
     @count.setter
@@ -66,7 +66,7 @@ class NetworkClient(AbstractClient):
 
     @staticmethod
     def _prepare_query(path):
-        """Prepares the query url.
+        """Prepare the query url.
 
         Args:
             url (str): End of url.
@@ -77,7 +77,7 @@ class NetworkClient(AbstractClient):
         return "%s%s" % (NetworkClient._BASE, path)
 
     def get_response(self, path, params, **kwargs):
-        """Executes HTTP request and returns response if valid.
+        """Execute HTTP request and returns response if valid.
 
         Args:
             path (str): A properly-formatted path
@@ -104,7 +104,7 @@ class NetworkClient(AbstractClient):
         return self.response
 
     def get_soup(self, path, params, **kwargs):
-        """ Return BeautifulSoup object from response text. Uses lxml parser.
+        """Return BeautifulSoup object from response text. Uses lxml parser.
 
         Args:
             path (str): A properly-formatted path
@@ -118,7 +118,7 @@ class NetworkClient(AbstractClient):
 
     @staticmethod
     def _validate_response(response):
-        """Ensures response from EDGAR is valid.
+        """Ensure response from EDGAR is valid.
 
         Args:
             response (requests.response): A requests.response object.
