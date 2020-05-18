@@ -39,13 +39,14 @@ class Filing(AbstractFiling):
                  **kwargs):
         self._start_date = start_date
         self._end_date = end_date
+        self._accession_numbers = []
         if not isinstance(filing_type, FilingType):
             raise FilingTypeError
         self._filing_type = filing_type
-        if not isinstance(cik_lookup, CIKLookup):  # make CIK for users if not given
+        # make CIKLookup object for users if not given
+        if not isinstance(cik_lookup, CIKLookup):
             cik_lookup = CIKLookup(cik_lookup)
         self._cik_lookup = cik_lookup
-        self._accession_numbers = []
         self._params = {
             'action': 'getcompany',
             'dateb': sanitize_date(self.end_date),
@@ -59,8 +60,7 @@ class Filing(AbstractFiling):
         if start_date is not None:
             self._params['datea'] = sanitize_date(start_date)
         # Make default client NetworkClient and pass in kwargs
-        if client is None:
-            self._client = NetworkClient(**kwargs)
+        self._client = client if client is not None else NetworkClient(**kwargs)
 
     @property
     def path(self):
@@ -111,6 +111,7 @@ class Filing(AbstractFiling):
 
     @property
     def accession_numbers(self):
+        """List of accession numbers for filings."""
         return self._accession_numbers
 
     @property
@@ -137,9 +138,9 @@ class Filing(AbstractFiling):
 
     # TODO: Change this to return accession numbers that are turned into URLs later
     def _get_urls_for_cik(self, cik, **kwargs):
-        """
-        Get all urls for specific company according to CIK that match
-        start date, end date, filing_type, and count parameters.
+        """Get all urls for specific company according to CIK.
+
+        Must match start date, end date, filing_type, and count parameters.
 
         Args:
             cik (str): CIK for company.
@@ -160,7 +161,6 @@ class Filing(AbstractFiling):
         while len(links) < self._client.count:
             data = self._client.get_soup(self.path, self.params, **kwargs)
             links.extend([link.string for link in data.find_all("filinghref")])
-            # TODO: Consider making client adopt most efficient count
             self.params["start"] += self._client.count
             if len(data.find_all("filinghref")) == 0:
                 break  # break if no more filings left
@@ -168,11 +168,11 @@ class Filing(AbstractFiling):
         txt_urls = [link[:link.rfind("-")].strip() + ".txt" for link in links]
         return txt_urls[:self.client.count]
 
-    @staticmethod
-    def _get_accession_numbers(links):
-        """Gets accession numbers given list of links of the form
-        https://www.sec.gov/Archives/edgar/data/<cik>/<first part of accession number before '-'>
-        /<accession number>-index.htm
+    def _get_accession_numbers(self, links):
+        """Gets accession numbers given list of links.
+
+        Of the form https://www.sec.gov/Archives/edgar/data/<cik>/<first part of accession number before '-'>
+        /<accession number>-index.htm.
 
         Args:
             links (list): List of links to extract accession numbers from.
@@ -180,11 +180,13 @@ class Filing(AbstractFiling):
         Returns:
             List of accession numbers for given links.
         """
-        return [link.split('/')[-1].replace('-index.htm', '') for link in links]
+        self._accession_numbers = [link.split('/')[-1].replace('-index.htm', '') for link in links]
+        return self._accession_numbers
 
     # TODO: break this method down further
     def save(self, directory):
         """Save files in specified directory.
+
         Each txt url looks something like:
         https://www.sec.gov/Archives/edgar/data/1018724/000101872419000043/0001018724-19-000043.txt
 
