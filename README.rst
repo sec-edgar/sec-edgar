@@ -30,12 +30,10 @@ You can clone the project or download it as zip.
 Running
 -------
 
-
-⚠️ The following code is experimental in v0.1.5. Please refer to docs on how to use the `SecCrawler` class if installing v0.1.4 or earlier. ⚠️
-
 .. code:: python
 
     from secedgar.filings import Filing, FilingType
+
     my_filings = Filing(cik_lookup='0000320193', filing_type=FilingType.FILING_10Q) # 10Q filings for AAPL
     my_filings.save('~/path/to/dir')
 
@@ -47,14 +45,8 @@ to be supported, please create an issue on GitHub.
 
 Documentation
 --------------
-To learn more about the APIs and latest changes in the project, read the `official documentation <https://www.rudrakos.com/sec-edgar/>`_.
+To learn more about the APIs and latest changes in the project, read the `official documentation <https://sec-edgar.github.io/sec-edgar>`_.
 
-License
--------
-
-Copyright © 2020 Rahul Ranjan
-
-See LICENSE for details
 
 .. |Tests Status| image:: https://github.com/sec-edgar/sec-edgar/workflows/Tests/badge.svg
    :target: https://github.com/sec-edgar/sec-edgar/actions?query=workflow%3ATests
