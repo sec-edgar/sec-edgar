@@ -164,52 +164,21 @@
             
   <div class="section" id="cik-lookup">
 <span id="ciklookup"></span><h1>CIK Lookup<a class="headerlink" href="#cik-lookup" title="Permalink to this headline">¶</a></h1>
-<p>The <code class="docutils literal notranslate"><span class="pre">CIKLookup</span></code> class allows users to get company filings using company tickers and/or company names. For example,
-the code below fetches the past 15 10Q reports for the tickers AAPL, MSFT, and FB (Apple, Microsoft, and Facebook).</p>
-<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">secedgar.filings</span> <span class="kn">import</span> <span class="n">Filing</span><span class="p">,</span> <span class="n">FilingType</span><span class="p">,</span> <span class="n">CIKLookup</span>
+<p>The <code class="docutils literal notranslate"><span class="pre">CIKLookup</span></code> class allows users to get company filings using company tickers and/or company names.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By default, the <code class="docutils literal notranslate"><span class="pre">Filing</span></code> class wraps any given string or an iterable with string objects (e.g. a list of strings or a tuple
+of strings). You will probably not need to use this class. However, it can be useful if you wish to save the CIKs for lookup terms.</p>
+</div>
+<p>Below is an example of how you can retrieve lookup CIKs by using the <code class="docutils literal notranslate"><span class="pre">CIKLookup</span></code> class.</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">secedgar.filings.cik_lookup</span> <span class="kn">import</span> <span class="n">CIKLookup</span>
 
-<span class="gp">In [2]: </span><span class="n">lookup</span> <span class="o">=</span> <span class="n">CIKLookup</span><span class="p">([</span><span class="s1">&#39;aapl&#39;</span><span class="p">,</span> <span class="s1">&#39;msft&#39;</span><span class="p">,</span> <span class="s1">&#39;fb&#39;</span><span class="p">])</span>
+<span class="gp">In [2]: </span><span class="n">lookups</span> <span class="o">=</span> <span class="n">CIKLookup</span><span class="p">([</span><span class="s1">&#39;aapl&#39;</span><span class="p">,</span> <span class="s1">&#39;msft&#39;</span><span class="p">,</span> <span class="s1">&#39;Facebook&#39;</span><span class="p">])</span>
 
-<span class="gp">In [3]: </span><span class="n">my_filings</span> <span class="o">=</span> <span class="n">Filing</span><span class="p">(</span><span class="n">cik_lookup</span><span class="o">=</span><span class="n">lookup</span><span class="p">,</span> <span class="n">filing_type</span><span class="o">=</span><span class="n">FilingType</span><span class="o">.</span><span class="n">FILING_10Q</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="gp">In [3]: </span><span class="n">lookups</span><span class="o">.</span><span class="n">lookup_dict</span>
+<span class="gh">Out[3]: </span><span class="go">{&#39;aapl&#39;: &#39;0000320193&#39;, &#39;msft&#39;: &#39;0000789019&#39;, &#39;Facebook&#39;: &#39;0001326801&#39;}</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">CIKLookup</span></code> class can also look for CIK values by using the company name.</p>
-<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [4]: </span><span class="kn">from</span> <span class="nn">secedgar.filings</span> <span class="kn">import</span> <span class="n">Filing</span><span class="p">,</span> <span class="n">FilingType</span><span class="p">,</span> <span class="n">CIKLookup</span>
-
-<span class="gp">In [5]: </span><span class="n">lookup</span> <span class="o">=</span> <span class="n">CIKLookup</span><span class="p">([</span><span class="s1">&#39;Apple Inc.&#39;</span><span class="p">,</span> <span class="s1">&#39;Microsoft Corp&#39;</span><span class="p">,</span> <span class="s1">&#39;Facebook&#39;</span><span class="p">])</span>
-
-<span class="gp">In [6]: </span><span class="n">my_filings</span> <span class="o">=</span> <span class="n">Filing</span><span class="p">(</span><span class="n">cik_lookup</span><span class="o">=</span><span class="n">lookup</span><span class="p">,</span> <span class="n">filing_type</span><span class="o">=</span><span class="n">FilingType</span><span class="o">.</span><span class="n">FILING_10Q</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>A mix of tickers and company names is also allowed.</p>
-<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [7]: </span><span class="kn">from</span> <span class="nn">secedgar.filings</span> <span class="kn">import</span> <span class="n">Filing</span><span class="p">,</span> <span class="n">FilingType</span><span class="p">,</span> <span class="n">CIKLookup</span>
-
-<span class="gp">In [8]: </span><span class="n">lookup</span> <span class="o">=</span> <span class="n">CIKLookup</span><span class="p">([</span><span class="s1">&#39;aapl&#39;</span><span class="p">,</span> <span class="s1">&#39;msft&#39;</span><span class="p">,</span> <span class="s1">&#39;Facebook&#39;</span><span class="p">])</span>
-
-<span class="gp">In [9]: </span><span class="n">my_filings</span> <span class="o">=</span> <span class="n">Filing</span><span class="p">(</span><span class="n">cik_lookup</span><span class="o">=</span><span class="n">lookup</span><span class="p">,</span> <span class="n">filing_type</span><span class="o">=</span><span class="n">FilingType</span><span class="o">.</span><span class="n">FILING_10Q</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-</pre></div>
-</div>
-<dl class="py class">
-<dt id="secedgar.filings.CIKLookup">
-<em class="property">class </em><code class="sig-prename descclassname">secedgar.filings.</code><code class="sig-name descname">CIKLookup</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lookups</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.CIKLookup" title="Permalink to this definition">¶</a></dt>
-<dd><p>CIK Lookup object. Given list of tickers/company names to lookup,
-this object can return associated CIKs.</p>
-<dl class="py attribute">
-<dt id="secedgar.filings.CIKLookup.lookup">
-<code class="sig-name descname">lookup</code><a class="headerlink" href="#secedgar.filings.CIKLookup.lookup" title="Permalink to this definition">¶</a></dt>
-<dd><p>Ticker, company name, or list of tickers and/or company names.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>Union[str, list]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<div class="versionadded">
-<p><span class="versionmodified added">New in version 0.1.5.</span></p>
-</div>
-</dd></dl>
-
 </div>
 
 

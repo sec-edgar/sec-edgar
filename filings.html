@@ -93,8 +93,7 @@
 <li class="toctree-l1"><a class="reference internal" href="crawler.html">Crawler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ciklookup.html">CIK Lookup</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Filings</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#base-class">Base Class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">Filings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="filingtypes.html">Filing Types</a></li>
@@ -166,32 +165,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="admonition warning" id="filings">
-<p class="admonition-title">Warning</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">secedgar.Filings</span></code> class will be added in v0.1.5. If you would like to make use of this functionality,
-please install the <a class="reference external" href="https://github.com/coyo8/sec-edgar">latest development version</a> from GitHub.</p>
-</div>
-<div class="section" id="id1">
-<h1>Filings<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<p>Filings can be downloaded using the <code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.base.Filing</span></code> class found in the <code class="docutils literal notranslate"><span class="pre">secedgar.filings</span></code> module.</p>
-<div class="section" id="base-class">
-<h2>Base Class<a class="headerlink" href="#base-class" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt id="secedgar.filings._base.AbstractFiling">
-<em class="property">class </em><code class="sig-prename descclassname">secedgar.filings._base.</code><code class="sig-name descname">AbstractFiling</code><a class="headerlink" href="#secedgar.filings._base.AbstractFiling" title="Permalink to this definition">¶</a></dt>
-<dd><p>Abstract base class for all SEC EDGAR filings.</p>
-<div class="versionadded">
-<p><span class="versionmodified added">New in version 0.1.5.</span></p>
-</div>
-</dd></dl>
-
-</div>
-<div class="section" id="id2">
-<h2>Filings<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="filings">
+<span id="id1"></span><h1>Filings<a class="headerlink" href="#filings" title="Permalink to this headline">¶</a></h1>
+<p>Filings can be downloaded using <a class="reference internal" href="#secedgar.filings.Filing" title="secedgar.filings.Filing"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.filings.Filing</span></code></a>.</p>
 <p>Supported filing types can be found at <a class="reference internal" href="filingtypes.html#filingtypes"><span class="std std-ref">Filing Types</span></a></p>
 <dl class="py class">
 <dt id="secedgar.filings.Filing">
-<em class="property">class </em><code class="sig-prename descclassname">secedgar.filings.</code><code class="sig-name descname">Filing</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cik_lookup</span></em>, <em class="sig-param"><span class="n">filing_type</span></em>, <em class="sig-param"><span class="n">start_date</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end_date</span><span class="o">=</span><span class="default_value">datetime.datetime(2020, 5, 4, 2, 42, 54, 891675)</span></em>, <em class="sig-param"><span class="n">client</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.Filing" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">secedgar.filings.</code><code class="sig-name descname">Filing</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cik_lookup</span></em>, <em class="sig-param"><span class="n">filing_type</span></em>, <em class="sig-param"><span class="n">start_date</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end_date</span><span class="o">=</span><span class="default_value">datetime.datetime(2020, 5, 19, 15, 45, 49, 163403)</span></em>, <em class="sig-param"><span class="n">client</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.Filing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class for receiving EDGAR filings.</p>
 <dl class="py attribute">
 <dt id="secedgar.filings.Filing.cik_lookup">
@@ -240,11 +220,49 @@ Stands for “date before.” Defaults to today.</p>
 </dl>
 </dd></dl>
 
+<dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments</dt>
+<dd class="field-odd"><p><strong>count</strong> (<em>int</em>) – Number of filings to get per request. Passed to NetworkClient
+created on initialization if none given.</p>
+</dd>
+</dl>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 0.1.5.</span></p>
 </div>
 </dd></dl>
 
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>Restrict the start and end dates by using the <cite>start_date</cite> and <cite>end_date</cite> arguments.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">secedgar.filings</span> <span class="kn">import</span> <span class="n">FilingType</span><span class="p">,</span> <span class="n">Filing</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="n">filing</span> <span class="o">=</span> <span class="n">Filing</span><span class="p">(</span><span class="n">cik_lookup</span><span class="o">=</span><span class="s1">&#39;aapl&#39;</span><span class="p">,</span>
+                <span class="n">filing_type</span><span class="o">=</span><span class="n">FilingType</span><span class="o">.</span><span class="n">FILING_10K</span><span class="p">,</span>
+                <span class="n">start_date</span><span class="o">=</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                <span class="n">end_date</span><span class="o">=</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>If you would like to find all filings from some <cite>start_date</cite> until today, simply exclude <cite>end_date</cite>.
+The end date defaults to today’s date.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">secedgar.filings</span> <span class="kn">import</span> <span class="n">FilingType</span><span class="p">,</span> <span class="n">Filing</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="n">filing</span> <span class="o">=</span> <span class="n">Filing</span><span class="p">(</span><span class="n">cik_lookup</span><span class="o">=</span><span class="s1">&#39;aapl&#39;</span><span class="p">,</span>
+                <span class="n">filing_type</span><span class="o">=</span><span class="n">FilingType</span><span class="o">.</span><span class="n">FILING_10K</span><span class="p">,</span>
+                <span class="n">start_date</span><span class="o">=</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="c1"># end date defaults to today</span>
+</pre></div>
+</div>
+<p>You can also look up a specific filing type for multiple companies.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">secedgar.filings</span> <span class="kn">import</span> <span class="n">FilingType</span><span class="p">,</span> <span class="n">Filing</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="n">filing</span> <span class="o">=</span> <span class="n">Filing</span><span class="p">(</span><span class="n">cik_lookup</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;aapl&#39;</span><span class="p">,</span> <span class="s1">&#39;msft&#39;</span><span class="p">,</span> <span class="s1">&#39;fb&#39;</span><span class="p">],</span>
+                <span class="n">filing_type</span><span class="o">=</span><span class="n">FilingType</span><span class="o">.</span><span class="n">FILING_10K</span><span class="p">,</span>
+                <span class="n">start_date</span><span class="o">=</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><em>For a full list of the available filing types, please see</em> <a class="reference internal" href="filingtypes.html#secedgar.filings.FilingType" title="secedgar.filings.FilingType"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.filings.FilingType</span></code></a>.</p>
 </div>
 </div>
 
