@@ -1,7 +1,7 @@
 from datetime import datetime
 import pytest
 
-from secedgar.utils import sanitize_date
+from secedgar.utils import sanitize_date, get_cik_map
 
 
 class TestUtils:
@@ -44,3 +44,15 @@ class TestUtils:
     )
     def test_good_formats_datetime(self, dt_date, expected):
         assert sanitize_date(dt_date) == expected
+
+    @pytest.mark.parametrize(
+        "ticker,cik",
+        [
+            ("AAPL", "320193"),
+            ("FB", "1326801"),
+            ("MSFT", "789019")
+        ]
+    )
+    def test_get_cik_map(self, ticker, cik):
+        cik_map = get_cik_map()
+        assert cik_map[ticker] == cik
