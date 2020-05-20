@@ -25,13 +25,13 @@ Latest development version:
 
 .. code:: bash
 
-    $ pip install git+https://github.com/coyo8/sec-edgar.git
+    $ pip install git+https://github.com/sec-edgar/sec-edgar.git
 
 or
 
 .. code:: bash
 
-     $ git clone https://github.com/coyo8/sec-edgar.git
+     $ git clone https://github.com/sec-edgar/sec-edgar.git
      $ cd sec-edgar
      $ pip install .
 
