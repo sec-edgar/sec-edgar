@@ -21,7 +21,8 @@ class DailyFilings(AbstractFiling):
     def __init__(self, date, client=None):
         if not isinstance(date, datetime.datetime):
             raise TypeError(
-                "Date must be given as datetime object. Was given type {type}.".format(type=type(date)))
+                "Date must be given as datetime object. Was given type {type}.".format(
+                    type=type(date)))
         self._date = date
         self._client = client if client is not None else NetworkClient()
         # Caches for responses
@@ -33,6 +34,7 @@ class DailyFilings(AbstractFiling):
 
     @property
     def client(self):
+        """``secedgar.client._base``: Client to use to make requests."""
         return self._client
 
     @property
@@ -42,6 +44,7 @@ class DailyFilings(AbstractFiling):
 
     @property
     def path(self):
+        """str: Path added to client base."""
         return "Archives/edgar/daily-index/{year}/QTR{num}".format(
             year=self._date.year, num=self.quarter)
 
@@ -76,6 +79,10 @@ class DailyFilings(AbstractFiling):
 
         Returns:
             text (str): Idx file as string.
+
+        Raises:
+            EDGARQueryError: If no file of the form master.<DATE>.idx
+                is found.
         """
         if self._master_idx_file is None or update_cache:
             formatted_date = datetime.datetime.strftime("%y%m%d", self._date)
@@ -85,14 +92,15 @@ class DailyFilings(AbstractFiling):
                     path=self.path, date=formatted_date)
                 self._master_idx_file = self.client.get_response(master_idx_url, **kwargs).text
             else:
-                # idx file not found
                 raise EDGARQueryError("""File master.{date}.idx not found.
                                      There may be no filings for this day.""".format(
                     date=formatted_date))
         return self._master_idx_file
 
     def get_paths(self, update_cache=False, **kwargs):
-        """Gets all paths for given day. Each path will look something like
+        """Gets all paths for given day.
+
+        Each path will look something like
         "edgar/data/1000228/0001209191-18-064398.txt".
 
         Args:
