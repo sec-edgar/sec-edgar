@@ -1,0 +1,7 @@
+v0.1.6
+------
+
+Highlights
+~~~~~~~~~~
+
+* ``secedgar.filings.DailyFilings`` added to allow easy access to every day's filings.
