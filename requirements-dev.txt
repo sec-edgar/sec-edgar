@@ -1,5 +1,3 @@
-sphinx-autobuild
-sphinx
 pytest
 flake8
-tox
+pydocstyle

@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 
 
 class AbstractClient(ABC):
+    """Abstract base class for client to retrieve data from EDGAR."""
 
     @abstractmethod
     def get_response(self, path, params, **kwargs):
@@ -22,7 +23,7 @@ class AbstractClient(ABC):
 
     @abstractmethod
     def get_soup(self, path, params, **kwargs):
-        """ Return BeautifulSoup object from response text. Uses lxml parser.
+        """Return BeautifulSoup object from response text. Uses lxml parser.
 
         Args:
             path (str): A properly-formatted path

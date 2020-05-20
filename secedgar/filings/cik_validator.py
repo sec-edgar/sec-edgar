@@ -50,8 +50,7 @@ class _CIKValidator(object):
         return self._lookups
 
     def get_ciks(self):
-        """
-        Validate lookup values and return corresponding CIKs.
+        """Validate lookup values and return corresponding CIKs.
 
         Returns:
             ciks (dict): Dictionary with lookup terms as keys and CIKs as values.
@@ -67,25 +66,48 @@ class _CIKValidator(object):
                 pass  # If multiple companies, found, just print out warnings
         return ciks
 
-    def _get_cik(self, lookup):
+    def _get_lookup_soup(self, lookup):
+        """Gets `BeautifulSoup` object for lookup.
+
+        *Note: Only to be used internally by `_get_cik` to get CIK from lookup.*
+
+        Args:
+            lookup (str): CIK, company name, or ticker symbol to lookup.
+
+        Returns:
+            soup (bs4.BeautifulSoup): `BeautifulSoup` object to be used to get
+                company CIK.
         """
-        Get cik for lookup value.
-        """
-        self._validate_lookup(lookup)
         try:  # try to lookup by CIK
             self._params['CIK'] = lookup
-            soup = self._client.get_soup(self.path, self.params)
+            return self._client.get_soup(self.path, self.params)
         except EDGARQueryError:  # fallback to lookup by company name
             del self._params['CIK']  # delete this parameter so no conflicts arise
             self._params['company'] = lookup
-            soup = self._client.get_soup(self.path, self.params)
+            return self._client.get_soup(self.path, self.params)
+
+    def _get_cik(self, lookup):
+        """Gets CIK from `BeautifulSoup` object.
+
+        .. warning: This method will warn when lookup returns multiple possibilities for a
+            CIK are found.
+
+        Args:
+            lookup (str): CIK, company name, or ticker symbol which was looked up.
+
+        Returns:
+            CIK (str): CIK for lookup.
+        """
+        self._validate_lookup(lookup)
+        soup = self._get_lookup_soup(lookup)
         try:  # try to get single CIK for lookup
             span = soup.find('span', {'class': 'companyName'})
             return span.find('a').getText().split()[0]  # returns single CIK
         except AttributeError:  # warn and skip if multiple possibilities for CIK found
-            warnings.warn("Lookup '{0}' will be skipped. "
-                          "Found multiple companies matching '{0}':".format(lookup))
-            warnings.warn('\n'.join(self._get_cik_possibilities(soup)))
+            warning_message = """Lookup '{0}' will be skipped.
+                          Found multiple companies matching '{0}':
+                          {1}""".format(lookup, '\n'.join(self._get_cik_possibilities(soup)))
+            warnings.warn(warning_message)
         finally:
             # Delete parameters after lookup
             if self._params.get('company') is not None:

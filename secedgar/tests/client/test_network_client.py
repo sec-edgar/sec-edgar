@@ -27,6 +27,7 @@ class MockBadStatusCodeResponse:
         if (status_code == 200):
             raise ValueError("status_code should not equal 200.")
         self.status_code = status_code
+        self.text = ""
 
     def __call__(self, *args, **kwargs):
         return self
@@ -68,7 +69,7 @@ class MockSingleFilingPageGoodResponse:
             self.text = f.read()
 
 
-class TestClient:
+class TestNetworkClient:
     def test_client_bad_response_raises_error(self, monkeypatch, client):
         monkeypatch.setattr(requests, 'get', MockNoCIKFoundBadResponse)
         with pytest.raises(EDGARQueryError):
@@ -87,17 +88,18 @@ class TestClient:
         assert client.get_response('path', {})
 
     @pytest.mark.parametrize(
-        "status_code,expectation",
+        "status_code",
         [
-            (400, pytest.raises(EDGARQueryError)),
-            (401, pytest.raises(EDGARQueryError)),
-            (500, pytest.raises(EDGARQueryError)),
-            (501, pytest.raises(EDGARQueryError))
+            203,
+            400,
+            401,
+            500,
+            501
         ]
     )
-    def test_client_bad_response_codes(self, status_code, expectation, monkeypatch, client):
+    def test_client_bad_response_codes(self, status_code, monkeypatch, client):
         monkeypatch.setattr(requests, 'get', MockBadStatusCodeResponse(status_code))
-        with expectation:
+        with pytest.raises(EDGARQueryError):
             client.get_response('path', {})
 
     @pytest.mark.parametrize(

@@ -1,3 +1,4 @@
+"""Client to communicate with EDGAR database."""
 import requests
 import time
 
@@ -8,8 +9,7 @@ from secedgar.utils.exceptions import EDGARQueryError
 
 
 class NetworkClient(AbstractClient):
-    """
-    Class in charge of sending and handling requests to EDGAR database.
+    """Class in charge of sending and handling requests to EDGAR database.
 
     Attributes:
         retry_count (int): Number of times to retry connecting to URL if not successful.
@@ -53,7 +53,7 @@ class NetworkClient(AbstractClient):
 
     @property
     def count(self):
-        """Number of results to show per page."""
+        """The Number of results to show per page."""
         return self._count
 
     @count.setter
@@ -66,7 +66,7 @@ class NetworkClient(AbstractClient):
 
     @staticmethod
     def _prepare_query(path):
-        """Prepares the query url.
+        """Prepare the query url.
 
         Args:
             url (str): End of url.
@@ -77,7 +77,7 @@ class NetworkClient(AbstractClient):
         return "%s%s" % (NetworkClient._BASE, path)
 
     def get_response(self, path, params, **kwargs):
-        """Executes HTTP request and returns response if valid.
+        """Execute HTTP request and returns response if valid.
 
         Args:
             path (str): A properly-formatted path
@@ -85,27 +85,26 @@ class NetworkClient(AbstractClient):
             to request.
 
         Returns:
-            response (requests.response): A requests.response object.
+            response (requests.Response): A `requests.Response` object.
 
         Raises:
             EDGARQueryError: If problems arise when making query.
         """
         prepared_url = self._prepare_query(path)
-        response = None
-        for _ in range(self.retry_count + 1):
-            response = requests.get(url=prepared_url, params=params, **kwargs)
-            if response.status_code == 200:
-                try:
-                    self._validate_response(response)
-                except EDGARQueryError:
-                    continue
-            time.sleep(self.pause)
-        self._validate_response(response)
+        for i in range(self.retry_count + 1):
+            response = requests.get(prepared_url, params=params, **kwargs)
+            try:
+                self._validate_response(response)
+            except EDGARQueryError:
+                time.sleep(self.pause)
+                # Raise query error if on last retry
+                if i == self.retry_count:
+                    raise EDGARQueryError()
         self.response = response
         return self.response
 
     def get_soup(self, path, params, **kwargs):
-        """ Return BeautifulSoup object from response text. Uses lxml parser.
+        """Return BeautifulSoup object from response text. Uses lxml parser.
 
         Args:
             path (str): A properly-formatted path
@@ -119,7 +118,7 @@ class NetworkClient(AbstractClient):
 
     @staticmethod
     def _validate_response(response):
-        """Ensures response from EDGAR is valid.
+        """Ensure response from EDGAR is valid.
 
         Args:
             response (requests.response): A requests.response object.
@@ -145,4 +144,7 @@ class NetworkClient(AbstractClient):
                                   "There was a server-side error with "
                                   "your request.")
         elif any(error_message in response.text for error_message in error_messages):
+            raise EDGARQueryError()
+        # Need to check for error messages before checking for 200 status code
+        elif status_code != 200:
             raise EDGARQueryError()
