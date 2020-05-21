@@ -131,11 +131,11 @@ class TestDaily:
             ("BANK OF SOUTH CAROLINA CORP", "0001225208-18-017075.txt")
         ]
     )
-    def test_save(self, tmpdir, monkeypatch, subdir, file):
+    def test_save(self, tmp_data_directory, monkeypatch, subdir, file):
         daily_filing = DailyFilings(datetime(2018, 12, 31))
         monkeypatch.setattr(DailyFilings, "_get_quarterly_directory", MockQuarterDirectory)
         monkeypatch.setattr(DailyFilings, '_get_master_idx_file', mock_master_idx_file)
         monkeypatch.setattr(requests, 'get', MockFilingData)
-        daily_filing.save(str(tmpdir))
-        path_to_check = os.path.join(tmpdir, subdir, file)
+        daily_filing.save(tmp_data_directory)
+        path_to_check = os.path.join(tmp_data_directory, subdir, file)
         assert os.path.exists(path_to_check)
