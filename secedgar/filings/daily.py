@@ -1,10 +1,13 @@
 import datetime
+import os
 import re
+import requests
 
 from collections import namedtuple
 
-from secedgar.filings._base import AbstractFiling
 from secedgar.client import NetworkClient
+from secedgar.filings._base import AbstractFiling
+from secedgar.utils import make_path
 
 from secedgar.utils.exceptions import EDGARQueryError
 
@@ -143,6 +146,17 @@ class DailyFilings(AbstractFiling):
                     self._filings_dict[fields[0]] = [FilingEntry(*fields)]
         return self._filings_dict
 
+    def make_url(self, path):
+        """Make URLs from path given.
+
+        Args:
+            path (str): Ending of URL
+
+        Returns:
+            url (str): Full URL which can be used to access filing.
+        """
+        return "{base}{path}".format(base=self.client._BASE, path=path)
+
     def get_urls(self):
         """Get all URLs for day.
 
@@ -153,15 +167,38 @@ class DailyFilings(AbstractFiling):
         """
         if len(self._urls) == 0:
             paths = self.get_paths()
-            self._urls = ["{base}{path}".format(base=self.client._BASE, path=path)
-                          for path in paths]
+            self._urls = [self.make_url(path) for path in paths]
         return self._urls
 
     def save(self, directory):
         """Save all daily filings.
 
+        Will store all filings for each unique company name under a separate subdirectory
+        within given directory argument.
+
+        Ex:
+        my_directory
+        |
+        ---- Apple Inc.
+             |
+             ---- ...txt files
+        ---- Microsoft Corp.
+             |
+             ---- ...txt files
+
         Args:
             directory (str): Directory where filings should be stored. Will be broken down
                 further by company name and form type.
         """
-        pass
+        self.get_filings_dict()
+        for filings in self._filings_dict.values():
+            # take the company name from the first filing and make that the subdirectory name
+            subdirectory = os.path.join(directory, filings[0].company_name)
+            make_path(subdirectory)
+            for filing in filings:
+                filename = filing.file_name.split('/')[-1]
+                filing_path = os.path.join(subdirectory, filename)
+                url = self.make_url(filename)
+                data = requests.get(url).text
+                with open(filing_path, 'w') as f:
+                    f.write(data)
