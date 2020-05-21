@@ -193,7 +193,7 @@ class DailyFilings(AbstractFiling):
         self.get_filings_dict()
         for filings in self._filings_dict.values():
             # take the company name from the first filing and make that the subdirectory name
-            subdirectory = os.path.join(str(directory), filings[0].company_name)
+            subdirectory = os.path.join(directory, filings[0].company_name)
             make_path(subdirectory)
             for filing in filings:
                 filename = filing.file_name.split('/')[-1]
