@@ -74,7 +74,7 @@ class Filing(AbstractFiling):
 
     @property
     def client(self):
-        """``secedgar.client.base``: Client to use to make requests."""
+        """``secedgar.client._base``: Client to use to make requests."""
         return self._client
 
     @property

@@ -36,7 +36,7 @@ class _CIKValidator(object):
 
     @property
     def client(self):
-        """``secedgar.client.base``: Client to use to fetch requests."""
+        """``secedgar.client_.base``: Client to use to fetch requests."""
         return self._client
 
     @property
