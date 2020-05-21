@@ -69,7 +69,10 @@ class _CIKValidator(object):
     def _get_lookup_soup(self, lookup):
         """Gets `BeautifulSoup` object for lookup.
 
-        *Note: Only to be used internally by `_get_cik` to get CIK from lookup.*
+        First tries to lookup using CIK. Then falls back to company name.
+
+        .. warning::
+           Only to be used internally by `_get_cik` to get CIK from lookup.
 
         Args:
             lookup (str): CIK, company name, or ticker symbol to lookup.
