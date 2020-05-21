@@ -93,7 +93,14 @@
 <li class="toctree-l1"><a class="reference internal" href="crawler.html">Crawler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ciklookup.html">CIK Lookup</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Filings</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#filing">Filing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#daily-filings">Daily Filings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Examples</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="filingtypes.html">Filing Types</a></li>
@@ -167,11 +174,17 @@
             
   <div class="section" id="filings">
 <span id="id1"></span><h1>Filings<a class="headerlink" href="#filings" title="Permalink to this headline">¶</a></h1>
+<p>There are currently two supported ways to fetch filings. If you
+are interested in grabbing specific types of filings for a specific set of companies,
+it is suggested that you use <a class="reference internal" href="#secedgar.filings.Filing" title="secedgar.filings.Filing"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.filings.Filing</span></code></a>. If you are interested in
+fetching all filings from any given day, you should use <a class="reference internal" href="#secedgar.filings.DailyFilings" title="secedgar.filings.DailyFilings"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.filings.DailyFilings</span></code></a>.</p>
 <p>Filings can be downloaded using <a class="reference internal" href="#secedgar.filings.Filing" title="secedgar.filings.Filing"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.filings.Filing</span></code></a>.</p>
 <p>Supported filing types can be found at <a class="reference internal" href="filingtypes.html#filingtypes"><span class="std std-ref">Filing Types</span></a></p>
+<div class="section" id="filing">
+<h2>Filing<a class="headerlink" href="#filing" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="secedgar.filings.Filing">
-<em class="property">class </em><code class="sig-prename descclassname">secedgar.filings.</code><code class="sig-name descname">Filing</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cik_lookup</span></em>, <em class="sig-param"><span class="n">filing_type</span></em>, <em class="sig-param"><span class="n">start_date</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end_date</span><span class="o">=</span><span class="default_value">datetime.datetime(2020, 5, 20, 18, 11, 30, 954181)</span></em>, <em class="sig-param"><span class="n">client</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.Filing" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">secedgar.filings.</code><code class="sig-name descname">Filing</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cik_lookup</span></em>, <em class="sig-param"><span class="n">filing_type</span></em>, <em class="sig-param"><span class="n">start_date</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end_date</span><span class="o">=</span><span class="default_value">datetime.datetime(2020, 5, 21, 2, 27, 44, 349003)</span></em>, <em class="sig-param"><span class="n">client</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.Filing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class for receiving EDGAR filings.</p>
 <dl class="py attribute">
 <dt id="secedgar.filings.Filing.cik_lookup">
@@ -232,7 +245,7 @@ created on initialization if none given.</p>
 </dd></dl>
 
 <div class="section" id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
 <p>Restrict the start and end dates by using the <cite>start_date</cite> and <cite>end_date</cite> arguments.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">secedgar.filings</span> <span class="kn">import</span> <span class="n">FilingType</span><span class="p">,</span> <span class="n">Filing</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
@@ -263,6 +276,51 @@ The end date defaults to today’s date.</p>
 </pre></div>
 </div>
 <p><em>For a full list of the available filing types, please see</em> <a class="reference internal" href="filingtypes.html#secedgar.filings.FilingType" title="secedgar.filings.FilingType"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.filings.FilingType</span></code></a>.</p>
+</div>
+</div>
+<div class="section" id="daily-filings">
+<h2>Daily Filings<a class="headerlink" href="#daily-filings" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="secedgar.filings.DailyFilings">
+<em class="property">class </em><code class="sig-prename descclassname">secedgar.filings.</code><code class="sig-name descname">DailyFilings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">date</span></em>, <em class="sig-param"><span class="n">client</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.DailyFilings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for retrieving all daily filings from <a class="reference external" href="https://www.sec.gov/Archives/edgar/daily-index">https://www.sec.gov/Archives/edgar/daily-index</a>.</p>
+<dl class="py attribute">
+<dt id="secedgar.filings.DailyFilings.date">
+<code class="sig-name descname">date</code><a class="headerlink" href="#secedgar.filings.DailyFilings.date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Date of daily filing to fetch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>datetime.datetime</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="secedgar.filings.DailyFilings.client">
+<code class="sig-name descname">client</code><a class="headerlink" href="#secedgar.filings.DailyFilings.client" title="Permalink to this definition">¶</a></dt>
+<dd><p>Client to use for fetching data.
+Defaults to <code class="docutils literal notranslate"><span class="pre">secedgar.client.NetworkClient</span></code> if none is given.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>secedgar.client._base.AbstractClient</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="id2">
+<h3>Examples<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>If you wanted to download all filings from January 2, 2020, you could use the following code.
+Note that you should replace <code class="docutils literal notranslate"><span class="pre">'/my_directory'</span></code> with the desired directory of the filings.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">secedgar.filings</span> <span class="kn">import</span> <span class="n">DailyFilings</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="n">daily_filings</span> <span class="o">=</span> <span class="n">DailyFilings</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">daily_filings</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;/my_directory&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
