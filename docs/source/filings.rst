@@ -17,8 +17,8 @@ Filing
 
 .. autoclass:: secedgar.filings.Filing
 
-Filing Examples
----------------
+Examples
+^^^^^^^^
 
 Restrict the start and end dates by using the `start_date` and `end_date` arguments.
 
@@ -62,8 +62,8 @@ Daily Filings
 
 .. autoclass:: secedgar.filings.DailyFilings
 
-Daily Filings Examples
-----------------------
+Examples
+^^^^^^^^
 
 If you wanted to download all filings from January 2, 2020, you could use the following code.
 Note that you should replace ``'/my_directory'`` with the desired directory of the filings.
