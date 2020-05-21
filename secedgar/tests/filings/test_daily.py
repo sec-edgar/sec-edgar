@@ -1,4 +1,6 @@
+import os
 import pytest
+import requests
 
 from datetime import datetime
 
@@ -13,6 +15,13 @@ class MockQuarterDirectory:
         self.status_code = 200
         with open(datapath("filings", "daily", "daily_index_2018_QTR4.htm")) as f:
             self.text = f.read()
+
+
+class MockFilingData:
+    """Mock response object for filing."""
+
+    def __init__(self, *args, **kwargs):
+        self.text = "Testing..."
 
 
 def mock_master_idx_file(*args):
@@ -111,3 +120,22 @@ class TestDaily:
         daily_filing = DailyFilings(datetime(2020, 1, 1))
         # params should always be empty
         assert not daily_filing.params
+
+    @pytest.mark.parametrize(
+        "subdir,file",
+        [
+            ("HENRY SCHEIN INC", "0001209191-18-064398.txt"),
+            ("ROYAL BANK OF CANADA", "0001140361-18-046093.txt"),
+            ("NOVAVAX INC", "0001144204-18-066754.txt"),
+            ("BROOKFIELD ASSET MANAGEMENT INC.", "0001104659-18-075315.txt"),
+            ("BANK OF SOUTH CAROLINA CORP", "0001225208-18-017075.txt")
+        ]
+    )
+    def test_save(self, tmpdir, monkeypatch, subdir, file):
+        daily_filing = DailyFilings(datetime(2018, 12, 31))
+        monkeypatch.setattr(DailyFilings, "_get_quarterly_directory", MockQuarterDirectory)
+        monkeypatch.setattr(DailyFilings, '_get_master_idx_file', mock_master_idx_file)
+        monkeypatch.setattr(requests, 'get', MockFilingData)
+        daily_filing.save(tmpdir)
+        path_to_check = os.path.join(tmpdir, subdir, file)
+        assert os.path.exists(path_to_check)
