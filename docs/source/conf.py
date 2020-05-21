@@ -10,12 +10,12 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-import secedgar
 import os
 import sys
 
 sys.path.insert(0, os.path.abspath('../..'))
 
+import secedgar  # noqa: E402 isort:skip
 
 # -- Project information -----------------------------------------------------
 
