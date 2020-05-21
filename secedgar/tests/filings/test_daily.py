@@ -137,5 +137,5 @@ class TestDaily:
         monkeypatch.setattr(DailyFilings, '_get_master_idx_file', mock_master_idx_file)
         monkeypatch.setattr(requests, 'get', MockFilingData)
         daily_filing.save(tmp_data_directory)
-        path_to_check = os.path.join(tmp_data_directory, subdir, file)
+        path_to_check = tmp_data_directory.join([subdir, file])
         assert os.path.exists(path_to_check)
