@@ -8,6 +8,8 @@ def get_cik_map():
 
     Returns:
         Dictionary with tickers being keys and CIKs, as strings, being the values.
+
+    .. versionadded:: 0.1.6
     """
     response = requests.get(URL).json()
     return {v["ticker"]: str(v["cik_str"]) for _, v in response.items()}
@@ -18,6 +20,8 @@ def get_company_name_map():
 
     Returns:
         Dictionary with company names being keys and CIKs, as strings, being the values.
+
+    .. versionadded:: 0.1.6
     """
     response = requests.get(URL).json()
     return {v["title"]: str(v["cik_str"]) for _, v in response.items()}
