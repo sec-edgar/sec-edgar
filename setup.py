@@ -6,6 +6,9 @@ from setuptools import setup, find_packages
 from setuptools.command.install import install
 
 SUPPORTED_VERSIONS = ['2.7', '3.5', '3.6', '3.7', '3.8']
+EXTRAS_REQUIRE = {
+    "cli": ["click"]
+}
 here = os.path.abspath(os.path.dirname(__file__))
 
 
@@ -51,14 +54,14 @@ setup(
     license='Apache License (2.0)',
     author='Rahul Ranjan',
     author_email='rahul.rrixe@gmail.com',
-    description="""SEC-Edgar implements a basic crawler for downloading 
-                 filings from the SEC Edgar database. It is most useful 
+    description="""SEC-Edgar implements a basic crawler for downloading
+                 filings from the SEC Edgar database. It is most useful
                  for automatically collecting public filings from the SEC.""",  # noqa: W291
     long_description=LONG_DESCRIPTION,
     long_description_content_type='text/x-rst',
-    entry_points='''
-            [console_scripts]
-            ''',
+    entry_points={
+        'console_scripts': []
+    },
     cmdclass={
         'install': install,
     },
@@ -66,6 +69,7 @@ setup(
     # These will be installed by pip when your
     # project is installed.
     install_requires=parse_requirements('requirements.txt'),
+    extras_require=EXTRAS_REQUIRE,
     keywords=['SEC', 'Edgar', 'Crawler', 'filings'],
     tests_require=parse_requirements('requirements.txt', 'requirements-dev.txt'),
     classifiers=[
