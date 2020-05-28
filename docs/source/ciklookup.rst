@@ -16,5 +16,4 @@ Below is an example of how you can retrieve lookup CIKs by using the ``CIKLookup
    lookups = CIKLookup(['aapl', 'msft', 'Facebook'])
    lookups.lookup_dict
 
-Another alternative to using the ``CIKLookup`` class directly is to use the provided ``secedgar.utils.get_cik_map`` and
-``secedgar.utils.get_company_name_map`` functions.
+Another alternative to using the ``CIKLookup`` class directly is to use the provided :meth:`secedgar.utils.get_cik_map` function.
