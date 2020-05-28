@@ -10,7 +10,7 @@ from secedgar.utils import sanitize_date, get_cik_map
 
 class MockCIKMapResponse:
     def __init__(self, *args, **kwargs):
-        with gzip.open(datapath("utils", "cik_map.json.gz")) as f:
+        with gzip.open(datapath("utils", "cik_map.json.gz"), 'rt') as f:
             self.text = f.read()
 
 
