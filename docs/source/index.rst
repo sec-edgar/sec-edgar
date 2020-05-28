@@ -18,6 +18,7 @@ Welcome to secedgar's documentation!
    ciklookup
    filings
    filingtypes
+   cikmap
 
 .. _package_info:
 

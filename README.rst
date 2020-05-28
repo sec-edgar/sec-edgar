@@ -23,8 +23,8 @@ You can clone the project or download it as zip.
 
 .. code:: bash
 
-   $ git clone https://github.com/rahulrrixe/SEC-Edgar.git
-   $ cd SEC-Edgar
+   $ git clone https://github.com/sec-edgar/sec-edgar.git
+   $ cd sec-edgar
    $ python setup.py install
 
 Running
