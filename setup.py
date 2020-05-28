@@ -24,13 +24,10 @@ def find_version(*file_paths):
     Why read it, and not import?
     see https://groups.google.com/d/topic/pypa-dev/0PkjVpcxTzQ/discussion
     """
-    # Open in Latin-1 so that we avoid encoding errors.
-    # Use codecs.open for Python 2 compatibility
-    with open(os.path.join(HERE, *file_paths), 'r', 'latin1') as f:
+    with open(os.path.join(HERE, *file_paths), 'r') as f:
         version_file = f.read()
 
-    # The version line must have the form
-    # __version__ = 'ver'
+    # The version line must have the form __version__ = 'ver'
     version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]",
                               version_file, re.M)
     if version_match:
@@ -73,7 +70,7 @@ setup(
     # These will be installed by pip when your
     # project is installed.
     install_requires=parse_requirements('requirements.txt'),
-    keywords=['SEC', 'Edgar', 'Crawler', 'filings'],
+    keywords=['SEC', 'EDGAR', 'crawler', 'filings'],
     tests_require=parse_requirements('requirements.txt', 'requirements-dev.txt'),
     classifiers=CLASSIFIERS,
     # If there are data files included in your packages that need to be
