@@ -13,8 +13,7 @@ def get_cik_map(key="ticker"):
             company name as keys.
 
     Returns:
-        Dictionary with either ticker or company name as keys, depending on
-            ``key`` argument, and corresponding CIK as values.
+        dict: Dictionary with either ticker or company name as keys, depending on ``key`` argument, and corresponding CIK as values.
 
     .. versionadded:: 0.1.6
     """
