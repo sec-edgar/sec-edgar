@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Common Usage Examples &mdash; secedgar 0.1.5 documentation</title>
+  <title>Finding Company CIKs &mdash; secedgar 0.1.5 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Crawler" href="crawler.html" />
-    <link rel="prev" title="Install" href="install.html" /> 
+    <link rel="next" title="About" href="about.html" />
+    <link rel="prev" title="Filing Types" href="filingtypes.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -89,12 +89,12 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s New</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Common Usage Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Common Usage Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="crawler.html">Crawler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ciklookup.html">CIK Lookup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filings.html">Filings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filingtypes.html">Filing Types</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cikmap.html">Finding Company CIKs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Finding Company CIKs</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Package Information</span></p>
 <ul>
@@ -144,13 +144,13 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Common Usage Examples</li>
+      <li>Finding Company CIKs</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/usage.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/cikmap.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -163,37 +163,33 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="common-usage-examples">
-<span id="usage"></span><h1>Common Usage Examples<a class="headerlink" href="#common-usage-examples" title="Permalink to this headline">¶</a></h1>
-<p>secedgar provides a simple way to download multiple filings from the
-<a class="reference external" href="https://www.sec.gov/edgar/searchedgar/companysearch.html">SEC Edgar database</a>.</p>
-<p>This package is useful for obtaining important financial information about public companies such as</p>
-<ul class="simple">
-<li><p>Financials</p></li>
-<li><p>Business Profile</p></li>
-<li><p>Letter to Shareholders</p></li>
-<li><p>Management’s Analysis</p></li>
-</ul>
-<p>The <code class="docutils literal notranslate"><span class="pre">Filing</span></code> class provides a simple API to fetch SEC filings.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">secedgar.filings</span> <span class="kn">import</span> <span class="n">Filing</span><span class="p">,</span> <span class="n">FilingType</span>
+  <div class="section" id="finding-company-ciks">
+<span id="cikmap"></span><h1>Finding Company CIKs<a class="headerlink" href="#finding-company-ciks" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">secedgar.utils.get_cik_map</span></code> function is provided as a utility to easily
+fetch CIKs based on a company’s ticker or name.</p>
+<dl class="py function">
+<dt id="secedgar.utils.get_cik_map">
+<code class="sig-prename descclassname">secedgar.utils.</code><code class="sig-name descname">get_cik_map</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span><span class="o">=</span><span class="default_value">'ticker'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.utils.get_cik_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get dictionary of tickers to CIK numbers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – Should be either “ticker” or “title”. Choosing “ticker”
+will give dict with tickers as keys. Choosing “title” will use
+company name as keys.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Dictionary with either ticker or company name as keys, depending on</dt><dd><p><code class="docutils literal notranslate"><span class="pre">key</span></code> argument, and corresponding CIK as values.</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.1.6.</span></p>
+</div>
+</dd></dl>
 
-<span class="n">my_filings</span> <span class="o">=</span> <span class="n">Filing</span><span class="p">(</span><span class="n">cik_lookup</span><span class="o">=</span><span class="s1">&#39;aapl&#39;</span><span class="p">,</span>
-                    <span class="n">filing_type</span><span class="o">=</span><span class="n">FilingType</span><span class="o">.</span><span class="n">FILING_10Q</span><span class="p">,</span>
-                    <span class="n">count</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>The <code class="docutils literal notranslate"><span class="pre">cik_lookup</span></code> argument can also take multiple tickers and/or company names.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">secedgar.filings</span> <span class="kn">import</span> <span class="n">Filing</span><span class="p">,</span> <span class="n">FilingType</span>
-
-<span class="n">my_filings</span> <span class="o">=</span> <span class="n">Filing</span><span class="p">(</span><span class="n">cik_lookup</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;aapl&#39;</span><span class="p">,</span> <span class="s1">&#39;msft&#39;</span><span class="p">,</span> <span class="s1">&#39;Facebook&#39;</span><span class="p">],</span>
-                    <span class="n">filing_type</span><span class="o">=</span><span class="n">FilingType</span><span class="o">.</span><span class="n">FILING_10Q</span><span class="p">,</span>
-                    <span class="n">count</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>In order to save all fetched filings to a specific directory, use the <code class="docutils literal notranslate"><span class="pre">save</span></code> method.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_filings</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;~/tempdir&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
 </div>
 
 
@@ -204,10 +200,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="crawler.html" class="btn btn-neutral float-right" title="Crawler" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="about.html" class="btn btn-neutral float-right" title="About" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="install.html" class="btn btn-neutral float-left" title="Install" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="filingtypes.html" class="btn btn-neutral float-left" title="Filing Types" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

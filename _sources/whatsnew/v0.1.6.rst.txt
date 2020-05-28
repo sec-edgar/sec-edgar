@@ -5,3 +5,4 @@ Highlights
 ~~~~~~~~~~
 
 * :class:`secedgar.filings.DailyFilings` added to allow easy access to every day's filings.
+* :meth:`secedgar.utils.get_cik_map` added to add an easy and fast option for getting company CIKs.
