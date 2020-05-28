@@ -20,7 +20,7 @@ Filing
 Examples
 ^^^^^^^^
 
-Restrict the start and end dates by using the `start_date` and `end_date` arguments.
+Restrict the start and end dates by using the ``start_date`` and ``end_date`` arguments.
 
 .. code-block:: python
 
@@ -32,7 +32,7 @@ Restrict the start and end dates by using the `start_date` and `end_date` argume
                    start_date=datetime(2015, 1, 1),
                    end_date=datetime(2019, 1, 1))
 
-If you would like to find all filings from some `start_date` until today, simply exclude `end_date`.
+If you would like to find all filings from some ``start_date`` until today, simply exclude ``end_date``.
 The end date defaults to today's date.
 
 .. code-block:: python
