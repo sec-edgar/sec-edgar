@@ -16,7 +16,7 @@ CLASSIFIERS = [
     'Programming Language :: Python',
     'Topic :: Software Development :: Libraries :: Python Modules',
 ]
-here = os.path.abspath(os.path.dirname(__file__))
+HERE = os.path.abspath(os.path.dirname(__file__))
 
 
 def find_version(*file_paths):
@@ -26,7 +26,7 @@ def find_version(*file_paths):
     """
     # Open in Latin-1 so that we avoid encoding errors.
     # Use codecs.open for Python 2 compatibility
-    with codecs.open(os.path.join(here, *file_paths), 'r', 'latin1') as f:
+    with codecs.open(os.path.join(HERE, *file_paths), 'r', 'latin1') as f:
         version_file = f.read()
 
     # The version line must have the form
