@@ -5,7 +5,17 @@ import codecs
 from setuptools import setup, find_packages
 from setuptools.command.install import install
 
-SUPPORTED_VERSIONS = ['2.7', '3.5', '3.6', '3.7', '3.8']
+SUPPORTED_VERSIONS = ['3.5', '3.6', '3.7', '3.8']
+SUPPORTED_VERSIONS_CLASSIFIERS = ['Programming Language :: Python :: {version}'.format(
+    version=version) for version in SUPPORTED_VERSIONS]
+CLASSIFIERS = [
+    *SUPPORTED_VERSIONS_CLASSIFIERS,
+    'Environment :: Console',
+    'License :: OSI Approved :: Apache Software License',
+    'Operating System :: OS Independent',
+    'Programming Language :: Python',
+    'Topic :: Software Development :: Libraries :: Python Modules',
+]
 here = os.path.abspath(os.path.dirname(__file__))
 
 
@@ -44,15 +54,17 @@ with codecs.open('README.rst', encoding='utf-8') as f:
 setup(
     name='secedgar',
     version=find_version('secedgar', '__init__.py'),
-    packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
+    packages=find_packages(exclude=['docs', 'tests*']),
     package_dir={'secedgar': 'secedgar'},
-    url='https://github.com/rahulrrixe/SEC-Edgar',
-    download_url='https://github.com/rahulrrixe/SEC-Edgar/releases',
+    url='https://github.com/sec-edgar/sec-edgar',
+    download_url='https://github.com/sec-edgar/sec-edgar/releases',
     license='Apache License (2.0)',
     author='Rahul Ranjan',
     author_email='rahul.rrixe@gmail.com',
-    description="""SEC-Edgar implements a basic crawler for downloading 
-                 filings from the SEC Edgar database. It is most useful 
+    maintainer='Jack Moody',
+    maintainer_email='jacklaytonmoody@gmail.com',
+    description="""SEC-Edgar implements a basic crawler for downloading
+                 filings from the SEC Edgar database. It is most useful
                  for automatically collecting public filings from the SEC.""",  # noqa: W291
     long_description=LONG_DESCRIPTION,
     long_description_content_type='text/x-rst',
@@ -68,18 +80,7 @@ setup(
     install_requires=parse_requirements('requirements.txt'),
     keywords=['SEC', 'Edgar', 'Crawler', 'filings'],
     tests_require=parse_requirements('requirements.txt', 'requirements-dev.txt'),
-    classifiers=[
-        'Environment :: Console',
-        'License :: OSI Approved :: Apache Software License',
-        'Operating System :: OS Independent',
-        'Programming Language :: Python',
-        'Topic :: Software Development :: Libraries :: Python Modules',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
-    ],
+    classifiers=CLASSIFIERS,
     # If there are data files included in your packages that need to be
     # installed, specify them here. If using Python 2.6 or less, then these
     # have to be included in MANIFEST.in as well.
