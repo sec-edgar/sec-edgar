@@ -20,7 +20,7 @@ import secedgar  # noqa: E402 isort:skip
 # -- Project information -----------------------------------------------------
 
 project = 'secedgar'
-copyright = '2019, Rahul Ranjan'
+copyright = '2020, sec-edgar'
 author = 'Rahul Ranjan'
 
 # The short X.Y version.
