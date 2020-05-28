@@ -6,16 +6,13 @@ import requests
 from datetime import datetime
 
 from secedgar.tests.utils import datapath
-from secedgar.utils import sanitize_date, get_cik_map, get_company_name_map
+from secedgar.utils import sanitize_date, get_cik_map
 
 
 class MockCIKMapResponse:
     def __init__(self, *args, **kwargs):
         with gzip.open(datapath("utils", "cik_map.json.gz")) as f:
-            self.json_response = json.loads(f.read())
-
-    def json(self, *args, **kwargs):
-        return self.json_response
+            self.text = f.read()
 
 
 class TestUtils:
@@ -82,5 +79,5 @@ class TestUtils:
     )
     def test_get_company_name_map(self, name, cik, monkeypatch):
         monkeypatch.setattr(requests, 'get', MockCIKMapResponse)
-        name_map = get_company_name_map()
+        name_map = get_cik_map(key="title")
         assert name_map[name] == cik
