@@ -1,27 +1,23 @@
+import json
 import requests
 
 URL = "https://www.sec.gov/files/company_tickers.json"
 
 
-def get_cik_map():
+def get_cik_map(key="ticker"):
     """Get dictionary of tickers to CIK numbers.
 
+    Args:
+        key (str): Should be either "ticker" or "title". Choosing "ticker"
+            will give dict with tickers as keys. Choosing "title" will use
+            company name as keys.
+
     Returns:
-        Dictionary with tickers being keys and CIKs, as strings, being the values.
+        Dictionary with either ticker or company name as keys, depending on
+            ``key`` argument, and corresponding CIK as values.
 
     .. versionadded:: 0.1.6
     """
-    response = requests.get(URL).json()
-    return {v["ticker"]: str(v["cik_str"]) for _, v in response.items()}
-
-
-def get_company_name_map():
-    """Get dictionary of tickers to CIK numbers.
-
-    Returns:
-        Dictionary with company names being keys and CIKs, as strings, being the values.
-
-    .. versionadded:: 0.1.6
-    """
-    response = requests.get(URL).json()
-    return {v["title"]: str(v["cik_str"]) for _, v in response.items()}
+    response = requests.get(URL)
+    json_response = json.loads(response.text)
+    return {v[key]: str(v["cik_str"]) for v in json_response.values()}
