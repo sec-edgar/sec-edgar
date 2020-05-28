@@ -1,12 +1,22 @@
-# -*- coding:utf-8 -*-
 import os
 import re
-import codecs
 from setuptools import setup, find_packages
 from setuptools.command.install import install
 
-SUPPORTED_VERSIONS = ['2.7', '3.5', '3.6', '3.7', '3.8']
-here = os.path.abspath(os.path.dirname(__file__))
+SUPPORTED_VERSIONS = ['3.5', '3.6', '3.7', '3.8']
+SUPPORTED_VERSIONS_CLASSIFIERS = ['Programming Language :: Python :: {version}'.format(
+    version=version) for version in SUPPORTED_VERSIONS]
+CLASSIFIERS = [
+    *SUPPORTED_VERSIONS_CLASSIFIERS,
+    'Environment :: Console',
+    'License :: OSI Approved :: Apache Software License',
+    'Operating System :: OS Independent',
+    'Programming Language :: Python',
+    'Topic :: Software Development :: Libraries :: Python Modules',
+]
+with open('README.rst', encoding='utf-8') as f:
+    LONG_DESCRIPTION = f.read()
+HERE = os.path.abspath(os.path.dirname(__file__))
 
 
 def find_version(*file_paths):
@@ -14,13 +24,10 @@ def find_version(*file_paths):
     Why read it, and not import?
     see https://groups.google.com/d/topic/pypa-dev/0PkjVpcxTzQ/discussion
     """
-    # Open in Latin-1 so that we avoid encoding errors.
-    # Use codecs.open for Python 2 compatibility
-    with codecs.open(os.path.join(here, *file_paths), 'r', 'latin1') as f:
+    with open(os.path.join(HERE, *file_paths), 'r') as f:
         version_file = f.read()
 
-    # The version line must have the form
-    # __version__ = 'ver'
+    # The version line must have the form __version__ = 'ver'
     version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]",
                               version_file, re.M)
     if version_match:
@@ -36,23 +43,20 @@ def parse_requirements(*files):
     return required
 
 
-# Get the long description from the relevant file
-with codecs.open('README.rst', encoding='utf-8') as f:
-    LONG_DESCRIPTION = f.read()
-
-
 setup(
     name='secedgar',
     version=find_version('secedgar', '__init__.py'),
-    packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
+    packages=find_packages(exclude=['docs', 'tests*']),
     package_dir={'secedgar': 'secedgar'},
-    url='https://github.com/rahulrrixe/SEC-Edgar',
-    download_url='https://github.com/rahulrrixe/SEC-Edgar/releases',
+    url='https://github.com/sec-edgar/sec-edgar',
+    download_url='https://github.com/sec-edgar/sec-edgar/releases',
     license='Apache License (2.0)',
     author='Rahul Ranjan',
     author_email='rahul.rrixe@gmail.com',
-    description="""SEC-Edgar implements a basic crawler for downloading 
-                 filings from the SEC Edgar database. It is most useful 
+    maintainer='Jack Moody',
+    maintainer_email='jacklaytonmoody@gmail.com',
+    description="""SEC-Edgar implements a basic crawler for downloading
+                 filings from the SEC Edgar database. It is most useful
                  for automatically collecting public filings from the SEC.""",  # noqa: W291
     long_description=LONG_DESCRIPTION,
     long_description_content_type='text/x-rst',
@@ -66,20 +70,9 @@ setup(
     # These will be installed by pip when your
     # project is installed.
     install_requires=parse_requirements('requirements.txt'),
-    keywords=['SEC', 'Edgar', 'Crawler', 'filings'],
+    keywords=['SEC', 'EDGAR', 'crawler', 'filings'],
     tests_require=parse_requirements('requirements.txt', 'requirements-dev.txt'),
-    classifiers=[
-        'Environment :: Console',
-        'License :: OSI Approved :: Apache Software License',
-        'Operating System :: OS Independent',
-        'Programming Language :: Python',
-        'Topic :: Software Development :: Libraries :: Python Modules',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
-    ],
+    classifiers=CLASSIFIERS,
     # If there are data files included in your packages that need to be
     # installed, specify them here. If using Python 2.6 or less, then these
     # have to be included in MANIFEST.in as well.

@@ -1,5 +1,5 @@
-SEC-Edgar-Crawler
-=================
+sec-edgar
+=========
 
 |Tests Status| |Docs Status|
 
