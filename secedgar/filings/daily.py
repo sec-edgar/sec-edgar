@@ -47,8 +47,13 @@ class DailyFilings(AbstractFiling):
 
     @property
     def path(self):
-        """str: Path added to client base."""
-        return "Archives/edgar/daily-index/{year}/QTR{num}".format(
+        """str: Path added to client base.
+
+        .. note::
+            The trailing slash at the end of the path is important.
+            Omitting will raise EDGARQueryError.
+        """
+        return "Archives/edgar/daily-index/{year}/QTR{num}/".format(
             year=self._date.year, num=self.quarter)
 
     @property
@@ -88,7 +93,7 @@ class DailyFilings(AbstractFiling):
                 is found.
         """
         if self._master_idx_file is None or update_cache:
-            formatted_date = datetime.datetime.strftime("%y%m%d", self._date)
+            formatted_date = self._date.strftime("%Y%m%d")
             formatted_file_name = "master.{date}.idx".format(date=formatted_date)
             if formatted_file_name in self._get_quarterly_directory().text:
                 master_idx_url = "{path}/master.{date}.idx".format(
