@@ -113,7 +113,7 @@ class TestDaily:
     )
     def test_path_property(self, year, month, day, quarter):
         daily_filing = DailyFilings(datetime(year, month, day))
-        assert daily_filing.path == "Archives/edgar/daily-index/{year}/QTR{quarter}".format(
+        assert daily_filing.path == "Archives/edgar/daily-index/{year}/QTR{quarter}/".format(
             year=year, quarter=quarter)
 
     def test_no_params(self):
