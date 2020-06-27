@@ -5,3 +5,8 @@ Highlights
 ~~~~~~~~~~
 
 * Fixes `DailyFilings` bug to properly fetch daily filings.
+
+Contributors
+~~~~~~~~~~~~
+
+- jonzd
