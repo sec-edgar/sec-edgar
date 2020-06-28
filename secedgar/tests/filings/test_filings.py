@@ -45,14 +45,15 @@ class MockCIKValidatorMultipleCIKs:
 class TestFiling(object):
     @pytest.mark.slow
     def test_count_returns_exact(self, monkeypatch):
-        aapl = Filing(cik_lookup='aapl', filing_type=FilingType.FILING_10Q, count=10)
+        count = 10
+        aapl = Filing(cik_lookup='aapl', filing_type=FilingType.FILING_10Q, count=count)
         monkeypatch.setattr(_CIKValidator, "get_ciks", MockCIKValidatorGetCIKs.get_ciks)
         monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKFiling)
         urls = aapl.get_urls()['aapl']
-        if len(urls) != aapl.client.count:
+        if len(urls) != count:
             raise AssertionError("""Count should return exact number of filings.
                                  Got {0}, but expected {1} URLs.""".format(
-                urls, aapl.client.count))
+                urls, count))
 
     def test_date_is_sanitized(self):
         start_date = datetime.datetime(2012, 3, 1)
