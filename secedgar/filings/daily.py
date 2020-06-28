@@ -67,7 +67,8 @@ class DailyFilings(AbstractFiling):
         Args:
             update_cache (bool, optional): Whether quarterly directory should update cache. Defaults
                 to False.
-            kwargs: Any keyword arguments to pass to the client's `get_response` method.
+            kwargs: Any keyword arguments to pass to the client'
+            s `get_response` method.
 
         Returns:
             response (requests.Response): Response object from page with all idx files for
@@ -98,7 +99,8 @@ class DailyFilings(AbstractFiling):
             if formatted_file_name in self._get_quarterly_directory().text:
                 master_idx_url = "{path}/master.{date}.idx".format(
                     path=self.path, date=formatted_date)
-                self._master_idx_file = self.client.get_response(master_idx_url, **kwargs).text
+                self._master_idx_file = self.client.get_response(
+                    master_idx_url, self.params, **kwargs).text
             else:
                 raise EDGARQueryError("""File master.{date}.idx not found.
                                      There may be no filings for this day.""".format(
