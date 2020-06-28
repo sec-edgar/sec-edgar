@@ -189,6 +189,21 @@ class TestFiling(object):
         monkeypatch.setattr(_CIKValidator, "get_ciks", MockCIKValidatorMultipleCIKs.get_ciks)
         # Use same response for each request
         monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKFiling)
-        ciks = CIKLookup(['aapl', 'msft', 'amzn'])
-        f = Filing(ciks, FilingType.FILING_10Q, count=3)
-        assert all(len(f.get_urls().get(key)) == 3 for key in f.get_urls().keys())
+        f = Filing(cik_lookup=['aapl', 'msft', 'amzn'], filing_type=FilingType.FILING_10Q, count=5)
+        assert all(len(f.get_urls().get(key)) == 5 for key in f.get_urls().keys())
+
+    @pytest.mark.parametrize(
+        "count",
+        [
+            10,
+            25,
+            30
+        ]
+    )
+    def test_filing_returns_correct_number_of_urls(self, monkeypatch, count):
+        monkeypatch.setattr(_CIKValidator, "get_ciks", MockCIKValidatorMultipleCIKs.get_ciks)
+        # Use same response for each request
+        monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKFiling)
+        f = Filing(cik_lookup=['aapl', 'msft', 'amzn'], filing_type=FilingType.FILING_10Q,
+                   count=count, client=NetworkClient(batch_size=10))
+        assert all(len(f.get_urls().get(key)) == count for key in f.get_urls().keys())
