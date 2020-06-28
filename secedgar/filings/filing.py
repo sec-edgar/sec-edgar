@@ -22,7 +22,8 @@ class Filing(AbstractFiling):
             Defaults to None (will fetch all filings before end_date).
         end_date (Union[str, datetime.datetime], optional): Date after which not to fetch reports.
             Stands for "date before." Defaults to today.
-        count (int): Number of filings to fetch. Defaults to all filings available.
+        count (int): Number of filings to fetch. Will fetch up to `count` if that many filings
+            are available. Defaults to all filings available.
 
     Keyword Args:
         See kwargs accepted for :class:`secedgar.client.network_client.NetworkClient`.
@@ -172,7 +173,7 @@ class Filing(AbstractFiling):
         self.params["start"] = 0  # set start back to 0 before paginating
 
         # TODO: Make paginate utility outside of this class
-        while len(links) < self.count:
+        while self.count is None or len(links) < self.count:
             data = self.client.get_soup(self.path, self.params, **kwargs)
             links.extend([link.string for link in data.find_all("filinghref")])
             self.params["start"] += self.client.batch_size
