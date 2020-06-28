@@ -117,9 +117,27 @@ class TestDaily:
             year=year, quarter=quarter)
 
     def test_no_params(self):
+        """Params should always be empty."""
         daily_filing = DailyFilings(datetime(2020, 1, 1))
-        # params should always be empty
         assert not daily_filing.params
+
+    @pytest.mark.parametrize(
+        "date_tuple,formatted",
+        [
+            ((1994, 1, 2), "010294"),
+            ((1994, 12, 31), "123194"),
+            ((1995, 1, 1), "950101"),
+            ((1995, 1, 2), "950102"),
+            ((1998, 1, 1), "980101"),
+            ((1998, 1, 2), "980102"),
+            ((1998, 3, 31), "19980331"),
+            ((1998, 4, 1), "19980401"),
+            ((1999, 1, 1), "19990101"),
+        ]
+    )
+    def test_master_idx_date_format(self, date_tuple, formatted):
+        daily_filing = DailyFilings(datetime(*date_tuple))
+        assert daily_filing._get_idx_formatted_date() == formatted
 
     @pytest.mark.parametrize(
         "subdir,file",
