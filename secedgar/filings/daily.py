@@ -77,6 +77,22 @@ class DailyFilings(AbstractFiling):
             self._quarterly_directory = self.client.get_response(self.path, self.params, **kwargs)
         return self._quarterly_directory
 
+    def _get_idx_formatted_date(self):
+        """Gets correctly formatted date given date.
+
+        EDGAR changed its master.idx file format twice. In 1995 QTR 1 and in 1998 QTR 2.
+        The format went from MMDDYY to YYMMDD to YYYYMMDD.
+
+        Returns:
+            date (str): Correctly formatted date for master.idx file.
+        """
+        if self._date.year < 1995:
+            return self._date.strftime("%m%d%y")
+        elif self._date < datetime.datetime(1998, 3, 31):
+            return self._date.strftime("%y%m%d")
+        else:
+            return self._date.strftime("%Y%m%d")
+
     def _get_master_idx_file(self, update_cache=False, **kwargs):
         """Get master file with all filings from given date.
 
@@ -86,14 +102,14 @@ class DailyFilings(AbstractFiling):
             kwargs: Keyword arguments to pass to `client.get_response`.
 
         Returns:
-            text (str): Idx file as string.
+            text (str): Idx file text.
 
         Raises:
             EDGARQueryError: If no file of the form master.<DATE>.idx
                 is found.
         """
         if self._master_idx_file is None or update_cache:
-            formatted_date = self._date.strftime("%Y%m%d")
+            formatted_date = self._get_idx_formatted_date()
             formatted_file_name = "master.{date}.idx".format(date=formatted_date)
             if formatted_file_name in self._get_quarterly_directory().text:
                 master_idx_url = "{path}/master.{date}.idx".format(
