@@ -60,9 +60,9 @@ setup(
                  for automatically collecting public filings from the SEC.""",  # noqa: W291
     long_description=LONG_DESCRIPTION,
     long_description_content_type='text/x-rst',
-    entry_points='''
-            [console_scripts]
-            ''',
+    entry_points={
+        'console_scripts': []
+    },
     cmdclass={
         'install': install,
     },
