@@ -67,8 +67,7 @@ class DailyFilings(AbstractFiling):
         Args:
             update_cache (bool, optional): Whether quarterly directory should update cache. Defaults
                 to False.
-            kwargs: Any keyword arguments to pass to the client'
-            s `get_response` method.
+            kwargs: Any keyword arguments to pass to the client's `get_response` method.
 
         Returns:
             response (requests.Response): Response object from page with all idx files for
