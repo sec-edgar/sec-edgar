@@ -47,8 +47,13 @@ class DailyFilings(AbstractFiling):
 
     @property
     def path(self):
-        """str: Path added to client base."""
-        return "Archives/edgar/daily-index/{year}/QTR{num}".format(
+        """str: Path added to client base.
+
+        .. note::
+            The trailing slash at the end of the path is important.
+            Omitting will raise EDGARQueryError.
+        """
+        return "Archives/edgar/daily-index/{year}/QTR{num}/".format(
             year=self._date.year, num=self.quarter)
 
     @property
@@ -72,6 +77,22 @@ class DailyFilings(AbstractFiling):
             self._quarterly_directory = self.client.get_response(self.path, self.params, **kwargs)
         return self._quarterly_directory
 
+    def _get_idx_formatted_date(self):
+        """Format date for idx file.
+
+        EDGAR changed its master.idx file format twice. In 1995 QTR 1 and in 1998 QTR 2.
+        The format went from MMDDYY to YYMMDD to YYYYMMDD.
+
+        Returns:
+            date (str): Correctly formatted date for master.idx file.
+        """
+        if self._date.year < 1995:
+            return self._date.strftime("%m%d%y")
+        elif self._date < datetime.datetime(1998, 3, 31):
+            return self._date.strftime("%y%m%d")
+        else:
+            return self._date.strftime("%Y%m%d")
+
     def _get_master_idx_file(self, update_cache=False, **kwargs):
         """Get master file with all filings from given date.
 
@@ -81,19 +102,20 @@ class DailyFilings(AbstractFiling):
             kwargs: Keyword arguments to pass to `client.get_response`.
 
         Returns:
-            text (str): Idx file as string.
+            text (str): Idx file text.
 
         Raises:
             EDGARQueryError: If no file of the form master.<DATE>.idx
                 is found.
         """
         if self._master_idx_file is None or update_cache:
-            formatted_date = datetime.datetime.strftime("%y%m%d", self._date)
+            formatted_date = self._get_idx_formatted_date()
             formatted_file_name = "master.{date}.idx".format(date=formatted_date)
             if formatted_file_name in self._get_quarterly_directory().text:
                 master_idx_url = "{path}/master.{date}.idx".format(
                     path=self.path, date=formatted_date)
-                self._master_idx_file = self.client.get_response(master_idx_url, **kwargs).text
+                self._master_idx_file = self.client.get_response(
+                    master_idx_url, self.params, **kwargs).text
             else:
                 raise EDGARQueryError("""File master.{date}.idx not found.
                                      There may be no filings for this day.""".format(
