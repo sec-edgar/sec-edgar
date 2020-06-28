@@ -8,7 +8,7 @@ from secedgar.tests.utils import datapath
 
 @pytest.fixture
 def client():
-    return NetworkClient()
+    return NetworkClient(pause=0.01)
 
 
 class MockNoCIKFoundBadResponse:
