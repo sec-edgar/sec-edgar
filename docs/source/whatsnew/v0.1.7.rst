@@ -5,6 +5,7 @@ Highlights
 ~~~~~~~~~~
 
 * Fixes `DailyFilings` bug to properly fetch daily filings.
+* Fixes `Filing` bug to fetch specified number of filings.
 
 Contributors
 ~~~~~~~~~~~~
