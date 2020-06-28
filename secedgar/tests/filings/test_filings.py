@@ -100,10 +100,6 @@ class TestFiling(object):
         first_txt_url = aapl.get_urls()['aapl'][0]
         assert first_txt_url.split('.')[-1] == 'txt'
 
-    def test_invalid_filing_type_enum(self):
-        with pytest.raises(AttributeError):
-            Filing(cik_lookup='0000320193', filing_type=FilingType.INVALID)
-
     @pytest.mark.parametrize(
         "new_filing_type",
         (
