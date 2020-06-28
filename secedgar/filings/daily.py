@@ -78,7 +78,7 @@ class DailyFilings(AbstractFiling):
         return self._quarterly_directory
 
     def _get_idx_formatted_date(self):
-        """Gets correctly formatted date given date.
+        """Format date for idx file.
 
         EDGAR changed its master.idx file format twice. In 1995 QTR 1 and in 1998 QTR 2.
         The format went from MMDDYY to YYMMDD to YYYYMMDD.
