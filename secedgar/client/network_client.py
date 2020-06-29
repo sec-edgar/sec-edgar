@@ -14,7 +14,7 @@ class NetworkClient(AbstractClient):
     Attributes:
         retry_count (int): Number of times to retry connecting to URL if not successful.
         pause (float): Time (in seconds) to wait before retrying if not successful.
-        count (int): Number of filings to receive (helpful if pagination needed).
+        batch_size (int): Number of filings to receive per request (helpful if pagination needed).
     """
 
     _BASE = "http://www.sec.gov/"
@@ -22,7 +22,7 @@ class NetworkClient(AbstractClient):
     def __init__(self, **kwargs):
         self.retry_count = kwargs.get("retry_count", 3)
         self.pause = kwargs.get("pause", 0.5)
-        self.count = kwargs.get("count", 10)
+        self.batch_size = kwargs.get("batch_size", 10)
         self.response = None
 
     @property
@@ -52,17 +52,17 @@ class NetworkClient(AbstractClient):
         self._pause = value
 
     @property
-    def count(self):
+    def batch_size(self):
         """The Number of results to show per page."""
-        return self._count
+        return self._batch_size
 
-    @count.setter
-    def count(self, value):
+    @batch_size.setter
+    def batch_size(self, value):
         if not isinstance(value, int):
-            raise TypeError("Count must be int. Given type {0}".format(type(value)))
+            raise TypeError("Batch size must be int. Given type {0}".format(type(value)))
         elif value < 1:
-            raise ValueError("Count must be positive integer.")
-        self._count = value
+            raise ValueError("Batch size must be positive integer.")
+        self._batch_size = value
 
     @staticmethod
     def _prepare_query(path):

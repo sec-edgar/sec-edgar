@@ -99,7 +99,8 @@ class DailyFilings(AbstractFiling):
         Args:
             update_cache (bool, optional): Whether master index should be updated
                 method call. Defaults to False.
-            kwargs: Keyword arguments to pass to `client.get_response`.
+            kwargs: Keyword arguments to pass to
+                ``secedgar.client._base.AbstractClient.get_response``.
 
         Returns:
             text (str): Idx file text.
@@ -122,7 +123,7 @@ class DailyFilings(AbstractFiling):
                     date=formatted_date))
         return self._master_idx_file
 
-    def get_paths(self, update_cache=False, **kwargs):
+    def get_paths(self, update_cache=False):
         """Gets all paths for given day.
 
         Each path will look something like
@@ -150,6 +151,8 @@ class DailyFilings(AbstractFiling):
         Args:
             update_cache (bool, optional): Whether filings dict should be
                 updated on each method call. Defaults to False.
+            kwargs: Any kwargs to pass to _get_master_idx_file. See
+                ``secedgar.filings.daily.DailyFilings._get_master_idx_file``.
         """
         if self._filings_dict is None or update_cache:
             idx_file = self._get_master_idx_file(**kwargs)

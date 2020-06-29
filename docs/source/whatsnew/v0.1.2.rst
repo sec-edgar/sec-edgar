@@ -8,3 +8,9 @@ Highlights
 
 * Fix issue related to file saving
 * Remove platform dependent file path
+
+Contributors
+~~~~~~~~~~~~
+
+- npsolve
+- Quartzing
