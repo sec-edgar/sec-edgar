@@ -173,12 +173,14 @@ class TestFiling(object):
         with pytest.raises(ValueError):
             f.save(tmp_data_directory)
 
+    @pytest.mark.smoke
     def test_filing_save_multiple_ciks(self, tmp_data_directory, monkeypatch):
         monkeypatch.setattr(_CIKValidator, "get_ciks", MockCIKValidatorMultipleCIKs.get_ciks)
         monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKFiling)
         f = Filing(['aapl', 'amzn', 'msft'], FilingType.FILING_10Q, count=3)
         f.save(tmp_data_directory)
 
+    @pytest.mark.smoke
     def test_filing_save_single_cik(self, tmp_data_directory, monkeypatch):
         f = Filing('aapl', FilingType.FILING_10Q, count=3)
         monkeypatch.setattr(_CIKValidator, "get_ciks", MockCIKValidatorGetCIKs.get_ciks)
