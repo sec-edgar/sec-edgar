@@ -3,7 +3,7 @@ import datetime
 import pytest
 
 from secedgar.client import NetworkClient
-from secedgar.filings import Filing, FilingType, CIKLookup
+from secedgar.filings import Filing, FilingType
 
 from secedgar.filings.cik_validator import _CIKValidator
 from secedgar.tests.utils import datapath
