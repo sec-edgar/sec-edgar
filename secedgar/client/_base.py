@@ -37,6 +37,6 @@ class AbstractClient(ABC):
 
     @property
     @abstractmethod
-    def count(self):
+    def batch_size(self):
         """Number of results per page searched. Increasing can improve speed for large requests."""
         pass  # pragma: no cover

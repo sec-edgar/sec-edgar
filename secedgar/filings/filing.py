@@ -22,10 +22,9 @@ class Filing(AbstractFiling):
             Defaults to None (will fetch all filings before end_date).
         end_date (Union[str, datetime.datetime], optional): Date after which not to fetch reports.
             Stands for "date before." Defaults to today.
-
-    Keyword Args:
-        count (int): Number of filings to get per request. Passed to NetworkClient
-            created on initialization if none given.
+        count (int): Number of filings to fetch. Will fetch up to `count` if that many filings
+            are available. Defaults to all filings available.
+        kwargs: See kwargs accepted for :class:`secedgar.client.network_client.NetworkClient`.
 
     .. versionadded:: 0.1.5
     """
@@ -36,6 +35,7 @@ class Filing(AbstractFiling):
                  start_date=None,
                  end_date=datetime.datetime.today(),
                  client=None,
+                 count=None,
                  **kwargs):
         self._start_date = start_date
         self._end_date = end_date
@@ -55,8 +55,9 @@ class Filing(AbstractFiling):
             'start': 0,
             'type': self.filing_type.value
         }
-        if kwargs.get('count') is not None:
-            self._params['count'] = kwargs.get('count')
+        self._count = count
+        if count is not None:
+            self._params['count'] = count
         if start_date is not None:
             self._params['datea'] = sanitize_date(start_date)
         # Make default client NetworkClient and pass in kwargs
@@ -110,6 +111,18 @@ class Filing(AbstractFiling):
         self._params['type'] = filing_type.value
 
     @property
+    def count(self):
+        """Number of filings to fetch."""
+        return self._count
+
+    @count.setter
+    def count(self, val):
+        if not (val is None or isinstance(val, int)) or val < 1:
+            raise TypeError("Count must be positive integer or None.")
+        self._count = val
+        self._params['count'] = val
+
+    @property
     def accession_numbers(self):
         """List of accession numbers for filings."""
         return self._accession_numbers
@@ -123,10 +136,9 @@ class Filing(AbstractFiling):
         """Get urls for all CIKs given to Filing object.
 
         Args:
-            kwargs: Anything to be passed to requests when making get request.
-
-        Keyword Args:
-            See keyword arguments accepted for ``secedgar.client._base.AbstractClient.get_soup``
+            **kwargs: Anything to be passed to requests when making get request.
+                See keyword arguments accepted for
+                ``secedgar.client._base.AbstractClient.get_soup``.
 
         Returns:
             urls (list): List of urls for txt files to download.
@@ -144,10 +156,9 @@ class Filing(AbstractFiling):
 
         Args:
             cik (str): CIK for company.
-            kwargs: Anything to be passed to requests when making get request.
-
-        Keyword Args:
-            See keyword arguments accepted for ``secedgar.client._base.AbstractClient.get_soup``
+            **kwargs: Anything to be passed to requests when making get request.
+                See keyword arguments accepted for
+                ``secedgar.client._base.AbstractClient.get_soup``.
 
         Returns:
             txt_urls (list of str): Up to the desired number of URLs for that specific company
@@ -158,15 +169,16 @@ class Filing(AbstractFiling):
         self.params["start"] = 0  # set start back to 0 before paginating
 
         # TODO: Make paginate utility outside of this class
-        while len(links) < self._client.count:
-            data = self._client.get_soup(self.path, self.params, **kwargs)
+        while self.count is None or len(links) < self.count:
+            data = self.client.get_soup(self.path, self.params, **kwargs)
             links.extend([link.string for link in data.find_all("filinghref")])
-            self.params["start"] += self._client.count
-            if len(data.find_all("filinghref")) == 0:
-                break  # break if no more filings left
+            self.params["start"] += self.client.batch_size
+            if len(data.find_all("filinghref")) == 0:  # no more filings
+                break
 
         txt_urls = [link[:link.rfind("-")].strip() + ".txt" for link in links]
-        return txt_urls[:self.client.count]
+        # Takes `count` filings at most
+        return txt_urls[:self.count]
 
     def _get_accession_numbers(self, links):
         """Gets accession numbers given list of links.

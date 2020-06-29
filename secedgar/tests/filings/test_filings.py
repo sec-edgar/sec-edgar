@@ -3,7 +3,7 @@ import datetime
 import pytest
 
 from secedgar.client import NetworkClient
-from secedgar.filings import Filing, FilingType, CIKLookup
+from secedgar.filings import Filing, FilingType
 
 from secedgar.filings.cik_validator import _CIKValidator
 from secedgar.tests.utils import datapath
@@ -45,14 +45,15 @@ class MockCIKValidatorMultipleCIKs:
 class TestFiling(object):
     @pytest.mark.slow
     def test_count_returns_exact(self, monkeypatch):
-        aapl = Filing(cik_lookup='aapl', filing_type=FilingType.FILING_10Q, count=10)
+        count = 10
+        aapl = Filing(cik_lookup='aapl', filing_type=FilingType.FILING_10Q, count=count)
         monkeypatch.setattr(_CIKValidator, "get_ciks", MockCIKValidatorGetCIKs.get_ciks)
         monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKFiling)
         urls = aapl.get_urls()['aapl']
-        if len(urls) != aapl.client.count:
+        if len(urls) != count:
             raise AssertionError("""Count should return exact number of filings.
                                  Got {0}, but expected {1} URLs.""".format(
-                urls, aapl.client.count))
+                urls, count))
 
     def test_date_is_sanitized(self):
         start_date = datetime.datetime(2012, 3, 1)
@@ -98,10 +99,6 @@ class TestFiling(object):
         monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKFiling)
         first_txt_url = aapl.get_urls()['aapl'][0]
         assert first_txt_url.split('.')[-1] == 'txt'
-
-    def test_invalid_filing_type_enum(self):
-        with pytest.raises(AttributeError):
-            Filing(cik_lookup='0000320193', filing_type=FilingType.INVALID)
 
     @pytest.mark.parametrize(
         "new_filing_type",
@@ -192,6 +189,21 @@ class TestFiling(object):
         monkeypatch.setattr(_CIKValidator, "get_ciks", MockCIKValidatorMultipleCIKs.get_ciks)
         # Use same response for each request
         monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKFiling)
-        ciks = CIKLookup(['aapl', 'msft', 'amzn'])
-        f = Filing(ciks, FilingType.FILING_10Q, count=3)
-        assert all(len(f.get_urls().get(key)) == 3 for key in f.get_urls().keys())
+        f = Filing(cik_lookup=['aapl', 'msft', 'amzn'], filing_type=FilingType.FILING_10Q, count=5)
+        assert all(len(f.get_urls().get(key)) == 5 for key in f.get_urls().keys())
+
+    @pytest.mark.parametrize(
+        "count",
+        [
+            10,
+            25,
+            30
+        ]
+    )
+    def test_filing_returns_correct_number_of_urls(self, monkeypatch, count):
+        monkeypatch.setattr(_CIKValidator, "get_ciks", MockCIKValidatorMultipleCIKs.get_ciks)
+        # Use same response for each request
+        monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKFiling)
+        f = Filing(cik_lookup=['aapl', 'msft', 'amzn'], filing_type=FilingType.FILING_10Q,
+                   count=count, client=NetworkClient(batch_size=10))
+        assert all(len(f.get_urls().get(key)) == count for key in f.get_urls().keys())

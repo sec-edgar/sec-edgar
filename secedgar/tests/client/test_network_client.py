@@ -8,7 +8,7 @@ from secedgar.tests.utils import datapath
 
 @pytest.fixture
 def client():
-    return NetworkClient()
+    return NetworkClient(pause=0.01)
 
 
 class MockNoCIKFoundBadResponse:
@@ -129,11 +129,11 @@ class TestNetworkClient:
     @pytest.mark.parametrize(
         "test_input,expectation",
         [
-            (0.5, pytest.raises(TypeError)),
-            ("1", pytest.raises(TypeError)),
-            (0, pytest.raises(ValueError))
+            (0.5, TypeError),
+            ("1", TypeError),
+            (0, ValueError)
         ]
     )
-    def test_client_bad_count_setter(self, test_input, expectation, client):
-        with expectation:
-            client.count = test_input
+    def test_client_bad_batch_size_setter(self, test_input, expectation, client):
+        with pytest.raises(expectation):
+            client.batch_size = test_input

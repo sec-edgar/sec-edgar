@@ -8,3 +8,12 @@ Highlights
 
 * Add support for SD forms
 * Fixed bugs for python3
+
+Contributors
+~~~~~~~~~~~~
+
+- crperezt
+- franciosi
+- jackmoody11
+- jblemoine
+- npsolve
