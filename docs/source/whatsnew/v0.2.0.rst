@@ -5,3 +5,8 @@ Highlights
 ~~~~~~~~~~
 
 * Removes ``secedgar.crawler.SecCrawler`` class. Use ``secedgar.filings.Filing`` instead.
+
+Contributors
+~~~~~~~~~~~~
+
+- jackmoody11
