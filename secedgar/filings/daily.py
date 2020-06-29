@@ -99,7 +99,8 @@ class DailyFilings(AbstractFiling):
         Args:
             update_cache (bool, optional): Whether master index should be updated
                 method call. Defaults to False.
-            kwargs: Keyword arguments to pass to ``secedgar.client._base.AbstractClient.get_response``.
+            kwargs: Keyword arguments to pass to
+                ``secedgar.client._base.AbstractClient.get_response``.
 
         Returns:
             text (str): Idx file text.
