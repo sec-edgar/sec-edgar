@@ -33,4 +33,4 @@ class FilingTypeError(Exception):
 
     def __str__(self):  # pragma: no cover
         return "The filing type given is not valid. " \
-               "Filing type must be in valid filing type from FilingType class"
+               "Filing type must be in valid filing type from FilingType class."
