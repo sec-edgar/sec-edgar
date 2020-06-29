@@ -61,7 +61,9 @@ setup(
     long_description=LONG_DESCRIPTION,
     long_description_content_type='text/x-rst',
     entry_points={
-        'console_scripts': []
+        'console_scripts': [
+            'secedgar=secedgar.cli:cli'
+        ]
     },
     cmdclass={
         'install': install,
@@ -72,6 +74,9 @@ setup(
     install_requires=parse_requirements('requirements.txt'),
     keywords=['SEC', 'EDGAR', 'crawler', 'filings'],
     tests_require=parse_requirements('requirements.txt', 'requirements-dev.txt'),
+    extras_require={
+        'cli': [*parse_requirements('requirements.txt'), "Click"]
+    },
     classifiers=CLASSIFIERS,
     # If there are data files included in your packages that need to be
     # installed, specify them here. If using Python 2.6 or less, then these
