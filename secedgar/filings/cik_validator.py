@@ -17,6 +17,8 @@ class _CIKValidator(object):
     .. versionadded:: 0.1.5
     """
 
+    # See Stack Overflow's answer to how-do-you-pep-8-name-a-class-whose-name-is-an-acronym
+    # if you are wondering whether CIK should be capitalized in the class name or not.
     def __init__(self, lookups, client=None, **kwargs):
         # Make sure lookups is not empty string
         if lookups and isinstance(lookups, str):
