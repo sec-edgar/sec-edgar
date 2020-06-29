@@ -40,6 +40,7 @@ extensions = ['sphinx.ext.autodoc',
               'IPython.sphinxext.ipython_console_highlighting',
               'sphinx.ext.napoleon',
               'sphinx.ext.todo',
+              'sphinx_click.ext'
               ]
 
 # Add any paths that contain templates here, relative to this directory.
