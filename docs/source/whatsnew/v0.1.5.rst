@@ -33,3 +33,8 @@ Enhancements
 ~~~~~~~~~~~~
 
 * Introduce :class:`secedgar.filings.base.AbstractFiling` class as abstract base class
+
+Contributors
+~~~~~~~~~~~~
+
+- jackmoody11

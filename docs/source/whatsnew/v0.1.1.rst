@@ -8,3 +8,8 @@ Highlights
 
 * Add API for 10-K
 * Create a central API point using class
+
+Contributors
+~~~~~~~~~~~~
+
+- npsolve
