@@ -18,6 +18,7 @@ Welcome to secedgar's documentation!
    filings
    filingtypes
    cikmap
+   cli
 
 .. _package_info:
 
