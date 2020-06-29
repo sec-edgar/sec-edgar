@@ -13,3 +13,4 @@ Contributors
 ~~~~~~~~~~~~
 
 - npsolve
+- Quartzing

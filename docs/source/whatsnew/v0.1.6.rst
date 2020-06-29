@@ -11,3 +11,4 @@ Contributors
 ~~~~~~~~~~~~
 
 - jackmoody11
+- tomfunk

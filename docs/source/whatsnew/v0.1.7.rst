@@ -10,6 +10,6 @@ Highlights
 Contributors
 ~~~~~~~~~~~~
 
-- jonzd
 - jackmoody11
+- jonzd
 - Marsh-James

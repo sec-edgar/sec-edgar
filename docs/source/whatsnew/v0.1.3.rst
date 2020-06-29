@@ -12,5 +12,8 @@ Highlights
 Contributors
 ~~~~~~~~~~~~
 
-- npsolve
+- crperezt
+- franciosi
 - jackmoody11
+- jblemoine
+- npsolve
