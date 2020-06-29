@@ -24,9 +24,7 @@ class Filing(AbstractFiling):
             Stands for "date before." Defaults to today.
         count (int): Number of filings to fetch. Will fetch up to `count` if that many filings
             are available. Defaults to all filings available.
-
-    Keyword Args:
-        See kwargs accepted for :class:`secedgar.client.network_client.NetworkClient`.
+        kwargs: See kwargs accepted for :class:`secedgar.client.network_client.NetworkClient`.
 
     .. versionadded:: 0.1.5
     """
@@ -159,7 +157,6 @@ class Filing(AbstractFiling):
             cik (str): CIK for company.
             **kwargs: Anything to be passed to requests when making get request.
                 See keyword arguments accepted for ``secedgar.client._base.AbstractClient.get_soup``.
-
 
         Returns:
             txt_urls (list of str): Up to the desired number of URLs for that specific company
