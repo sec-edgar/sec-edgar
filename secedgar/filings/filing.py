@@ -138,10 +138,8 @@ class Filing(AbstractFiling):
         """Get urls for all CIKs given to Filing object.
 
         Args:
-            kwargs: Anything to be passed to requests when making get request.
-
-        Keyword Args:
-            See keyword arguments accepted for ``secedgar.client._base.AbstractClient.get_soup``
+            **kwargs: Anything to be passed to requests when making get request.
+                See keyword arguments accepted for ``secedgar.client._base.AbstractClient.get_soup``.
 
         Returns:
             urls (list): List of urls for txt files to download.
@@ -159,10 +157,9 @@ class Filing(AbstractFiling):
 
         Args:
             cik (str): CIK for company.
-            kwargs: Anything to be passed to requests when making get request.
+            **kwargs: Anything to be passed to requests when making get request.
+                See keyword arguments accepted for ``secedgar.client._base.AbstractClient.get_soup``.
 
-        Keyword Args:
-            See keyword arguments accepted for ``secedgar.client._base.AbstractClient.get_soup``
 
         Returns:
             txt_urls (list of str): Up to the desired number of URLs for that specific company
