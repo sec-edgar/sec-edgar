@@ -5,7 +5,7 @@ import requests
 from datetime import datetime
 
 from secedgar.filings.daily import DailyFilings
-from secedgar.tests.helpers import datapath
+from secedgar.tests.utils import datapath
 
 
 class MockQuarterDirectory:

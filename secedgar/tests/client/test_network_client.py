@@ -3,7 +3,7 @@ import requests
 
 from secedgar.client import NetworkClient
 from secedgar.utils.exceptions import EDGARQueryError
-from secedgar.tests.helpers import datapath
+from secedgar.tests.utils import datapath
 
 
 @pytest.fixture

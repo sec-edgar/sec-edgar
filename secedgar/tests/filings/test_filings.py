@@ -6,7 +6,7 @@ from secedgar.client import NetworkClient
 from secedgar.filings import Filing, FilingType
 
 from secedgar.filings.cik_validator import _CIKValidator
-from secedgar.tests.helpers import datapath
+from secedgar.tests.utils import datapath
 from secedgar.utils.exceptions import FilingTypeError, EDGARQueryError
 
 

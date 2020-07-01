@@ -1,6 +1,6 @@
 import pytest
 
-from secedgar.tests.helpers import datapath
+from secedgar.tests.utils import datapath
 
 from secedgar.filings import CIKLookup
 from secedgar.client import NetworkClient
