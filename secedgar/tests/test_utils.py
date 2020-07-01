@@ -4,7 +4,7 @@ import requests
 
 from datetime import datetime
 
-from secedgar.tests.utils import datapath
+from secedgar.tests.helpers import datapath
 from secedgar.utils import sanitize_date, get_cik_map
 
 
