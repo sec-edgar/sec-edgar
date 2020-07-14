@@ -28,6 +28,7 @@ class TestCLIFiling(CLITestingMixin):
             ("-l aapl msft Facebook", SystemExit),  # missing filing type
             ("-l aapl -t null", FilingTypeError),  # unrecognized filing type
             ("-l aapl -t FILING_10Q -n abc", SystemExit),  # count is not int
+            ("-l aapl -t FILING_10Q -n 0", ValueError)  # no filings available if 0 picked
         ]
     )
     def test_filing_bad_inputs(self, user_input, expected_exception, tmp_data_directory):
