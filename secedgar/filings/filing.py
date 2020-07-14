@@ -37,29 +37,20 @@ class Filing(AbstractFiling):
                  client=None,
                  count=None,
                  **kwargs):
-        self._start_date = start_date
-        self._end_date = end_date
-        self._accession_numbers = []
-        if not isinstance(filing_type, FilingType):
-            raise FilingTypeError
-        self._filing_type = filing_type
-        # make CIKLookup object for users if not given
-        if not isinstance(cik_lookup, CIKLookup):
-            cik_lookup = CIKLookup(cik_lookup)
-        self._cik_lookup = cik_lookup
+        # Leave params before other setters
         self._params = {
             'action': 'getcompany',
-            'dateb': sanitize_date(self.end_date),
             'output': 'xml',
             'owner': 'include',
             'start': 0,
-            'type': self.filing_type.value
         }
-        self._count = count
-        if count is not None:
-            self._params['count'] = count
-        if start_date is not None:
-            self._params['datea'] = sanitize_date(start_date)
+        self._accession_numbers = []
+        self.start_date = start_date
+        self.end_date = end_date
+        self.filing_type = filing_type
+        # make CIKLookup object for users if not given
+        self.cik_lookup = cik_lookup
+        self.count = count
         # Make default client NetworkClient and pass in kwargs
         self._client = client if client is not None else NetworkClient(**kwargs)
 
@@ -85,8 +76,9 @@ class Filing(AbstractFiling):
 
     @start_date.setter
     def start_date(self, val):
-        self._start_date = val
-        self._params['datea'] = sanitize_date(val)
+        if val is not None:
+            self._start_date = val
+            self._params['datea'] = sanitize_date(val)
 
     @property
     def end_date(self):
@@ -117,10 +109,13 @@ class Filing(AbstractFiling):
 
     @count.setter
     def count(self, val):
-        if not (val is None or isinstance(val, int)) or val < 1:
+        if val is None:
+            pass
+        elif not isinstance(val, int) or val < 1:
             raise TypeError("Count must be positive integer or None.")
-        self._count = val
-        self._params['count'] = val
+        else:
+            self._count = val
+            self._params['count'] = val
 
     @property
     def accession_numbers(self):
@@ -131,6 +126,12 @@ class Filing(AbstractFiling):
     def cik_lookup(self):
         """``secedgar.cik.CIKLookup``: CIKLookupobject."""
         return self._cik_lookup
+
+    @cik_lookup.setter
+    def cik_lookup(self, val):
+        if not isinstance(val, CIKLookup):
+            val = CIKLookup(val)
+        self._cik_lookup = val
 
     def get_urls(self, **kwargs):
         """Get urls for all CIKs given to Filing object.
