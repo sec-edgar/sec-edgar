@@ -8,7 +8,7 @@ from secedgar.utils.exceptions import FilingTypeError
 @click.group()
 def cli():
     """Main CLI group."""
-    pass
+    pass  # pragma: no cover
 
 
 def date_cleanup(date):
@@ -29,7 +29,9 @@ def date_cleanup(date):
               help='Companies and tickers to include in filing download.',
               required=True,
               multiple=True)
-@click.option('-t', '--ftype', help='Choose a filing type.',
+@click.option('-t', '--ftype', help="""Choose a filing type.
+             See ``secedgar.filings.FilingType`` for a full list of available enums.
+             Should be of the form FILING_<filing type>.""",
               required=True)  # Need to convert this to enum somehow
 @click.option('-s', '--start',
               help="""Start date for filings.
