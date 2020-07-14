@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Crawler &mdash; secedgar 0.1.7 documentation</title>
+  <title>Crawler &mdash; secedgar 0.2.0 documentation</title>
   
 
   
@@ -36,9 +36,7 @@
     
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="CIK Lookup" href="ciklookup.html" />
-    <link rel="prev" title="Common Usage Examples" href="usage.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -62,7 +60,7 @@
             
             
               <div class="version">
-                0.1.7
+                0.2.0
               </div>
             
           
@@ -88,11 +86,10 @@
             
             
               <p class="caption"><span class="caption-text">Getting Started</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s New</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Common Usage Examples</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Crawler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ciklookup.html">CIK Lookup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filings.html">Filings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filingtypes.html">Filing Types</a></li>
@@ -174,172 +171,8 @@
 newly released <a class="reference internal" href="filings.html#secedgar.filings.Filing" title="secedgar.filings.Filing"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.filings.Filing</span></code></a> class.</p>
 </div>
 <p>This class fetches filing information.</p>
-<dl class="py class">
-<dt id="secedgar.crawler.SecCrawler">
-<em class="property">class </em><code class="sig-prename descclassname">secedgar.crawler.</code><code class="sig-name descname">SecCrawler</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_path</span><span class="o">=</span><span class="default_value">'/home/runner/work/sec-edgar/sec-edgar/SEC-Edgar-Data'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.crawler.SecCrawler" title="Permalink to this definition">¶</a></dt>
-<dd><p>Main crawler object for SEC filings.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>data_path</strong> (<em>str</em>) – Path where data will be saved.</p>
-</dd>
-</dl>
-<div class="versionadded">
-<p><span class="versionmodified added">New in version 0.1.4.</span></p>
-</div>
-</dd></dl>
-
 <p>The crawler has many different methods to fetch different filings from the Edgar
 database. Each method will create new documents in the specified data path.</p>
-<dl class="py method">
-<dt id="secedgar.crawler.SecCrawler.filing_10Q">
-<code class="sig-prename descclassname">SecCrawler.</code><code class="sig-name descname">filing_10Q</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">company_code</span></em>, <em class="sig-param"><span class="n">cik</span></em>, <em class="sig-param"><span class="n">priorto</span></em>, <em class="sig-param"><span class="n">count</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.crawler.SecCrawler.filing_10Q" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fetch 10Q reports before priorto date.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>company_code</strong> (<em>str</em>) – Code used to help find company filings.
-Often the company’s ticker is used.</p></li>
-<li><p><strong>cik</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Central Index Key assigned by SEC.
-See <a class="reference external" href="https://www.sec.gov/edgar/searchedgar/cik.htm">https://www.sec.gov/edgar/searchedgar/cik.htm</a> to search for
-a company’s CIK.</p></li>
-<li><p><strong>priorto</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>datetime.datetime</em><em>]</em>) – Most recent report to consider.
-Must be in form ‘YYYYMMDD’ or
-valid <code class="docutils literal notranslate"><span class="pre">datetime.datetime</span></code> object.</p></li>
-<li><p><strong>filing_type</strong> (<em>str</em>) – Choose from list of valid filing types.
-Includes ‘10-Q’, ‘10-K’, ‘8-K’, ‘13-F’, ‘SD’.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="secedgar.crawler.SecCrawler.filing_10K">
-<code class="sig-prename descclassname">SecCrawler.</code><code class="sig-name descname">filing_10K</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">company_code</span></em>, <em class="sig-param"><span class="n">cik</span></em>, <em class="sig-param"><span class="n">priorto</span></em>, <em class="sig-param"><span class="n">count</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.crawler.SecCrawler.filing_10K" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fetch 10K reports before priorto date.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>company_code</strong> (<em>str</em>) – Code used to help find company filings.
-Often the company’s ticker is used.</p></li>
-<li><p><strong>cik</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Central Index Key assigned by SEC.
-See <a class="reference external" href="https://www.sec.gov/edgar/searchedgar/cik.htm">https://www.sec.gov/edgar/searchedgar/cik.htm</a> to search for
-a company’s CIK.</p></li>
-<li><p><strong>priorto</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>datetime.datetime</em><em>]</em>) – Most recent report to consider.
-Must be in form ‘YYYYMMDD’ or
-valid <code class="docutils literal notranslate"><span class="pre">datetime.datetime</span></code> object.</p></li>
-<li><p><strong>filing_type</strong> (<em>str</em>) – Choose from list of valid filing types.
-Includes ‘10-Q’, ‘10-K’, ‘8-K’, ‘13-F’, ‘SD’.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="secedgar.crawler.SecCrawler.filing_8K">
-<code class="sig-prename descclassname">SecCrawler.</code><code class="sig-name descname">filing_8K</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">company_code</span></em>, <em class="sig-param"><span class="n">cik</span></em>, <em class="sig-param"><span class="n">priorto</span></em>, <em class="sig-param"><span class="n">count</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.crawler.SecCrawler.filing_8K" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fetch 8K reports before priorto date.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>company_code</strong> (<em>str</em>) – Code used to help find company filings.
-Often the company’s ticker is used.</p></li>
-<li><p><strong>cik</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Central Index Key assigned by SEC.
-See <a class="reference external" href="https://www.sec.gov/edgar/searchedgar/cik.htm">https://www.sec.gov/edgar/searchedgar/cik.htm</a> to search for
-a company’s CIK.</p></li>
-<li><p><strong>priorto</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>datetime.datetime</em><em>]</em>) – Most recent report to consider.
-Must be in form ‘YYYYMMDD’ or
-valid <code class="docutils literal notranslate"><span class="pre">datetime.datetime</span></code> object.</p></li>
-<li><p><strong>filing_type</strong> (<em>str</em>) – Choose from list of valid filing types.
-Includes ‘10-Q’, ‘10-K’, ‘8-K’, ‘13-F’, ‘SD’.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="secedgar.crawler.SecCrawler.filing_13F">
-<code class="sig-prename descclassname">SecCrawler.</code><code class="sig-name descname">filing_13F</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">company_code</span></em>, <em class="sig-param"><span class="n">cik</span></em>, <em class="sig-param"><span class="n">priorto</span></em>, <em class="sig-param"><span class="n">count</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.crawler.SecCrawler.filing_13F" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fetch 13F reports before priorto date.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>company_code</strong> (<em>str</em>) – Code used to help find company filings.
-Often the company’s ticker is used.</p></li>
-<li><p><strong>cik</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Central Index Key assigned by SEC.
-See <a class="reference external" href="https://www.sec.gov/edgar/searchedgar/cik.htm">https://www.sec.gov/edgar/searchedgar/cik.htm</a> to search for
-a company’s CIK.</p></li>
-<li><p><strong>priorto</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>datetime.datetime</em><em>]</em>) – Most recent report to consider.
-Must be in form ‘YYYYMMDD’ or
-valid <code class="docutils literal notranslate"><span class="pre">datetime.datetime</span></code> object.</p></li>
-<li><p><strong>filing_type</strong> (<em>str</em>) – Choose from list of valid filing types.
-Includes ‘10-Q’, ‘10-K’, ‘8-K’, ‘13-F’, ‘SD’.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="secedgar.crawler.SecCrawler.filing_SD">
-<code class="sig-prename descclassname">SecCrawler.</code><code class="sig-name descname">filing_SD</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">company_code</span></em>, <em class="sig-param"><span class="n">cik</span></em>, <em class="sig-param"><span class="n">priorto</span></em>, <em class="sig-param"><span class="n">count</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.crawler.SecCrawler.filing_SD" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fetch SD reports before priorto date.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>company_code</strong> (<em>str</em>) – Code used to help find company filings.
-Often the company’s ticker is used.</p></li>
-<li><p><strong>cik</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Central Index Key assigned by SEC.
-See <a class="reference external" href="https://www.sec.gov/edgar/searchedgar/cik.htm">https://www.sec.gov/edgar/searchedgar/cik.htm</a> to search for
-a company’s CIK.</p></li>
-<li><p><strong>priorto</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>datetime.datetime</em><em>]</em>) – Most recent report to consider.
-Must be in form ‘YYYYMMDD’ or
-valid <code class="docutils literal notranslate"><span class="pre">datetime.datetime</span></code> object.</p></li>
-<li><p><strong>filing_type</strong> (<em>str</em>) – Choose from list of valid filing types.
-Includes ‘10-Q’, ‘10-K’, ‘8-K’, ‘13-F’, ‘SD’.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="secedgar.crawler.SecCrawler.filing_4">
-<code class="sig-prename descclassname">SecCrawler.</code><code class="sig-name descname">filing_4</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">company_code</span></em>, <em class="sig-param"><span class="n">cik</span></em>, <em class="sig-param"><span class="n">priorto</span></em>, <em class="sig-param"><span class="n">count</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.crawler.SecCrawler.filing_4" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fetch ‘4’ reports before priorto date.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>company_code</strong> (<em>str</em>) – Code used to help find company filings.
-Often the company’s ticker is used.</p></li>
-<li><p><strong>cik</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) – Central Index Key assigned by SEC.
-See <a class="reference external" href="https://www.sec.gov/edgar/searchedgar/cik.htm">https://www.sec.gov/edgar/searchedgar/cik.htm</a> to search for
-a company’s CIK.</p></li>
-<li><p><strong>priorto</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>datetime.datetime</em><em>]</em>) – Most recent report to consider.
-Must be in form ‘YYYYMMDD’ or
-valid <code class="docutils literal notranslate"><span class="pre">datetime.datetime</span></code> object.</p></li>
-<li><p><strong>filing_type</strong> (<em>str</em>) – Choose from list of valid filing types.
-Includes ‘10-Q’, ‘10-K’, ‘8-K’, ‘13-F’, ‘SD’.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
 </div>
 
 
@@ -347,15 +180,6 @@ Includes ‘10-Q’, ‘10-K’, ‘8-K’, ‘13-F’, ‘SD’.</p></li>
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="ciklookup.html" class="btn btn-neutral float-right" title="CIK Lookup" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="usage.html" class="btn btn-neutral float-left" title="Common Usage Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

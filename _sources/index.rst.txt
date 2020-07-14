@@ -14,7 +14,6 @@ Welcome to secedgar's documentation!
    whatsnew
    install
    usage
-   crawler
    ciklookup
    filings
    filingtypes
