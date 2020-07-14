@@ -1,6 +1,7 @@
 import datetime
 import os
 import requests
+import warnings
 
 from secedgar.filings._base import AbstractFiling
 from secedgar.client.network_client import NetworkClient
@@ -178,6 +179,11 @@ class Filing(AbstractFiling):
                 break
 
         txt_urls = [link[:link.rfind("-")].strip() + ".txt" for link in links]
+
+        if len(txt_urls) < self.count:
+            warnings.warn("Only {num} of {count} filings were found for {cik}.".format(
+                num=len(txt_urls), count=self.count, cik=cik))
+
         # Takes `count` filings at most
         return txt_urls[:self.count]
 
