@@ -95,15 +95,17 @@
 <li class="toctree-l1"><a class="reference internal" href="ciklookup.html">CIK Lookup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filings.html">Filings</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Filing Types</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#form-10-k">Form 10-K</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#form-10-q">Form 10-Q</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#form-8-k">Form 8-K</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#form-13-f">Form 13-F</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#form-4">Form 4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#form-sd">Form SD</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#form-def-14a">Form DEF 14A</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#form-defa-14a">Form DEFA 14A</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#supported-filing-types">Supported Filing Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#common-filing-types">Common Filing Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#form-10-k">Form 10-K</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#form-10-q">Form 10-Q</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#form-8-k">Form 8-K</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#form-13-f">Form 13-F</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#form-4">Form 4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#form-sd">Form SD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#form-def-14a">Form DEF 14A</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cikmap.html">Finding Company CIKs</a></li>
@@ -182,63 +184,6 @@
 <em>Note that this list of filing types is not exhaustive.</em>
 The complete list of filing types is at <a class="reference internal" href="#secedgar.filings.FilingType" title="secedgar.filings.FilingType"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.filings.FilingType</span></code></a>.
 This class supports over 100 filing types.</p>
-<div class="section" id="form-10-k">
-<h2>Form 10-K<a class="headerlink" href="#form-10-k" title="Permalink to this headline">¶</a></h2>
-<p>The 10-K form is an annual report submitted by public companies listed on U.S. stock exchanges.
-As the <a class="reference external" href="https://www.sec.gov/fast-answers/answers-form10khtm.html">SEC explains</a>,
-“The annual report on Form 10-K provides a comprehensive overview of the
-company’s business and financial condition and includes audited financial statements.”</p>
-</div>
-<div class="section" id="form-10-q">
-<h2>Form 10-Q<a class="headerlink" href="#form-10-q" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="https://www.sec.gov/fast-answers/answersform10qhtm.html">According to the SEC</a>,
-“The Form 10-Q includes unaudited financial statements and provides
-a continuing view of the company’s financial position during the year.
-The report must be filed for each of the first three fiscal quarters of the company’s fiscal year.”
-The 10-Q provides investors regular check-ins to a company’s health from quarter to quarter.</p>
-</div>
-<div class="section" id="form-8-k">
-<h2>Form 8-K<a class="headerlink" href="#form-8-k" title="Permalink to this headline">¶</a></h2>
-<p>The Form 8-K reports major events that shareholders should know about. The SEC defines various
-events as major. A few highlights include:</p>
-<ul class="simple">
-<li><p>Bankruptcy</p></li>
-<li><p>Termination of a “Material Definitive Agreement”</p></li>
-<li><p>Notice of delisting</p></li>
-<li><p>Material impairments</p></li>
-<li><p>Shareholder director nominations</p></li>
-<li><p>Amendments to Articles of Incorporation or Bylaws</p></li>
-</ul>
-<p>For a full list, refer to the <a class="reference external" href="https://www.sec.gov/fast-answers/answersform8khtm.html">SEC’s full list</a>.</p>
-</div>
-<div class="section" id="form-13-f">
-<h2>Form 13-F<a class="headerlink" href="#form-13-f" title="Permalink to this headline">¶</a></h2>
-<p>The 13-F form is a holding disclosure by institutional investors who manage at least $100 million USD (e.g. mutual funds, hedge funds, pension funds, etc.).
-The form is released quarterly and provides insight into buying behavior. However, these forms can be submitted up to 45 days after
-the end of the quarter. Thus, they are not guaranteed to be up to date with the current holdings by the institutional
-investor. Only certain securities must be included in the Form 13-F. The <a class="reference external" href="https://www.sec.gov/divisions/investment/13flists.htm">full list of securities</a>
-can be found on the SEC website.</p>
-</div>
-<div class="section" id="form-4">
-<h2>Form 4<a class="headerlink" href="#form-4" title="Permalink to this headline">¶</a></h2>
-<p>The Form 4 reports changes in ownership by insiders and must be reported to the SEC within two business days.</p>
-</div>
-<div class="section" id="form-sd">
-<h2>Form SD<a class="headerlink" href="#form-sd" title="Permalink to this headline">¶</a></h2>
-<p>The Form SD (<strong>S</strong>pecialized <strong>D</strong>isclosure) “satisfy special disclosure requirements implemented under
-the Dodd-Frank Wall Street Reform and Consumer Protection Act relating to conflict minerals contained
-in products that reporting companies manufacture or contract to be manufactured and necessary to the
-functionality or production of those products.”
-(<a class="reference external" href="https://content.next.westlaw.com/Document/Icf49605def0a11e28578f7ccc38dcbee/View/FullText.html?contextData=(sc.Default)&amp;transitionType=Default&amp;firstPage=true&amp;bhcp=1">Thompson Reuters</a>)</p>
-</div>
-<div class="section" id="form-def-14a">
-<h2>Form DEF 14A<a class="headerlink" href="#form-def-14a" title="Permalink to this headline">¶</a></h2>
-<p>Definitive proxy statement. Required ahead of annual meeting when firm is soliciting shareholder votes.</p>
-</div>
-<div class="section" id="form-defa-14a">
-<h2>Form DEFA 14A<a class="headerlink" href="#form-defa-14a" title="Permalink to this headline">¶</a></h2>
-<p>Additional information for DEF 14A form.</p>
-</div>
 <div class="section" id="supported-filing-types">
 <h2>Supported Filing Types<a class="headerlink" href="#supported-filing-types" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
@@ -935,6 +880,64 @@ functionality or production of those products.”
 
 </dd></dl>
 
+</div>
+<div class="section" id="common-filing-types">
+<h2>Common Filing Types<a class="headerlink" href="#common-filing-types" title="Permalink to this headline">¶</a></h2>
+<p>Below are some of the most frequently used types of filings with brief descriptions of what
+information can be found in those filings.</p>
+<div class="section" id="form-10-k">
+<h3>Form 10-K<a class="headerlink" href="#form-10-k" title="Permalink to this headline">¶</a></h3>
+<p>The 10-K form is an annual report submitted by public companies listed on U.S. stock exchanges.
+As the <a class="reference external" href="https://www.sec.gov/fast-answers/answers-form10khtm.html">SEC explains</a>,
+“The annual report on Form 10-K provides a comprehensive overview of the
+company’s business and financial condition and includes audited financial statements.”</p>
+</div>
+<div class="section" id="form-10-q">
+<h3>Form 10-Q<a class="headerlink" href="#form-10-q" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://www.sec.gov/fast-answers/answersform10qhtm.html">According to the SEC</a>,
+“The Form 10-Q includes unaudited financial statements and provides
+a continuing view of the company’s financial position during the year.
+The report must be filed for each of the first three fiscal quarters of the company’s fiscal year.”
+The 10-Q provides investors regular check-ins to a company’s health from quarter to quarter.</p>
+</div>
+<div class="section" id="form-8-k">
+<h3>Form 8-K<a class="headerlink" href="#form-8-k" title="Permalink to this headline">¶</a></h3>
+<p>The Form 8-K reports major events that shareholders should know about. The SEC defines various
+events as major. A few highlights include:</p>
+<ul class="simple">
+<li><p>Bankruptcy</p></li>
+<li><p>Termination of a “Material Definitive Agreement”</p></li>
+<li><p>Notice of delisting</p></li>
+<li><p>Material impairments</p></li>
+<li><p>Shareholder director nominations</p></li>
+<li><p>Amendments to Articles of Incorporation or Bylaws</p></li>
+</ul>
+<p>For a full list, refer to the <a class="reference external" href="https://www.sec.gov/fast-answers/answersform8khtm.html">SEC’s full list</a>.</p>
+</div>
+<div class="section" id="form-13-f">
+<h3>Form 13-F<a class="headerlink" href="#form-13-f" title="Permalink to this headline">¶</a></h3>
+<p>The 13-F form is a holding disclosure by institutional investors who manage at least $100 million USD (e.g. mutual funds, hedge funds, pension funds, etc.).
+The form is released quarterly and provides insight into buying behavior. However, these forms can be submitted up to 45 days after
+the end of the quarter. Thus, they are not guaranteed to be up to date with the current holdings by the institutional
+investor. Only certain securities must be included in the Form 13-F. The <a class="reference external" href="https://www.sec.gov/divisions/investment/13flists.htm">full list of securities</a>
+can be found on the SEC website.</p>
+</div>
+<div class="section" id="form-4">
+<h3>Form 4<a class="headerlink" href="#form-4" title="Permalink to this headline">¶</a></h3>
+<p>The Form 4 reports changes in ownership by insiders and must be reported to the SEC within two business days.</p>
+</div>
+<div class="section" id="form-sd">
+<h3>Form SD<a class="headerlink" href="#form-sd" title="Permalink to this headline">¶</a></h3>
+<p>The Form SD (<strong>S</strong>pecialized <strong>D</strong>isclosure) “satisfy special disclosure requirements implemented under
+the Dodd-Frank Wall Street Reform and Consumer Protection Act relating to conflict minerals contained
+in products that reporting companies manufacture or contract to be manufactured and necessary to the
+functionality or production of those products.”
+(<a class="reference external" href="https://content.next.westlaw.com/Document/Icf49605def0a11e28578f7ccc38dcbee/View/FullText.html?contextData=(sc.Default)&amp;transitionType=Default&amp;firstPage=true&amp;bhcp=1">Thompson Reuters</a>)</p>
+</div>
+<div class="section" id="form-def-14a">
+<h3>Form DEF 14A<a class="headerlink" href="#form-def-14a" title="Permalink to this headline">¶</a></h3>
+<p>Definitive proxy statement. Required ahead of annual meeting when firm is soliciting shareholder votes.</p>
+</div>
 </div>
 </div>
 

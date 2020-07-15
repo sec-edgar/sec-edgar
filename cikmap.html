@@ -189,6 +189,29 @@ company name as keys.</p>
 </div>
 </dd></dl>
 
+<p>By default, <code class="docutils literal notranslate"><span class="pre">get_cik_map</span></code> fetches a dictionary using company tickers as keys.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In both examples below, only the first 5 results are shown.</p>
+</div>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">secedgar.utils</span> <span class="kn">import</span> <span class="n">get_cik_map</span>
+
+<span class="gp">In [2]: </span><span class="nb">dict</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">get_cik_map</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">())[:</span><span class="mi">5</span><span class="p">])</span>
+<span class="gh">Out[2]: </span><span class="go">{&#39;AIR&#39;: &#39;1750&#39;, &#39;ABT&#39;: &#39;1800&#39;, &#39;WDDD&#39;: &#39;1961&#39;, &#39;ACET&#39;: &#39;2034&#39;, &#39;ACU&#39;: &#39;2098&#39;}</span>
+</pre></div>
+</div>
+<p>To get a dictionary with the company names as the keys, use <code class="docutils literal notranslate"><span class="pre">key=&quot;title&quot;</span></code>.</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [3]: </span><span class="kn">from</span> <span class="nn">secedgar.utils</span> <span class="kn">import</span> <span class="n">get_cik_map</span>
+
+<span class="gp">In [4]: </span><span class="nb">dict</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">get_cik_map</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;title&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">())[:</span><span class="mi">5</span><span class="p">])</span>
+<span class="gh">Out[4]: </span><span class="go"></span>
+<span class="go">{&#39;AAR CORP&#39;: &#39;1750&#39;,</span>
+<span class="go"> &#39;ABBOTT LABORATORIES&#39;: &#39;1800&#39;,</span>
+<span class="go"> &#39;WORLDS INC&#39;: &#39;1961&#39;,</span>
+<span class="go"> &#39;ACETO CORP&#39;: &#39;2034&#39;,</span>
+<span class="go"> &#39;ACME UNITED CORP&#39;: &#39;2098&#39;}</span>
+</pre></div>
+</div>
 </div>
 
 
