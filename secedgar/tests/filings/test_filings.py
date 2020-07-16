@@ -10,18 +10,37 @@ from secedgar.tests.utils import datapath
 from secedgar.utils.exceptions import FilingTypeError, EDGARQueryError
 
 
-class MockSingleCIKNotFound:
-    def __init__(self, *args):
-        self.status_code = 200
-        with open(datapath("CIK", "cik_not_found.html"), 'rb') as f:
-            self.text = f.read()
+class MockResponse:
+    def __init__(self, datapath_args=[], status_code=200, file_read_args='r', text=None, *args):
+        self.status_code = status_code
+        if text is not None:
+            self.text = text
+        else:
+            with open(datapath(*datapath_args), file_read_args) as f:
+                self.text = f.read()
 
 
-class MockSingleCIKFiling:
+class MockSingleCIKNotFound(MockResponse):
     def __init__(self, *args):
-        self.status_code = 200
-        with open(datapath('filings', 'aapl_10q_filings.xml')) as f:
-            self.text = f.read()
+        super().__init__(["CIK", "cik_not_found.html"], 'rb')
+
+
+class MockSingleCIKFiling(MockResponse):
+    def __init__(self, *args):
+        super().__init__(['filings', 'aapl_10q_filings.xml'])
+
+
+class MockSingleCIKFilingLimitedResponses:
+    def __init__(self, num_responses):
+        self._called_count = 0
+        self._num_responses = num_responses
+
+    def __call__(self, *args):
+        if self._called_count * 10 < self._num_responses:
+            self._called_count += 1
+            return MockSingleCIKFiling()
+        else:
+            return MockResponse(text="")
 
 
 class MockCIKValidatorGetCIKs:
@@ -39,7 +58,7 @@ class MockCIKValidatorMultipleCIKs:
 
     @staticmethod
     def get_ciks(self):
-        return {'aapl': '0000320193', 'msft': '', 'amzn': ''}
+        return {'aapl': '0000320193', 'msft': '1234', 'amzn': '5678'}
 
 
 class TestFiling(object):
@@ -209,3 +228,23 @@ class TestFiling(object):
         f = Filing(cik_lookup=['aapl', 'msft', 'amzn'], filing_type=FilingType.FILING_10Q,
                    count=count, client=NetworkClient(batch_size=10))
         assert all(len(f.get_urls().get(key)) == count for key in f.get_urls().keys())
+
+    @pytest.mark.parametrize(
+        "count,raises_error",
+        [
+            (5, False),
+            (10, False),
+            (20, True),
+            (30, True),
+            (40, True)
+        ]
+    )
+    @pytest.mark.filterwarnings('ignore::DeprecationWarning')  # For collections.abc warning 3.8+
+    def test_filing_raises_warning_when_less_filings_than_count(self, monkeypatch, count, raises_error, tmp_data_directory):
+        monkeypatch.setattr(_CIKValidator, "get_ciks", MockCIKValidatorGetCIKs.get_ciks)
+        monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKFilingLimitedResponses(10))
+        f = Filing(cik_lookup=['aapl', 'msft', 'amzn'], filing_type=FilingType.FILING_10Q,
+                   count=count, client=NetworkClient(batch_size=10))
+        if raises_error:
+            with pytest.warns(UserWarning):
+                f.save(tmp_data_directory)
