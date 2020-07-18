@@ -240,11 +240,18 @@ class TestFiling(object):
         ]
     )
     @pytest.mark.filterwarnings('ignore::DeprecationWarning')  # For collections.abc warning 3.8+
-    def test_filing_raises_warning_when_less_filings_than_count(self, monkeypatch, count, raises_error, tmp_data_directory):
+    def test_filing_raises_warning_when_less_filings_than_count(self, monkeypatch, recwarn, count, raises_error, tmp_data_directory):
         monkeypatch.setattr(_CIKValidator, "get_ciks", MockCIKValidatorGetCIKs.get_ciks)
         monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKFilingLimitedResponses(10))
         f = Filing(cik_lookup=['aapl', 'msft', 'amzn'], filing_type=FilingType.FILING_10Q,
                    count=count, client=NetworkClient(batch_size=10))
+        f.save(tmp_data_directory)
         if raises_error:
-            with pytest.warns(UserWarning):
-                f.save(tmp_data_directory)
+            w = recwarn.pop(UserWarning)
+            assert issubclass(w.category, UserWarning)
+        else:
+            try:
+                w = recwarn.pop(UserWarning)
+                pytest.fail("Expected no UserWarning, but received one.")
+            except AssertionError:  # Should raise assertion error since no UserWarning should be found
+                pass
