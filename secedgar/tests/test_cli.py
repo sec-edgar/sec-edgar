@@ -7,21 +7,30 @@ from secedgar.utils.exceptions import FilingTypeError
 
 class CLITestingMixin:
     """CLI testing utilities mixin class."""
-    @staticmethod
-    def _test_bad_inputs(cli, user_input, expected_exception, tmp_data_directory):
+
+    def __init__(self, cli):
+        self.cli = cli
+
+    def run_cli_command(self, user_input, tmp_data_directory):
         runner = CliRunner()
         user_input = user_input + " --directory {}".format(tmp_data_directory)
+        return runner.invoke(self.cli, user_input)
 
+    def _test_bad_inputs(self, user_input, expected_exception, tmp_data_directory):
         # SystemExit does not raise exception by runner
         if expected_exception is SystemExit:
-            result = runner.invoke(cli, user_input)
+            result = self.run_cli_command(user_input, tmp_data_directory)
             assert result.exit_code != 0
         else:
             with pytest.raises(expected_exception):
-                runner.invoke(filing, user_input, catch_exceptions=False)
+                self.run_cli_command(user_input, tmp_data_directory)
 
 
 class TestCLIFiling(CLITestingMixin):
+
+    def __init__(self):
+        super().__init__(cli=filing)
+
     @pytest.mark.parametrize(
         "user_input,expected_exception",
         [
@@ -32,10 +41,25 @@ class TestCLIFiling(CLITestingMixin):
         ]
     )
     def test_filing_bad_inputs(self, user_input, expected_exception, tmp_data_directory):
-        self._test_bad_inputs(filing, user_input, expected_exception, tmp_data_directory)
+        self._test_bad_inputs(user_input, expected_exception, tmp_data_directory)
+
+    @pytest.mark.parametrize(
+        "user_input",
+        [
+            "-l aapl msft fb FILING_10Q",
+            "-l aapl msft fb FILING_10Q -n 10",
+            "-l aapl msft fb FILING_10Q -n 1"
+        ]
+    )
+    def test_multiple_companies_input(self, user_input, tmp_data_directory):
+        pass
 
 
 class TestCLIDaily(CLITestingMixin):
+
+    def __init__(self, cli):
+        super().__init__(cli=daily)
+
     @pytest.mark.parametrize(
         "user_input,expected_exception",
         [
@@ -44,4 +68,4 @@ class TestCLIDaily(CLITestingMixin):
         ]
     )
     def test_daily_bad_inputs(self, user_input, expected_exception, tmp_data_directory):
-        self._test_bad_inputs(daily, user_input, expected_exception, tmp_data_directory)
+        self._test_bad_inputs(user_input, expected_exception, tmp_data_directory)
