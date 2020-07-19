@@ -13,18 +13,6 @@ class AbstractFiling(ABC):
         """``secedgar.client._base``: Client to use to make requests."""
         pass  # pragma: no cover
 
-    @abstractmethod
-    def get_urls(self, **kwargs):
-        """Get all URLs for filings.
-
-        Args:
-            kwargs: Anything to be passed to requests when making GET request.
-
-        Returns:
-            urls (list): List of urls for txt files to download.
-        """
-        pass  # pragma: no cover
-
     @property
     @abstractmethod
     def params(self):
@@ -35,6 +23,18 @@ class AbstractFiling(ABC):
     @abstractmethod
     def path(self):
         """str: Path added to client base."""
+        pass  # pragma: no cover
+
+    @abstractmethod
+    def get_urls(self, **kwargs):
+        """Get all URLs for filings.
+
+        Args:
+            kwargs: Anything to be passed to requests when making GET request.
+
+        Returns:
+            urls (list): List of urls for txt files to download.
+        """
         pass  # pragma: no cover
 
     @abstractmethod
