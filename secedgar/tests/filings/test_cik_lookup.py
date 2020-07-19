@@ -51,15 +51,14 @@ class TestCIKLookup(object):
             _ = multiple_results_cik.ciks
 
     @pytest.mark.parametrize(
-        "bad_cik,expected",
+        "bad_cik",
         [
-            (1234567890, pytest.raises(TypeError)),
-            (123.0, pytest.raises(TypeError)),
+            1234567890,
+            123.0,
         ]
     )
-    def test_validate_cik__is_string(self, bad_cik, expected):
-        # float and int not accepted, raising TypeError
-        with expected:
+    def test_validate_cik__is_string(self, bad_cik, ):
+        with pytest.raises(TypeError):
             CIKLookup(bad_cik)
 
     def test_validate_cik_after_cik_lookup(self, monkeypatch):

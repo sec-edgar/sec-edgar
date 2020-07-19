@@ -21,15 +21,15 @@ class TestCIKValidator:
         assert validator.client == client
 
     @pytest.mark.parametrize(
-        "bad_lookups,expected",
+        "bad_lookups",
         [
-            ([], pytest.raises(TypeError)),
-            ("", pytest.raises(TypeError)),
-            (["AAPL", 4, "FB"], pytest.raises(TypeError))
+            [],
+            "",
+            ["AAPL", 4, "FB"]
         ]
     )
-    def test_empty_lookups_raises_type_error(self, bad_lookups, expected):
-        with expected:
+    def test_empty_lookups_raises_type_error(self, bad_lookups):
+        with pytest.raises(TypeError):
             _CIKValidator(lookups=bad_lookups)
 
     def test_lookups_property(self, ticker_lookups):
@@ -37,29 +37,29 @@ class TestCIKValidator:
         assert validator.lookups == ticker_lookups
 
     @pytest.mark.parametrize(
-        "bad_lookup,expected",
+        "bad_lookup",
         [
-            ("", pytest.raises(TypeError)),
-            (4, pytest.raises(TypeError))
+            "",
+            4
         ]
     )
-    def test_validate_lookup(self, bad_lookup, expected):
-        with expected:
+    def test_validate_lookup(self, bad_lookup):
+        with pytest.raises(TypeError):
             _CIKValidator._validate_lookup(bad_lookup)
 
     @pytest.mark.parametrize(
-        "bad_cik,expected",
+        "bad_cik",
         [
-            ("1234", pytest.raises(CIKError)),
-            (1234, pytest.raises(CIKError)),
-            (1234567890, pytest.raises(CIKError)),
-            ("AAPL", pytest.raises(CIKError)),
-            ("", pytest.raises(CIKError)),
-            (None, pytest.raises(CIKError))
+            "1234",
+            1234,
+            1234567890,
+            "AAPL",
+            "",
+            None,
         ]
     )
-    def test_validate_cik(self, bad_cik, expected):
-        with expected:
+    def test_validate_cik_on_bad_ciks(self, bad_cik):
+        with pytest.raises(CIKError):
             _CIKValidator._validate_cik(bad_cik)
 
     def test_params_reset_after_get_cik(self, ticker_lookups, client):
