@@ -5,6 +5,7 @@ Highlights
 ~~~~~~~~~~
 
 * Removes ``secedgar.crawler.SecCrawler`` class. Use ``secedgar.filings.Filing`` instead.
+* Add ``secedgar.cli`` to provide CLI option for users
 * Add ``UserWarning`` when number of downloaded files is less than ``count``.
 
 Contributors
