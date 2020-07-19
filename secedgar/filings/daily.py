@@ -7,7 +7,7 @@ from collections import namedtuple
 
 from secedgar.client import NetworkClient
 from secedgar.filings._base import AbstractFiling
-from secedgar.utils import make_path
+from secedgar.utils import make_path, get_quarter
 
 from secedgar.utils.exceptions import EDGARQueryError
 
@@ -43,7 +43,7 @@ class DailyFilings(AbstractFiling):
     @property
     def quarter(self):
         """Get quarter number from date attribute."""
-        return (self._date.month - 1) // 3 + 1
+        return get_quarter(self._date)
 
     @property
     def path(self):
