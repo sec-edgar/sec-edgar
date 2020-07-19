@@ -2,30 +2,22 @@ from datetime import datetime
 
 from secedgar.utils import get_quarter
 
-from secedgar.filings._base import AbstractFiling
+from secedgar.filings._index import IndexFilings
 from secedgar.client.network_client import NetworkClient
 
 
-class MasterFilings(AbstractFiling):
+class MasterFilings(IndexFilings):
     def __init__(self,
                  year,
                  quarter,
                  client=None):
+        super().__init__(client=client)
         self._year = year
         self._quarter = quarter
-        self._client = client if client is not None else NetworkClient()
-
-    @property
-    def client(self):
-        return self._client
-
-    @property
-    def params(self):
-        return {}
 
     @property
     def path(self):
-        "Archives/edgar/full-index/{year}/QTR{num}/".format(year=self._year, num=self._quarter)
+        return "Archives/edgar/full-index/{year}/QTR{num}/".format(year=self._year, num=self._quarter)
 
     @property
     def year(self):
@@ -55,8 +47,11 @@ class MasterFilings(AbstractFiling):
                 qtr=get_quarter(datetime.now())))
         self._quarter = val
 
-    def get_urls(self, **kwargs):
-        pass
+    # TODO: Implement zip decompression to idx file to decrease response load
+    @property
+    def idx_filename(self):
+        """Main index filename to look for."""
+        return "master.idx"
 
     def save(self, directory):
         pass
