@@ -1,3 +1,5 @@
 pytest
 flake8
 pydocstyle
+click
+sphinx-click
