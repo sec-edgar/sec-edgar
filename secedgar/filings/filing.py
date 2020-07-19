@@ -112,8 +112,10 @@ class Filing(AbstractFiling):
     def count(self, val):
         if val is None:
             pass
-        elif not isinstance(val, int) or val < 1:
+        elif not isinstance(val, int):
             raise TypeError("Count must be positive integer or None.")
+        elif val < 1:
+            raise ValueError("Count must be positive integer or None.")
         else:
             self._count = val
             self._params['count'] = val
