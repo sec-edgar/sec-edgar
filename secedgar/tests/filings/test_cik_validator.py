@@ -21,7 +21,7 @@ class TestCIKValidator:
         assert validator.client == client
 
     @pytest.mark.parametrize(
-        "bad_lookups,expected",
+        "bad_lookups",
         [
             [],
             "",
