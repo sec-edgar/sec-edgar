@@ -21,7 +21,7 @@ class MasterFilings(AbstractFiling):
 
     @property
     def params(self):
-        pass
+        return {}
 
     @property
     def path(self):
@@ -52,7 +52,7 @@ class MasterFilings(AbstractFiling):
             raise ValueError("Quarter must be in between 1 and 4 (inclusive).")
         elif self.year == datetime.now().year and val > get_quarter(datetime.now()):
             raise ValueError("Latest quarter for current year is {qtr}".format(
-                get_quarter(datetime.now())))
+                qtr=get_quarter(datetime.now())))
         self._quarter = val
 
     def get_urls(self, **kwargs):
