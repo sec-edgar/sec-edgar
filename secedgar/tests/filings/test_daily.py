@@ -70,15 +70,15 @@ class TestDaily:
     )
     def test_get_urls(self, monkeypatch, url):
         daily_filing = DailyFilings(datetime(2018, 12, 31))
-        monkeypatch.setattr(DailyFilings, "_get_quarterly_directory", MockQuarterDirectory)
+        monkeypatch.setattr(DailyFilings, "get_listings_directory", MockQuarterDirectory)
         monkeypatch.setattr(DailyFilings, "_get_master_idx_file", mock_master_idx_file)
         assert url in daily_filing.get_urls()
 
-    def test_get_quarterly_directory(self, monkeypatch):
-        monkeypatch.setattr(DailyFilings, "_get_quarterly_directory", MockQuarterDirectory)
-        assert DailyFilings(datetime(2018, 12, 31))._get_quarterly_directory().status_code == 200
+    def test_get_listings_directory(self, monkeypatch):
+        monkeypatch.setattr(DailyFilings, "get_listings_directory", MockQuarterDirectory)
+        assert DailyFilings(datetime(2018, 12, 31)).get_listings_directory().status_code == 200
         assert "master.20181231.idx" in DailyFilings(
-            datetime(2018, 12, 31))._get_quarterly_directory().text
+            datetime(2018, 12, 31)).get_listings_directory().text
 
     @pytest.mark.parametrize(
         "company_name",
@@ -92,7 +92,7 @@ class TestDaily:
     )
     def test_get_master_idx_file(self, monkeypatch, company_name):
         daily_filing = DailyFilings(datetime(2018, 12, 31))
-        monkeypatch.setattr(DailyFilings, "_get_quarterly_directory", MockQuarterDirectory)
+        monkeypatch.setattr(DailyFilings, "get_listings_directory", MockQuarterDirectory)
         monkeypatch.setattr(DailyFilings, "_get_master_idx_file", mock_master_idx_file)
 
         # All company names above should be in file
@@ -151,7 +151,7 @@ class TestDaily:
     )
     def test_save(self, tmp_data_directory, monkeypatch, subdir, file):
         daily_filing = DailyFilings(datetime(2018, 12, 31))
-        monkeypatch.setattr(DailyFilings, "_get_quarterly_directory", MockQuarterDirectory)
+        monkeypatch.setattr(DailyFilings, "get_listings_directory", MockQuarterDirectory)
         monkeypatch.setattr(DailyFilings, '_get_master_idx_file', mock_master_idx_file)
         monkeypatch.setattr(requests, 'get', MockFilingData)
         daily_filing.save(tmp_data_directory)
