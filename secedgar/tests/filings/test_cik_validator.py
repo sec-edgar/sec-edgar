@@ -37,13 +37,13 @@ class TestCIKValidator:
         assert validator.lookups == ticker_lookups
 
     @pytest.mark.parametrize(
-        "bad_lookup,expected",
+        "bad_lookup",
         [
             "",
             4
         ]
     )
-    def test_validate_lookup(self, bad_lookup, expected):
+    def test_validate_lookup(self, bad_lookup):
         with pytest.raises(TypeError):
             _CIKValidator._validate_lookup(bad_lookup)
 
