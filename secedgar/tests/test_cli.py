@@ -16,7 +16,7 @@ class CLITestingMixin:
         user_input = user_input + " --directory {}".format(tmp_data_directory)
         return runner.invoke(self.cli, user_input)
 
-    def _test_bad_inputs(self, user_input, expected_exception, tmp_data_directory):
+    def test_bad_inputs(self, user_input, expected_exception, tmp_data_directory):
         # SystemExit does not raise exception by runner
         if expected_exception is SystemExit:
             result = self.run_cli_command(user_input, tmp_data_directory)
@@ -41,7 +41,7 @@ class TestCLIFiling(CLITestingMixin):
         ]
     )
     def test_filing_bad_inputs(self, user_input, expected_exception, tmp_data_directory):
-        self._test_bad_inputs(user_input, expected_exception, tmp_data_directory)
+        self.test_bad_inputs(user_input, expected_exception, tmp_data_directory)
 
     @pytest.mark.parametrize(
         "user_input",
@@ -68,4 +68,4 @@ class TestCLIDaily(CLITestingMixin):
         ]
     )
     def test_daily_bad_inputs(self, user_input, expected_exception, tmp_data_directory):
-        self._test_bad_inputs(user_input, expected_exception, tmp_data_directory)
+        self.test_bad_inputs(user_input, expected_exception, tmp_data_directory)
