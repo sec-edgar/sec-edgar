@@ -68,14 +68,11 @@ class TestDaily:
             "http://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046102.txt"
         ]
     )
-    def test_get_urls(self, monkeypatch, url):
+    def test_get_urls(self, mock_daily_quarter_directory, mock_daily_idx_file, url):
         daily_filing = DailyFilings(datetime(2018, 12, 31))
-        monkeypatch.setattr(DailyFilings, "get_listings_directory", MockQuarterDirectory)
-        monkeypatch.setattr(DailyFilings, "_get_master_idx_file", mock_master_idx_file)
         assert url in daily_filing.get_urls()
 
-    def test_get_listings_directory(self, monkeypatch):
-        monkeypatch.setattr(DailyFilings, "get_listings_directory", MockQuarterDirectory)
+    def test_get_listings_directory(self, mock_daily_quarter_directory):
         assert DailyFilings(datetime(2018, 12, 31)).get_listings_directory().status_code == 200
         assert "master.20181231.idx" in DailyFilings(
             datetime(2018, 12, 31)).get_listings_directory().text
@@ -90,10 +87,8 @@ class TestDaily:
             "PERUSAHAAN PERSEROAN PERSERO PT TELEKOMUNIKASI INDONESIA TBK"
         ]
     )
-    def test_get_master_idx_file(self, monkeypatch, company_name):
+    def test_get_master_idx_file(self, mock_daily_quarter_directory, mock_daily_idx_file, company_name):
         daily_filing = DailyFilings(datetime(2018, 12, 31))
-        monkeypatch.setattr(DailyFilings, "get_listings_directory", MockQuarterDirectory)
-        monkeypatch.setattr(DailyFilings, "_get_master_idx_file", mock_master_idx_file)
 
         # All company names above should be in file
         assert company_name in daily_filing._get_master_idx_file()
@@ -149,10 +144,8 @@ class TestDaily:
             ("BANK OF SOUTH CAROLINA CORP", "0001225208-18-017075.txt")
         ]
     )
-    def test_save(self, tmp_data_directory, monkeypatch, subdir, file):
+    def test_save(self, tmp_data_directory, monkeypatch, mock_daily_quarter_directory, mock_daily_idx_file, subdir, file):
         daily_filing = DailyFilings(datetime(2018, 12, 31))
-        monkeypatch.setattr(DailyFilings, "get_listings_directory", MockQuarterDirectory)
-        monkeypatch.setattr(DailyFilings, '_get_master_idx_file', mock_master_idx_file)
         monkeypatch.setattr(requests, 'get', MockFilingData)
         daily_filing.save(tmp_data_directory)
         subdir = os.path.join("20181231", subdir)

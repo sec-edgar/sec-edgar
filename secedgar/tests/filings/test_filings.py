@@ -10,64 +10,11 @@ from secedgar.tests.utils import datapath
 from secedgar.utils.exceptions import FilingTypeError, EDGARQueryError
 
 
-class MockResponse:
-    def __init__(self, datapath_args=[], status_code=200, file_read_args='r', text=None, *args):
-        self.status_code = status_code
-        if text is not None:
-            self.text = text
-        else:
-            with open(datapath(*datapath_args), file_read_args) as f:
-                self.text = f.read()
-
-
-class MockSingleCIKNotFound(MockResponse):
-    def __init__(self, *args):
-        super().__init__(["CIK", "cik_not_found.html"], 'rb')
-
-
-class MockSingleCIKFiling(MockResponse):
-    def __init__(self, *args):
-        super().__init__(['filings', 'aapl_10q_filings.xml'])
-
-
-class MockSingleCIKFilingLimitedResponses:
-    def __init__(self, num_responses):
-        self._called_count = 0
-        self._num_responses = num_responses
-
-    def __call__(self, *args):
-        if self._called_count * 10 < self._num_responses:
-            self._called_count += 1
-            return MockSingleCIKFiling()
-        else:
-            return MockResponse(text="")
-
-
-class MockCIKValidatorGetCIKs:
-    def __init__(self, *args):
-        pass
-
-    @staticmethod
-    def get_ciks(self):
-        return {'aapl': '0000320193'}
-
-
-class MockCIKValidatorMultipleCIKs:
-    def __init__(self, *args):
-        pass
-
-    @staticmethod
-    def get_ciks(self):
-        return {'aapl': '0000320193', 'msft': '1234', 'amzn': '5678'}
-
-
 class TestFiling(object):
     @pytest.mark.slow
-    def test_count_returns_exact(self, monkeypatch):
+    def test_count_returns_exact(self, monkeypatch, mock_cik_validator_get_single_cik, mock_single_cik_filing):
         count = 10
         aapl = Filing(cik_lookup='aapl', filing_type=FilingType.FILING_10Q, count=count)
-        monkeypatch.setattr(_CIKValidator, "get_ciks", MockCIKValidatorGetCIKs.get_ciks)
-        monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKFiling)
         urls = aapl.get_urls()['aapl']
         if len(urls) != count:
             raise AssertionError("""Count should return exact number of filings.
@@ -112,10 +59,8 @@ class TestFiling(object):
         assert f.end_date == date and f.params.get("dateb") == expected
 
     @pytest.mark.slow
-    def test_txt_urls(self, monkeypatch):
+    def test_txt_urls(self, monkeypatch, mock_cik_validator_get_single_cik, mock_single_cik_filing):
         aapl = Filing(cik_lookup='aapl', filing_type=FilingType.FILING_10Q, count=10)
-        monkeypatch.setattr(_CIKValidator, "get_ciks", MockCIKValidatorGetCIKs.get_ciks)
-        monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKFiling)
         first_txt_url = aapl.get_urls()['aapl'][0]
         assert first_txt_url.split('.')[-1] == 'txt'
 
@@ -174,8 +119,7 @@ class TestFiling(object):
         with pytest.raises(TypeError):
             Filing(cik_lookup=bad_cik_lookup, filing_type=FilingType.FILING_10K)
 
-    def test_validate_cik_inside_filing(self, monkeypatch):
-        monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKNotFound)
+    def test_validate_cik_inside_filing(self, monkeypatch, mock_single_cik_not_found):
         with pytest.raises(EDGARQueryError):
             _ = Filing(cik_lookup='0notvalid0', filing_type=FilingType.FILING_10K).cik_lookup.ciks
 
@@ -193,23 +137,17 @@ class TestFiling(object):
             f.save(tmp_data_directory)
 
     @pytest.mark.smoke
-    def test_filing_save_multiple_ciks(self, tmp_data_directory, monkeypatch):
-        monkeypatch.setattr(_CIKValidator, "get_ciks", MockCIKValidatorMultipleCIKs.get_ciks)
-        monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKFiling)
+    def test_filing_save_multiple_ciks(self, tmp_data_directory, monkeypatch, mock_cik_validator_get_multiple_ciks, mock_single_cik_filing):
         f = Filing(['aapl', 'amzn', 'msft'], FilingType.FILING_10Q, count=3)
         f.save(tmp_data_directory)
 
     @pytest.mark.smoke
-    def test_filing_save_single_cik(self, tmp_data_directory, monkeypatch):
+    def test_filing_save_single_cik(self, tmp_data_directory, monkeypatch, mock_cik_validator_get_single_cik, mock_single_cik_filing):
         f = Filing('aapl', FilingType.FILING_10Q, count=3)
-        monkeypatch.setattr(_CIKValidator, "get_ciks", MockCIKValidatorGetCIKs.get_ciks)
-        monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKFiling)
         f.save(tmp_data_directory)
 
-    def test_filing_get_urls_returns_single_list_of_urls(self, monkeypatch):
-        monkeypatch.setattr(_CIKValidator, "get_ciks", MockCIKValidatorMultipleCIKs.get_ciks)
-        # Use same response for each request
-        monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKFiling)
+    def test_filing_get_urls_returns_single_list_of_urls(self, monkeypatch, mock_cik_validator_get_multiple_ciks, mock_single_cik_filing):
+        # Uses same response for filing links (will all be filings for aapl)
         f = Filing(cik_lookup=['aapl', 'msft', 'amzn'], filing_type=FilingType.FILING_10Q, count=5)
         assert all(len(f.get_urls().get(key)) == 5 for key in f.get_urls().keys())
 
@@ -221,10 +159,8 @@ class TestFiling(object):
             30
         ]
     )
-    def test_filing_returns_correct_number_of_urls(self, monkeypatch, count):
-        monkeypatch.setattr(_CIKValidator, "get_ciks", MockCIKValidatorMultipleCIKs.get_ciks)
-        # Use same response for each request
-        monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKFiling)
+    def test_filing_returns_correct_number_of_urls(self, monkeypatch, count, mock_cik_validator_get_multiple_ciks, mock_single_cik_filing):
+        # Uses same response for filing links (will all be filings for aapl)
         f = Filing(cik_lookup=['aapl', 'msft', 'amzn'], filing_type=FilingType.FILING_10Q,
                    count=count, client=NetworkClient(batch_size=10))
         assert all(len(f.get_urls().get(key)) == count for key in f.get_urls().keys())
@@ -245,9 +181,9 @@ class TestFiling(object):
                                                                 recwarn,
                                                                 count,
                                                                 raises_error,
-                                                                tmp_data_directory):
-        monkeypatch.setattr(_CIKValidator, "get_ciks", MockCIKValidatorGetCIKs.get_ciks)
-        monkeypatch.setattr(NetworkClient, "get_response", MockSingleCIKFilingLimitedResponses(10))
+                                                                tmp_data_directory,
+                                                                mock_cik_validator_get_single_cik,
+                                                                mock_single_cik_filing_limited_responses):
         f = Filing(cik_lookup=['aapl', 'msft', 'amzn'], filing_type=FilingType.FILING_10Q,
                    count=count, client=NetworkClient(batch_size=10))
         f.save(tmp_data_directory)
