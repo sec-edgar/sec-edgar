@@ -12,9 +12,16 @@ from secedgar.utils.exceptions import EDGARQueryError
 
 
 class IndexFilings(AbstractFiling):
-    def __init__(self, client=None):
+    """Abstract Base Class for index filings.
+
+    Attributes:
+        client (secedgar.client._base, optional): Client to use. Defaults to ``secedgar.client.NetworkClient``.
+        kwargs: Any keyword arguments to pass to ``NetworkClient`` if no client is specified.
+    """
+
+    def __init__(self, client=None, **kwargs):
         super().__init__()
-        self._client = client if client is not None else NetworkClient()
+        self._client = client if client is not None else NetworkClient(**kwargs)
         self._listings_directory = None
         self._master_idx_file = None
         self._filings_dict = None
