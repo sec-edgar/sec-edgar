@@ -71,38 +71,28 @@ class DailyFilings(IndexFilings):
         else:
             return self._date.strftime("%Y%m%d")
 
-    # TODO: Take this code and put it into IndexFilings as separate function `save_filings`
-    # Then call self.save_filings(os.path.join(self._date, directory)) for daily and
-    # self.save_filings(os.path.join(self.year, self.quarter, directory)) for master
     def save(self, directory):
         """Save all daily filings.
 
-        Will store all filings for each unique company name under a separate subdirectory
-        within given directory argument.
+        Store all filings for each unique company name under a separate subdirectory
+        within given directory argument. Creates directory with date in YYYYMMDD format
+        within given directory.
 
         Ex:
         my_directory
         |
-        ---- Apple Inc.
+        ---- 20200102
              |
-             ---- ...txt files
-        ---- Microsoft Corp.
-             |
-             ---- ...txt files
+             ---- Apple Inc.
+                  |
+                  ---- ...txt files
+             ---- Microsoft Corp.
+                  |
+                  ---- ...txt files
 
         Args:
             directory (str): Directory where filings should be stored. Will be broken down
                 further by company name and form type.
         """
-        self.get_filings_dict()
-        for filings in self._filings_dict.values():
-            # take the company name from the first filing and make that the subdirectory name
-            subdirectory = os.path.join(directory, filings[0].company_name)
-            make_path(subdirectory)
-            for filing in filings:
-                filename = filing.file_name.split('/')[-1]
-                filing_path = os.path.join(subdirectory, filename)
-                url = self.make_url(filename)
-                data = requests.get(url).text
-                with open(filing_path, 'w') as f:
-                    f.write(data)
+        directory = os.path.join(directory, self._date.strftime("%Y%m%d"))
+        self.save_filings(directory)

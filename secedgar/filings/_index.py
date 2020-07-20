@@ -1,11 +1,14 @@
+import os
 import re
+import requests
 from abc import abstractmethod
 from collections import namedtuple
 
 from secedgar.client import NetworkClient
+from secedgar.utils import make_path
 
-from secedgar.utils.exceptions import EDGARQueryError
 from secedgar.filings._base import AbstractFiling
+from secedgar.utils.exceptions import EDGARQueryError
 
 
 class IndexFilings(AbstractFiling):
@@ -158,3 +161,36 @@ class IndexFilings(AbstractFiling):
             paths = self.get_paths()
             self._urls = [self.make_url(path) for path in paths]
         return self._urls
+
+    def save_filings(self, directory):
+        """Save all filings.
+
+        Will store all filings for each unique company name under a separate subdirectory
+        within given directory argument.
+
+        Ex:
+        my_directory
+        |
+        ---- Apple Inc.
+             |
+             ---- ...txt files
+        ---- Microsoft Corp.
+             |
+             ---- ...txt files
+
+        Args:
+            directory (str): Directory where filings should be stored. Will be broken down
+                further by company name and form type.
+        """
+        self.get_filings_dict()
+        for filings in self._filings_dict.values():
+            # take the company name from the first filing and make that the subdirectory name
+            subdirectory = os.path.join(directory, filings[0].company_name)
+            make_path(subdirectory)
+            for filing in filings:
+                filename = filing.file_name.split('/')[-1]
+                filing_path = os.path.join(subdirectory, filename)
+                url = self.make_url(filename)
+                data = requests.get(url).text
+                with open(filing_path, 'w') as f:
+                    f.write(data)

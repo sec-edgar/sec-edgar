@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 
 from secedgar.utils import get_quarter
@@ -53,5 +54,29 @@ class MasterFilings(IndexFilings):
         """Main index filename to look for."""
         return "master.idx"
 
-    def save(self, directory):
-        pass
+
+def save(self, directory):
+    """Save all daily filings.
+
+    Store all filings for each unique company name under a separate subdirectory
+    within given directory argument. Creates directory with date in YYYYMMDD format
+    within given directory.
+
+    Ex:
+    my_directory
+    |
+    ---- 20200102
+         |
+         ---- Apple Inc.
+              |
+              ---- ...txt files
+         ---- Microsoft Corp.
+              |
+              ---- ...txt files
+
+    Args:
+        directory (str): Directory where filings should be stored. Will be broken down
+            further by company name and form type.
+    """
+    directory = os.path.join(directory, str(self.year), str(self.quarter))
+    self.save_filings(directory)
