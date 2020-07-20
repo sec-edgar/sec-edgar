@@ -8,13 +8,23 @@ from secedgar.client.network_client import NetworkClient
 
 
 class MasterFilings(IndexFilings):
+    """Class for retrieving all filings from specific year and quarter.
+
+    Attributes:
+        year (int): Must be in between 1993 and the current year (inclusive).
+        quarter (int): Must be 1, 2, 3, or 4. Quarter of filings to fetch.
+        client (secedgar.client._base, optional): Client to use. Defaults to ``secedgar.client.NetworkClient``.
+        kwargs: Keyword arguments to pass to ``secedgar.filings._index.IndexFilings``.
+    """
+
     def __init__(self,
                  year,
                  quarter,
-                 client=None):
-        super().__init__(client=client)
-        self._year = year
-        self._quarter = quarter
+                 client=None,
+                 **kwargs):
+        super().__init__(client=client, **kwargs)
+        self.year = year
+        self.quarter = quarter
 
     @property
     def path(self):
@@ -54,29 +64,28 @@ class MasterFilings(IndexFilings):
         """Main index filename to look for."""
         return "master.idx"
 
+    def save(self, directory):
+        """Save all daily filings.
 
-def save(self, directory):
-    """Save all daily filings.
+        Store all filings for each unique company name under a separate subdirectory
+        within given directory argument. Creates directory with date in YYYYMMDD format
+        within given directory.
 
-    Store all filings for each unique company name under a separate subdirectory
-    within given directory argument. Creates directory with date in YYYYMMDD format
-    within given directory.
+        Ex:
+        my_directory
+        |
+        ---- 20200102
+            |
+            ---- Apple Inc.
+                |
+                ---- ...txt files
+            ---- Microsoft Corp.
+                |
+                ---- ...txt files
 
-    Ex:
-    my_directory
-    |
-    ---- 20200102
-         |
-         ---- Apple Inc.
-              |
-              ---- ...txt files
-         ---- Microsoft Corp.
-              |
-              ---- ...txt files
-
-    Args:
-        directory (str): Directory where filings should be stored. Will be broken down
-            further by company name and form type.
-    """
-    directory = os.path.join(directory, str(self.year), str(self.quarter))
-    self.save_filings(directory)
+        Args:
+            directory (str): Directory where filings should be stored. Will be broken down
+                further by company name and form type.
+        """
+        directory = os.path.join(directory, str(self.year), str(self.quarter))
+        self.save_filings(directory)
