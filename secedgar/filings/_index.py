@@ -169,6 +169,7 @@ class IndexFilings(AbstractFiling):
             self._urls = [self.make_url(path) for path in paths]
         return self._urls
 
+    # TODO: Clean company name to make valid directory name (get rid of special characters)
     def save_filings(self, directory):
         """Save all filings.
 
