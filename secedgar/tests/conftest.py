@@ -1,7 +1,8 @@
 import pytest
+import requests
 
 from secedgar.client import NetworkClient
-from secedgar.filings import DailyFilings
+from secedgar.filings import DailyFilings, MasterFilings
 from secedgar.filings.cik_validator import _CIKValidator
 from secedgar.tests.utils import datapath
 
@@ -71,6 +72,19 @@ def mock_daily_quarter_directory(monkeypatch):
 
 
 @pytest.fixture
+def mock_master_quarter_directory(monkeypatch):
+    """Mock directory of all filings for quarter.
+
+    Use for MasterFilings object.
+    """
+
+    def _mock_master_quarter_directory(*args, **kwargs):
+        return MockResponse(datapath_args=["filings", "master", "master_index_1993_QTR4.html"])
+
+    monkeypatch.setattr(MasterFilings, "get_listings_directory", _mock_master_quarter_directory)
+
+
+@pytest.fixture
 def mock_daily_idx_file(monkeypatch):
     """Mock idx file from DailyFilings."""
 
@@ -89,7 +103,7 @@ def mock_master_idx_file(monkeypatch):
         with open(datapath("filings", "master", "master.idx")) as f:
             return f.read()
 
-    monkeypatch.setattr(DailyFilings, "_get_master_idx_file", _mock_master_idx_file)
+    monkeypatch.setattr(MasterFilings, "_get_master_idx_file", _mock_master_idx_file)
 
 
 @pytest.fixture
@@ -110,6 +124,16 @@ def mock_cik_validator_get_multiple_ciks(monkeypatch):
         return {'aapl': '0000320193', 'msft': '1234', 'amzn': '5678'}
 
     monkeypatch.setattr(_CIKValidator, "get_ciks", _mock_cik_validator_get_multiple_ciks)
+
+
+@pytest.fixture
+def mock_filing_data(monkeypatch):
+    """Mock data from filing."""
+
+    def _mock_filing_data(*args, **kwargs):
+        return MockResponse(text="Testing...")
+
+    monkeypatch.setattr(requests, 'get', _mock_filing_data)
 
 
 @pytest.fixture(scope="session")
