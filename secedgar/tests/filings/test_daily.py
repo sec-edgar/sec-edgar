@@ -8,22 +8,6 @@ from secedgar.filings.daily import DailyFilings
 from secedgar.tests.utils import datapath
 
 
-class MockQuarterDirectory:
-    """Mock response object for all 2018 daily listings of quarter 4. """
-
-    def __init__(self, *args):
-        self.status_code = 200
-        with open(datapath("filings", "daily", "daily_index_2018_QTR4.htm")) as f:
-            self.text = f.read()
-
-
-class MockFilingData:
-    """Mock response object for filing."""
-
-    def __init__(self, *args, **kwargs):
-        self.text = "Testing..."
-
-
 def mock_master_idx_file(*args):
     with open(datapath("filings", "daily", "master.20181231.idx")) as f:
         return f.read()
@@ -144,9 +128,8 @@ class TestDaily:
             ("BANK OF SOUTH CAROLINA CORP", "0001225208-18-017075.txt")
         ]
     )
-    def test_save(self, tmp_data_directory, monkeypatch, mock_daily_quarter_directory, mock_daily_idx_file, subdir, file):
+    def test_save(self, tmp_data_directory, mock_filing_data, mock_daily_quarter_directory, mock_daily_idx_file, subdir, file):
         daily_filing = DailyFilings(datetime(2018, 12, 31))
-        monkeypatch.setattr(requests, 'get', MockFilingData)
         daily_filing.save(tmp_data_directory)
         subdir = os.path.join("20181231", subdir)
         path_to_check = os.path.join(tmp_data_directory, subdir, file)
