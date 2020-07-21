@@ -87,5 +87,5 @@ class MasterFilings(IndexFilings):
             directory (str): Directory where filings should be stored. Will be broken down
                 further by company name and form type.
         """
-        directory = os.path.join(directory, str(self.year), str(self.quarter))
+        directory = os.path.join(directory, str(self.year), "QTR" + str(self.quarter))
         self.save_filings(directory)
