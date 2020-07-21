@@ -113,7 +113,7 @@ class IndexFilings(AbstractFiling):
             FilingEntry = namedtuple(
                 "FilingEntry", ["cik", "company_name", "form_type", "date_filed", "file_name"])
             # idx file will have lines of the form CIK|Company Name|Form Type|Date Filed|File Name
-            entries = re.findall(r'^[0-9]+[|].+[|].+[|][0-9]+[|].+$', idx_file, re.MULTILINE)
+            entries = re.findall(r'^[0-9]+[|].+[|].+[|][0-9\-]+[|].+$', idx_file, re.MULTILINE)
             for entry in entries:
                 fields = entry.split("|")
                 # Add new filing entry to CIK's list
