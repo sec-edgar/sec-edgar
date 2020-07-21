@@ -48,3 +48,12 @@ class AbstractFiling(ABC):
             None
         """
         pass  # pragma: no cover
+
+    @staticmethod
+    def get_accession_number(url):
+        """Get accession number from filing URL.
+
+        .. note::
+           All URLs are expected to end with /{accession number}.txt
+        """
+        return url.split("/")[-1]

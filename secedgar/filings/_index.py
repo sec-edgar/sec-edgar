@@ -169,7 +169,6 @@ class IndexFilings(AbstractFiling):
             self._urls = [self.make_url(path) for path in paths]
         return self._urls
 
-    # TODO: Clean company name to make valid directory name (get rid of special characters)
     def save_filings(self, directory):
         """Save all filings.
 
@@ -194,10 +193,12 @@ class IndexFilings(AbstractFiling):
         for filings in self._filings_dict.values():
             # take the company name from the first filing and make that the subdirectory name
             subdirectory = os.path.join(directory, filings[0].company_name)
+            # TODO: Clean company name to make valid directory name (get rid of special characters)
             make_path(subdirectory)
             for filing in filings:
-                filename = filing.file_name.split('/')[-1]
-                filing_path = os.path.join(subdirectory, filename)
+                filename = self.get_accession_number(filing.file_name)
+                filing_path = os.path.join(
+                    subdirectory, filename)
                 url = self.make_url(filename)
                 data = requests.get(url).text
                 with open(filing_path, 'w') as f:

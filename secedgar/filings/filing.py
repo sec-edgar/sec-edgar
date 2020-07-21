@@ -201,7 +201,8 @@ class Filing(AbstractFiling):
         Returns:
             List of accession numbers for given links.
         """
-        self._accession_numbers = [link.split('/')[-1].replace('-index.htm', '') for link in links]
+        self._accession_numbers = [self.get_accession_number(
+            link).replace('-index.htm', '') for link in links]
         return self._accession_numbers
 
     # TODO: break this method down further
@@ -227,9 +228,8 @@ class Filing(AbstractFiling):
         for cik, links in urls.items():
             for link in links:
                 data = requests.get(link).text
-                accession_number = link.split("/")[-1]
                 path = os.path.join(directory, cik, self.filing_type.value)
                 make_path(path)
-                path = os.path.join(path, accession_number)
+                path = os.path.join(path, self.get_accession_number(link))
                 with open(path, "w") as f:
                     f.write(data)
