@@ -30,6 +30,17 @@ class DailyFilings(IndexFilings):
         self._date = date
 
     @property
+    def path(self):
+        """str: Path added to client base.
+
+        .. note::
+            The trailing slash at the end of the path is important.
+            Omitting will raise EDGARQueryError.
+        """
+        return "Archives/edgar/daily-index/{year}/QTR{num}/".format(
+            year=self.year, num=self.quarter)
+
+    @property
     def quarter(self):
         """Get quarter number from date attribute."""
         return get_quarter(self._date)
@@ -43,17 +54,6 @@ class DailyFilings(IndexFilings):
     def idx_filename(self):
         """Main index filename to look for."""
         return "master.{date}.idx".format(date=self._get_idx_formatted_date())
-
-    @property
-    def path(self):
-        """str: Path added to client base.
-
-        .. note::
-            The trailing slash at the end of the path is important.
-            Omitting will raise EDGARQueryError.
-        """
-        return "Archives/edgar/daily-index/{year}/QTR{num}/".format(
-            year=self.year, num=self.quarter)
 
     def _get_idx_formatted_date(self):
         """Format date for idx file.
