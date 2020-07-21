@@ -1,5 +1,6 @@
+import os
 import pytest
-
+import requests
 from datetime import datetime
 from secedgar.filings.master import MasterFilings
 
@@ -61,3 +62,20 @@ class TestMaster:
     def test_idx_filename_is_always_the_same(self, year, quarter):
         mf = MasterFilings(year=year, quarter=quarter)
         assert mf.idx_filename == "master.idx"
+
+    @pytest.mark.parametrize(
+        "subdir,file",
+        [
+            ("SAGE CAPITAL LP", "9999999997-02-056978.txt"),
+            ("BETHLEHEM STEEL CORP /DE/", "0000011860-94-000005.txt"),
+            ("CAPITAL HOLDING CORP", "0000017206-94-000007.txt"),
+            ("DATAPOINT CORP", "0000205239-94-000003.txt"),
+            ("LARK REFINING & MARKETING INC", "0000950131-94-000025.txt"),
+        ]
+    )
+    def test_save(self, tmp_data_directory, mock_filing_data, mock_master_quarter_directory, mock_master_idx_file, subdir, file):
+        master_filing = MasterFilings(year=1993, quarter=4)
+        master_filing.save(tmp_data_directory)
+        subdir = os.path.join("1993", "QTR4", subdir)
+        path_to_check = os.path.join(tmp_data_directory, subdir, file)
+        assert os.path.exists(path_to_check)
