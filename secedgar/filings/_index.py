@@ -49,13 +49,13 @@ class IndexFilings(AbstractFiling):
     @abstractmethod
     def quarter(self):
         """Passed to children classes."""
-        pass
+        pass  # pragma: no cover
 
     @property
     @abstractmethod
     def idx_filename(self):
         """Passed to children classes."""
-        pass
+        pass  # pragma: no cover
 
     def get_listings_directory(self, update_cache=False, **kwargs):
         """Get page with list of all idx files for given date or quarter.
