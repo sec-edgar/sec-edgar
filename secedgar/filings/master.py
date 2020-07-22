@@ -13,7 +13,7 @@ class MasterFilings(IndexFilings):
         year (int): Must be in between 1993 and the current year (inclusive).
         quarter (int): Must be 1, 2, 3, or 4. Quarter of filings to fetch.
         client (secedgar.client._base, optional): Client to use. Defaults to
-            ``secedgar.client.NetworkClient``.
+            ``secedgar.client.NetworkClient`` if None given.
         kwargs: Keyword arguments to pass to ``secedgar.filings._index.IndexFilings``.
     """
 
@@ -28,11 +28,13 @@ class MasterFilings(IndexFilings):
 
     @property
     def path(self):
+        """Path property to pass to client."""
         return "Archives/edgar/full-index/{year}/QTR{num}/".format(year=self._year,
                                                                    num=self._quarter)
 
     @property
     def year(self):
+        """Year of filings."""
         return self._year
 
     @year.setter
@@ -46,6 +48,7 @@ class MasterFilings(IndexFilings):
 
     @property
     def quarter(self):
+        """Quarter of filings."""
         return self._quarter
 
     @quarter.setter
@@ -54,9 +57,9 @@ class MasterFilings(IndexFilings):
             raise TypeError("Quarter must be integer.")
         elif val not in range(1, 5):
             raise ValueError("Quarter must be in between 1 and 4 (inclusive).")
-        elif self.year == datetime.now().year and val > get_quarter(datetime.now()):
+        elif self.year == datetime.today().year and val > get_quarter(datetime.today()):
             raise ValueError("Latest quarter for current year is {qtr}".format(
-                qtr=get_quarter(datetime.now())))
+                qtr=get_quarter(datetime.today())))
         self._quarter = val
 
     # TODO: Implement zip decompression to idx file to decrease response load
