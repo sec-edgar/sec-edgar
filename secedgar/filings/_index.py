@@ -42,16 +42,19 @@ class IndexFilings(AbstractFiling):
     @property
     @abstractmethod
     def year(self):
+        """Passed to children classes."""
         pass
 
     @property
     @abstractmethod
     def quarter(self):
+        """Passed to children classes."""
         pass
 
     @property
     @abstractmethod
     def idx_filename(self):
+        """Passed to children classes."""
         pass
 
     def get_listings_directory(self, update_cache=False, **kwargs):
