@@ -49,13 +49,13 @@ class MockSingleCIKFilingLimitedResponses:
         else:
             return MockResponse(text="")
 
-
+# FIXME: This may not be working as expected. Need to look into this more.
 @pytest.fixture
 def mock_single_cik_filing_limited_responses(monkeypatch):
     """Mocks when only a limited number of filings are available."""
+    mock_limited_responses = MockSingleCIKFilingLimitedResponses(num_responses=10)
 
     def _mock_single_cik_filing_limited_responses(*args, **kwargs):
-        mock_limited_responses = MockSingleCIKFilingLimitedResponses(num_responses=1)
         return mock_limited_responses()
 
     monkeypatch.setattr(NetworkClient, "get_response", _mock_single_cik_filing_limited_responses)
