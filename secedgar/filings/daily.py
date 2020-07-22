@@ -71,18 +71,6 @@ class DailyFilings(IndexFilings):
         within given directory argument. Creates directory with date in YYYYMMDD format
         within given directory.
 
-        Ex:
-        my_directory
-        |
-        ---- 20200102
-             |
-             ---- Apple Inc.
-                  |
-                  ---- ...txt files
-             ---- Microsoft Corp.
-                  |
-                  ---- ...txt files
-
         Args:
             directory (str): Directory where filings should be stored. Will be broken down
                 further by company name and form type.

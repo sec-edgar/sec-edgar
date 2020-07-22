@@ -71,21 +71,9 @@ class MasterFilings(IndexFilings):
     def save(self, directory):
         """Save all daily filings.
 
-        Store all filings for each unique company name under a separate subdirectory
-        within given directory argument. Creates directory with date in YYYYMMDD format
-        within given directory.
-
-        Ex:
-        my_directory
-        |
-        ---- 20200102
-            |
-            ---- Apple Inc.
-                |
-                ---- ...txt files
-            ---- Microsoft Corp.
-                |
-                ---- ...txt files
+        Creates subdirectory within given directory of the form <YEAR>/QTR<QTR NUMBER>/.
+        Then each distinct company name receives its own directory with all of its filings.
+        See ``secedgar.filings._index.IndexFilings`` for more detail.
 
         Args:
             directory (str): Directory where filings should be stored. Will be broken down
