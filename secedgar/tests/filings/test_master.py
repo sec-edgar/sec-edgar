@@ -66,11 +66,11 @@ class TestMaster:
     @pytest.mark.parametrize(
         "subdir,file",
         [
-            ("SAGE CAPITAL LP", "9999999997-02-056978.txt"),
-            ("BETHLEHEM STEEL CORP /DE/", "0000011860-94-000005.txt"),
-            ("CAPITAL HOLDING CORP", "0000017206-94-000007.txt"),
-            ("DATAPOINT CORP", "0000205239-94-000003.txt"),
-            ("LARK REFINING & MARKETING INC", "0000950131-94-000025.txt"),
+            ("SAGE_CAPITAL_LP", "9999999997-02-056978.txt"),
+            ("BETHLEHEM_STEEL_CORP_DE", "0000011860-94-000005.txt"),
+            ("CAPITAL_HOLDING_CORP", "0000017206-94-000007.txt"),
+            ("DATAPOINT_CORP", "0000205239-94-000003.txt"),
+            ("CLARK_REFINING__MARKETING_INC", "0000950131-94-000025.txt"),
         ]
     )
     def test_save(self, tmp_data_directory, mock_filing_data, mock_master_quarter_directory, mock_master_idx_file, subdir, file):
@@ -79,3 +79,16 @@ class TestMaster:
         subdir = os.path.join("1993", "QTR4", subdir)
         path_to_check = os.path.join(tmp_data_directory, subdir, file)
         assert os.path.exists(path_to_check)
+
+    @pytest.mark.parametrize(
+        "original_path,clean_path",
+        [
+            ("Apple Inc.", "Apple_Inc"),
+            ("Microsoft Corporation", "Microsoft_Corporation"),
+            ("Bed, Bath, & Beyond", "Bed_Bath__Beyond"),
+            ("Company with \\lots\\ of /slashes/", "Company_with_lots_of_slashes")
+        ]
+    )
+    def test_clean_path(self, original_path, clean_path):
+        master_filing = MasterFilings(year=2000, quarter=1)
+        assert master_filing.clean_directory_path(original_path) == clean_path

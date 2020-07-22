@@ -121,11 +121,11 @@ class TestDaily:
     @pytest.mark.parametrize(
         "subdir,file",
         [
-            ("HENRY SCHEIN INC", "0001209191-18-064398.txt"),
-            ("ROYAL BANK OF CANADA", "0001140361-18-046093.txt"),
-            ("NOVAVAX INC", "0001144204-18-066754.txt"),
-            ("BROOKFIELD ASSET MANAGEMENT INC.", "0001104659-18-075315.txt"),
-            ("BANK OF SOUTH CAROLINA CORP", "0001225208-18-017075.txt")
+            ("HENRY_SCHEIN_INC", "0001209191-18-064398.txt"),
+            ("ROYAL_BANK_OF_CANADA", "0001140361-18-046093.txt"),
+            ("NOVAVAX_INC", "0001144204-18-066754.txt"),
+            ("BROOKFIELD_ASSET_MANAGEMENT_INC", "0001104659-18-075315.txt"),
+            ("BANK_OF_SOUTH_CAROLINA_CORP", "0001225208-18-017075.txt")
         ]
     )
     def test_save(self, tmp_data_directory, mock_filing_data, mock_daily_quarter_directory, mock_daily_idx_file, subdir, file):

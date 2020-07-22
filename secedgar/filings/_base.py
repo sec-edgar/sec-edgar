@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import string
 
 
 class AbstractFiling(ABC):
@@ -57,3 +58,14 @@ class AbstractFiling(ABC):
            All URLs are expected to end with /{accession number}.txt
         """
         return url.split("/")[-1]
+
+    @staticmethod
+    def clean_directory_path(path):
+        """Clean string to use as directory name.
+
+        Args:
+            path (str): Directory name to clean.
+        """
+        allowed = string.digits + string.ascii_letters + string.whitespace
+        stripped = "".join(c for c in path if c in allowed)
+        return stripped.replace(" ", "_")

@@ -192,7 +192,8 @@ class IndexFilings(AbstractFiling):
         self.get_filings_dict()
         for filings in self._filings_dict.values():
             # take the company name from the first filing and make that the subdirectory name
-            subdirectory = os.path.join(directory, filings[0].company_name)
+            clean_company_name = self.clean_directory_path(filings[0].company_name)
+            subdirectory = os.path.join(directory, clean_company_name)
             # TODO: Clean company name to make valid directory name (get rid of special characters)
             make_path(subdirectory)
             for filing in filings:
