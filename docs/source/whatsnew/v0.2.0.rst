@@ -4,10 +4,10 @@ v0.2.0
 Highlights
 ~~~~~~~~~~
 
-* Removes ``secedgar.crawler.SecCrawler`` class. Use ``secedgar.filings.Filing`` instead.
-* Add ``secedgar.cli`` to provide CLI option for users
+* Removes ``secedgar.crawler.SecCrawler`` class. Use :class:`secedgar.filings.Filing` instead.
+* Add :py:mod:`secedgar.cli` to provide CLI option for users
 * Add ``UserWarning`` when number of downloaded files is less than ``count``.
-* Add ``secedgar.filings.MasterFilings`` class to provide access to all filings per quarter.
+* Add :class:`secedgar.filings.MasterFilings` class to provide access to all filings per quarter.
 
 Contributors
 ~~~~~~~~~~~~
