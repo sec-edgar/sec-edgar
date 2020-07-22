@@ -1,15 +1,8 @@
 import datetime
 import os
-import re
-import requests
 
-from collections import namedtuple
-
-from secedgar.client import NetworkClient
 from secedgar.filings._index import IndexFilings
-from secedgar.utils import make_path, get_quarter
-
-from secedgar.utils.exceptions import EDGARQueryError
+from secedgar.utils import get_quarter
 
 
 class DailyFilings(IndexFilings):

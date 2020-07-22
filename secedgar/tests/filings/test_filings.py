@@ -5,14 +5,14 @@ import pytest
 from secedgar.client import NetworkClient
 from secedgar.filings import Filing, FilingType
 
-from secedgar.filings.cik_validator import _CIKValidator
-from secedgar.tests.utils import datapath
 from secedgar.utils.exceptions import FilingTypeError, EDGARQueryError
 
 
 class TestFiling(object):
     @pytest.mark.slow
-    def test_count_returns_exact(self, monkeypatch, mock_cik_validator_get_single_cik, mock_single_cik_filing):
+    def test_count_returns_exact(self, monkeypatch,
+                                 mock_cik_validator_get_single_cik,
+                                 mock_single_cik_filing):
         count = 10
         aapl = Filing(cik_lookup='aapl', filing_type=FilingType.FILING_10Q, count=count)
         urls = aapl.get_urls()['aapl']
@@ -137,16 +137,22 @@ class TestFiling(object):
             f.save(tmp_data_directory)
 
     @pytest.mark.smoke
-    def test_filing_save_multiple_ciks(self, tmp_data_directory, monkeypatch, mock_cik_validator_get_multiple_ciks, mock_single_cik_filing):
+    def test_filing_save_multiple_ciks(self, tmp_data_directory,
+                                       mock_cik_validator_get_multiple_ciks,
+                                       mock_single_cik_filing):
         f = Filing(['aapl', 'amzn', 'msft'], FilingType.FILING_10Q, count=3)
         f.save(tmp_data_directory)
 
     @pytest.mark.smoke
-    def test_filing_save_single_cik(self, tmp_data_directory, monkeypatch, mock_cik_validator_get_single_cik, mock_single_cik_filing):
+    def test_filing_save_single_cik(self, tmp_data_directory,
+                                    mock_cik_validator_get_single_cik,
+                                    mock_single_cik_filing):
         f = Filing('aapl', FilingType.FILING_10Q, count=3)
         f.save(tmp_data_directory)
 
-    def test_filing_get_urls_returns_single_list_of_urls(self, monkeypatch, mock_cik_validator_get_multiple_ciks, mock_single_cik_filing):
+    def test_filing_get_urls_returns_single_list_of_urls(self, monkeypatch,
+                                                         mock_cik_validator_get_multiple_ciks,
+                                                         mock_single_cik_filing):
         # Uses same response for filing links (will all be filings for aapl)
         f = Filing(cik_lookup=['aapl', 'msft', 'amzn'], filing_type=FilingType.FILING_10Q, count=5)
         assert all(len(f.get_urls().get(key)) == 5 for key in f.get_urls().keys())
@@ -159,7 +165,10 @@ class TestFiling(object):
             30
         ]
     )
-    def test_filing_returns_correct_number_of_urls(self, monkeypatch, count, mock_cik_validator_get_multiple_ciks, mock_single_cik_filing):
+    def test_filing_returns_correct_number_of_urls(self, monkeypatch,
+                                                   count,
+                                                   mock_cik_validator_get_multiple_ciks,
+                                                   mock_single_cik_filing):
         # Uses same response for filing links (will all be filings for aapl)
         f = Filing(cik_lookup=['aapl', 'msft', 'amzn'], filing_type=FilingType.FILING_10Q,
                    count=count, client=NetworkClient(batch_size=10))
@@ -183,7 +192,7 @@ class TestFiling(object):
                                                                 raises_error,
                                                                 tmp_data_directory,
                                                                 mock_cik_validator_get_single_cik,
-                                                                mock_single_cik_filing_limited_responses):
+                                                                mock_single_cik_filing_limited_responses):  # noqa: flake8
         f = Filing(cik_lookup=['aapl', 'msft', 'amzn'], filing_type=FilingType.FILING_10Q,
                    count=count, client=NetworkClient(batch_size=10))
         f.save(tmp_data_directory)

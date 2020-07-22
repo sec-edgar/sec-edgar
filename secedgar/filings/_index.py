@@ -15,7 +15,8 @@ class IndexFilings(AbstractFiling):
     """Abstract Base Class for index filings.
 
     Attributes:
-        client (secedgar.client._base, optional): Client to use. Defaults to ``secedgar.client.NetworkClient``.
+        client (secedgar.client._base, optional): Client to use. Defaults to
+            ``secedgar.client.NetworkClient``.
         kwargs: Any keyword arguments to pass to ``NetworkClient`` if no client is specified.
     """
 

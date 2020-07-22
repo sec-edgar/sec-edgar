@@ -1,6 +1,5 @@
 import os
 import pytest
-import requests
 
 from datetime import datetime
 
@@ -71,7 +70,9 @@ class TestDaily:
             "PERUSAHAAN PERSEROAN PERSERO PT TELEKOMUNIKASI INDONESIA TBK"
         ]
     )
-    def test_get_master_idx_file(self, mock_daily_quarter_directory, mock_daily_idx_file, company_name):
+    def test_get_master_idx_file(self, mock_daily_quarter_directory,
+                                 mock_daily_idx_file,
+                                 company_name):
         daily_filing = DailyFilings(datetime(2018, 12, 31))
 
         # All company names above should be in file
@@ -128,7 +129,12 @@ class TestDaily:
             ("BANK_OF_SOUTH_CAROLINA_CORP", "0001225208-18-017075.txt")
         ]
     )
-    def test_save(self, tmp_data_directory, mock_filing_data, mock_daily_quarter_directory, mock_daily_idx_file, subdir, file):
+    def test_save(self, tmp_data_directory,
+                  mock_filing_data,
+                  mock_daily_quarter_directory,
+                  mock_daily_idx_file,
+                  subdir,
+                  file):
         daily_filing = DailyFilings(datetime(2018, 12, 31))
         daily_filing.save(tmp_data_directory)
         subdir = os.path.join("20181231", subdir)

@@ -1,6 +1,5 @@
 import os
 import pytest
-import requests
 from datetime import datetime
 from secedgar.filings.master import MasterFilings
 
@@ -73,7 +72,12 @@ class TestMaster:
             ("CLARK_REFINING__MARKETING_INC", "0000950131-94-000025.txt"),
         ]
     )
-    def test_save(self, tmp_data_directory, mock_filing_data, mock_master_quarter_directory, mock_master_idx_file, subdir, file):
+    def test_save(self, tmp_data_directory,
+                  mock_filing_data,
+                  mock_master_quarter_directory,
+                  mock_master_idx_file,
+                  subdir,
+                  file):
         master_filing = MasterFilings(year=1993, quarter=4)
         master_filing.save(tmp_data_directory)
         subdir = os.path.join("1993", "QTR4", subdir)

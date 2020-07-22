@@ -4,7 +4,6 @@ from datetime import datetime
 from secedgar.utils import get_quarter
 
 from secedgar.filings._index import IndexFilings
-from secedgar.client.network_client import NetworkClient
 
 
 class MasterFilings(IndexFilings):
@@ -13,7 +12,8 @@ class MasterFilings(IndexFilings):
     Attributes:
         year (int): Must be in between 1993 and the current year (inclusive).
         quarter (int): Must be 1, 2, 3, or 4. Quarter of filings to fetch.
-        client (secedgar.client._base, optional): Client to use. Defaults to ``secedgar.client.NetworkClient``.
+        client (secedgar.client._base, optional): Client to use. Defaults to
+            ``secedgar.client.NetworkClient``.
         kwargs: Keyword arguments to pass to ``secedgar.filings._index.IndexFilings``.
     """
 
@@ -28,7 +28,8 @@ class MasterFilings(IndexFilings):
 
     @property
     def path(self):
-        return "Archives/edgar/full-index/{year}/QTR{num}/".format(year=self._year, num=self._quarter)
+        return "Archives/edgar/full-index/{year}/QTR{num}/".format(year=self._year,
+                                                                   num=self._quarter)
 
     @property
     def year(self):
