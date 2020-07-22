@@ -10,7 +10,7 @@ class DailyFilings(IndexFilings):
 
     Attributes:
         date (datetime.datetime): Date of daily filing to fetch.
-        client (secedgar.client._base.AbstractClient): Client to use for fetching data.
+        client (secedgar.client._base.AbstractClient, optional): Client to use for fetching data.
             Defaults to ``secedgar.client.NetworkClient`` if none is given.
     """
 
