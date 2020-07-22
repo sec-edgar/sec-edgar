@@ -21,6 +21,22 @@ class TestFiling(object):
                                  Got {0}, but expected {1} URLs.""".format(
                 urls, count))
 
+    @pytest.mark.parametrize(
+        "count,expected_error",
+        [
+            (-1, ValueError),
+            (0, ValueError),
+            (0.0, TypeError),
+            (1.0, TypeError),
+            ("1", TypeError)
+        ]
+    )
+    def test_count_setter_bad_values(self, count, expected_error):
+        with pytest.raises(expected_error):
+            _ = Filing(cik_lookup='aapl',
+                       filing_type=FilingType.FILING_10Q,
+                       count=count)
+
     def test_date_is_sanitized(self):
         start_date = datetime.datetime(2012, 3, 1)
         end_date = datetime.datetime(2015, 1, 1)
