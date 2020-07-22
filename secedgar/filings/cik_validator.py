@@ -68,6 +68,7 @@ class _CIKValidator(object):
                 pass  # If multiple companies, found, just print out warnings
         return ciks
 
+    # TODO: Add mock to test this functionality
     def _get_lookup_soup(self, lookup):
         """Gets `BeautifulSoup` object for lookup.
 
