@@ -10,7 +10,7 @@ from secedgar.utils.exceptions import FilingTypeError, EDGARQueryError
 
 class TestFiling(object):
     @pytest.mark.slow
-    def test_count_returns_exact(self, monkeypatch,
+    def test_count_returns_exact(self,
                                  mock_cik_validator_get_single_cik,
                                  mock_single_cik_filing):
         count = 10
@@ -59,7 +59,7 @@ class TestFiling(object):
         assert f.end_date == date and f.params.get("dateb") == expected
 
     @pytest.mark.slow
-    def test_txt_urls(self, monkeypatch, mock_cik_validator_get_single_cik, mock_single_cik_filing):
+    def test_txt_urls(self, mock_cik_validator_get_single_cik, mock_single_cik_filing):
         aapl = Filing(cik_lookup='aapl', filing_type=FilingType.FILING_10Q, count=10)
         first_txt_url = aapl.get_urls()['aapl'][0]
         assert first_txt_url.split('.')[-1] == 'txt'
@@ -119,7 +119,7 @@ class TestFiling(object):
         with pytest.raises(TypeError):
             Filing(cik_lookup=bad_cik_lookup, filing_type=FilingType.FILING_10K)
 
-    def test_validate_cik_inside_filing(self, monkeypatch, mock_single_cik_not_found):
+    def test_validate_cik_inside_filing(self, mock_single_cik_not_found):
         with pytest.raises(EDGARQueryError):
             _ = Filing(cik_lookup='0notvalid0', filing_type=FilingType.FILING_10K).cik_lookup.ciks
 
@@ -150,7 +150,7 @@ class TestFiling(object):
         f = Filing('aapl', FilingType.FILING_10Q, count=3)
         f.save(tmp_data_directory)
 
-    def test_filing_get_urls_returns_single_list_of_urls(self, monkeypatch,
+    def test_filing_get_urls_returns_single_list_of_urls(self,
                                                          mock_cik_validator_get_multiple_ciks,
                                                          mock_single_cik_filing):
         # Uses same response for filing links (will all be filings for aapl)
@@ -165,7 +165,7 @@ class TestFiling(object):
             30
         ]
     )
-    def test_filing_returns_correct_number_of_urls(self, monkeypatch,
+    def test_filing_returns_correct_number_of_urls(self,
                                                    count,
                                                    mock_cik_validator_get_multiple_ciks,
                                                    mock_single_cik_filing):
@@ -186,7 +186,6 @@ class TestFiling(object):
     )
     @pytest.mark.filterwarnings('ignore::DeprecationWarning')  # For collections.abc warning 3.8+
     def test_filing_raises_warning_when_less_filings_than_count(self,
-                                                                monkeypatch,
                                                                 recwarn,
                                                                 count,
                                                                 raises_error,
