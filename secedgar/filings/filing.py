@@ -127,7 +127,7 @@ class Filing(AbstractFiling):
 
     @property
     def cik_lookup(self):
-        """``secedgar.cik.CIKLookup``: CIKLookupobject."""
+        """``secedgar.filings.cik_lookup.CIKLookup``: CIKLookupobject."""
         return self._cik_lookup
 
     @cik_lookup.setter
