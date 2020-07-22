@@ -191,7 +191,7 @@ class TestFiling(object):
                                                                 raises_error,
                                                                 tmp_data_directory,
                                                                 mock_cik_validator_get_single_cik,
-                                                                mock_single_cik_filing_limited_responses):  # noqa: flake8
+                                                                mock_single_cik_filing_limited_responses):  # noqa:E501
         f = Filing(cik_lookup=['aapl', 'msft', 'amzn'], filing_type=FilingType.FILING_10Q,
                    count=count, client=NetworkClient(batch_size=10))
         f.save(tmp_data_directory)

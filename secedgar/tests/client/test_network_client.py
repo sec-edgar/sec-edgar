@@ -62,7 +62,7 @@ class TestNetworkClient:
         assert client.get_response('path', {})
 
     def test_client_good_response_multiple_cik_results_passes(self,
-                                                              mock_multiple_cik_results_good_response,  # noqa: flake8
+                                                              mock_multiple_cik_results_good_response,  # noqa: E501
                                                               client):
         assert client.get_response('path', {})
 
