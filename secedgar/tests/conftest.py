@@ -49,6 +49,7 @@ class MockSingleCIKFilingLimitedResponses:
         else:
             return MockResponse(text="")
 
+
 # FIXME: This may not be working as expected. Need to look into this more.
 @pytest.fixture
 def mock_single_cik_filing_limited_responses(monkeypatch):
