@@ -30,6 +30,18 @@ class TestDaily:
         assert DailyFilings(date=date).quarter == expected
 
     @pytest.mark.parametrize(
+        "date,expected_filename",
+        [
+            (datetime(2020, 1, 1), "master.20200101.idx"),
+            (datetime(2020, 3, 31), "master.20200331.idx"),
+            (datetime(2020, 4, 1), "master.20200401.idx"),
+            (datetime(2020, 6, 30), "master.20200630.idx"),
+        ]
+    )
+    def test_idx_filename(self, date, expected_filename):
+        assert DailyFilings(date=date).idx_filename == expected_filename
+
+    @pytest.mark.parametrize(
         "bad_date",
         [
             1.0,
