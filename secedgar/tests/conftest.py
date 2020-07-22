@@ -8,7 +8,12 @@ from secedgar.tests.utils import datapath
 
 
 class MockResponse:
-    def __init__(self, datapath_args=[], status_code=200, file_read_args='r', text=None, *args, **kwargs):
+    def __init__(self, datapath_args=[],
+                 status_code=200,
+                 file_read_args='r',
+                 text=None,
+                 *args,
+                 **kwargs):
         self.status_code = status_code
         if text is not None:
             self.text = text
@@ -21,7 +26,8 @@ class MockResponse:
 def mock_single_cik_not_found(monkeypatch):
     """NetworkClient's get_response method will return html with CIK not found message."""
     monkeypatch.setattr(NetworkClient, "get_response", lambda *args, **
-                        kwargs: MockResponse(datapath_args=["CIK", "cik_not_found.html"], file_read_args='rb'))
+                        kwargs: MockResponse(datapath_args=["CIK", "cik_not_found.html"],
+                                             file_read_args='rb'))
 
 
 @pytest.fixture
@@ -58,7 +64,8 @@ def mock_single_cik_filing_limited_responses(monkeypatch):
 def mock_daily_quarter_directory(monkeypatch):
     """Mocks directory of all daily filings for quarter."""
     monkeypatch.setattr(DailyFilings, "get_listings_directory", lambda *args, **
-                        kwargs: MockResponse(datapath_args=["filings", "daily", "daily_index_2018_QTR4.htm"]))
+                        kwargs: MockResponse(datapath_args=["filings", "daily",
+                                                            "daily_index_2018_QTR4.htm"]))
 
 
 @pytest.fixture
@@ -68,7 +75,8 @@ def mock_master_quarter_directory(monkeypatch):
     Use for MasterFilings object.
     """
     monkeypatch.setattr(MasterFilings, "get_listings_directory", lambda *args, **
-                        kwargs: MockResponse(datapath_args=["filings", "master", "master_index_1993_QTR4.html"]))
+                        kwargs: MockResponse(datapath_args=["filings", "master",
+                                                            "master_index_1993_QTR4.html"]))
 
 
 @pytest.fixture

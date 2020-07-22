@@ -1,7 +1,5 @@
 import pytest
 
-from secedgar.tests.utils import datapath
-
 from secedgar.filings import CIKLookup
 from secedgar.client import NetworkClient
 from secedgar.tests.conftest import MockResponse
@@ -11,7 +9,8 @@ from secedgar.utils.exceptions import EDGARQueryError
 @pytest.fixture
 def mock_single_cik_lookup_response(monkeypatch):
     def _mock_single_cik_lookup_response(*args, **kwargs):
-        return MockResponse(datapath_args=["CIK", "single_cik_search_result.html"], file_read_args="rb")
+        return MockResponse(datapath_args=["CIK", "single_cik_search_result.html"],
+                            file_read_args="rb")
     monkeypatch.setattr(NetworkClient, "get_response", _mock_single_cik_lookup_response)
 
 
