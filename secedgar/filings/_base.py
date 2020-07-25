@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import string
 
 
 class AbstractFiling(ABC):
@@ -11,18 +12,6 @@ class AbstractFiling(ABC):
     @abstractmethod
     def client(self):
         """``secedgar.client._base``: Client to use to make requests."""
-        pass  # pragma: no cover
-
-    @abstractmethod
-    def get_urls(self, **kwargs):
-        """Get all URLs for filings.
-
-        Args:
-            kwargs: Anything to be passed to requests when making GET request.
-
-        Returns:
-            urls (list): List of urls for txt files to download.
-        """
         pass  # pragma: no cover
 
     @property
@@ -38,6 +27,18 @@ class AbstractFiling(ABC):
         pass  # pragma: no cover
 
     @abstractmethod
+    def get_urls(self, **kwargs):
+        """Get all URLs for filings.
+
+        Args:
+            kwargs: Anything to be passed to requests when making GET request.
+
+        Returns:
+            urls (list): List of urls for txt files to download.
+        """
+        pass  # pragma: no cover
+
+    @abstractmethod
     def save(self, directory):
         """Save filings in directory.
 
@@ -48,3 +49,23 @@ class AbstractFiling(ABC):
             None
         """
         pass  # pragma: no cover
+
+    @staticmethod
+    def get_accession_number(url):
+        """Get accession number from filing URL.
+
+        .. note::
+           All URLs are expected to end with /{accession number}.txt
+        """
+        return url.split("/")[-1]
+
+    @staticmethod
+    def clean_directory_path(path):
+        """Clean string to use as directory name.
+
+        Args:
+            path (str): Directory name to clean.
+        """
+        allowed = string.digits + string.ascii_letters + string.whitespace
+        stripped = "".join(c for c in path if c in allowed)
+        return stripped.replace(" ", "_")
