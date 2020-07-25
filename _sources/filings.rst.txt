@@ -16,6 +16,7 @@ Filing
 ------
 
 .. autoclass:: secedgar.filings.Filing
+   :members:
 
 Examples
 ^^^^^^^^
@@ -60,7 +61,10 @@ You can also look up a specific filing type for multiple companies.
 Daily Filings
 -------------
 
+The ``DailyFilings`` class can be used to fetch all the URLs for or download all filings from any given day.
+
 .. autoclass:: secedgar.filings.DailyFilings
+   :members:
 
 Examples
 ^^^^^^^^
@@ -76,4 +80,21 @@ Note that you should replace ``'/my_directory'`` with the desired directory of t
    daily_filings = DailyFilings(date=datetime(2020, 1, 2))
    daily_filings.save('/my_directory')
 
+Master Filings (Quarterly)
+--------------------------
 
+The ``MasterFilings`` class can be used to fetch all the URLs for or download all filings from any given quarter.
+
+.. autoclass:: secedgar.filings.MasterFilings
+   :members:
+
+Examples
+^^^^^^^^
+
+.. code-block:: python
+
+   from secedgar.filings import MasterFilings
+
+   master_filings = MasterFilings(year=2000, quarter=4)
+   urls = master_filings.get_urls()  # gets all URLs for filings from quarter 4 of 2000
+   master_filings.save('/my_directory')  # saves all filings from quarter 4 of 2000 in my_directory

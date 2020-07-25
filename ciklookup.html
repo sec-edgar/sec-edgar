@@ -184,6 +184,55 @@ of strings). You will probably not need to use this class. However, it can be us
 </pre></div>
 </div>
 <p>Another alternative to using the <code class="docutils literal notranslate"><span class="pre">CIKLookup</span></code> class directly is to use the provided <a class="reference internal" href="cikmap.html#secedgar.utils.get_cik_map" title="secedgar.utils.get_cik_map"><code class="xref py py-meth docutils literal notranslate"><span class="pre">secedgar.utils.get_cik_map()</span></code></a> function.</p>
+<dl class="py class">
+<dt id="secedgar.filings.cik_lookup.CIKLookup">
+<em class="property">class </em><code class="sig-prename descclassname">secedgar.filings.cik_lookup.</code><code class="sig-name descname">CIKLookup</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lookups</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.cik_lookup.CIKLookup" title="Permalink to this definition">¶</a></dt>
+<dd><p>CIK Lookup object.</p>
+<p>Given list of tickers/company names to lookup, this object can return associated CIKs.</p>
+<dl class="py attribute">
+<dt id="secedgar.filings.cik_lookup.CIKLookup.lookup">
+<code class="sig-name descname">lookup</code><a class="headerlink" href="#secedgar.filings.cik_lookup.CIKLookup.lookup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ticker, company name, or list of tickers and/or company names.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Union[str, list]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.1.5.</span></p>
+</div>
+<dl class="py method">
+<dt id="secedgar.filings.cik_lookup.CIKLookup.ciks">
+<em class="property">property </em><code class="sig-name descname">ciks</code><a class="headerlink" href="#secedgar.filings.cik_lookup.CIKLookup.ciks" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of CIKs (as string of digits).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code> of <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="secedgar.filings.cik_lookup.CIKLookup.lookup_dict">
+<em class="property">property </em><code class="sig-name descname">lookup_dict</code><a class="headerlink" href="#secedgar.filings.cik_lookup.CIKLookup.lookup_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary that makes tickers and company names to CIKs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="secedgar.filings.cik_lookup.CIKLookup.lookups">
+<em class="property">property </em><code class="sig-name descname">lookups</code><a class="headerlink" href="#secedgar.filings.cik_lookup.CIKLookup.lookups" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of lookup terms.</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 

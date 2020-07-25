@@ -99,7 +99,11 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#daily-filings">Daily Filings</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#master-filings-quarterly">Master Filings (Quarterly)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id9">Examples</a></li>
 </ul>
 </li>
 </ul>
@@ -188,7 +192,7 @@ fetching all filings from any given day, you should use <a class="reference inte
 <h2>Filing<a class="headerlink" href="#filing" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="secedgar.filings.Filing">
-<em class="property">class </em><code class="sig-prename descclassname">secedgar.filings.</code><code class="sig-name descname">Filing</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cik_lookup</span></em>, <em class="sig-param"><span class="n">filing_type</span></em>, <em class="sig-param"><span class="n">start_date</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end_date</span><span class="o">=</span><span class="default_value">datetime.datetime(2020, 7, 19, 16, 52, 34, 285851)</span></em>, <em class="sig-param"><span class="n">client</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">count</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.Filing" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">secedgar.filings.</code><code class="sig-name descname">Filing</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cik_lookup</span></em>, <em class="sig-param"><span class="n">filing_type</span></em>, <em class="sig-param"><span class="n">start_date</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end_date</span><span class="o">=</span><span class="default_value">datetime.datetime(2020, 7, 25, 15, 28, 51, 295454)</span></em>, <em class="sig-param"><span class="n">client</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">count</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.Filing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class for receiving EDGAR filings.</p>
 <dl class="py attribute">
 <dt id="secedgar.filings.Filing.cik_lookup">
@@ -258,6 +262,133 @@ are available. Defaults to all filings available.</p>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 0.1.5.</span></p>
 </div>
+<dl class="py method">
+<dt id="secedgar.filings.Filing.accession_numbers">
+<em class="property">property </em><code class="sig-name descname">accession_numbers</code><a class="headerlink" href="#secedgar.filings.Filing.accession_numbers" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of accession numbers for filings.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="id0">
+<em class="property">property </em><code class="sig-name descname">cik_lookup</code><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
+<dd><p>CIKLookupobject.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">secedgar.filings.cik_lookup.CIKLookup</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="secedgar.filings.Filing.client">
+<em class="property">property </em><code class="sig-name descname">client</code><a class="headerlink" href="#secedgar.filings.Filing.client" title="Permalink to this definition">¶</a></dt>
+<dd><p>Client to use to make requests.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">secedgar.client._base</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="id2">
+<em class="property">property </em><code class="sig-name descname">count</code><a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of filings to fetch.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="id3">
+<em class="property">property </em><code class="sig-name descname">end_date</code><a class="headerlink" href="#id3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Date after which no filings are fetched.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Union([datetime.datetime, str])</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="id4">
+<em class="property">property </em><code class="sig-name descname">filing_type</code><a class="headerlink" href="#id4" title="Permalink to this definition">¶</a></dt>
+<dd><p>FilingType enum of filing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">secedgar.filings.FilingType</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="secedgar.filings.Filing.get_urls">
+<code class="sig-name descname">get_urls</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.Filing.get_urls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get urls for all CIKs given to Filing object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>**kwargs</strong> – Anything to be passed to requests when making get request.
+See keyword arguments accepted for
+<code class="docutils literal notranslate"><span class="pre">secedgar.client._base.AbstractClient.get_soup</span></code>.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of urls for txt files to download.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>urls (list)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="secedgar.filings.Filing.params">
+<em class="property">property </em><code class="sig-name descname">params</code><a class="headerlink" href="#secedgar.filings.Filing.params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters to include in requests.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="secedgar.filings.Filing.path">
+<em class="property">property </em><code class="sig-name descname">path</code><a class="headerlink" href="#secedgar.filings.Filing.path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path added to client base.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="secedgar.filings.Filing.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">directory</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.Filing.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save files in specified directory.</p>
+<p>Each txt url looks something like:
+<a class="reference external" href="https://www.sec.gov/Archives/edgar/data/1018724/000101872419000043/0001018724-19-000043.txt">https://www.sec.gov/Archives/edgar/data/1018724/000101872419000043/0001018724-19-000043.txt</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>directory</strong> (<em>str</em>) – Path to directory where files should be saved.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – If no text urls are available for given filing object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="id5">
+<em class="property">property </em><code class="sig-name descname">start_date</code><a class="headerlink" href="#id5" title="Permalink to this definition">¶</a></dt>
+<dd><p>Date before which no filings are fetched.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Union([datetime.datetime, str])</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <div class="section" id="examples">
@@ -296,6 +427,7 @@ The end date defaults to today’s date.</p>
 </div>
 <div class="section" id="daily-filings">
 <h2>Daily Filings<a class="headerlink" href="#daily-filings" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">DailyFilings</span></code> class can be used to fetch all the URLs for or download all filings from any given day.</p>
 <dl class="py class">
 <dt id="secedgar.filings.DailyFilings">
 <em class="property">class </em><code class="sig-prename descclassname">secedgar.filings.</code><code class="sig-name descname">DailyFilings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">date</span></em>, <em class="sig-param"><span class="n">client</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.DailyFilings" title="Permalink to this definition">¶</a></dt>
@@ -318,15 +450,64 @@ The end date defaults to today’s date.</p>
 Defaults to <code class="docutils literal notranslate"><span class="pre">secedgar.client.NetworkClient</span></code> if none is given.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>secedgar.client._base.AbstractClient</p>
+<dd class="field-odd"><p>secedgar.client._base.AbstractClient, optional</p>
 </dd>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt id="secedgar.filings.DailyFilings.idx_filename">
+<em class="property">property </em><code class="sig-name descname">idx_filename</code><a class="headerlink" href="#secedgar.filings.DailyFilings.idx_filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main index filename to look for.</p>
 </dd></dl>
 
-<div class="section" id="id2">
-<h3>Examples<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<dl class="py method">
+<dt id="secedgar.filings.DailyFilings.path">
+<em class="property">property </em><code class="sig-name descname">path</code><a class="headerlink" href="#secedgar.filings.DailyFilings.path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path added to client base.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The trailing slash at the end of the path is important.
+Omitting will raise EDGARQueryError.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="secedgar.filings.DailyFilings.quarter">
+<em class="property">property </em><code class="sig-name descname">quarter</code><a class="headerlink" href="#secedgar.filings.DailyFilings.quarter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get quarter number from date attribute.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="secedgar.filings.DailyFilings.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">directory</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.DailyFilings.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save all daily filings.</p>
+<p>Store all filings for each unique company name under a separate subdirectory
+within given directory argument. Creates directory with date in YYYYMMDD format
+within given directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>directory</strong> (<em>str</em>) – Directory where filings should be stored. Will be broken down
+further by company name and form type.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="secedgar.filings.DailyFilings.year">
+<em class="property">property </em><code class="sig-name descname">year</code><a class="headerlink" href="#secedgar.filings.DailyFilings.year" title="Permalink to this definition">¶</a></dt>
+<dd><p>Year of date for daily filing.</p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="id6">
+<h3>Examples<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>If you wanted to download all filings from January 2, 2020, you could use the following code.
 Note that you should replace <code class="docutils literal notranslate"><span class="pre">'/my_directory'</span></code> with the desired directory of the filings.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">secedgar.filings</span> <span class="kn">import</span> <span class="n">DailyFilings</span>
@@ -334,6 +515,105 @@ Note that you should replace <code class="docutils literal notranslate"><span cl
 
 <span class="n">daily_filings</span> <span class="o">=</span> <span class="n">DailyFilings</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 <span class="n">daily_filings</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;/my_directory&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="master-filings-quarterly">
+<h2>Master Filings (Quarterly)<a class="headerlink" href="#master-filings-quarterly" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">MasterFilings</span></code> class can be used to fetch all the URLs for or download all filings from any given quarter.</p>
+<dl class="py class">
+<dt id="secedgar.filings.MasterFilings">
+<em class="property">class </em><code class="sig-prename descclassname">secedgar.filings.</code><code class="sig-name descname">MasterFilings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">year</span></em>, <em class="sig-param"><span class="n">quarter</span></em>, <em class="sig-param"><span class="n">client</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.MasterFilings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for retrieving all filings from specific year and quarter.</p>
+<dl class="py attribute">
+<dt id="secedgar.filings.MasterFilings.year">
+<code class="sig-name descname">year</code><a class="headerlink" href="#secedgar.filings.MasterFilings.year" title="Permalink to this definition">¶</a></dt>
+<dd><p>Must be in between 1993 and the current year (inclusive).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="secedgar.filings.MasterFilings.quarter">
+<code class="sig-name descname">quarter</code><a class="headerlink" href="#secedgar.filings.MasterFilings.quarter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Must be 1, 2, 3, or 4. Quarter of filings to fetch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="secedgar.filings.MasterFilings.client">
+<code class="sig-name descname">client</code><a class="headerlink" href="#secedgar.filings.MasterFilings.client" title="Permalink to this definition">¶</a></dt>
+<dd><p>Client to use. Defaults to
+<code class="docutils literal notranslate"><span class="pre">secedgar.client.NetworkClient</span></code> if None given.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>secedgar.client._base, optional</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="secedgar.filings.MasterFilings.kwargs">
+<code class="sig-name descname">kwargs</code><a class="headerlink" href="#secedgar.filings.MasterFilings.kwargs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keyword arguments to pass to <code class="docutils literal notranslate"><span class="pre">secedgar.filings._index.IndexFilings</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="secedgar.filings.MasterFilings.idx_filename">
+<em class="property">property </em><code class="sig-name descname">idx_filename</code><a class="headerlink" href="#secedgar.filings.MasterFilings.idx_filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main index filename to look for.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="secedgar.filings.MasterFilings.path">
+<em class="property">property </em><code class="sig-name descname">path</code><a class="headerlink" href="#secedgar.filings.MasterFilings.path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path property to pass to client.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="id7">
+<em class="property">property </em><code class="sig-name descname">quarter</code><a class="headerlink" href="#id7" title="Permalink to this definition">¶</a></dt>
+<dd><p>Quarter of filings.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="secedgar.filings.MasterFilings.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">directory</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.MasterFilings.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save all daily filings.</p>
+<p>Creates subdirectory within given directory of the form &lt;YEAR&gt;/QTR&lt;QTR NUMBER&gt;/.
+Then each distinct company name receives its own directory with all of its filings.
+See <code class="docutils literal notranslate"><span class="pre">secedgar.filings._index.IndexFilings</span></code> for more detail.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>directory</strong> (<em>str</em>) – Directory where filings should be stored. Will be broken down
+further by company name and form type.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="id8">
+<em class="property">property </em><code class="sig-name descname">year</code><a class="headerlink" href="#id8" title="Permalink to this definition">¶</a></dt>
+<dd><p>Year of filings.</p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="id9">
+<h3>Examples<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">secedgar.filings</span> <span class="kn">import</span> <span class="n">MasterFilings</span>
+
+<span class="n">master_filings</span> <span class="o">=</span> <span class="n">MasterFilings</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">quarter</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">urls</span> <span class="o">=</span> <span class="n">master_filings</span><span class="o">.</span><span class="n">get_urls</span><span class="p">()</span>  <span class="c1"># gets all URLs for filings from quarter 4 of 2000</span>
+<span class="n">master_filings</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;/my_directory&#39;</span><span class="p">)</span>  <span class="c1"># saves all filings from quarter 4 of 2000 in my_directory</span>
 </pre></div>
 </div>
 </div>
