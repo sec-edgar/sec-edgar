@@ -3,11 +3,6 @@ class EDGARQueryError(Exception):
     pass
 
 
-class EDGARFieldError(Exception):
-    """This error is thrown when an invalid field is given to an endpoint."""
-    pass
-
-
 class CIKError(Exception):
     """This error is thrown when an invalid CIK is given."""
     pass
