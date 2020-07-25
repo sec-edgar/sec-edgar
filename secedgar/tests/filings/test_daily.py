@@ -1,27 +1,10 @@
 import os
 import pytest
-import requests
 
 from datetime import datetime
 
 from secedgar.filings.daily import DailyFilings
 from secedgar.tests.utils import datapath
-
-
-class MockQuarterDirectory:
-    """Mock response object for all 2018 daily listings of quarter 4. """
-
-    def __init__(self, *args):
-        self.status_code = 200
-        with open(datapath("filings", "daily", "daily_index_2018_QTR4.htm")) as f:
-            self.text = f.read()
-
-
-class MockFilingData:
-    """Mock response object for filing."""
-
-    def __init__(self, *args, **kwargs):
-        self.text = "Testing..."
 
 
 def mock_master_idx_file(*args):
@@ -47,6 +30,18 @@ class TestDaily:
         assert DailyFilings(date=date).quarter == expected
 
     @pytest.mark.parametrize(
+        "date,expected_filename",
+        [
+            (datetime(2020, 1, 1), "master.20200101.idx"),
+            (datetime(2020, 3, 31), "master.20200331.idx"),
+            (datetime(2020, 4, 1), "master.20200401.idx"),
+            (datetime(2020, 6, 30), "master.20200630.idx"),
+        ]
+    )
+    def test_idx_filename(self, date, expected_filename):
+        assert DailyFilings(date=date).idx_filename == expected_filename
+
+    @pytest.mark.parametrize(
         "bad_date",
         [
             1.0,
@@ -68,17 +63,14 @@ class TestDaily:
             "http://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046102.txt"
         ]
     )
-    def test_get_urls(self, monkeypatch, url):
+    def test_get_urls(self, mock_daily_quarter_directory, mock_daily_idx_file, url):
         daily_filing = DailyFilings(datetime(2018, 12, 31))
-        monkeypatch.setattr(DailyFilings, "_get_quarterly_directory", MockQuarterDirectory)
-        monkeypatch.setattr(DailyFilings, "_get_master_idx_file", mock_master_idx_file)
         assert url in daily_filing.get_urls()
 
-    def test_get_quarterly_directory(self, monkeypatch):
-        monkeypatch.setattr(DailyFilings, "_get_quarterly_directory", MockQuarterDirectory)
-        assert DailyFilings(datetime(2018, 12, 31))._get_quarterly_directory().status_code == 200
+    def test_get_listings_directory(self, mock_daily_quarter_directory):
+        assert DailyFilings(datetime(2018, 12, 31)).get_listings_directory().status_code == 200
         assert "master.20181231.idx" in DailyFilings(
-            datetime(2018, 12, 31))._get_quarterly_directory().text
+            datetime(2018, 12, 31)).get_listings_directory().text
 
     @pytest.mark.parametrize(
         "company_name",
@@ -90,10 +82,10 @@ class TestDaily:
             "PERUSAHAAN PERSEROAN PERSERO PT TELEKOMUNIKASI INDONESIA TBK"
         ]
     )
-    def test_get_master_idx_file(self, monkeypatch, company_name):
+    def test_get_master_idx_file(self, mock_daily_quarter_directory,
+                                 mock_daily_idx_file,
+                                 company_name):
         daily_filing = DailyFilings(datetime(2018, 12, 31))
-        monkeypatch.setattr(DailyFilings, "_get_quarterly_directory", MockQuarterDirectory)
-        monkeypatch.setattr(DailyFilings, "_get_master_idx_file", mock_master_idx_file)
 
         # All company names above should be in file
         assert company_name in daily_filing._get_master_idx_file()
@@ -142,18 +134,21 @@ class TestDaily:
     @pytest.mark.parametrize(
         "subdir,file",
         [
-            ("HENRY SCHEIN INC", "0001209191-18-064398.txt"),
-            ("ROYAL BANK OF CANADA", "0001140361-18-046093.txt"),
-            ("NOVAVAX INC", "0001144204-18-066754.txt"),
-            ("BROOKFIELD ASSET MANAGEMENT INC.", "0001104659-18-075315.txt"),
-            ("BANK OF SOUTH CAROLINA CORP", "0001225208-18-017075.txt")
+            ("HENRY_SCHEIN_INC", "0001209191-18-064398.txt"),
+            ("ROYAL_BANK_OF_CANADA", "0001140361-18-046093.txt"),
+            ("NOVAVAX_INC", "0001144204-18-066754.txt"),
+            ("BROOKFIELD_ASSET_MANAGEMENT_INC", "0001104659-18-075315.txt"),
+            ("BANK_OF_SOUTH_CAROLINA_CORP", "0001225208-18-017075.txt")
         ]
     )
-    def test_save(self, tmp_data_directory, monkeypatch, subdir, file):
+    def test_save(self, tmp_data_directory,
+                  mock_filing_data,
+                  mock_daily_quarter_directory,
+                  mock_daily_idx_file,
+                  subdir,
+                  file):
         daily_filing = DailyFilings(datetime(2018, 12, 31))
-        monkeypatch.setattr(DailyFilings, "_get_quarterly_directory", MockQuarterDirectory)
-        monkeypatch.setattr(DailyFilings, '_get_master_idx_file', mock_master_idx_file)
-        monkeypatch.setattr(requests, 'get', MockFilingData)
         daily_filing.save(tmp_data_directory)
+        subdir = os.path.join("20181231", subdir)
         path_to_check = os.path.join(tmp_data_directory, subdir, file)
         assert os.path.exists(path_to_check)

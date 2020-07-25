@@ -46,3 +46,12 @@ def make_path(path, **kwargs):
         except OSError as e:
             if e.errno != errno.EEXIST:
                 raise OSError
+
+
+def get_quarter(date):
+    """Get quarter that corresponds with date.
+
+    Args:
+        date ([datetime.datetime]): Datetime object to get quarter for.
+    """
+    return (date.month - 1) // 3 + 1

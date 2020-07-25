@@ -4,8 +4,8 @@ v0.1.7
 Highlights
 ~~~~~~~~~~
 
-* Fixes `DailyFilings` bug to properly fetch daily filings.
-* Fixes `Filing` bug to fetch specified number of filings.
+* Fixes :class:`secedgar.filings.DailyFilings` bug to properly fetch daily filings.
+* Fixes :class:`secedgar.filings.Filing` bug to fetch specified number of filings.
 
 Contributors
 ~~~~~~~~~~~~
