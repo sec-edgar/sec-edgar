@@ -111,7 +111,7 @@ class Filing(AbstractFiling):
     @count.setter
     def count(self, val):
         if val is None:
-            pass
+            self._count = None
         elif not isinstance(val, int):
             raise TypeError("Count must be positive integer or None.")
         elif val < 1:
@@ -182,7 +182,7 @@ class Filing(AbstractFiling):
 
         txt_urls = [link[:link.rfind("-")].strip() + ".txt" for link in links]
 
-        if len(txt_urls) < self.count:
+        if isinstance(self.count, int) and len(txt_urls) < self.count:
             warnings.warn("Only {num} of {count} filings were found for {cik}.".format(
                 num=len(txt_urls), count=self.count, cik=cik))
 
