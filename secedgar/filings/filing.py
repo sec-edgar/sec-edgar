@@ -80,6 +80,8 @@ class Filing(AbstractFiling):
         if val is not None:
             self._start_date = val
             self._params['datea'] = sanitize_date(val)
+        else:
+            self._start_date = None
 
     @property
     def end_date(self):
