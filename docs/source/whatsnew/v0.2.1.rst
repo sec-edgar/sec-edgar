@@ -1,0 +1,13 @@
+v0.2.1
+------
+
+Highlights
+~~~~~~~~~~
+
+* Fixes bug where ``Filing`` does not work when ``count`` is not specified (thanks to formvoltron!)
+
+Contributors
+~~~~~~~~~~~~
+
+- jackmoody11
+- formvoltron
