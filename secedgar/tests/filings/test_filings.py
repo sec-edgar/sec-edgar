@@ -21,6 +21,53 @@ class TestFiling(object):
                 urls, count))
 
     @pytest.mark.parametrize(
+        "count",
+        [
+            None,
+            5,
+            10,
+            15,
+            27,
+            33
+        ]
+    )
+    def test_count_setter_on_init(self, count):
+        filing = Filing(cik_lookup='aapl', filing_type=FilingType.FILING_10Q, count=count)
+        assert filing.count == count
+
+    @pytest.mark.parametrize(
+        "start_date",
+        [
+            datetime.datetime(2020, 1, 1),
+            datetime.datetime(2020, 2, 1),
+            datetime.datetime(2020, 3, 1),
+            datetime.datetime(2020, 4, 1),
+            datetime.datetime(2020, 5, 1),
+            "20200101",
+            20200101,
+            None
+        ]
+    )
+    def test_good_start_date_setter_on_init(self, start_date):
+        filing = Filing(cik_lookup='aapl', filing_type=FilingType.FILING_10Q, start_date=start_date)
+        assert filing.start_date == start_date
+
+    @pytest.mark.parametrize(
+        "bad_start_date",
+        [
+            1,
+            2020010101,
+            "2020010101",
+            "2020",
+            "0102"
+        ]
+    )
+    def test_bad_start_date_setter_on_init(self, bad_start_date):
+        with pytest.raises(TypeError):
+            Filing(cik_lookup='aapl', filing_type=FilingType.FILING_10Q,
+                   start_date=bad_start_date)
+
+    @pytest.mark.parametrize(
         "count,expected_error",
         [
             (-1, ValueError),
@@ -32,9 +79,9 @@ class TestFiling(object):
     )
     def test_count_setter_bad_values(self, count, expected_error):
         with pytest.raises(expected_error):
-            _ = Filing(cik_lookup='aapl',
-                       filing_type=FilingType.FILING_10Q,
-                       count=count)
+            Filing(cik_lookup='aapl',
+                   filing_type=FilingType.FILING_10Q,
+                   count=count)
 
     def test_date_is_sanitized(self):
         start_date = datetime.datetime(2012, 3, 1)
