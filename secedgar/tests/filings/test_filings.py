@@ -9,7 +9,6 @@ from secedgar.utils.exceptions import FilingTypeError, EDGARQueryError
 
 
 class TestFiling(object):
-    @pytest.mark.slow
     def test_count_returns_exact(self,
                                  mock_cik_validator_get_single_cik,
                                  mock_single_cik_filing):
@@ -221,3 +220,8 @@ class TestFiling(object):
             # Should raise assertion error since no UserWarning should be found
             except AssertionError:
                 pass
+
+    @pytest.mark.smoke
+    def test_filing_simple_example(self, tmp_data_directory):
+        my_filings = Filing(cik_lookup='IBM', filing_type=FilingType.FILING_10Q)
+        my_filings.save(tmp_data_directory)
