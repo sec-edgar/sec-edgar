@@ -20,7 +20,7 @@ class TestMaster:
     )
     def test_bad_year(self, bad_year, expected_error):
         with pytest.raises(expected_error):
-            _ = MasterFilings(year=bad_year, quarter=1)
+            MasterFilings(year=bad_year, quarter=1)
 
     def test_good_year(self):
         for year in range(1993, datetime.today().year + 1):
@@ -43,7 +43,7 @@ class TestMaster:
     )
     def test_bad_quarter(self, bad_quarter, expected_error):
         with pytest.raises(expected_error):
-            _ = MasterFilings(year=2020, quarter=bad_quarter)
+            MasterFilings(year=2020, quarter=bad_quarter)
 
     def test_good_quarters(self):
         for quarter in range(1, 5):
