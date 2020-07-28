@@ -16,11 +16,7 @@ class DailyFilings(IndexFilings):
 
     def __init__(self, date, client=None):
         super().__init__(client=client)
-        if not isinstance(date, datetime.datetime):
-            raise TypeError(
-                "Date must be given as datetime object. Was given type {type}.".format(
-                    type=type(date)))
-        self._date = date
+        self.date = date
 
     @property
     def path(self):
@@ -32,6 +28,18 @@ class DailyFilings(IndexFilings):
         """
         return "Archives/edgar/daily-index/{year}/QTR{num}/".format(
             year=self.year, num=self.quarter)
+
+    @property
+    def date(self):
+        return self._date
+
+    @date.setter
+    def date(self, val):
+        if not isinstance(val, datetime.datetime):
+            raise TypeError(
+                "Date must be given as datetime object. Was given type {type}.".format(
+                    type=type(val)))
+        self._date = val
 
     @property
     def quarter(self):
