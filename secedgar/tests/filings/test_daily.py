@@ -54,6 +54,32 @@ class TestDaily:
             DailyFilings(bad_date)
 
     @pytest.mark.parametrize(
+        "good_date",
+        [
+            datetime(2020, 1, 1),
+            datetime(1993, 1, 1),
+            datetime(1999, 12, 31),
+        ]
+    )
+    def test_good_date_on_init(self, good_date):
+        daily_filings = DailyFilings(date=good_date)
+        assert daily_filings.date == good_date
+
+    @pytest.mark.parametrize(
+        "bad_date",
+        [
+            "2020",
+            "20200101",
+            "0506",
+            20200101,
+            None
+        ]
+    )
+    def test_bad_date_on_init(self, bad_date):
+        with pytest.raises(TypeError):
+            DailyFilings(date=bad_date)
+
+    @pytest.mark.parametrize(
         "url",
         [
             "http://www.sec.gov/Archives/edgar/data/1000228/0001209191-18-064398.txt",
