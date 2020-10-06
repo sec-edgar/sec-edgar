@@ -84,6 +84,11 @@ class TestMaster:
         path_to_check = os.path.join(tmp_data_directory, subdir, file)
         assert os.path.exists(path_to_check)
 
+    @pytest.mark.smoke
+    def test_save_smoke(self, tmp_data_directory):
+        master_filing = MasterFilings(year=1993, quarter=4)
+        master_filing.save(tmp_data_directory)
+
     @pytest.mark.parametrize(
         "original_path,clean_path",
         [

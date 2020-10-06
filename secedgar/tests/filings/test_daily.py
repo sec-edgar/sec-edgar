@@ -178,3 +178,8 @@ class TestDaily:
         subdir = os.path.join("20181231", subdir)
         path_to_check = os.path.join(tmp_data_directory, subdir, file)
         assert os.path.exists(path_to_check)
+
+    @pytest.mark.smoke
+    def test_save_smoke(self, tmp_data_directory):
+        daily_filing = DailyFilings(datetime(2020, 9, 30))
+        daily_filing.save(tmp_data_directory)
