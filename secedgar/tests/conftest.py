@@ -7,6 +7,19 @@ from secedgar.filings.cik_validator import _CIKValidator
 from secedgar.tests.utils import datapath
 
 
+def pytest_collection_modifyitems(config, items):
+    """Skips smoke tests unless explicitly specified"""
+    keywordexpr = config.option.keyword
+    markexpr = config.option.markexpr
+    if keywordexpr or markexpr:
+        return  # let pytest handle this
+
+    skip_smoke = pytest.mark.skip(reason='smoke not selected')
+    for item in items:
+        if 'smoke' in item.keywords:
+            item.add_marker(skip_smoke)
+
+
 class MockResponse:
     def __init__(self, datapath_args=[],
                  status_code=200,
