@@ -29,8 +29,8 @@ class MasterFilings(IndexFilings):
     @property
     def path(self):
         """Path property to pass to client."""
-        return "Archives/edgar/full-index/{year}/QTR{num}/".format(year=self._year,
-                                                                   num=self._quarter)
+        return "Archives/edgar/full-index/{year}/QTR{num}/".format(year=self.year,
+                                                                   num=self.quarter)
 
     @property
     def year(self):
