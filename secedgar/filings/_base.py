@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 import string
 
 
-class AbstractFiling(ABC):
+class AbstractFilings(ABC):
     """Abstract base class for all SEC EDGAR filings.
 
     .. versionadded:: 0.1.5

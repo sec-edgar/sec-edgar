@@ -3,7 +3,7 @@ import os
 import requests
 import warnings
 
-from secedgar.filings._base import AbstractFiling
+from secedgar.filings._base import AbstractFilings
 from secedgar.client.network_client import NetworkClient
 from secedgar.utils import sanitize_date, make_path
 
@@ -12,7 +12,7 @@ from secedgar.filings.filing_types import FilingType
 from secedgar.utils.exceptions import FilingTypeError
 
 
-class Filing(AbstractFiling):
+class Filing(AbstractFilings):
     """Base class for receiving EDGAR filings.
 
     Attributes:
@@ -207,7 +207,6 @@ class Filing(AbstractFiling):
             link).replace('-index.htm', '') for link in links]
         return self._accession_numbers
 
-    # TODO: break this method down further
     def save(self, directory):
         """Save files in specified directory.
 

@@ -1,17 +1,16 @@
 import os
 import re
-import requests
 from abc import abstractmethod
 from collections import namedtuple
 
+import requests
 from secedgar.client import NetworkClient
+from secedgar.filings._base import AbstractFilings
 from secedgar.utils import make_path
-
-from secedgar.filings._base import AbstractFiling
 from secedgar.utils.exceptions import EDGARQueryError
 
 
-class IndexFilings(AbstractFiling):
+class AbstractIndexFilings(AbstractFilings):
     """Abstract Base Class for index filings.
 
     Attributes:
@@ -19,6 +18,37 @@ class IndexFilings(AbstractFiling):
             ``secedgar.client.NetworkClient``.
         kwargs: Any keyword arguments to pass to ``NetworkClient`` if no client is specified.
     """
+
+    @property
+    def client(self):
+        """``secedgar.client._base``: Client to use to make requests."""
+        pass
+
+    @property
+    def params(self):
+        """Params should be empty."""
+        pass
+
+    @property
+    @abstractmethod
+    def year(self):
+        """Passed to children classes."""
+        pass
+
+    @property
+    @abstractmethod
+    def quarter(self):
+        """Passed to children classes."""
+        pass  # pragma: no cover
+
+    @property
+    @abstractmethod
+    def idx_filename(self):
+        """Passed to children classes."""
+        pass  # pragma: no cover
+
+
+class IndexFilings(AbstractIndexFilings):
 
     def __init__(self, client=None, **kwargs):
         super().__init__()
@@ -138,7 +168,7 @@ class IndexFilings(AbstractFiling):
         """
         return "{base}{path}".format(base=self.client._BASE, path=path)
 
-    def get_paths(self, update_cache=False):
+    def get_paths(self, update_cache=False, **kwargs):
         """Gets all paths for given day.
 
         Each path will look something like
@@ -147,12 +177,15 @@ class IndexFilings(AbstractFiling):
         Args:
             update_cache (bool, optional): Whether urls should be updated on each method call.
                 Defaults to False.
+            kwargs: Any kwargs to pass to _get_master_idx_file. See
+                ``secedgar.filings.daily.DailyFilings._get_master_idx_file``.
+
 
         Returns:
             urls (list of str): List of urls.
         """
         if len(self._paths) == 0:
-            for entries in self.get_filings_dict().values():
+            for entries in self.get_filings_dict(update_cache=update_cache, **kwargs).values():
                 for entry in entries:
                     # Will be of the form
                     self._paths.append(
@@ -193,8 +226,7 @@ class IndexFilings(AbstractFiling):
             directory (str): Directory where filings should be stored. Will be broken down
                 further by company name and form type.
         """
-        self.get_filings_dict()
-        for filings in self._filings_dict.values():
+        for filings in self.get_filings_dict().values():
             # take the company name from the first filing and make that the subdirectory name
             clean_company_name = self.clean_directory_path(filings[0].company_name)
             subdirectory = os.path.join(directory, clean_company_name)
