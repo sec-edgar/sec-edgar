@@ -1,11 +1,9 @@
 # Tests if filings are correctly received from EDGAR
 import datetime
 import pytest
-
 from secedgar.client import NetworkClient
 from secedgar.filings import Filing, FilingType
-
-from secedgar.utils.exceptions import FilingTypeError, EDGARQueryError
+from secedgar.utils.exceptions import EDGARQueryError, FilingTypeError
 
 
 class TestFiling(object):
@@ -268,7 +266,6 @@ class TestFiling(object):
             except AssertionError:
                 pass
 
-    @pytest.mark.skip
     @pytest.mark.smoke
     def test_filing_simple_example(self, tmp_data_directory):
         my_filings = Filing(cik_lookup='IBM', filing_type=FilingType.FILING_10Q)
