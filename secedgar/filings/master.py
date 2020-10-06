@@ -53,8 +53,11 @@ class MasterFilings(IndexFilings):
 
     @quarter.setter
     def quarter(self, val):
-        if val not in range(1, 5):
-            raise TypeError("Quarter must be integer in between 1 and 4 (inclusive).")
+        if not isinstance(val, int):
+            raise TypeError("Quarter must be int. Given type {t}".format(t=type(val)))
+        elif val not in range(1, 5):
+            raise ValueError(
+                "Quarter must be integer in between 1 and 4 (inclusive). Given {v}.".format(v=val))
         elif self.year == datetime.today().year and val > get_quarter(datetime.today()):
             raise ValueError("Latest quarter for current year is {qtr}".format(
                 qtr=get_quarter(datetime.today())))
