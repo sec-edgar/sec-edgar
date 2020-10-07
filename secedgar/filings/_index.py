@@ -6,7 +6,7 @@ from collections import namedtuple
 import requests
 from secedgar.client import NetworkClient
 from secedgar.filings._base import AbstractFilings
-from secedgar.utils import make_path
+from secedgar.utils import create_subdirectory
 from secedgar.utils.exceptions import EDGARQueryError
 
 
@@ -51,13 +51,12 @@ class AbstractIndexFilings(AbstractFilings):
 class IndexFilings(AbstractIndexFilings):
 
     def __init__(self, client=None, **kwargs):
-        super().__init__()
         self._client = client if client is not None else NetworkClient(**kwargs)
         self._listings_directory = None
         self._master_idx_file = None
         self._filings_dict = None
         self._paths = []
-        self._urls = []
+        self._urls = None
 
     @property
     def client(self):
@@ -107,10 +106,9 @@ class IndexFilings(AbstractIndexFilings):
         """Get master file with all filings from given date.
 
         Args:
-            update_cache (bool, optional): Whether master index should be updated
-                method call. Defaults to False.
-            kwargs: Keyword arguments to pass to
-                ``secedgar.client._base.AbstractClient.get_response``.
+            update_cache (bool, optional): Whether master index should be updated.
+                Defaults to False.
+            kwargs: Any keyword arguments to pass to ``secedgar.client._base.AbstractClient.get_response``.
 
         Returns:
             text (str): Idx file text.
@@ -120,7 +118,7 @@ class IndexFilings(AbstractIndexFilings):
                 is found.
         """
         if self._master_idx_file is None or update_cache:
-            if self.idx_filename in self.get_listings_directory().text:
+            if self.idx_filename in self.get_listings_directory(update_cache).text:
                 master_idx_url = "{path}/{filename}".format(
                     path=self.path, filename=self.idx_filename)
                 self._master_idx_file = self.client.get_response(
@@ -131,30 +129,36 @@ class IndexFilings(AbstractIndexFilings):
                     filename=self.idx_filename))
         return self._master_idx_file
 
-    def get_filings_dict(self, update_cache=False, **kwargs):
+    def get_filings_dict(self, **kwargs):
         """Get all filings for day.
 
         Args:
-            update_cache (bool, optional): Whether filings dict should be
-                updated on each method call. Defaults to False.
-            kwargs: Any kwargs to pass to _get_master_idx_file. See
-                ``secedgar.filings.daily.DailyFilings._get_master_idx_file``.
+            kwargs: Any keyword arguments to pass to ``secedgar.filings.daily.DailyFilings._get_master_idx_file``.
+
+        Returns:
+            filings_dict (dict of list of namedtuples): Dictionary with list of filing entries (namedtuples).
         """
-        if self._filings_dict is None or update_cache:
-            idx_file = self._get_master_idx_file(**kwargs)
-            # Will have CIK as keys and list of FilingEntry namedtuples as values
-            self._filings_dict = {}
-            FilingEntry = namedtuple(
-                "FilingEntry", ["cik", "company_name", "form_type", "date_filed", "file_name"])
-            # idx file will have lines of the form CIK|Company Name|Form Type|Date Filed|File Name
-            entries = re.findall(r'^[0-9]+[|].+[|].+[|][0-9\-]+[|].+$', idx_file, re.MULTILINE)
-            for entry in entries:
-                fields = entry.split("|")
-                # Add new filing entry to CIK's list
-                if fields[0] in self._filings_dict:
-                    self._filings_dict[fields[0]].append(FilingEntry(*fields))
-                else:
-                    self._filings_dict[fields[0]] = [FilingEntry(*fields)]
+        idx_file = self._get_master_idx_file(**kwargs)
+
+        # Will have CIK as keys and list of FilingEntry namedtuples as values
+        self._filings_dict = {}
+        FilingEntry = namedtuple(
+            "FilingEntry", ["cik", "company_name", "filing_type", "date_filed", "file_name", "path"])
+
+        # idx file will have lines of the form CIK|Company Name|Form Type|Date Filed|File Name
+        entries = re.findall(r'^[0-9]+[|].+[|].+[|][0-9\-]+[|].+$', idx_file, re.MULTILINE)
+        for entry in entries:
+            fields = entry.split("|")
+            path = self.make_path(fields[-1])
+            filing_entry = FilingEntry(*fields, path)
+
+            # Add new filing entry to company name's list
+            company_name = filing_entry.company_name
+
+            try:
+                self._filings_dict[company_name].append(filing_entry)
+            except KeyError:
+                self._filings_dict[company_name] = [filing_entry]
         return self._filings_dict
 
     def make_url(self, path):
@@ -168,45 +172,52 @@ class IndexFilings(AbstractIndexFilings):
         """
         return "{base}{path}".format(base=self.client._BASE, path=path)
 
-    def get_paths(self, update_cache=False, **kwargs):
+    @staticmethod
+    def make_path(filename):
         """Gets all paths for given day.
 
         Each path will look something like
         "edgar/data/1000228/0001209191-18-064398.txt".
 
         Args:
-            update_cache (bool, optional): Whether urls should be updated on each method call.
-                Defaults to False.
-            kwargs: Any kwargs to pass to _get_master_idx_file. See
-                ``secedgar.filings.daily.DailyFilings._get_master_idx_file``.
+            filename (str): File name to create path from.
 
 
         Returns:
-            urls (list of str): List of urls.
+            Correct path from filename.
         """
-        if len(self._paths) == 0:
-            for entries in self.get_filings_dict(update_cache=update_cache, **kwargs).values():
-                for entry in entries:
-                    # Will be of the form
-                    self._paths.append(
-                        "Archives/{file_name}".format(
-                            file_name=entry.file_name))
-        return self._paths
+        return "Archives/{filename}".format(filename=filename)
 
-    def get_urls(self):
+    def get_urls(self, **kwargs):
         """Get all URLs for day.
 
         Expects client _BASE to have trailing "/" for final URLs.
 
+        Args:
+            kwargs: Any keyword arguments to pass to ``secedgar.filings._index.IndexFilings.get_filings_dict``.
+
         Returns:
-            urls (list of str): List of all URLs to get.
+            urls (dict of dict of list of str): Dict with all URLs to get broken down by
+            company name and further by form type. Of the form {company_name: {filing_type: urls}}
         """
-        if len(self._urls) == 0:
-            paths = self.get_paths()
-            self._urls = [self.make_url(path) for path in paths]
+        if self._urls is None or kwargs.get('update_cache', False):
+            self._urls = {}
+            for company_name, filings in self.get_filings_dict(**kwargs).items():
+                for filing in filings:
+                    url = self.make_url(filing.path)
+
+                    # Create or append to company_name key further breaking down
+                    # by filing type
+                    try:
+                        self._urls[company_name][filing.filing_type].append(url)
+                    except KeyError:
+                        try:
+                            self._urls[company_name][filing.filing_type] = [url]
+                        except KeyError:
+                            self._urls[company_name] = {filing.filing_type: [url]}
         return self._urls
 
-    def save_filings(self, directory):
+    def save_filings(self, directory, **kwargs):
         """Save all filings.
 
         Will store all filings for each unique company name under a separate subdirectory
@@ -225,18 +236,16 @@ class IndexFilings(AbstractIndexFilings):
         Args:
             directory (str): Directory where filings should be stored. Will be broken down
                 further by company name and form type.
+            kwargs: Any keyword arguments to pass to ``secedgar.filings._index.IndexFilings.get_urls``.
         """
-        for filings in self.get_filings_dict().values():
-            # take the company name from the first filing and make that the subdirectory name
-            clean_company_name = self.clean_directory_path(filings[0].company_name)
-            subdirectory = os.path.join(directory, clean_company_name)
-            # TODO: Clean company name to make valid directory name (get rid of special characters)
-            make_path(subdirectory)
-            for filing in filings:
-                filename = self.get_accession_number(filing.file_name)
-                filing_path = os.path.join(
-                    subdirectory, filename)
-                url = self.make_url(filename)
-                data = requests.get(url).text
-                with open(filing_path, 'w') as f:
-                    f.write(data)
+        for company_name, filing_types in self.get_urls(**kwargs).items():
+            clean_company_name = self.clean_directory_path(company_name)
+            for filing_type, urls in filing_types.items():
+                subdirectory = os.path.join(directory, clean_company_name, filing_type)
+                create_subdirectory(subdirectory)
+                for url in urls:
+                    accession_number = self.get_accession_number(url)
+                    filing_path = os.path.join(subdirectory, accession_number)
+                    data = requests.get(url).text
+                    with open(filing_path, 'w') as f:
+                        f.write(data)
