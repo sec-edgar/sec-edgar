@@ -18,17 +18,6 @@ class AbstractIndexFilings(AbstractFilings):
             ``secedgar.client.NetworkClient``.
         kwargs: Any keyword arguments to pass to ``NetworkClient`` if no client is specified.
     """
-
-    @property
-    def client(self):
-        """``secedgar.client._base``: Client to use to make requests."""
-        pass
-
-    @property
-    def params(self):
-        """Params should be empty."""
-        pass
-
     @property
     @abstractmethod
     def year(self):
