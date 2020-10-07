@@ -31,6 +31,7 @@ class DailyFilings(IndexFilings):
 
     @property
     def date(self):
+        """Date of filings to fetch."""
         return self._date
 
     @date.setter

@@ -49,6 +49,14 @@ class AbstractIndexFilings(AbstractFilings):
 
 
 class IndexFilings(AbstractIndexFilings):
+    """Parent class for all filings with index (.idx) files.
+
+    Attributes:
+        client (secedgar.client._base.AbstractClient, optional): Client to use for fetching data.
+            Defaults to ``secedgar.client.NetworkClient`` if none is given.
+
+    .. versionadded:: v0.3.0
+    """
 
     def __init__(self, client=None, **kwargs):
         self._client = client if client is not None else NetworkClient(**kwargs)
