@@ -16,7 +16,7 @@ class AbstractIndexFilings(AbstractFilings):
     Attributes:
         client (secedgar.client._base, optional): Client to use. Defaults to
             ``secedgar.client.NetworkClient``.
-        kwargs: Any keyword arguments to pass to ``NetworkClient`` if no client is specified.
+        kwargs:  Keyword arguments to pass to ``NetworkClient`` if no client is specified.
     """
     @property
     @abstractmethod
@@ -89,7 +89,7 @@ class IndexFilings(AbstractIndexFilings):
         Args:
             update_cache (bool, optional): Whether quarterly directory should update cache. Defaults
                 to False.
-            kwargs: Any keyword arguments to pass to the client's `get_response` method.
+            kwargs:  Keyword arguments to pass to the client's `get_response` method.
 
         Returns:
             response (requests.Response): Response object from page with all idx files for
@@ -105,7 +105,7 @@ class IndexFilings(AbstractIndexFilings):
         Args:
             update_cache (bool, optional): Whether master index should be updated.
                 Defaults to False.
-            kwargs: Any keyword arguments to pass to
+            kwargs:  Keyword arguments to pass to
                 ``secedgar.client._base.AbstractClient.get_response``.
 
         Returns:
@@ -131,7 +131,7 @@ class IndexFilings(AbstractIndexFilings):
         """Get all filings for day.
 
         Args:
-            kwargs: Any keyword arguments to pass to
+            kwargs:  Keyword arguments to pass to
                 ``secedgar.filings.daily.DailyFilings._get_master_idx_file``.
 
         Returns:
@@ -195,7 +195,7 @@ class IndexFilings(AbstractIndexFilings):
         Expects client _BASE to have trailing "/" for final URLs.
 
         Args:
-            kwargs: Any keyword arguments to pass to
+            kwargs:  Keyword arguments to pass to
                 ``secedgar.filings._index.IndexFilings.get_filings_dict``.
 
         Returns:
@@ -238,7 +238,7 @@ class IndexFilings(AbstractIndexFilings):
         Args:
             directory (str): Directory where filings should be stored. Will be broken down
                 further by company name and form type.
-            kwargs: Any keyword arguments to pass to
+            kwargs:  Keyword arguments to pass to
                 ``secedgar.filings._index.IndexFilings.get_urls``.
         """
         for company_name, filing_types in self.get_urls(**kwargs).items():
