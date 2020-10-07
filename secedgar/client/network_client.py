@@ -17,7 +17,7 @@ class NetworkClient(AbstractClient):
         batch_size (int): Number of filings to receive per request (helpful if pagination needed).
     """
 
-    _BASE = "http://www.sec.gov/"
+    _BASE = "https://www.sec.gov/"
 
     def __init__(self, **kwargs):
         self.retry_count = kwargs.get("retry_count", 3)
@@ -91,6 +91,7 @@ class NetworkClient(AbstractClient):
             EDGARQueryError: If problems arise when making query.
         """
         prepared_url = self._prepare_query(path)
+        response = None
         for i in range(self.retry_count + 1):
             response = requests.get(prepared_url, params=params, **kwargs)
             try:
