@@ -1,0 +1,14 @@
+v0.3.0
+------
+
+Highlights
+~~~~~~~~~~
+
+* Fixes ``DailyFilings`` and ``MasterFilings`` `get_urls` methods (thanks to alpbozkurt!)
+* Changes `get_urls` output for ``DailyFilings`` and ``MasterFilings``
+
+Contributors
+~~~~~~~~~~~~
+
+- jackmoody11
+- alpbozkurt
