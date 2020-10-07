@@ -63,13 +63,13 @@ class TestMaster:
         assert mf.idx_filename == "master.idx"
 
     @pytest.mark.parametrize(
-        "subdir,file",
+        "subdir,filing_type,file",
         [
-            ("SAGE_CAPITAL_LP", "9999999997-02-056978.txt"),
-            ("BETHLEHEM_STEEL_CORP_DE", "0000011860-94-000005.txt"),
-            ("CAPITAL_HOLDING_CORP", "0000017206-94-000007.txt"),
-            ("DATAPOINT_CORP", "0000205239-94-000003.txt"),
-            ("CLARK_REFINING__MARKETING_INC", "0000950131-94-000025.txt"),
+            ("SAGE_CAPITAL_LP", "REGDEX", "9999999997-02-056978.txt"),
+            ("BETHLEHEM_STEEL_CORP_DE", "10-Q", "0000011860-94-000005.txt"),
+            ("CAPITAL_HOLDING_CORP", "10-K/A", "0000017206-94-000007.txt"),
+            ("DATAPOINT_CORP", "10-Q", "0000205239-94-000003.txt"),
+            ("CLARK_REFINING__MARKETING_INC", "10-Q", "0000950131-94-000025.txt"),
         ]
     )
     def test_save(self, tmp_data_directory,
@@ -77,11 +77,11 @@ class TestMaster:
                   mock_master_quarter_directory,
                   mock_master_idx_file,
                   subdir,
+                  filing_type,
                   file):
         master_filing = MasterFilings(year=1993, quarter=4)
         master_filing.save(tmp_data_directory)
-        subdir = os.path.join("1993", "QTR4", subdir)
-        path_to_check = os.path.join(tmp_data_directory, subdir, file)
+        path_to_check = os.path.join(tmp_data_directory, "1993", "QTR4", subdir, filing_type, file)
         assert os.path.exists(path_to_check)
 
     @pytest.mark.smoke

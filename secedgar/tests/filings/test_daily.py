@@ -80,18 +80,21 @@ class TestDaily:
             DailyFilings(date=bad_date)
 
     @pytest.mark.parametrize(
-        "url",
+        "company_name,filing_type,url",
         [
-            "http://www.sec.gov/Archives/edgar/data/1000228/0001209191-18-064398.txt",
-            "http://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046093.txt",
-            "http://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046095.txt",
-            "http://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046101.txt",
-            "http://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046102.txt"
+            ("HENRY SCHEIN INC", "4", "https://www.sec.gov/Archives/edgar/data/1000228/0001209191-18-064398.txt"),
+            ("ROYAL BANK OF CANADA", "424B2",
+             "https://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046093.txt"),
+            ("NOVAVAX INC", "424B5", "https://www.sec.gov/Archives/edgar/data/1000694/0001144204-18-066754.txt"),
+            ("BROOKFIELD ASSET MANAGEMENT INC.", "6-K",
+             "https://www.sec.gov/Archives/edgar/data/1001085/0001104659-18-075315.txt"),
+            ("BANK OF SOUTH CAROLINA CORP", "4",
+             "https://www.sec.gov/Archives/edgar/data/1007273/0001225208-18-017075.txt")
         ]
     )
-    def test_get_urls(self, mock_daily_quarter_directory, mock_daily_idx_file, url):
+    def test_get_urls(self, mock_daily_quarter_directory, mock_daily_idx_file, company_name, filing_type, url):
         daily_filing = DailyFilings(datetime(2018, 12, 31))
-        assert url in daily_filing.get_urls()
+        assert url in daily_filing.get_urls()[company_name][filing_type]
 
     def test_get_listings_directory(self, mock_daily_quarter_directory):
         assert DailyFilings(datetime(2018, 12, 31)).get_listings_directory().status_code == 200
@@ -158,28 +161,30 @@ class TestDaily:
         assert daily_filing._get_idx_formatted_date() == formatted
 
     @pytest.mark.parametrize(
-        "subdir,file",
+        "company_name,filing_type,file",
         [
-            ("HENRY_SCHEIN_INC", "0001209191-18-064398.txt"),
-            ("ROYAL_BANK_OF_CANADA", "0001140361-18-046093.txt"),
-            ("NOVAVAX_INC", "0001144204-18-066754.txt"),
-            ("BROOKFIELD_ASSET_MANAGEMENT_INC", "0001104659-18-075315.txt"),
-            ("BANK_OF_SOUTH_CAROLINA_CORP", "0001225208-18-017075.txt")
+            ("HENRY_SCHEIN_INC", "4", "0001209191-18-064398.txt"),
+            ("ROYAL_BANK_OF_CANADA", "424B2", "0001140361-18-046093.txt"),
+            ("NOVAVAX_INC", "424B5", "0001144204-18-066754.txt"),
+            ("BROOKFIELD_ASSET_MANAGEMENT_INC", "6-K", "0001104659-18-075315.txt"),
+            ("BANK_OF_SOUTH_CAROLINA_CORP", "4", "0001225208-18-017075.txt")
         ]
     )
     def test_save(self, tmp_data_directory,
                   mock_filing_data,
                   mock_daily_quarter_directory,
                   mock_daily_idx_file,
-                  subdir,
+                  company_name,
+                  filing_type,
                   file):
         daily_filing = DailyFilings(datetime(2018, 12, 31))
         daily_filing.save(tmp_data_directory)
-        subdir = os.path.join("20181231", subdir)
-        path_to_check = os.path.join(tmp_data_directory, subdir, file)
+        path_to_check = os.path.join(tmp_data_directory, "20181231",
+                                     company_name, filing_type, file)
         assert os.path.exists(path_to_check)
 
     @pytest.mark.smoke
+    @pytest.mark.slow
     def test_save_smoke(self, tmp_data_directory):
-        daily_filing = DailyFilings(datetime(2020, 9, 30))
+        daily_filing = DailyFilings(datetime(1994, 7, 5))
         daily_filing.save(tmp_data_directory)
