@@ -108,7 +108,8 @@ class IndexFilings(AbstractIndexFilings):
         Args:
             update_cache (bool, optional): Whether master index should be updated.
                 Defaults to False.
-            kwargs: Any keyword arguments to pass to ``secedgar.client._base.AbstractClient.get_response``.
+            kwargs: Any keyword arguments to pass to
+                ``secedgar.client._base.AbstractClient.get_response``.
 
         Returns:
             text (str): Idx file text.
@@ -133,17 +134,20 @@ class IndexFilings(AbstractIndexFilings):
         """Get all filings for day.
 
         Args:
-            kwargs: Any keyword arguments to pass to ``secedgar.filings.daily.DailyFilings._get_master_idx_file``.
+            kwargs: Any keyword arguments to pass to
+                ``secedgar.filings.daily.DailyFilings._get_master_idx_file``.
 
         Returns:
-            filings_dict (dict of list of namedtuples): Dictionary with list of filing entries (namedtuples).
+            filings_dict (dict of list of namedtuples): Dictionary with list of
+                filing entries (namedtuples).
         """
         idx_file = self._get_master_idx_file(**kwargs)
 
         # Will have CIK as keys and list of FilingEntry namedtuples as values
         self._filings_dict = {}
         FilingEntry = namedtuple(
-            "FilingEntry", ["cik", "company_name", "filing_type", "date_filed", "file_name", "path"])
+            "FilingEntry",
+            ["cik", "company_name", "filing_type", "date_filed", "file_name", "path"])
 
         # idx file will have lines of the form CIK|Company Name|Form Type|Date Filed|File Name
         entries = re.findall(r'^[0-9]+[|].+[|].+[|][0-9\-]+[|].+$', idx_file, re.MULTILINE)
@@ -194,7 +198,8 @@ class IndexFilings(AbstractIndexFilings):
         Expects client _BASE to have trailing "/" for final URLs.
 
         Args:
-            kwargs: Any keyword arguments to pass to ``secedgar.filings._index.IndexFilings.get_filings_dict``.
+            kwargs: Any keyword arguments to pass to
+                ``secedgar.filings._index.IndexFilings.get_filings_dict``.
 
         Returns:
             urls (dict of dict of list of str): Dict with all URLs to get broken down by
@@ -236,7 +241,8 @@ class IndexFilings(AbstractIndexFilings):
         Args:
             directory (str): Directory where filings should be stored. Will be broken down
                 further by company name and form type.
-            kwargs: Any keyword arguments to pass to ``secedgar.filings._index.IndexFilings.get_urls``.
+            kwargs: Any keyword arguments to pass to
+                ``secedgar.filings._index.IndexFilings.get_urls``.
         """
         for company_name, filing_types in self.get_urls(**kwargs).items():
             clean_company_name = self.clean_directory_path(company_name)

@@ -82,17 +82,24 @@ class TestDaily:
     @pytest.mark.parametrize(
         "company_name,filing_type,url",
         [
-            ("HENRY SCHEIN INC", "4", "https://www.sec.gov/Archives/edgar/data/1000228/0001209191-18-064398.txt"),
+            ("HENRY SCHEIN INC", "4",
+             "https://www.sec.gov/Archives/edgar/data/1000228/0001209191-18-064398.txt"),
             ("ROYAL BANK OF CANADA", "424B2",
              "https://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046093.txt"),
-            ("NOVAVAX INC", "424B5", "https://www.sec.gov/Archives/edgar/data/1000694/0001144204-18-066754.txt"),
+            ("NOVAVAX INC", "424B5",
+             "https://www.sec.gov/Archives/edgar/data/1000694/0001144204-18-066754.txt"),
             ("BROOKFIELD ASSET MANAGEMENT INC.", "6-K",
              "https://www.sec.gov/Archives/edgar/data/1001085/0001104659-18-075315.txt"),
             ("BANK OF SOUTH CAROLINA CORP", "4",
              "https://www.sec.gov/Archives/edgar/data/1007273/0001225208-18-017075.txt")
         ]
     )
-    def test_get_urls(self, mock_daily_quarter_directory, mock_daily_idx_file, company_name, filing_type, url):
+    def test_get_urls(self,
+                      mock_daily_quarter_directory,
+                      mock_daily_idx_file,
+                      company_name,
+                      filing_type,
+                      url):
         daily_filing = DailyFilings(datetime(2018, 12, 31))
         assert url in daily_filing.get_urls()[company_name][filing_type]
 
