@@ -5,7 +5,7 @@ import warnings
 
 from secedgar.filings._base import AbstractFilings
 from secedgar.client.network_client import NetworkClient
-from secedgar.utils import sanitize_date, make_path
+from secedgar.utils import create_subdirectory, sanitize_date
 
 from secedgar.filings.cik_lookup import CIKLookup
 from secedgar.filings.filing_types import FilingType
@@ -230,7 +230,7 @@ class Filing(AbstractFilings):
             for link in links:
                 data = requests.get(link).text
                 path = os.path.join(directory, cik, self.filing_type.value)
-                make_path(path)
+                create_subdirectory(path)
                 path = os.path.join(path, self.get_accession_number(link))
                 with open(path, "w") as f:
                     f.write(data)

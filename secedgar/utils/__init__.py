@@ -28,7 +28,7 @@ def sanitize_date(date):
     return date
 
 
-def make_path(path, **kwargs):
+def create_subdirectory(path, **kwargs):
     """Make directory based on filing info.
 
     Args:
