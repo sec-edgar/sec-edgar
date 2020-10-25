@@ -34,7 +34,8 @@ class AbstractFiling(ABC):
             kwargs: Anything to be passed to requests when making GET request.
 
         Returns:
-            urls (list): List of urls for txt files to download.
+            urls (dict): Dictionary of urls for txt files to download.
+                Keys are lookup terms and values are list of URLs.
         """
         pass  # pragma: no cover
 
@@ -69,3 +70,19 @@ class AbstractFiling(ABC):
         allowed = string.digits + string.ascii_letters + string.whitespace
         stripped = "".join(c for c in path if c in allowed)
         return stripped.replace(" ", "_")
+
+    def _check_urls_exist(self):
+        """Wrapper around `get_urls` to check if there is a positive number of URLs.
+
+        .. note:: This method will not check if the URLs are valid. Simply if they exist.
+
+        Raises:
+            ValueError: If no URLs exist, then ValueError is raised.
+
+        Returns:
+            urls (dict): Result of `get_urls` method.
+        """
+        urls = self.get_urls()
+        if all(len(urls[cik]) == 0 for cik in urls.keys()):
+            raise ValueError("No filings available.")
+        return urls
