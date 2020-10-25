@@ -54,61 +54,25 @@ class TestDaily:
             DailyFilings(bad_date)
 
     @pytest.mark.parametrize(
-        "good_date",
+        "key,url",
         [
-            datetime(2020, 1, 1),
-            datetime(1993, 1, 1),
-            datetime(1999, 12, 31),
+            ("1000228", "http://www.sec.gov/Archives/edgar/data/1000228/0001209191-18-064398.txt"),
+            ("1000275", "http://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046093.txt"),
+            ("1000275", "http://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046095.txt"),
+            ("1000275", "http://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046101.txt"),
+            ("1000275", "http://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046102.txt")
         ]
     )
-    def test_good_date_on_init(self, good_date):
-        daily_filings = DailyFilings(date=good_date)
-        assert daily_filings.date == good_date
-
-    @pytest.mark.parametrize(
-        "bad_date",
-        [
-            "2020",
-            "20200101",
-            "0506",
-            20200101,
-            None
-        ]
-    )
-    def test_bad_date_on_init(self, bad_date):
-        with pytest.raises(TypeError):
-            DailyFilings(date=bad_date)
-
-    @pytest.mark.parametrize(
-        "company_name,filing_type,url",
-        [
-            ("HENRY SCHEIN INC", "4",
-             "https://www.sec.gov/Archives/edgar/data/1000228/0001209191-18-064398.txt"),
-            ("ROYAL BANK OF CANADA", "424B2",
-             "https://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046093.txt"),
-            ("NOVAVAX INC", "424B5",
-             "https://www.sec.gov/Archives/edgar/data/1000694/0001144204-18-066754.txt"),
-            ("BROOKFIELD ASSET MANAGEMENT INC.", "6-K",
-             "https://www.sec.gov/Archives/edgar/data/1001085/0001104659-18-075315.txt"),
-            ("BANK OF SOUTH CAROLINA CORP", "4",
-             "https://www.sec.gov/Archives/edgar/data/1007273/0001225208-18-017075.txt")
-        ]
-    )
-    def test_get_urls(self,
-                      mock_daily_quarter_directory,
-                      mock_daily_idx_file,
-                      company_name,
-                      filing_type,
-                      url):
+    def test_get_urls(self, mock_daily_quarter_directory, mock_daily_idx_file, key, url):
         daily_filing = DailyFilings(datetime(2018, 12, 31))
-        assert url in daily_filing.get_urls()[company_name][filing_type]
+        assert url in daily_filing.get_urls()[key]
 
     def test_get_listings_directory(self, mock_daily_quarter_directory):
         assert DailyFilings(datetime(2018, 12, 31)).get_listings_directory().status_code == 200
         assert "master.20181231.idx" in DailyFilings(
             datetime(2018, 12, 31)).get_listings_directory().text
 
-    @pytest.mark.parametrize(
+    @ pytest.mark.parametrize(
         "company_name",
         [
             "HENRY SCHEIN INC",
@@ -126,7 +90,7 @@ class TestDaily:
         # All company names above should be in file
         assert company_name in daily_filing._get_master_idx_file()
 
-    @pytest.mark.parametrize(
+    @ pytest.mark.parametrize(
         "year,month,day,quarter",
         [
             (2018, 1, 1, 1),
@@ -149,7 +113,7 @@ class TestDaily:
         daily_filing = DailyFilings(datetime(2020, 1, 1))
         assert not daily_filing.params
 
-    @pytest.mark.parametrize(
+    @ pytest.mark.parametrize(
         "date_tuple,formatted",
         [
             ((1994, 1, 2), "010294"),
@@ -167,14 +131,14 @@ class TestDaily:
         daily_filing = DailyFilings(datetime(*date_tuple))
         assert daily_filing._get_idx_formatted_date() == formatted
 
-    @pytest.mark.parametrize(
-        "company_name,filing_type,file",
+    @ pytest.mark.parametrize(
+        "subdir,file",
         [
-            ("HENRY_SCHEIN_INC", "4", "0001209191-18-064398.txt"),
-            ("ROYAL_BANK_OF_CANADA", "424B2", "0001140361-18-046093.txt"),
-            ("NOVAVAX_INC", "424B5", "0001144204-18-066754.txt"),
-            ("BROOKFIELD_ASSET_MANAGEMENT_INC", "6-K", "0001104659-18-075315.txt"),
-            ("BANK_OF_SOUTH_CAROLINA_CORP", "4", "0001225208-18-017075.txt")
+            ("1000228", "0001209191-18-064398.txt"),
+            ("1000275", "0001140361-18-046093.txt"),
+            ("1000694", "0001144204-18-066754.txt"),
+            ("1001085", "0001104659-18-075315.txt"),
+            ("1007273", "0001225208-18-017075.txt")
         ]
     )
     def test_save(self, tmp_data_directory,

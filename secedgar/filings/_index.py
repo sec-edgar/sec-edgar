@@ -53,7 +53,7 @@ class IndexFilings(AbstractIndexFilings):
         self._master_idx_file = None
         self._filings_dict = None
         self._paths = []
-        self._urls = None
+        self._urls = {}
 
     @property
     def client(self):
@@ -138,28 +138,24 @@ class IndexFilings(AbstractIndexFilings):
             filings_dict (dict of list of namedtuples): Dictionary with list of
                 filing entries (namedtuples).
         """
-        idx_file = self._get_master_idx_file(**kwargs)
-
-        # Will have CIK as keys and list of FilingEntry namedtuples as values
-        self._filings_dict = {}
-        FilingEntry = namedtuple(
-            "FilingEntry",
-            ["cik", "company_name", "filing_type", "date_filed", "file_name", "path"])
-
-        # idx file will have lines of the form CIK|Company Name|Form Type|Date Filed|File Name
-        entries = re.findall(r'^[0-9]+[|].+[|].+[|][0-9\-]+[|].+$', idx_file, re.MULTILINE)
-        for entry in entries:
-            fields = entry.split("|")
-            path = self.make_path(fields[-1])
-            filing_entry = FilingEntry(*fields, path)
-
-            # Add new filing entry to company name's list
-            company_name = filing_entry.company_name
-
-            try:
-                self._filings_dict[company_name].append(filing_entry)
-            except KeyError:
-                self._filings_dict[company_name] = [filing_entry]
+        if self._filings_dict is None or update_cache:
+            idx_file = self._get_master_idx_file(**kwargs)
+            # Will have CIK as keys and list of FilingEntry namedtuples as values
+            self._filings_dict = {}
+            FilingEntry = namedtuple(
+                "FilingEntry", ["cik", "company_name", "form_type", "date_filed", "file_name",
+                                "path"])
+            # idx file will have lines of the form CIK|Company Name|Form Type|Date Filed|File Name
+            entries = re.findall(r'^[0-9]+[|].+[|].+[|][0-9\-]+[|].+$', idx_file, re.MULTILINE)
+            for entry in entries:
+                fields = entry.split("|")
+                path = "Archives/{file_name}".format(file_name=fields[-1])
+                entry = FilingEntry(*fields, path=path)
+                # Add new filing entry to CIK's list
+                if fields[0] in self._filings_dict:
+                    self._filings_dict[fields[0]].append(entry)
+                else:
+                    self._filings_dict[fields[0]] = [entry]
         return self._filings_dict
 
     def make_url(self, path):
@@ -173,23 +169,7 @@ class IndexFilings(AbstractIndexFilings):
         """
         return "{base}{path}".format(base=self.client._BASE, path=path)
 
-    @staticmethod
-    def make_path(filename):
-        """Gets all paths for given day.
-
-        Each path will look something like
-        "edgar/data/1000228/0001209191-18-064398.txt".
-
-        Args:
-            filename (str): File name to create path from.
-
-
-        Returns:
-            Correct path from filename.
-        """
-        return "Archives/{filename}".format(filename=filename)
-
-    def get_urls(self, **kwargs):
+    def get_urls(self):
         """Get all URLs for day.
 
         Expects client _BASE to have trailing "/" for final URLs.
@@ -202,53 +182,38 @@ class IndexFilings(AbstractIndexFilings):
             urls (dict of dict of list of str): Dict with all URLs to get broken down by
             company name and further by form type. Of the form {company_name: {filing_type: urls}}
         """
-        if self._urls is None or kwargs.get('update_cache', False):
-            self._urls = {}
-            for company_name, filings in self.get_filings_dict(**kwargs).items():
-                for filing in filings:
-                    url = self.make_url(filing.path)
-
-                    # Create or append to company_name key further breaking down
-                    # by filing type
-                    try:
-                        self._urls[company_name][filing.filing_type].append(url)
-                    except KeyError:
-                        try:
-                            self._urls[company_name][filing.filing_type] = [url]
-                        except KeyError:
-                            self._urls[company_name] = {filing.filing_type: [url]}
+        if not self._urls:
+            filings_dict = self.get_filings_dict()
+            self._urls = {company: [self.make_url(entry.path) for entry in entries]
+                          for company, entries in filings_dict.items()}
         return self._urls
 
     def save_filings(self, directory, **kwargs):
         """Save all filings.
 
-        Will store all filings for each unique company name under a separate subdirectory
+        Will store all filings for each unique CIK under a separate subdirectory
         within given directory argument.
 
         Ex:
         my_directory
         |
-        ---- Apple Inc.
+        ---- CIK 1
              |
              ---- ...txt files
-        ---- Microsoft Corp.
+        ---- CIK 2
              |
              ---- ...txt files
 
         Args:
-            directory (str): Directory where filings should be stored. Will be broken down
-                further by company name and form type.
-            kwargs:  Keyword arguments to pass to
-                ``secedgar.filings._index.IndexFilings.get_urls``.
+            directory (str): Directory where filings should be stored.
         """
-        for company_name, filing_types in self.get_urls(**kwargs).items():
-            clean_company_name = self.clean_directory_path(company_name)
-            for filing_type, urls in filing_types.items():
-                subdirectory = os.path.join(directory, clean_company_name, filing_type)
-                create_subdirectory(subdirectory)
-                for url in urls:
-                    accession_number = self.get_accession_number(url)
-                    filing_path = os.path.join(subdirectory, accession_number)
-                    data = requests.get(url).text
-                    with open(filing_path, 'w') as f:
-                        f.write(data)
+        urls = self._check_urls_exist()
+
+        for company, links in urls.items():
+            for link in links:
+                data = requests.get(link).text
+                path = os.path.join(directory, company)
+                make_path(path)
+                path = os.path.join(path, self.get_accession_number(link))
+                with open(path, "w") as f:
+                    f.write(data)

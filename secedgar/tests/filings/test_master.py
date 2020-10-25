@@ -65,11 +65,11 @@ class TestMaster:
     @pytest.mark.parametrize(
         "subdir,filing_type,file",
         [
-            ("SAGE_CAPITAL_LP", "REGDEX", "9999999997-02-056978.txt"),
-            ("BETHLEHEM_STEEL_CORP_DE", "10-Q", "0000011860-94-000005.txt"),
-            ("CAPITAL_HOLDING_CORP", "10-K/A", "0000017206-94-000007.txt"),
-            ("DATAPOINT_CORP", "10-Q", "0000205239-94-000003.txt"),
-            ("CLARK_REFINING__MARKETING_INC", "10-Q", "0000950131-94-000025.txt"),
+            ("1095785", "9999999997-02-056978.txt"),
+            ("11860", "0000011860-94-000005.txt"),
+            ("17206", "0000017206-94-000007.txt"),
+            ("205239", "0000205239-94-000003.txt"),
+            ("20762", "0000950131-94-000025.txt"),
         ]
     )
     def test_save(self, tmp_data_directory,
