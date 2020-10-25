@@ -72,7 +72,7 @@ class TestDaily:
         assert "master.20181231.idx" in DailyFilings(
             datetime(2018, 12, 31)).get_listings_directory().text
 
-    @ pytest.mark.parametrize(
+    @pytest.mark.parametrize(
         "company_name",
         [
             "HENRY SCHEIN INC",
@@ -90,7 +90,7 @@ class TestDaily:
         # All company names above should be in file
         assert company_name in daily_filing._get_master_idx_file()
 
-    @ pytest.mark.parametrize(
+    @pytest.mark.parametrize(
         "year,month,day,quarter",
         [
             (2018, 1, 1, 1),
@@ -113,7 +113,7 @@ class TestDaily:
         daily_filing = DailyFilings(datetime(2020, 1, 1))
         assert not daily_filing.params
 
-    @ pytest.mark.parametrize(
+    @pytest.mark.parametrize(
         "date_tuple,formatted",
         [
             ((1994, 1, 2), "010294"),
@@ -131,7 +131,7 @@ class TestDaily:
         daily_filing = DailyFilings(datetime(*date_tuple))
         assert daily_filing._get_idx_formatted_date() == formatted
 
-    @ pytest.mark.parametrize(
+    @pytest.mark.parametrize(
         "subdir,file",
         [
             ("1000228", "0001209191-18-064398.txt"),
