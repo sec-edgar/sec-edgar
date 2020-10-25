@@ -1,0 +1,13 @@
+v0.2.1
+------
+
+Highlights
+~~~~~~~~~~
+
+* Fixes bug where ``DailyFilings`` and ``MasterFilings`` does not use correct URLs when calling `save` method (thanks to alpbozkurt!)
+
+Contributors
+~~~~~~~~~~~~
+
+- jackmoody11
+- alpbozkurt
