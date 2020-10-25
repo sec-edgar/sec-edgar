@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Finding Company CIKs &mdash; secedgar 0.2.1 documentation</title>
+  <title>Finding Company CIKs &mdash; secedgar 0.2.2 documentation</title>
   
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                0.2.1
+                0.2.2
               </div>
             
           
@@ -198,7 +198,12 @@ company name as keys.</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">secedgar.utils</span> <span class="kn">import</span> <span class="n">get_cik_map</span>
 
 <span class="gp">In [2]: </span><span class="nb">dict</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">get_cik_map</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">())[:</span><span class="mi">5</span><span class="p">])</span>
-<span class="gh">Out[2]: </span><span class="go">{&#39;AIR&#39;: &#39;1750&#39;, &#39;ABT&#39;: &#39;1800&#39;, &#39;WDDD&#39;: &#39;1961&#39;, &#39;ACET&#39;: &#39;2034&#39;, &#39;ACU&#39;: &#39;2098&#39;}</span>
+<span class="gh">Out[2]: </span><span class="go"></span>
+<span class="go">{&#39;AAPL&#39;: &#39;320193&#39;,</span>
+<span class="go"> &#39;MSFT&#39;: &#39;789019&#39;,</span>
+<span class="go"> &#39;AMZN&#39;: &#39;1018724&#39;,</span>
+<span class="go"> &#39;GOOG&#39;: &#39;1652044&#39;,</span>
+<span class="go"> &#39;BABA&#39;: &#39;1577552&#39;}</span>
 </pre></div>
 </div>
 <p>To get a dictionary with the company names as the keys, use <code class="docutils literal notranslate"><span class="pre">key=&quot;title&quot;</span></code>.</p>
@@ -206,11 +211,11 @@ company name as keys.</p>
 
 <span class="gp">In [4]: </span><span class="nb">dict</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">get_cik_map</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;title&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">())[:</span><span class="mi">5</span><span class="p">])</span>
 <span class="gh">Out[4]: </span><span class="go"></span>
-<span class="go">{&#39;AAR CORP&#39;: &#39;1750&#39;,</span>
-<span class="go"> &#39;ABBOTT LABORATORIES&#39;: &#39;1800&#39;,</span>
-<span class="go"> &#39;WORLDS INC&#39;: &#39;1961&#39;,</span>
-<span class="go"> &#39;ACETO CORP&#39;: &#39;2034&#39;,</span>
-<span class="go"> &#39;ACME UNITED CORP&#39;: &#39;2098&#39;}</span>
+<span class="go">{&#39;Apple Inc.&#39;: &#39;320193&#39;,</span>
+<span class="go"> &#39;MICROSOFT CORP&#39;: &#39;789019&#39;,</span>
+<span class="go"> &#39;AMAZON COM INC&#39;: &#39;1018724&#39;,</span>
+<span class="go"> &#39;Alphabet Inc.&#39;: &#39;1652044&#39;,</span>
+<span class="go"> &#39;Alibaba Group Holding Ltd&#39;: &#39;1577552&#39;}</span>
 </pre></div>
 </div>
 </div>
