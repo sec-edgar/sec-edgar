@@ -27,7 +27,7 @@ class IndexFilings(AbstractFiling):
         self._master_idx_file = None
         self._filings_dict = None
         self._paths = []
-        self._urls = []
+        self._urls = {}
 
     @property
     def client(self):
@@ -115,16 +115,19 @@ class IndexFilings(AbstractFiling):
             # Will have CIK as keys and list of FilingEntry namedtuples as values
             self._filings_dict = {}
             FilingEntry = namedtuple(
-                "FilingEntry", ["cik", "company_name", "form_type", "date_filed", "file_name"])
+                "FilingEntry", ["cik", "company_name", "form_type", "date_filed", "file_name",
+                                "path"])
             # idx file will have lines of the form CIK|Company Name|Form Type|Date Filed|File Name
             entries = re.findall(r'^[0-9]+[|].+[|].+[|][0-9\-]+[|].+$', idx_file, re.MULTILINE)
             for entry in entries:
                 fields = entry.split("|")
+                path = "Archives/{file_name}".format(file_name=fields[-1])
+                entry = FilingEntry(*fields, path=path)
                 # Add new filing entry to CIK's list
                 if fields[0] in self._filings_dict:
-                    self._filings_dict[fields[0]].append(FilingEntry(*fields))
+                    self._filings_dict[fields[0]].append(entry)
                 else:
-                    self._filings_dict[fields[0]] = [FilingEntry(*fields)]
+                    self._filings_dict[fields[0]] = [entry]
         return self._filings_dict
 
     def make_url(self, path):
@@ -138,28 +141,6 @@ class IndexFilings(AbstractFiling):
         """
         return "{base}{path}".format(base=self.client._BASE, path=path)
 
-    def get_paths(self, update_cache=False):
-        """Gets all paths for given day.
-
-        Each path will look something like
-        "edgar/data/1000228/0001209191-18-064398.txt".
-
-        Args:
-            update_cache (bool, optional): Whether urls should be updated on each method call.
-                Defaults to False.
-
-        Returns:
-            urls (list of str): List of urls.
-        """
-        if len(self._paths) == 0:
-            for entries in self.get_filings_dict().values():
-                for entry in entries:
-                    # Will be of the form
-                    self._paths.append(
-                        "Archives/{file_name}".format(
-                            file_name=entry.file_name))
-        return self._paths
-
     def get_urls(self):
         """Get all URLs for day.
 
@@ -168,43 +149,38 @@ class IndexFilings(AbstractFiling):
         Returns:
             urls (list of str): List of all URLs to get.
         """
-        if len(self._urls) == 0:
-            paths = self.get_paths()
-            self._urls = [self.make_url(path) for path in paths]
+        if not self._urls:
+            filings_dict = self.get_filings_dict()
+            self._urls = {company: [self.make_url(entry.path) for entry in entries]
+                          for company, entries in filings_dict.items()}
         return self._urls
 
     def save_filings(self, directory):
         """Save all filings.
 
-        Will store all filings for each unique company name under a separate subdirectory
+        Will store all filings for each unique CIK under a separate subdirectory
         within given directory argument.
 
         Ex:
         my_directory
         |
-        ---- Apple Inc.
+        ---- CIK 1
              |
              ---- ...txt files
-        ---- Microsoft Corp.
+        ---- CIK 2
              |
              ---- ...txt files
 
         Args:
-            directory (str): Directory where filings should be stored. Will be broken down
-                further by company name and form type.
+            directory (str): Directory where filings should be stored.
         """
-        self.get_filings_dict()
-        for filings in self._filings_dict.values():
-            # take the company name from the first filing and make that the subdirectory name
-            clean_company_name = self.clean_directory_path(filings[0].company_name)
-            subdirectory = os.path.join(directory, clean_company_name)
-            # TODO: Clean company name to make valid directory name (get rid of special characters)
-            make_path(subdirectory)
-            for filing in filings:
-                filename = self.get_accession_number(filing.file_name)
-                filing_path = os.path.join(
-                    subdirectory, filename)
-                url = self.make_url(filename)
-                data = requests.get(url).text
-                with open(filing_path, 'w') as f:
+        urls = self._check_urls_exist()
+
+        for company, links in urls.items():
+            for link in links:
+                data = requests.get(link).text
+                path = os.path.join(directory, company)
+                make_path(path)
+                path = os.path.join(path, self.get_accession_number(link))
+                with open(path, "w") as f:
                     f.write(data)

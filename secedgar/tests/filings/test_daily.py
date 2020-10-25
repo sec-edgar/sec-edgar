@@ -54,18 +54,18 @@ class TestDaily:
             DailyFilings(bad_date)
 
     @pytest.mark.parametrize(
-        "url",
+        "key,url",
         [
-            "http://www.sec.gov/Archives/edgar/data/1000228/0001209191-18-064398.txt",
-            "http://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046093.txt",
-            "http://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046095.txt",
-            "http://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046101.txt",
-            "http://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046102.txt"
+            ("1000228", "http://www.sec.gov/Archives/edgar/data/1000228/0001209191-18-064398.txt"),
+            ("1000275", "http://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046093.txt"),
+            ("1000275", "http://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046095.txt"),
+            ("1000275", "http://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046101.txt"),
+            ("1000275", "http://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046102.txt")
         ]
     )
-    def test_get_urls(self, mock_daily_quarter_directory, mock_daily_idx_file, url):
+    def test_get_urls(self, mock_daily_quarter_directory, mock_daily_idx_file, key, url):
         daily_filing = DailyFilings(datetime(2018, 12, 31))
-        assert url in daily_filing.get_urls()
+        assert url in daily_filing.get_urls()[key]
 
     def test_get_listings_directory(self, mock_daily_quarter_directory):
         assert DailyFilings(datetime(2018, 12, 31)).get_listings_directory().status_code == 200
@@ -134,11 +134,11 @@ class TestDaily:
     @pytest.mark.parametrize(
         "subdir,file",
         [
-            ("HENRY_SCHEIN_INC", "0001209191-18-064398.txt"),
-            ("ROYAL_BANK_OF_CANADA", "0001140361-18-046093.txt"),
-            ("NOVAVAX_INC", "0001144204-18-066754.txt"),
-            ("BROOKFIELD_ASSET_MANAGEMENT_INC", "0001104659-18-075315.txt"),
-            ("BANK_OF_SOUTH_CAROLINA_CORP", "0001225208-18-017075.txt")
+            ("1000228", "0001209191-18-064398.txt"),
+            ("1000275", "0001140361-18-046093.txt"),
+            ("1000694", "0001144204-18-066754.txt"),
+            ("1001085", "0001104659-18-075315.txt"),
+            ("1007273", "0001225208-18-017075.txt")
         ]
     )
     def test_save(self, tmp_data_directory,

@@ -191,23 +191,6 @@ class Filing(AbstractFiling):
         # Takes `count` filings at most
         return txt_urls[:self.count]
 
-    def _get_accession_numbers(self, links):
-        """Gets accession numbers given list of links.
-
-        Of the form https://www.sec.gov/Archives/edgar/data/<cik>/
-        <first part of accession number before '-'>/<accession number>-index.htm.
-
-        Args:
-            links (list): List of links to extract accession numbers from.
-
-        Returns:
-            List of accession numbers for given links.
-        """
-        self._accession_numbers = [self.get_accession_number(
-            link).replace('-index.htm', '') for link in links]
-        return self._accession_numbers
-
-    # TODO: break this method down further
     def save(self, directory):
         """Save files in specified directory.
 
@@ -223,9 +206,7 @@ class Filing(AbstractFiling):
         Raises:
             ValueError: If no text urls are available for given filing object.
         """
-        urls = self.get_urls()
-        if all(len(urls[cik]) == 0 for cik in urls.keys()):
-            raise ValueError("No filings available.")
+        urls = self._check_urls_exist()
 
         for cik, links in urls.items():
             for link in links:
