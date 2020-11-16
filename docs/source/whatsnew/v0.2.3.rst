@@ -1,0 +1,12 @@
+v0.2.3
+------
+
+Highlights
+~~~~~~~~~~
+
+* Adds validation to ``secedgar.utils.cik_map.get_cik_map`` to ensure correct key options are being used
+
+Contributors
+~~~~~~~~~~~~
+
+- jackmoody11
