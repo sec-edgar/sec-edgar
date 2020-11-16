@@ -43,7 +43,7 @@ class IndexFilings(AbstractFiling):
     @abstractmethod
     def year(self):
         """Passed to children classes."""
-        pass
+        pass  # pragma: no cover
 
     @property
     @abstractmethod
