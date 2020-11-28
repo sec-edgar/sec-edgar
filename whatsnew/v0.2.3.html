@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>v0.2.1 &mdash; secedgar 0.2.3 documentation</title>
+  <title>v0.2.3 &mdash; secedgar 0.2.3 documentation</title>
   
 
   
@@ -145,13 +145,13 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>v0.2.1</li>
+      <li>v0.2.3</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/whatsnew/v0.2.1.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/whatsnew/v0.2.3.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -164,19 +164,20 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="v0-2-1">
-<h1>v0.2.1<a class="headerlink" href="#v0-2-1" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="v0-2-3">
+<h1>v0.2.3<a class="headerlink" href="#v0-2-3" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="highlights">
 <h2>Highlights<a class="headerlink" href="#highlights" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Fixes bug where <code class="docutils literal notranslate"><span class="pre">Filing</span></code> does not work when <code class="docutils literal notranslate"><span class="pre">count</span></code> is not specified (thanks to formvoltron!)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">secedgar.filings.cik_lookup.CIKLookup</span></code> tries to use <code class="docutils literal notranslate"><span class="pre">secedgar.utils.cik_map.get_cik_map</span></code> first when looking up tickers/company names (regardless of whether tickers are upper or lowercase)</p></li>
+<li><p>Adds validation to <code class="docutils literal notranslate"><span class="pre">secedgar.utils.cik_map.get_cik_map</span></code> to ensure correct key options are being used</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">secedgar.client.network_client.NetworkClient</span></code> now pauses at the end of request as well if <cite>pause</cite> is given.</p></li>
 </ul>
 </div>
 <div class="section" id="contributors">
 <h2>Contributors<a class="headerlink" href="#contributors" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>jackmoody11</p></li>
-<li><p>formvoltron</p></li>
 </ul>
 </div>
 </div>
