@@ -91,15 +91,17 @@ class NetworkClient(AbstractClient):
             EDGARQueryError: If problems arise when making query.
         """
         prepared_url = self._prepare_query(path)
+        response = None
         for i in range(self.retry_count + 1):
             response = requests.get(prepared_url, params=params, **kwargs)
             try:
                 self._validate_response(response)
             except EDGARQueryError:
-                time.sleep(self.pause)
                 # Raise query error if on last retry
                 if i == self.retry_count:
                     raise EDGARQueryError()
+            finally:
+                time.sleep(self.pause)
         self.response = response
         return self.response
 
