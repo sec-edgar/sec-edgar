@@ -40,10 +40,6 @@ def mock_single_cik_not_found(monkeypatch):
 
 
 class TestCIKLookup(object):
-    def test_cik_lookup_returns_correct_values(self, mock_single_cik_lookup_response):
-        aapl = CIKLookup('aapl')
-        assert aapl.ciks == ['0000320193']
-
     @pytest.mark.parametrize(
         "lookup,expected",
         [
@@ -56,8 +52,8 @@ class TestCIKLookup(object):
         ]
     )
     def test_cik_lookup_returns_correct_values(self, lookup, expected, mock_get_cik_map):
-        l = CIKLookup(lookup)
-        assert l.lookup_dict == expected
+        look = CIKLookup(lookup)
+        assert look.lookup_dict == expected
 
     def test_cik_lookup_lookups_property(self):
         multiple_company_lookup = CIKLookup(['aapl', 'msft', 'fb'])
