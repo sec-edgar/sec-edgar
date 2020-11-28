@@ -1,6 +1,7 @@
 import warnings
 
 from secedgar.client.network_client import NetworkClient
+from secedgar.utils.cik_map import get_cik_map
 from secedgar.utils.exceptions import CIKError, EDGARQueryError
 
 
@@ -58,8 +59,35 @@ class _CIKValidator(object):
             ciks (dict): Dictionary with lookup terms as keys and CIKs as values.
 
         """
-        ciks = {}
-        for lookup in self._lookups:
+        ciks = dict()
+        to_lookup = set(self.lookups)
+        found = set()
+
+        # First, try to get all CIKs with ticker map
+        # Tickers in map are upper case, so look up with upper case
+        ticker_map = get_cik_map(key="ticker")
+        for lookup in to_lookup:
+            try:
+                ciks[lookup] = ticker_map[lookup.upper()]
+                found.add(lookup)
+            except KeyError:
+                continue
+        to_lookup -= found
+
+        # If any more lookups remain, try to finish with company name map
+        # Case varies from company, so lookup with what is given
+        if to_lookup:
+            company_map = get_cik_map(key="title")
+            for lookup in to_lookup:
+                try:
+                    ciks[lookup] = company_map[lookup]
+                    found.add(lookup)
+                except KeyError:
+                    continue
+            to_lookup -= found
+
+        # Finally, if lookups are still left, look them up through the SEC's search
+        for lookup in to_lookup:
             try:
                 result = self._get_cik(lookup)
                 self._validate_cik(result)  # raises error if not valid CIK
@@ -88,7 +116,7 @@ class _CIKValidator(object):
             self._params['CIK'] = lookup
             return self._client.get_soup(self.path, self.params)
         except EDGARQueryError:  # fallback to lookup by company name
-            del self._params['CIK']  # delete this parameter so no conflicts arise
+            self.params.pop('CIK')  # delete this parameter so no conflicts arise
             self._params['company'] = lookup
             return self._client.get_soup(self.path, self.params)
 
