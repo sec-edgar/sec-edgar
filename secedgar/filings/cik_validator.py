@@ -116,10 +116,8 @@ class _CIKValidator(object):
             warnings.warn(warning_message)
         finally:
             # Delete parameters after lookup
-            if self._params.get('company') is not None:
-                del self._params['company']
-            if self._params.get('CIK') is not None:
-                del self._params['CIK']
+            self.params.pop('company', None)
+            self.params.pop('CIK', None)
 
     @staticmethod
     def _get_cik_possibilities(soup):
