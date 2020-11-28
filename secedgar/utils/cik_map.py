@@ -18,6 +18,8 @@ def get_cik_map(key="ticker"):
 
     .. versionadded:: 0.1.6
     """
+    if key not in ("ticker", "title"):
+        raise ValueError("key must be 'ticker' or 'title'. Was given {key}.".format(key=key))
     response = requests.get(URL)
     json_response = json.loads(response.text)
     return {v[key]: str(v["cik_str"]) for v in json_response.values()}

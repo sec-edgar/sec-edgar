@@ -82,6 +82,19 @@ class TestUtils:
         assert name_map[name] == cik
 
     @pytest.mark.parametrize(
+        "key",
+        [
+            "Ticker",
+            "Title",
+            "CIK",
+            "Company Name"
+        ]
+    )
+    def test_get_cik_map_bad_keys(self, key):
+        with pytest.raises(ValueError):
+            get_cik_map(key=key)
+
+    @pytest.mark.parametrize(
         "date,expected_quarter",
         [
             (datetime(2020, 1, 1), 1),
