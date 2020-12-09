@@ -16,7 +16,7 @@ class DailyFilings(IndexFilings):
             if the FilingEntry should be kept. Defaults to `lambda _: True`.
     """
 
-    def __init__(self, date, client=None, entry_filter=lambda _:True):
+    def __init__(self, date, client=None, entry_filter=lambda _: True):
         super().__init__(client=client, entry_filter=entry_filter)
         if not isinstance(date, datetime.datetime):
             raise TypeError(

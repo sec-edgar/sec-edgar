@@ -17,14 +17,14 @@ class IndexFilings(AbstractFiling):
     Attributes:
         client (secedgar.client._base, optional): Client to use. Defaults to
             ``secedgar.client.NetworkClient``.
-    
+
         entry_filter (function, optional): A boolean function to determine
             if the FilingEntry should be kept. Defaults to `lambda _: True`.
-    
+
         kwargs: Any keyword arguments to pass to ``NetworkClient`` if no client is specified.
     """
 
-    def __init__(self, client=None, entry_filter=lambda _:True, **kwargs):
+    def __init__(self, client=None, entry_filter=lambda _: True, **kwargs):
         super().__init__()
         self._client = client if client is not None else NetworkClient(**kwargs)
         self._listings_directory = None
@@ -38,6 +38,7 @@ class IndexFilings(AbstractFiling):
     def entry_filter(self):
         """ A boolean function that to be tested on each listing entry """
         return self._entry_filter
+
     @property
     def client(self):
         """``secedgar.client._base``: Client to use to make requests."""

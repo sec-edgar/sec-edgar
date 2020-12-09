@@ -23,7 +23,7 @@ class MasterFilings(IndexFilings):
                  year,
                  quarter,
                  client=None,
-                 entry_filter=lambda _:True,
+                 entry_filter=lambda _: True,
                  **kwargs):
         super().__init__(client=client, entry_filter=entry_filter, **kwargs)
         self.year = year
