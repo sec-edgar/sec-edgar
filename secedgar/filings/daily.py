@@ -81,8 +81,8 @@ class DailyFilings(IndexFilings):
                 Valid options are `accession_number`.
         """
 
-        if dir_pattern == None:
+        if dir_pattern is None:
             dir_pattern = os.path.join("{date}", "{{cik}}")
-        
+
         formatted_dir = dir_pattern.format(date=self._date.strftime(date_format))
         self.save_filings(directory, dir_pattern=formatted_dir, file_pattern=file_pattern)

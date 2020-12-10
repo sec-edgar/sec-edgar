@@ -78,14 +78,15 @@ class MasterFilings(IndexFilings):
         Args:
             directory (str): Directory where filings should be stored. Will be broken down
                 further by company name and form type.
-            dir_pattern (str): Format string for subdirectories. Default is `{year}/QTR{quarter}/{{cik}}`.
-                Valid options are `year`, `quarter`. `cik` can be used if wrapped in double braces (`{{cik}}`).
+            dir_pattern (str): Format string for subdirectories. Default is
+                `{year}/QTR{quarter}/{{cik}}`. Valid options are `year`, `quarter`. `cik`
+                can be used if wrapped in double braces (`{{cik}}`).
             file_pattern (str): Format string for files. Default is `{accession_number}`.
                 Valid options are `accession_number`.
         """
-        if dir_pattern == None:
+        if dir_pattern is None:
             # https://stackoverflow.com/questions/11283961/partial-string-formatting
             dir_pattern = os.path.join('{year}', 'QTR{quarter}', '{{cik}}')
-        
+
         formatted_dir = dir_pattern.format(year=str(self.year), quarter=str(self.quarter))
         self.save_filings(directory, dir_pattern=formatted_dir, file_pattern=file_pattern)

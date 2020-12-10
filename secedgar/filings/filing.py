@@ -211,15 +211,16 @@ class Filing(AbstractFiling):
         """
         urls = self._check_urls_exist()
 
-        if dir_pattern == None:
+        if dir_pattern is None:
             dir_pattern = os.path.join('{cik}', '{type}')
-        if file_pattern == None:
+        if file_pattern is None:
             file_pattern = '{accession_number}'
         inputs = []
         for cik, links in urls.items():
             formatted_dir = dir_pattern.format(cik=cik, type=self.filing_type.value)
             for link in links:
-                formatted_file = file_pattern.format(accession_number=self.get_accession_number(link))
+                formatted_file = file_pattern.format(
+                    accession_number=self.get_accession_number(link))
                 path = os.path.join(directory,
                                     formatted_dir,
                                     formatted_file)
