@@ -17,10 +17,14 @@ class IndexFilings(AbstractFiling):
     Attributes:
         client (secedgar.client._base, optional): Client to use. Defaults to
             ``secedgar.client.NetworkClient``.
+
+        entry_filter (function, optional): A boolean function to determine
+            if the FilingEntry should be kept. Defaults to `lambda _: True`.
+
         kwargs: Any keyword arguments to pass to ``NetworkClient`` if no client is specified.
     """
 
-    def __init__(self, client=None, **kwargs):
+    def __init__(self, client=None, entry_filter=lambda _: True, **kwargs):
         super().__init__()
         self._client = client if client is not None else NetworkClient(**kwargs)
         self._listings_directory = None
@@ -28,6 +32,12 @@ class IndexFilings(AbstractFiling):
         self._filings_dict = None
         self._paths = []
         self._urls = {}
+        self._entry_filter = entry_filter
+
+    @property
+    def entry_filter(self):
+        """A boolean function that to be tested on each listing entry."""
+        return self._entry_filter
 
     @property
     def client(self):
@@ -102,11 +112,12 @@ class IndexFilings(AbstractFiling):
         return self._master_idx_file
 
     def get_filings_dict(self, update_cache=False, **kwargs):
-        """Get all filings for day.
+        """Get all filings inside an index file.
 
         Args:
             update_cache (bool, optional): Whether filings dict should be
                 updated on each method call. Defaults to False.
+
             kwargs: Any kwargs to pass to _get_master_idx_file. See
                 ``secedgar.filings.daily.DailyFilings._get_master_idx_file``.
         """
@@ -123,11 +134,14 @@ class IndexFilings(AbstractFiling):
                 fields = entry.split("|")
                 path = "Archives/{file_name}".format(file_name=fields[-1])
                 entry = FilingEntry(*fields, path=path)
+                if not self.entry_filter(entry):
+                    continue
+
                 # Add new filing entry to CIK's list
-                if fields[0] in self._filings_dict:
-                    self._filings_dict[fields[0]].append(entry)
+                if entry.cik in self._filings_dict:
+                    self._filings_dict[entry.cik].append(entry)
                 else:
-                    self._filings_dict[fields[0]] = [entry]
+                    self._filings_dict[entry.cik] = [entry]
         return self._filings_dict
 
     def make_url(self, path):

@@ -14,6 +14,8 @@ class MasterFilings(IndexFilings):
         quarter (int): Must be 1, 2, 3, or 4. Quarter of filings to fetch.
         client (secedgar.client._base, optional): Client to use. Defaults to
             ``secedgar.client.NetworkClient`` if None given.
+        entry_filter (function, optional): A boolean function to determine
+            if the FilingEntry should be kept. Defaults to `lambda _: True`.
         kwargs: Keyword arguments to pass to ``secedgar.filings._index.IndexFilings``.
     """
 
@@ -21,8 +23,9 @@ class MasterFilings(IndexFilings):
                  year,
                  quarter,
                  client=None,
+                 entry_filter=lambda _: True,
                  **kwargs):
-        super().__init__(client=client, **kwargs)
+        super().__init__(client=client, entry_filter=entry_filter, **kwargs)
         self.year = year
         self.quarter = quarter
 
