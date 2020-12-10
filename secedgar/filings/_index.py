@@ -36,7 +36,7 @@ class IndexFilings(AbstractFiling):
 
     @property
     def entry_filter(self):
-        """ A boolean function that to be tested on each listing entry """
+        """A boolean function that to be tested on each listing entry."""
         return self._entry_filter
 
     @property
