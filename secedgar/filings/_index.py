@@ -2,6 +2,7 @@ import os
 import re
 from abc import abstractmethod
 from collections import namedtuple
+import asyncio
 
 from secedgar.client import NetworkClient
 from secedgar.utils import download_link_to_path
@@ -185,14 +186,16 @@ class IndexFilings(AbstractFiling):
             dir_pattern = '{cik}'
         if file_pattern is None:
             file_pattern = '{accession_number}'
-        inputs = []
-        for company, links in urls.items():
-            formatted_dir = dir_pattern.format(cik=company)
-            for link in links:
-                formatted_file = file_pattern.format(
-                    accession_number=self.get_accession_number(link))
-                path = os.path.join(directory, formatted_dir, formatted_file)
-                inputs.append((link, path))
+        REQUESTS_PER_SECOND = 10
 
-        with Pool() as pool:
-            pool.starmap(download_link_to_path, inputs)
+        async def download_async(urls):
+            for company, links in urls.items():
+                formatted_dir = dir_pattern.format(cik=company)
+                for link in links:
+                    formatted_file = file_pattern.format(
+                        accession_number=self.get_accession_number(link))
+                    path = os.path.join(directory, formatted_dir, formatted_file)
+                    asyncio.ensure_future(download_link_to_path(link, path))
+                    await asyncio.sleep(1/REQUESTS_PER_SECOND)
+
+        asyncio.ensure_future(download_async(urls))

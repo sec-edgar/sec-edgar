@@ -1,6 +1,7 @@
 import datetime
 import os
 import warnings
+import asyncio
 
 from secedgar.filings._base import AbstractFiling
 from secedgar.client.network_client import NetworkClient
@@ -215,16 +216,19 @@ class Filing(AbstractFiling):
             dir_pattern = os.path.join('{cik}', '{type}')
         if file_pattern is None:
             file_pattern = '{accession_number}'
-        inputs = []
-        for cik, links in urls.items():
-            formatted_dir = dir_pattern.format(cik=cik, type=self.filing_type.value)
-            for link in links:
-                formatted_file = file_pattern.format(
-                    accession_number=self.get_accession_number(link))
-                path = os.path.join(directory,
-                                    formatted_dir,
-                                    formatted_file)
-                inputs.append((link, path))
 
-        with Pool() as pool:
-            pool.starmap(download_link_to_path, inputs)
+        REQUESTS_PER_SECOND = 10
+        
+        async def download_async(urls):
+            for cik, links in urls.items():
+                formatted_dir = dir_pattern.format(cik=cik, type=self.filing_type.value)
+                for link in links:
+                    formatted_file = file_pattern.format(
+                        accession_number=self.get_accession_number(link))
+                    path = os.path.join(directory,
+                                        formatted_dir,
+                                        formatted_file)
+                    asyncio.ensure_future(download_link_to_path(link, path))
+                    await asyncio.sleep(1/REQUESTS_PER_SECOND)
+
+        asyncio.ensure_future(download_async(urls))
