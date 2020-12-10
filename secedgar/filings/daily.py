@@ -12,10 +12,12 @@ class DailyFilings(IndexFilings):
         date (datetime.datetime): Date of daily filing to fetch.
         client (secedgar.client._base.AbstractClient, optional): Client to use for fetching data.
             Defaults to ``secedgar.client.NetworkClient`` if none is given.
+        entry_filter (function, optional): A boolean function to determine
+            if the FilingEntry should be kept. Defaults to `lambda _: True`.
     """
 
-    def __init__(self, date, client=None):
-        super().__init__(client=client)
+    def __init__(self, date, client=None, entry_filter=lambda _: True):
+        super().__init__(client=client, entry_filter=entry_filter)
         if not isinstance(date, datetime.datetime):
             raise TypeError(
                 "Date must be given as datetime object. Was given type {type}.".format(
