@@ -5,11 +5,12 @@ import warnings
 
 from secedgar.filings._base import AbstractFiling
 from secedgar.client.network_client import NetworkClient
-from secedgar.utils import sanitize_date, make_path
+from secedgar.utils import sanitize_date, download_link_to_path
 
 from secedgar.filings.cik_lookup import CIKLookup
 from secedgar.filings.filing_types import FilingType
 from secedgar.utils.exceptions import FilingTypeError
+from multiprocessing import Pool
 
 
 class Filing(AbstractFiling):
@@ -208,11 +209,11 @@ class Filing(AbstractFiling):
         """
         urls = self._check_urls_exist()
 
+        inputs = []
         for cik, links in urls.items():
             for link in links:
-                data = requests.get(link).text
-                path = os.path.join(directory, cik, self.filing_type.value)
-                make_path(path)
-                path = os.path.join(path, self.get_accession_number(link))
-                with open(path, "w") as f:
-                    f.write(data)
+                path = os.path.join(directory, cik, self.filing_type.value, self.get_accession_number(link))
+                inputs.append([link, path])
+        
+        with Pool() as pool:
+            pool.starmap(download_link_to_path, inputs)

@@ -5,10 +5,11 @@ from abc import abstractmethod
 from collections import namedtuple
 
 from secedgar.client import NetworkClient
-from secedgar.utils import make_path
+from secedgar.utils import download_link_to_path
 
 from secedgar.filings._base import AbstractFiling
 from secedgar.utils.exceptions import EDGARQueryError
+from multiprocessing import Pool
 
 
 class IndexFilings(AbstractFiling):
@@ -174,13 +175,15 @@ class IndexFilings(AbstractFiling):
         Args:
             directory (str): Directory where filings should be stored.
         """
+
         urls = self._check_urls_exist()
 
+        inputs = []
         for company, links in urls.items():
             for link in links:
-                data = requests.get(link).text
-                path = os.path.join(directory, company)
-                make_path(path)
-                path = os.path.join(path, self.get_accession_number(link))
-                with open(path, "w") as f:
-                    f.write(data)
+                path = os.path.join(directory, company, self.get_accession_number(link))
+                inputs.append((link, path))
+        
+        with Pool() as pool:
+            pool.starmap(download_link_to_path, inputs)
+    # @staticmethod

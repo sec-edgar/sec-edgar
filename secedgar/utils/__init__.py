@@ -1,6 +1,7 @@
 import datetime
 import errno
 import os
+import requests
 
 from secedgar.utils.cik_map import get_cik_map  # noqa
 
@@ -47,7 +48,20 @@ def make_path(path, **kwargs):
             if e.errno != errno.EEXIST:
                 raise OSError
 
+def download_link_to_path(link, path):
+    """Downloads a link to the specified path
 
+    Args:
+        link (str): Link to download
+        path (str): Full file path
+
+    Returns:
+        None
+    """
+    data = requests.get(link).text
+    make_path(os.path.dirname(path))
+    with open(path, "w") as f:
+        f.write(data)
 def get_quarter(date):
     """Get quarter that corresponds with date.
 
