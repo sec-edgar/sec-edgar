@@ -62,7 +62,7 @@ class TestMaster:
         mf = MasterFilings(year=year, quarter=quarter)
         assert mf.idx_filename == "master.idx"
 
-    def test_always_false_entry_filter(self):
+    def test_always_false_entry_filter(self, mock_master_quarter_directory):
         master_filing = MasterFilings(year=1993, quarter=4, entry_filter=lambda _: False)
         urls = master_filing.get_urls()
         assert len(urls) == 0
