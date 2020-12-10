@@ -4,6 +4,7 @@ v0.2.3
 Highlights
 ~~~~~~~~~~
 
+* Adds ``entry_filter`` property to ``secedgar.filings._index.IndexFilings`` to help filter out filings from day or quarter that aren't needed (thanks to reteps!)
 * ``secedgar.filings.cik_lookup.CIKLookup`` tries to use ``secedgar.utils.cik_map.get_cik_map`` first when looking up tickers/company names (regardless of whether tickers are upper or lowercase)
 * Adds validation to ``secedgar.utils.cik_map.get_cik_map`` to ensure correct key options are being used
 * ``secedgar.client.network_client.NetworkClient`` now pauses at the end of request as well if `pause` is given.
@@ -11,4 +12,5 @@ Highlights
 Contributors
 ~~~~~~~~~~~~
 
+- reteps
 - jackmoody11

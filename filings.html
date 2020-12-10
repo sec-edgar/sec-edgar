@@ -192,7 +192,7 @@ fetching all filings from any given day, you should use <a class="reference inte
 <h2>Filing<a class="headerlink" href="#filing" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="secedgar.filings.Filing">
-<em class="property">class </em><code class="sig-prename descclassname">secedgar.filings.</code><code class="sig-name descname">Filing</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cik_lookup</span></em>, <em class="sig-param"><span class="n">filing_type</span></em>, <em class="sig-param"><span class="n">start_date</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end_date</span><span class="o">=</span><span class="default_value">datetime.datetime(2020, 11, 28, 4, 50, 45, 589105)</span></em>, <em class="sig-param"><span class="n">client</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">count</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.Filing" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">secedgar.filings.</code><code class="sig-name descname">Filing</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cik_lookup</span></em>, <em class="sig-param"><span class="n">filing_type</span></em>, <em class="sig-param"><span class="n">start_date</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end_date</span><span class="o">=</span><span class="default_value">datetime.datetime(2020, 12, 10, 1, 54, 48, 990004)</span></em>, <em class="sig-param"><span class="n">client</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">count</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.Filing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class for receiving EDGAR filings.</p>
 <dl class="py attribute">
 <dt id="secedgar.filings.Filing.cik_lookup">
@@ -430,7 +430,7 @@ The end date defaults to today’s date.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">DailyFilings</span></code> class can be used to fetch all the URLs for or download all filings from any given day.</p>
 <dl class="py class">
 <dt id="secedgar.filings.DailyFilings">
-<em class="property">class </em><code class="sig-prename descclassname">secedgar.filings.</code><code class="sig-name descname">DailyFilings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">date</span></em>, <em class="sig-param"><span class="n">client</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.DailyFilings" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">secedgar.filings.</code><code class="sig-name descname">DailyFilings</code><span class="sig-paren">(</span><em class="sig-param">date</em>, <em class="sig-param">client=None</em>, <em class="sig-param">entry_filter=&lt;function DailyFilings.&lt;lambda&gt;&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.DailyFilings" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class for retrieving all daily filings from <a class="reference external" href="https://www.sec.gov/Archives/edgar/daily-index">https://www.sec.gov/Archives/edgar/daily-index</a>.</p>
 <dl class="py attribute">
 <dt id="secedgar.filings.DailyFilings.date">
@@ -451,6 +451,18 @@ Defaults to <code class="docutils literal notranslate"><span class="pre">secedga
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>secedgar.client._base.AbstractClient, optional</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="secedgar.filings.DailyFilings.entry_filter">
+<code class="sig-name descname">entry_filter</code><a class="headerlink" href="#secedgar.filings.DailyFilings.entry_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>A boolean function to determine
+if the FilingEntry should be kept. Defaults to <cite>lambda _: True</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>function, optional</p>
 </dd>
 </dl>
 </dd></dl>
@@ -524,7 +536,7 @@ Note that you should replace <code class="docutils literal notranslate"><span cl
 <p>The <code class="docutils literal notranslate"><span class="pre">MasterFilings</span></code> class can be used to fetch all the URLs for or download all filings from any given quarter.</p>
 <dl class="py class">
 <dt id="secedgar.filings.MasterFilings">
-<em class="property">class </em><code class="sig-prename descclassname">secedgar.filings.</code><code class="sig-name descname">MasterFilings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">year</span></em>, <em class="sig-param"><span class="n">quarter</span></em>, <em class="sig-param"><span class="n">client</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.MasterFilings" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">secedgar.filings.</code><code class="sig-name descname">MasterFilings</code><span class="sig-paren">(</span><em class="sig-param">year</em>, <em class="sig-param">quarter</em>, <em class="sig-param">client=None</em>, <em class="sig-param">entry_filter=&lt;function MasterFilings.&lt;lambda&gt;&gt;</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.MasterFilings" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class for retrieving all filings from specific year and quarter.</p>
 <dl class="py attribute">
 <dt id="secedgar.filings.MasterFilings.year">
@@ -556,6 +568,18 @@ Note that you should replace <code class="docutils literal notranslate"><span cl
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>secedgar.client._base, optional</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="secedgar.filings.MasterFilings.entry_filter">
+<code class="sig-name descname">entry_filter</code><a class="headerlink" href="#secedgar.filings.MasterFilings.entry_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>A boolean function to determine
+if the FilingEntry should be kept. Defaults to <cite>lambda _: True</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>function, optional</p>
 </dd>
 </dl>
 </dd></dl>
