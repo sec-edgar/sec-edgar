@@ -191,7 +191,7 @@ class Filing(AbstractFiling):
         # Takes `count` filings at most
         return txt_urls[:self.count]
 
-    def save(self, directory):
+    def save(self, directory, dir_pattern=None, file_pattern=None):
         """Save files in specified directory.
 
         Each txt url looks something like:
@@ -199,7 +199,10 @@ class Filing(AbstractFiling):
 
         Args:
             directory (str): Path to directory where files should be saved.
-
+            dir_pattern (str): Format string for subdirectories. Default is `{cik}/{type}`.
+                Valid options are `cik`, `type`.
+            file_pattern (str): Format string for files. Default is `{accession_number}`.
+                Valid options are `accession_number`.
         Returns:
             None
 
@@ -208,13 +211,18 @@ class Filing(AbstractFiling):
         """
         urls = self._check_urls_exist()
 
+        if dir_pattern == None:
+            dir_pattern = os.path.join('{cik}', '{type}')
+        if file_pattern == None:
+            file_pattern = '{accession_number}'
         inputs = []
         for cik, links in urls.items():
+            formatted_dir = dir_pattern.format(cik=cik, type=self.filing_type.value)
             for link in links:
+                formatted_file = file_pattern.format(accession_number=self.get_accession_number(link))
                 path = os.path.join(directory,
-                                    cik,
-                                    self.filing_type.value,
-                                    self.get_accession_number(link))
+                                    formatted_dir,
+                                    formatted_file)
                 inputs.append((link, path))
 
         with Pool() as pool:

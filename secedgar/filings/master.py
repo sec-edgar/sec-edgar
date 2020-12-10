@@ -68,7 +68,7 @@ class MasterFilings(IndexFilings):
         """Main index filename to look for."""
         return "master.idx"
 
-    def save(self, directory):
+    def save(self, directory, dir_pattern=None, file_pattern=None):
         """Save all daily filings.
 
         Creates subdirectory within given directory of the form <YEAR>/QTR<QTR NUMBER>/.
@@ -78,6 +78,14 @@ class MasterFilings(IndexFilings):
         Args:
             directory (str): Directory where filings should be stored. Will be broken down
                 further by company name and form type.
+            dir_pattern (str): Format string for subdirectories. Default is `{year}/QTR{quarter}/{{cik}}`.
+                Valid options are `year`, `quarter`. `cik` can be used if wrapped in double braces (`{{cik}}`).
+            file_pattern (str): Format string for files. Default is `{accession_number}`.
+                Valid options are `accession_number`.
         """
-        directory = os.path.join(directory, str(self.year), "QTR" + str(self.quarter))
-        self.save_filings(directory)
+        if dir_pattern == None:
+            # https://stackoverflow.com/questions/11283961/partial-string-formatting
+            dir_pattern = os.path.join('{year}', 'QTR{quarter}', '{{cik}}')
+        
+        formatted_dir = dir_pattern.format(year=str(self.year), quarter=str(self.quarter))
+        self.save_filings(directory, dir_pattern=formatted_dir, file_pattern=file_pattern)

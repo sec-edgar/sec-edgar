@@ -64,7 +64,7 @@ class DailyFilings(IndexFilings):
         else:
             return self._date.strftime("%Y%m%d")
 
-    def save(self, directory):
+    def save(self, directory, dir_pattern=None, file_pattern=None, date_format="%Y%m%d"):
         """Save all daily filings.
 
         Store all filings for each unique company name under a separate subdirectory
@@ -74,6 +74,15 @@ class DailyFilings(IndexFilings):
         Args:
             directory (str): Directory where filings should be stored. Will be broken down
                 further by company name and form type.
+            dir_pattern (str): Format string for subdirectories. Default is `{date}/{{cik}}`.
+                Valid options are `date`. `cik` can be used if wrapped in double braces (`{{cik}}`).
+            date_format (str): Format string to use for the `{date}` pattern. Default: "%Y%m%d".
+            file_pattern (str): Format string for files. Default is `{accession_number}`.
+                Valid options are `accession_number`.
         """
-        directory = os.path.join(directory, self._date.strftime("%Y%m%d"))
-        self.save_filings(directory)
+
+        if dir_pattern == None:
+            dir_pattern = os.path.join("{date}", "{{cik}}")
+        
+        formatted_dir = dir_pattern.format(date=self._date.strftime(date_format))
+        self.save_filings(directory, dir_pattern=formatted_dir, file_pattern=file_pattern)

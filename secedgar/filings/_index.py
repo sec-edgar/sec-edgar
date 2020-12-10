@@ -155,7 +155,7 @@ class IndexFilings(AbstractFiling):
                           for company, entries in filings_dict.items()}
         return self._urls
 
-    def save_filings(self, directory):
+    def save_filings(self, directory, dir_pattern=None, file_pattern=None):
         """Save all filings.
 
         Will store all filings for each unique CIK under a separate subdirectory
@@ -173,14 +173,24 @@ class IndexFilings(AbstractFiling):
 
         Args:
             directory (str): Directory where filings should be stored.
+            dir_pattern (str): Format string for subdirectories. Default is `{cik}`.
+                Valid options are `cik`.
+            file_pattern (str): Format string for files. Default is `{accession_number}`.
+                Valid options are `accession_number`.
         """
 
         urls = self._check_urls_exist()
 
+        if dir_pattern == None:
+            dir_pattern = '{cik}'
+        if file_pattern == None:
+            file_pattern = '{accession_number}'
         inputs = []
         for company, links in urls.items():
+            formatted_dir = dir_pattern.format(cik=company)
             for link in links:
-                path = os.path.join(directory, company, self.get_accession_number(link))
+                formatted_file = file_pattern.format(accession_number=self.get_accession_number(link))
+                path = os.path.join(directory, formatted_dir, formatted_file)
                 inputs.append((link, path))
 
         with Pool() as pool:
