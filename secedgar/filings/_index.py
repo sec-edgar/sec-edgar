@@ -1,6 +1,5 @@
 import os
 import re
-import requests
 from abc import abstractmethod
 from collections import namedtuple
 
@@ -183,7 +182,6 @@ class IndexFilings(AbstractFiling):
             for link in links:
                 path = os.path.join(directory, company, self.get_accession_number(link))
                 inputs.append((link, path))
-        
+
         with Pool() as pool:
             pool.starmap(download_link_to_path, inputs)
-    # @staticmethod

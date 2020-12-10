@@ -1,6 +1,5 @@
 import datetime
 import os
-import requests
 import warnings
 
 from secedgar.filings._base import AbstractFiling
@@ -212,8 +211,11 @@ class Filing(AbstractFiling):
         inputs = []
         for cik, links in urls.items():
             for link in links:
-                path = os.path.join(directory, cik, self.filing_type.value, self.get_accession_number(link))
-                inputs.append([link, path])
-        
+                path = os.path.join(directory,
+                                    cik,
+                                    self.filing_type.value,
+                                    self.get_accession_number(link))
+                inputs.append((link, path))
+
         with Pool() as pool:
             pool.starmap(download_link_to_path, inputs)
