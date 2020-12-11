@@ -7,9 +7,7 @@ import requests
 import shutil
 
 from secedgar.client import NetworkClient
-# from secedgar.utils import download_link_to_path
-from utils import download_link_to_path, make_path
-
+from secedgar.utils import download_link_to_path, make_path
 from secedgar.filings._base import AbstractFiling
 from secedgar.utils.exceptions import EDGARQueryError
 

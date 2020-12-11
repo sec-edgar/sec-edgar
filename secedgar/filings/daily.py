@@ -1,8 +1,7 @@
 import datetime
 import os
 
-# from secedgar.filings._index import IndexFilings
-from filings._index import IndexFilings
+from secedgar.filings._index import IndexFilings
 from secedgar.utils import get_quarter
 
 

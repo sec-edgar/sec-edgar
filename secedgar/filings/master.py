@@ -3,9 +3,7 @@ from datetime import datetime, date, timedelta
 from calendar import monthrange
 
 from secedgar.utils import get_quarter
-
-# from secedgar.filings._index import IndexFilings
-from filings._index import IndexFilings
+from secedgar.filings._index import IndexFilings
 
 
 class MasterFilings(IndexFilings):
