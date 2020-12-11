@@ -163,15 +163,35 @@ class TestDaily:
             "0001225208-18-017075.txt"
         ]
     )
-    def test_save_with_single_level_dir_pattern(self, tmp_data_directory,
-                                                mock_filing_data,
-                                                mock_daily_quarter_directory,
-                                                mock_daily_idx_file,
-                                                file):
+    def test_save_with_single_level_date_dir_pattern(self, tmp_data_directory,
+                                                     mock_filing_data,
+                                                     mock_daily_quarter_directory,
+                                                     mock_daily_idx_file,
+                                                     file):
         daily_filing = DailyFilings(datetime(2018, 12, 31))
         daily_filing.save(tmp_data_directory, dir_pattern="{date}", date_format="%Y-%m-%d")
-        subdir = os.path.join("2018-12-31")
-        path_to_check = os.path.join(tmp_data_directory, subdir, file)
+        path_to_check = os.path.join(tmp_data_directory, "2018-12-31", file)
+        assert os.path.exists(path_to_check)
+
+    @pytest.mark.parametrize(
+        "cik,file",
+        [
+            ("1000228", "0001209191-18-064398.txt"),
+            ("1000275", "0001140361-18-046093.txt"),
+            ("1000694", "0001144204-18-066754.txt"),
+            ("1001085", "0001104659-18-075315.txt"),
+            ("1007273", "0001225208-18-017075.txt")
+        ]
+    )
+    def test_save_with_single_level_cik_dir_pattern(self, tmp_data_directory,
+                                                    mock_filing_data,
+                                                    mock_daily_quarter_directory,
+                                                    mock_daily_idx_file,
+                                                    cik,
+                                                    file):
+        daily_filing = DailyFilings(datetime(2018, 12, 31))
+        daily_filing.save(tmp_data_directory, dir_pattern="{cik}")
+        path_to_check = os.path.join(tmp_data_directory, cik, file)
         assert os.path.exists(path_to_check)
 
     @pytest.mark.parametrize(
