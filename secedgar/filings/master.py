@@ -1,9 +1,11 @@
 import os
-from datetime import datetime
+from datetime import datetime, date, timedelta
+from calendar import monthrange
 
 from secedgar.utils import get_quarter
 
-from secedgar.filings._index import IndexFilings
+# from secedgar.filings._index import IndexFilings
+from filings._index import IndexFilings
 
 
 class MasterFilings(IndexFilings):
@@ -71,7 +73,24 @@ class MasterFilings(IndexFilings):
         """Main index filename to look for."""
         return "master.idx"
 
-    def save(self, directory, dir_pattern=None, file_pattern=None):
+    def get_file_names(self):
+        # https://stackoverflow.com/questions/36793381/python-get-first-and-last-day-of-current-calendar-quarter
+        first_month_of_quarter = 3 * self.quarter - 2
+        last_month_of_quarter = 3 * self.quarter
+        start_date = date(self.year, first_month_of_quarter, 1)
+        end_date = date(self.year, last_month_of_quarter, monthrange(self.year, last_month_of_quarter)[1])
+        if self.year == 1995 and self.quarter == 4:
+                start_date = date(1995, 10, 2)
+
+        if self.year == 1995 and self.quarter == 3:
+            days = [15,18,19,21,22,25,28]
+            dates_between = [date(1995, 9, day) for day in days]
+        else:
+            dates_between = [start_date + timedelta(days=x) for x in range((end_date-start_date).days + 1)]
+        daily_file_format = '{date}.nc.tar.gz'
+        all_days_in_quarter = [daily_file_format.format(date=d.strftime("%Y%m%d")) for d in dates_between]
+        return all_days_in_quarter
+    def save(self, directory, dir_pattern=None, file_pattern=None, download_all=False):
         """Save all daily filings.
 
         Creates subdirectory within given directory of the form <YEAR>/QTR<QTR NUMBER>/.
@@ -92,4 +111,4 @@ class MasterFilings(IndexFilings):
             dir_pattern = os.path.join('{year}', 'QTR{quarter}', '{{cik}}')
 
         formatted_dir = dir_pattern.format(year=str(self.year), quarter=str(self.quarter))
-        self.save_filings(directory, dir_pattern=formatted_dir, file_pattern=file_pattern)
+        self.save_filings(directory, dir_pattern=formatted_dir, file_pattern=file_pattern, download_all=download_all)

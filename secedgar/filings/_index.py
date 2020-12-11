@@ -2,10 +2,12 @@ import os
 import re
 from abc import abstractmethod
 from collections import namedtuple
-import asyncio
+import asyncio, requests
+import shutil
 
 from secedgar.client import NetworkClient
-from secedgar.utils import download_link_to_path
+# from secedgar.utils import download_link_to_path
+from utils import download_link_to_path, make_path
 
 from secedgar.filings._base import AbstractFiling
 from secedgar.utils.exceptions import EDGARQueryError
@@ -102,8 +104,9 @@ class IndexFilings(AbstractFiling):
         """
         if self._master_idx_file is None or update_cache:
             if self.idx_filename in self.get_listings_directory().text:
-                master_idx_url = "{path}/{filename}".format(
+                master_idx_url = "{path}{filename}".format(
                     path=self.path, filename=self.idx_filename)
+                print(master_idx_url)
                 self._master_idx_file = self.client.get_response(
                     master_idx_url, self.params, **kwargs).text
             else:
@@ -170,7 +173,19 @@ class IndexFilings(AbstractFiling):
                           for company, entries in filings_dict.items()}
         return self._urls
 
-    def save_filings(self, directory, dir_pattern=None, file_pattern=None):
+    @abstractmethod
+    def get_file_names(self):
+        '''
+        Returns all the file names
+        '''
+    @property
+    def tar_path(self):
+        """str: Tar path added to the client base.
+        
+        """
+        return "Archives/edgar/Feed/{year}/QTR{num}/".format(year=self.year, num=self.quarter)
+    
+    def save_filings(self, directory, dir_pattern=None, file_pattern=None, download_all=False):
         """Save all filings.
 
         Will store all filings for each unique CIK under a separate subdirectory
@@ -201,15 +216,70 @@ class IndexFilings(AbstractFiling):
         if file_pattern is None:
             file_pattern = '{accession_number}'
         REQUESTS_PER_SECOND = 10
+            
+        async def download_async(link, path):
+            asyncio.create_task(download_link_to_path(link, path))
+            await asyncio.sleep(1/REQUESTS_PER_SECOND)
 
-        async def download_async(urls):
+        async def wait_for_download_async(inputs):
+            await asyncio.wait([download_async(link, path) for link,path in inputs])
+        if download_all:
+            # Download tar files into huge temp directory
+            extract_directory = os.path.join(directory, 'temp')
+            make_path(extract_directory)
+            tar_files = self.get_file_names()
+            for filename in tar_files:
+                response = requests.get(self.make_url(self.tar_path + filename), stream=True)
+                extract_to_file = os.path.join(extract_directory, filename)
+                cik = filename.split()
+                if response.status_code == 403:
+                    # Ignore days that do not exist in daily backup record
+                    print('WARNING', filename, 'DOES NOT EXIST')
+                    continue
+                else:
+                    # Throw an error for bad status codes
+                    response.raise_for_status()
+
+                with open(extract_to_file, 'wb') as handle:
+                    for block in response.iter_content(1024):
+                        handle.write(block)
+
+                shutil.unpack_archive(extract_to_file, extract_directory)
+                os.remove(extract_to_file)
+            
+            # Get a list of all extracted files
+            (_, _, extracted_files) = next(os.walk(extract_directory))
+            # Now check extracted_files against urls
+            for _, links in urls.items():
+                for link in links:
+                    link_cik = link.split('/')[-2]
+                    filepath = self.get_accession_number(link).split('.')[0]
+                    possible_endings = ['nc', 'corr04', 'corr03', 'corr02', 'coor01']
+                    for ending in possible_endings:
+                        full_filepath = filepath + '.' + ending
+                        # If the filepath is found, move it to the correct path
+                        if full_filepath in extracted_files:
+
+                            formatted_dir = dir_pattern.format(cik=link_cik)
+                            formatted_file = file_pattern.format(
+                                accession_number=self.get_accession_number(link))
+                            full_dir = os.path.join(directory, formatted_dir)
+                            make_path(full_dir)
+                            path = os.path.join(full_dir, formatted_file)
+                            old_path = os.path.join(extract_directory, full_filepath)
+                            shutil.copyfile(old_path, path)
+                            break
+            # Now delete extract directory
+            shutil.rmtree(extract_directory)
+        else:
+            inputs = []
             for company, links in urls.items():
                 formatted_dir = dir_pattern.format(cik=company)
                 for link in links:
                     formatted_file = file_pattern.format(
                         accession_number=self.get_accession_number(link))
                     path = os.path.join(directory, formatted_dir, formatted_file)
-                    asyncio.ensure_future(download_link_to_path(link, path))
-                    await asyncio.sleep(1/REQUESTS_PER_SECOND)
-
-        asyncio.ensure_future(download_async(urls))
+                    inputs.append((link, path))
+            
+            loop = asyncio.get_event_loop()
+            loop.run_until_complete(wait_for_download_async(inputs))

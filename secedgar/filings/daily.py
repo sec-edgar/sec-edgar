@@ -1,7 +1,8 @@
 import datetime
 import os
 
-from secedgar.filings._index import IndexFilings
+# from secedgar.filings._index import IndexFilings
+from filings._index import IndexFilings
 from secedgar.utils import get_quarter
 
 
@@ -50,6 +51,10 @@ class DailyFilings(IndexFilings):
         """Main index filename to look for."""
         return "master.{date}.idx".format(date=self._get_idx_formatted_date())
 
+    def get_file_names(self):
+        # 1995 QTR3 is minimum
+        daily_file = '{date}.nc.tar.gz'.format(date=self._date.strftime("%Y%m%d"))
+        return [daily_file]
     def _get_idx_formatted_date(self):
         """Format date for idx file.
 
@@ -66,7 +71,7 @@ class DailyFilings(IndexFilings):
         else:
             return self._date.strftime("%Y%m%d")
 
-    def save(self, directory, dir_pattern=None, file_pattern=None, date_format="%Y%m%d"):
+    def save(self, directory, dir_pattern=None, file_pattern=None, date_format="%Y%m%d", download_all=False):
         """Save all daily filings.
 
         Store all filings for each unique company name under a separate subdirectory
@@ -87,4 +92,4 @@ class DailyFilings(IndexFilings):
             dir_pattern = os.path.join("{date}", "{{cik}}")
 
         formatted_dir = dir_pattern.format(date=self._date.strftime(date_format))
-        self.save_filings(directory, dir_pattern=formatted_dir, file_pattern=file_pattern)
+        self.save_filings(directory, dir_pattern=formatted_dir, file_pattern=file_pattern, download_all=download_all)

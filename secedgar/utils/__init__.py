@@ -51,7 +51,7 @@ def make_path(path, **kwargs):
                 raise OSError
 
 
-def download_link_to_path(link, path):
+async def download_link_to_path(link, path):
     """Downloads a link to the specified path
 
     Args:
