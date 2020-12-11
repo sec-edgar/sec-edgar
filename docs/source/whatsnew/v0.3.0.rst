@@ -5,9 +5,9 @@ Highlights
 ~~~~~~~~~~
 
 * Adds asynchronous requests
-* Adds ```download_all``` option to ``save`` method.
-* Adds ```dir_format``` and ```file_format``` options to ``save`` method.
-* Adds ```filing_extractor``` class.
+* Adds ``download_all`` option to ``save`` method.
+* Adds ``dir_format`` and ``file_format`` options to ``save`` method.
+* Adds ``FilingExtractor`` class.
 
 Contributors
 ~~~~~~~~~~~~
