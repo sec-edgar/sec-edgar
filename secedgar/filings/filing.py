@@ -10,7 +10,6 @@ from secedgar.utils import sanitize_date, download_link_to_path
 from secedgar.filings.cik_lookup import CIKLookup
 from secedgar.filings.filing_types import FilingType
 from secedgar.utils.exceptions import FilingTypeError
-from multiprocessing import Pool
 
 
 class Filing(AbstractFiling):
@@ -204,6 +203,7 @@ class Filing(AbstractFiling):
                 Valid options are `cik`, `type`.
             file_pattern (str): Format string for files. Default is `{accession_number}`.
                 Valid options are `accession_number`.
+
         Returns:
             None
 
@@ -218,7 +218,7 @@ class Filing(AbstractFiling):
             file_pattern = '{accession_number}'
 
         REQUESTS_PER_SECOND = 10
-        
+
         async def download_async(urls):
             for cik, links in urls.items():
                 formatted_dir = dir_pattern.format(cik=cik, type=self.filing_type.value)

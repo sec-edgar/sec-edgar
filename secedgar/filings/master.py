@@ -17,7 +17,7 @@ class MasterFilings(IndexFilings):
         client (secedgar.client._base, optional): Client to use. Defaults to
             ``secedgar.client.NetworkClient`` if None given.
         entry_filter (function, optional): A boolean function to determine
-            if the FilingEntry should be kept. Defaults to `lambda _: True`.
+            if the FilingEntry should be kept. Defaults to ``lambda _: True``.
         kwargs: Keyword arguments to pass to ``secedgar.filings._index.IndexFilings``.
     """
 
@@ -74,22 +74,29 @@ class MasterFilings(IndexFilings):
         return "master.idx"
 
     def get_file_names(self):
+        """The list of .tar.gz daily files in the current quarter."""
+        if self.year < 1995 or (self.year == 1995 and self.quarter < 3):
+            raise ValueError('Bulk downloading is only available starting 1995 Q3.')
         # https://stackoverflow.com/questions/36793381/python-get-first-and-last-day-of-current-calendar-quarter
         first_month_of_quarter = 3 * self.quarter - 2
         last_month_of_quarter = 3 * self.quarter
         start_date = date(self.year, first_month_of_quarter, 1)
-        end_date = date(self.year, last_month_of_quarter, monthrange(self.year, last_month_of_quarter)[1])
+        end_date = date(self.year, last_month_of_quarter,
+                        monthrange(self.year, last_month_of_quarter)[1])
         if self.year == 1995 and self.quarter == 4:
-                start_date = date(1995, 10, 2)
+            start_date = date(1995, 10, 2)
 
         if self.year == 1995 and self.quarter == 3:
-            days = [15,18,19,21,22,25,28]
+            days = [15, 18, 19, 21, 22, 25, 28]
             dates_between = [date(1995, 9, day) for day in days]
         else:
-            dates_between = [start_date + timedelta(days=x) for x in range((end_date-start_date).days + 1)]
+            dates_between = [start_date + timedelta(days=x)
+                             for x in range((end_date-start_date).days + 1)]
         daily_file_format = '{date}.nc.tar.gz'
-        all_days_in_quarter = [daily_file_format.format(date=d.strftime("%Y%m%d")) for d in dates_between]
+        all_days_in_quarter = [daily_file_format.format(
+            date=d.strftime("%Y%m%d")) for d in dates_between]
         return all_days_in_quarter
+
     def save(self, directory, dir_pattern=None, file_pattern=None, download_all=False):
         """Save all daily filings.
 
@@ -105,10 +112,13 @@ class MasterFilings(IndexFilings):
                 can be used if wrapped in double braces (`{{cik}}`).
             file_pattern (str): Format string for files. Default is `{accession_number}`.
                 Valid options are `accession_number`.
+            download_all (bool): Type of downloading system, if true downloads all data for each
+                day, if false downloads each file in index. Default is `False`.
         """
         if dir_pattern is None:
             # https://stackoverflow.com/questions/11283961/partial-string-formatting
             dir_pattern = os.path.join('{year}', 'QTR{quarter}', '{{cik}}')
 
         formatted_dir = dir_pattern.format(year=str(self.year), quarter=str(self.quarter))
-        self.save_filings(directory, dir_pattern=formatted_dir, file_pattern=file_pattern, download_all=download_all)
+        self.save_filings(directory, dir_pattern=formatted_dir,
+                          file_pattern=file_pattern, download_all=download_all)

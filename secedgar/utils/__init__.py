@@ -2,8 +2,6 @@ import datetime
 import errno
 import os
 import requests
-import timeit
-import math
 
 from secedgar.utils.cik_map import get_cik_map  # noqa
 
@@ -65,6 +63,7 @@ async def download_link_to_path(link, path):
     make_path(os.path.dirname(path))
     with open(path, "w") as f:
         f.write(data)
+
 
 def get_quarter(date):
     """Get quarter that corresponds with date.

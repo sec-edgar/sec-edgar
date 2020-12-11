@@ -2,7 +2,8 @@ import os
 import re
 from abc import abstractmethod
 from collections import namedtuple
-import asyncio, requests
+import asyncio
+import requests
 import shutil
 
 from secedgar.client import NetworkClient
@@ -11,7 +12,6 @@ from utils import download_link_to_path, make_path
 
 from secedgar.filings._base import AbstractFiling
 from secedgar.utils.exceptions import EDGARQueryError
-from multiprocessing import Pool
 
 
 class IndexFilings(AbstractFiling):
@@ -39,7 +39,10 @@ class IndexFilings(AbstractFiling):
 
     @property
     def entry_filter(self):
-        """ A boolean function that to be tested on each listing entry """
+        """A boolean function to be tested on each listing entry.
+
+        This is tested regardless of download method.
+        """
         return self._entry_filter
 
     @property
@@ -175,16 +178,12 @@ class IndexFilings(AbstractFiling):
 
     @abstractmethod
     def get_file_names(self):
-        '''
-        Returns all the file names
-        '''
+        """Passed to child classes."""
     @property
     def tar_path(self):
-        """str: Tar path added to the client base.
-        
-        """
+        """str: Tar.gz path added to the client base."""
         return "Archives/edgar/Feed/{year}/QTR{num}/".format(year=self.year, num=self.quarter)
-    
+
     def save_filings(self, directory, dir_pattern=None, file_pattern=None, download_all=False):
         """Save all filings.
 
@@ -207,8 +206,9 @@ class IndexFilings(AbstractFiling):
                 Valid options are `cik`.
             file_pattern (str): Format string for files. Default is `{accession_number}`.
                 Valid options are `accession_number`.
+            download_all (bool): Type of downloading system, if true downloads all tar files,
+                if false downloads each file in index. Default is `False`.
         """
-
         urls = self._check_urls_exist()
 
         if dir_pattern is None:
@@ -216,13 +216,14 @@ class IndexFilings(AbstractFiling):
         if file_pattern is None:
             file_pattern = '{accession_number}'
         REQUESTS_PER_SECOND = 10
-            
+
         async def download_async(link, path):
             asyncio.create_task(download_link_to_path(link, path))
             await asyncio.sleep(1/REQUESTS_PER_SECOND)
 
         async def wait_for_download_async(inputs):
-            await asyncio.wait([download_async(link, path) for link,path in inputs])
+            await asyncio.wait([download_async(link, path) for link, path in inputs])
+
         if download_all:
             # Download tar files into huge temp directory
             extract_directory = os.path.join(directory, 'temp')
@@ -230,8 +231,7 @@ class IndexFilings(AbstractFiling):
             tar_files = self.get_file_names()
             for filename in tar_files:
                 response = requests.get(self.make_url(self.tar_path + filename), stream=True)
-                extract_to_file = os.path.join(extract_directory, filename)
-                cik = filename.split()
+                download_target = os.path.join(extract_directory, filename)
                 if response.status_code == 403:
                     # Ignore days that do not exist in daily backup record
                     print('WARNING', filename, 'DOES NOT EXIST')
@@ -240,13 +240,13 @@ class IndexFilings(AbstractFiling):
                     # Throw an error for bad status codes
                     response.raise_for_status()
 
-                with open(extract_to_file, 'wb') as handle:
+                with open(download_target, 'wb') as handle:
                     for block in response.iter_content(1024):
                         handle.write(block)
 
-                shutil.unpack_archive(extract_to_file, extract_directory)
-                os.remove(extract_to_file)
-            
+                shutil.unpack_archive(download_target, extract_directory)
+                os.remove(download_target)
+
             # Get a list of all extracted files
             (_, _, extracted_files) = next(os.walk(extract_directory))
             # Now check extracted_files against urls
@@ -280,6 +280,6 @@ class IndexFilings(AbstractFiling):
                         accession_number=self.get_accession_number(link))
                     path = os.path.join(directory, formatted_dir, formatted_file)
                     inputs.append((link, path))
-            
+
             loop = asyncio.get_event_loop()
             loop.run_until_complete(wait_for_download_async(inputs))
