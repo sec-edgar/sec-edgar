@@ -71,6 +71,16 @@ class IndexFilings(AbstractFiling):
         """Passed to children classes."""
         pass  # pragma: no cover
 
+    @property
+    def tar_path(self):
+        """str: Tar.gz path added to the client base."""
+        return "Archives/edgar/Feed/{year}/QTR{num}/".format(year=self.year, num=self.quarter)
+
+    @abstractmethod
+    def get_file_names(self):
+        """Get all file names."""
+        pass
+
     def get_listings_directory(self, update_cache=False, **kwargs):
         """Get page with list of all idx files for given date or quarter.
 
@@ -107,7 +117,6 @@ class IndexFilings(AbstractFiling):
             if self.idx_filename in self.get_listings_directory().text:
                 master_idx_url = "{path}{filename}".format(
                     path=self.path, filename=self.idx_filename)
-                print(master_idx_url)
                 self._master_idx_file = self.client.get_response(
                     master_idx_url, self.params, **kwargs).text
             else:
@@ -173,14 +182,6 @@ class IndexFilings(AbstractFiling):
             self._urls = {company: [self.make_url(entry.path) for entry in entries]
                           for company, entries in filings_dict.items()}
         return self._urls
-
-    @abstractmethod
-    def get_file_names(self):
-        """Passed to child classes."""
-    @property
-    def tar_path(self):
-        """str: Tar.gz path added to the client base."""
-        return "Archives/edgar/Feed/{year}/QTR{num}/".format(year=self.year, num=self.quarter)
 
     def save_filings(self, directory, dir_pattern=None, file_pattern=None, download_all=False):
         """Save all filings.
