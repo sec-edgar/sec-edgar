@@ -4,32 +4,49 @@ import logging
 import uu
 import json
 
-# Pulled from https://github.com/sec-edgar/sec-edgar/blob/dda43dd3b4d1ea19abfe71596b165e22625357c6/SECEdgar/extractor/EDGARExtractor.py
+# Pulled from https://github.com/sec-edgar/sec-edgar/blob/
+# dda43dd3b4d1ea19abfe71596b165e22625357c6/SECEdgar/extractor/EDGARExtractor.py
+
+
 class FilingExtractor:
+    """Utility class to extract metadata and documents from a single text file.
+
+    .. versionadded:: 0.3.0
+    """
     def __init__(self):
 
-        self.re_doc = self.make_regex('DOCUMENT')
-        self.re_sec_doc = self.make_regex('SEC-DOCUMENT')
-        self.re_text = self.make_regex('TEXT')
+        self.re_doc = re.compile("<DOCUMENT>(.*?)</DOCUMENT>", flags=re.DOTALL)
+        self.re_sec_doc = re.compile("<SEC-DOCUMENT>(.*?)</SEC-DOCUMENT>", flags=re.DOTALL)
+        self.re_text = re.compile("<TEXT>(.*?)</TEXT>", flags=re.DOTALL)
         self.re_sec_header = re.compile("<SEC-HEADER>.*?\n(.*?)</SEC-HEADER>", flags=re.DOTALL)
-    @staticmethod
-    def make_regex(term):
-        return re.compile("<{term}>(.*?)</{term}>".format(term=term), flags=re.DOTALL)
 
-    def process(self, infile, out_dir, create_subdir=True, rm_infile=False):
+    def process(self, infile, out_dir=None, create_subdir=True, rm_infile=False):
+        """Process a text file and output processed files.
 
+        Args:
+            infile (str): Full path to a text file.
+            out_dir (str): Directory to store output files. Defaults to the parent directory of
+                infile.
+            create_subdir (bool): If a subdirectory with the name of the infile should be created.
+                If this is not true, files will be prefixed with the infile filename.
+            rm_infile (bool): If the infile should be removed after processing. Default: `False`.
+        """
         if not infile.endswith('.txt'):
             raise ValueError('{file} Does not appear to be a .txt file.'.format(file=infile))
 
         with open(infile, encoding="utf8") as f:
             intxt = f.read()
-        
+
+        if out_dir is None:
+            out_dir = os.path.dirname(infile)
         infile_base = os.path.basename(infile)
         metadata_file_format = "{base}_{num}_metadata.json"
+        document_file_format = '{base}_{part1}.{sec_doc_num}.{doc_num}.{part2}'
         if create_subdir:
             out_dir = os.path.join(out_dir, infile_base)
             os.makedirs(out_dir)
             metadata_file_format = "{num}_metadata.json"
+            document_file_format = '{part1}.{sec_doc_num}.{doc_num}.{part2}'
         sec_doc_cursor = 0
         sec_doc_count = intxt.count("<SEC-DOCUMENT>")
         for sec_doc_num in range(sec_doc_count):
@@ -67,11 +84,12 @@ class FilingExtractor:
                 doc_filename = doc_metadata["filename"]
                 doc_txt = self.re_text.search(doc).group(1).strip()
                 doc_filename_split = os.path.splitext(doc_filename)[0]
-                target_doc_filename = '{part1}.{sec_doc_num}.{doc_num}.{part2}'.format(
-                    part1 = doc_filename_split[0],
-                    sec_doc_num = sec_doc_num,
-                    doc_num = doc_num,
-                    part2 = doc_filename_split[1]
+                target_doc_filename = document_file_format.format(
+                    base=infile_base,
+                    part1=doc_filename_split[0],
+                    sec_doc_num=sec_doc_num,
+                    doc_num=doc_num,
+                    part2=doc_filename_split[1]
                 )
                 doc_outfile = os.path.join(out_dir, target_doc_filename)
 
@@ -97,9 +115,10 @@ class FilingExtractor:
 
         if rm_infile:
             os.remove(infile)
+
     @staticmethod
     def process_metadata(curr_doc):
-        '''Process the metadata of the focal document.'''
+        """Process the metadata of the focal document."""
         out_dict = {}
         levels = [None, None]
 
@@ -133,7 +152,7 @@ class FilingExtractor:
                 if levels[0] not in out_dict:
                     out_dict[levels[0]] = dict()
                     logging.debug("Creating level 1 header {}"
-                                      .format(levels[0]))
+                                  .format(levels[0]))
                 continue
 
             # Level 2 header (must be before the data for correct matching)
@@ -144,7 +163,7 @@ class FilingExtractor:
                 if levels[1] not in out_dict[levels[0]]:
                     out_dict[levels[0]][levels[1]] = {}
                     logging.debug("Creating level 2 header {}"
-                                      .format(levels[1]))
+                                  .format(levels[1]))
                 continue
 
             # Level 1 data
@@ -152,7 +171,7 @@ class FilingExtractor:
             if m:
                 out_dict[levels[0]][m.group(1)] = m.group(2)
                 logging.debug("Level 1 data. Levels[0]={}; group={}"
-                                  .format(levels[0], m.group(1)))
+                              .format(levels[0], m.group(1)))
                 continue
 
             # Level 2 data
@@ -167,7 +186,7 @@ class FilingExtractor:
 
     @staticmethod
     def process_document_metadata(doc):
-        '''Process the metadata of an embedded document.'''
+        """Process the metadata of an embedded document."""
         metadata_doc = {}
 
         # Document type

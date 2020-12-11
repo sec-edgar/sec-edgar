@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from secedgar.filings import FilingExtractor
+from secedgar.filings.filing_extractor import FilingExtractor
 import string
 
 
@@ -9,7 +9,6 @@ class AbstractFiling(ABC):
     .. versionadded:: 0.1.5
     """
     @property
-    @abstractmethod
     def extractor(self):
         """``secedgar.filings.filing_extractor`: Extractor class used."""
         return FilingExtractor()
