@@ -216,7 +216,7 @@ class IndexFilings(AbstractFiling):
         REQUESTS_PER_SECOND = 10
 
         async def download_async(link, path):
-            asyncio.create_task(download_link_to_path(link, path))
+            asyncio.ensure_future(download_link_to_path(link, path))
             await asyncio.sleep(1/REQUESTS_PER_SECOND)
 
         async def wait_for_download_async(inputs):
