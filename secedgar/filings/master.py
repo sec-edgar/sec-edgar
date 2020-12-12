@@ -81,9 +81,6 @@ class MasterFilings(IndexFilings):
         start_date = date(self.year, first_month_of_quarter, 1)
         end_date = date(self.year, last_month_of_quarter,
                         monthrange(self.year, last_month_of_quarter)[1])
-        if self.year == 1995 and self.quarter == 4:
-            start_date = date(1995, 10, 2)
-
         if self.year == 1995 and self.quarter == 3:
             days = [15, 18, 19, 21, 22, 25, 28]
             dates_between = [date(1995, 9, day) for day in days]
