@@ -2,7 +2,6 @@ import datetime
 import os
 import warnings
 import asyncio
-import aiohttp
 
 from secedgar.utils.exceptions import EDGARQueryError
 from secedgar.filings._base import AbstractFiling

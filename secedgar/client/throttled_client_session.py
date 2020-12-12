@@ -11,7 +11,8 @@ class ThrottledClientSession(ClientSession):
     """
 
     def __init__(self, rate_limit: int, *args, **kwargs):
-        kwargs['connector'] = TCPConnector(limit=rate_limit) # Another safeguard against rate limit
+        kwargs['headers'] = {'Connection': 'keep-alive'}
+        kwargs['connector'] = TCPConnector(limit=rate_limit)  # Another safeguard against rate limit
         super().__init__(*args, **kwargs)
         if rate_limit <= 0:
             raise ValueError('rate_limit must be positive')
@@ -19,6 +20,7 @@ class ThrottledClientSession(ClientSession):
         self._start_time = time.time()
         self._queue = asyncio.Queue(min(2, rate_limit))
         self._fillerTask = asyncio.create_task(self._filler())
+
     def _get_sleep(self):
         return 1 / self.rate_limit
 

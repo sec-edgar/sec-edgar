@@ -9,7 +9,6 @@ from collections import namedtuple
 import asyncio
 import shutil
 import time
-import aiohttp
 from queue import Queue, Empty
 from threading import Thread
 
@@ -226,15 +225,16 @@ class IndexFilings(AbstractFiling):
                 make_path(os.path.dirname(path))
                 with open(path, "wb") as f:
                     f.write(contents)
+
         async def wait_for_download_async(inputs):
-            time.sleep(1) # Avoid intersection with previous request
+            time.sleep(1)  # Avoid intersection with previous request
             # https://github.com/aio-libs/aiohttp/issues/3904
-            async with ThrottledClientSession(rate_limit=9, headers={'Connection': 'keep-alive'}) as session:
+            async with ThrottledClientSession(rate_limit=9) as session:
                 tasks = [asyncio.ensure_future(fetch_and_save(link, path, session))
                          for link, path in inputs]
                 for f in asyncio.as_completed(tasks):
                     await f
-                # for f in tqdm.tqdm(asyncio.as_completed(tasks), total=len(tasks)):	
+                # for f in tqdm.tqdm(asyncio.as_completed(tasks), total=len(tasks)):
                 #     await f
 
         def do_create_and_copy(q):
