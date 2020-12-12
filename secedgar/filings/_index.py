@@ -297,7 +297,7 @@ class IndexFilings(AbstractFiling):
             unpack_queue.join()
 
             # Allocate threads to move files according to pattern
-            (_, _, extracted_files) = next(os.walk(extract_directory))
+            
             link_list = [item for links in urls.values() for item in links]
 
             move_queue = Queue(maxsize=len(link_list))
@@ -305,6 +305,8 @@ class IndexFilings(AbstractFiling):
             for i in range(move_threads):
                 worker = Thread(target=do_create_and_copy, args=(move_queue,))
                 worker.start()
+
+            (_, _, extracted_files) = next(os.walk(extract_directory))
 
             for link in link_list:
                 link_cik = link.split('/')[-2]

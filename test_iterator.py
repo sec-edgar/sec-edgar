@@ -6,3 +6,4 @@ import secedgar.filings.daily as d
 
 daily_filing = d.DailyFilings(datetime(2018, 12, 31))
 daily_filing.save('./out')
+daily_filing.extract_filings()

@@ -147,7 +147,6 @@ class TestDaily:
                   mock_daily_idx_file,
                   subdir,
                   file):
-        print('test save')
         daily_filing = DailyFilings(datetime(2018, 12, 31))
         daily_filing.save(tmp_data_directory)
         subdir = os.path.join("20181231", subdir)

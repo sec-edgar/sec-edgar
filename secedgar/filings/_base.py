@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from secedgar.filings.filing_extractor import FilingExtractor
-import string
+import string, os
 
 
 class AbstractFiling(ABC):
@@ -8,11 +8,15 @@ class AbstractFiling(ABC):
 
     .. versionadded:: 0.1.5
     """
-    @property
-    def extractor(self):
-        """``secedgar.filings.filing_extractor`: Extractor class used."""
-        return FilingExtractor()
 
+    """``secedgar.filings.filing_extractor`: Extractor class used."""
+    extractor = FilingExtractor()
+
+    def extract(self, directory, out_dir=None, create_subdir=True, rm_infile=False):
+        """Extract filings in directory."""
+        for root, dirs, files in os.walk(directory):
+            for file in files:
+                self.extractor.process(file, out_dir=out_dir, create_subdir=create_subdir, rm_infile=rm_infile)
     @property
     @abstractmethod
     def client(self):
