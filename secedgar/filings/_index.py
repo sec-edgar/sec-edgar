@@ -8,8 +8,27 @@ import re
 from abc import abstractmethod
 from collections import namedtuple
 import asyncio
-import requests
 import shutil
+import importlib.util
+from queue import Queue, Empty
+from threading import Thread
+
+# import tqdm if possible
+
+tqdm_spec = importlib.util.find_spec('tqdm')
+if tqdm_spec:
+    tqdm = importlib.util.module_from_spec(tqdm_spec)
+    sys.modules['tqdm'] = tqdm
+    tqdm_spec.loader.exec_module(tqdm)
+
+# import uvloop if possible
+
+uvloop_spec = importlib.util.find_spec('uvloop')
+if uvloop_spec:
+    uvloop = importlib.util.module_from_spec(uvloop_spec)
+    sys.modules['uvloop'] = uvloop
+    uvloop_spec.loader.exec_module(uvloop)
+    uvloop.install()  # Makes asyncio 2-4x faster
 
 
 class IndexFilings(AbstractFiling):
@@ -224,59 +243,89 @@ class IndexFilings(AbstractFiling):
             async with ThrottledClientSession(rate_limit=9) as session:
                 tasks = [asyncio.ensure_future(fetch_and_save(link, path, session))
                          for link, path in inputs]
-                for f in asyncio.as_completed(tasks):
-                    await f
+                if tqdm_spec is None:
+                    for f in asyncio.as_completed(tasks):
+                        await f
+                else:
+                    for f in tqdm.tqdm(asyncio.as_completed(tasks), total=len(tasks)):
+                        await f
 
+        def do_create_and_copy(q):
+            while True:
+                try:
+                    filename, new_dir, old_path = q.get(timeout=1)
+                except Empty:
+                    return
+                make_path(new_dir)
+                path = os.path.join(new_dir, filename)
+                shutil.copyfile(old_path, path)
+                q.task_done()
         if download_all:
             # Download tar files into huge temp directory
             extract_directory = os.path.join(directory, 'temp')
             make_path(extract_directory)
             tar_files = self.get_file_names()
+            inputs = []
             for filename in tar_files:
-                response = requests.get(self.make_url(self.tar_path + filename), stream=True)
                 download_target = os.path.join(extract_directory, filename)
-                if response.status_code == 403:
-                    # Ignore days that do not exist
-                    continue
-                else:
-                    # Throw an error for bad status codes
-                    response.raise_for_status()
+                url_target = self.make_url(self.tar_path + filename)
+                inputs.append((url_target, download_target))
+            loop = asyncio.get_event_loop()
+            loop.run_until_complete(wait_for_download_async(inputs))
 
-                with open(download_target, 'wb') as handle:
-                    for block in response.iter_content(1024):
-                        handle.write(block)
+            # Create thread for each tar file and unpack
+            unpack_queue = Queue(maxsize=len(tar_files))
+            unpack_threads = len(tar_files)
 
-                shutil.unpack_archive(download_target, extract_directory)
-                os.remove(download_target)
+            def do_unpack_archive(q, extract_directory):
+                while True:
+                    try:
+                        filename = q.get(timeout=1)
+                    except Empty:
+                        return
+                    shutil.unpack_archive(filename, extract_directory)
+                    os.remove(filename)
+                    q.task_done()
 
-            # Get a list of all extracted files
+            for i in range(unpack_threads):
+                worker = Thread(target=do_unpack_archive, args=(unpack_queue, extract_directory))
+                worker.start()
+            for f in tar_files:
+                full_path = os.path.join(extract_directory, f)
+                unpack_queue.put_nowait(full_path)
+
+            unpack_queue.join()
+
+            # Allocate threads to move files according to pattern
             (_, _, extracted_files) = next(os.walk(extract_directory))
-            # Now check extracted_files against urls
-            iterator_fn = range
-            if tqdm_spec:
-                iterator_fn = tqdm.trange
-            url_vals = urls.values()
-            for i in iterator_fn(len(url_vals)):
-                links = url_vals[i]
-                for link in links:
-                    link_cik = link.split('/')[-2]
-                    filepath = self.get_accession_number(link).split('.')[0]
-                    possible_endings = ['nc', 'corr04', 'corr03', 'corr02', 'coor01']
-                    for ending in possible_endings:
-                        full_filepath = filepath + '.' + ending
-                        # If the filepath is found, move it to the correct path
-                        if full_filepath in extracted_files:
+            link_list = [item for links in urls.values() for item in links]
 
-                            formatted_dir = dir_pattern.format(cik=link_cik)
-                            formatted_file = file_pattern.format(
-                                accession_number=self.get_accession_number(link))
-                            full_dir = os.path.join(directory, formatted_dir)
-                            make_path(full_dir)
-                            path = os.path.join(full_dir, formatted_file)
-                            old_path = os.path.join(extract_directory, full_filepath)
-                            shutil.copyfile(old_path, path)
-                            break
-            # Now delete extract directory
+            move_queue = Queue(maxsize=len(link_list))
+            move_threads = 64
+            for i in range(move_threads):
+                worker = Thread(target=do_create_and_copy, args=(move_queue,))
+                worker.start()
+
+            for link in link_list:
+                link_cik = link.split('/')[-2]
+                link_accession = self.get_accession_number(link)
+                filepath = link_accession.split('.')[0]
+                possible_endings = ['nc', 'corr04', 'corr03', 'corr02', 'coor01']
+                for ending in possible_endings:
+                    full_filepath = filepath + '.' + ending
+                    # If the filepath is found, move it to the correct path
+                    if full_filepath in extracted_files:
+
+                        formatted_dir = dir_pattern.format(cik=link_cik)
+                        formatted_file = file_pattern.format(
+                            accession_number=link_accession)
+                        old_path = os.path.join(extract_directory, full_filepath)
+                        full_dir = os.path.join(directory, formatted_dir)
+                        move_queue.put_nowait((formatted_file, full_dir, old_path))
+                        break
+            move_queue.join()
+
+            # Remove the initial extracted data
             shutil.rmtree(extract_directory)
         else:
             inputs = []

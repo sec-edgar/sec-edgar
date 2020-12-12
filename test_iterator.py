@@ -4,8 +4,5 @@ sys.path.append("/home/retep/repos/sec-edgar/secedgar")
 
 import secedgar.filings.daily as d
 
-date = datetime(2003,7,15)
-inst = d.DailyFilings(date)
-for i in range(3):
-    print('RUN', i+1)
-    inst.save('./out')
+daily_filing = d.DailyFilings(datetime(2018, 12, 31))
+daily_filing.save('./out')
