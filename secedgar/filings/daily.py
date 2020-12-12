@@ -84,8 +84,8 @@ class DailyFilings(IndexFilings):
         Args:
             directory (str): Directory where filings should be stored. Will be broken down
                 further by company name and form type.
-            dir_pattern (str): Format string for subdirectories. Default is `{date}/{{cik}}`.
-                Valid options are `date`. `cik` can be used if wrapped in double braces (`{{cik}}`).
+            dir_pattern (str): Format string for subdirectories. Default is `{date}/{cik}`.
+                Valid options that must be wrapped in curly braces are `date` and `cik`.
             date_format (str): Format string to use for the `{date}` pattern. Default is ``%Y%m%d``.
             file_pattern (str): Format string for files. Default is `{accession_number}`.
                 Valid options are `accession_number`.
@@ -93,8 +93,8 @@ class DailyFilings(IndexFilings):
                 if false downloads each file in index. Default is `False`.
         """
         if dir_pattern is None:
-            dir_pattern = os.path.join("{date}", "{{cik}}")
+            dir_pattern = os.path.join("{date}", "{cik}")
 
-        formatted_dir = dir_pattern.format(date=self._date.strftime(date_format))
+        formatted_dir = dir_pattern.format(date=self._date.strftime(date_format), cik="{cik}")
         self.save_filings(directory, dir_pattern=formatted_dir,
                           file_pattern=file_pattern, download_all=download_all)
