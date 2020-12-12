@@ -1,6 +1,6 @@
 import time
 import asyncio
-from aiohttp import ClientSession
+from aiohttp import ClientSession, TCPConnector
 
 
 class ThrottledClientSession(ClientSession):
@@ -11,6 +11,7 @@ class ThrottledClientSession(ClientSession):
     """
 
     def __init__(self, rate_limit: int, *args, **kwargs):
+        kwargs['connector'] = TCPConnector(limit=rate_limit) # Another safeguard against rate limit
         super().__init__(*args, **kwargs)
         if rate_limit <= 0:
             raise ValueError('rate_limit must be positive')
