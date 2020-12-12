@@ -288,7 +288,7 @@ class IndexFilings(AbstractFiling):
                 link_cik = link.split('/')[-2]
                 link_accession = self.get_accession_number(link)
                 filepath = link_accession.split('.')[0]
-                possible_endings = ('nc', 'corr04', 'corr03', 'corr02', 'coor01')
+                possible_endings = ('nc', 'corr04', 'corr03', 'corr02', 'corr01')
                 for ending in possible_endings:
                     full_filepath = filepath + '.' + ending
                     # If the filepath is found, move it to the correct path
