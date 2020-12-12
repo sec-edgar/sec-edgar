@@ -12,7 +12,7 @@ class ThrottledClientSession(ClientSession):
 
     def __init__(self, rate_limit: int, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        time.sleep(1) # Avoid intersection with previous requests
+        time.sleep(1)  # Avoid intersection with previous requests
         if rate_limit <= 0:
             raise ValueError('rate_limit must be positive')
         self._queue = asyncio.Queue(min(2, rate_limit))
