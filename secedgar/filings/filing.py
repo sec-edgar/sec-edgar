@@ -1,24 +1,15 @@
 import datetime
 import os
-import sys
 import warnings
 import asyncio
 
 from secedgar.filings._base import AbstractFiling
-from secedgar.client.network_client import NetworkClient
-from secedgar.utils import sanitize_date, make_path, ThrottledClientSession
+from secedgar.client import NetworkClient, ThrottledClientSession
+from secedgar.utils import sanitize_date, make_path
 
 from secedgar.filings.cik_lookup import CIKLookup
 from secedgar.filings.filing_types import FilingType
 from secedgar.utils.exceptions import FilingTypeError
-
-import importlib.util
-# import tqdm if possible
-
-tqdm_spec = importlib.util.find_spec('tqdm')
-tqdm = importlib.util.module_from_spec(tqdm_spec)
-sys.modules['tqdm'] = tqdm
-tqdm_spec.loader.exec_module(tqdm)
 
 
 class Filing(AbstractFiling):
@@ -236,12 +227,8 @@ class Filing(AbstractFiling):
             async with ThrottledClientSession(rate_limit=9) as session:
                 tasks = [asyncio.ensure_future(fetch_and_save(link, path, session))
                          for link, path in inputs]
-                if tqdm_spec is None:
-                    for f in asyncio.as_completed(tasks):
-                        await f
-                else:
-                    for f in tqdm.tqdm(asyncio.as_completed(tasks), total=len(tasks)):
-                        await f
+                for f in asyncio.as_completed(tasks):
+                    await f
         inputs = []
         for cik, links in urls.items():
             formatted_dir = dir_pattern.format(cik=cik, type=self.filing_type.value)

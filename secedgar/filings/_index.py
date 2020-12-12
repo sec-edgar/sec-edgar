@@ -1,7 +1,7 @@
 from secedgar.utils.exceptions import EDGARQueryError
 from secedgar.filings._base import AbstractFiling
-from secedgar.utils import make_path, ThrottledClientSession
-from secedgar.client import NetworkClient
+from secedgar.utils import make_path
+from secedgar.client import NetworkClient, ThrottledClientSession
 import os
 import sys
 import re
@@ -9,26 +9,8 @@ from abc import abstractmethod
 from collections import namedtuple
 import asyncio
 import shutil
-import importlib.util
 from queue import Queue, Empty
 from threading import Thread
-
-# import tqdm if possible
-
-tqdm_spec = importlib.util.find_spec('tqdm')
-if tqdm_spec:
-    tqdm = importlib.util.module_from_spec(tqdm_spec)
-    sys.modules['tqdm'] = tqdm
-    tqdm_spec.loader.exec_module(tqdm)
-
-# import uvloop if possible
-
-uvloop_spec = importlib.util.find_spec('uvloop')
-if uvloop_spec:
-    uvloop = importlib.util.module_from_spec(uvloop_spec)
-    sys.modules['uvloop'] = uvloop
-    uvloop_spec.loader.exec_module(uvloop)
-    uvloop.install()  # Makes asyncio 2-4x faster
 
 
 class IndexFilings(AbstractFiling):
@@ -90,6 +72,16 @@ class IndexFilings(AbstractFiling):
     def idx_filename(self):
         """Passed to children classes."""
         pass  # pragma: no cover
+
+    @abstractmethod
+    def get_file_names(self):
+        """Passed to child classes."""
+        pass  # pragma: no cover
+
+    @property
+    def tar_path(self):
+        """str: Tar.gz path added to the client base."""
+        return "Archives/edgar/Feed/{year}/QTR{num}/".format(year=self.year, num=self.quarter)
 
     def get_listings_directory(self, update_cache=False, **kwargs):
         """Get page with list of all idx files for given date or quarter.
@@ -193,15 +185,7 @@ class IndexFilings(AbstractFiling):
                           for company, entries in filings_dict.items()}
         return self._urls
 
-    @abstractmethod
-    def get_file_names(self):
-        """Passed to child classes."""
-    @property
-    def tar_path(self):
-        """str: Tar.gz path added to the client base."""
-        return "Archives/edgar/Feed/{year}/QTR{num}/".format(year=self.year, num=self.quarter)
-
-    def save_filings(self, directory, dir_pattern=None, file_pattern=None, download_all=False):
+    def save_filings(self, directory, dir_pattern="{cik}", file_pattern="{accession_number}", download_all=False):
         """Save all filings.
 
         Will store all filings for each unique CIK under a separate subdirectory
@@ -228,11 +212,6 @@ class IndexFilings(AbstractFiling):
         """
         urls = self._check_urls_exist()
 
-        if dir_pattern is None:
-            dir_pattern = '{cik}'
-        if file_pattern is None:
-            file_pattern = '{accession_number}'
-
         async def fetch_and_save(link, path, session):
             async with session.get(link) as response:
                 make_path(os.path.dirname(path))
@@ -243,12 +222,8 @@ class IndexFilings(AbstractFiling):
             async with ThrottledClientSession(rate_limit=9) as session:
                 tasks = [asyncio.ensure_future(fetch_and_save(link, path, session))
                          for link, path in inputs]
-                if tqdm_spec is None:
-                    for f in asyncio.as_completed(tasks):
-                        await f
-                else:
-                    for f in tqdm.tqdm(asyncio.as_completed(tasks), total=len(tasks)):
-                        await f
+                for f in asyncio.as_completed(tasks):
+                    await f
 
         def do_create_and_copy(q):
             while True:
@@ -260,6 +235,7 @@ class IndexFilings(AbstractFiling):
                 path = os.path.join(new_dir, filename)
                 shutil.copyfile(old_path, path)
                 q.task_done()
+
         if download_all:
             # Download tar files into huge temp directory
             extract_directory = os.path.join(directory, 'temp')
@@ -312,7 +288,7 @@ class IndexFilings(AbstractFiling):
                 link_cik = link.split('/')[-2]
                 link_accession = self.get_accession_number(link)
                 filepath = link_accession.split('.')[0]
-                possible_endings = ['nc', 'corr04', 'corr03', 'corr02', 'coor01']
+                possible_endings = ('nc', 'corr04', 'corr03', 'corr02', 'coor01')
                 for ending in possible_endings:
                     full_filepath = filepath + '.' + ending
                     # If the filepath is found, move it to the correct path

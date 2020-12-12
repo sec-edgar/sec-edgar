@@ -1,6 +1,5 @@
 import os
-from datetime import datetime, date, timedelta
-from calendar import monthrange
+from datetime import datetime
 
 from secedgar.utils import get_quarter
 from secedgar.filings._index import IndexFilings
@@ -73,24 +72,10 @@ class MasterFilings(IndexFilings):
 
     def get_file_names(self):
         """The list of .tar.gz daily files in the current quarter."""
-        if self.year < 1995 or (self.year == 1995 and self.quarter < 3):
-            raise ValueError('Bulk downloading is only available starting 1995 Q3.')
-        # https://stackoverflow.com/questions/36793381/python-get-first-and-last-day-of-current-calendar-quarter
-        first_month_of_quarter = 3 * self.quarter - 2
-        last_month_of_quarter = 3 * self.quarter
-        start_date = date(self.year, first_month_of_quarter, 1)
-        end_date = date(self.year, last_month_of_quarter,
-                        monthrange(self.year, last_month_of_quarter)[1])
-        if self.year == 1995 and self.quarter == 3:
-            days = [15, 18, 19, 21, 22, 25, 28]
-            dates_between = [date(1995, 9, day) for day in days]
-        else:
-            dates_between = [start_date + timedelta(days=x)
-                             for x in range((end_date-start_date).days + 1)]
-        daily_file_format = '{date}.nc.tar.gz'
-        all_days_in_quarter = [daily_file_format.format(
-            date=d.strftime("%Y%m%d")) for d in dates_between]
-        return all_days_in_quarter
+        soup = self.client.get_soup(self.tar_path)
+        files = [a.get('href') for a in soup.find_all('a')]
+        files = [file for file in files if "nc.tar.gz" in file]
+        return files
 
     def save(self, directory, dir_pattern=None, file_pattern=None, download_all=False):
         """Save all daily filings.
