@@ -10,13 +10,6 @@ from collections import namedtuple
 import asyncio
 import requests
 import shutil
-import importlib.util
-# import tqdm if possible
-
-tqdm_spec = importlib.util.find_spec('tqdm')
-tqdm = importlib.util.module_from_spec(tqdm_spec)
-sys.modules['tqdm'] = tqdm
-tqdm_spec.loader.exec_module(tqdm)
 
 
 class IndexFilings(AbstractFiling):
@@ -231,12 +224,9 @@ class IndexFilings(AbstractFiling):
             async with ThrottledClientSession(rate_limit=9) as session:
                 tasks = [asyncio.ensure_future(fetch_and_save(link, path, session))
                          for link, path in inputs]
-                if tqdm_spec is None:
-                    for f in asyncio.as_completed(tasks):
-                        await f
-                else:
-                    for f in tqdm.tqdm(asyncio.as_completed(tasks), total=len(tasks)):
-                        await f
+                for f in asyncio.as_completed(tasks):
+                    await f
+
         if download_all:
             # Download tar files into huge temp directory
             extract_directory = os.path.join(directory, 'temp')
