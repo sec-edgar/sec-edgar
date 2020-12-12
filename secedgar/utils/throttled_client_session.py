@@ -15,12 +15,13 @@ class ThrottledClientSession(ClientSession):
         self._queue = asyncio.Queue(min(2, rate_limit))
         self._fillerTask = asyncio.create_task(self._filler())
         print('sleep=', self._get_sleep())
+
     def _get_sleep(self):
         return 1/self.rate_limit
 
     async def close(self):
         """Close rate-limiter's "bucket filler" task"""
-        if self._fillerTask != None:
+        if self._fillerTask is not None:
             self._fillerTask.cancel()
         try:
             await asyncio.wait_for(self._fillerTask, timeout=0.5)
@@ -31,7 +32,7 @@ class ThrottledClientSession(ClientSession):
     async def _filler(self):
         """Filler task to fill the leaky bucket algo"""
         try:
-            if self._queue == None:
+            if self._queue is None:
                 return
             sleep = self._get_sleep()
             updated_at = time.monotonic()
@@ -53,15 +54,16 @@ class ThrottledClientSession(ClientSession):
                     updated_at = now
                 await asyncio.sleep(sleep)
         except asyncio.CancelledError:
-            pass # Was canceled b/c of close
+            pass  # Was canceled b/c of close
         except Exception as err:
             raise err
 
     async def _allow(self):
-        if self._queue != None:
+        if self._queue is not None:
             await self._queue.get()
             self._queue.task_done()
         return None
+
     async def _request(self, *args, **kwargs):
         """Throttled _request()"""
         await self._allow()
