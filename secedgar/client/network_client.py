@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 
 from secedgar.client._base import AbstractClient
 from secedgar.utils.exceptions import EDGARQueryError
-
+import time
 
 class NetworkClient(AbstractClient):
     """Class in charge of sending and handling requests to EDGAR database.

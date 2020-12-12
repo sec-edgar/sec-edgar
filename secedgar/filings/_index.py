@@ -235,6 +235,15 @@ class IndexFilings(AbstractFiling):
                 shutil.copyfile(old_path, path)
                 q.task_done()
 
+        def do_unpack_archive(q, extract_directory):
+            while True:
+                try:
+                    filename = q.get(timeout=1)
+                except Empty:
+                    return
+                shutil.unpack_archive(filename, extract_directory)
+                os.remove(filename)
+                q.task_done()
         if download_all:
             # Download tar files into huge temp directory
             extract_directory = os.path.join(directory, 'temp')
@@ -252,15 +261,6 @@ class IndexFilings(AbstractFiling):
             unpack_queue = Queue(maxsize=len(tar_files))
             unpack_threads = len(tar_files)
 
-            def do_unpack_archive(q, extract_directory):
-                while True:
-                    try:
-                        filename = q.get(timeout=1)
-                    except Empty:
-                        return
-                    shutil.unpack_archive(filename, extract_directory)
-                    os.remove(filename)
-                    q.task_done()
 
             for i in range(unpack_threads):
                 worker = Thread(target=do_unpack_archive, args=(unpack_queue, extract_directory))
