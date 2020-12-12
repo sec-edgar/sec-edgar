@@ -9,26 +9,8 @@ from abc import abstractmethod
 from collections import namedtuple
 import asyncio
 import shutil
-import importlib.util
 from queue import Queue, Empty
 from threading import Thread
-
-# import tqdm if possible
-
-tqdm_spec = importlib.util.find_spec('tqdm')
-if tqdm_spec:
-    tqdm = importlib.util.module_from_spec(tqdm_spec)
-    sys.modules['tqdm'] = tqdm
-    tqdm_spec.loader.exec_module(tqdm)
-
-# import uvloop if possible
-
-uvloop_spec = importlib.util.find_spec('uvloop')
-if uvloop_spec:
-    uvloop = importlib.util.module_from_spec(uvloop_spec)
-    sys.modules['uvloop'] = uvloop
-    uvloop_spec.loader.exec_module(uvloop)
-    uvloop.install()  # Makes asyncio 2-4x faster
 
 
 class IndexFilings(AbstractFiling):
@@ -240,12 +222,8 @@ class IndexFilings(AbstractFiling):
             async with ThrottledClientSession(rate_limit=9) as session:
                 tasks = [asyncio.ensure_future(fetch_and_save(link, path, session))
                          for link, path in inputs]
-                if tqdm_spec is None:
-                    for f in asyncio.as_completed(tasks):
-                        await f
-                else:
-                    for f in tqdm.tqdm(asyncio.as_completed(tasks), total=len(tasks)):
-                        await f
+                for f in asyncio.as_completed(tasks):
+                    await f
 
         def do_create_and_copy(q):
             while True:
