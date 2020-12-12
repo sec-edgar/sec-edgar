@@ -77,7 +77,11 @@ class MasterFilings(IndexFilings):
         files = [file for file in files if "nc.tar.gz" in file]
         return files
 
-    def save(self, directory, dir_pattern=None, file_pattern="{accession_number}", download_all=False):
+    def save(self,
+             directory,
+             dir_pattern=None,
+             file_pattern="{accession_number}",
+             download_all=False):
         """Save all daily filings.
 
         Creates subdirectory within given directory of the form <YEAR>/QTR<QTR NUMBER>/.

@@ -3,7 +3,6 @@ from secedgar.filings._base import AbstractFiling
 from secedgar.utils import make_path
 from secedgar.client import NetworkClient, ThrottledClientSession
 import os
-import sys
 import re
 from abc import abstractmethod
 from collections import namedtuple
@@ -185,7 +184,11 @@ class IndexFilings(AbstractFiling):
                           for company, entries in filings_dict.items()}
         return self._urls
 
-    def save_filings(self, directory, dir_pattern="{cik}", file_pattern="{accession_number}", download_all=False):
+    def save_filings(self,
+                     directory,
+                     dir_pattern="{cik}",
+                     file_pattern="{accession_number}",
+                     download_all=False):
         """Save all filings.
 
         Will store all filings for each unique CIK under a separate subdirectory
@@ -271,7 +274,6 @@ class IndexFilings(AbstractFiling):
             unpack_queue = Queue(maxsize=len(tar_files))
             unpack_threads = len(tar_files)
 
-
             for i in range(unpack_threads):
                 worker = Thread(target=do_unpack_archive, args=(unpack_queue, extract_directory))
                 worker.start()
@@ -282,7 +284,6 @@ class IndexFilings(AbstractFiling):
             unpack_queue.join()
 
             # Allocate threads to move files according to pattern
-            
             link_list = [item for links in urls.values() for item in links]
 
             move_queue = Queue(maxsize=len(link_list))
@@ -297,7 +298,7 @@ class IndexFilings(AbstractFiling):
                 link_cik = link.split('/')[-2]
                 link_accession = self.get_accession_number(link)
                 filepath = link_accession.split('.')[0]
-                possible_endings = ('nc', 'corr04', 'corr03', 'corr02', 'coor01')
+                possible_endings = ('nc', 'corr04', 'corr03', 'corr02', 'corr01')
                 for ending in possible_endings:
                     full_filepath = filepath + '.' + ending
                     # If the filepath is found, move it to the correct path
