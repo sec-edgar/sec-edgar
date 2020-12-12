@@ -18,7 +18,6 @@ class ThrottledClientSession(ClientSession):
             raise ValueError('rate_limit must be positive')
         self._queue = asyncio.Queue(min(2, rate_limit))
         self._fillerTask = asyncio.create_task(self._filler())
-        print('sleep=', self._get_sleep())
 
     def _get_sleep(self):
         return 1 / self.rate_limit

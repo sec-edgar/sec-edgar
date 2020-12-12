@@ -73,7 +73,7 @@ class DailyFilings(IndexFilings):
         else:
             return self._date.strftime("%Y%m%d")
 
-    def save(self, directory, dir_pattern=None, file_pattern=None, date_format="%Y%m%d",
+    def save(self, directory, dir_pattern=None, file_pattern="{accession_number}", date_format="%Y%m%d",
              download_all=False):
         """Save all daily filings.
 
