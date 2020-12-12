@@ -9,6 +9,7 @@ from abc import abstractmethod
 from collections import namedtuple
 import asyncio
 import shutil
+import time
 from queue import Queue, Empty
 from threading import Thread
 
@@ -212,16 +213,25 @@ class IndexFilings(AbstractFiling):
         urls = self._check_urls_exist()
 
         async def fetch_and_save(link, path, session):
-            async with session.get(link) as response:
+            # https://github.com/aio-libs/aiohttp/issues/2249
+            async with session.get(link, timeout=None) as response:
+                # print(response.headers['Content-Length'])
+                contents = await response.read()
+                if contents.startswith(b'<!DOCTYPE'):
+                    raise EDGARQueryError("You hit the rate limit, retry after 10 minutes.")
                 make_path(os.path.dirname(path))
                 with open(path, "wb") as f:
-                    f.write(await response.read())
-
+                    f.write(contents)
+        import tqdm
         async def wait_for_download_async(inputs):
-            async with ThrottledClientSession(rate_limit=9) as session:
+            time.sleep(2) # Avoid intersection with previous requests
+            # https://github.com/aio-libs/aiohttp/issues/3904
+            async with ThrottledClientSession(rate_limit=9, headers={'Connection': 'keep-alive'}) as session:
                 tasks = [asyncio.ensure_future(fetch_and_save(link, path, session))
                          for link, path in inputs]
-                for f in asyncio.as_completed(tasks):
+                # for f in asyncio.as_completed(tasks):
+                #     await f
+                for f in tqdm.tqdm(asyncio.as_completed(tasks), total=len(tasks)):	
                     await f
 
         def do_create_and_copy(q):
@@ -313,6 +323,5 @@ class IndexFilings(AbstractFiling):
                         accession_number=self.get_accession_number(link))
                     path = os.path.join(directory, formatted_dir, formatted_file)
                     inputs.append((link, path))
-
             loop = asyncio.get_event_loop()
             loop.run_until_complete(wait_for_download_async(inputs))

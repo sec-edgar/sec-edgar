@@ -3,6 +3,7 @@ import os
 import warnings
 import asyncio
 
+from secedgar.utils.exceptions import EDGARQueryError
 from secedgar.filings._base import AbstractFiling
 from secedgar.client import NetworkClient, ThrottledClientSession
 from secedgar.utils import sanitize_date, make_path
@@ -219,9 +220,13 @@ class Filing(AbstractFiling):
 
         async def fetch_and_save(link, path, session):
             async with session.get(link) as response:
+                # print(response.headers['Content-Length'])
+                contents = await response.read()
+                if contents.startswith(b'<!DOCTYPE'):
+                    raise EDGARQueryError("You hit the rate limit")
                 make_path(os.path.dirname(path))
                 with open(path, "wb") as f:
-                    f.write(await response.read())
+                    f.write(contents)
 
         async def wait_for_download_async(inputs):
             async with ThrottledClientSession(rate_limit=9) as session:

@@ -41,7 +41,6 @@ class FilingExtractor:
         if out_dir is None:
             out_dir = os.path.dirname(infile)
         infile_base = os.path.basename(infile).split('.txt')[0]
-        print(infile_base)
         metadata_file_format = "{base}_{num}.metadata.json"
         document_file_format = '{base}_{sec_doc_num}.{file}'
         if create_subdir:
