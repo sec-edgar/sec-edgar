@@ -16,7 +16,8 @@ class AbstractFiling(ABC):
         """Extract filings in directory."""
         for root, dirs, files in os.walk(directory):
             for file in files:
-                self.extractor.process(file, out_dir=out_dir, create_subdir=create_subdir, rm_infile=rm_infile)
+                if file.endswith('.txt'):
+                    self.extractor.process(os.path.join(root, file), out_dir=out_dir, create_subdir=create_subdir, rm_infile=rm_infile)
     @property
     @abstractmethod
     def client(self):

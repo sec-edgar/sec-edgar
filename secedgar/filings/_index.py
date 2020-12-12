@@ -35,7 +35,7 @@ class IndexFilings(AbstractFiling):
         self._filings_dict = None
         self._paths = []
         self._urls = {}
-        self._entry_filter = None
+        self._entry_filter = entry_filter
 
     @property
     def entry_filter(self):
@@ -152,7 +152,6 @@ class IndexFilings(AbstractFiling):
                 entry = FilingEntry(*fields, path=path)
                 if self.entry_filter is not None and not self.entry_filter(entry):
                     continue
-
                 # Add new filing entry to CIK's list
                 if entry.cik in self._filings_dict:
                     self._filings_dict[entry.cik].append(entry)

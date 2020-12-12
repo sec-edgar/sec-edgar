@@ -3,7 +3,7 @@ import os
 import logging
 import uu
 import json
-
+from secedgar.utils import make_path
 # Pulled from https://github.com/sec-edgar/sec-edgar/blob/
 # dda43dd3b4d1ea19abfe71596b165e22625357c6/SECEdgar/extractor/EDGARExtractor.py
 
@@ -40,14 +40,15 @@ class FilingExtractor:
 
         if out_dir is None:
             out_dir = os.path.dirname(infile)
-        infile_base = os.path.basename(infile)
-        metadata_file_format = "{base}_{num}_metadata.json"
-        document_file_format = '{base}_{part1}.{sec_doc_num}.{doc_num}.{part2}'
+        infile_base = os.path.basename(infile).split('.txt')[0]
+        print(infile_base)
+        metadata_file_format = "{base}_{num}.metadata.json"
+        document_file_format = '{base}_{sec_doc_num}.{file}'
         if create_subdir:
             out_dir = os.path.join(out_dir, infile_base)
-            os.makedirs(out_dir)
-            metadata_file_format = "{num}_metadata.json"
-            document_file_format = '{part1}.{sec_doc_num}.{doc_num}.{part2}'
+            make_path(out_dir)
+            metadata_file_format = "{num}.metadata.json"
+            document_file_format = '{sec_doc_num}.{file}'
         sec_doc_cursor = 0
         sec_doc_count = intxt.count("<SEC-DOCUMENT>")
         for sec_doc_num in range(sec_doc_count):
@@ -84,13 +85,10 @@ class FilingExtractor:
                 # Get file data and file name
                 doc_filename = doc_metadata["filename"]
                 doc_txt = self.re_text.search(doc).group(1).strip()
-                doc_filename_split = os.path.splitext(doc_filename)[0]
                 target_doc_filename = document_file_format.format(
                     base=infile_base,
-                    part1=doc_filename_split[0],
                     sec_doc_num=sec_doc_num,
-                    doc_num=doc_num,
-                    part2=doc_filename_split[1]
+                    file=doc_filename
                 )
                 doc_outfile = os.path.join(out_dir, target_doc_filename)
 
