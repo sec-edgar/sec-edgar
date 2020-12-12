@@ -8,12 +8,10 @@ import re
 from abc import abstractmethod
 from collections import namedtuple
 import asyncio
-import requests
 import shutil
-import math
 import importlib.util
 from queue import Queue, Empty
-from threading import Thread, Lock
+from threading import Thread
 
 # import tqdm if possible
 
@@ -30,7 +28,8 @@ if uvloop_spec:
     uvloop = importlib.util.module_from_spec(uvloop_spec)
     sys.modules['uvloop'] = uvloop
     uvloop_spec.loader.exec_module(uvloop)
-    uvloop.install() # Makes asyncio 2-4x faster
+    uvloop.install()  # Makes asyncio 2-4x faster
+
 
 class IndexFilings(AbstractFiling):
     """Abstract Base Class for index filings.
@@ -250,7 +249,7 @@ class IndexFilings(AbstractFiling):
                 else:
                     for f in tqdm.tqdm(asyncio.as_completed(tasks), total=len(tasks)):
                         await f
-        
+
         def do_create_and_copy(q):
             while True:
                 try:
@@ -274,11 +273,10 @@ class IndexFilings(AbstractFiling):
             loop = asyncio.get_event_loop()
             loop.run_until_complete(wait_for_download_async(inputs))
 
-            '''
-            unpack queue
-            '''
+            # Create thread for each tar file and unpack
             unpack_queue = Queue(maxsize=len(tar_files))
             unpack_threads = len(tar_files)
+
             def do_unpack_archive(q, extract_directory):
                 while True:
                     try:
@@ -294,22 +292,20 @@ class IndexFilings(AbstractFiling):
                 worker.start()
             for f in tar_files:
                 full_path = os.path.join(extract_directory, f)
-                unpack_queue.put_nowait(full_path) # will throw error if queue is full
-            
-            unpack_queue.join() # Waits until queue is empty
-            '''
-            move queue
-            '''
+                unpack_queue.put_nowait(full_path)
+
+            unpack_queue.join()
+
+            # Allocate threads to move files according to pattern
             (_, _, extracted_files) = next(os.walk(extract_directory))
             link_list = [item for links in urls.values() for item in links]
-            
+
             move_queue = Queue(maxsize=len(link_list))
             move_threads = 64
             for i in range(move_threads):
                 worker = Thread(target=do_create_and_copy, args=(move_queue,))
                 worker.start()
-            
-            added = 0
+
             for link in link_list:
                 link_cik = link.split('/')[-2]
                 link_accession = self.get_accession_number(link)
@@ -325,10 +321,11 @@ class IndexFilings(AbstractFiling):
                             accession_number=link_accession)
                         old_path = os.path.join(extract_directory, full_filepath)
                         full_dir = os.path.join(directory, formatted_dir)
-                        added += 1
                         move_queue.put_nowait((formatted_file, full_dir, old_path))
                         break
             move_queue.join()
+
+            # Remove the initial extracted data
             shutil.rmtree(extract_directory)
         else:
             inputs = []
