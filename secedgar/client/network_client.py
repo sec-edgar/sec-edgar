@@ -137,6 +137,12 @@ class NetworkClient(AbstractClient):
             if status_code == 400:
                 raise EDGARQueryError("The query could not be completed. "
                                       "The page does not exist.")
+            elif status_code == 429:
+                raise EDGARQueryError("Error: You have hit the rate limit. "
+                                      "SEC has banned your IP for 10 minutes. "
+                                      "Please wait 10 minutes "
+                                      "before making another request."
+                                      "https://www.sec.gov/privacy.htm#security")
             else:
                 raise EDGARQueryError("The query could not be completed. "
                                       "There was a client-side error with your "

@@ -13,6 +13,7 @@ class FilingExtractor:
 
     .. versionadded:: 0.3.0
     """
+
     def __init__(self):
 
         self.re_doc = re.compile("<DOCUMENT>(.*?)</DOCUMENT>", flags=re.DOTALL)

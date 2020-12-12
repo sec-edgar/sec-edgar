@@ -1,9 +1,9 @@
 import datetime
 import errno
 import os
-import requests
 
 from secedgar.utils.cik_map import get_cik_map  # noqa
+from secedgar.utils.throttled_client_session import ThrottledClientSession  # noqa
 
 
 def sanitize_date(date):
@@ -47,22 +47,6 @@ def make_path(path, **kwargs):
         except OSError as e:
             if e.errno != errno.EEXIST:
                 raise OSError
-
-
-async def download_link_to_path(link, path):
-    """Downloads a link to the specified path
-
-    Args:
-        link (str): Link to download
-        path (str): Full file path
-
-    Returns:
-        None
-    """
-    data = requests.get(link).text
-    make_path(os.path.dirname(path))
-    with open(path, "w") as f:
-        f.write(data)
 
 
 def get_quarter(date):

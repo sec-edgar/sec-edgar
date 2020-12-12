@@ -1,15 +1,22 @@
+from secedgar.utils.exceptions import EDGARQueryError
+from secedgar.filings._base import AbstractFiling
+from secedgar.utils import make_path, ThrottledClientSession
+from secedgar.client import NetworkClient
 import os
+import sys
 import re
 from abc import abstractmethod
 from collections import namedtuple
 import asyncio
 import requests
 import shutil
+import importlib.util
+# import tqdm if possible
 
-from secedgar.client import NetworkClient
-from secedgar.utils import download_link_to_path, make_path
-from secedgar.filings._base import AbstractFiling
-from secedgar.utils.exceptions import EDGARQueryError
+tqdm_spec = importlib.util.find_spec('tqdm')
+tqdm = importlib.util.module_from_spec(tqdm_spec)
+sys.modules['tqdm'] = tqdm
+tqdm_spec.loader.exec_module(tqdm)
 
 
 class IndexFilings(AbstractFiling):
@@ -20,12 +27,13 @@ class IndexFilings(AbstractFiling):
             ``secedgar.client.NetworkClient``.
 
         entry_filter (function, optional): A boolean function to determine
-            if the FilingEntry should be kept. Defaults to `lambda _: True`.
+            if the FilingEntry should be kept. E.g. `lambda l: l.form_type == "4"`.
+            Defaults to `None`.
 
         kwargs: Any keyword arguments to pass to ``NetworkClient`` if no client is specified.
     """
 
-    def __init__(self, client=None, entry_filter=lambda _: True, **kwargs):
+    def __init__(self, client=None, entry_filter=None, **kwargs):
         super().__init__()
         self._client = client if client is not None else NetworkClient(**kwargs)
         self._listings_directory = None
@@ -33,7 +41,7 @@ class IndexFilings(AbstractFiling):
         self._filings_dict = None
         self._paths = []
         self._urls = {}
-        self._entry_filter = entry_filter
+        self._entry_filter = None
 
     @property
     def entry_filter(self):
@@ -107,7 +115,6 @@ class IndexFilings(AbstractFiling):
             if self.idx_filename in self.get_listings_directory().text:
                 master_idx_url = "{path}{filename}".format(
                     path=self.path, filename=self.idx_filename)
-                print(master_idx_url)
                 self._master_idx_file = self.client.get_response(
                     master_idx_url, self.params, **kwargs).text
             else:
@@ -139,7 +146,7 @@ class IndexFilings(AbstractFiling):
                 fields = entry.split("|")
                 path = "Archives/{file_name}".format(file_name=fields[-1])
                 entry = FilingEntry(*fields, path=path)
-                if not self.entry_filter(entry):
+                if self.entry_filter is not None and not self.entry_filter(entry):
                     continue
 
                 # Add new filing entry to CIK's list
@@ -213,15 +220,23 @@ class IndexFilings(AbstractFiling):
             dir_pattern = '{cik}'
         if file_pattern is None:
             file_pattern = '{accession_number}'
-        REQUESTS_PER_SECOND = 10
 
-        async def download_async(link, path):
-            asyncio.ensure_future(download_link_to_path(link, path))
-            await asyncio.sleep(1/REQUESTS_PER_SECOND)
+        async def fetch_and_save(link, path, session):
+            async with session.get(link) as response:
+                make_path(os.path.dirname(path))
+                with open(path, "wb") as f:
+                    f.write(await response.read())
 
         async def wait_for_download_async(inputs):
-            await asyncio.wait([download_async(link, path) for link, path in inputs])
-
+            async with ThrottledClientSession(rate_limit=9) as session:
+                tasks = [asyncio.ensure_future(fetch_and_save(link, path, session))
+                         for link, path in inputs]
+                if tqdm_spec is None:
+                    for f in asyncio.as_completed(tasks):
+                        await f
+                else:
+                    for f in tqdm.tqdm(asyncio.as_completed(tasks), total=len(tasks)):
+                        await f
         if download_all:
             # Download tar files into huge temp directory
             extract_directory = os.path.join(directory, 'temp')
@@ -231,8 +246,7 @@ class IndexFilings(AbstractFiling):
                 response = requests.get(self.make_url(self.tar_path + filename), stream=True)
                 download_target = os.path.join(extract_directory, filename)
                 if response.status_code == 403:
-                    # Ignore days that do not exist in daily backup record
-                    print('WARNING', filename, 'DOES NOT EXIST')
+                    # Ignore days that do not exist
                     continue
                 else:
                     # Throw an error for bad status codes
@@ -248,7 +262,12 @@ class IndexFilings(AbstractFiling):
             # Get a list of all extracted files
             (_, _, extracted_files) = next(os.walk(extract_directory))
             # Now check extracted_files against urls
-            for _, links in urls.items():
+            iterator_fn = range
+            if tqdm_spec:
+                iterator_fn = tqdm.trange
+            url_vals = urls.values()
+            for i in iterator_fn(len(url_vals)):
+                links = url_vals[i]
                 for link in links:
                     link_cik = link.split('/')[-2]
                     filepath = self.get_accession_number(link).split('.')[0]

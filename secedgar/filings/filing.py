@@ -1,15 +1,24 @@
 import datetime
 import os
+import sys
 import warnings
 import asyncio
 
 from secedgar.filings._base import AbstractFiling
 from secedgar.client.network_client import NetworkClient
-from secedgar.utils import sanitize_date, download_link_to_path
+from secedgar.utils import sanitize_date, make_path, ThrottledClientSession
 
 from secedgar.filings.cik_lookup import CIKLookup
 from secedgar.filings.filing_types import FilingType
 from secedgar.utils.exceptions import FilingTypeError
+
+import importlib.util
+# import tqdm if possible
+
+tqdm_spec = importlib.util.find_spec('tqdm')
+tqdm = importlib.util.module_from_spec(tqdm_spec)
+sys.modules['tqdm'] = tqdm
+tqdm_spec.loader.exec_module(tqdm)
 
 
 class Filing(AbstractFiling):
@@ -217,18 +226,32 @@ class Filing(AbstractFiling):
         if file_pattern is None:
             file_pattern = '{accession_number}'
 
-        REQUESTS_PER_SECOND = 10
+        async def fetch_and_save(link, path, session):
+            async with session.get(link) as response:
+                make_path(os.path.dirname(path))
+                with open(path, "wb") as f:
+                    f.write(await response.read())
 
-        async def download_async(urls):
-            for cik, links in urls.items():
-                formatted_dir = dir_pattern.format(cik=cik, type=self.filing_type.value)
-                for link in links:
-                    formatted_file = file_pattern.format(
-                        accession_number=self.get_accession_number(link))
-                    path = os.path.join(directory,
-                                        formatted_dir,
-                                        formatted_file)
-                    asyncio.ensure_future(download_link_to_path(link, path))
-                    await asyncio.sleep(1/REQUESTS_PER_SECOND)
+        async def wait_for_download_async(inputs):
+            async with ThrottledClientSession(rate_limit=9) as session:
+                tasks = [asyncio.ensure_future(fetch_and_save(link, path, session))
+                         for link, path in inputs]
+                if tqdm_spec is None:
+                    for f in asyncio.as_completed(tasks):
+                        await f
+                else:
+                    for f in tqdm.tqdm(asyncio.as_completed(tasks), total=len(tasks)):
+                        await f
+        inputs = []
+        for cik, links in urls.items():
+            formatted_dir = dir_pattern.format(cik=cik, type=self.filing_type.value)
+            for link in links:
+                formatted_file = file_pattern.format(
+                    accession_number=self.get_accession_number(link))
+                path = os.path.join(directory,
+                                    formatted_dir,
+                                    formatted_file)
+                inputs.append((link, path))
 
-        asyncio.ensure_future(download_async(urls))
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(wait_for_download_async(inputs))
