@@ -4,7 +4,7 @@ from aiohttp import ClientSession
 
 
 class ThrottledClientSession(ClientSession):
-    """Rate-throttled client session class inherited from aiohttp.ClientSession)"""
+    """Rate-throttled client session class inherited from aiohttp.ClientSession."""
 
     def __init__(self, rate_limit: int, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -17,10 +17,10 @@ class ThrottledClientSession(ClientSession):
         print('sleep=', self._get_sleep())
 
     def _get_sleep(self):
-        return 1/self.rate_limit
+        return 1 / self.rate_limit
 
     async def close(self):
-        """Close rate-limiter's "bucket filler" task"""
+        """Close rate-limiter's "bucket filler" task."""
         if self._fillerTask is not None:
             self._fillerTask.cancel()
         try:
@@ -30,7 +30,7 @@ class ThrottledClientSession(ClientSession):
         await super().close()
 
     async def _filler(self):
-        """Filler task to fill the leaky bucket algo"""
+        """Filler task to fill the leaky bucket algo."""
         try:
             if self._queue is None:
                 return
@@ -65,6 +65,6 @@ class ThrottledClientSession(ClientSession):
         return None
 
     async def _request(self, *args, **kwargs):
-        """Throttled _request()"""
+        """Throttled request."""
         await self._allow()
         return await super()._request(*args, **kwargs)
