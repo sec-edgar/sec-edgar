@@ -111,7 +111,7 @@ class MasterFilings(IndexFilings):
         """
         if dir_pattern is None:
             # https://stackoverflow.com/questions/11283961/partial-string-formatting
-            dir_pattern = os.path.join('{year}', 'QTR{quarter}', '{{cik}}')
+            dir_pattern = os.path.join('{year}', 'QTR{quarter}', '{cik}')
 
         formatted_dir = dir_pattern.format(year=self.year, quarter=self.quarter, cik="{cik}")
         self.save_filings(directory, dir_pattern=formatted_dir,
