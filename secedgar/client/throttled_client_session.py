@@ -4,7 +4,11 @@ from aiohttp import ClientSession
 
 
 class ThrottledClientSession(ClientSession):
-    """Rate-throttled client session class inherited from aiohttp.ClientSession."""
+    """Rate-throttled client session class inherited from aiohttp.ClientSession.
+
+    Attributes:
+        rate_limit (int): Number of requests to limit session to per second.
+    """
 
     def __init__(self, rate_limit: int, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -46,10 +50,10 @@ class ThrottledClientSession(ClientSession):
                     increment = self.rate_limit * (now - updated_at)
                     fraction += increment % 1
                     extra_increment = fraction // 1
-                    items_2_add = int(min(self._queue.maxsize - self._queue.qsize(),
-                                          int(increment) + extra_increment))
+                    items_to_add = int(min(self._queue.maxsize - self._queue.qsize(),
+                                           int(increment) + extra_increment))
                     fraction = fraction % 1
-                    for i in range(items_2_add):
+                    for i in range(items_to_add):
                         self._queue.put_nowait(i)
                     updated_at = now
                 await asyncio.sleep(sleep)

@@ -1,12 +1,11 @@
 import datetime
 import os
-import sys
 import warnings
 import asyncio
 
 from secedgar.filings._base import AbstractFiling
-from secedgar.client.network_client import NetworkClient
-from secedgar.utils import sanitize_date, make_path, ThrottledClientSession
+from secedgar.client import NetworkClient, ThrottledClientSession
+from secedgar.utils import sanitize_date, make_path
 
 from secedgar.filings.cik_lookup import CIKLookup
 from secedgar.filings.filing_types import FilingType

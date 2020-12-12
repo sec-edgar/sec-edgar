@@ -1,7 +1,7 @@
 from secedgar.utils.exceptions import EDGARQueryError
 from secedgar.filings._base import AbstractFiling
-from secedgar.utils import make_path, ThrottledClientSession
-from secedgar.client import NetworkClient
+from secedgar.utils import make_path
+from secedgar.client import NetworkClient, ThrottledClientSession
 import os
 import sys
 import re
@@ -90,6 +90,16 @@ class IndexFilings(AbstractFiling):
     def idx_filename(self):
         """Passed to children classes."""
         pass  # pragma: no cover
+
+    @abstractmethod
+    def get_file_names(self):
+        """Passed to child classes."""
+        pass  # pragma: no cover
+
+    @property
+    def tar_path(self):
+        """str: Tar.gz path added to the client base."""
+        return "Archives/edgar/Feed/{year}/QTR{num}/".format(year=self.year, num=self.quarter)
 
     def get_listings_directory(self, update_cache=False, **kwargs):
         """Get page with list of all idx files for given date or quarter.
@@ -193,15 +203,7 @@ class IndexFilings(AbstractFiling):
                           for company, entries in filings_dict.items()}
         return self._urls
 
-    @abstractmethod
-    def get_file_names(self):
-        """Passed to child classes."""
-    @property
-    def tar_path(self):
-        """str: Tar.gz path added to the client base."""
-        return "Archives/edgar/Feed/{year}/QTR{num}/".format(year=self.year, num=self.quarter)
-
-    def save_filings(self, directory, dir_pattern=None, file_pattern=None, download_all=False):
+    def save_filings(self, directory, dir_pattern="{cik}", file_pattern="{accession_number}", download_all=False):
         """Save all filings.
 
         Will store all filings for each unique CIK under a separate subdirectory
@@ -227,11 +229,6 @@ class IndexFilings(AbstractFiling):
                 if false downloads each file in index. Default is `False`.
         """
         urls = self._check_urls_exist()
-
-        if dir_pattern is None:
-            dir_pattern = '{cik}'
-        if file_pattern is None:
-            file_pattern = '{accession_number}'
 
         async def fetch_and_save(link, path, session):
             async with session.get(link) as response:
@@ -260,6 +257,7 @@ class IndexFilings(AbstractFiling):
                 path = os.path.join(new_dir, filename)
                 shutil.copyfile(old_path, path)
                 q.task_done()
+
         if download_all:
             # Download tar files into huge temp directory
             extract_directory = os.path.join(directory, 'temp')
@@ -310,7 +308,7 @@ class IndexFilings(AbstractFiling):
                 link_cik = link.split('/')[-2]
                 link_accession = self.get_accession_number(link)
                 filepath = link_accession.split('.')[0]
-                possible_endings = ['nc', 'corr04', 'corr03', 'corr02', 'coor01']
+                possible_endings = ('nc', 'corr04', 'corr03', 'corr02', 'coor01')
                 for ending in possible_endings:
                     full_filepath = filepath + '.' + ending
                     # If the filepath is found, move it to the correct path
