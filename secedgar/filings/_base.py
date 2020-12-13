@@ -2,10 +2,19 @@ from abc import ABC, abstractmethod
 from secedgar.filings.filing_extractor import FilingExtractor
 import string
 import os
+import sys
 import asyncio
 from secedgar.utils import make_path
 from secedgar.utils.exceptions import EDGARQueryError
-from secedgar.client.throttled_client_session import ThrottledClientSession
+from secedgar.client.aiohttp_client import RateLimitedClientSession
+from aiohttp import ClientSession, TCPConnector
+import importlib.util
+import time
+# import tqdm if possible
+tqdm_spec = importlib.util.find_spec('tqdm')
+tqdm = importlib.util.module_from_spec(tqdm_spec)
+sys.modules['tqdm'] = tqdm
+tqdm_spec.loader.exec_module(tqdm)
 
 
 class AbstractFiling(ABC):
@@ -21,8 +30,10 @@ class AbstractFiling(ABC):
 
     async def wait_for_download_async(self, inputs):
         """Asynchronously download links into files using rate limit."""
+        time.sleep(1)
+
         async def fetch_and_save(link, path, session):
-            async with session.get(link) as response:
+            async with await session.get(link) as response:
                 # print(response.headers['Content-Length'])
                 contents = await response.read()
                 if contents.startswith(b'<!DOCTYPE'):
@@ -30,11 +41,19 @@ class AbstractFiling(ABC):
                 make_path(os.path.dirname(path))
                 with open(path, "wb") as f:
                     f.write(contents)
-        async with ThrottledClientSession(rate_limit=self.rate_limit) as session:
-            tasks = [asyncio.ensure_future(fetch_and_save(link, path, session))
+
+        conn = TCPConnector(limit=self.rate_limit)
+        raw_client = ClientSession(connector=conn, headers={'Connection': 'keep-alive'})
+        async with raw_client:
+            client = RateLimitedClientSession(raw_client, self.rate_limit)
+            tasks = [asyncio.ensure_future(fetch_and_save(link, path, client))
                      for link, path in inputs]
-            for f in asyncio.as_completed(tasks):
-                await f
+            if tqdm_spec is None:
+                for f in asyncio.as_completed(tasks):
+                    await f
+            else:
+                for f in tqdm.tqdm(asyncio.as_completed(tasks), total=len(tasks)):
+                    await f
 
     """``secedgar.filings.filing_extractor`: Extractor class used."""
     extractor = FilingExtractor()

@@ -26,7 +26,7 @@ class Filing(AbstractFiling):
         count (int): Number of filings to fetch. Will fetch up to `count` if that many filings
             are available. Defaults to all filings available.
         rate_limit (int): The maximum number of requests per second to SEC servers.
-            May break at >= 10. Default is 9.
+            May break at >= 10. Default is 8.
         kwargs: See kwargs accepted for :class:`secedgar.client.network_client.NetworkClient`.
 
     .. versionadded:: 0.1.5
@@ -39,7 +39,7 @@ class Filing(AbstractFiling):
                  end_date=datetime.datetime.today(),
                  client=None,
                  count=None,
-                 rate_limit=9,
+                 rate_limit=8,
                  **kwargs):
         # Leave params before other setters
         self._params = {

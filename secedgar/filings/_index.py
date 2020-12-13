@@ -27,7 +27,7 @@ class IndexFilings(AbstractFiling):
         kwargs: Any keyword arguments to pass to ``NetworkClient`` if no client is specified.
     """
 
-    def __init__(self, client=None, entry_filter=None, rate_limit=9, **kwargs):
+    def __init__(self, client=None, entry_filter=None, rate_limit=8, **kwargs):
         super().__init__()
         self._client = client if client is not None else NetworkClient(**kwargs)
         self._listings_directory = None
