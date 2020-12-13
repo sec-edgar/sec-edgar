@@ -8,7 +8,6 @@ from secedgar.utils import make_path
 from secedgar.utils.exceptions import EDGARQueryError
 from secedgar.client.aiohttp_client import RateLimitedClientSession
 from aiohttp import ClientSession, TCPConnector
-import importlib.util
 import time
 
 
