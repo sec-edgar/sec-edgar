@@ -7,7 +7,7 @@ Highlights
 * Adds asynchronous requests, up to 9 simulatanous downloads at once.
 * Adds ``download_all`` option to ``save`` method. Allows threaded extraction and renaming of files.
 * Adds ``dir_format`` and ``file_format`` options to ``save`` method.
-* Adds ``filing_extractor`` class and ``extract`` method to ```IndexFilings```
+* Adds ``filing_extractor`` class and ``extract`` method to ``IndexFilings``.
 
 Contributors
 ~~~~~~~~~~~~
