@@ -190,6 +190,41 @@ class IndexFilings(AbstractFiling):
                           for company, entries in filings_dict.items()}
         return self._urls
 
+    @staticmethod
+    def do_create_and_copy(q):
+        """Create path and copy file to end of path.
+
+        Args:
+            q (Queue.queue): Queue to get filename, new directory,
+                and old path information from.
+        """
+        while True:
+            try:
+                filename, new_dir, old_path = q.get(timeout=1)
+            except Empty:
+                return
+            make_path(new_dir)
+            path = os.path.join(new_dir, filename)
+            shutil.copyfile(old_path, path)
+            q.task_done()
+
+    @staticmethod
+    def do_unpack_archive(q, extract_directory):
+        """Unpack archive file in given extract directory.
+
+        Args:
+            q (Queue.queue): Queue to get filname from.
+            extract_directory (): Where to extract archive file.
+        """
+        while True:
+            try:
+                filename = q.get(timeout=1)
+            except Empty:
+                return
+            shutil.unpack_archive(filename, extract_directory)
+            os.remove(filename)
+            q.task_done()
+
     def save_filings(self,
                      directory,
                      dir_pattern="{cik}",
@@ -221,26 +256,6 @@ class IndexFilings(AbstractFiling):
         """
         urls = self._check_urls_exist()
 
-        def do_create_and_copy(q):
-            while True:
-                try:
-                    filename, new_dir, old_path = q.get(timeout=1)
-                except Empty:
-                    return
-                make_path(new_dir)
-                path = os.path.join(new_dir, filename)
-                shutil.copyfile(old_path, path)
-                q.task_done()
-
-        def do_unpack_archive(q, extract_directory):
-            while True:
-                try:
-                    filename = q.get(timeout=1)
-                except Empty:
-                    return
-                shutil.unpack_archive(filename, extract_directory)
-                os.remove(filename)
-                q.task_done()
         if download_all:
             # Download tar files into huge temp directory
             extract_directory = os.path.join(directory, 'temp')
@@ -259,7 +274,8 @@ class IndexFilings(AbstractFiling):
             unpack_threads = len(tar_files)
 
             for i in range(unpack_threads):
-                worker = Thread(target=do_unpack_archive, args=(unpack_queue, extract_directory))
+                worker = Thread(target=self.do_unpack_archive,
+                                args=(unpack_queue, extract_directory))
                 worker.start()
             for f in tar_files:
                 full_path = os.path.join(extract_directory, f)
@@ -273,7 +289,7 @@ class IndexFilings(AbstractFiling):
             move_queue = Queue(maxsize=len(link_list))
             move_threads = 64
             for i in range(move_threads):
-                worker = Thread(target=do_create_and_copy, args=(move_queue,))
+                worker = Thread(target=self.do_create_and_copy, args=(move_queue,))
                 worker.start()
 
             (_, _, extracted_files) = next(os.walk(extract_directory))
