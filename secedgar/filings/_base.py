@@ -10,11 +10,6 @@ from secedgar.client.aiohttp_client import RateLimitedClientSession
 from aiohttp import ClientSession, TCPConnector
 import importlib.util
 import time
-# import tqdm if possible
-tqdm_spec = importlib.util.find_spec('tqdm')
-tqdm = importlib.util.module_from_spec(tqdm_spec)
-sys.modules['tqdm'] = tqdm
-tqdm_spec.loader.exec_module(tqdm)
 
 
 class AbstractFiling(ABC):
@@ -48,12 +43,8 @@ class AbstractFiling(ABC):
             client = RateLimitedClientSession(raw_client, self.rate_limit)
             tasks = [asyncio.ensure_future(fetch_and_save(link, path, client))
                      for link, path in inputs]
-            if tqdm_spec is None:
-                for f in asyncio.as_completed(tasks):
-                    await f
-            else:
-                for f in tqdm.tqdm(asyncio.as_completed(tasks), total=len(tasks)):
-                    await f
+            for f in asyncio.as_completed(tasks):
+                await f
 
     """``secedgar.filings.filing_extractor`: Extractor class used."""
     extractor = FilingExtractor()
