@@ -5,7 +5,7 @@ import time
 from abc import ABC, abstractmethod
 
 from aiohttp import ClientSession, TCPConnector
-from secedgar.client.aiohttp_client import RateLimitedClientSession
+from secedgar.client.async_session import RateLimitedClientSession
 from secedgar.filings.filing_extractor import FilingExtractor
 from secedgar.utils import make_path
 from secedgar.utils.exceptions import EDGARQueryError
