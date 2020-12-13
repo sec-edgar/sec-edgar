@@ -3,10 +3,9 @@ import os
 import warnings
 import asyncio
 
-from secedgar.utils.exceptions import EDGARQueryError
 from secedgar.filings._base import AbstractFiling
-from secedgar.client import NetworkClient, ThrottledClientSession
-from secedgar.utils import sanitize_date, make_path
+from secedgar.client import NetworkClient
+from secedgar.utils import sanitize_date
 
 from secedgar.filings.cik_lookup import CIKLookup
 from secedgar.filings.filing_types import FilingType
@@ -26,6 +25,8 @@ class Filing(AbstractFiling):
             Stands for "date before." Defaults to today.
         count (int): Number of filings to fetch. Will fetch up to `count` if that many filings
             are available. Defaults to all filings available.
+        rate_limit (int): The maximum number of requests per second to SEC servers.
+            May break at >= 10. Default is 9.
         kwargs: See kwargs accepted for :class:`secedgar.client.network_client.NetworkClient`.
 
     .. versionadded:: 0.1.5
@@ -38,6 +39,7 @@ class Filing(AbstractFiling):
                  end_date=datetime.datetime.today(),
                  client=None,
                  count=None,
+                 rate_limit=9,
                  **kwargs):
         # Leave params before other setters
         self._params = {
@@ -50,11 +52,17 @@ class Filing(AbstractFiling):
         self.start_date = start_date
         self.end_date = end_date
         self.filing_type = filing_type
+        self._rate_limit = rate_limit
         # make CIKLookup object for users if not given
         self.cik_lookup = cik_lookup
         self.count = count
         # Make default client NetworkClient and pass in kwargs
         self._client = client if client is not None else NetworkClient(**kwargs)
+
+    @property
+    def rate_limit(self):
+        """int: The rate limit to sec servers."""
+        return self._rate_limit
 
     @property
     def path(self):
@@ -218,22 +226,6 @@ class Filing(AbstractFiling):
         if file_pattern is None:
             file_pattern = '{accession_number}'
 
-        async def fetch_and_save(link, path, session):
-            async with session.get(link) as response:
-                # print(response.headers['Content-Length'])
-                contents = await response.read()
-                if contents.startswith(b'<!DOCTYPE'):
-                    raise EDGARQueryError("You hit the rate limit")
-                make_path(os.path.dirname(path))
-                with open(path, "wb") as f:
-                    f.write(contents)
-
-        async def wait_for_download_async(inputs):
-            async with ThrottledClientSession(rate_limit=9) as session:
-                tasks = [asyncio.ensure_future(fetch_and_save(link, path, session))
-                         for link, path in inputs]
-                for f in asyncio.as_completed(tasks):
-                    await f
         inputs = []
         for cik, links in urls.items():
             formatted_dir = dir_pattern.format(cik=cik, type=self.filing_type.value)
@@ -246,4 +238,4 @@ class Filing(AbstractFiling):
                 inputs.append((link, path))
 
         loop = asyncio.get_event_loop()
-        loop.run_until_complete(wait_for_download_async(inputs))
+        loop.run_until_complete(self.wait_for_download_async(inputs, self.rate_limit))

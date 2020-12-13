@@ -2,6 +2,10 @@ from abc import ABC, abstractmethod
 from secedgar.filings.filing_extractor import FilingExtractor
 import string
 import os
+import asyncio
+from secedgar.utils import make_path
+from secedgar.utils.exceptions import EDGARQueryError
+from secedgar.client.throttled_client_session import ThrottledClientSession
 
 
 class AbstractFiling(ABC):
@@ -9,6 +13,28 @@ class AbstractFiling(ABC):
 
     .. versionadded:: 0.1.5
     """
+    @property
+    @abstractmethod
+    def rate_limit(self):
+        """Passed to child classes."""
+        pass
+
+    async def wait_for_download_async(self, inputs):
+        """Asynchronously download links into files using rate limit."""
+        async def fetch_and_save(link, path, session):
+            async with session.get(link) as response:
+                # print(response.headers['Content-Length'])
+                contents = await response.read()
+                if contents.startswith(b'<!DOCTYPE'):
+                    raise EDGARQueryError("You hit the rate limit")
+                make_path(os.path.dirname(path))
+                with open(path, "wb") as f:
+                    f.write(contents)
+        async with ThrottledClientSession(rate_limit=self.rate_limit) as session:
+            tasks = [asyncio.ensure_future(fetch_and_save(link, path, session))
+                     for link, path in inputs]
+            for f in asyncio.as_completed(tasks):
+                await f
 
     """``secedgar.filings.filing_extractor`: Extractor class used."""
     extractor = FilingExtractor()
