@@ -1,15 +1,16 @@
-from secedgar.utils.exceptions import EDGARQueryError
-from secedgar.filings._base import AbstractFiling
-from secedgar.utils import make_path
-from secedgar.client import NetworkClient
+import asyncio
 import os
 import re
+import shutil
 from abc import abstractmethod
 from collections import namedtuple
-import asyncio
-import shutil
-from queue import Queue, Empty
+from queue import Empty, Queue
 from threading import Thread
+
+from secedgar.client import NetworkClient
+from secedgar.filings._base import AbstractFiling
+from secedgar.utils import make_path
+from secedgar.utils.exceptions import EDGARQueryError
 
 
 class IndexFilings(AbstractFiling):

@@ -1,6 +1,7 @@
 import os
 import re
-from setuptools import setup, find_packages
+
+from setuptools import find_packages, setup
 from setuptools.command.install import install
 
 SUPPORTED_VERSIONS = ['3.6', '3.7', '3.8', '3.9']

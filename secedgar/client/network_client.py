@@ -1,9 +1,8 @@
 """Client to communicate with EDGAR database."""
-import requests
 import time
 
+import requests
 from bs4 import BeautifulSoup
-
 from secedgar.client._base import AbstractClient
 from secedgar.utils.exceptions import EDGARQueryError
 

@@ -1,14 +1,13 @@
+import asyncio
 import datetime
 import os
 import warnings
-import asyncio
 
-from secedgar.filings._base import AbstractFiling
 from secedgar.client import NetworkClient
-from secedgar.utils import sanitize_date
-
+from secedgar.filings._base import AbstractFiling
 from secedgar.filings.cik_lookup import CIKLookup
 from secedgar.filings.filing_types import FilingType
+from secedgar.utils import sanitize_date
 from secedgar.utils.exceptions import FilingTypeError
 
 

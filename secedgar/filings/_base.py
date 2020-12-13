@@ -1,14 +1,14 @@
-from abc import ABC, abstractmethod
-from secedgar.filings.filing_extractor import FilingExtractor
-import string
-import os
-import sys
 import asyncio
+import os
+import string
+import time
+from abc import ABC, abstractmethod
+
+from aiohttp import ClientSession, TCPConnector
+from secedgar.client.aiohttp_client import RateLimitedClientSession
+from secedgar.filings.filing_extractor import FilingExtractor
 from secedgar.utils import make_path
 from secedgar.utils.exceptions import EDGARQueryError
-from secedgar.client.aiohttp_client import RateLimitedClientSession
-from aiohttp import ClientSession, TCPConnector
-import time
 
 
 class AbstractFiling(ABC):
