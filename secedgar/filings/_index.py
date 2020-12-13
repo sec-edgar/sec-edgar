@@ -1,7 +1,7 @@
 from secedgar.utils.exceptions import EDGARQueryError
 from secedgar.filings._base import AbstractFiling
 from secedgar.utils import make_path
-from secedgar.client import NetworkClient, ThrottledClientSession
+from secedgar.client import NetworkClient
 import os
 import re
 from abc import abstractmethod
@@ -22,11 +22,12 @@ class IndexFilings(AbstractFiling):
         entry_filter (function, optional): A boolean function to determine
             if the FilingEntry should be kept. E.g. `lambda l: l.form_type == "4"`.
             Defaults to `None`.
-
+        rate_limit (int): The maximum number of requests per second to SEC servers.
+            May break at >= 10. Default is 9.
         kwargs: Any keyword arguments to pass to ``NetworkClient`` if no client is specified.
     """
 
-    def __init__(self, client=None, entry_filter=None, **kwargs):
+    def __init__(self, client=None, entry_filter=None, rate_limit=8, **kwargs):
         super().__init__()
         self._client = client if client is not None else NetworkClient(**kwargs)
         self._listings_directory = None
@@ -35,6 +36,12 @@ class IndexFilings(AbstractFiling):
         self._paths = []
         self._urls = {}
         self._entry_filter = entry_filter
+        self._rate_limit = rate_limit
+
+    @property
+    def rate_limit(self):
+        """int: The rate limit to sec servers."""
+        return self._rate_limit
 
     @property
     def entry_filter(self):
@@ -214,19 +221,6 @@ class IndexFilings(AbstractFiling):
         """
         urls = self._check_urls_exist()
 
-        async def fetch_and_save(link, path, session):
-            async with session.get(link) as response:
-                make_path(os.path.dirname(path))
-                with open(path, "wb") as f:
-                    f.write(await response.read())
-
-        async def wait_for_download_async(inputs):
-            async with ThrottledClientSession(rate_limit=9) as session:
-                tasks = [asyncio.ensure_future(fetch_and_save(link, path, session))
-                         for link, path in inputs]
-                for f in asyncio.as_completed(tasks):
-                    await f
-
         def do_create_and_copy(q):
             while True:
                 try:
@@ -258,7 +252,7 @@ class IndexFilings(AbstractFiling):
                 url_target = self.make_url(self.tar_path + filename)
                 inputs.append((url_target, download_target))
             loop = asyncio.get_event_loop()
-            loop.run_until_complete(wait_for_download_async(inputs))
+            loop.run_until_complete(self.wait_for_download_async(inputs))
 
             # Create thread for each tar file and unpack
             unpack_queue = Queue(maxsize=len(tar_files))
@@ -314,6 +308,5 @@ class IndexFilings(AbstractFiling):
                         accession_number=self.get_accession_number(link))
                     path = os.path.join(directory, formatted_dir, formatted_file)
                     inputs.append((link, path))
-
             loop = asyncio.get_event_loop()
-            loop.run_until_complete(wait_for_download_async(inputs))
+            loop.run_until_complete(self.wait_for_download_async(inputs))
