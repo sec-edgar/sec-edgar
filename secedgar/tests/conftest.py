@@ -1,10 +1,24 @@
 import pytest
 import requests
-
 from secedgar.client import NetworkClient
 from secedgar.filings import DailyFilings, MasterFilings
 from secedgar.filings.cik_validator import _CIKValidator
 from secedgar.tests.utils import datapath
+
+
+@pytest.fixture(autouse=True)
+def no_http_requests(monkeypatch):
+    def external_request_mock(object, *args, **kwargs):
+        raise RuntimeError(
+            f"A request to an external source was about to be made by {object}. Please provide mock for {object}.")
+
+    to_avoid = (
+        "requests.sessions.Session.get",
+        "aiohttp.ClientSession.get"
+    )
+
+    for avoid in to_avoid:
+        monkeypatch.setattr(avoid, external_request_mock)
 
 
 class MockResponse:
