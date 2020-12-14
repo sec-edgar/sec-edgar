@@ -6,9 +6,6 @@ import uu
 
 from secedgar.utils import make_path
 
-# Pulled from https://github.com/sec-edgar/sec-edgar/blob/
-# dda43dd3b4d1ea19abfe71596b165e22625357c6/SECEdgar/extractor/EDGARExtractor.py
-
 
 class FilingExtractor:
     """Utility class to extract metadata and documents from a single text file.
