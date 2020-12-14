@@ -31,6 +31,7 @@ class AbstractFiling(ABC):
                 # print(response.headers['Content-Length'])
                 contents = await response.read()
                 if contents.startswith(b'<!DOCTYPE'):
+                    # Raise error if given html instead of expected txt file
                     raise EDGARQueryError("You hit the rate limit")
                 make_path(os.path.dirname(path))
                 with open(path, "wb") as f:
