@@ -1,9 +1,14 @@
 """Client to communicate with EDGAR database."""
+import asyncio
+import os
 import time
 
 import requests
+from aiohttp import ClientSession, TCPConnector
 from bs4 import BeautifulSoup
 from secedgar.client._base import AbstractClient
+from secedgar.client.async_session import RateLimitedClientSession
+from secedgar.utils import make_path
 from secedgar.utils.exceptions import EDGARQueryError
 
 
@@ -75,6 +80,45 @@ class NetworkClient(AbstractClient):
         """
         return "%s%s" % (NetworkClient._BASE, path)
 
+    @staticmethod
+    def _validate_response(response):
+        """Ensure response from EDGAR is valid.
+
+        Args:
+            response (requests.response): A requests.response object.
+
+        Raises:
+            EDGARQueryError: If response contains EDGAR error message.
+        """
+        error_messages = ("The value you submitted is not valid",
+                          "No matching Ticker Symbol.",
+                          "No matching CIK.",
+                          "No matching companies.")
+        status_code = response.status_code
+        if 400 <= status_code < 500:
+            if status_code == 400:
+                raise EDGARQueryError("The query could not be completed. "
+                                      "The page does not exist.")
+            elif status_code == 429:
+                raise EDGARQueryError("Error: You have hit the rate limit. "
+                                      "SEC has banned your IP for 10 minutes. "
+                                      "Please wait 10 minutes "
+                                      "before making another request."
+                                      "https://www.sec.gov/privacy.htm#security")
+            else:
+                raise EDGARQueryError("The query could not be completed. "
+                                      "There was a client-side error with your "
+                                      "request.")
+        elif 500 <= status_code < 600:
+            raise EDGARQueryError("The query could not be completed. "
+                                  "There was a server-side error with "
+                                  "your request.")
+        elif any(error_message in response.text for error_message in error_messages):
+            raise EDGARQueryError()
+        # Need to check for error messages before checking for 200 status code
+        elif status_code != 200:
+            raise EDGARQueryError()
+
     def get_response(self, path, params, **kwargs):
         """Execute HTTP request and returns response if valid.
 
@@ -117,41 +161,31 @@ class NetworkClient(AbstractClient):
         """
         return BeautifulSoup(self.get_response(path, params, **kwargs).text, features='lxml')
 
-    @staticmethod
-    def _validate_response(response):
-        """Ensure response from EDGAR is valid.
+    async def wait_for_download_async(self, inputs):
+        """Asynchronously download links into files using rate limit.
 
-        Args:
-            response (requests.response): A requests.response object.
-
-        Raises:
-            EDGARQueryError: If response contains EDGAR error message.
+        inputs (list of tuples of str): List of tuples with length 2. First element
+            in tuple should be URL to request and second element should be path
+            where content after requesting URL is stored.
         """
-        error_messages = ("The value you submitted is not valid",
-                          "No matching Ticker Symbol.",
-                          "No matching CIK.",
-                          "No matching companies.")
-        status_code = response.status_code
-        if 400 <= status_code < 500:
-            if status_code == 400:
-                raise EDGARQueryError("The query could not be completed. "
-                                      "The page does not exist.")
-            elif status_code == 429:
-                raise EDGARQueryError("Error: You have hit the rate limit. "
-                                      "SEC has banned your IP for 10 minutes. "
-                                      "Please wait 10 minutes "
-                                      "before making another request."
-                                      "https://www.sec.gov/privacy.htm#security")
-            else:
-                raise EDGARQueryError("The query could not be completed. "
-                                      "There was a client-side error with your "
-                                      "request.")
-        elif 500 <= status_code < 600:
-            raise EDGARQueryError("The query could not be completed. "
-                                  "There was a server-side error with "
-                                  "your request.")
-        elif any(error_message in response.text for error_message in error_messages):
-            raise EDGARQueryError()
-        # Need to check for error messages before checking for 200 status code
-        elif status_code != 200:
-            raise EDGARQueryError()
+        time.sleep(1)
+
+        async def fetch_and_save(link, path, session):
+            async with await session.get(link) as response:
+                # print(response.headers['Content-Length'])
+                contents = await response.read()
+                if contents.startswith(b'<!DOCTYPE'):
+                    # Raise error if given html instead of expected txt file
+                    raise EDGARQueryError("You hit the rate limit")
+                make_path(os.path.dirname(path))
+                with open(path, "wb") as f:
+                    f.write(contents)
+
+        conn = TCPConnector(limit=self.rate_limit)
+        raw_client = ClientSession(connector=conn, headers={'Connection': 'keep-alive'})
+        async with raw_client:
+            client = RateLimitedClientSession(raw_client, self.rate_limit)
+            tasks = [asyncio.ensure_future(fetch_and_save(link, path, client))
+                     for link, path in inputs]
+            for f in asyncio.as_completed(tasks):
+                await f

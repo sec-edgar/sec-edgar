@@ -237,4 +237,4 @@ class Filing(AbstractFiling):
                 inputs.append((link, path))
 
         loop = asyncio.get_event_loop()
-        loop.run_until_complete(self.wait_for_download_async(inputs, self.rate_limit))
+        loop.run_until_complete(self.client.wait_for_download_async(inputs, self.rate_limit))

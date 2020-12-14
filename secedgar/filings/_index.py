@@ -268,7 +268,7 @@ class IndexFilings(AbstractFiling):
                 url_target = self.make_url(self.tar_path + filename)
                 inputs.append((url_target, download_target))
             loop = asyncio.get_event_loop()
-            loop.run_until_complete(self.wait_for_download_async(inputs))
+            loop.run_until_complete(self.client.wait_for_download_async(inputs))
 
             # Create thread for each tar file and unpack
             unpack_queue = Queue(maxsize=len(tar_files))
@@ -326,4 +326,4 @@ class IndexFilings(AbstractFiling):
                     path = os.path.join(directory, formatted_dir, formatted_file)
                     inputs.append((link, path))
             loop = asyncio.get_event_loop()
-            loop.run_until_complete(self.wait_for_download_async(inputs))
+            loop.run_until_complete(self.client.wait_for_download_async(inputs))

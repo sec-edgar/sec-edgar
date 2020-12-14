@@ -1,14 +1,8 @@
-import asyncio
 import os
 import string
-import time
 from abc import ABC, abstractmethod
 
-from aiohttp import ClientSession, TCPConnector
-from secedgar.client.async_session import RateLimitedClientSession
 from secedgar.filings.filing_extractor import FilingExtractor
-from secedgar.utils import make_path
-from secedgar.utils.exceptions import EDGARQueryError
 
 
 class AbstractFiling(ABC):
@@ -21,30 +15,6 @@ class AbstractFiling(ABC):
     def rate_limit(self):
         """Passed to child classes."""
         pass
-
-    async def wait_for_download_async(self, inputs):
-        """Asynchronously download links into files using rate limit."""
-        time.sleep(1)
-
-        async def fetch_and_save(link, path, session):
-            async with await session.get(link) as response:
-                # print(response.headers['Content-Length'])
-                contents = await response.read()
-                if contents.startswith(b'<!DOCTYPE'):
-                    # Raise error if given html instead of expected txt file
-                    raise EDGARQueryError("You hit the rate limit")
-                make_path(os.path.dirname(path))
-                with open(path, "wb") as f:
-                    f.write(contents)
-
-        conn = TCPConnector(limit=self.rate_limit)
-        raw_client = ClientSession(connector=conn, headers={'Connection': 'keep-alive'})
-        async with raw_client:
-            client = RateLimitedClientSession(raw_client, self.rate_limit)
-            tasks = [asyncio.ensure_future(fetch_and_save(link, path, client))
-                     for link, path in inputs]
-            for f in asyncio.as_completed(tasks):
-                await f
 
     """``secedgar.filings.filing_extractor`: Extractor class used."""
     extractor = FilingExtractor()
