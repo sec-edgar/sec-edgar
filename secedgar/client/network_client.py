@@ -27,6 +27,7 @@ class NetworkClient(AbstractClient):
         self.retry_count = kwargs.get("retry_count", 3)
         self.pause = kwargs.get("pause", 0.5)
         self.batch_size = kwargs.get("batch_size", 10)
+        self.rate_limit = kwargs.get("rate_limit", 8)
         self.response = None
 
     @property
@@ -67,6 +68,17 @@ class NetworkClient(AbstractClient):
         elif value < 1:
             raise ValueError("Batch size must be positive integer.")
         self._batch_size = value
+
+    @property
+    def rate_limit(self):
+        return self._rate_limit
+
+    @rate_limit.setter
+    def rate_limit(self, value):
+        if value < 0:
+            self._rate_limit = 0
+        else:
+            self._rate_limit = value
 
     @staticmethod
     def _prepare_query(path):

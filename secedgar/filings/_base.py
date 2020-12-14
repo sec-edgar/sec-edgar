@@ -10,12 +10,8 @@ class AbstractFiling(ABC):
 
     .. versionadded:: 0.1.5
     """
-    @property
-    @abstractmethod
-    def rate_limit(self):
-        """Passed to child classes."""
-        pass
 
+    # TODO: Move this somewhere else. Maybe make the default extractor this
     """``secedgar.filings.filing_extractor`: Extractor class used."""
     extractor = FilingExtractor()
 

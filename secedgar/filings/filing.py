@@ -24,8 +24,6 @@ class Filing(AbstractFiling):
             Stands for "date before." Defaults to today.
         count (int): Number of filings to fetch. Will fetch up to `count` if that many filings
             are available. Defaults to all filings available.
-        rate_limit (int): The maximum number of requests per second to SEC servers.
-            May break at >= 10. Default is 8.
         kwargs: See kwargs accepted for :class:`secedgar.client.network_client.NetworkClient`.
 
     .. versionadded:: 0.1.5
@@ -38,7 +36,6 @@ class Filing(AbstractFiling):
                  end_date=datetime.datetime.today(),
                  client=None,
                  count=None,
-                 rate_limit=8,
                  **kwargs):
         # Leave params before other setters
         self._params = {
@@ -51,17 +48,11 @@ class Filing(AbstractFiling):
         self.start_date = start_date
         self.end_date = end_date
         self.filing_type = filing_type
-        self._rate_limit = rate_limit
         # make CIKLookup object for users if not given
         self.cik_lookup = cik_lookup
         self.count = count
         # Make default client NetworkClient and pass in kwargs
         self._client = client if client is not None else NetworkClient(**kwargs)
-
-    @property
-    def rate_limit(self):
-        """int: The rate limit to sec servers."""
-        return self._rate_limit
 
     @property
     def path(self):
@@ -237,4 +228,4 @@ class Filing(AbstractFiling):
                 inputs.append((link, path))
 
         loop = asyncio.get_event_loop()
-        loop.run_until_complete(self.client.wait_for_download_async(inputs, self.rate_limit))
+        loop.run_until_complete(self.client.wait_for_download_async(inputs))

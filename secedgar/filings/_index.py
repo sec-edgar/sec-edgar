@@ -23,12 +23,10 @@ class IndexFilings(AbstractFiling):
         entry_filter (function, optional): A boolean function to determine
             if the FilingEntry should be kept. E.g. `lambda l: l.form_type == "4"`.
             Defaults to `None`.
-        rate_limit (int): The maximum number of requests per second to SEC servers.
-            May break at >= 10. Default is 9.
         kwargs: Any keyword arguments to pass to ``NetworkClient`` if no client is specified.
     """
 
-    def __init__(self, client=None, entry_filter=None, rate_limit=8, **kwargs):
+    def __init__(self, client=None, entry_filter=None, **kwargs):
         super().__init__()
         self._client = client if client is not None else NetworkClient(**kwargs)
         self._listings_directory = None
@@ -37,12 +35,6 @@ class IndexFilings(AbstractFiling):
         self._paths = []
         self._urls = {}
         self._entry_filter = entry_filter
-        self._rate_limit = rate_limit
-
-    @property
-    def rate_limit(self):
-        """int: The rate limit to sec servers."""
-        return self._rate_limit
 
     @property
     def entry_filter(self):
