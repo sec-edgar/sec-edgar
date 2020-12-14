@@ -10,7 +10,8 @@ from secedgar.tests.utils import datapath
 def no_http_requests(monkeypatch):
     def external_request_mock(object, *args, **kwargs):
         raise RuntimeError(
-            f"A request to an external source was about to be made by {object}. Please provide mock for {object}.")
+            f"""A request to an external source was about to be made by {object}.
+            Please provide mock for {object}.""")
 
     to_avoid = (
         "requests.sessions.Session.get",
