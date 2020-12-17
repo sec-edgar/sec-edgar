@@ -158,17 +158,6 @@ class IndexFilings(AbstractFiling):
                     self._filings_dict[entry.cik] = [entry]
         return self._filings_dict
 
-    def make_url(self, path):
-        """Make URLs from path given.
-
-        Args:
-            path (str): Ending of URL
-
-        Returns:
-            url (str): Full URL which can be used to access filing.
-        """
-        return "{base}{path}".format(base=self.client._BASE, path=path)
-
     def get_urls(self):
         """Get all URLs for day.
 
@@ -179,7 +168,7 @@ class IndexFilings(AbstractFiling):
         """
         if not self._urls:
             filings_dict = self.get_filings_dict()
-            self._urls = {company: [self.make_url(entry.path) for entry in entries]
+            self._urls = {company: [self.client._prepare_query(entry.path) for entry in entries]
                           for company, entries in filings_dict.items()}
         return self._urls
 
@@ -227,17 +216,11 @@ class IndexFilings(AbstractFiling):
             # Download tar files into huge temp directory
             extract_directory = os.path.join(directory, 'temp')
             make_path(extract_directory)
-            tar_files = self.get_file_names()
-            for filename in tar_files:
-                response = requests.get(self.make_url(self.tar_path + filename), stream=True)
+            for filename in self.get_file_names():
+                response = self.client.get_response(
+                    self.client._prepare_query(self.tar_path + filename),
+                    stream=True)
                 download_target = os.path.join(extract_directory, filename)
-                if response.status_code == 403:
-                    # Ignore days that do not exist in daily backup record
-                    print('WARNING', filename, 'DOES NOT EXIST')
-                    continue
-                else:
-                    # Throw an error for bad status codes
-                    response.raise_for_status()
 
                 with open(download_target, 'wb') as handle:
                     for block in response.iter_content(1024):

@@ -35,6 +35,19 @@ class AbstractClient(ABC):
         """
         pass  # pragma: no cover
 
+    @staticmethod
+    @abstractmethod
+    def _prepare_query(path):
+        """Prepare the query url.
+
+        Args:
+            url (str): End of url.
+
+        Returns:
+            url (str): A formatted url.
+        """
+        pass  # pragma: no cover
+
     @property
     @abstractmethod
     def batch_size(self):
