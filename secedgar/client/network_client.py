@@ -90,7 +90,7 @@ class NetworkClient(AbstractClient):
         Returns:
             url (str): A formatted url.
         """
-        return "%s%s" % (NetworkClient._BASE, path)
+        return "{base}{path}".format(base=NetworkClient._BASE, path=path)
 
     @staticmethod
     def _validate_response(response):

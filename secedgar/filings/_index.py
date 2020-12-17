@@ -158,17 +158,6 @@ class IndexFilings(AbstractFiling):
                     self._filings_dict[entry.cik] = [entry]
         return self._filings_dict
 
-    def make_url(self, path):
-        """Make URLs from path given.
-
-        Args:
-            path (str): Ending of URL
-
-        Returns:
-            url (str): Full URL which can be used to access filing.
-        """
-        return "{base}{path}".format(base=self.client._BASE, path=path)
-
     def get_urls(self):
         """Get all URLs for day.
 
@@ -179,7 +168,7 @@ class IndexFilings(AbstractFiling):
         """
         if not self._urls:
             filings_dict = self.get_filings_dict()
-            self._urls = {company: [self.make_url(entry.path) for entry in entries]
+            self._urls = {company: [self.client._prepare_query(entry.path) for entry in entries]
                           for company, entries in filings_dict.items()}
         return self._urls
 
@@ -257,7 +246,7 @@ class IndexFilings(AbstractFiling):
             inputs = []
             for filename in tar_files:
                 download_target = os.path.join(extract_directory, filename)
-                url_target = self.make_url(self.tar_path + filename)
+                url_target = self.client._prepare_query(self.tar_path + filename)
                 inputs.append((url_target, download_target))
             loop = asyncio.get_event_loop()
             loop.run_until_complete(self.client.wait_for_download_async(inputs))
@@ -266,7 +255,7 @@ class IndexFilings(AbstractFiling):
             unpack_queue = Queue(maxsize=len(tar_files))
             unpack_threads = len(tar_files)
 
-            for i in range(unpack_threads):
+            for _ in range(unpack_threads):
                 worker = Thread(target=self.do_unpack_archive,
                                 args=(unpack_queue, extract_directory))
                 worker.start()
