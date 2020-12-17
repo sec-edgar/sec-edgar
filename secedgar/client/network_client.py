@@ -71,6 +71,7 @@ class NetworkClient(AbstractClient):
 
     @property
     def rate_limit(self):
+        """int: Number of requests to limit client to per second."""
         return self._rate_limit
 
     @rate_limit.setter
