@@ -1,9 +1,8 @@
 import pytest
 import requests
-
 from secedgar.client import NetworkClient
-from secedgar.utils.exceptions import EDGARQueryError
 from secedgar.tests.conftest import MockResponse
+from secedgar.utils.exceptions import EDGARQueryError
 
 
 @pytest.fixture
@@ -89,25 +88,40 @@ class TestNetworkClient:
     @pytest.mark.parametrize(
         "test_input,expectation",
         [
-            (0.5, pytest.raises(TypeError)),
-            ("2", pytest.raises(TypeError)),
-            (-1, pytest.raises(ValueError))
+            (0.5, TypeError),
+            ("2", TypeError),
+            (-1, ValueError)
         ]
     )
     def test_client_bad_retry_count_setter(self, test_input, expectation, client):
-        with expectation:
+        with pytest.raises(expectation):
             client.retry_count = test_input
 
     @pytest.mark.parametrize(
         "test_input,expectation",
         [
-            ("2", pytest.raises(TypeError)),
-            (-0.5, pytest.raises(ValueError)),
-            (-1, pytest.raises(ValueError))
+            (0, ValueError),
+            (10, ValueError),
+            (-1, ValueError),
+            (11, ValueError),
+            (-1.5, ValueError),
+            (11.5, ValueError)
+        ]
+    )
+    def test_client_bad_rate_limit(self, test_input, expectation, client):
+        with pytest.raises(expectation):
+            client.rate_limit = test_input
+
+    @pytest.mark.parametrize(
+        "test_input,expectation",
+        [
+            ("2", TypeError),
+            (-0.5, ValueError),
+            (-1, ValueError)
         ]
     )
     def test_client_bad_pause_setter(self, test_input, expectation, client):
-        with expectation:
+        with pytest.raises(expectation):
             client.pause = test_input
 
     @pytest.mark.parametrize(
