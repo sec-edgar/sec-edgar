@@ -1,10 +1,12 @@
 """Client to communicate with EDGAR database."""
 import asyncio
+import logging
 import os
 import time
 
+import aiohttp
 import requests
-from aiohttp import ClientSession, TCPConnector
+import tqdm
 from bs4 import BeautifulSoup
 from secedgar.client._base import AbstractClient
 from secedgar.client.async_session import RateLimitedClientSession
@@ -76,8 +78,8 @@ class NetworkClient(AbstractClient):
 
     @rate_limit.setter
     def rate_limit(self, value):
-        if value < 0:
-            self._rate_limit = 0
+        if not (0 < value < 10):
+            raise ValueError("Rate must be greater than 0 and less than 10.")
         else:
             self._rate_limit = value
 
@@ -107,7 +109,9 @@ class NetworkClient(AbstractClient):
                           "No matching Ticker Symbol.",
                           "No matching CIK.",
                           "No matching companies.")
+
         status_code = response.status_code
+
         if 400 <= status_code < 500:
             if status_code == 400:
                 raise EDGARQueryError("The query could not be completed. "
@@ -185,20 +189,17 @@ class NetworkClient(AbstractClient):
 
         async def fetch_and_save(link, path, session):
             async with await session.get(link) as response:
-                # print(response.headers['Content-Length'])
                 contents = await response.read()
-                if contents.startswith(b'<!DOCTYPE'):
-                    # Raise error if given html instead of expected txt file
-                    raise EDGARQueryError("You hit the rate limit")
                 make_path(os.path.dirname(path))
                 with open(path, "wb") as f:
                     f.write(contents)
 
-        conn = TCPConnector(limit=self.rate_limit)
-        raw_client = ClientSession(connector=conn, headers={'Connection': 'keep-alive'})
+        conn = aiohttp.TCPConnector(limit=self.rate_limit)
+        raw_client = aiohttp.ClientSession(
+            connector=conn, headers={'Connection': 'keep-alive'}, raise_for_status=True)
         async with raw_client:
             client = RateLimitedClientSession(raw_client, self.rate_limit)
             tasks = [asyncio.ensure_future(fetch_and_save(link, path, client))
                      for link, path in inputs]
-            for f in asyncio.as_completed(tasks):
+            for f in tqdm.tqdm(asyncio.as_completed(tasks), total=len(tasks)):
                 await f
