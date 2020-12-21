@@ -1,9 +1,8 @@
 import os
 from datetime import datetime
 
-from secedgar.utils import get_quarter
-
 from secedgar.filings._index import IndexFilings
+from secedgar.utils import get_quarter
 
 
 class MasterFilings(IndexFilings):
@@ -15,7 +14,7 @@ class MasterFilings(IndexFilings):
         client (secedgar.client._base, optional): Client to use. Defaults to
             ``secedgar.client.NetworkClient`` if None given.
         entry_filter (function, optional): A boolean function to determine
-            if the FilingEntry should be kept. Defaults to `lambda _: True`.
+            if the FilingEntry should be kept. Defaults to ``lambda _: True``.
         kwargs: Keyword arguments to pass to ``secedgar.filings._index.IndexFilings``.
     """
 
@@ -71,7 +70,18 @@ class MasterFilings(IndexFilings):
         """Main index filename to look for."""
         return "master.idx"
 
-    def save(self, directory):
+    def get_file_names(self):
+        """The list of .tar.gz daily files in the current quarter."""
+        soup = self.client.get_soup(self.tar_path, {})
+        files = [a.get('href') for a in soup.find_all('a')]
+        files = [file for file in files if "nc.tar.gz" in file]
+        return files
+
+    def save(self,
+             directory,
+             dir_pattern=None,
+             file_pattern="{accession_number}",
+             download_all=False):
         """Save all daily filings.
 
         Creates subdirectory within given directory of the form <YEAR>/QTR<QTR NUMBER>/.
@@ -81,6 +91,17 @@ class MasterFilings(IndexFilings):
         Args:
             directory (str): Directory where filings should be stored. Will be broken down
                 further by company name and form type.
+            dir_pattern (str): Format string for subdirectories. Default is
+                `{year}/QTR{quarter}/{cik}`. Valid options are `year`, `quarter`, and `cik`.
+            file_pattern (str): Format string for files. Default is `{accession_number}`.
+                Valid options are `accession_number`.
+            download_all (bool): Type of downloading system, if true downloads all data for each
+                day, if false downloads each file in index. Default is `False`.
         """
-        directory = os.path.join(directory, str(self.year), "QTR" + str(self.quarter))
-        self.save_filings(directory)
+        if dir_pattern is None:
+            # https://stackoverflow.com/questions/11283961/partial-string-formatting
+            dir_pattern = os.path.join('{year}', 'QTR{quarter}', '{cik}')
+
+        formatted_dir = dir_pattern.format(year=self.year, quarter=self.quarter, cik="{cik}")
+        self.save_filings(directory, dir_pattern=formatted_dir,
+                          file_pattern=file_pattern, download_all=download_all)

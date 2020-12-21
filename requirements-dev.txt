@@ -1,5 +1,5 @@
 pytest
 flake8
-pydocstyle
+pydocstyle >= 4.0.0
 click
 sphinx-click

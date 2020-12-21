@@ -50,6 +50,13 @@ class DailyFilings(IndexFilings):
         """Main index filename to look for."""
         return "master.{date}.idx".format(date=self._get_idx_formatted_date())
 
+    def get_file_names(self):
+        """The .tar.gz filename for the current day."""
+        if self.year < 1995 or (self.year == 1995 and self.quarter < 3):
+            raise ValueError('Bulk downloading is only available starting 1995 Q3.')
+        daily_file = '{date}.nc.tar.gz'.format(date=self._date.strftime("%Y%m%d"))
+        return [daily_file]
+
     def _get_idx_formatted_date(self):
         """Format date for idx file.
 
@@ -66,7 +73,12 @@ class DailyFilings(IndexFilings):
         else:
             return self._date.strftime("%Y%m%d")
 
-    def save(self, directory):
+    def save(self,
+             directory,
+             dir_pattern=None,
+             file_pattern="{accession_number}",
+             date_format="%Y%m%d",
+             download_all=False):
         """Save all daily filings.
 
         Store all filings for each unique company name under a separate subdirectory
@@ -76,6 +88,18 @@ class DailyFilings(IndexFilings):
         Args:
             directory (str): Directory where filings should be stored. Will be broken down
                 further by company name and form type.
+            dir_pattern (str): Format string for subdirectories. Default is `{date}/{cik}`.
+                Valid options that must be wrapped in curly braces are `date` and `cik`.
+            date_format (str): Format string to use for the `{date}` pattern. Default is ``%Y%m%d``.
+            file_pattern (str): Format string for files. Default is `{accession_number}`.
+                Valid options are `accession_number`.
+            download_all (bool): Type of downloading system, if true downloads all data for the day,
+                if false downloads each file in index. Default is `False`.
         """
-        directory = os.path.join(directory, self._date.strftime("%Y%m%d"))
-        self.save_filings(directory)
+        if dir_pattern is None:
+            dir_pattern = os.path.join("{date}", "{cik}")
+
+        # If "{cik}" is in dir_pattern, it will be passed on and if not it will be ignored
+        formatted_dir = dir_pattern.format(date=self._date.strftime(date_format), cik="{cik}")
+        self.save_filings(directory, dir_pattern=formatted_dir,
+                          file_pattern=file_pattern, download_all=download_all)

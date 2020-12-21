@@ -1,14 +1,13 @@
+import asyncio
 import datetime
 import os
-import requests
 import warnings
 
+from secedgar.client import NetworkClient
 from secedgar.filings._base import AbstractFiling
-from secedgar.client.network_client import NetworkClient
-from secedgar.utils import sanitize_date, make_path
-
 from secedgar.filings.cik_lookup import CIKLookup
 from secedgar.filings.filing_types import FilingType
+from secedgar.utils import sanitize_date
 from secedgar.utils.exceptions import FilingTypeError
 
 
@@ -191,7 +190,7 @@ class Filing(AbstractFiling):
         # Takes `count` filings at most
         return txt_urls[:self.count]
 
-    def save(self, directory):
+    def save(self, directory, dir_pattern=None, file_pattern=None):
         """Save files in specified directory.
 
         Each txt url looks something like:
@@ -199,6 +198,10 @@ class Filing(AbstractFiling):
 
         Args:
             directory (str): Path to directory where files should be saved.
+            dir_pattern (str): Format string for subdirectories. Default is `{cik}/{type}`.
+                Valid options are `cik`, `type`.
+            file_pattern (str): Format string for files. Default is `{accession_number}`.
+                Valid options are `accession_number`.
 
         Returns:
             None
@@ -208,11 +211,21 @@ class Filing(AbstractFiling):
         """
         urls = self._check_urls_exist()
 
+        if dir_pattern is None:
+            dir_pattern = os.path.join('{cik}', '{type}')
+        if file_pattern is None:
+            file_pattern = '{accession_number}'
+
+        inputs = []
         for cik, links in urls.items():
+            formatted_dir = dir_pattern.format(cik=cik, type=self.filing_type.value)
             for link in links:
-                data = requests.get(link).text
-                path = os.path.join(directory, cik, self.filing_type.value)
-                make_path(path)
-                path = os.path.join(path, self.get_accession_number(link))
-                with open(path, "w") as f:
-                    f.write(data)
+                formatted_file = file_pattern.format(
+                    accession_number=self.get_accession_number(link))
+                path = os.path.join(directory,
+                                    formatted_dir,
+                                    formatted_file)
+                inputs.append((link, path))
+
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(self.client.wait_for_download_async(inputs))

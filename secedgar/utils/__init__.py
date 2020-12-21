@@ -2,7 +2,7 @@ import datetime
 import errno
 import os
 
-from secedgar.utils.cik_map import get_cik_map  # noqa
+from secedgar.utils.cik_map import get_cik_map  # noqa:F401
 
 
 def sanitize_date(date):
