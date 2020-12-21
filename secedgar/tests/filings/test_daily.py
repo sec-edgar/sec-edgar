@@ -1,8 +1,7 @@
 import os
-import pytest
-
 from datetime import datetime
 
+import pytest
 from secedgar.filings.daily import DailyFilings
 from secedgar.tests.utils import datapath
 
@@ -68,9 +67,9 @@ class TestDaily:
         assert url in daily_filing.get_urls()[key]
 
     def test_get_listings_directory(self, mock_daily_quarter_directory):
-        assert DailyFilings(datetime(2018, 12, 31)).get_listings_directory().status_code == 200
+        assert DailyFilings(datetime(2018, 12, 31))._get_listings_directory().status_code == 200
         assert "master.20181231.idx" in DailyFilings(
-            datetime(2018, 12, 31)).get_listings_directory().text
+            datetime(2018, 12, 31))._get_listings_directory().text
 
     @pytest.mark.parametrize(
         "company_name",
