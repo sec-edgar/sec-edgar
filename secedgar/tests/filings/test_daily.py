@@ -3,7 +3,6 @@ from datetime import datetime
 
 import pytest
 from secedgar.filings.daily import DailyFilings
-from secedgar.tests.utils import datapath
 
 
 class TestDaily:
