@@ -50,7 +50,7 @@ class DailyFilings(IndexFilings):
         """Main index filename to look for."""
         return "master.{date}.idx".format(date=self._get_idx_formatted_date())
 
-    def get_file_names(self):
+    def _get_tar(self):
         """The .tar.gz filename for the current day."""
         if self.year < 1995 or (self.year == 1995 and self.quarter < 3):
             raise ValueError('Bulk downloading is only available starting 1995 Q3.')

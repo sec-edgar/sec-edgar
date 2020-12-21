@@ -64,13 +64,12 @@ class MasterFilings(IndexFilings):
                 qtr=get_quarter(datetime.today())))
         self._quarter = val
 
-    # TODO: Implement zip decompression to idx file to decrease response load
     @property
     def idx_filename(self):
         """Main index filename to look for."""
         return "master.idx"
 
-    def get_file_names(self):
+    def _get_tar(self):
         """The list of .tar.gz daily files in the current quarter."""
         soup = self.client.get_soup(self.tar_path, {})
         files = [a.get('href') for a in soup.find_all('a')]
@@ -92,9 +91,10 @@ class MasterFilings(IndexFilings):
             directory (str): Directory where filings should be stored. Will be broken down
                 further by company name and form type.
             dir_pattern (str): Format string for subdirectories. Default is
-                `{year}/QTR{quarter}/{cik}`. Valid options are `year`, `quarter`, and `cik`.
+                `{year}/QTR{quarter}/{cik}`. Valid options to mix and match
+                 are `{year}`, `{quarter}`, and `{cik}`.
             file_pattern (str): Format string for files. Default is `{accession_number}`.
-                Valid options are `accession_number`.
+                Valid options are `{accession_number}`.
             download_all (bool): Type of downloading system, if true downloads all data for each
                 day, if false downloads each file in index. Default is `False`.
         """
@@ -102,6 +102,7 @@ class MasterFilings(IndexFilings):
             # https://stackoverflow.com/questions/11283961/partial-string-formatting
             dir_pattern = os.path.join('{year}', 'QTR{quarter}', '{cik}')
 
+        # If "{cik}" is in dir_pattern, it will be passed on and if not it will be ignored
         formatted_dir = dir_pattern.format(year=self.year, quarter=self.quarter, cik="{cik}")
         self.save_filings(directory, dir_pattern=formatted_dir,
                           file_pattern=file_pattern, download_all=download_all)
