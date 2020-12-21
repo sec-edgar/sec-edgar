@@ -6,11 +6,6 @@ from secedgar.filings.daily import DailyFilings
 from secedgar.tests.utils import datapath
 
 
-def mock_master_idx_file(*args):
-    with open(datapath("filings", "daily", "master.20181231.idx")) as f:
-        return f.read()
-
-
 class TestDaily:
     @pytest.mark.parametrize(
         "date,expected",
