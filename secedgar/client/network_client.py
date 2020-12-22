@@ -174,6 +174,21 @@ class NetworkClient(AbstractClient):
         """
         return BeautifulSoup(self.get_response(path, params, **kwargs).text, features='lxml')
 
+    async def fetch(self, link, session):
+        """Asynchronous get request.
+
+        Args:
+            link (str): URL to fetch.
+            session (aiohttp.ClientSession): Asynchronous client session to use to perform
+                get request.
+
+        Returns:
+            Content: Contents of response from get request.
+        """
+        async with await session.get(link) as response:
+            contents = await response.read()
+        return contents
+
     async def wait_for_download_async(self, inputs):
         """Asynchronously download links into files using rate limit.
 
@@ -184,21 +199,16 @@ class NetworkClient(AbstractClient):
         time.sleep(1)
 
         async def fetch_and_save(link, path, session):
-            async with await session.get(link) as response:
-                # print(response.headers['Content-Length'])
-                contents = await response.read()
-                if contents.startswith(b'<!DOCTYPE'):
-                    # Raise error if given html instead of expected txt file
-                    raise EDGARQueryError("You hit the rate limit")
-                make_path(os.path.dirname(path))
-                with open(path, "wb") as f:
-                    f.write(contents)
+            contents = await self.fetch(link, session)
+            make_path(os.path.dirname(path))
+            with open(path, "wb") as f:
+                f.write(contents)
 
         conn = TCPConnector(limit=self.rate_limit)
         raw_client = ClientSession(connector=conn, headers={'Connection': 'keep-alive'})
         async with raw_client:
-            client = RateLimitedClientSession(raw_client, self.rate_limit)
-            tasks = [asyncio.ensure_future(fetch_and_save(link, path, client))
+            session = RateLimitedClientSession(raw_client, self.rate_limit)
+            tasks = [asyncio.ensure_future(fetch_and_save(link, path, session))
                      for link, path in inputs]
             for f in asyncio.as_completed(tasks):
                 await f
