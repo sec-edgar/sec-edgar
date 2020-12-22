@@ -2,3 +2,4 @@ beautifulsoup4
 aiohttp<=3.7
 requests
 lxml
+async-timeout
