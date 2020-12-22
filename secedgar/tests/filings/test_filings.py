@@ -1,13 +1,12 @@
 # Tests if filings are correctly received from EDGAR
 import datetime
-import pytest
 
+import pytest
 from secedgar.client import NetworkClient
 from secedgar.filings import Filing, FilingType
-
-from secedgar.utils.exceptions import FilingTypeError, EDGARQueryError
-from secedgar.tests.utils import MockResponse
 from secedgar.filings.cik_validator import _CIKValidator
+from secedgar.tests.utils import MockResponse
+from secedgar.utils.exceptions import EDGARQueryError, FilingTypeError
 
 
 @pytest.fixture(scope="module")
@@ -233,10 +232,6 @@ class TestFiling(object):
     def test_validate_cik_type_inside_filing(self, bad_cik_lookup):
         with pytest.raises(TypeError):
             Filing(cik_lookup=bad_cik_lookup, filing_type=FilingType.FILING_10K)
-
-    def test_validate_cik_inside_filing(self, mock_single_cik_not_found):
-        with pytest.raises(EDGARQueryError):
-            _ = Filing(cik_lookup="0notvalid0", filing_type=FilingType.FILING_10K).cik_lookup.ciks
 
     @pytest.mark.parametrize(
         "no_urls",
