@@ -40,3 +40,21 @@ class AsyncMockResponse(MockResponse):
 
     async def read(self):
         return bytes(self.text, encoding=self._encoding)
+
+
+class AsyncLimitedResponsesSession:
+    def __init__(self, response=AsyncMockResponse(text="Testing..."), limit=10):
+        self._response = response
+        self._limit = limit
+        self._requests_made = 0
+
+    async def get(self, *args, **kwargs):
+        if self._requests_made < self._limit:
+            return await self._response
+        return
+
+    async def __aenter__(self):
+        return self
+
+    async def __aexit__(self, exc_type, exc, tb):
+        pass
