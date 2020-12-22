@@ -73,7 +73,7 @@ class IndexFilings(AbstractFiling):
         pass  # pragma: no cover
 
     @abstractmethod
-    def get_file_names(self):
+    def _get_tar(self):
         """Passed to child classes."""
         pass  # pragma: no cover
 
@@ -82,7 +82,7 @@ class IndexFilings(AbstractFiling):
         """str: Tar.gz path added to the client base."""
         return "Archives/edgar/Feed/{year}/QTR{num}/".format(year=self.year, num=self.quarter)
 
-    def get_listings_directory(self, update_cache=False, **kwargs):
+    def _get_listings_directory(self, update_cache=False, **kwargs):
         """Get page with list of all idx files for given date or quarter.
 
         Args:
@@ -115,7 +115,7 @@ class IndexFilings(AbstractFiling):
                 is found.
         """
         if self._master_idx_file is None or update_cache:
-            if self.idx_filename in self.get_listings_directory().text:
+            if self.idx_filename in self._get_listings_directory().text:
                 master_idx_url = "{path}{filename}".format(
                     path=self.path, filename=self.idx_filename)
                 self._master_idx_file = self.client.get_response(
@@ -127,7 +127,7 @@ class IndexFilings(AbstractFiling):
         return self._master_idx_file
 
     def get_filings_dict(self, update_cache=False, **kwargs):
-        """Get all filings inside an index file.
+        """Get all filings inside an idx file.
 
         Args:
             update_cache (bool, optional): Whether filings dict should be
@@ -173,7 +173,7 @@ class IndexFilings(AbstractFiling):
         return self._urls
 
     @staticmethod
-    def do_create_and_copy(q):
+    def _do_create_and_copy(q):
         """Create path and copy file to end of path.
 
         Args:
@@ -191,7 +191,7 @@ class IndexFilings(AbstractFiling):
             q.task_done()
 
     @staticmethod
-    def do_unpack_archive(q, extract_directory):
+    def _do_unpack_archive(q, extract_directory):
         """Unpack archive file in given extract directory.
 
         Args:
@@ -207,6 +207,72 @@ class IndexFilings(AbstractFiling):
             os.remove(filename)
             q.task_done()
 
+    def _unzip(self, extract_directory):
+        """Unzips files from tar files into extract directory.
+
+        Args:
+            extract_directory (str): Temporary path to extract files to.
+                Note that this directory will be completely removed after
+                files are unzipped.
+        """
+        tar_files = self._get_tar()
+        unpack_queue = Queue(maxsize=len(tar_files))
+        unpack_threads = len(tar_files)
+
+        for _ in range(unpack_threads):
+            worker = Thread(target=self._do_unpack_archive,
+                            args=(unpack_queue, extract_directory))
+            worker.start()
+        for f in tar_files:
+            full_path = os.path.join(extract_directory, f)
+            unpack_queue.put_nowait(full_path)
+
+        unpack_queue.join()
+
+    def _move_to_dest(self, urls, extract_directory, directory, file_pattern, dir_pattern):
+        """Moves all files from extract_directory into proper final format in directory.
+
+
+        Args:
+            urls (dict): Dictionary of URLs that were retrieved. See ``secedgar.filings._index.IndexFilings.get_urls()``
+                for more.
+            extract_directory (str): Location of extract directory as used in ``secedgar.filings.daily.DailyFilings._unzip``
+            directory (str): Final parent directory to move files to.
+            dir_pattern (str): Format string for subdirectories. Default is `{cik}`.
+                Valid options are `cik`. See ``save`` method for more.
+            file_pattern (str): Format string for files. Default is `{accession_number}`.
+                Valid options are `accession_number`. See ``save`` method for more.
+        """
+        # Allocate threads to move files according to pattern
+        link_list = [item for links in urls.values() for item in links]
+
+        move_queue = Queue(maxsize=len(link_list))
+        move_threads = 64
+        for _ in range(move_threads):
+            worker = Thread(target=self._do_create_and_copy, args=(move_queue,))
+            worker.start()
+
+        (_, _, extracted_files) = next(os.walk(extract_directory))
+
+        for link in link_list:
+            link_cik = link.split('/')[-2]
+            link_accession = self.get_accession_number(link)
+            filepath = link_accession.split('.')[0]
+            possible_endings = ('nc', 'corr04', 'corr03', 'corr02', 'corr01')
+            for ending in possible_endings:
+                full_filepath = filepath + '.' + ending
+                # If the filepath is found, move it to the correct path
+                if full_filepath in extracted_files:
+
+                    formatted_dir = dir_pattern.format(cik=link_cik)
+                    formatted_file = file_pattern.format(
+                        accession_number=link_accession)
+                    old_path = os.path.join(extract_directory, full_filepath)
+                    full_dir = os.path.join(directory, formatted_dir)
+                    move_queue.put_nowait((formatted_file, full_dir, old_path))
+                    break
+        move_queue.join()
+
     def save_filings(self,
                      directory,
                      dir_pattern="{cik}",
@@ -214,25 +280,15 @@ class IndexFilings(AbstractFiling):
                      download_all=False):
         """Save all filings.
 
-        Will store all filings for each unique CIK under a separate subdirectory
-        within given directory argument.
-
-        Ex:
-        my_directory
-        |
-        ---- CIK 1
-             |
-             ---- ...txt files
-        ---- CIK 2
-             |
-             ---- ...txt files
+        Will store all filings under the parent directory of ``directory``, further
+        separating filings using ``dir_pattern`` and ``file_pattern``.
 
         Args:
             directory (str): Directory where filings should be stored.
             dir_pattern (str): Format string for subdirectories. Default is `{cik}`.
-                Valid options are `cik`.
+                Valid options are `{cik}`.
             file_pattern (str): Format string for files. Default is `{accession_number}`.
-                Valid options are `accession_number`.
+                Valid options are `{accession_number}`.
             download_all (bool): Type of downloading system, if true downloads all tar files,
                 if false downloads each file in index. Default is `False`.
         """
@@ -241,59 +297,16 @@ class IndexFilings(AbstractFiling):
         if download_all:
             # Download tar files into huge temp directory
             extract_directory = os.path.join(directory, 'temp')
+            i = 0
+            while os.path.exists(extract_directory):
+                # Ensure that there is no name clashing
+                extract_directory = os.path.join(directory, 'temp{i}'.format(i))
+                i += 1
+
             make_path(extract_directory)
-            tar_files = self.get_file_names()
-            inputs = []
-            for filename in tar_files:
-                download_target = os.path.join(extract_directory, filename)
-                url_target = self.client._prepare_query(self.tar_path + filename)
-                inputs.append((url_target, download_target))
-            loop = asyncio.get_event_loop()
-            loop.run_until_complete(self.client.wait_for_download_async(inputs))
-
-            # Create thread for each tar file and unpack
-            unpack_queue = Queue(maxsize=len(tar_files))
-            unpack_threads = len(tar_files)
-
-            for _ in range(unpack_threads):
-                worker = Thread(target=self.do_unpack_archive,
-                                args=(unpack_queue, extract_directory))
-                worker.start()
-            for f in tar_files:
-                full_path = os.path.join(extract_directory, f)
-                unpack_queue.put_nowait(full_path)
-
-            unpack_queue.join()
-
-            # Allocate threads to move files according to pattern
-            link_list = [link for links in urls.values() for link in links]
-
-            move_queue = Queue(maxsize=len(link_list))
-            move_threads = 64
-            for _ in range(move_threads):
-                worker = Thread(target=self.do_create_and_copy, args=(move_queue,))
-                worker.start()
-
-            (_, _, extracted_files) = next(os.walk(extract_directory))
-
-            for link in link_list:
-                link_cik = link.split('/')[-2]
-                link_accession = self.get_accession_number(link)
-                filepath = link_accession.split('.')[0]
-                possible_endings = ('nc', 'corr04', 'corr03', 'corr02', 'corr01')
-                for ending in possible_endings:
-                    full_filepath = filepath + '.' + ending
-                    # If the filepath is found, move it to the correct path
-                    if full_filepath in extracted_files:
-
-                        formatted_dir = dir_pattern.format(cik=link_cik)
-                        formatted_file = file_pattern.format(
-                            accession_number=link_accession)
-                        old_path = os.path.join(extract_directory, full_filepath)
-                        full_dir = os.path.join(directory, formatted_dir)
-                        move_queue.put_nowait((formatted_file, full_dir, old_path))
-                        break
-            move_queue.join()
+            self._unzip(extract_directory=extract_directory)
+            self._move_to_dest(urls=urls, extract_directory=extract_directory,
+                               directory=directory, file_pattern=file_pattern, dir_pattern=dir_pattern)
 
             # Remove the initial extracted data
             shutil.rmtree(extract_directory)

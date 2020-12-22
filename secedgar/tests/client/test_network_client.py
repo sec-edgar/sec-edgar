@@ -1,9 +1,14 @@
+import asyncio
+import math
+import os
+import time
+
 import pytest
 import requests
-
+from aiohttp import web
 from secedgar.client import NetworkClient
-from secedgar.utils.exceptions import EDGARQueryError
 from secedgar.tests.conftest import MockResponse
+from secedgar.utils.exceptions import EDGARQueryError
 
 
 @pytest.fixture
@@ -15,6 +20,28 @@ def client():
 def mock_no_cik_found_bad_response(monkeypatch):
     monkeypatch.setattr(requests, 'get', lambda *args, **kwargs: MockResponse(
         datapath_args=['CIK', 'cik_not_found.html']))
+
+
+class MockClientSession:
+    def __init__(self, *args, **kwargs):
+        self.status = 200
+
+    async def get(self, *args, **kwargs):
+        return web.Response(text="Testing...")
+
+    async def read(self, *args, **kwargs):
+        return b"Testing bytes..."
+
+    async def __aenter__(self, *args, **kwargs):
+        return self
+
+    async def __aexit__(self, exc_type, exc, tb):
+        pass
+
+
+@pytest.fixture()
+def mock_aiohttp_client_session(monkeypatch):
+    monkeypatch.setattr("aiohttp.ClientSession.get", MockClientSession)
 
 
 class MockBadStatusCodeResponse:
@@ -89,25 +116,40 @@ class TestNetworkClient:
     @pytest.mark.parametrize(
         "test_input,expectation",
         [
-            (0.5, pytest.raises(TypeError)),
-            ("2", pytest.raises(TypeError)),
-            (-1, pytest.raises(ValueError))
+            (0.5, TypeError),
+            ("2", TypeError),
+            (-1, ValueError)
         ]
     )
     def test_client_bad_retry_count_setter(self, test_input, expectation, client):
-        with expectation:
+        with pytest.raises(expectation):
             client.retry_count = test_input
 
     @pytest.mark.parametrize(
         "test_input,expectation",
         [
-            ("2", pytest.raises(TypeError)),
-            (-0.5, pytest.raises(ValueError)),
-            (-1, pytest.raises(ValueError))
+            (0, ValueError),
+            (10, ValueError),
+            (-1, ValueError),
+            (11, ValueError),
+            (-1.5, ValueError),
+            (11.5, ValueError)
+        ]
+    )
+    def test_client_bad_rate_limit(self, test_input, expectation, client):
+        with pytest.raises(expectation):
+            client.rate_limit = test_input
+
+    @pytest.mark.parametrize(
+        "test_input,expectation",
+        [
+            ("2", TypeError),
+            (-0.5, ValueError),
+            (-1, ValueError)
         ]
     )
     def test_client_bad_pause_setter(self, test_input, expectation, client):
-        with expectation:
+        with pytest.raises(expectation):
             client.pause = test_input
 
     @pytest.mark.parametrize(
@@ -121,3 +163,20 @@ class TestNetworkClient:
     def test_client_bad_batch_size_setter(self, test_input, expectation, client):
         with pytest.raises(expectation):
             client.batch_size = test_input
+
+    @pytest.mark.asyncio
+    @pytest.mark.parametrize(
+        "rate_limit",
+        range(1, 10)
+    )
+    def test_rate_limit(self, tmp_data_directory, rate_limit, mock_aiohttp_client_session):
+        client = NetworkClient(rate_limit=rate_limit)
+        min_seconds = 3
+        num_requests = rate_limit * min_seconds
+        inputs = [("https://google.com", os.path.join(tmp_data_directory, str(i)))
+                  for i in range(num_requests)]
+        loop = asyncio.get_event_loop()
+        start = time.time()
+        loop.run_until_complete(client.wait_for_download_async(inputs))
+        end = time.time()
+        assert num_requests / math.ceil(end - start) <= rate_limit
