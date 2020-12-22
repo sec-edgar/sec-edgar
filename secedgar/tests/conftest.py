@@ -1,9 +1,8 @@
 import pytest
 import requests
 from secedgar.client import NetworkClient
-from secedgar.filings import DailyFilings, MasterFilings
-from secedgar.filings.cik_validator import _CIKValidator
-from secedgar.tests.utils import datapath, MockResponse, AsyncMockResponse
+from secedgar.filings import MasterFilings
+from secedgar.tests.utils import AsyncMockResponse, MockResponse, datapath
 
 
 @pytest.fixture(scope="module")

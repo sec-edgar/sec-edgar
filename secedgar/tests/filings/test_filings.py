@@ -6,7 +6,7 @@ from secedgar.client import NetworkClient
 from secedgar.filings import Filing, FilingType
 from secedgar.filings.cik_validator import _CIKValidator
 from secedgar.tests.utils import MockResponse
-from secedgar.utils.exceptions import EDGARQueryError, FilingTypeError
+from secedgar.utils.exceptions import FilingTypeError
 
 
 @pytest.fixture(scope="module")

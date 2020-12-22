@@ -3,7 +3,7 @@ from datetime import datetime
 
 import pytest
 from secedgar.filings.master import MasterFilings
-from secedgar.tests.utils import MockResponse, datapath
+from secedgar.tests.utils import MockResponse
 
 
 @pytest.fixture(scope="module")

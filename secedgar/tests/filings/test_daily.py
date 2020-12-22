@@ -2,9 +2,8 @@ import os
 from datetime import datetime
 
 import pytest
-from secedgar.client import NetworkClient
 from secedgar.filings.daily import DailyFilings
-from secedgar.tests.utils import AsyncMockResponse, MockResponse, datapath
+from secedgar.tests.utils import MockResponse, datapath
 
 
 @pytest.fixture(scope="module")

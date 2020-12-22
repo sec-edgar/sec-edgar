@@ -27,7 +27,8 @@ class MockResponse:
 
 
 class AsyncMockResponse(MockResponse):
-    def __init__(self, datapath_args=[], status_code=200, file_read_args="r", text=None, encoding="utf-16", *args, **kwargs):
+    def __init__(self, datapath_args=[], status_code=200, file_read_args="r", text=None,
+                 encoding="utf-16", *args, **kwargs):
         super().__init__(datapath_args=datapath_args, status_code=status_code,
                          file_read_args=file_read_args, text=text, *args, **kwargs)
         self._encoding = encoding

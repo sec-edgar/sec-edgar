@@ -1,6 +1,5 @@
 """Client to communicate with EDGAR database."""
 import asyncio
-import logging
 import os
 import time
 

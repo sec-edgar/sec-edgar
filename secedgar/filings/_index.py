@@ -232,11 +232,11 @@ class IndexFilings(AbstractFiling):
     def _move_to_dest(self, urls, extract_directory, directory, file_pattern, dir_pattern):
         """Moves all files from extract_directory into proper final format in directory.
 
-
         Args:
-            urls (dict): Dictionary of URLs that were retrieved. See ``secedgar.filings._index.IndexFilings.get_urls()``
-                for more.
-            extract_directory (str): Location of extract directory as used in ``secedgar.filings.daily.DailyFilings._unzip``
+            urls (dict): Dictionary of URLs that were retrieved. See
+            ``secedgar.filings._index.IndexFilings.get_urls()`` for more.
+            extract_directory (str): Location of extract directory as used in
+                ``secedgar.filings.daily.DailyFilings._unzip``
             directory (str): Final parent directory to move files to.
             dir_pattern (str): Format string for subdirectories. Default is `{cik}`.
                 Valid options are `cik`. See ``save`` method for more.
@@ -305,8 +305,11 @@ class IndexFilings(AbstractFiling):
 
             make_path(extract_directory)
             self._unzip(extract_directory=extract_directory)
-            self._move_to_dest(urls=urls, extract_directory=extract_directory,
-                               directory=directory, file_pattern=file_pattern, dir_pattern=dir_pattern)
+            self._move_to_dest(urls=urls,
+                               extract_directory=extract_directory,
+                               directory=directory,
+                               file_pattern=file_pattern,
+                               dir_pattern=dir_pattern)
 
             # Remove the initial extracted data
             shutil.rmtree(extract_directory)
