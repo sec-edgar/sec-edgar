@@ -2,12 +2,12 @@ import gzip
 from ast import parse
 
 import pytest
-from secedgar.parse import Parser
+from secedgar.parser import MetaParser
 from secedgar.tests.utils import datapath
 
 
 class TestParser:
-    parser = Parser()
+    parser = MetaParser()
 
     def test_process_document_metadata(self):
         doc = """<TYPE>10-K

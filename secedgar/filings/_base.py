@@ -2,7 +2,7 @@ import os
 import string
 from abc import ABC, abstractmethod
 
-from secedgar.parse import Parser
+from secedgar.parser import MetaParser
 
 
 class AbstractFiling(ABC):

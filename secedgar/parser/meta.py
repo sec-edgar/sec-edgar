@@ -7,7 +7,7 @@ import uu
 from secedgar.utils import make_path
 
 
-class Parser:
+class MetaParser:
     """Utility class to extract metadata and documents from a single text file.
 
     .. note::
