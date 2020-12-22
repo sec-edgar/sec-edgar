@@ -7,8 +7,11 @@ import uu
 from secedgar.utils import make_path
 
 
-class FilingExtractor:
+class Parser:
     """Utility class to extract metadata and documents from a single text file.
+
+    .. note::
+        The ``Parser`` class is still experimental. Use with caution.
 
     .. versionadded:: 0.3.0
     """
@@ -29,7 +32,7 @@ class FilingExtractor:
                 infile.
             create_subdir (bool): If a subdirectory with the name of the infile should be created.
                 If this is not true, files will be prefixed with the infile filename.
-            rm_infile (bool): If the infile should be removed after processing. Default: `False`.
+            rm_infile (bool): If the infile should be removed after processing. Defaults to False.
         """
         if not infile.endswith('.txt'):
             raise ValueError('{file} Does not appear to be a .txt file.'.format(file=infile))
