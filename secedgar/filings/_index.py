@@ -266,11 +266,11 @@ class IndexFilings(AbstractFiling):
             unpack_queue.join()
 
             # Allocate threads to move files according to pattern
-            link_list = [item for links in urls.values() for item in links]
+            link_list = [link for links in urls.values() for link in links]
 
             move_queue = Queue(maxsize=len(link_list))
             move_threads = 64
-            for i in range(move_threads):
+            for _ in range(move_threads):
                 worker = Thread(target=self.do_create_and_copy, args=(move_queue,))
                 worker.start()
 
