@@ -300,7 +300,7 @@ class IndexFilings(AbstractFiling):
             i = 0
             while os.path.exists(extract_directory):
                 # Ensure that there is no name clashing
-                extract_directory = os.path.join(directory, 'temp{i}'.format(i))
+                extract_directory = os.path.join(directory, 'temp{i}'.format(i=i))
                 i += 1
 
             make_path(extract_directory)
