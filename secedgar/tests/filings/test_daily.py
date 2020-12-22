@@ -3,13 +3,28 @@ import pytest
 
 from datetime import datetime
 
+from secedgar.client import NetworkClient
 from secedgar.filings.daily import DailyFilings
-from secedgar.tests.utils import datapath
+from secedgar.tests.utils import datapath, AsyncMockResponse, MockResponse
 
 
-def mock_master_idx_file(*args):
-    with open(datapath("filings", "daily", "master.20181231.idx")) as f:
-        return f.read()
+@pytest.fixture(scope="module")
+def mock_daily_quarter_directory(monkeymodule):
+    """Mocks directory of all daily filings for quarter."""
+    monkeymodule.setattr(DailyFilings, "get_listings_directory", lambda *args, **
+                         kwargs: MockResponse(datapath_args=["filings", "daily",
+                                                             "daily_index_2018_QTR4.htm"]))
+
+
+@pytest.fixture(scope="module")
+def mock_daily_idx_file(monkeymodule):
+    """Mock idx file from DailyFilings."""
+
+    def _mock_daily_idx_file(*args, **kwargs):
+        with open(datapath("filings", "daily", "master.20181231.idx")) as f:
+            return f.read()
+
+    monkeymodule.setattr(DailyFilings, "_get_master_idx_file", _mock_daily_idx_file)
 
 
 class TestDaily:
@@ -142,9 +157,9 @@ class TestDaily:
         ]
     )
     def test_save(self, tmp_data_directory,
-                  mock_filing_data,
                   mock_daily_quarter_directory,
                   mock_daily_idx_file,
+                  mock_filing_response,
                   subdir,
                   file):
         daily_filing = DailyFilings(datetime(2018, 12, 31))
@@ -164,9 +179,9 @@ class TestDaily:
         ]
     )
     def test_save_with_single_level_date_dir_pattern(self, tmp_data_directory,
-                                                     mock_filing_data,
                                                      mock_daily_quarter_directory,
                                                      mock_daily_idx_file,
+                                                     mock_filing_response,
                                                      file):
         daily_filing = DailyFilings(datetime(2018, 12, 31))
         daily_filing.save(tmp_data_directory, dir_pattern="{date}", date_format="%Y-%m-%d")
@@ -184,9 +199,9 @@ class TestDaily:
         ]
     )
     def test_save_with_single_level_cik_dir_pattern(self, tmp_data_directory,
-                                                    mock_filing_data,
                                                     mock_daily_quarter_directory,
                                                     mock_daily_idx_file,
+                                                    mock_filing_response,
                                                     cik,
                                                     file):
         daily_filing = DailyFilings(datetime(2018, 12, 31))
@@ -205,9 +220,9 @@ class TestDaily:
         ]
     )
     def test_save_with_multi_level_dir_pattern(self, tmp_data_directory,
-                                               mock_filing_data,
                                                mock_daily_quarter_directory,
                                                mock_daily_idx_file,
+                                               mock_filing_response,
                                                cik,
                                                file):
         daily_filing = DailyFilings(datetime(2018, 12, 31))
@@ -228,9 +243,9 @@ class TestDaily:
         ]
     )
     def test_save_with_multi_level_dir_pattern_date_not_first(self, tmp_data_directory,
-                                                              mock_filing_data,
                                                               mock_daily_quarter_directory,
                                                               mock_daily_idx_file,
+                                                              mock_filing_response,
                                                               cik,
                                                               file):
         daily_filing = DailyFilings(datetime(2018, 12, 31))

@@ -2,6 +2,18 @@ import os
 import pytest
 from datetime import datetime
 from secedgar.filings.master import MasterFilings
+from secedgar.tests.utils import datapath, MockResponse
+
+
+@pytest.fixture(scope="module")
+def mock_master_quarter_directory(monkeymodule):
+    """Mock directory of all filings for quarter.
+
+    Use for MasterFilings object.
+    """
+    monkeymodule.setattr(MasterFilings, "get_listings_directory", lambda *args, **
+                         kwargs: MockResponse(datapath_args=["filings", "master",
+                                                             "master_index_1993_QTR4.html"]))
 
 
 class TestMaster:
@@ -81,6 +93,7 @@ class TestMaster:
                   mock_filing_data,
                   mock_master_quarter_directory,
                   mock_master_idx_file,
+                  mock_filing_response,
                   subdir,
                   file):
         master_filing = MasterFilings(year=1993, quarter=4)

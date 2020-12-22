@@ -6,6 +6,59 @@ from secedgar.client import NetworkClient
 from secedgar.filings import Filing, FilingType
 
 from secedgar.utils.exceptions import FilingTypeError, EDGARQueryError
+from secedgar.tests.utils import MockResponse
+from secedgar.filings.cik_validator import _CIKValidator
+
+
+@pytest.fixture(scope="module")
+def mock_cik_validator_get_single_cik(monkeymodule):
+    """Mocks response for getting a single CIK."""
+    monkeymodule.setattr(_CIKValidator, "get_ciks", lambda *args, **kwargs: {"aapl": "0000320193"})
+
+
+@pytest.fixture(scope="module")
+def mock_cik_validator_get_multiple_ciks(monkeymodule):
+    """Mocks response for getting a single CIK."""
+    monkeymodule.setattr(_CIKValidator, "get_ciks", lambda *args, **
+                         kwargs: {"aapl": "0000320193", "msft": "1234", "amzn": "5678"})
+
+
+@pytest.fixture(scope="module")
+def mock_single_cik_not_found(monkeymodule):
+    """NetworkClient get_response method will return html with CIK not found message."""
+    monkeymodule.setattr(NetworkClient, "get_response", lambda *args, **
+                         kwargs: MockResponse(datapath_args=["CIK", "cik_not_found.html"],
+                                              file_read_args="rb"))
+
+
+@pytest.fixture(scope="module")
+def mock_single_cik_filing(monkeymodule):
+    """Returns mock response of filinghrefs for getting filing URLs."""
+    monkeymodule.setattr(NetworkClient, "get_response", lambda *args, **
+                         kwargs: MockResponse(datapath_args=["filings", "aapl_10q_filings.xml"]))
+
+
+class MockSingleCIKFilingLimitedResponses:
+    def __init__(self, num_responses):
+        self._called_count = 0
+        self._num_responses = num_responses
+
+    def __call__(self, *args):
+        if self._called_count * 10 < self._num_responses:
+            self._called_count += 1
+            return MockResponse(datapath_args=["filings", "aapl_10q_filings.xml"])
+        else:
+            return MockResponse(text="")
+
+
+# FIXME: This may not be working as expected. Need to look into this more.
+@pytest.fixture(scope="module")
+def mock_single_cik_filing_limited_responses(monkeymodule):
+    """Mocks when only a limited number of filings are available."""
+    mock_limited_responses = MockSingleCIKFilingLimitedResponses(num_responses=10)
+
+    monkeymodule.setattr(NetworkClient, "get_response", lambda *args,
+                         **kwargs: mock_limited_responses())
 
 
 class TestFiling(object):
@@ -13,8 +66,8 @@ class TestFiling(object):
                                  mock_cik_validator_get_single_cik,
                                  mock_single_cik_filing):
         count = 10
-        aapl = Filing(cik_lookup='aapl', filing_type=FilingType.FILING_10Q, count=count)
-        urls = aapl.get_urls()['aapl']
+        aapl = Filing(cik_lookup="aapl", filing_type=FilingType.FILING_10Q, count=count)
+        urls = aapl.get_urls()["aapl"]
         if len(urls) != count:
             raise AssertionError("""Count should return exact number of filings.
                                  Got {0}, but expected {1} URLs.""".format(
@@ -32,7 +85,7 @@ class TestFiling(object):
         ]
     )
     def test_count_setter_on_init(self, count):
-        filing = Filing(cik_lookup='aapl', filing_type=FilingType.FILING_10Q, count=count)
+        filing = Filing(cik_lookup="aapl", filing_type=FilingType.FILING_10Q, count=count)
         assert filing.count == count
 
     @pytest.mark.parametrize(
@@ -49,7 +102,7 @@ class TestFiling(object):
         ]
     )
     def test_good_start_date_setter_on_init(self, start_date):
-        filing = Filing(cik_lookup='aapl', filing_type=FilingType.FILING_10Q, start_date=start_date)
+        filing = Filing(cik_lookup="aapl", filing_type=FilingType.FILING_10Q, start_date=start_date)
         assert filing.start_date == start_date
 
     @pytest.mark.parametrize(
@@ -64,7 +117,7 @@ class TestFiling(object):
     )
     def test_bad_start_date_setter_on_init(self, bad_start_date):
         with pytest.raises(TypeError):
-            Filing(cik_lookup='aapl', filing_type=FilingType.FILING_10Q,
+            Filing(cik_lookup="aapl", filing_type=FilingType.FILING_10Q,
                    start_date=bad_start_date)
 
     @pytest.mark.parametrize(
@@ -79,32 +132,32 @@ class TestFiling(object):
     )
     def test_count_setter_bad_values(self, count, expected_error):
         with pytest.raises(expected_error):
-            Filing(cik_lookup='aapl',
+            Filing(cik_lookup="aapl",
                    filing_type=FilingType.FILING_10Q,
                    count=count)
 
     def test_date_is_sanitized(self):
         start_date = datetime.datetime(2012, 3, 1)
         end_date = datetime.datetime(2015, 1, 1)
-        aapl = Filing(cik_lookup='aapl',
+        aapl = Filing(cik_lookup="aapl",
                       filing_type=FilingType.FILING_10Q,
                       count=10,
                       start_date=start_date,
                       end_date=end_date)
-        assert aapl.params['dateb'] == '20150101'
-        assert aapl.params['datea'] == '20120301'
+        assert aapl.params["dateb"] == "20150101"
+        assert aapl.params["datea"] == "20120301"
         assert aapl.start_date == datetime.datetime(2012, 3, 1)
         assert aapl.end_date == datetime.datetime(2015, 1, 1)
 
     def test_date_is_sanitized_when_changed(self):
-        aapl = Filing(cik_lookup='aapl',
+        aapl = Filing(cik_lookup="aapl",
                       filing_type=FilingType.FILING_10Q,
                       count=10,
-                      start_date='20150101')
-        assert aapl.start_date == '20150101'
+                      start_date="20150101")
+        assert aapl.start_date == "20150101"
         aapl.start_date = datetime.datetime(2010, 1, 1)
         assert aapl.start_date == datetime.datetime(2010, 1, 1)
-        assert aapl.params['datea'] == '20100101'
+        assert aapl.params["datea"] == "20100101"
 
     @pytest.mark.parametrize(
         "date,expected",
@@ -115,16 +168,16 @@ class TestFiling(object):
         ]
     )
     def test_end_date_setter(self, date, expected):
-        f = Filing('aapl', FilingType.FILING_10Q, start_date=datetime.datetime(
+        f = Filing("aapl", FilingType.FILING_10Q, start_date=datetime.datetime(
             2010, 1, 1), end_date=datetime.datetime(2015, 1, 1))
         f.end_date = date
         assert f.end_date == date and f.params.get("dateb") == expected
 
     @pytest.mark.slow
     def test_txt_urls(self, mock_cik_validator_get_single_cik, mock_single_cik_filing):
-        aapl = Filing(cik_lookup='aapl', filing_type=FilingType.FILING_10Q, count=10)
-        first_txt_url = aapl.get_urls()['aapl'][0]
-        assert first_txt_url.split('.')[-1] == 'txt'
+        aapl = Filing(cik_lookup="aapl", filing_type=FilingType.FILING_10Q, count=10)
+        first_txt_url = aapl.get_urls()["aapl"][0]
+        assert first_txt_url.split(".")[-1] == "txt"
 
     @pytest.mark.parametrize(
         "new_filing_type",
@@ -136,22 +189,22 @@ class TestFiling(object):
         )
     )
     def test_filing_type_setter(self, new_filing_type):
-        f = Filing(cik_lookup='aapl', filing_type=FilingType.FILING_10Q)
+        f = Filing(cik_lookup="aapl", filing_type=FilingType.FILING_10Q)
         f.filing_type = new_filing_type
         assert f.filing_type == new_filing_type
 
     @pytest.mark.parametrize(
         "bad_filing_type",
         (
-            '10-k',
-            '10k',
-            '10-q',
-            '10q',
+            "10-k",
+            "10k",
+            "10-q",
+            "10q",
             123
         )
     )
     def test_bad_filing_type_setter(self, bad_filing_type):
-        f = Filing(cik_lookup='aapl', filing_type=FilingType.FILING_10Q)
+        f = Filing(cik_lookup="aapl", filing_type=FilingType.FILING_10Q)
         with pytest.raises(FilingTypeError):
             f.filing_type = bad_filing_type
 
@@ -167,7 +220,7 @@ class TestFiling(object):
     )
     def test_invalid_filing_type_types(self, bad_filing_type):
         with pytest.raises(FilingTypeError):
-            Filing(cik_lookup='0000320193', filing_type=bad_filing_type)
+            Filing(cik_lookup="0000320193", filing_type=bad_filing_type)
 
     @pytest.mark.parametrize(
         "bad_cik_lookup",
@@ -183,40 +236,42 @@ class TestFiling(object):
 
     def test_validate_cik_inside_filing(self, mock_single_cik_not_found):
         with pytest.raises(EDGARQueryError):
-            _ = Filing(cik_lookup='0notvalid0', filing_type=FilingType.FILING_10K).cik_lookup.ciks
+            _ = Filing(cik_lookup="0notvalid0", filing_type=FilingType.FILING_10K).cik_lookup.ciks
 
     @pytest.mark.parametrize(
         "no_urls",
         (
             {},
-            {'aapl': [], 'fb': [], 'msft': []}
+            {"aapl": [], "fb": [], "msft": []}
         )
     )
     def test_save_no_filings_raises_error(self, tmp_data_directory, monkeypatch, no_urls):
         monkeypatch.setattr(Filing, "get_urls", lambda x: no_urls)
-        f = Filing(cik_lookup='aapl', filing_type=FilingType.FILING_10K)
+        f = Filing(cik_lookup="aapl", filing_type=FilingType.FILING_10K)
         with pytest.raises(ValueError):
             f.save(tmp_data_directory)
 
     @pytest.mark.smoke
     def test_filing_save_multiple_ciks(self, tmp_data_directory,
                                        mock_cik_validator_get_multiple_ciks,
-                                       mock_single_cik_filing):
-        f = Filing(['aapl', 'amzn', 'msft'], FilingType.FILING_10Q, count=3)
+                                       mock_single_cik_filing,
+                                       mock_filing_response):
+        f = Filing(["aapl", "amzn", "msft"], FilingType.FILING_10Q, count=3)
         f.save(tmp_data_directory)
 
     @pytest.mark.smoke
     def test_filing_save_single_cik(self, tmp_data_directory,
                                     mock_cik_validator_get_single_cik,
-                                    mock_single_cik_filing):
-        f = Filing('aapl', FilingType.FILING_10Q, count=3)
+                                    mock_single_cik_filing,
+                                    mock_filing_response):
+        f = Filing("aapl", FilingType.FILING_10Q, count=3)
         f.save(tmp_data_directory)
 
     def test_filing_get_urls_returns_single_list_of_urls(self,
                                                          mock_cik_validator_get_multiple_ciks,
                                                          mock_single_cik_filing):
         # Uses same response for filing links (will all be filings for aapl)
-        f = Filing(cik_lookup=['aapl', 'msft', 'amzn'], filing_type=FilingType.FILING_10Q, count=5)
+        f = Filing(cik_lookup=["aapl", "msft", "amzn"], filing_type=FilingType.FILING_10Q, count=5)
         assert all(len(f.get_urls().get(key)) == 5 for key in f.get_urls().keys())
 
     @pytest.mark.parametrize(
@@ -232,7 +287,7 @@ class TestFiling(object):
                                                    mock_cik_validator_get_multiple_ciks,
                                                    mock_single_cik_filing):
         # Uses same response for filing links (will all be filings for aapl)
-        f = Filing(cik_lookup=['aapl', 'msft', 'amzn'], filing_type=FilingType.FILING_10Q,
+        f = Filing(cik_lookup=["aapl", "msft", "amzn"], filing_type=FilingType.FILING_10Q,
                    count=count, client=NetworkClient(batch_size=10))
         assert all(len(f.get_urls().get(key)) == count for key in f.get_urls().keys())
 
@@ -246,15 +301,15 @@ class TestFiling(object):
             (40, True)
         ]
     )
-    @pytest.mark.filterwarnings('ignore::DeprecationWarning')  # For collections.abc warning 3.8+
+    @pytest.mark.filterwarnings("ignore::DeprecationWarning")  # For collections.abc warning 3.8+
     def test_filing_raises_warning_when_less_filings_than_count(self,
                                                                 recwarn,
                                                                 count,
                                                                 raises_error,
                                                                 tmp_data_directory,
                                                                 mock_cik_validator_get_single_cik,
-                                                                mock_single_cik_filing_limited_responses):  # noqa:E501
-        f = Filing(cik_lookup=['aapl', 'msft', 'amzn'], filing_type=FilingType.FILING_10Q,
+                                                                mock_filing_response):  # noqa:E501
+        f = Filing(cik_lookup=["aapl", "msft", "amzn"], filing_type=FilingType.FILING_10Q,
                    count=count, client=NetworkClient(batch_size=10))
         f.save(tmp_data_directory)
         if raises_error:
@@ -271,5 +326,5 @@ class TestFiling(object):
     @pytest.mark.skip
     @pytest.mark.smoke
     def test_filing_simple_example(self, tmp_data_directory):
-        my_filings = Filing(cik_lookup='IBM', filing_type=FilingType.FILING_10Q)
+        my_filings = Filing(cik_lookup="IBM", filing_type=FilingType.FILING_10Q)
         my_filings.save(tmp_data_directory)
