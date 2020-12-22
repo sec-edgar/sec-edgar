@@ -173,7 +173,6 @@ class Filing(AbstractFiling):
         links = []
         self.params["start"] = 0  # set start back to 0 before paginating
 
-        # TODO: Make paginate utility outside of this class
         while self.count is None or len(links) < self.count:
             data = self.client.get_soup(self.path, self.params, **kwargs)
             links.extend([link.string for link in data.find_all("filinghref")])
@@ -199,9 +198,9 @@ class Filing(AbstractFiling):
         Args:
             directory (str): Path to directory where files should be saved.
             dir_pattern (str): Format string for subdirectories. Default is `{cik}/{type}`.
-                Valid options are `cik`, `type`.
+                Valid options are `{cik}`, `{type}`.
             file_pattern (str): Format string for files. Default is `{accession_number}`.
-                Valid options are `accession_number`.
+                Valid options are `{accession_number}`.
 
         Returns:
             None

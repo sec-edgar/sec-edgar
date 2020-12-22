@@ -9,10 +9,10 @@ from secedgar.tests.utils import MockResponse
 from secedgar.utils.exceptions import FilingTypeError
 
 
-@pytest.fixture(scope="module")
-def mock_cik_validator_get_single_cik(monkeymodule):
+@pytest.fixture
+def mock_cik_validator_get_single_cik(monkeypatch):
     """Mocks response for getting a single CIK."""
-    monkeymodule.setattr(_CIKValidator, "get_ciks", lambda *args, **kwargs: {"aapl": "0000320193"})
+    monkeypatch.setattr(_CIKValidator, "get_ciks", lambda *args, **kwargs: {"aapl": "0000320193"})
 
 
 @pytest.fixture(scope="module")
@@ -51,13 +51,16 @@ class MockSingleCIKFilingLimitedResponses:
 
 
 # FIXME: This may not be working as expected. Need to look into this more.
-@pytest.fixture(scope="module")
-def mock_single_cik_filing_limited_responses(monkeymodule):
-    """Mocks when only a limited number of filings are available."""
+@pytest.fixture
+def mock_single_cik_filing_limited_responses(monkeypatch):
+    """Mocks when only a limited number of filings are available.
+
+    Should be reset with each function run, since calls left decreases
+    after each call."""
     mock_limited_responses = MockSingleCIKFilingLimitedResponses(num_responses=10)
 
-    monkeymodule.setattr(NetworkClient, "get_response", lambda *args,
-                         **kwargs: mock_limited_responses())
+    monkeypatch.setattr(NetworkClient, "get_response", lambda *args,
+                        **kwargs: mock_limited_responses())
 
 
 class TestFiling(object):
@@ -303,9 +306,12 @@ class TestFiling(object):
                                                                 raises_error,
                                                                 tmp_data_directory,
                                                                 mock_cik_validator_get_single_cik,
+                                                                mock_single_cik_filing_limited_responses,
                                                                 mock_filing_response):  # noqa:E501
-        f = Filing(cik_lookup=["aapl", "msft", "amzn"], filing_type=FilingType.FILING_10Q,
-                   count=count, client=NetworkClient(batch_size=10))
+        f = Filing(cik_lookup="aapl",
+                   filing_type=FilingType.FILING_10Q,
+                   count=count,
+                   client=NetworkClient(batch_size=10))
         f.save(tmp_data_directory)
         if raises_error:
             w = recwarn.pop(UserWarning)
