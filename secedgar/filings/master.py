@@ -15,6 +15,7 @@ class MasterFilings(IndexFilings):
             ``secedgar.client.NetworkClient`` if None given.
         entry_filter (function, optional): A boolean function to determine
             if the FilingEntry should be kept. Defaults to ``lambda _: True``.
+            See :class:`secedgar.filings.DailyFilings` for more detail.
         kwargs: Keyword arguments to pass to ``secedgar.filings._index.IndexFilings``.
     """
 

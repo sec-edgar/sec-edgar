@@ -113,9 +113,9 @@ Here are some examples of how you might use those arguments to create custom dir
    f = Filing(cik_lookup=["aapl", "msft"], filing_type=FilingType.FILING_10Q, count=5)
    f.save("./my_directory", dir_pattern="cik_{cik}/{type}", file_pattern="{accession_number}")
 
-The code above would create something that would look like this:
+The code above would create a directory structure that would look something like this:
 
-.. code::
+::
 
    my_directory/
    ├── cik_aapl

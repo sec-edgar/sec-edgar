@@ -2,13 +2,13 @@ Welcome to secedgar's documentation!
 ====================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
 .. _getting_started:
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 3
    :caption: Getting Started
 
    whatsnew
@@ -18,13 +18,13 @@ Welcome to secedgar's documentation!
    filings
    filingtypes
    cikmap
-   cli
    parser
+   cli
 
 .. _package_info:
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 3
    :caption: Package Information
 
    about
