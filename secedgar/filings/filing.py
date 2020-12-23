@@ -197,10 +197,10 @@ class Filing(AbstractFiling):
 
         Args:
             directory (str): Path to directory where files should be saved.
-            dir_pattern (str): Format string for subdirectories. Default is `{cik}/{type}`.
-                Valid options are `{cik}`, `{type}`.
-            file_pattern (str): Format string for files. Default is `{accession_number}`.
-                Valid options are `{accession_number}`.
+            dir_pattern (str): Format string for subdirectories. Default is "{cik}/{type}".
+                Valid options are {cik} and/or {type}.
+            file_pattern (str): Format string for files. Default is "{accession_number}".
+                Valid options are {accession_number}.
 
         Returns:
             None

@@ -10,8 +10,8 @@ from secedgar.utils import make_path
 class MetaParser:
     """Utility class to extract metadata and documents from a single text file.
 
-    .. note::
-        The ``Parser`` class is still experimental. Use with caution.
+    .. warning::
+        The ``MetaParser`` class is still experimental. Use with caution.
 
     .. versionadded:: 0.3.0
     """
@@ -33,6 +33,9 @@ class MetaParser:
             create_subdir (bool): If a subdirectory with the name of the infile should be created.
                 If this is not true, files will be prefixed with the infile filename.
             rm_infile (bool): If the infile should be removed after processing. Defaults to False.
+
+        Returns:
+            None
         """
         if not infile.endswith('.txt'):
             raise ValueError('{file} Does not appear to be a .txt file.'.format(file=infile))
@@ -118,7 +121,11 @@ class MetaParser:
 
     @staticmethod
     def process_metadata(curr_doc):
-        """Process the metadata of the focal document."""
+        """Process the metadata of the focal document.
+
+        Args:
+            curr_doc (str): Process meta data for single focal document.
+        """
         out_dict = {}
         levels = [None, None]
 
@@ -186,7 +193,13 @@ class MetaParser:
 
     @staticmethod
     def process_document_metadata(doc):
-        """Process the metadata of an embedded document."""
+        """Process the metadata of an embedded document.
+
+        Args:
+            doc (str): Document to extract meta data from.
+
+        Returns:
+            dict: Dictionary with fields parsed from document."""
         metadata_doc = {}
 
         # Document type

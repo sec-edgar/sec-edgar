@@ -1,5 +1,5 @@
 import os
-from datetime import datetime
+from datetime import date
 
 from secedgar.filings._index import IndexFilings
 from secedgar.utils import get_quarter
@@ -43,9 +43,9 @@ class MasterFilings(IndexFilings):
     def year(self, val):
         if not isinstance(val, int):
             raise TypeError("Year must be an integer.")
-        elif val < 1993 or val > datetime.today().year:
+        elif val < 1993 or val > date.today().year:
             raise ValueError("Year must be in between 1993 and {now} (inclusive)".format(
-                now=datetime.today().year))
+                now=date.today().year))
         self._year = val
 
     @property
@@ -59,9 +59,9 @@ class MasterFilings(IndexFilings):
             raise TypeError("Quarter must be integer.")
         elif val not in range(1, 5):
             raise ValueError("Quarter must be in between 1 and 4 (inclusive).")
-        elif self.year == datetime.today().year and val > get_quarter(datetime.today()):
+        elif self.year == date.today().year and val > get_quarter(date.today()):
             raise ValueError("Latest quarter for current year is {qtr}".format(
-                qtr=get_quarter(datetime.today())))
+                qtr=get_quarter(date.today())))
         self._quarter = val
 
     @property

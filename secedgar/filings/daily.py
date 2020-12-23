@@ -9,18 +9,51 @@ class DailyFilings(IndexFilings):
     """Class for retrieving all daily filings from https://www.sec.gov/Archives/edgar/daily-index.
 
     Attributes:
-        date (Union[datetime.datetime, datetime.date]): Date of daily filing to fetch.
+        date (datetime.date): Date of daily filing to fetch.
         client (secedgar.client._base.AbstractClient, optional): Client to use for fetching data.
             Defaults to ``secedgar.client.NetworkClient`` if none is given.
         entry_filter (function, optional): A boolean function to determine
             if the FilingEntry should be kept. Defaults to `lambda _: True`.
+            The ``FilingEntry`` object exposes 6 variables which can be
+            used to filter which filings to keep. These are "cik", "company_name",
+            "form_type", "date_filed", "file_name", and "path".
+
+    Using ``entry_filter``
+    ----------------------
+
+    To only download filings from a company named "Company A", the following
+    function would suffice for only getting those filings:
+
+    .. code-block:: python
+
+        def get_company_a_filings(filing_entry):
+            return filing_entry.company_name == "Company A"
+
+    To only download Company A or Company B's 10-K fillings from
+    a specific day, a well-defined ``entry_filter`` would be:
+
+    .. code-block:: python
+
+        def get_company_ab_10k(filing_entry):
+            return filing_entry.company_name in ("Company A", "Company B") and
+                   filing_entry.form_type.lower() == "10-k"
+
+    To use the second function as an ``entry_filter``, the following code could be used:
+
+    .. code-block:: python
+
+        from datetime import date
+        from secedgar.filings import DailyFilings
+
+        d = DailyFilings(date=date(2020, 12, 10), entry_filter=get_company_ab_10k)
+
     """
 
     def __init__(self, date, client=None, entry_filter=lambda _: True):
         super().__init__(client=client, entry_filter=entry_filter)
-        if not isinstance(date, (datetime.datetime, datetime.date)):
+        if not isinstance(date, datetime.date):
             raise TypeError(
-                "Date must be given as datetime object. Was given type {type}.".format(
+                "Date must be given as datetime.date object. Was given type {type}.".format(
                     type=type(date)))
         self._date = date
 
@@ -68,7 +101,7 @@ class DailyFilings(IndexFilings):
         """
         if self._date.year < 1995:
             return self._date.strftime("%m%d%y")
-        elif self._date < datetime.datetime(1998, 3, 31):
+        elif self._date < datetime.date(1998, 3, 31):
             return self._date.strftime("%y%m%d")
         else:
             return self._date.strftime("%Y%m%d")

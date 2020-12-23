@@ -19,6 +19,7 @@ Welcome to secedgar's documentation!
    filingtypes
    cikmap
    cli
+   parser
 
 .. _package_info:
 
