@@ -198,8 +198,9 @@ class MetaParser:
         Args:
             doc (str): Document to extract meta data from.
 
-        Returns:
-            dict: Dictionary with fields parsed from document."""
+        Return:
+            dict: Dictionary with fields parsed from document.
+        """
         metadata_doc = {}
 
         # Document type

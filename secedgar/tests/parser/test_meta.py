@@ -1,9 +1,5 @@
-import gzip
-from ast import parse
-
 import pytest
 from secedgar.parser import MetaParser
-from secedgar.tests.utils import datapath
 
 
 class TestParser:

@@ -300,14 +300,14 @@ class TestFiling(object):
         ]
     )
     @pytest.mark.filterwarnings("ignore::DeprecationWarning")  # For collections.abc warning 3.8+
-    def test_filing_raises_warning_when_less_filings_than_count(self,
-                                                                recwarn,
-                                                                count,
-                                                                raises_error,
-                                                                tmp_data_directory,
-                                                                mock_cik_validator_get_single_cik,
-                                                                mock_single_cik_filing_limited_responses,
-                                                                mock_filing_response):  # noqa:E501
+    def test_filings_warning_lt_count(self,
+                                      recwarn,
+                                      count,
+                                      raises_error,
+                                      tmp_data_directory,
+                                      mock_cik_validator_get_single_cik,
+                                      mock_single_cik_filing_limited_responses,
+                                      mock_filing_response):  # noqa:E501
         f = Filing(cik_lookup="aapl",
                    filing_type=FilingType.FILING_10Q,
                    count=count,
