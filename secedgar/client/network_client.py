@@ -8,7 +8,6 @@ import requests
 import tqdm
 from bs4 import BeautifulSoup
 from secedgar.client._base import AbstractClient
-from secedgar.client.async_session import RateLimitedClientSession
 from secedgar.utils import make_path
 from secedgar.utils.exceptions import EDGARQueryError
 
@@ -199,8 +198,6 @@ class NetworkClient(AbstractClient):
             in tuple should be URL to request and second element should be path
             where content after requesting URL is stored.
         """
-        time.sleep(1)
-
         async def fetch_and_save(link, path, session):
             contents = await self.fetch(link, session)
             make_path(os.path.dirname(path))
@@ -208,11 +205,18 @@ class NetworkClient(AbstractClient):
                 f.write(contents)
 
         conn = aiohttp.TCPConnector(limit=self.rate_limit)
-        raw_client = aiohttp.ClientSession(
+        client = aiohttp.ClientSession(
             connector=conn, headers={'Connection': 'keep-alive'}, raise_for_status=True)
-        async with raw_client:
-            session = RateLimitedClientSession(raw_client, self.rate_limit)
-            tasks = [asyncio.ensure_future(fetch_and_save(link, path, session))
-                     for link, path in inputs]
-            for f in tqdm.tqdm(asyncio.as_completed(tasks), total=len(tasks)):
-                await f
+        def batch(iterable, n):
+            l = len(iterable)
+            for ndx in range(0, l, n):
+                yield iterable[ndx:min(ndx + n, l)]
+
+        async with client:
+            for group in tqdm.tqdm(batch(inputs, self.rate_limit), total=len(inputs)//self.rate_limit, unit_scale=self.rate_limit):
+                start = time.monotonic()
+                tasks = [fetch_and_save(link, path, client) for link, path in group]
+                await asyncio.gather(*tasks) # If results are needed they can be assigned here
+                execution_time = time.monotonic() - start
+                # If execution time > 1, requests are essentially wasted, but a small price to pay
+                await asyncio.sleep(max(0, 1 - execution_time))
