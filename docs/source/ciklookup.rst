@@ -10,11 +10,17 @@ The ``CIKLookup`` class allows users to get company filings using company ticker
 
 Below is an example of how you can retrieve lookup CIKs by using the ``CIKLookup`` class.
 
-.. ipython:: python
+.. code-block:: python
 
    from secedgar.filings.cik_lookup import CIKLookup
    lookups = CIKLookup(['aapl', 'msft', 'Facebook'])
-   lookups.lookup_dict
+
+
+Accessing ``lookups.lookup_dict`` would then return
+
+::
+
+   {'aapl': '320193', 'msft': '789019', 'Facebook': '0001326801'}
 
 Another alternative to using the ``CIKLookup`` class directly is to use the provided :meth:`secedgar.utils.get_cik_map` function.
 
