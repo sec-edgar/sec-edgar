@@ -81,6 +81,7 @@ class TestNetworkClient:
             203,
             400,
             401,
+            429,
             500,
             501
         ]

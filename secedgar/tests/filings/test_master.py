@@ -1,5 +1,5 @@
 import os
-from datetime import datetime
+from datetime import date
 
 import pytest
 from secedgar.filings.master import MasterFilings
@@ -43,7 +43,7 @@ class TestMaster:
             _ = MasterFilings(year=bad_year, quarter=1)
 
     def test_good_year(self):
-        for year in range(1993, datetime.today().year + 1):
+        for year in range(1993, date.today().year + 1):
             mf = MasterFilings(year=year, quarter=1)
             assert mf.year == year
 

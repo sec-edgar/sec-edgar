@@ -44,7 +44,6 @@ class Filing(AbstractFiling):
             'owner': 'include',
             'start': 0,
         }
-        self._accession_numbers = []
         self.start_date = start_date
         self.end_date = end_date
         self.filing_type = filing_type
@@ -120,11 +119,6 @@ class Filing(AbstractFiling):
         else:
             self._count = val
             self._params['count'] = val
-
-    @property
-    def accession_numbers(self):
-        """List of accession numbers for filings."""
-        return self._accession_numbers
 
     @property
     def cik_lookup(self):

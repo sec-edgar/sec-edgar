@@ -1,5 +1,4 @@
 import datetime
-import errno
 import os
 
 from secedgar.utils.cik_map import get_cik_map  # noqa:F401
@@ -33,6 +32,7 @@ def make_path(path, **kwargs):
 
     Args:
         path (str): Path to be made if it doesn't exist.
+        **kwargs: Keyword arguments to pass to ``os.makedirs``.
 
     Raises:
         OSError: If there is a problem making the path.
@@ -41,11 +41,7 @@ def make_path(path, **kwargs):
         None
     """
     if not os.path.exists(path):
-        try:
-            os.makedirs(path, **kwargs)
-        except OSError as e:
-            if e.errno != errno.EEXIST:
-                raise OSError
+        os.makedirs(path, **kwargs)
 
 
 def get_quarter(date):

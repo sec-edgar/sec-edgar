@@ -57,4 +57,4 @@ class AbstractClient(ABC):
     @abstractmethod
     async def wait_for_download_async(self, inputs):
         """Asynchronously download links into files using rate limit."""
-        pass
+        pass  # pragma: no cover
