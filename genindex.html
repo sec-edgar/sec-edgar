@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; secedgar 0.2.3 documentation</title>
+  <title>Index &mdash; secedgar 0.3.0 documentation</title>
   
 
   
@@ -29,7 +29,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -60,7 +59,7 @@
             
             
               <div class="version">
-                0.2.3
+                0.3.0
               </div>
             
           
@@ -87,14 +86,15 @@
             
               <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s New</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Common Usage Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ciklookup.html">CIK Lookup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filings.html">Filings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filingtypes.html">Filing Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cikmap.html">Finding Company CIKs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parser.html">Parser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s New</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Package Information</span></p>
 <ul>
@@ -167,7 +167,6 @@
 
 <div class="genindex-jumpbox">
  <a href="#Symbols"><strong>Symbols</strong></a>
- | <a href="#A"><strong>A</strong></a>
  | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
  | <a href="#E"><strong>E</strong></a>
@@ -281,14 +280,6 @@
         <li><a href="cli.html#cmdoption-secedgar-filing-t">secedgar-filing command line option</a>
 </li>
       </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="A">A</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="filings.html#secedgar.filings.Filing.accession_numbers">accession_numbers() (secedgar.filings.Filing property)</a>
-</li>
   </ul></td>
 </tr></table>
 
@@ -493,12 +484,12 @@
 </li>
       <li><a href="filingtypes.html#secedgar.filings.FilingType.FILING_MAW">FILING_MAW (secedgar.filings.FilingType attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="filingtypes.html#secedgar.filings.FilingType.FILING_MSD">FILING_MSD (secedgar.filings.FilingType attribute)</a>
 </li>
       <li><a href="filingtypes.html#secedgar.filings.FilingType.FILING_MSDW">FILING_MSDW (secedgar.filings.FilingType attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="filingtypes.html#secedgar.filings.FilingType.FILING_N14">FILING_N14 (secedgar.filings.FilingType attribute)</a>
 </li>
       <li><a href="filingtypes.html#secedgar.filings.FilingType.FILING_N17D1">FILING_N17D1 (secedgar.filings.FilingType attribute)</a>
@@ -594,6 +585,14 @@
       <li><a href="filingtypes.html#secedgar.filings.FilingType.FILING_SBSEC">FILING_SBSEC (secedgar.filings.FilingType attribute)</a>
 </li>
       <li><a href="filingtypes.html#secedgar.filings.FilingType.FILING_SBSEW">FILING_SBSEW (secedgar.filings.FilingType attribute)</a>
+</li>
+      <li><a href="filingtypes.html#secedgar.filings.FilingType.FILING_SC13D">FILING_SC13D (secedgar.filings.FilingType attribute)</a>
+</li>
+      <li><a href="filingtypes.html#secedgar.filings.FilingType.FILING_SC13DA">FILING_SC13DA (secedgar.filings.FilingType attribute)</a>
+</li>
+      <li><a href="filingtypes.html#secedgar.filings.FilingType.FILING_SC13G">FILING_SC13G (secedgar.filings.FilingType attribute)</a>
+</li>
+      <li><a href="filingtypes.html#secedgar.filings.FilingType.FILING_SC13GA">FILING_SC13GA (secedgar.filings.FilingType attribute)</a>
 </li>
       <li><a href="filingtypes.html#secedgar.filings.FilingType.FILING_SCI">FILING_SCI (secedgar.filings.FilingType attribute)</a>
 </li>
@@ -696,6 +695,10 @@
       <li><a href="filings.html#secedgar.filings.MasterFilings">MasterFilings (class in secedgar.filings)</a>
 </li>
   </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="parser.html#secedgar.parser.MetaParser">MetaParser (class in secedgar.parser)</a>
+</li>
+  </ul></td>
 </tr></table>
 
 <h2 id="P">P</h2>
@@ -711,6 +714,14 @@
         <li><a href="filings.html#secedgar.filings.MasterFilings.path">(secedgar.filings.MasterFilings property)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="parser.html#secedgar.parser.MetaParser.process">process() (secedgar.parser.MetaParser method)</a>
+</li>
+      <li><a href="parser.html#secedgar.parser.MetaParser.process_document_metadata">process_document_metadata() (secedgar.parser.MetaParser static method)</a>
+</li>
+      <li><a href="parser.html#secedgar.parser.MetaParser.process_metadata">process_metadata() (secedgar.parser.MetaParser static method)</a>
+</li>
   </ul></td>
 </tr></table>
 

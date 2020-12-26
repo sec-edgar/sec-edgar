@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Filings &mdash; secedgar 0.2.3 documentation</title>
+  <title>Filings &mdash; secedgar 0.3.0 documentation</title>
   
 
   
@@ -29,7 +29,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -62,7 +61,7 @@
             
             
               <div class="version">
-                0.2.3
+                0.3.0
               </div>
             
           
@@ -89,7 +88,6 @@
             
               <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s New</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Common Usage Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ciklookup.html">CIK Lookup</a></li>
@@ -106,11 +104,14 @@
 <li class="toctree-l3"><a class="reference internal" href="#id9">Examples</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#saving-filings">Saving Filings</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="filingtypes.html">Filing Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cikmap.html">Finding Company CIKs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parser.html">Parser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s New</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Package Information</span></p>
 <ul>
@@ -192,7 +193,7 @@ fetching all filings from any given day, you should use <a class="reference inte
 <h2>Filing<a class="headerlink" href="#filing" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="secedgar.filings.Filing">
-<em class="property">class </em><code class="sig-prename descclassname">secedgar.filings.</code><code class="sig-name descname">Filing</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cik_lookup</span></em>, <em class="sig-param"><span class="n">filing_type</span></em>, <em class="sig-param"><span class="n">start_date</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end_date</span><span class="o">=</span><span class="default_value">datetime.datetime(2020, 12, 10, 1, 54, 48, 990004)</span></em>, <em class="sig-param"><span class="n">client</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">count</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.Filing" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">secedgar.filings.</code><code class="sig-name descname">Filing</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cik_lookup</span></em>, <em class="sig-param"><span class="n">filing_type</span></em>, <em class="sig-param"><span class="n">start_date</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end_date</span><span class="o">=</span><span class="default_value">datetime.datetime(2020, 12, 26, 19, 12, 54, 219436)</span></em>, <em class="sig-param"><span class="n">client</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">count</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.Filing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class for receiving EDGAR filings.</p>
 <dl class="py attribute">
 <dt id="secedgar.filings.Filing.cik_lookup">
@@ -262,12 +263,6 @@ are available. Defaults to all filings available.</p>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 0.1.5.</span></p>
 </div>
-<dl class="py method">
-<dt id="secedgar.filings.Filing.accession_numbers">
-<em class="property">property </em><code class="sig-name descname">accession_numbers</code><a class="headerlink" href="#secedgar.filings.Filing.accession_numbers" title="Permalink to this definition">¶</a></dt>
-<dd><p>List of accession numbers for filings.</p>
-</dd></dl>
-
 <dl class="py method">
 <dt id="id0">
 <em class="property">property </em><code class="sig-name descname">cik_lookup</code><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
@@ -361,13 +356,19 @@ See keyword arguments accepted for
 
 <dl class="py method">
 <dt id="secedgar.filings.Filing.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">directory</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.Filing.save" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">directory</span></em>, <em class="sig-param"><span class="n">dir_pattern</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">file_pattern</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.Filing.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save files in specified directory.</p>
 <p>Each txt url looks something like:
 <a class="reference external" href="https://www.sec.gov/Archives/edgar/data/1018724/000101872419000043/0001018724-19-000043.txt">https://www.sec.gov/Archives/edgar/data/1018724/000101872419000043/0001018724-19-000043.txt</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>directory</strong> (<em>str</em>) – Path to directory where files should be saved.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>directory</strong> (<em>str</em>) – Path to directory where files should be saved.</p></li>
+<li><p><strong>dir_pattern</strong> (<em>str</em>) – Format string for subdirectories. Default is “{cik}/{type}”.
+Valid options are {cik} and/or {type}.</p></li>
+<li><p><strong>file_pattern</strong> (<em>str</em>) – Format string for files. Default is “{accession_number}”.
+Valid options are {accession_number}.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>None</p>
@@ -438,7 +439,7 @@ The end date defaults to today’s date.</p>
 <dd><p>Date of daily filing to fetch.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>datetime.datetime</p>
+<dd class="field-odd"><p>datetime.date</p>
 </dd>
 </dl>
 </dd></dl>
@@ -459,7 +460,10 @@ Defaults to <code class="docutils literal notranslate"><span class="pre">secedga
 <dt id="secedgar.filings.DailyFilings.entry_filter">
 <code class="sig-name descname">entry_filter</code><a class="headerlink" href="#secedgar.filings.DailyFilings.entry_filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>A boolean function to determine
-if the FilingEntry should be kept. Defaults to <cite>lambda _: True</cite>.</p>
+if the FilingEntry should be kept. Defaults to <cite>lambda _: True</cite>.
+The <code class="docutils literal notranslate"><span class="pre">FilingEntry</span></code> object exposes 6 variables which can be
+used to filter which filings to keep. These are “cik”, “company_name”,
+“form_type”, “date_filed”, “file_name”, and “path”.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>function, optional</p>
@@ -467,6 +471,26 @@ if the FilingEntry should be kept. Defaults to <cite>lambda _: True</cite>.</p>
 </dl>
 </dd></dl>
 
+<p>To only download filings from a company named “Company A”, the following
+function would suffice for only getting those filings:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_company_a_filings</span><span class="p">(</span><span class="n">filing_entry</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">filing_entry</span><span class="o">.</span><span class="n">company_name</span> <span class="o">==</span> <span class="s2">&quot;Company A&quot;</span>
+</pre></div>
+</div>
+<p>To only download Company A or Company B’s 10-K fillings from
+a specific day, a well-defined <code class="docutils literal notranslate"><span class="pre">entry_filter</span></code> would be:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_company_ab_10k</span><span class="p">(</span><span class="n">filing_entry</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">filing_entry</span><span class="o">.</span><span class="n">company_name</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;Company A&quot;</span><span class="p">,</span> <span class="s2">&quot;Company B&quot;</span><span class="p">)</span> <span class="ow">and</span>
+           <span class="n">filing_entry</span><span class="o">.</span><span class="n">form_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;10-k&quot;</span>
+</pre></div>
+</div>
+<p>To use the second function as an <code class="docutils literal notranslate"><span class="pre">entry_filter</span></code>, the following code could be used:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+<span class="kn">from</span> <span class="nn">secedgar.filings</span> <span class="kn">import</span> <span class="n">DailyFilings</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">DailyFilings</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">entry_filter</span><span class="o">=</span><span class="n">get_company_ab_10k</span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="py method">
 <dt id="secedgar.filings.DailyFilings.idx_filename">
 <em class="property">property </em><code class="sig-name descname">idx_filename</code><a class="headerlink" href="#secedgar.filings.DailyFilings.idx_filename" title="Permalink to this definition">¶</a></dt>
@@ -497,15 +521,24 @@ Omitting will raise EDGARQueryError.</p>
 
 <dl class="py method">
 <dt id="secedgar.filings.DailyFilings.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">directory</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.DailyFilings.save" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">directory</span></em>, <em class="sig-param"><span class="n">dir_pattern</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">file_pattern</span><span class="o">=</span><span class="default_value">'{accession_number}'</span></em>, <em class="sig-param"><span class="n">date_format</span><span class="o">=</span><span class="default_value">'%Y%m%d'</span></em>, <em class="sig-param"><span class="n">download_all</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.DailyFilings.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save all daily filings.</p>
 <p>Store all filings for each unique company name under a separate subdirectory
 within given directory argument. Creates directory with date in YYYYMMDD format
 within given directory.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>directory</strong> (<em>str</em>) – Directory where filings should be stored. Will be broken down
-further by company name and form type.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>directory</strong> (<em>str</em>) – Directory where filings should be stored. Will be broken down
+further by company name and form type.</p></li>
+<li><p><strong>dir_pattern</strong> (<em>str</em>) – Format string for subdirectories. Default is <cite>{date}/{cik}</cite>.
+Valid options that must be wrapped in curly braces are <cite>date</cite> and <cite>cik</cite>.</p></li>
+<li><p><strong>date_format</strong> (<em>str</em>) – Format string to use for the <cite>{date}</cite> pattern. Default is <code class="docutils literal notranslate"><span class="pre">%Y%m%d</span></code>.</p></li>
+<li><p><strong>file_pattern</strong> (<em>str</em>) – Format string for files. Default is <cite>{accession_number}</cite>.
+Valid options are <cite>accession_number</cite>.</p></li>
+<li><p><strong>download_all</strong> (<em>bool</em>) – Type of downloading system, if true downloads all data for the day,
+if false downloads each file in index. Default is <cite>False</cite>.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -576,7 +609,8 @@ Note that you should replace <code class="docutils literal notranslate"><span cl
 <dt id="secedgar.filings.MasterFilings.entry_filter">
 <code class="sig-name descname">entry_filter</code><a class="headerlink" href="#secedgar.filings.MasterFilings.entry_filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>A boolean function to determine
-if the FilingEntry should be kept. Defaults to <cite>lambda _: True</cite>.</p>
+if the FilingEntry should be kept. Defaults to <code class="docutils literal notranslate"><span class="pre">lambda</span> <span class="pre">_:</span> <span class="pre">True</span></code>.
+See <a class="reference internal" href="#secedgar.filings.DailyFilings" title="secedgar.filings.DailyFilings"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.filings.DailyFilings</span></code></a> for more detail.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>function, optional</p>
@@ -610,15 +644,27 @@ if the FilingEntry should be kept. Defaults to <cite>lambda _: True</cite>.</p>
 
 <dl class="py method">
 <dt id="secedgar.filings.MasterFilings.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">directory</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.MasterFilings.save" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">directory</span></em>, <em class="sig-param"><span class="n">dir_pattern</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">file_pattern</span><span class="o">=</span><span class="default_value">'{accession_number}'</span></em>, <em class="sig-param"><span class="n">download_all</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.MasterFilings.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save all daily filings.</p>
 <p>Creates subdirectory within given directory of the form &lt;YEAR&gt;/QTR&lt;QTR NUMBER&gt;/.
 Then each distinct company name receives its own directory with all of its filings.
 See <code class="docutils literal notranslate"><span class="pre">secedgar.filings._index.IndexFilings</span></code> for more detail.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>directory</strong> (<em>str</em>) – Directory where filings should be stored. Will be broken down
-further by company name and form type.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>directory</strong> (<em>str</em>) – Directory where filings should be stored. Will be broken down
+further by company name and form type.</p></li>
+<li><p><strong>dir_pattern</strong> (<em>str</em>) – <p>Format string for subdirectories. Default is
+<cite>{year}/QTR{quarter}/{cik}</cite>. Valid options to mix and match</p>
+<blockquote>
+<div><p>are <cite>{year}</cite>, <cite>{quarter}</cite>, and <cite>{cik}</cite>.</p>
+</div></blockquote>
+</p></li>
+<li><p><strong>file_pattern</strong> (<em>str</em>) – Format string for files. Default is <cite>{accession_number}</cite>.
+Valid options are <cite>{accession_number}</cite>.</p></li>
+<li><p><strong>download_all</strong> (<em>bool</em>) – Type of downloading system, if true downloads all data for each
+day, if false downloads each file in index. Default is <cite>False</cite>.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -641,6 +687,36 @@ further by company name and form type.</p>
 </pre></div>
 </div>
 </div>
+</div>
+<div class="section" id="saving-filings">
+<h2>Saving Filings<a class="headerlink" href="#saving-filings" title="Permalink to this headline">¶</a></h2>
+<p>In version 0.3.0, the <code class="docutils literal notranslate"><span class="pre">dir_pattern</span></code> and <code class="docutils literal notranslate"><span class="pre">file_pattern</span></code> arguments were introduced to allow for more flexible structuring of filings.</p>
+<p>Here are some examples of how you might use those arguments to create custom directory structures</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">secedgar.filings</span> <span class="kn">import</span> <span class="n">Filing</span><span class="p">,</span> <span class="n">FilingType</span>
+
+<span class="n">f</span> <span class="o">=</span> <span class="n">Filing</span><span class="p">(</span><span class="n">cik_lookup</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;aapl&quot;</span><span class="p">,</span> <span class="s2">&quot;msft&quot;</span><span class="p">],</span> <span class="n">filing_type</span><span class="o">=</span><span class="n">FilingType</span><span class="o">.</span><span class="n">FILING_10Q</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;./my_directory&quot;</span><span class="p">,</span> <span class="n">dir_pattern</span><span class="o">=</span><span class="s2">&quot;cik_</span><span class="si">{cik}</span><span class="s2">/</span><span class="si">{type}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file_pattern</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{accession_number}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The code above would create a directory structure that would look something like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>my_directory/
+├── cik_aapl
+│   └── 10-q
+│       ├── 0000320193-19-000066.txt
+│       ├── 0000320193-19-000076.txt
+│       ├── 0000320193-20-000010.txt
+│       ├── 0000320193-20-000052.txt
+│       └── 0000320193-20-000062.txt
+└── cik_msft
+   └── 10-q
+      ├── 0001564590-19-012709.txt
+      ├── 0001564590-19-037549.txt
+      ├── 0001564590-20-002450.txt
+      ├── 0001564590-20-019706.txt
+      └── 0001564590-20-047996.txt
+</pre></div>
+</div>
+<p>This same sort of templating can be used for <a class="reference internal" href="#secedgar.filings.DailyFilings" title="secedgar.filings.DailyFilings"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.filings.DailyFilings</span></code></a> and <a class="reference internal" href="#secedgar.filings.MasterFilings" title="secedgar.filings.MasterFilings"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.filings.MasterFilings</span></code></a>.</p>
 </div>
 </div>
 

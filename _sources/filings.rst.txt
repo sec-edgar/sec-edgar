@@ -98,3 +98,40 @@ Examples
    master_filings = MasterFilings(year=2000, quarter=4)
    urls = master_filings.get_urls()  # gets all URLs for filings from quarter 4 of 2000
    master_filings.save('/my_directory')  # saves all filings from quarter 4 of 2000 in my_directory
+
+Saving Filings
+--------------
+
+In version 0.3.0, the ``dir_pattern`` and ``file_pattern`` arguments were introduced to allow for more flexible structuring of filings.
+
+Here are some examples of how you might use those arguments to create custom directory structures
+
+.. code-block:: python
+
+   from secedgar.filings import Filing, FilingType
+
+   f = Filing(cik_lookup=["aapl", "msft"], filing_type=FilingType.FILING_10Q, count=5)
+   f.save("./my_directory", dir_pattern="cik_{cik}/{type}", file_pattern="{accession_number}")
+
+The code above would create a directory structure that would look something like this:
+
+::
+
+   my_directory/
+   ├── cik_aapl
+   │   └── 10-q
+   │       ├── 0000320193-19-000066.txt
+   │       ├── 0000320193-19-000076.txt
+   │       ├── 0000320193-20-000010.txt
+   │       ├── 0000320193-20-000052.txt
+   │       └── 0000320193-20-000062.txt
+   └── cik_msft
+      └── 10-q
+         ├── 0001564590-19-012709.txt
+         ├── 0001564590-19-037549.txt
+         ├── 0001564590-20-002450.txt
+         ├── 0001564590-20-019706.txt
+         └── 0001564590-20-047996.txt
+
+
+This same sort of templating can be used for :class:`secedgar.filings.DailyFilings` and :class:`secedgar.filings.MasterFilings`.

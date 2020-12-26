@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>v0.2.1 &mdash; secedgar 0.3.0 documentation</title>
+  <title>v0.3.0 &mdash; secedgar 0.3.0 documentation</title>
   
 
   
@@ -145,13 +145,13 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>v0.2.1</li>
+      <li>v0.3.0</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/whatsnew/v0.2.1.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/whatsnew/v0.3.0.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -164,19 +164,23 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="v0-2-1">
-<h1>v0.2.1<a class="headerlink" href="#v0-2-1" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="v0-3-0">
+<h1>v0.3.0<a class="headerlink" href="#v0-3-0" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="highlights">
 <h2>Highlights<a class="headerlink" href="#highlights" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Fixes bug where <code class="docutils literal notranslate"><span class="pre">Filing</span></code> does not work when <code class="docutils literal notranslate"><span class="pre">count</span></code> is not specified (thanks to formvoltron!)</p></li>
+<li><p>Adds asynchronous requests, downloads are now 10x faster!</p></li>
+<li><p>Adds <code class="docutils literal notranslate"><span class="pre">download_all</span></code> option to <code class="docutils literal notranslate"><span class="pre">save</span></code> method, allowing for bulk downloads. Uses threaded extraction and renaming of files.</p></li>
+<li><p>Adds <code class="docutils literal notranslate"><span class="pre">dir_format</span></code> and <code class="docutils literal notranslate"><span class="pre">file_format</span></code> options to filings <code class="docutils literal notranslate"><span class="pre">save</span></code> method.</p></li>
+<li><p>Adds <a class="reference internal" href="../parser.html#secedgar.parser.MetaParser" title="secedgar.parser.MetaParser"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.parser.MetaParser</span></code></a> and <code class="docutils literal notranslate"><span class="pre">extract</span></code> method to <code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.filings._index.IndexFilings</span></code>.</p></li>
+<li><p>Adds SC 13G, SC 13G/A, SC 13D, and SC 13D/A filing types to <code class="docutils literal notranslate"><span class="pre">FilingType</span></code>.</p></li>
 </ul>
 </div>
 <div class="section" id="contributors">
 <h2>Contributors<a class="headerlink" href="#contributors" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
+<li><p>reteps</p></li>
 <li><p>jackmoody11</p></li>
-<li><p>formvoltron</p></li>
 </ul>
 </div>
 </div>

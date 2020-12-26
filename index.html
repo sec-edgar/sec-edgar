@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Welcome to secedgar’s documentation! &mdash; secedgar 0.2.3 documentation</title>
+  <title>Welcome to secedgar’s documentation! &mdash; secedgar 0.3.0 documentation</title>
   
 
   
@@ -29,7 +29,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -37,7 +36,7 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="What’s New" href="whatsnew.html" /> 
+    <link rel="next" title="Install" href="install.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -61,7 +60,7 @@
             
             
               <div class="version">
-                0.2.3
+                0.3.0
               </div>
             
           
@@ -88,14 +87,15 @@
             
               <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s New</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Common Usage Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ciklookup.html">CIK Lookup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filings.html">Filings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filingtypes.html">Filing Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cikmap.html">Finding Company CIKs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parser.html">Parser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s New</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Package Information</span></p>
 <ul>
@@ -172,20 +172,58 @@
 <div class="toctree-wrapper compound" id="getting-started">
 <p class="caption"><span class="caption-text">Getting Started</span><a class="headerlink" href="#getting-started" title="Permalink to this toctree">¶</a></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s New</a></li>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="install.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#installation">Installation</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Common Usage Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ciklookup.html">CIK Lookup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="filings.html">Filings</a></li>
-<li class="toctree-l1"><a class="reference internal" href="filingtypes.html">Filing Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filings.html">Filings</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="filings.html#filing">Filing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filings.html#daily-filings">Daily Filings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filings.html#master-filings-quarterly">Master Filings (Quarterly)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filings.html#saving-filings">Saving Filings</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="filingtypes.html">Filing Types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="filingtypes.html#supported-filing-types">Supported Filing Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filingtypes.html#common-filing-types">Common Filing Types</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="cikmap.html">Finding Company CIKs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parser.html">Parser</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="parser.html#parsing-meta-data">Parsing Meta Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cli.html#secedgar">secedgar</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s New</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-3-0">v0.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-2-3">v0.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-2-2">v0.2.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-2-1">v0.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-2-0">v0.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-1-7">v0.1.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-1-6">v0.1.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-1-5">v0.1.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-1-4">v0.1.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-1-3">v0.1.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-1-2">v0.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whatsnew.html#v0-1-1">v0.1.1</a></li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="toctree-wrapper compound" id="package-info">
 <p class="caption"><span class="caption-text">Package Information</span><a class="headerlink" href="#package-info" title="Permalink to this toctree">¶</a></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="about.html#what-is-edgar">What is EDGAR?</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -198,7 +236,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="whatsnew.html" class="btn btn-neutral float-right" title="What’s New" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="install.html" class="btn btn-neutral float-right" title="Install" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>

@@ -1,0 +1,17 @@
+v0.3.0
+------
+
+Highlights
+~~~~~~~~~~
+
+* Adds asynchronous requests, downloads are now 10x faster!
+* Adds ``download_all`` option to ``save`` method, allowing for bulk downloads. Uses threaded extraction and renaming of files.
+* Adds ``dir_format`` and ``file_format`` options to filings ``save`` method.
+* Adds :class:`secedgar.parser.MetaParser` and ``extract`` method to :class:`secedgar.filings._index.IndexFilings`.
+* Adds SC 13G, SC 13G/A, SC 13D, and SC 13D/A filing types to ``FilingType``.
+
+Contributors
+~~~~~~~~~~~~
+
+- reteps
+- jackmoody11
