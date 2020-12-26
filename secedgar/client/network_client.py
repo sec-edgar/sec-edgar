@@ -17,8 +17,17 @@ class NetworkClient(AbstractClient):
 
     Attributes:
         retry_count (int): Number of times to retry connecting to URL if not successful.
+            Defaults to 3.
         pause (float): Time (in seconds) to wait before retrying if not successful.
+            Defaults to 0.5 seconds.
         batch_size (int): Number of filings to receive per request (helpful if pagination needed).
+            Defaults to 10.
+        rate_limit (int): Number of requests per second to limit to.
+            Defaults to 10.
+
+    .. note:
+       It is highly suggested to keep rate_limit and batch_size <= 10, as the SEC will block your IP
+       temporarily if you exceed this rate.
     """
 
     _BASE = "http://www.sec.gov/"
@@ -27,7 +36,7 @@ class NetworkClient(AbstractClient):
         self.retry_count = kwargs.get("retry_count", 3)
         self.pause = kwargs.get("pause", 0.5)
         self.batch_size = kwargs.get("batch_size", 10)
-        self.rate_limit = kwargs.get("rate_limit", 8)
+        self.rate_limit = kwargs.get("rate_limit", 10)
         self.response = None
 
     @property
@@ -76,8 +85,8 @@ class NetworkClient(AbstractClient):
 
     @rate_limit.setter
     def rate_limit(self, value):
-        if not (0 < value < 10):
-            raise ValueError("Rate must be greater than 0 and less than 10.")
+        if not (0 < value <= 10):
+            raise ValueError("Rate must be greater than 0 and less than or equal to 10.")
         else:
             self._rate_limit = value
 
@@ -207,16 +216,19 @@ class NetworkClient(AbstractClient):
         conn = aiohttp.TCPConnector(limit=self.rate_limit)
         client = aiohttp.ClientSession(
             connector=conn, headers={'Connection': 'keep-alive'}, raise_for_status=True)
+
         def batch(iterable, n):
-            l = len(iterable)
-            for ndx in range(0, l, n):
-                yield iterable[ndx:min(ndx + n, l)]
+            length = len(iterable)
+            for ndx in range(0, length, n):
+                yield iterable[ndx:min(ndx + n, length)]
 
         async with client:
-            for group in tqdm.tqdm(batch(inputs, self.rate_limit), total=len(inputs)//self.rate_limit, unit_scale=self.rate_limit):
+            for group in tqdm.tqdm(batch(inputs, self.rate_limit),
+                                   total=len(inputs)//self.rate_limit,
+                                   unit_scale=self.rate_limit):
                 start = time.monotonic()
                 tasks = [fetch_and_save(link, path, client) for link, path in group]
-                await asyncio.gather(*tasks) # If results are needed they can be assigned here
+                await asyncio.gather(*tasks)  # If results are needed they can be assigned here
                 execution_time = time.monotonic() - start
                 # If execution time > 1, requests are essentially wasted, but a small price to pay
                 await asyncio.sleep(max(0, 1 - execution_time))

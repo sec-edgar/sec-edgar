@@ -5,6 +5,14 @@ import pytest
 from secedgar.filings.daily import DailyFilings
 from secedgar.tests.utils import MockResponse, datapath
 
+cik_file_pairs = [
+    ("1000228", "0001209191-18-064398.txt"),
+    ("1000275", "0001140361-18-046093.txt"),
+    ("1000275", "0001140361-18-046095.txt"),
+    ("1000694", "0001144204-18-066755.txt"),
+    ("1001085", "0001104659-18-075315.txt")
+]
+
 
 @pytest.fixture(scope="module")
 def mock_daily_quarter_directory(monkeymodule):
@@ -26,6 +34,7 @@ def mock_daily_idx_file(monkeymodule):
 
 
 class TestDaily:
+
     @pytest.mark.parametrize(
         "date,expected",
         [
@@ -72,8 +81,8 @@ class TestDaily:
             ("1000228", "http://www.sec.gov/Archives/edgar/data/1000228/0001209191-18-064398.txt"),
             ("1000275", "http://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046093.txt"),
             ("1000275", "http://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046095.txt"),
-            ("1000275", "http://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046101.txt"),
-            ("1000275", "http://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046102.txt")
+            ("1000694", "http://www.sec.gov/Archives/edgar/data/1000694/0001144204-18-066755.txt"),
+            ("1001085", "http://www.sec.gov/Archives/edgar/data/1001085/0001104659-18-075315.txt")
         ]
     )
     def test_get_urls(self, mock_daily_quarter_directory, mock_daily_idx_file, key, url):
@@ -145,36 +154,24 @@ class TestDaily:
         assert daily_filing._get_idx_formatted_date() == formatted
 
     @pytest.mark.parametrize(
-        "subdir,file",
-        [
-            ("1000228", "0001209191-18-064398.txt"),
-            ("1000275", "0001140361-18-046093.txt"),
-            ("1000694", "0001144204-18-066754.txt"),
-            ("1001085", "0001104659-18-075315.txt"),
-            ("1007273", "0001225208-18-017075.txt")
-        ]
+        "cik,file",
+        cik_file_pairs
     )
-    def test_save(self, tmp_data_directory,
-                  mock_daily_quarter_directory,
-                  mock_daily_idx_file,
-                  mock_filing_response,
-                  subdir,
-                  file):
+    def test_save_default(self, tmp_data_directory,
+                          mock_daily_quarter_directory,
+                          mock_daily_idx_file,
+                          mock_filing_response,
+                          cik,
+                          file):
         daily_filing = DailyFilings(date(2018, 12, 31))
         daily_filing.save(tmp_data_directory)
-        subdir = os.path.join("20181231", subdir)
+        subdir = os.path.join("20181231", cik)
         path_to_check = os.path.join(tmp_data_directory, subdir, file)
         assert os.path.exists(path_to_check)
 
     @pytest.mark.parametrize(
         "file",
-        [
-            "0001209191-18-064398.txt",
-            "0001140361-18-046093.txt",
-            "0001144204-18-066754.txt",
-            "0001104659-18-075315.txt",
-            "0001225208-18-017075.txt"
-        ]
+        [cf[1] for cf in cik_file_pairs]
     )
     def test_save_with_single_level_date_dir_pattern(self, tmp_data_directory,
                                                      mock_daily_quarter_directory,
@@ -188,13 +185,7 @@ class TestDaily:
 
     @pytest.mark.parametrize(
         "cik,file",
-        [
-            ("1000228", "0001209191-18-064398.txt"),
-            ("1000275", "0001140361-18-046093.txt"),
-            ("1000694", "0001144204-18-066754.txt"),
-            ("1001085", "0001104659-18-075315.txt"),
-            ("1007273", "0001225208-18-017075.txt")
-        ]
+        cik_file_pairs
     )
     def test_save_with_single_level_cik_dir_pattern(self, tmp_data_directory,
                                                     mock_daily_quarter_directory,
@@ -209,13 +200,7 @@ class TestDaily:
 
     @pytest.mark.parametrize(
         "cik,file",
-        [
-            ("1000228", "0001209191-18-064398.txt"),
-            ("1000275", "0001140361-18-046093.txt"),
-            ("1000694", "0001144204-18-066754.txt"),
-            ("1001085", "0001104659-18-075315.txt"),
-            ("1007273", "0001225208-18-017075.txt")
-        ]
+        cik_file_pairs
     )
     def test_save_with_multi_level_dir_pattern(self, tmp_data_directory,
                                                mock_daily_quarter_directory,
@@ -232,13 +217,7 @@ class TestDaily:
 
     @pytest.mark.parametrize(
         "cik,file",
-        [
-            ("1000228", "0001209191-18-064398.txt"),
-            ("1000275", "0001140361-18-046093.txt"),
-            ("1000694", "0001144204-18-066754.txt"),
-            ("1001085", "0001104659-18-075315.txt"),
-            ("1007273", "0001225208-18-017075.txt")
-        ]
+        cik_file_pairs
     )
     def test_save_with_multi_level_dir_pattern_date_not_first(self, tmp_data_directory,
                                                               mock_daily_quarter_directory,

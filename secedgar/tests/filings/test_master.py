@@ -17,6 +17,13 @@ def mock_master_quarter_directory(monkeymodule):
                                                              "master_index_1993_QTR4.html"]))
 
 
+@pytest.fixture
+def mock_master_idx_file(monkeypatch):
+    monkeypatch.setattr(MasterFilings, "_get_master_idx_file", lambda *args, **
+                        kwargs: MockResponse(
+                            datapath_args=["filings", "master", "master.idx"]).text)
+
+
 class TestMaster:
     @pytest.mark.parametrize(
         "bad_year,expected_error",
@@ -75,7 +82,7 @@ class TestMaster:
         mf = MasterFilings(year=year, quarter=quarter)
         assert mf.idx_filename == "master.idx"
 
-    def test_always_false_entry_filter(self, mock_master_quarter_directory):
+    def test_always_false_entry_filter(self, mock_master_idx_file):
         master_filing = MasterFilings(year=1993, quarter=4, entry_filter=lambda _: False)
         urls = master_filing.get_urls()
         assert len(urls) == 0

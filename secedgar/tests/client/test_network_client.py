@@ -5,7 +5,6 @@ import time
 
 import pytest
 import requests
-from aiohttp import web
 from secedgar.client import NetworkClient
 from secedgar.tests.conftest import MockResponse
 from secedgar.utils.exceptions import EDGARQueryError
@@ -20,28 +19,6 @@ def client():
 def mock_no_cik_found_bad_response(monkeypatch):
     monkeypatch.setattr(requests, 'get', lambda *args, **kwargs: MockResponse(
         datapath_args=['CIK', 'cik_not_found.html']))
-
-
-class MockClientSession:
-    def __init__(self, *args, **kwargs):
-        self.status = 200
-
-    async def get(self, *args, **kwargs):
-        return web.Response(text="Testing...")
-
-    async def read(self, *args, **kwargs):
-        return b"Testing bytes..."
-
-    async def __aenter__(self, *args, **kwargs):
-        return self
-
-    async def __aexit__(self, exc_type, exc, tb):
-        pass
-
-
-@pytest.fixture()
-def mock_aiohttp_client_session(monkeypatch):
-    monkeypatch.setattr("aiohttp.ClientSession.get", MockClientSession)
 
 
 class MockBadStatusCodeResponse:
@@ -129,7 +106,6 @@ class TestNetworkClient:
         "test_input,expectation",
         [
             (0, ValueError),
-            (10, ValueError),
             (-1, ValueError),
             (11, ValueError),
             (-1.5, ValueError),
@@ -169,7 +145,7 @@ class TestNetworkClient:
         "rate_limit",
         range(1, 10)
     )
-    def test_rate_limit(self, tmp_data_directory, rate_limit, mock_aiohttp_client_session):
+    def test_rate_limit(self, tmp_data_directory, rate_limit, mock_filing_response):
         client = NetworkClient(rate_limit=rate_limit)
         min_seconds = 3
         num_requests = rate_limit * min_seconds
