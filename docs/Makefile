@@ -20,4 +20,4 @@ help:
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 livehtml:
-	sphinx-autobuild source build --host 127.0.0.1 -p 8000
+	sphinx-autobuild source build --host 127.0.0.1 --port 8000

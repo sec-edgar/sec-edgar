@@ -1,7 +1,27 @@
 import os
+from datetime import date
+
 import pytest
-from datetime import datetime
 from secedgar.filings.master import MasterFilings
+from secedgar.tests.utils import MockResponse
+
+
+@pytest.fixture(scope="module")
+def mock_master_quarter_directory(monkeymodule):
+    """Mock directory of all filings for quarter.
+
+    Use for MasterFilings object.
+    """
+    monkeymodule.setattr(MasterFilings, "_get_listings_directory", lambda *args, **
+                         kwargs: MockResponse(datapath_args=["filings", "master",
+                                                             "master_index_1993_QTR4.html"]))
+
+
+@pytest.fixture
+def mock_master_idx_file(monkeypatch):
+    monkeypatch.setattr(MasterFilings, "_get_master_idx_file", lambda *args, **
+                        kwargs: MockResponse(
+                            datapath_args=["filings", "master", "master.idx"]).text)
 
 
 class TestMaster:
@@ -23,7 +43,7 @@ class TestMaster:
             _ = MasterFilings(year=bad_year, quarter=1)
 
     def test_good_year(self):
-        for year in range(1993, datetime.today().year + 1):
+        for year in range(1993, date.today().year + 1):
             mf = MasterFilings(year=year, quarter=1)
             assert mf.year == year
 
@@ -62,7 +82,7 @@ class TestMaster:
         mf = MasterFilings(year=year, quarter=quarter)
         assert mf.idx_filename == "master.idx"
 
-    def test_always_false_entry_filter(self, mock_master_quarter_directory):
+    def test_always_false_entry_filter(self, mock_master_idx_file):
         master_filing = MasterFilings(year=1993, quarter=4, entry_filter=lambda _: False)
         urls = master_filing.get_urls()
         assert len(urls) == 0
@@ -81,6 +101,7 @@ class TestMaster:
                   mock_filing_data,
                   mock_master_quarter_directory,
                   mock_master_idx_file,
+                  mock_filing_response,
                   subdir,
                   file):
         master_filing = MasterFilings(year=1993, quarter=4)

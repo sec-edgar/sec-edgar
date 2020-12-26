@@ -1,29 +1,51 @@
 import os
+from datetime import date
+
 import pytest
-
-from datetime import datetime
-
 from secedgar.filings.daily import DailyFilings
-from secedgar.tests.utils import datapath
+from secedgar.tests.utils import MockResponse, datapath
+
+cik_file_pairs = [
+    ("1000228", "0001209191-18-064398.txt"),
+    ("1000275", "0001140361-18-046093.txt"),
+    ("1000275", "0001140361-18-046095.txt"),
+    ("1000694", "0001144204-18-066755.txt"),
+    ("1001085", "0001104659-18-075315.txt")
+]
 
 
-def mock_master_idx_file(*args):
-    with open(datapath("filings", "daily", "master.20181231.idx")) as f:
-        return f.read()
+@pytest.fixture(scope="module")
+def mock_daily_quarter_directory(monkeymodule):
+    """Mocks directory of all daily filings for quarter."""
+    monkeymodule.setattr(DailyFilings, "_get_listings_directory", lambda *args, **
+                         kwargs: MockResponse(datapath_args=["filings", "daily",
+                                                             "daily_index_2018_QTR4.htm"]))
+
+
+@pytest.fixture(scope="module")
+def mock_daily_idx_file(monkeymodule):
+    """Mock idx file from DailyFilings."""
+
+    def _mock_daily_idx_file(*args, **kwargs):
+        with open(datapath("filings", "daily", "master.20181231.idx")) as f:
+            return f.read()
+
+    monkeymodule.setattr(DailyFilings, "_get_master_idx_file", _mock_daily_idx_file)
 
 
 class TestDaily:
+
     @pytest.mark.parametrize(
         "date,expected",
         [
-            (datetime(2020, 1, 1), 1),
-            (datetime(2020, 3, 31), 1),
-            (datetime(2020, 4, 1), 2),
-            (datetime(2020, 6, 30), 2),
-            (datetime(2020, 7, 1), 3),
-            (datetime(2020, 9, 30), 3),
-            (datetime(2020, 10, 1), 4),
-            (datetime(2020, 12, 31), 4)
+            (date(2020, 1, 1), 1),
+            (date(2020, 3, 31), 1),
+            (date(2020, 4, 1), 2),
+            (date(2020, 6, 30), 2),
+            (date(2020, 7, 1), 3),
+            (date(2020, 9, 30), 3),
+            (date(2020, 10, 1), 4),
+            (date(2020, 12, 31), 4)
         ]
     )
     def test_quarter(self, date, expected):
@@ -32,10 +54,10 @@ class TestDaily:
     @pytest.mark.parametrize(
         "date,expected_filename",
         [
-            (datetime(2020, 1, 1), "master.20200101.idx"),
-            (datetime(2020, 3, 31), "master.20200331.idx"),
-            (datetime(2020, 4, 1), "master.20200401.idx"),
-            (datetime(2020, 6, 30), "master.20200630.idx"),
+            (date(2020, 1, 1), "master.20200101.idx"),
+            (date(2020, 3, 31), "master.20200331.idx"),
+            (date(2020, 4, 1), "master.20200401.idx"),
+            (date(2020, 6, 30), "master.20200630.idx"),
         ]
     )
     def test_idx_filename(self, date, expected_filename):
@@ -59,18 +81,18 @@ class TestDaily:
             ("1000228", "http://www.sec.gov/Archives/edgar/data/1000228/0001209191-18-064398.txt"),
             ("1000275", "http://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046093.txt"),
             ("1000275", "http://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046095.txt"),
-            ("1000275", "http://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046101.txt"),
-            ("1000275", "http://www.sec.gov/Archives/edgar/data/1000275/0001140361-18-046102.txt")
+            ("1000694", "http://www.sec.gov/Archives/edgar/data/1000694/0001144204-18-066755.txt"),
+            ("1001085", "http://www.sec.gov/Archives/edgar/data/1001085/0001104659-18-075315.txt")
         ]
     )
     def test_get_urls(self, mock_daily_quarter_directory, mock_daily_idx_file, key, url):
-        daily_filing = DailyFilings(datetime(2018, 12, 31))
+        daily_filing = DailyFilings(date(2018, 12, 31))
         assert url in daily_filing.get_urls()[key]
 
     def test_get_listings_directory(self, mock_daily_quarter_directory):
-        assert DailyFilings(datetime(2018, 12, 31)).get_listings_directory().status_code == 200
+        assert DailyFilings(date(2018, 12, 31))._get_listings_directory().status_code == 200
         assert "master.20181231.idx" in DailyFilings(
-            datetime(2018, 12, 31)).get_listings_directory().text
+            date(2018, 12, 31))._get_listings_directory().text
 
     @pytest.mark.parametrize(
         "company_name",
@@ -85,7 +107,7 @@ class TestDaily:
     def test_get_master_idx_file(self, mock_daily_quarter_directory,
                                  mock_daily_idx_file,
                                  company_name):
-        daily_filing = DailyFilings(datetime(2018, 12, 31))
+        daily_filing = DailyFilings(date(2018, 12, 31))
 
         # All company names above should be in file
         assert company_name in daily_filing._get_master_idx_file()
@@ -104,13 +126,13 @@ class TestDaily:
         ]
     )
     def test_path_property(self, year, month, day, quarter):
-        daily_filing = DailyFilings(datetime(year, month, day))
+        daily_filing = DailyFilings(date(year, month, day))
         assert daily_filing.path == "Archives/edgar/daily-index/{year}/QTR{quarter}/".format(
             year=year, quarter=quarter)
 
     def test_no_params(self):
         """Params should always be empty."""
-        daily_filing = DailyFilings(datetime(2020, 1, 1))
+        daily_filing = DailyFilings(date(2020, 1, 1))
         assert not daily_filing.params
 
     @pytest.mark.parametrize(
@@ -128,27 +150,84 @@ class TestDaily:
         ]
     )
     def test_master_idx_date_format(self, date_tuple, formatted):
-        daily_filing = DailyFilings(datetime(*date_tuple))
+        daily_filing = DailyFilings(date(*date_tuple))
         assert daily_filing._get_idx_formatted_date() == formatted
 
     @pytest.mark.parametrize(
-        "subdir,file",
-        [
-            ("1000228", "0001209191-18-064398.txt"),
-            ("1000275", "0001140361-18-046093.txt"),
-            ("1000694", "0001144204-18-066754.txt"),
-            ("1001085", "0001104659-18-075315.txt"),
-            ("1007273", "0001225208-18-017075.txt")
-        ]
+        "cik,file",
+        cik_file_pairs
     )
-    def test_save(self, tmp_data_directory,
-                  mock_filing_data,
-                  mock_daily_quarter_directory,
-                  mock_daily_idx_file,
-                  subdir,
-                  file):
-        daily_filing = DailyFilings(datetime(2018, 12, 31))
+    def test_save_default(self, tmp_data_directory,
+                          mock_daily_quarter_directory,
+                          mock_daily_idx_file,
+                          mock_filing_response,
+                          cik,
+                          file):
+        daily_filing = DailyFilings(date(2018, 12, 31))
         daily_filing.save(tmp_data_directory)
-        subdir = os.path.join("20181231", subdir)
+        subdir = os.path.join("20181231", cik)
+        path_to_check = os.path.join(tmp_data_directory, subdir, file)
+        assert os.path.exists(path_to_check)
+
+    @pytest.mark.parametrize(
+        "file",
+        [cf[1] for cf in cik_file_pairs]
+    )
+    def test_save_with_single_level_date_dir_pattern(self, tmp_data_directory,
+                                                     mock_daily_quarter_directory,
+                                                     mock_daily_idx_file,
+                                                     mock_filing_response,
+                                                     file):
+        daily_filing = DailyFilings(date(2018, 12, 31))
+        daily_filing.save(tmp_data_directory, dir_pattern="{date}", date_format="%Y-%m-%d")
+        path_to_check = os.path.join(tmp_data_directory, "2018-12-31", file)
+        assert os.path.exists(path_to_check)
+
+    @pytest.mark.parametrize(
+        "cik,file",
+        cik_file_pairs
+    )
+    def test_save_with_single_level_cik_dir_pattern(self, tmp_data_directory,
+                                                    mock_daily_quarter_directory,
+                                                    mock_daily_idx_file,
+                                                    mock_filing_response,
+                                                    cik,
+                                                    file):
+        daily_filing = DailyFilings(date(2018, 12, 31))
+        daily_filing.save(tmp_data_directory, dir_pattern="{cik}")
+        path_to_check = os.path.join(tmp_data_directory, cik, file)
+        assert os.path.exists(path_to_check)
+
+    @pytest.mark.parametrize(
+        "cik,file",
+        cik_file_pairs
+    )
+    def test_save_with_multi_level_dir_pattern(self, tmp_data_directory,
+                                               mock_daily_quarter_directory,
+                                               mock_daily_idx_file,
+                                               mock_filing_response,
+                                               cik,
+                                               file):
+        daily_filing = DailyFilings(date(2018, 12, 31))
+        daily_filing.save(tmp_data_directory,
+                          dir_pattern="{date}/{cik}", date_format="%Y-%m-%d")
+        subdir = os.path.join("2018-12-31", cik)
+        path_to_check = os.path.join(tmp_data_directory, subdir, file)
+        assert os.path.exists(path_to_check)
+
+    @pytest.mark.parametrize(
+        "cik,file",
+        cik_file_pairs
+    )
+    def test_save_with_multi_level_dir_pattern_date_not_first(self, tmp_data_directory,
+                                                              mock_daily_quarter_directory,
+                                                              mock_daily_idx_file,
+                                                              mock_filing_response,
+                                                              cik,
+                                                              file):
+        daily_filing = DailyFilings(date(2018, 12, 31))
+        daily_filing.save(tmp_data_directory,
+                          dir_pattern="{cik}/{date}", date_format="%Y-%m-%d")
+        subdir = os.path.join(cik, "2018-12-31")
         path_to_check = os.path.join(tmp_data_directory, subdir, file)
         assert os.path.exists(path_to_check)

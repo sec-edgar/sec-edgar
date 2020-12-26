@@ -1,7 +1,6 @@
 import pytest
-
 from click.testing import CliRunner
-from secedgar.cli import filing, daily
+from secedgar.cli import daily, filing
 from secedgar.utils.exceptions import FilingTypeError
 
 

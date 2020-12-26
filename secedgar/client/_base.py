@@ -40,3 +40,21 @@ class AbstractClient(ABC):
     def batch_size(self):
         """Number of results per page searched. Increasing can improve speed for large requests."""
         pass  # pragma: no cover
+
+    @staticmethod
+    @abstractmethod
+    def _prepare_query(path):
+        """Prepare the query url.
+
+        Args:
+            url (str): End of url.
+
+        Returns:
+            url (str): A formatted url.
+        """
+        pass  # pragma: no cover
+
+    @abstractmethod
+    async def wait_for_download_async(self, inputs):
+        """Asynchronously download links into files using rate limit."""
+        pass  # pragma: no cover

@@ -1,7 +1,9 @@
-import click
-from datetime import datetime
 import os
-from secedgar.filings import Filing, DailyFilings, FilingType
+from datetime import datetime
+
+import click
+
+from secedgar.filings import DailyFilings, Filing, FilingType
 from secedgar.utils.exceptions import FilingTypeError
 
 
