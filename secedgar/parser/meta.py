@@ -24,7 +24,7 @@ class MetaParser:
         self.re_sec_header = re.compile("<SEC-HEADER>.*?\n(.*?)</SEC-HEADER>", flags=re.DOTALL)
 
     def process(self, infile, out_dir=None, create_subdir=True, rm_infile=False):
-        """Process a text file and output processed files.
+        """Process a text file and save processed files.
 
         Args:
             infile (str): Full path to a text file.
@@ -125,6 +125,9 @@ class MetaParser:
 
         Args:
             curr_doc (str): Process meta data for single focal document.
+
+        Return:
+            out_dict (dict): Meta data from focal document.
         """
         out_dict = {}
         levels = [None, None]

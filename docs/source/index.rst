@@ -8,10 +8,9 @@ Welcome to secedgar's documentation!
 .. _getting_started:
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
    :caption: Getting Started
 
-   whatsnew
    install
    usage
    ciklookup
@@ -20,6 +19,7 @@ Welcome to secedgar's documentation!
    cikmap
    parser
    cli
+   whatsnew
 
 .. _package_info:
 
