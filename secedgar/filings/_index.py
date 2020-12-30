@@ -209,19 +209,17 @@ class IndexFilings(FilingStrategy):
 
         save(urls, directory, dir_pattern, file_pattern)
 
-    def individual_save(urls, directory,
-                     dir_pattern="{cik}",
-                     file_pattern="{accession_number}")
-            inputs = []
-            for company, links in urls.items():
-                formatted_dir = dir_pattern.format(cik=company)
-                for link in links:
-                    formatted_file = file_pattern.format(
-                        accession_number=self.get_accession_number(link))
-                    path = os.path.join(directory, formatted_dir, formatted_file)
-                    inputs.append((link, path))
-            loop = asyncio.get_event_loop()
-            loop.run_until_complete(self.client.wait_for_download_async(inputs))
+    def individual_save(urls, directory, dir_pattern="{cik}", file_pattern="{accession_number}"):
+        inputs = []
+        for company, links in urls.items():
+            formatted_dir = dir_pattern.format(cik=company)
+            for link in links:
+                formatted_file = file_pattern.format(
+                    accession_number=self.get_accession_number(link))
+                path = os.path.join(directory, formatted_dir, formatted_file)
+                inputs.append((link, path))
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(self.client.wait_for_download_async(inputs))
 
     def ultrafast_bulk_save(self, directory):
         ''' A very fast download method that cannot move files or utilize an entry filter. '''

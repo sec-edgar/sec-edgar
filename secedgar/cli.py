@@ -3,7 +3,7 @@ from datetime import datetime
 
 import click
 
-from secedgar.filings import DailyFilings, Filing, FilingType
+from secedgar.filings import DailyFilings, CompanyFilings, FilingType
 from secedgar.utils.exceptions import FilingTypeError
 
 
@@ -48,7 +48,7 @@ def date_cleanup(date):
               help="""Directory where files will be saved.
               Defaults to directory from which CLI is being executed.""",
               default=os.getcwd(), type=str)
-def filing(lookups, ftype, start, end, count, directory):
+def company(lookups, ftype, start, end, count, directory):
     """Click command for downloading filings. Run ``secedgar filing --help`` for info."""
     # If given filing type is not valid enum, raise FilingTypeError
     try:
@@ -56,7 +56,7 @@ def filing(lookups, ftype, start, end, count, directory):
     except KeyError:
         raise FilingTypeError()
 
-    f = Filing(cik_lookup=lookups,
+    f = CompanyFilings(cik_lookup=lookups,
                filing_type=ftype,
                start_date=date_cleanup(start),
                end_date=date_cleanup(end),

@@ -3,22 +3,22 @@ import datetime
 
 import pytest
 from secedgar.client import NetworkClient
-from secedgar.filings import Filing, FilingType
-from secedgar.filings.cik_validator import _CIKValidator
+from secedgar.filings import CompanyFilings, FilingType
+from secedgar.filings.cik_lookup import CIKLookup
 from secedgar.tests.utils import MockResponse
 from secedgar.utils.exceptions import FilingTypeError
 
 
 @pytest.fixture
-def mock_cik_validator_get_single_cik(monkeypatch):
+def mock_cik_lookup_get_single_cik(monkeypatch):
     """Mocks response for getting a single CIK."""
-    monkeypatch.setattr(_CIKValidator, "get_ciks", lambda *args, **kwargs: {"aapl": "0000320193"})
+    monkeypatch.setattr(CIKLookup, "get_ciks", lambda *args, **kwargs: {"aapl": "0000320193"})
 
 
 @pytest.fixture(scope="module")
-def mock_cik_validator_get_multiple_ciks(monkeymodule):
+def mock_cik_lookup_get_multiple_ciks(monkeymodule):
     """Mocks response for getting a single CIK."""
-    monkeymodule.setattr(_CIKValidator, "get_ciks", lambda *args, **
+    monkeymodule.setattr(CIKLookup, "get_ciks", lambda *args, **
                          kwargs: {"aapl": "0000320193", "msft": "1234", "amzn": "5678"})
 
 
@@ -300,7 +300,7 @@ class TestFiling(object):
         ]
     )
     @pytest.mark.filterwarnings("ignore::DeprecationWarning")  # For collections.abc warning 3.8+
-    def test_filings_warning_lt_count(self,
+    def test_company_warning_lt_count(self,
                                       recwarn,
                                       count,
                                       raises_error,

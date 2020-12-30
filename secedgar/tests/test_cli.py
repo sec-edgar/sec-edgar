@@ -1,6 +1,6 @@
 import pytest
 from click.testing import CliRunner
-from secedgar.cli import daily, filing
+from secedgar.cli import daily, company
 from secedgar.utils.exceptions import FilingTypeError
 
 
@@ -20,7 +20,7 @@ def check_bad_inputs(cli, user_input, expected_exception, directory):
             run_cli_command(cli, user_input, directory)
 
 
-class TestCLIFiling:
+class TestCLICompany:
 
     @pytest.mark.parametrize(
         "user_input,expected_exception",
@@ -31,7 +31,7 @@ class TestCLIFiling:
             ("-l aapl -t FILING_10Q -n 0", ValueError)  # no filings available if 0 picked
         ]
     )
-    def test_filing_bad_inputs(self, user_input, expected_exception, tmp_data_directory):
+    def test_company_bad_inputs(self, user_input, expected_exception, tmp_data_directory):
         check_bad_inputs(filing, user_input, expected_exception, tmp_data_directory)
 
     @pytest.mark.parametrize(

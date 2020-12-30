@@ -2,7 +2,6 @@ import warnings
 import json
 
 from secedgar.client.network_client import NetworkClient
-from secedgar.utils.cik_map import get_cik_map
 from secedgar.utils.exceptions import CIKError, EDGARQueryError
 
 
@@ -18,7 +17,6 @@ class CIKLookup:
     """
 
     def __init__(self, lookups, **kwargs):
-        super().__init__(**kwargs)
         if lookups and isinstance(lookups, str):
             self._lookups = [lookups]  # make single string into list
         else:
