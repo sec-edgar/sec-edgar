@@ -5,12 +5,14 @@ from abc import ABC, abstractmethod
 from secedgar.parser import MetaParser
 
 
-class AbstractFiling(ABC):
+class FilingStrategy(ABC):
     """Abstract base class for all SEC EDGAR filings.
 
     .. versionadded:: 0.1.5
     """
-
+    def __init__(self, **kwargs):
+        self._client = kwargs.get('client', NetworkClient())
+    
     def extract_meta(self, directory, out_dir=None, create_subdir=True, rm_infile=False):
         """Extract meta data from filings in directory."""
         for root, _, files in os.walk(directory):
@@ -22,22 +24,9 @@ class AbstractFiling(ABC):
                                          rm_infile=rm_infile)
 
     @property
-    @abstractmethod
     def client(self):
         """``secedgar.client._base``: Client to use to make requests."""
-        pass  # pragma: no cover
-
-    @property
-    @abstractmethod
-    def params(self):
-        """:obj:`dict`: Parameters to include in requests."""
-        pass  # pragma: no cover
-
-    @property
-    @abstractmethod
-    def path(self):
-        """str: Path added to client base."""
-        pass  # pragma: no cover
+        return self._client
 
     @abstractmethod
     def get_urls(self, **kwargs):
