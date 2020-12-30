@@ -57,12 +57,7 @@ class DailyFilings(IndexFilings):
 
     @property
     def idx_path(self):
-        """str: Path added to client base.
-
-        .. note::
-            The trailing slash at the end of the path is important.
-            Omitting will raise EDGARQueryError.
-        """
+        """str: Path added to client base."""
         return "Archives/edgar/daily-index/{year}/QTR{num}/".format(
             year=self.year, num=self.quarter)
 

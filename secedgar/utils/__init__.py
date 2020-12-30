@@ -1,8 +1,6 @@
 import datetime
 import os
 
-from secedgar.utils.cik_map import get_cik_map  # noqa:F401
-
 def make_path(path, **kwargs):
     """Make directory based on filing info.
 
@@ -19,5 +17,8 @@ def make_path(path, **kwargs):
     if not os.path.exists(path):
         os.makedirs(path, **kwargs)
 
-
+def batch(iterable, n):
+    length = len(iterable)
+    for ndx in range(0, length, n):
+        yield iterable[ndx:min(ndx + n, length)]
 
