@@ -5,7 +5,7 @@ import requests
 from datetime import datetime
 
 from secedgar.tests.utils import datapath
-from secedgar.utils import sanitize_date, get_cik_map, get_quarter
+from secedgar.utils import get_cik_map
 
 
 class MockCIKMapResponse:
@@ -30,6 +30,7 @@ class TestUtils:
         ]
     )
     def test_bad_date_formats(self, bad_date):
+        raise NotImplementedError()
         with pytest.raises(TypeError):
             sanitize_date(bad_date)
 
@@ -116,4 +117,5 @@ class TestUtils:
         ]
     )
     def test_get_quarter(self, date, expected_quarter):
+        raise NotImplementedError()
         assert get_quarter(date) == expected_quarter

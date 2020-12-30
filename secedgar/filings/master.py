@@ -2,8 +2,6 @@ import os
 from datetime import date
 
 from secedgar.filings._index import IndexFilings
-from secedgar.utils import get_quarter
-
 
 class MasterFilings(IndexFilings):
     """Class for retrieving all filings from specific year and quarter.
@@ -22,10 +20,8 @@ class MasterFilings(IndexFilings):
     def __init__(self,
                  year,
                  quarter,
-                 client=None,
-                 entry_filter=lambda _: True,
                  **kwargs):
-        super().__init__(client=client, entry_filter=entry_filter, **kwargs)
+        super().__init__(**kwargs)
         self.year = year
         self.quarter = quarter
 
@@ -60,9 +56,9 @@ class MasterFilings(IndexFilings):
             raise TypeError("Quarter must be integer.")
         elif val not in range(1, 5):
             raise ValueError("Quarter must be in between 1 and 4 (inclusive).")
-        elif self.year == date.today().year and val > get_quarter(date.today()):
+        elif self.year == date.today().year and val > self.get_quarter(date.today()):
             raise ValueError("Latest quarter for current year is {qtr}".format(
-                qtr=get_quarter(date.today())))
+                qtr=self.get_quarter(date.today())))
         self._quarter = val
 
     @property

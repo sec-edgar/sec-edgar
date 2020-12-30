@@ -2,8 +2,6 @@ import datetime
 import os
 
 from secedgar.filings._index import IndexFilings
-from secedgar.utils import get_quarter
-
 
 class DailyFilings(IndexFilings):
     """Class for retrieving all daily filings from https://www.sec.gov/Archives/edgar/daily-index.
@@ -49,8 +47,8 @@ class DailyFilings(IndexFilings):
 
     """
 
-    def __init__(self, date, client=None, entry_filter=lambda _: True):
-        super().__init__(client=client, entry_filter=entry_filter)
+    def __init__(self, date, **kwargs):
+        super().__init__(**kwargs)
         if not isinstance(date, datetime.date):
             raise TypeError(
                 "Date must be given as datetime.date object. Was given type {type}.".format(
@@ -71,7 +69,7 @@ class DailyFilings(IndexFilings):
     @property
     def quarter(self):
         """Get quarter number from date attribute."""
-        return get_quarter(self._date)
+        return self.get_quarter(self._date)
 
     @property
     def year(self):

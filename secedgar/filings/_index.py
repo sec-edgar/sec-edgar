@@ -27,8 +27,7 @@ class IndexFilings(AbstractFiling):
     """
 
     def __init__(self, client=None, entry_filter=None, **kwargs):
-        super().__init__()
-        self._client = client if client is not None else NetworkClient(**kwargs)
+        super().__init__(**kwargs)
         self._listings_directory = None
         self._master_idx_file = None
         self._filings_dict = None
@@ -207,6 +206,14 @@ class IndexFilings(AbstractFiling):
             os.remove(filename)
             q.task_done()
 
+    @staticmethod
+    def get_quarter(date):
+        """Get quarter that corresponds with date.
+
+        Args:
+            date ([datetime.datetime]): Datetime object to get quarter for.
+        """
+        return (date.month - 1) // 3 + 1
     def _unzip(self, extract_directory):
         """Unzips files from tar files into extract directory.
 
