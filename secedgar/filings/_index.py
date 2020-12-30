@@ -299,7 +299,8 @@ class IndexFilings(FilingStrategy):
             download_all (bool): Type of downloading system, if true downloads all tar files,
                 if false downloads each file in index. Default is `False`.
         """
-        urls = self._check_urls_exist()
+        urls = self.get_urls()
+        self.check_urls_exist(urls)
 
         if download_all:
             # Download tar files into huge temp directory

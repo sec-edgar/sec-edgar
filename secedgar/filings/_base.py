@@ -13,15 +13,7 @@ class FilingStrategy(ABC):
     def __init__(self, **kwargs):
         self._client = kwargs.get('client', NetworkClient())
     
-    def extract_meta(self, directory, out_dir=None, create_subdir=True, rm_infile=False):
-        """Extract meta data from filings in directory."""
-        for root, _, files in os.walk(directory):
-            for file in files:
-                if file.endswith('.txt'):
-                    MetaParser().process(os.path.join(root, file),
-                                         out_dir=out_dir,
-                                         create_subdir=create_subdir,
-                                         rm_infile=rm_infile)
+
 
     @property
     def client(self):
@@ -73,7 +65,19 @@ class FilingStrategy(ABC):
         stripped = "".join(c for c in path if c in allowed)
         return stripped.replace(" ", "_")
 
-    def _check_urls_exist(self):
+    @staticmethod
+    def extract_meta(directory, out_dir=None, create_subdir=True, rm_infile=False):
+        """Extract meta data from filings in directory."""
+        for root, _, files in os.walk(directory):
+            for file in files:
+                if file.endswith('.txt'):
+                    MetaParser().process(os.path.join(root, file),
+                                         out_dir=out_dir,
+                                         create_subdir=create_subdir,
+                                         rm_infile=rm_infile)
+
+    @staticmethod   
+    def check_urls_exist(urls):
         """Wrapper around `get_urls` to check if there is a positive number of URLs.
 
         .. note:: This method will not check if the URLs are valid. Simply if they exist.
@@ -84,7 +88,5 @@ class FilingStrategy(ABC):
         Returns:
             urls (dict): Result of `get_urls` method.
         """
-        urls = self.get_urls()
         if all(len(urls[cik]) == 0 for cik in urls.keys()):
             raise ValueError("No filings available.")
-        return urls
