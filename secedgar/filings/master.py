@@ -68,8 +68,7 @@ class MasterFilings(IndexFilings):
 
     def get_tar_urls(self):
         """The list of .tar.gz daily files in the current quarter."""
-        tar_path = "Archives/edgar/Feed/{year}/QTR{num}/".format(year=self.year, num=self.quarter)
-        soup = self.client.get_soup(tar_path, {})
+        soup = self.client.get_soup(self.tar_path, {})
         files = [a.get('href') for a in soup.find_all('a')]
         files = [file for file in files if "nc.tar.gz" in file]
         return files

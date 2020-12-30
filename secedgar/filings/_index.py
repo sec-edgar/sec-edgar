@@ -26,7 +26,7 @@ class IndexFilings(FilingStrategy):
         kwargs: Any keyword arguments to pass to ``NetworkClient`` if no client is specified.
     """
 
-    def __init__(self, client=None, entry_filter=None, **kwargs):
+    def __init__(self, client=None, entry_filter=None, ultrafast=False, **kwargs):
         super().__init__(**kwargs)
         self._listings_directory = None
         self._master_idx_file = None
@@ -34,7 +34,11 @@ class IndexFilings(FilingStrategy):
         self._paths = []
         self._urls = {}
         self._entry_filter = entry_filter
-        if entry_filter is None:
+        if ultrafast:
+            self.best_save_method = self.ultrafast_bulk_save
+            if entry_filter is not None:
+                raise ValueError("Cannot use a entry_filter on the ultrafast_bulk_save.")
+        elif entry_filter is None:
             self.best_save_method = self.bulk_save
         else:
             self.best_save_method = self.individual_save
@@ -145,7 +149,10 @@ class IndexFilings(FilingStrategy):
                                      There may be no filings for the given day/quarter.""".format(
                     filename=self.idx_filename))
         return self._master_idx_file
-
+    @property
+    def tar_path(self):
+        """str: Tar.gz path added to the client base."""
+        return "Archives/edgar/Feed/{year}/QTR{num}/".format(year=self.year, num=self.quarter)
     def get_urls(self):
         """Get all URLs for day.
 
@@ -207,19 +214,26 @@ class IndexFilings(FilingStrategy):
             loop = asyncio.get_event_loop()
             loop.run_until_complete(self.client.wait_for_download_async(inputs))
 
+    def ultrafast_bulk_save(self, *args):
+        ''' A very fast download method that cannot move files or utilize an entry filter. '''
+        directory = args[1]
+        make_path(directory)
+        self._download_tar_files(directory)
+        self._unzip(extract_directory=directory)
+
     def bulk_save(self, urls, directory,
                         dir_pattern="{cik}",
                         file_pattern="{accession_number}"):
+        
+        # TODO replace with named temp directory
         extract_directory = os.path.join(directory, 'temp')
         i = 0
         while os.path.exists(extract_directory):
-            # Ensure that there is no name clashing
             extract_directory = os.path.join(directory, 'temp{i}'.format(i=i))
             i += 1
-
-        make_path(extract_directory)
-        unzip(extract_directory=extract_directory)
-        _move_to_dest(urls=urls,
+        
+        self.bulk_ultrafast_save(extract_directory)
+        self._move_to_dest(urls=urls,
                             extract_directory=extract_directory,
                             directory=directory,
                             file_pattern=file_pattern,
@@ -227,7 +241,16 @@ class IndexFilings(FilingStrategy):
 
         # Remove the initial extracted data
         shutil.rmtree(extract_directory)
-    
+
+    def _download_tar_files(self, extract_directory):
+        tar_files = self.get_tar_files()
+        inputs = []
+        for filename in tar_files:
+            download_target = os.path.join(extract_directory, filename)
+            url_target = self.make_url(self.tar_path + filename)
+            inputs.append((url_target, download_target))
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(self.client.wait_for_download_async(inputs))
     @staticmethod
     def _do_create_and_copy(q):
         """Create path and copy file to end of path.
@@ -249,6 +272,7 @@ class IndexFilings(FilingStrategy):
     @staticmethod
     def _do_unpack_archive(q, extract_directory):
         """Unpack archive file in given extract directory.
+        Removes the archive file when completed.
 
         Args:
             q (Queue.queue): Queue to get filname from.
@@ -271,7 +295,6 @@ class IndexFilings(FilingStrategy):
                 Note that this directory will be completely removed after
                 files are unzipped.
         """
-        tar_files = self.get_tar_urls()
         unpack_queue = Queue(maxsize=len(tar_files))
         unpack_threads = len(tar_files)
 
