@@ -66,9 +66,10 @@ class MasterFilings(IndexFilings):
         """Main index filename to look for."""
         return "master.idx"
 
-    def _get_tar(self):
+    def get_tar_urls(self):
         """The list of .tar.gz daily files in the current quarter."""
-        soup = self.client.get_soup(self.tar_path, {})
+        tar_path = "Archives/edgar/Feed/{year}/QTR{num}/".format(year=self.year, num=self.quarter)
+        soup = self.client.get_soup(tar_path, {})
         files = [a.get('href') for a in soup.find_all('a')]
         files = [file for file in files if "nc.tar.gz" in file]
         return files

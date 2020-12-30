@@ -34,7 +34,10 @@ class IndexFilings(FilingStrategy):
         self._paths = []
         self._urls = {}
         self._entry_filter = entry_filter
-
+        if entry_filter is None:
+            self.best_save_method = self.bulk_save
+        else:
+            self.best_save_method = self.individual_save
     @property
     def entry_filter(self):
         """A boolean function to be tested on each listing entry.
@@ -62,14 +65,9 @@ class IndexFilings(FilingStrategy):
         pass  # pragma: no cover
 
     @abstractmethod
-    def _get_tar(self):
-        """Passed to child classes."""
+    def get_tar_urls(self):
+        """ The urls of the tar files to download if the bulk download method is used."""
         pass  # pragma: no cover
-
-    @property
-    def tar_path(self):
-        """str: Tar.gz path added to the client base."""
-        return "Archives/edgar/Feed/{year}/QTR{num}/".format(year=self.year, num=self.quarter)
 
 
 
@@ -162,6 +160,74 @@ class IndexFilings(FilingStrategy):
                           for company, entries in filings_dict.items()}
         return self._urls
 
+
+
+    @staticmethod
+    def get_quarter(date):
+        """Get quarter that corresponds with date.
+
+        Args:
+            date ([datetime.datetime]): Datetime object to get quarter for.
+        """
+        return (date.month - 1) // 3 + 1
+
+
+    def save_filings(self,
+                     directory,
+                     dir_pattern="{cik}",
+                     file_pattern="{accession_number}"):
+        """Save all filings.
+
+        Will store all filings under the parent directory of ``directory``, further
+        separating filings using ``dir_pattern`` and ``file_pattern``.
+
+        Args:
+            directory (str): Directory where filings should be stored.
+            dir_pattern (str): Format string for subdirectories. Default is `{cik}`.
+                Valid options are `{cik}`.
+            file_pattern (str): Format string for files. Default is `{accession_number}`.
+                Valid options are `{accession_number}`.
+        """
+        urls = self.get_urls()
+        self.check_urls_exist(urls)
+        save = self.best_save_method
+        save(urls, directory, dir_pattern, file_pattern)
+
+    def individual_save(urls, directory,
+                     dir_pattern="{cik}",
+                     file_pattern="{accession_number}")
+            inputs = []
+            for company, links in urls.items():
+                formatted_dir = dir_pattern.format(cik=company)
+                for link in links:
+                    formatted_file = file_pattern.format(
+                        accession_number=self.get_accession_number(link))
+                    path = os.path.join(directory, formatted_dir, formatted_file)
+                    inputs.append((link, path))
+            loop = asyncio.get_event_loop()
+            loop.run_until_complete(self.client.wait_for_download_async(inputs))
+
+    def bulk_save(self, urls, directory,
+                        dir_pattern="{cik}",
+                        file_pattern="{accession_number}"):
+        extract_directory = os.path.join(directory, 'temp')
+        i = 0
+        while os.path.exists(extract_directory):
+            # Ensure that there is no name clashing
+            extract_directory = os.path.join(directory, 'temp{i}'.format(i=i))
+            i += 1
+
+        make_path(extract_directory)
+        unzip(extract_directory=extract_directory)
+        _move_to_dest(urls=urls,
+                            extract_directory=extract_directory,
+                            directory=directory,
+                            file_pattern=file_pattern,
+                            dir_pattern=dir_pattern)
+
+        # Remove the initial extracted data
+        shutil.rmtree(extract_directory)
+    
     @staticmethod
     def _do_create_and_copy(q):
         """Create path and copy file to end of path.
@@ -197,14 +263,6 @@ class IndexFilings(FilingStrategy):
             os.remove(filename)
             q.task_done()
 
-    @staticmethod
-    def get_quarter(date):
-        """Get quarter that corresponds with date.
-
-        Args:
-            date ([datetime.datetime]): Datetime object to get quarter for.
-        """
-        return (date.month - 1) // 3 + 1
     def _unzip(self, extract_directory):
         """Unzips files from tar files into extract directory.
 
@@ -213,7 +271,7 @@ class IndexFilings(FilingStrategy):
                 Note that this directory will be completely removed after
                 files are unzipped.
         """
-        tar_files = self._get_tar()
+        tar_files = self.get_tar_urls()
         unpack_queue = Queue(maxsize=len(tar_files))
         unpack_threads = len(tar_files)
 
@@ -270,56 +328,3 @@ class IndexFilings(FilingStrategy):
                     move_queue.put_nowait((formatted_file, full_dir, old_path))
                     break
         move_queue.join()
-
-    def save_filings(self,
-                     directory,
-                     dir_pattern="{cik}",
-                     file_pattern="{accession_number}",
-                     download_all=False):
-        """Save all filings.
-
-        Will store all filings under the parent directory of ``directory``, further
-        separating filings using ``dir_pattern`` and ``file_pattern``.
-
-        Args:
-            directory (str): Directory where filings should be stored.
-            dir_pattern (str): Format string for subdirectories. Default is `{cik}`.
-                Valid options are `{cik}`.
-            file_pattern (str): Format string for files. Default is `{accession_number}`.
-                Valid options are `{accession_number}`.
-            download_all (bool): Type of downloading system, if true downloads all tar files,
-                if false downloads each file in index. Default is `False`.
-        """
-        urls = self.get_urls()
-        self.check_urls_exist(urls)
-
-        if download_all:
-            # Download tar files into huge temp directory
-            extract_directory = os.path.join(directory, 'temp')
-            i = 0
-            while os.path.exists(extract_directory):
-                # Ensure that there is no name clashing
-                extract_directory = os.path.join(directory, 'temp{i}'.format(i=i))
-                i += 1
-
-            make_path(extract_directory)
-            self._unzip(extract_directory=extract_directory)
-            self._move_to_dest(urls=urls,
-                               extract_directory=extract_directory,
-                               directory=directory,
-                               file_pattern=file_pattern,
-                               dir_pattern=dir_pattern)
-
-            # Remove the initial extracted data
-            shutil.rmtree(extract_directory)
-        else:
-            inputs = []
-            for company, links in urls.items():
-                formatted_dir = dir_pattern.format(cik=company)
-                for link in links:
-                    formatted_file = file_pattern.format(
-                        accession_number=self.get_accession_number(link))
-                    path = os.path.join(directory, formatted_dir, formatted_file)
-                    inputs.append((link, path))
-            loop = asyncio.get_event_loop()
-            loop.run_until_complete(self.client.wait_for_download_async(inputs))
