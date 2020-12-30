@@ -35,14 +35,7 @@ class IndexFilings(FilingStrategy):
         self._paths = []
         self._urls = {}
         self._entry_filter = entry_filter
-        if ultrafast:
-            self.best_save_method = self.ultrafast_bulk_save
-            if entry_filter is not None:
-                raise ValueError("Cannot use a entry_filter on the ultrafast_bulk_save.")
-        elif entry_filter is None:
-            self.best_save_method = self.bulk_save
-        else:
-            self.best_save_method = self.individual_save
+        self._bulk_ultrafast = ultrafast
     @property
     def entry_filter(self):
         """A boolean function to be tested on each listing entry.
@@ -196,9 +189,19 @@ class IndexFilings(FilingStrategy):
             file_pattern (str): Format string for files. Default is `{accession_number}`.
                 Valid options are `{accession_number}`.
         """
+        if self._bulk_ultrafast:
+            if self.entry_filter is not None:
+                raise ValueError("Cannot use a entry_filter on the ultrafast_bulk_save.")
+            self.ultrafast_bulk_save(directory)
+            return
+        
         urls = self.get_urls()
         self.check_urls_exist(urls)
-        save = self.best_save_method
+        
+        save = self.individual_save
+        if entry_filter is None:
+            save = self.bulk_save
+
         save(urls, directory, dir_pattern, file_pattern)
 
     def individual_save(urls, directory,
@@ -215,9 +218,8 @@ class IndexFilings(FilingStrategy):
             loop = asyncio.get_event_loop()
             loop.run_until_complete(self.client.wait_for_download_async(inputs))
 
-    def ultrafast_bulk_save(self, *args):
+    def ultrafast_bulk_save(self, directory):
         ''' A very fast download method that cannot move files or utilize an entry filter. '''
-        directory = args[1]
         make_path(directory)
         self._download_tar_files(directory)
         self._unzip(extract_directory=directory)
