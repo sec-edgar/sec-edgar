@@ -4,14 +4,13 @@ import os
 import warnings
 
 from secedgar.client import NetworkClient
-from secedgar.filings._base import AbstractFiling
+from secedgar.filings._base import FilingStrategy
 from secedgar.filings.cik_lookup import CIKLookup
 from secedgar.filings.filing_types import FilingType
-from secedgar.utils import sanitize_date
 from secedgar.utils.exceptions import FilingTypeError
 
 
-class CompanyFilings(AbstractFiling):
+class CompanyFilings(FilingStrategy):
     """Base class for receiving EDGAR filings.
 
     Attributes:
@@ -233,6 +232,7 @@ class CompanyFilings(AbstractFiling):
 
         inputs = []
         for cik, links in urls.items():
+            cik = urls
             formatted_dir = dir_pattern.format(cik=cik, type=self.filing_type.value)
             for link in links:
                 formatted_file = file_pattern.format(

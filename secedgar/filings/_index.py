@@ -8,12 +8,12 @@ from queue import Empty, Queue
 from threading import Thread
 
 from secedgar.client import NetworkClient
-from secedgar.filings._base import AbstractFiling
+from secedgar.filings._base import FilingStrategy
 from secedgar.utils import make_path
 from secedgar.utils.exceptions import EDGARQueryError
 
 
-class IndexFilings(AbstractFiling):
+class IndexFilings(FilingStrategy):
     """Abstract Base Class for index filings.
 
     Attributes:
