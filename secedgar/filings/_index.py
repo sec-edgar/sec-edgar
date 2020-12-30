@@ -104,6 +104,49 @@ class IndexFilings(FilingStrategy):
                 else:
                     self._filings_dict[entry.cik] = [entry]
         return self._filings_dict
+    def _get_listings_directory(self, update_cache=False, **kwargs):
+        """Get page with list of all idx files for given date or quarter.
+
+        Args:
+            update_cache (bool, optional): Whether quarterly directory should update cache. Defaults
+                to False.
+            kwargs: Any keyword arguments to pass to the client's `get_response` method.
+
+        Returns:
+            response (requests.Response): Response object from page with all idx files for
+                given quarter and year.
+        """
+        if self._listings_directory is None or update_cache:
+            self._listings_directory = self.client.get_response(self.path, **kwargs)
+        return self._listings_directory
+
+    def _get_master_idx_file(self, update_cache=False, **kwargs):
+        """Get master file with all filings from given date.
+
+        Args:
+            update_cache (bool, optional): Whether master index should be updated
+                method call. Defaults to False.
+            kwargs: Keyword arguments to pass to
+                ``secedgar.client._base.AbstractClient.get_response``.
+
+        Returns:
+            text (str): Idx file text.
+
+        Raises:
+            EDGARQueryError: If no file of the form master.<DATE>.idx
+                is found.
+        """
+        if self._master_idx_file is None or update_cache:
+            if self.idx_filename in self._get_listings_directory().text:
+                master_idx_url = "{path}{filename}".format(
+                    path=self.path, filename=self.idx_filename)
+                self._master_idx_file = self.client.get_response(
+                    master_idx_url, self.params, **kwargs).text
+            else:
+                raise EDGARQueryError("""File {filename} not found.
+                                     There may be no filings for the given day/quarter.""".format(
+                    filename=self.idx_filename))
+        return self._master_idx_file
 
     def get_urls(self):
         """Get all URLs for day.

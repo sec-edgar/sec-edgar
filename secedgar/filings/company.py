@@ -53,21 +53,6 @@ class CompanyFilings(FilingStrategy):
         self._client = client if client is not None else NetworkClient(**kwargs)
 
     @property
-    def path(self):
-        """str: Path added to client base."""
-        return "cgi-bin/browse-edgar"
-
-    @property
-    def params(self):
-        """:obj:`dict`: Parameters to include in requests."""
-        return self._params
-
-    @property
-    def client(self):
-        """``secedgar.client._base``: Client to use to make requests."""
-        return self._client
-
-    @property
     def start_date(self):
         """Union([datetime.datetime, str]): Date before which no filings are fetched."""
         return self._start_date
@@ -184,14 +169,14 @@ class CompanyFilings(FilingStrategy):
             txt_urls (list of str): Up to the desired number of URLs for that specific company
             if available.
         """
-        self.params['CIK'] = cik
+        self._params['CIK'] = cik
         links = []
-        self.params["start"] = 0  # set start back to 0 before paginating
+        self._params["start"] = 0  # set start back to 0 before paginating
 
         while self.count is None or len(links) < self.count:
-            data = self.client.get_soup(self.path, self.params, **kwargs)
+            data = self.client.get_soup("cgi-bin/browse-edgar", self._params, **kwargs)
             links.extend([link.string for link in data.find_all("filinghref")])
-            self.params["start"] += self.client.batch_size
+            self._params["start"] += self.client.batch_size
             if len(data.find_all("filinghref")) == 0:  # no more filings
                 break
 

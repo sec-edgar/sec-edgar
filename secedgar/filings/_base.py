@@ -12,8 +12,6 @@ class FilingStrategy(ABC):
     """
     def __init__(self, **kwargs):
         self._client = kwargs.get('client', NetworkClient())
-    
-
 
     @property
     def client(self):
