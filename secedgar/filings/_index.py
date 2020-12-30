@@ -27,7 +27,7 @@ class IndexFilings(FilingStrategy):
         kwargs: Any keyword arguments to pass to ``NetworkClient`` if no client is specified.
     """
 
-    def __init__(self, client=None, entry_filter=None, ultrafast=False, **kwargs):
+    def __init__(self, client=None, entry_filter=None, **kwargs):
         super().__init__(**kwargs)
         self._listings_directory = None
         self._master_idx_file = None
@@ -35,7 +35,6 @@ class IndexFilings(FilingStrategy):
         self._paths = []
         self._urls = {}
         self._entry_filter = entry_filter
-        self._bulk_ultrafast = ultrafast
     @property
     def entry_filter(self):
         """A boolean function to be tested on each listing entry.
@@ -176,7 +175,7 @@ class IndexFilings(FilingStrategy):
     def save_filings(self,
                      directory,
                      dir_pattern="{cik}",
-                     file_pattern="{accession_number}"):
+                     file_pattern="{accession_number}", ultrafast_bulk=False, force_bulk=False):
         """Save all filings.
 
         Will store all filings under the parent directory of ``directory``, further
@@ -188,18 +187,20 @@ class IndexFilings(FilingStrategy):
                 Valid options are `{cik}`.
             file_pattern (str): Format string for files. Default is `{accession_number}`.
                 Valid options are `{accession_number}`.
+            ultrafast_bulk (bool): Uses a lightweight bulk save method to download all files without processing.
+            force_bulk (bool): Forces the bulk save even if an entry filter is specified. Generally not useful.
         """
-        if self._bulk_ultrafast:
+        if ultrafast_bulk:
             if self.entry_filter is not None:
-                raise ValueError("Cannot use a entry_filter on the ultrafast_bulk_save.")
+                raise ValueError("Cannot use a entry_filter in conjunction with ultrafast_bulk.")
             self.ultrafast_bulk_save(directory)
             return
         
         urls = self.get_urls()
         self.check_urls_exist(urls)
-        
+
         save = self.individual_save
-        if entry_filter is None:
+        if self.entry_filter is None or force_bulk:
             save = self.bulk_save
 
         save(urls, directory, dir_pattern, file_pattern)
