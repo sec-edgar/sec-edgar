@@ -2,11 +2,12 @@ import asyncio
 import os
 import re
 import shutil
+import tempfile
+
 from abc import abstractmethod
 from collections import namedtuple
 from queue import Empty, Queue
 from threading import Thread
-
 from secedgar.client import NetworkClient
 from secedgar.filings._base import FilingStrategy
 from secedgar.utils import make_path
@@ -225,22 +226,15 @@ class IndexFilings(FilingStrategy):
                         dir_pattern="{cik}",
                         file_pattern="{accession_number}"):
         
-        # TODO replace with named temp directory
-        extract_directory = os.path.join(directory, 'temp')
-        i = 0
-        while os.path.exists(extract_directory):
-            extract_directory = os.path.join(directory, 'temp{i}'.format(i=i))
-            i += 1
+        # Directory is cleaned up upon exiting context manager.
+        with tempfile.TemporaryDirectory() as extract_directory:
         
-        self.bulk_ultrafast_save(extract_directory)
-        self._move_to_dest(urls=urls,
-                            extract_directory=extract_directory,
-                            directory=directory,
-                            file_pattern=file_pattern,
-                            dir_pattern=dir_pattern)
-
-        # Remove the initial extracted data
-        shutil.rmtree(extract_directory)
+            self.bulk_ultrafast_save(extract_directory)
+            self._move_to_dest(urls=urls,
+                                extract_directory=extract_directory,
+                                directory=directory,
+                                file_pattern=file_pattern,
+                                dir_pattern=dir_pattern)
 
     def _download_tar_files(self, extract_directory):
         tar_files = self.get_tar_files()
