@@ -56,7 +56,7 @@ class DailyFilings(IndexFilings):
         self._date = date
 
     @property
-    def path(self):
+    def idx_path(self):
         """str: Path added to client base.
 
         .. note::
@@ -109,8 +109,7 @@ class DailyFilings(IndexFilings):
              directory,
              dir_pattern=None,
              file_pattern="{accession_number}",
-             date_format="%Y%m%d",
-             download_all=False):
+             date_format="%Y%m%d", **kwargs):
         """Save all daily filings.
 
         Store all filings for each unique company name under a separate subdirectory
@@ -125,8 +124,6 @@ class DailyFilings(IndexFilings):
             date_format (str): Format string to use for the `{date}` pattern. Default is ``%Y%m%d``.
             file_pattern (str): Format string for files. Default is `{accession_number}`.
                 Valid options are `accession_number`.
-            download_all (bool): Type of downloading system, if true downloads all data for the day,
-                if false downloads each file in index. Default is `False`.
         """
         if dir_pattern is None:
             dir_pattern = os.path.join("{date}", "{cik}")
@@ -134,4 +131,4 @@ class DailyFilings(IndexFilings):
         # If "{cik}" is in dir_pattern, it will be passed on and if not it will be ignored
         formatted_dir = dir_pattern.format(date=self._date.strftime(date_format), cik="{cik}")
         self.save_filings(directory, dir_pattern=formatted_dir,
-                          file_pattern=file_pattern, download_all=download_all)
+                          file_pattern=file_pattern, **kwargs)

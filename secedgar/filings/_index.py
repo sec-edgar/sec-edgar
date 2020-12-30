@@ -60,6 +60,11 @@ class IndexFilings(FilingStrategy):
     def idx_filename(self):
         """Passed to children classes."""
         pass  # pragma: no cover
+    @property
+    @abstractmethod
+    def idx_path(self):
+        """Passed to children classes."""
+        pass  # pragma: no cover
 
     @abstractmethod
     def get_tar_urls(self):
@@ -133,8 +138,7 @@ class IndexFilings(FilingStrategy):
         """
         if self._master_idx_file is None or update_cache:
             if self.idx_filename in self._get_listings_directory().text:
-                master_idx_url = "{path}{filename}".format(
-                    path=self.path, filename=self.idx_filename)
+                master_idx_url = self.idx_path + self.idx_filename
                 self._master_idx_file = self.client.get_response(
                     master_idx_url, self.params, **kwargs).text
             else:
