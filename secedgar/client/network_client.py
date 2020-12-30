@@ -7,12 +7,10 @@ import aiohttp
 import requests
 import tqdm
 from bs4 import BeautifulSoup
-from secedgar.client._base import AbstractClient
-from secedgar.utils import make_path
+from secedgar.utils import make_path, batch
 from secedgar.utils.exceptions import EDGARQueryError
 
-
-class NetworkClient(AbstractClient):
+class NetworkClient:
     """Class in charge of sending and handling requests to EDGAR database.
 
     Attributes:
@@ -39,6 +37,9 @@ class NetworkClient(AbstractClient):
         self.rate_limit = kwargs.get("rate_limit", 10)
         self.response = None
 
+        conn = aiohttp.TCPConnector(limit=self.rate_limit)
+        self.async_client = aiohttp.ClientSession(
+            connector=conn, headers={'Connection': 'keep-alive'}, raise_for_status=True)
     @property
     def retry_count(self):
         """int: Number of times to retry request."""
@@ -89,18 +90,6 @@ class NetworkClient(AbstractClient):
             raise ValueError("Rate must be greater than 0 and less than or equal to 10.")
         else:
             self._rate_limit = value
-
-    @staticmethod
-    def _prepare_query(path):
-        """Prepare the query url.
-
-        Args:
-            url (str): End of url.
-
-        Returns:
-            url (str): A formatted url.
-        """
-        return "{base}{path}".format(base=NetworkClient._BASE, path=path)
 
     @staticmethod
     def _validate_response(response):
@@ -157,10 +146,9 @@ class NetworkClient(AbstractClient):
         Raises:
             EDGARQueryError: If problems arise when making query.
         """
-        prepared_url = self._prepare_query(path)
         response = None
         for i in range(self.retry_count + 1):
-            response = requests.get(prepared_url, params=params, **kwargs)
+            response = requests.get(self._BASE + path, params=params, **kwargs)
             try:
                 self._validate_response(response)
             except EDGARQueryError as e:
@@ -185,18 +173,16 @@ class NetworkClient(AbstractClient):
         """
         return BeautifulSoup(self.get_response(path, params, **kwargs).text, features='lxml')
 
-    async def fetch(self, link, session):
+    async def get_async(self, link):
         """Asynchronous get request.
 
         Args:
             link (str): URL to fetch.
-            session (aiohttp.ClientSession): Asynchronous client session to use to perform
-                get request.
 
         Returns:
             Content: Contents of response from get request.
         """
-        async with await session.get(link) as response:
+        async with await self.async_client.get(link) as response:
             contents = await response.read()
         return contents
 
@@ -207,22 +193,14 @@ class NetworkClient(AbstractClient):
             in tuple should be URL to request and second element should be path
             where content after requesting URL is stored.
         """
-        async def fetch_and_save(link, path, session):
-            contents = await self.fetch(link, session)
+
+        async def fetch_and_save(link, path):
+            contents = await self.get_async(link)
             make_path(os.path.dirname(path))
             with open(path, "wb") as f:
                 f.write(contents)
 
-        conn = aiohttp.TCPConnector(limit=self.rate_limit)
-        client = aiohttp.ClientSession(
-            connector=conn, headers={'Connection': 'keep-alive'}, raise_for_status=True)
-
-        def batch(iterable, n):
-            length = len(iterable)
-            for ndx in range(0, length, n):
-                yield iterable[ndx:min(ndx + n, length)]
-
-        async with client:
+        async with self.async_client:
             for group in tqdm.tqdm(batch(inputs, self.rate_limit),
                                    total=len(inputs)//self.rate_limit,
                                    unit_scale=self.rate_limit):

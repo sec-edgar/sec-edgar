@@ -1,32 +1,6 @@
 import datetime
 import os
 
-from secedgar.utils.cik_map import get_cik_map  # noqa:F401
-
-
-def sanitize_date(date):
-    """Sanitizes date to be in acceptable format for EDGAR.
-
-    Args:
-        date (Union[datetime.datetime, str]): Date to be sanitized for request.
-
-    Returns:
-        date (str): Properly formatted date in 'YYYYMMDD' format.
-
-    Raises:
-        TypeError: If date is not in format YYYYMMDD as str or int.
-    """
-    if isinstance(date, datetime.datetime):
-        return date.strftime("%Y%m%d")
-    elif isinstance(date, str):
-        if len(date) != 8:
-            raise TypeError('Date must be of the form YYYYMMDD')
-    elif isinstance(date, int):
-        if date < 10 ** 7 or date > 10 ** 8:
-            raise TypeError('Date must be of the form YYYYMMDD')
-    return date
-
-
 def make_path(path, **kwargs):
     """Make directory based on filing info.
 
@@ -43,11 +17,8 @@ def make_path(path, **kwargs):
     if not os.path.exists(path):
         os.makedirs(path, **kwargs)
 
+def batch(iterable, n):
+    length = len(iterable)
+    for ndx in range(0, length, n):
+        yield iterable[ndx:min(ndx + n, length)]
 
-def get_quarter(date):
-    """Get quarter that corresponds with date.
-
-    Args:
-        date ([datetime.datetime]): Datetime object to get quarter for.
-    """
-    return (date.month - 1) // 3 + 1

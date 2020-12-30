@@ -2,8 +2,6 @@ import datetime
 import os
 
 from secedgar.filings._index import IndexFilings
-from secedgar.utils import get_quarter
-
 
 class DailyFilings(IndexFilings):
     """Class for retrieving all daily filings from https://www.sec.gov/Archives/edgar/daily-index.
@@ -49,8 +47,8 @@ class DailyFilings(IndexFilings):
 
     """
 
-    def __init__(self, date, client=None, entry_filter=lambda _: True):
-        super().__init__(client=client, entry_filter=entry_filter)
+    def __init__(self, date, **kwargs):
+        super().__init__(**kwargs)
         if not isinstance(date, datetime.date):
             raise TypeError(
                 "Date must be given as datetime.date object. Was given type {type}.".format(
@@ -58,20 +56,15 @@ class DailyFilings(IndexFilings):
         self._date = date
 
     @property
-    def path(self):
-        """str: Path added to client base.
-
-        .. note::
-            The trailing slash at the end of the path is important.
-            Omitting will raise EDGARQueryError.
-        """
+    def idx_path(self):
+        """str: Path added to client base."""
         return "Archives/edgar/daily-index/{year}/QTR{num}/".format(
             year=self.year, num=self.quarter)
 
     @property
     def quarter(self):
         """Get quarter number from date attribute."""
-        return get_quarter(self._date)
+        return self.get_quarter(self._date)
 
     @property
     def year(self):
@@ -83,12 +76,13 @@ class DailyFilings(IndexFilings):
         """Main index filename to look for."""
         return "master.{date}.idx".format(date=self._get_idx_formatted_date())
 
-    def _get_tar(self):
+    def get_tar_urls(self):
         """The .tar.gz filename for the current day."""
         if self.year < 1995 or (self.year == 1995 and self.quarter < 3):
             raise ValueError('Bulk downloading is only available starting 1995 Q3.')
         daily_file = '{date}.nc.tar.gz'.format(date=self._date.strftime("%Y%m%d"))
         return [daily_file]
+
 
     def _get_idx_formatted_date(self):
         """Format date for idx file.
@@ -110,8 +104,7 @@ class DailyFilings(IndexFilings):
              directory,
              dir_pattern=None,
              file_pattern="{accession_number}",
-             date_format="%Y%m%d",
-             download_all=False):
+             date_format="%Y%m%d", **kwargs):
         """Save all daily filings.
 
         Store all filings for each unique company name under a separate subdirectory
@@ -126,8 +119,6 @@ class DailyFilings(IndexFilings):
             date_format (str): Format string to use for the `{date}` pattern. Default is ``%Y%m%d``.
             file_pattern (str): Format string for files. Default is `{accession_number}`.
                 Valid options are `accession_number`.
-            download_all (bool): Type of downloading system, if true downloads all data for the day,
-                if false downloads each file in index. Default is `False`.
         """
         if dir_pattern is None:
             dir_pattern = os.path.join("{date}", "{cik}")
@@ -135,4 +126,4 @@ class DailyFilings(IndexFilings):
         # If "{cik}" is in dir_pattern, it will be passed on and if not it will be ignored
         formatted_dir = dir_pattern.format(date=self._date.strftime(date_format), cik="{cik}")
         self.save_filings(directory, dir_pattern=formatted_dir,
-                          file_pattern=file_pattern, download_all=download_all)
+                          file_pattern=file_pattern, **kwargs)

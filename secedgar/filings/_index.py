@@ -2,18 +2,19 @@ import asyncio
 import os
 import re
 import shutil
+import tempfile
+
 from abc import abstractmethod
 from collections import namedtuple
 from queue import Empty, Queue
 from threading import Thread
-
 from secedgar.client import NetworkClient
-from secedgar.filings._base import AbstractFiling
+from secedgar.filings._base import FilingStrategy
 from secedgar.utils import make_path
 from secedgar.utils.exceptions import EDGARQueryError
 
 
-class IndexFilings(AbstractFiling):
+class IndexFilings(FilingStrategy):
     """Abstract Base Class for index filings.
 
     Attributes:
@@ -27,15 +28,13 @@ class IndexFilings(AbstractFiling):
     """
 
     def __init__(self, client=None, entry_filter=None, **kwargs):
-        super().__init__()
-        self._client = client if client is not None else NetworkClient(**kwargs)
+        super().__init__(**kwargs)
         self._listings_directory = None
         self._master_idx_file = None
         self._filings_dict = None
         self._paths = []
         self._urls = {}
         self._entry_filter = entry_filter
-
     @property
     def entry_filter(self):
         """A boolean function to be tested on each listing entry.
@@ -43,16 +42,6 @@ class IndexFilings(AbstractFiling):
         This is tested regardless of download method.
         """
         return self._entry_filter
-
-    @property
-    def client(self):
-        """``secedgar.client._base``: Client to use to make requests."""
-        return self._client
-
-    @property
-    def params(self):
-        """Params should be empty."""
-        return {}
 
     @property
     @abstractmethod
@@ -71,60 +60,18 @@ class IndexFilings(AbstractFiling):
     def idx_filename(self):
         """Passed to children classes."""
         pass  # pragma: no cover
-
+    @property
     @abstractmethod
-    def _get_tar(self):
-        """Passed to child classes."""
+    def idx_path(self):
+        """Passed to children classes."""
         pass  # pragma: no cover
 
-    @property
-    def tar_path(self):
-        """str: Tar.gz path added to the client base."""
-        return "Archives/edgar/Feed/{year}/QTR{num}/".format(year=self.year, num=self.quarter)
+    @abstractmethod
+    def get_tar_urls(self):
+        """ The urls of the tar files to download if the bulk download method is used."""
+        pass  # pragma: no cover
 
-    def _get_listings_directory(self, update_cache=False, **kwargs):
-        """Get page with list of all idx files for given date or quarter.
 
-        Args:
-            update_cache (bool, optional): Whether quarterly directory should update cache. Defaults
-                to False.
-            kwargs: Any keyword arguments to pass to the client's `get_response` method.
-
-        Returns:
-            response (requests.Response): Response object from page with all idx files for
-                given quarter and year.
-        """
-        if self._listings_directory is None or update_cache:
-            self._listings_directory = self.client.get_response(self.path, self.params, **kwargs)
-        return self._listings_directory
-
-    def _get_master_idx_file(self, update_cache=False, **kwargs):
-        """Get master file with all filings from given date.
-
-        Args:
-            update_cache (bool, optional): Whether master index should be updated
-                method call. Defaults to False.
-            kwargs: Keyword arguments to pass to
-                ``secedgar.client._base.AbstractClient.get_response``.
-
-        Returns:
-            text (str): Idx file text.
-
-        Raises:
-            EDGARQueryError: If no file of the form master.<DATE>.idx
-                is found.
-        """
-        if self._master_idx_file is None or update_cache:
-            if self.idx_filename in self._get_listings_directory().text:
-                master_idx_url = "{path}{filename}".format(
-                    path=self.path, filename=self.idx_filename)
-                self._master_idx_file = self.client.get_response(
-                    master_idx_url, self.params, **kwargs).text
-            else:
-                raise EDGARQueryError("""File {filename} not found.
-                                     There may be no filings for the given day/quarter.""".format(
-                    filename=self.idx_filename))
-        return self._master_idx_file
 
     def get_filings_dict(self, update_cache=False, **kwargs):
         """Get all filings inside an idx file.
@@ -157,7 +104,52 @@ class IndexFilings(AbstractFiling):
                 else:
                     self._filings_dict[entry.cik] = [entry]
         return self._filings_dict
+    def _get_listings_directory(self, update_cache=False, **kwargs):
+        """Get page with list of all idx files for given date or quarter.
 
+        Args:
+            update_cache (bool, optional): Whether quarterly directory should update cache. Defaults
+                to False.
+            kwargs: Any keyword arguments to pass to the client's `get_response` method.
+
+        Returns:
+            response (requests.Response): Response object from page with all idx files for
+                given quarter and year.
+        """
+        if self._listings_directory is None or update_cache:
+            self._listings_directory = self.client.get_response(self.path, **kwargs)
+        return self._listings_directory
+
+    def _get_master_idx_file(self, update_cache=False, **kwargs):
+        """Get master file with all filings from given date.
+
+        Args:
+            update_cache (bool, optional): Whether master index should be updated
+                method call. Defaults to False.
+            kwargs: Keyword arguments to pass to
+                ``secedgar.client._base.AbstractClient.get_response``.
+
+        Returns:
+            text (str): Idx file text.
+
+        Raises:
+            EDGARQueryError: If no file of the form master.<DATE>.idx
+                is found.
+        """
+        if self._master_idx_file is None or update_cache:
+            if self.idx_filename in self._get_listings_directory().text:
+                master_idx_url = self.idx_path + self.idx_filename
+                self._master_idx_file = self.client.get_response(
+                    master_idx_url, self.params, **kwargs).text
+            else:
+                raise EDGARQueryError("""File {filename} not found.
+                                     There may be no filings for the given day/quarter.""".format(
+                    filename=self.idx_filename))
+        return self._master_idx_file
+    @property
+    def tar_path(self):
+        """str: Tar.gz path added to the client base."""
+        return "Archives/edgar/Feed/{year}/QTR{num}/".format(year=self.year, num=self.quarter)
     def get_urls(self):
         """Get all URLs for day.
 
@@ -172,6 +164,92 @@ class IndexFilings(AbstractFiling):
                           for company, entries in filings_dict.items()}
         return self._urls
 
+
+
+    @staticmethod
+    def get_quarter(date):
+        """Get quarter that corresponds with date.
+
+        Args:
+            date ([datetime.datetime]): Datetime object to get quarter for.
+        """
+        return (date.month - 1) // 3 + 1
+
+
+    def save_filings(self,
+                     directory,
+                     dir_pattern="{cik}",
+                     file_pattern="{accession_number}", ultrafast_bulk=False, force_bulk=False):
+        """Save all filings.
+
+        Will store all filings under the parent directory of ``directory``, further
+        separating filings using ``dir_pattern`` and ``file_pattern``.
+
+        Args:
+            directory (str): Directory where filings should be stored.
+            dir_pattern (str): Format string for subdirectories. Default is `{cik}`.
+                Valid options are `{cik}`.
+            file_pattern (str): Format string for files. Default is `{accession_number}`.
+                Valid options are `{accession_number}`.
+            ultrafast_bulk (bool): Uses a lightweight bulk save method to download all files without processing.
+            force_bulk (bool): Forces the bulk save even if an entry filter is specified. Generally not useful.
+        """
+        if ultrafast_bulk:
+            if self.entry_filter is not None:
+                raise ValueError("Cannot use a entry_filter in conjunction with ultrafast_bulk.")
+            self.ultrafast_bulk_save(directory)
+            return
+        
+        urls = self.get_urls()
+        self.check_urls_exist(urls)
+
+        save = self.individual_save
+        if self.entry_filter is None or force_bulk:
+            save = self.bulk_save
+
+        save(urls, directory, dir_pattern, file_pattern)
+
+    def individual_save(urls, directory, dir_pattern="{cik}", file_pattern="{accession_number}"):
+        inputs = []
+        for company, links in urls.items():
+            formatted_dir = dir_pattern.format(cik=company)
+            for link in links:
+                formatted_file = file_pattern.format(
+                    accession_number=self.get_accession_number(link))
+                path = os.path.join(directory, formatted_dir, formatted_file)
+                inputs.append((link, path))
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(self.client.wait_for_download_async(inputs))
+
+    def ultrafast_bulk_save(self, directory):
+        ''' A very fast download method that cannot move files or utilize an entry filter. '''
+        make_path(directory)
+        self._download_tar_files(directory)
+        self._unzip(extract_directory=directory)
+
+    def bulk_save(self, urls, directory,
+                        dir_pattern="{cik}",
+                        file_pattern="{accession_number}"):
+        
+        # Directory is cleaned up upon exiting context manager.
+        with tempfile.TemporaryDirectory() as extract_directory:
+        
+            self.bulk_ultrafast_save(extract_directory)
+            self._move_to_dest(urls=urls,
+                                extract_directory=extract_directory,
+                                directory=directory,
+                                file_pattern=file_pattern,
+                                dir_pattern=dir_pattern)
+
+    def _download_tar_files(self, extract_directory):
+        tar_files = self.get_tar_files()
+        inputs = []
+        for filename in tar_files:
+            download_target = os.path.join(extract_directory, filename)
+            url_target = self.make_url(self.tar_path + filename)
+            inputs.append((url_target, download_target))
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(self.client.wait_for_download_async(inputs))
     @staticmethod
     def _do_create_and_copy(q):
         """Create path and copy file to end of path.
@@ -193,6 +271,7 @@ class IndexFilings(AbstractFiling):
     @staticmethod
     def _do_unpack_archive(q, extract_directory):
         """Unpack archive file in given extract directory.
+        Removes the archive file when completed.
 
         Args:
             q (Queue.queue): Queue to get filname from.
@@ -215,7 +294,6 @@ class IndexFilings(AbstractFiling):
                 Note that this directory will be completely removed after
                 files are unzipped.
         """
-        tar_files = self._get_tar()
         unpack_queue = Queue(maxsize=len(tar_files))
         unpack_threads = len(tar_files)
 
@@ -272,55 +350,3 @@ class IndexFilings(AbstractFiling):
                     move_queue.put_nowait((formatted_file, full_dir, old_path))
                     break
         move_queue.join()
-
-    def save_filings(self,
-                     directory,
-                     dir_pattern="{cik}",
-                     file_pattern="{accession_number}",
-                     download_all=False):
-        """Save all filings.
-
-        Will store all filings under the parent directory of ``directory``, further
-        separating filings using ``dir_pattern`` and ``file_pattern``.
-
-        Args:
-            directory (str): Directory where filings should be stored.
-            dir_pattern (str): Format string for subdirectories. Default is `{cik}`.
-                Valid options are `{cik}`.
-            file_pattern (str): Format string for files. Default is `{accession_number}`.
-                Valid options are `{accession_number}`.
-            download_all (bool): Type of downloading system, if true downloads all tar files,
-                if false downloads each file in index. Default is `False`.
-        """
-        urls = self._check_urls_exist()
-
-        if download_all:
-            # Download tar files into huge temp directory
-            extract_directory = os.path.join(directory, 'temp')
-            i = 0
-            while os.path.exists(extract_directory):
-                # Ensure that there is no name clashing
-                extract_directory = os.path.join(directory, 'temp{i}'.format(i=i))
-                i += 1
-
-            make_path(extract_directory)
-            self._unzip(extract_directory=extract_directory)
-            self._move_to_dest(urls=urls,
-                               extract_directory=extract_directory,
-                               directory=directory,
-                               file_pattern=file_pattern,
-                               dir_pattern=dir_pattern)
-
-            # Remove the initial extracted data
-            shutil.rmtree(extract_directory)
-        else:
-            inputs = []
-            for company, links in urls.items():
-                formatted_dir = dir_pattern.format(cik=company)
-                for link in links:
-                    formatted_file = file_pattern.format(
-                        accession_number=self.get_accession_number(link))
-                    path = os.path.join(directory, formatted_dir, formatted_file)
-                    inputs.append((link, path))
-            loop = asyncio.get_event_loop()
-            loop.run_until_complete(self.client.wait_for_download_async(inputs))

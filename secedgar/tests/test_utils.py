@@ -5,14 +5,6 @@ import requests
 from datetime import datetime
 
 from secedgar.tests.utils import datapath
-from secedgar.utils import sanitize_date, get_cik_map, get_quarter
-
-
-class MockCIKMapResponse:
-    def __init__(self, *args, **kwargs):
-        with gzip.open(datapath("utils", "cik_map.json.gz"), 'rt') as f:
-            self.text = f.read()
-
 
 class TestUtils:
     @pytest.mark.parametrize(
@@ -30,6 +22,7 @@ class TestUtils:
         ]
     )
     def test_bad_date_formats(self, bad_date):
+        raise NotImplementedError()
         with pytest.raises(TypeError):
             sanitize_date(bad_date)
 
@@ -55,44 +48,6 @@ class TestUtils:
     def test_good_formats_datetime(self, dt_date, expected):
         assert sanitize_date(dt_date) == expected
 
-    @pytest.mark.parametrize(
-        "ticker,cik",
-        [
-            ("AAPL", "320193"),
-            ("FB", "1326801"),
-            ("MSFT", "789019")
-        ]
-    )
-    def test_get_cik_map(self, ticker, cik, monkeypatch):
-        monkeypatch.setattr(requests, 'get', MockCIKMapResponse)
-        cik_map = get_cik_map()
-        assert cik_map[ticker] == cik
-
-    @pytest.mark.parametrize(
-        "name,cik",
-        [
-            ("Apple Inc.", "320193"),
-            ("NIKE, Inc.", "320187"),
-            ("MICROSOFT CORP", "789019"),
-        ]
-    )
-    def test_get_company_name_map(self, name, cik, monkeypatch):
-        monkeypatch.setattr(requests, 'get', MockCIKMapResponse)
-        name_map = get_cik_map(key="title")
-        assert name_map[name] == cik
-
-    @pytest.mark.parametrize(
-        "key",
-        [
-            "Ticker",
-            "Title",
-            "CIK",
-            "Company Name"
-        ]
-    )
-    def test_get_cik_map_bad_keys(self, key):
-        with pytest.raises(ValueError):
-            get_cik_map(key=key)
 
     @pytest.mark.parametrize(
         "date,expected_quarter",
@@ -116,4 +71,5 @@ class TestUtils:
         ]
     )
     def test_get_quarter(self, date, expected_quarter):
+        raise NotImplementedError()
         assert get_quarter(date) == expected_quarter

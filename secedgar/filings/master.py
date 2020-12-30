@@ -2,8 +2,6 @@ import os
 from datetime import date
 
 from secedgar.filings._index import IndexFilings
-from secedgar.utils import get_quarter
-
 
 class MasterFilings(IndexFilings):
     """Class for retrieving all filings from specific year and quarter.
@@ -22,15 +20,13 @@ class MasterFilings(IndexFilings):
     def __init__(self,
                  year,
                  quarter,
-                 client=None,
-                 entry_filter=lambda _: True,
                  **kwargs):
-        super().__init__(client=client, entry_filter=entry_filter, **kwargs)
+        super().__init__(**kwargs)
         self.year = year
         self.quarter = quarter
 
     @property
-    def path(self):
+    def idx_path(self):
         """Path property to pass to client."""
         return "Archives/edgar/full-index/{year}/QTR{num}/".format(year=self._year,
                                                                    num=self._quarter)
@@ -60,9 +56,9 @@ class MasterFilings(IndexFilings):
             raise TypeError("Quarter must be integer.")
         elif val not in range(1, 5):
             raise ValueError("Quarter must be in between 1 and 4 (inclusive).")
-        elif self.year == date.today().year and val > get_quarter(date.today()):
+        elif self.year == date.today().year and val > self.get_quarter(date.today()):
             raise ValueError("Latest quarter for current year is {qtr}".format(
-                qtr=get_quarter(date.today())))
+                qtr=self.get_quarter(date.today())))
         self._quarter = val
 
     @property
@@ -70,7 +66,7 @@ class MasterFilings(IndexFilings):
         """Main index filename to look for."""
         return "master.idx"
 
-    def _get_tar(self):
+    def get_tar_urls(self):
         """The list of .tar.gz daily files in the current quarter."""
         soup = self.client.get_soup(self.tar_path, {})
         files = [a.get('href') for a in soup.find_all('a')]
@@ -81,7 +77,7 @@ class MasterFilings(IndexFilings):
              directory,
              dir_pattern=None,
              file_pattern="{accession_number}",
-             download_all=False):
+             **kwargs):
         """Save all daily filings.
 
         Creates subdirectory within given directory of the form <YEAR>/QTR<QTR NUMBER>/.
@@ -96,8 +92,6 @@ class MasterFilings(IndexFilings):
                  are `{year}`, `{quarter}`, and `{cik}`.
             file_pattern (str): Format string for files. Default is `{accession_number}`.
                 Valid options are `{accession_number}`.
-            download_all (bool): Type of downloading system, if true downloads all data for each
-                day, if false downloads each file in index. Default is `False`.
         """
         if dir_pattern is None:
             # https://stackoverflow.com/questions/11283961/partial-string-formatting
@@ -106,4 +100,4 @@ class MasterFilings(IndexFilings):
         # If "{cik}" is in dir_pattern, it will be passed on and if not it will be ignored
         formatted_dir = dir_pattern.format(year=self.year, quarter=self.quarter, cik="{cik}")
         self.save_filings(directory, dir_pattern=formatted_dir,
-                          file_pattern=file_pattern, download_all=download_all)
+                          file_pattern=file_pattern, **kwargs)
