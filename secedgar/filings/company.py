@@ -11,7 +11,7 @@ from secedgar.utils import sanitize_date
 from secedgar.utils.exceptions import FilingTypeError
 
 
-class Filing(AbstractFiling):
+class CompanyFilings(AbstractFiling):
     """Base class for receiving EDGAR filings.
 
     Attributes:
