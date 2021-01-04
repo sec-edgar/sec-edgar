@@ -4,7 +4,7 @@ import datetime
 import pytest
 from secedgar.client import NetworkClient
 from secedgar.filings import Filing, FilingType
-from secedgar.filings.cik_validator import _CIKValidator
+from secedgar.utils.cik_lookup import CIKLookup
 from secedgar.tests.utils import MockResponse
 from secedgar.utils.exceptions import FilingTypeError
 

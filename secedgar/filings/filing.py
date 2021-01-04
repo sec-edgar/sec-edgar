@@ -5,7 +5,7 @@ import warnings
 
 from secedgar.client import NetworkClient
 from secedgar.filings._base import AbstractFiling
-from secedgar.filings.cik_lookup import CIKLookup
+from secedgar.utils.cik_lookup import CIKLookup
 from secedgar.filings.filing_types import FilingType
 from secedgar.utils import sanitize_date
 from secedgar.utils.exceptions import FilingTypeError
