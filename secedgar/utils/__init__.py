@@ -1,7 +1,8 @@
 import datetime
 import os
 
-from secedgar.utils.cik_map import get_cik_map  # noqa:F401
+# from secedgar.filings.cik_lookup import CIKLookup  # noqa: F401
+# Circular Import? IDK
 
 
 def sanitize_date(date):

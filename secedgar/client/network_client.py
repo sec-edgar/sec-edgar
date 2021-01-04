@@ -7,12 +7,11 @@ import aiohttp
 import requests
 import tqdm
 from bs4 import BeautifulSoup
-from secedgar.client._base import AbstractClient
 from secedgar.utils import make_path
 from secedgar.utils.exceptions import EDGARQueryError
 
 
-class NetworkClient(AbstractClient):
+class NetworkClient:
     """Class in charge of sending and handling requests to EDGAR database.
 
     Attributes:

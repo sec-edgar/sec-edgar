@@ -5,7 +5,7 @@ import requests
 from datetime import datetime
 
 from secedgar.tests.utils import datapath
-from secedgar.utils import sanitize_date, get_cik_map, get_quarter
+from secedgar.utils import sanitize_date, get_quarter
 
 
 class MockCIKMapResponse:
@@ -54,45 +54,6 @@ class TestUtils:
     )
     def test_good_formats_datetime(self, dt_date, expected):
         assert sanitize_date(dt_date) == expected
-
-    @pytest.mark.parametrize(
-        "ticker,cik",
-        [
-            ("AAPL", "320193"),
-            ("FB", "1326801"),
-            ("MSFT", "789019")
-        ]
-    )
-    def test_get_cik_map(self, ticker, cik, monkeypatch):
-        monkeypatch.setattr(requests, 'get', MockCIKMapResponse)
-        cik_map = get_cik_map()
-        assert cik_map[ticker] == cik
-
-    @pytest.mark.parametrize(
-        "name,cik",
-        [
-            ("Apple Inc.", "320193"),
-            ("NIKE, Inc.", "320187"),
-            ("MICROSOFT CORP", "789019"),
-        ]
-    )
-    def test_get_company_name_map(self, name, cik, monkeypatch):
-        monkeypatch.setattr(requests, 'get', MockCIKMapResponse)
-        name_map = get_cik_map(key="title")
-        assert name_map[name] == cik
-
-    @pytest.mark.parametrize(
-        "key",
-        [
-            "Ticker",
-            "Title",
-            "CIK",
-            "Company Name"
-        ]
-    )
-    def test_get_cik_map_bad_keys(self, key):
-        with pytest.raises(ValueError):
-            get_cik_map(key=key)
 
     @pytest.mark.parametrize(
         "date,expected_quarter",
