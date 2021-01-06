@@ -163,6 +163,7 @@ class NetworkClient(AbstractClient):
             response = requests.get(prepared_url, params=params, **kwargs)
             try:
                 self._validate_response(response)
+                break
             except EDGARQueryError as e:
                 # Raise query error if on last retry
                 if i == self.retry_count:
