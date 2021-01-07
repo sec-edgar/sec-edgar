@@ -6,7 +6,7 @@ import time
 import pytest
 import requests
 from secedgar.client import NetworkClient
-from secedgar.tests.conftest import MockResponse
+from secedgar.tests.utils import MockResponse
 from secedgar.utils.exceptions import EDGARQueryError
 
 
@@ -116,6 +116,16 @@ class TestNetworkClient:
     def test_client_bad_rate_limit(self, test_input, expectation, client):
         with pytest.raises(expectation):
             client.rate_limit = test_input
+
+    def test_client_get_response_only_calls_until_success(self, monkeypatch):
+        monkeypatch.setattr(requests, "get", lambda *args, **
+                            kwargs: MockResponse(status_code=200, text="Success"))
+        pause = 3
+        client = NetworkClient(pause=pause)
+        now = time.time()
+        client.get_response("", params=None)
+        then = time.time()
+        assert then - now < pause, "Assumed that mock response would be returned faster than pause, but failed"
 
     @pytest.mark.parametrize(
         "test_input,expectation",
