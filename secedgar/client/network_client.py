@@ -15,7 +15,7 @@ from secedgar.utils.exceptions import EDGARQueryError
 class NetworkClient(AbstractClient):
     """Class in charge of sending and handling requests to EDGAR database.
 
-    Attributes:
+    Args:
         retry_count (int): Number of times to retry connecting to URL if not successful.
             Defaults to 3.
         pause (float): Time (in seconds) to wait before retrying if not successful.
@@ -26,17 +26,17 @@ class NetworkClient(AbstractClient):
             Defaults to 10.
 
     .. note:
-       It is highly suggested to keep rate_limit and batch_size <= 10, as the SEC will block your IP
+       It is highly suggested to keep rate_limit <= 10, as the SEC will block your IP
        temporarily if you exceed this rate.
     """
 
     _BASE = "http://www.sec.gov/"
 
-    def __init__(self, **kwargs):
-        self.retry_count = kwargs.get("retry_count", 3)
-        self.pause = kwargs.get("pause", 0.5)
-        self.batch_size = kwargs.get("batch_size", 10)
-        self.rate_limit = kwargs.get("rate_limit", 10)
+    def __init__(self, retry_count=3, pause=0.5, batch_size=10, rate_limit=10):
+        self.retry_count = retry_count
+        self.pause = pause
+        self.batch_size = batch_size
+        self.rate_limit = rate_limit
         self.response = None
 
     @property
@@ -54,7 +54,7 @@ class NetworkClient(AbstractClient):
 
     @property
     def pause(self):
-        """Amount of time to pause between each unsuccessful request before making another."""
+        """float: Amount of time to pause between each unsuccessful request before making another."""
         return self._pause
 
     @pause.setter
@@ -67,7 +67,7 @@ class NetworkClient(AbstractClient):
 
     @property
     def batch_size(self):
-        """The Number of results to show per page."""
+        """int: The Number of results to show per page."""
         return self._batch_size
 
     @batch_size.setter
@@ -168,7 +168,6 @@ class NetworkClient(AbstractClient):
                 # Raise query error if on last retry
                 if i == self.retry_count:
                     raise e
-            finally:
                 time.sleep(self.pause)
         self.response = response
         return self.response
@@ -179,7 +178,7 @@ class NetworkClient(AbstractClient):
         Args:
             path (str): A properly-formatted path
             params (dict): Dictionary of parameters to pass
-            to request.
+                to request.
 
         Returns:
             BeautifulSoup object from response text.
