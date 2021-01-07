@@ -6,7 +6,7 @@ class CIKLookup(object):
 
     Given list of tickers/company names to lookup, this object can return associated CIKs.
 
-    Attributes:
+    Args:
         lookup (Union[str, list]): Ticker, company name, or list of tickers and/or company names.
 
     .. versionadded:: 0.1.5

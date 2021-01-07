@@ -8,7 +8,7 @@ from secedgar.utils import get_quarter
 class MasterFilings(IndexFilings):
     """Class for retrieving all filings from specific year and quarter.
 
-    Attributes:
+    Args:
         year (int): Must be in between 1993 and the current year (inclusive).
         quarter (int): Must be 1, 2, 3, or 4. Quarter of filings to fetch.
         client (secedgar.client._base, optional): Client to use. Defaults to
