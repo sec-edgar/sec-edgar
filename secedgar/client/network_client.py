@@ -54,7 +54,7 @@ class NetworkClient(AbstractClient):
 
     @property
     def pause(self):
-        """float: Amount of time to pause between each unsuccessful request before making another."""
+        """float: Amount of time to pause between each unsuccessful request."""
         return self._pause
 
     @pause.setter

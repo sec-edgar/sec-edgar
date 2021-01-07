@@ -125,7 +125,7 @@ class TestNetworkClient:
         now = time.time()
         client.get_response("", params=None)
         then = time.time()
-        assert then - now < pause, "Assumed that mock response would be returned faster than pause, but failed"
+        assert then - now < pause, "Assumed mock response would be returned faster than pause"
 
     @pytest.mark.parametrize(
         "test_input,expectation",
