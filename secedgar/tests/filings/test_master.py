@@ -12,16 +12,14 @@ def mock_master_quarter_directory(monkeymodule):
 
     Use for MasterFilings object.
     """
-    monkeymodule.setattr(MasterFilings, "_get_listings_directory", lambda *args, **
-                         kwargs: MockResponse(datapath_args=["filings", "master",
-                                                             "master_index_1993_QTR4.html"]))
+    monkeymodule.setattr(MasterFilings, "_get_listings_directory", MockResponse(datapath_args=["filings", "master",
+                                                                                               "master_index_1993_QTR4.html"]))
 
 
 @pytest.fixture
 def mock_master_idx_file(monkeypatch):
-    monkeypatch.setattr(MasterFilings, "_get_master_idx_file", lambda *args, **
-                        kwargs: MockResponse(
-                            datapath_args=["filings", "master", "master.idx"]).text)
+    monkeypatch.setattr(MasterFilings, "_get_master_idx_file", lambda *args: MockResponse(
+        datapath_args=["filings", "master", "master.idx"]).text)
 
 
 class TestMaster:

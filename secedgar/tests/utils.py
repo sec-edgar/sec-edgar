@@ -25,6 +25,9 @@ class MockResponse:
             with open(datapath(*datapath_args), file_read_args, **kwargs) as f:
                 self.text = f.read()
 
+    def __call__(self, *args, **kwargs):
+        return self
+
 
 class AsyncMockResponse(MockResponse):
     def __init__(self, datapath_args=[], status_code=200, file_read_args="r", text=None,

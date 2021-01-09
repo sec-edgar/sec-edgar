@@ -17,7 +17,7 @@ def client():
 
 @pytest.fixture
 def mock_no_cik_found_bad_response(monkeypatch):
-    monkeypatch.setattr(requests, 'get', lambda *args, **kwargs: MockResponse(
+    monkeypatch.setattr(requests, 'get', MockResponse(
         datapath_args=['CIK', 'cik_not_found.html']))
 
 
@@ -37,19 +37,19 @@ class MockBadStatusCodeResponse:
 @pytest.fixture
 def mock_single_filing_type_good_response(monkeypatch):
     """Mock response with list of single filing type for single CIK."""
-    monkeypatch.setattr(requests, 'get', lambda *args, **kwargs: MockResponse(
+    monkeypatch.setattr(requests, 'get', MockResponse(
         datapath_args=['CIK', 'single_cik_multiple_filings_10k.html']))
 
 
 @pytest.fixture
 def mock_multiple_cik_results_good_response(monkeypatch):
-    monkeypatch.setattr(requests, 'get', lambda *args, **kwargs: MockResponse(
+    monkeypatch.setattr(requests, 'get', MockResponse(
         datapath_args=['CIK', 'cik_multiple_results.html']))
 
 
 @pytest.fixture
 def mock_single_filing_page_good_response(monkeypatch):
-    monkeypatch.setattr(requests, 'get', lambda *args, **kwargs: MockResponse(
+    monkeypatch.setattr(requests, 'get', MockResponse(
         datapath_args=['CIK', 'single_filing_page.html']))
 
 
@@ -118,8 +118,7 @@ class TestNetworkClient:
             client.rate_limit = test_input
 
     def test_client_get_response_only_calls_until_success(self, monkeypatch):
-        monkeypatch.setattr(requests, "get", lambda *args, **
-                            kwargs: MockResponse(status_code=200, text="Success"))
+        monkeypatch.setattr(requests, "get", MockResponse(status_code=200, text="Success"))
         pause = 3
         client = NetworkClient(pause=pause)
         now = time.time()

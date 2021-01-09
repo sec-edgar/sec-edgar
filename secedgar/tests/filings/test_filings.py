@@ -25,16 +25,15 @@ def mock_cik_validator_get_multiple_ciks(monkeymodule):
 @pytest.fixture(scope="module")
 def mock_single_cik_not_found(monkeymodule):
     """NetworkClient get_response method will return html with CIK not found message."""
-    monkeymodule.setattr(NetworkClient, "get_response", lambda *args, **
-                         kwargs: MockResponse(datapath_args=["CIK", "cik_not_found.html"],
-                                              file_read_args="rb"))
+    monkeymodule.setattr(NetworkClient, "get_response", MockResponse(datapath_args=["CIK", "cik_not_found.html"],
+                                                                     file_read_args="rb"))
 
 
 @pytest.fixture(scope="module")
 def mock_single_cik_filing(monkeymodule):
     """Returns mock response of filinghrefs for getting filing URLs."""
-    monkeymodule.setattr(NetworkClient, "get_response", lambda *args, **
-                         kwargs: MockResponse(datapath_args=["filings", "aapl_10q_filings.xml"]))
+    monkeymodule.setattr(NetworkClient, "get_response", MockResponse(
+        datapath_args=["filings", "aapl_10q_filings.xml"]))
 
 
 class MockSingleCIKFilingLimitedResponses:
@@ -58,9 +57,7 @@ def mock_single_cik_filing_limited_responses(monkeypatch):
     Should be reset with each function run, since calls left decreases
     after each call."""
     mock_limited_responses = MockSingleCIKFilingLimitedResponses(num_responses=10)
-
-    monkeypatch.setattr(NetworkClient, "get_response", lambda *args,
-                        **kwargs: mock_limited_responses())
+    monkeypatch.setattr(NetworkClient, "get_response", mock_limited_responses)
 
 
 class TestFiling(object):
