@@ -49,7 +49,7 @@ def mock_multiple_cik_results_good_response(monkeypatch):
 
 @pytest.fixture
 def mock_single_filing_page_good_response(monkeypatch):
-    monkeypatch.setattr(requests, 'get', MockResponse(
+    monkeypatch.setattr(requests.Session, 'get', MockResponse(
         datapath_args=['CIK', 'single_filing_page.html']))
 
 
@@ -58,22 +58,22 @@ class TestNetworkClient:
                                               mock_no_cik_found_bad_response,
                                               client):
         with pytest.raises(EDGARQueryError):
-            client.get_response('path', {})
+            client.get_response('path')
 
     def test_client_good_response_single_filing_type_passes(self,
                                                             mock_single_filing_type_good_response,
                                                             client):
-        assert client.get_response('path', {})
+        assert client.get_response('path')
 
     def test_client_good_response_multiple_cik_results_passes(self,
                                                               mock_multiple_cik_results_good_response,  # noqa: E501
                                                               client):
-        assert client.get_response('path', {})
+        assert client.get_response('path')
 
     def test_client_good_response_single_filing_passes(self,
                                                        mock_single_filing_page_good_response,
                                                        client):
-        assert client.get_response('path', {})
+        assert client.get_response('path')
 
     @pytest.mark.parametrize(
         "status_code",
@@ -89,19 +89,27 @@ class TestNetworkClient:
     def test_client_bad_response_codes(self, status_code, monkeypatch, client):
         monkeypatch.setattr(requests, 'get', MockBadStatusCodeResponse(status_code))
         with pytest.raises(EDGARQueryError):
-            client.get_response('path', {})
+            client.get_response('path')
 
     @pytest.mark.parametrize(
-        "test_input,expectation",
+        "bad_retry_count,expectation",
         [
             (0.5, TypeError),
             ("2", TypeError),
             (-1, ValueError)
         ]
     )
-    def test_client_bad_retry_count_setter(self, test_input, expectation, client):
+    def test_client_bad_retry_count_setter(self, bad_retry_count, expectation, client):
         with pytest.raises(expectation):
-            client.retry_count = test_input
+            client.retry_count = bad_retry_count
+
+    @pytest.mark.parametrize(
+        "good_retry_count",
+        range(10)
+    )
+    def test_client_good_retry_count_setter(self, good_retry_count, client):
+        client.retry_count = good_retry_count
+        assert client.retry_count == good_retry_count
 
     @pytest.mark.parametrize(
         "test_input,expectation",
@@ -116,6 +124,14 @@ class TestNetworkClient:
     def test_client_bad_rate_limit(self, test_input, expectation, client):
         with pytest.raises(expectation):
             client.rate_limit = test_input
+
+    @pytest.mark.parametrize(
+        "good_rate_limit",
+        range(1, 11)
+    )
+    def test_client_good_rate_limit(self, good_rate_limit, client):
+        client.rate_limit = good_rate_limit
+        assert client.rate_limit == good_rate_limit
 
     def test_client_get_response_only_calls_until_success(self, monkeypatch):
         monkeypatch.setattr(requests, "get", MockResponse(status_code=200, text="Success"))
@@ -139,6 +155,14 @@ class TestNetworkClient:
             client.pause = test_input
 
     @pytest.mark.parametrize(
+        "good_pause",
+        [x / 10 for x in range(1, 11)]
+    )
+    def test_client_good_pause_setter(self, good_pause, client):
+        client.pause = good_pause
+        assert client.pause == good_pause
+
+    @pytest.mark.parametrize(
         "test_input,expectation",
         [
             (0.5, TypeError),
@@ -150,12 +174,20 @@ class TestNetworkClient:
         with pytest.raises(expectation):
             client.batch_size = test_input
 
+    @pytest.mark.parametrize(
+        "good_batch_size",
+        range(1, 100, 10)
+    )
+    def test_client_good_batch_size_setter(self, good_batch_size, client):
+        client.batch_size = good_batch_size
+        assert client.batch_size == good_batch_size
+
     @pytest.mark.asyncio
     @pytest.mark.parametrize(
         "rate_limit",
         range(1, 10)
     )
-    def test_rate_limit(self, tmp_data_directory, rate_limit, mock_filing_response):
+    def test_rate_limit_requests_per_second(self, tmp_data_directory, rate_limit, mock_filing_response):
         client = NetworkClient(rate_limit=rate_limit)
         min_seconds = 3
         num_requests = rate_limit * min_seconds
