@@ -176,7 +176,8 @@ class TestNetworkClient:
         "rate_limit",
         range(1, 10)
     )
-    def test_rate_limit_requests_per_second(self, tmp_data_directory, rate_limit, mock_filing_response):
+    def test_rate_limit_requests_per_second(self, tmp_data_directory, rate_limit,
+                                            mock_filing_response):
         client = NetworkClient(rate_limit=rate_limit)
         min_seconds = 3
         num_requests = rate_limit * min_seconds

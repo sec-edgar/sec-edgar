@@ -40,7 +40,8 @@ def no_http_requests(monkeysession):
 @pytest.fixture(scope="session")
 def mock_filing_response(monkeysession):
     monkeysession.setattr(NetworkClient, "fetch",
-                          lambda *args, **kwargs: AsyncMockResponse(content=bytes("Testing...", "utf-8")).read())
+                          lambda *args, **kwargs:
+                          AsyncMockResponse(content=bytes("Testing...", "utf-8")).read())
 
 
 @pytest.fixture(scope="session")
