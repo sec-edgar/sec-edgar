@@ -41,13 +41,6 @@ def mock_single_cik_filing(monkeymodule):
                          MockResponse(datapath_args=["filings", "aapl_10q_filings.xml"]))
 
 
-@pytest.fixture
-def mock_single_cik_lookup_outside_map(monkeypatch):
-    monkeypatch.setattr(NetworkClient,
-                        "get_response",
-                        MockResponse(datapath_args=["CIK", "single_cik_search_result.html"]))
-
-
 class MockSingleCIKFilingLimitedResponses:
     def __init__(self, num_responses):
         self._called_count = 0
