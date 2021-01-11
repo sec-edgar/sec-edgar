@@ -9,10 +9,9 @@ from secedgar.utils import get_cik_map, get_quarter, sanitize_date
 
 @pytest.fixture(scope="module")
 def mock_cik_map_response(monkeymodule):
-    with gzip.open(datapath("utils", "cik_map.json.gz"), 'rt') as f:
+    with gzip.open(datapath("utils", "cik_map.json.gz"), "rt") as f:
         content = bytes(f.read(), "utf-8")
-    monkeymodule.setattr(requests.Session,
-                         'get',
+    monkeymodule.setattr(requests.Session, "get",
                          MockResponse(content=content))
 
 

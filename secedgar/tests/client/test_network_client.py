@@ -17,60 +17,51 @@ def client():
 
 @pytest.fixture
 def mock_no_cik_found_bad_response(monkeypatch):
-    monkeypatch.setattr(requests.Session,
-                        'get',
-                        MockResponse(
-                            datapath_args=['CIK', 'cik_not_found.html']))
+    monkeypatch.setattr(requests.adapters.HTTPAdapter, "send",
+                        MockResponse(datapath_args=["CIK", "cik_not_found.html"]))
 
 
 @pytest.fixture
 def mock_single_filing_type_good_response(monkeypatch):
     """Mock response with list of single filing type for single CIK."""
-    monkeypatch.setattr(requests.Session,
-                        "get",
-                        MockResponse(datapath_args=['CIK', 'single_cik_multiple_filings_10k.html']))
+    monkeypatch.setattr(requests.Session, "get",
+                        MockResponse(datapath_args=["CIK", "single_cik_multiple_filings_10k.html"]))
 
 
 @pytest.fixture
 def mock_multiple_cik_results_good_response(monkeypatch):
-    monkeypatch.setattr(requests.Session,
-                        "get",
-                        MockResponse(datapath_args=['CIK', 'cik_multiple_results.html']))
+    monkeypatch.setattr(requests.Seassion, "get",
+                        MockResponse(datapath_args=["CIK", "cik_multiple_results.html"]))
 
 
 @pytest.fixture
 def mock_single_filing_page_good_response(monkeypatch):
-    monkeypatch.setattr(requests.Session,
-                        'get',
-                        MockResponse(datapath_args=['CIK', 'single_filing_page.html']))
+    monkeypatch.setattr(requests.Session, "get",
+                        MockResponse(datapath_args=["CIK", "single_filing_page.html"]))
 
 
 class TestNetworkClient:
+    @pytest.mark.allow_http_requests
     def test_client_bad_response_raises_error(self,
                                               mock_no_cik_found_bad_response,
                                               client):
         with pytest.raises(EDGARQueryError):
-            client.get_response('path')
-
-    def test_client_bad_response_raises_error2(self,
-                                               mock_no_cik_found_bad_response,
-                                               client):
-        print(client.get_response('path'))
+            client.get_response("path")
 
     def test_client_good_response_single_filing_type_passes(self,
                                                             mock_single_filing_type_good_response,
                                                             client):
-        assert client.get_response('path')
+        assert client.get_response("path")
 
     def test_client_good_response_multiple_cik_results_passes(self,
                                                               mock_multiple_cik_results_good_response,  # noqa: E501
                                                               client):
-        assert client.get_response('path')
+        assert client.get_response("path")
 
     def test_client_good_response_single_filing_passes(self,
                                                        mock_single_filing_page_good_response,
                                                        client):
-        assert client.get_response('path')
+        assert client.get_response("path")
 
     @pytest.mark.parametrize(
         "status_code",
@@ -86,7 +77,7 @@ class TestNetworkClient:
     def test_client_bad_response_codes(self, status_code, monkeypatch, client):
         monkeypatch.setattr(requests.Session, "get", MockResponse(status_code=status_code))
         with pytest.raises(EDGARQueryError):
-            client.get_response('path')
+            client.get_response("path")
 
     @pytest.mark.parametrize(
         "bad_retry_count,expectation",
@@ -131,8 +122,8 @@ class TestNetworkClient:
         assert client.rate_limit == good_rate_limit
 
     def test_client_get_response_only_calls_until_success(self, monkeypatch):
-        monkeypatch.setattr(requests.Session, "get", MockResponse(
-            status_code=200, content=bytes("Success", "utf-8")))
+        monkeypatch.setattr(requests.Session, "get",
+                            MockResponse(status_code=200, content=bytes("Success", "utf-8")))
         pause = 3
         client = NetworkClient(pause=pause)
         now = time.time()

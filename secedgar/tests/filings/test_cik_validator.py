@@ -17,8 +17,7 @@ def ticker_lookups():
 
 @pytest.fixture
 def mock_single_cik_lookup_outside_map(monkeypatch):
-    monkeypatch.setattr(NetworkClient,
-                        "get_response",
+    monkeypatch.setattr(NetworkClient, "get_response",
                         MockResponse(datapath_args=["CIK", "single_cik_search_result.html"]))
 
 

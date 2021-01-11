@@ -18,22 +18,19 @@ def mock_get_cik_map(monkeypatch):
 
 @pytest.fixture
 def mock_single_cik_lookup_response(monkeypatch):
-    monkeypatch.setattr(NetworkClient,
-                        "get_response",
+    monkeypatch.setattr(NetworkClient, "get_response",
                         MockResponse(datapath_args=["CIK", "single_cik_search_result.html"]))
 
 
 @pytest.fixture
 def mock_single_cik_multiple_results_response(monkeypatch):
-    monkeypatch.setattr(NetworkClient,
-                        "get_response",
+    monkeypatch.setattr(NetworkClient, "get_response",
                         MockResponse(datapath_args=["CIK", "cik_multiple_results.html"]))
 
 
 @pytest.fixture
 def mock_single_cik_not_found(monkeypatch):
-    monkeypatch.setattr(NetworkClient,
-                        "get_response",
+    monkeypatch.setattr(NetworkClient, "get_response",
                         MockResponse(datapath_args=["CIK", "cik_not_found.html"]))
 
 

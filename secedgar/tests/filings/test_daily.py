@@ -17,8 +17,7 @@ cik_file_pairs = [
 @pytest.fixture(scope="module")
 def mock_daily_quarter_directory(monkeymodule):
     """Mocks directory of all daily filings for quarter."""
-    monkeymodule.setattr(DailyFilings,
-                         "_get_listings_directory",
+    monkeymodule.setattr(DailyFilings, "_get_listings_directory",
                          MockResponse(datapath_args=["filings", "daily", "daily_index_2018_QTR4.htm"]))
 
 
@@ -30,8 +29,7 @@ def mock_daily_idx_file(monkeymodule):
         with open(datapath("filings", "daily", "master.20181231.idx")) as f:
             return f.read()
 
-    monkeymodule.setattr(DailyFilings,
-                         "_get_master_idx_file",
+    monkeymodule.setattr(DailyFilings, "_get_master_idx_file",
                          _mock_daily_idx_file)
 
 
