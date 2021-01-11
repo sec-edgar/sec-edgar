@@ -1,5 +1,7 @@
 import os
 
+import requests
+
 
 def datapath(*args):
     """Get the path to a data file.
@@ -11,29 +13,37 @@ def datapath(*args):
     return os.path.join(base_path, *args)
 
 
-class MockResponse:
+class MockResponse(requests.Response):
     def __init__(self, datapath_args=[],
                  status_code=200,
-                 file_read_args='r',
-                 text=None,
+                 content=None,
                  *args,
                  **kwargs):
+        super().__init__()
         self.status_code = status_code
-        if text is not None:
-            self.text = text
+        if content is not None:
+            self._content = content
         else:
-            with open(datapath(*datapath_args), file_read_args, **kwargs) as f:
-                self.text = f.read()
+            with open(datapath(*datapath_args), "rb", **kwargs) as f:
+                self._content = f.read()
+        self._content_consumed = True
 
     def __call__(self, *args, **kwargs):
         return self
 
 
 class AsyncMockResponse(MockResponse):
-    def __init__(self, datapath_args=[], status_code=200, file_read_args="r", text=None,
-                 encoding="utf-16", *args, **kwargs):
-        super().__init__(datapath_args=datapath_args, status_code=status_code,
-                         file_read_args=file_read_args, text=text, *args, **kwargs)
+    def __init__(self, datapath_args=[],
+                 status_code=200,
+                 content=None,
+                 encoding="utf-8",
+                 *args,
+                 **kwargs):
+        super().__init__(datapath_args=datapath_args,
+                         status_code=status_code,
+                         content=content,
+                         *args,
+                         **kwargs)
         self._encoding = encoding
 
     async def __aexit__(self, exc_type, exc, tb):
@@ -43,11 +53,11 @@ class AsyncMockResponse(MockResponse):
         return self
 
     async def read(self):
-        return bytes(self.text, encoding=self._encoding)
+        return self._content
 
 
 class AsyncLimitedResponsesSession:
-    def __init__(self, response=AsyncMockResponse(text="Testing..."), limit=10):
+    def __init__(self, response=AsyncMockResponse(content=bytes("Testing...", "utf-8")), limit=10):
         self._response = response
         self._limit = limit
         self._requests_made = 0

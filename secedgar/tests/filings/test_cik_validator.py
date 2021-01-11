@@ -1,7 +1,6 @@
 import pytest
-
-from secedgar.filings.cik_validator import _CIKValidator
 from secedgar.client import NetworkClient
+from secedgar.filings.cik_validator import _CIKValidator
 from secedgar.utils.exceptions import CIKError
 
 

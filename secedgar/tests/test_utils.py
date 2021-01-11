@@ -1,17 +1,19 @@
 import gzip
-import pytest
-import requests
-
 from datetime import datetime
 
-from secedgar.tests.utils import datapath
-from secedgar.utils import sanitize_date, get_cik_map, get_quarter
+import pytest
+import requests
+from secedgar.tests.utils import MockResponse, datapath
+from secedgar.utils import get_cik_map, get_quarter, sanitize_date
 
 
-class MockCIKMapResponse:
-    def __init__(self, *args, **kwargs):
-        with gzip.open(datapath("utils", "cik_map.json.gz"), 'rt') as f:
-            self.text = f.read()
+@pytest.fixture(scope="module")
+def mock_cik_map_response(monkeymodule):
+    with gzip.open(datapath("utils", "cik_map.json.gz"), 'rt') as f:
+        content = bytes(f.read(), "utf-8")
+    monkeymodule.setattr(requests.Session,
+                         'get',
+                         MockResponse(content=content))
 
 
 class TestUtils:
@@ -63,8 +65,7 @@ class TestUtils:
             ("MSFT", "789019")
         ]
     )
-    def test_get_cik_map(self, ticker, cik, monkeypatch):
-        monkeypatch.setattr(requests, 'get', MockCIKMapResponse)
+    def test_get_cik_map(self, ticker, cik, mock_cik_map_response):
         cik_map = get_cik_map()
         assert cik_map[ticker] == cik
 
@@ -76,8 +77,7 @@ class TestUtils:
             ("MICROSOFT CORP", "789019"),
         ]
     )
-    def test_get_company_name_map(self, name, cik, monkeypatch):
-        monkeypatch.setattr(requests, 'get', MockCIKMapResponse)
+    def test_get_company_name_map(self, name, cik, mock_cik_map_response):
         name_map = get_cik_map(key="title")
         assert name_map[name] == cik
 

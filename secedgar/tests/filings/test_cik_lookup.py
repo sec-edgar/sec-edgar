@@ -1,9 +1,8 @@
 import pytest
-
-from secedgar.filings import CIKLookup
-from secedgar.client import NetworkClient
-from secedgar.tests.conftest import MockResponse
 import secedgar.utils
+from secedgar.client import NetworkClient
+from secedgar.filings import CIKLookup
+from secedgar.tests.conftest import MockResponse
 from secedgar.utils.exceptions import EDGARQueryError
 
 
@@ -19,24 +18,23 @@ def mock_get_cik_map(monkeypatch):
 
 @pytest.fixture
 def mock_single_cik_lookup_response(monkeypatch):
-    def _mock_single_cik_lookup_response(*args, **kwargs):
-        return MockResponse(datapath_args=["CIK", "single_cik_search_result.html"],
-                            file_read_args="rb")
-    monkeypatch.setattr(NetworkClient, "get_response", _mock_single_cik_lookup_response)
+    monkeypatch.setattr(NetworkClient,
+                        "get_response",
+                        MockResponse(datapath_args=["CIK", "single_cik_search_result.html"]))
 
 
 @pytest.fixture
 def mock_single_cik_multiple_results_response(monkeypatch):
-    def _mock_single_cik_multiple_results_response(*args, **kwargs):
-        return MockResponse(datapath_args=["CIK", "cik_multiple_results.html"], file_read_args="rb")
-    monkeypatch.setattr(NetworkClient, "get_response", _mock_single_cik_multiple_results_response)
+    monkeypatch.setattr(NetworkClient,
+                        "get_response",
+                        MockResponse(datapath_args=["CIK", "cik_multiple_results.html"]))
 
 
 @pytest.fixture
 def mock_single_cik_not_found(monkeypatch):
-    def _mock_single_cik_not_found(*args, **kwargs):
-        return MockResponse(datapath_args=["CIK", "cik_not_found.html"], file_read_args="rb")
-    monkeypatch.setattr(NetworkClient, "get_response", _mock_single_cik_not_found)
+    monkeypatch.setattr(NetworkClient,
+                        "get_response",
+                        MockResponse(datapath_args=["CIK", "cik_not_found.html"]))
 
 
 class TestCIKLookup(object):

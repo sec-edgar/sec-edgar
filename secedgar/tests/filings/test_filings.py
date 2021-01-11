@@ -12,28 +12,40 @@ from secedgar.utils.exceptions import FilingTypeError
 @pytest.fixture
 def mock_cik_validator_get_single_cik(monkeypatch):
     """Mocks response for getting a single CIK."""
-    monkeypatch.setattr(_CIKValidator, "get_ciks", lambda *args, **kwargs: {"aapl": "0000320193"})
+    monkeypatch.setattr(_CIKValidator,
+                        "get_ciks",
+                        lambda *args, **kwargs: {"aapl": "0000320193"})
 
 
 @pytest.fixture(scope="module")
 def mock_cik_validator_get_multiple_ciks(monkeymodule):
     """Mocks response for getting a single CIK."""
-    monkeymodule.setattr(_CIKValidator, "get_ciks", lambda *args, **
-                         kwargs: {"aapl": "0000320193", "msft": "1234", "amzn": "5678"})
+    monkeymodule.setattr(_CIKValidator,
+                         "get_ciks",
+                         lambda *args: {"aapl": "0000320193", "msft": "1234", "amzn": "5678"})
 
 
 @pytest.fixture(scope="module")
 def mock_single_cik_not_found(monkeymodule):
     """NetworkClient get_response method will return html with CIK not found message."""
-    monkeymodule.setattr(NetworkClient, "get_response", MockResponse(datapath_args=["CIK", "cik_not_found.html"],
-                                                                     file_read_args="rb"))
+    monkeymodule.setattr(NetworkClient,
+                         "get_response",
+                         MockResponse(datapath_args=["CIK", "cik_not_found.html"]))
 
 
 @pytest.fixture(scope="module")
 def mock_single_cik_filing(monkeymodule):
     """Returns mock response of filinghrefs for getting filing URLs."""
-    monkeymodule.setattr(NetworkClient, "get_response", MockResponse(
-        datapath_args=["filings", "aapl_10q_filings.xml"]))
+    monkeymodule.setattr(NetworkClient,
+                         "get_response",
+                         MockResponse(datapath_args=["filings", "aapl_10q_filings.xml"]))
+
+
+@pytest.fixture
+def mock_single_cik_lookup_outside_map(monkeypatch):
+    monkeypatch.setattr(NetworkClient,
+                        "get_response",
+                        MockResponse(datapath_args=["CIK", "single_cik_search_result.html"]))
 
 
 class MockSingleCIKFilingLimitedResponses:
@@ -46,7 +58,7 @@ class MockSingleCIKFilingLimitedResponses:
             self._called_count += 1
             return MockResponse(datapath_args=["filings", "aapl_10q_filings.xml"])
         else:
-            return MockResponse(text="")
+            return MockResponse(content=bytes("", "utf-8"))
 
 
 # FIXME: This may not be working as expected. Need to look into this more.
@@ -57,7 +69,9 @@ def mock_single_cik_filing_limited_responses(monkeypatch):
     Should be reset with each function run, since calls left decreases
     after each call."""
     mock_limited_responses = MockSingleCIKFilingLimitedResponses(num_responses=10)
-    monkeypatch.setattr(NetworkClient, "get_response", mock_limited_responses)
+    monkeypatch.setattr(NetworkClient,
+                        "get_response",
+                        mock_limited_responses)
 
 
 class TestFiling(object):
