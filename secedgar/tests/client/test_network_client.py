@@ -30,7 +30,7 @@ def mock_single_filing_type_good_response(monkeypatch):
 
 @pytest.fixture
 def mock_multiple_cik_results_good_response(monkeypatch):
-    monkeypatch.setattr(requests.Seassion, "get",
+    monkeypatch.setattr(requests.Session, "get",
                         MockResponse(datapath_args=["CIK", "cik_multiple_results.html"]))
 
 
