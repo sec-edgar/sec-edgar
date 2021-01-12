@@ -16,12 +16,6 @@ def client():
 
 
 @pytest.fixture
-def mock_no_cik_found_bad_response(monkeypatch):
-    monkeypatch.setattr(requests.adapters.HTTPAdapter, "send",
-                        MockResponse(datapath_args=["CIK", "cik_not_found.html"]))
-
-
-@pytest.fixture
 def mock_single_filing_type_good_response(monkeypatch):
     """Mock response with list of single filing type for single CIK."""
     monkeypatch.setattr(requests.Session, "get",
@@ -41,12 +35,10 @@ def mock_single_filing_page_good_response(monkeypatch):
 
 
 class TestNetworkClient:
-    @pytest.mark.allow_http_requests
-    def test_client_bad_response_raises_error(self,
-                                              mock_no_cik_found_bad_response,
-                                              client):
+    def test_client_bad_response_raises_error(self, client):
+        no_cik_response = MockResponse(datapath_args=["CIK", "cik_not_found.html"])
         with pytest.raises(EDGARQueryError):
-            client.get_response("path")
+            NetworkClient()._validate_response(no_cik_response)
 
     def test_client_good_response_single_filing_type_passes(self,
                                                             mock_single_filing_type_good_response,
@@ -66,7 +58,6 @@ class TestNetworkClient:
     @pytest.mark.parametrize(
         "status_code",
         [
-            203,
             400,
             401,
             429,
@@ -75,9 +66,19 @@ class TestNetworkClient:
         ]
     )
     def test_client_bad_response_codes(self, status_code, monkeypatch, client):
-        monkeypatch.setattr(requests.Session, "get", MockResponse(status_code=status_code))
-        with pytest.raises(EDGARQueryError):
+        monkeypatch.setattr(requests.Session, "get",
+                            MockResponse(content=bytes("", "utf-8"), status_code=status_code))
+        with pytest.raises(requests.HTTPError):
             client.get_response("path")
+
+    def test_429_returns_custom_message(self, client, monkeypatch):
+        # with pytest.raises(requests.exceptions.HTTPError) as e:
+        response = client._validate_response(MockResponse(
+            content=bytes("", "utf-8"), status_code=429))
+        monkeypatch.setattr(requests.Session, "get", lambda *args, **kwargs: response)
+        with pytest.raises(requests.HTTPError) as e:
+            client.get_response("path")
+        assert "rate limit" in str(e.value)
 
     @pytest.mark.parametrize(
         "bad_retry_count,expectation",
