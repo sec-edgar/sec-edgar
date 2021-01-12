@@ -118,27 +118,14 @@ class NetworkClient(AbstractClient):
                           "No matching companies.")
         status_code = response.status_code
 
-        if 400 <= status_code < 500:
-            if status_code == 400:
-                response.edgar_error = EDGARQueryError("The query could not be completed. "
-                                                       "The page does not exist.")
-            elif status_code == 429:
-                response.edgar_error = EDGARQueryError("Error: You have hit the rate limit. "
-                                                       "SEC has banned your IP for 10 minutes. "
-                                                       "Please wait 10 minutes "
-                                                       "before making another request."
-                                                       "https://www.sec.gov/privacy.htm#security")
-            else:
-                response.edgar_error = EDGARQueryError("The query could not be completed. "
-                                                       "There was a client-side error with your "
-                                                       "request.")
-        elif 500 <= status_code < 600:
-            response.edgar_error = EDGARQueryError("The query could not be completed. "
-                                                   "There was a server-side error with "
-                                                   "your request.")
-        elif any(m in response.text for m in error_messages) or status_code != 200:
-            raise EDGARQueryError()
-        print("Returning response from hook")
+        if status_code == 429:
+            response.reason = """Error: You have hit the rate limit.
+            SEC has banned your IP for 10 minutes.
+            Please wait 10 minutes before making another request.
+            https://www.sec.gov/privacy.htm#security"""
+
+        elif any(m in response.text for m in error_messages):
+            raise EDGARQueryError("No results were found or the value submitted was not valid.")
         return response
 
     def get_response(self, path, params=None, **kwargs):
@@ -163,9 +150,8 @@ class NetworkClient(AbstractClient):
             response = session.get(prepared_url,
                                    params=params,
                                    **kwargs)
-            if hasattr(response, "edgar_error"):
-                raise response.edgar_error
-        return response
+            response.raise_for_status()
+            return response
 
     def get_soup(self, path, params, **kwargs):
         """Return BeautifulSoup object from response text. Uses lxml parser.
