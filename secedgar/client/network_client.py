@@ -103,7 +103,7 @@ class NetworkClient(AbstractClient):
         return "{base}{path}".format(base=NetworkClient._BASE, path=path)
 
     @staticmethod
-    def _validate_response(response, *args):
+    def _validate_response(response, *args, **kwargs):
         """Ensure response from EDGAR is valid.
 
         Args:
