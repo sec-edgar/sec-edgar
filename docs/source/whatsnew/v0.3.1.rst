@@ -5,7 +5,8 @@ Highlights
 ~~~~~~~~~~
 
 - Fixes bug where ``get_response`` does not break after validating response (thanks to abbadata!)
-- Fixes bug where ``get_response`` sleeps even after success (jackmoody11)
+- Fixes bug where ``get_response`` sleeps even after success
+- Remove ``pause`` from ``NetworkClient`` initialization in favor of optional ``backoff_factor`` in ``get_response``.
 
 
 Contributors

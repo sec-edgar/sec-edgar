@@ -12,7 +12,7 @@ from secedgar.utils.exceptions import EDGARQueryError
 
 @pytest.fixture
 def client():
-    return NetworkClient(pause=0.01)
+    return NetworkClient()
 
 
 @pytest.fixture
@@ -55,47 +55,11 @@ class TestNetworkClient:
                                                        client):
         assert client.get_response("path")
 
-    @pytest.mark.parametrize(
-        "status_code",
-        [
-            400,
-            401,
-            429,
-            500,
-            501
-        ]
-    )
-    def test_client_bad_response_codes(self, status_code, monkeypatch, client):
-        monkeypatch.setattr(requests.Session, "get",
-                            MockResponse(content=bytes("", "utf-8"), status_code=status_code))
-        with pytest.raises(requests.HTTPError):
-            client.get_response("path")
-
     def test_429_returns_custom_message(self, client, monkeypatch):
         # with pytest.raises(requests.exceptions.HTTPError) as e:
         response = client._validate_response(MockResponse(
             content=bytes("", "utf-8"), status_code=429))
-        monkeypatch.setattr(requests.Session, "get", lambda *args, **kwargs: response)
-        with pytest.raises(requests.HTTPError) as e:
-            client.get_response("path")
-        assert "rate limit" in str(e.value)
-
-    @pytest.mark.parametrize(
-        "status_code",
-        [
-            400,
-            404,
-            429,
-            500
-        ]
-    )
-    def test_bad_response_pause(self, status_code):
-        pause = 0.25
-        now = time.time()
-        _ = NetworkClient(pause=pause)._validate_response(
-            MockResponse(content=bytes("", "utf-8"), status_code=status_code))
-        then = time.time()
-        assert then - now > pause
+        assert "rate limit" in response.reason
 
     @pytest.mark.parametrize(
         "bad_retry_count,expectation",
@@ -138,36 +102,6 @@ class TestNetworkClient:
     def test_client_good_rate_limit(self, good_rate_limit, client):
         client.rate_limit = good_rate_limit
         assert client.rate_limit == good_rate_limit
-
-    def test_client_get_response_only_calls_until_success(self, monkeypatch):
-        monkeypatch.setattr(requests.Session, "get",
-                            MockResponse(status_code=200, content=bytes("Success", "utf-8")))
-        pause = 3
-        client = NetworkClient(pause=pause)
-        now = time.time()
-        client.get_response("", params=None)
-        then = time.time()
-        assert then - now < pause, "Assumed mock response would be returned faster than pause"
-
-    @pytest.mark.parametrize(
-        "test_input,expectation",
-        [
-            ("2", TypeError),
-            (-0.5, ValueError),
-            (-1, ValueError)
-        ]
-    )
-    def test_client_bad_pause_setter(self, test_input, expectation, client):
-        with pytest.raises(expectation):
-            client.pause = test_input
-
-    @pytest.mark.parametrize(
-        "good_pause",
-        [x / 10 for x in range(1, 11)]
-    )
-    def test_client_good_pause_setter(self, good_pause, client):
-        client.pause = good_pause
-        assert client.pause == good_pause
 
     @pytest.mark.parametrize(
         "test_input,expectation",
