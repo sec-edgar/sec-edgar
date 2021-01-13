@@ -81,6 +81,23 @@ class TestNetworkClient:
         assert "rate limit" in str(e.value)
 
     @pytest.mark.parametrize(
+        "status_code",
+        [
+            400,
+            404,
+            429,
+            500
+        ]
+    )
+    def test_bad_response_pause(self, status_code):
+        pause = 0.25
+        now = time.time()
+        response = NetworkClient(pause=pause)._validate_response(
+            MockResponse(content=bytes("", "utf-8"), status_code=status_code))
+        then = time.time()
+        assert then - now > pause
+
+    @pytest.mark.parametrize(
         "bad_retry_count,expectation",
         [
             (0.5, TypeError),
