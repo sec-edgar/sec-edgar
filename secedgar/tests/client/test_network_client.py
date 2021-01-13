@@ -134,6 +134,14 @@ class TestNetworkClient:
         assert client.rate_limit == good_rate_limit
 
     @pytest.mark.parametrize(
+        "good_pause",
+        [x / 10 for x in range(1, 11)]
+    )
+    def test_client_good_pause_setter(self, good_pause, client):
+        client.pause = good_pause
+        assert client.pause == good_pause
+
+    @pytest.mark.parametrize(
         "test_input,expectation",
         [
             (0.5, TypeError),

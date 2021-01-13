@@ -124,6 +124,7 @@ class NetworkClient(AbstractClient):
             https://www.sec.gov/privacy.htm#security"""
         elif any(m in response.text for m in error_messages):
             raise EDGARQueryError("No results were found or the value submitted was not valid.")
+
         return response
 
     def get_response(self, path, params=None, **kwargs):
