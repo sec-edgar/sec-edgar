@@ -1,0 +1,15 @@
+v0.3.1
+------
+
+Highlights
+~~~~~~~~~~
+
+- Fixes bug where ``get_response`` does not break after validating response (thanks to abbadata!)
+- Fixes bug where ``get_response`` sleeps even after success (jackmoody11)
+
+
+Contributors
+~~~~~~~~~~~~
+
+- abbadata
+- jackmoody11

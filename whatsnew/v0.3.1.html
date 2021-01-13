@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>v0.1.5 &mdash; secedgar 0.3.1 documentation</title>
+  <title>v0.3.1 &mdash; secedgar 0.3.1 documentation</title>
   
 
   
@@ -150,13 +150,13 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>v0.1.5</li>
+      <li>v0.3.1</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/whatsnew/v0.1.5.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/whatsnew/v0.3.1.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -169,48 +169,19 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="v0-1-5">
-<h1>v0.1.5<a class="headerlink" href="#v0-1-5" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="v0-3-1">
+<h1>v0.3.1<a class="headerlink" href="#v0-3-1" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="highlights">
 <h2>Highlights<a class="headerlink" href="#highlights" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Add Python 3.7, 3.8 support to Travis CI</p></li>
-<li><p>Add support for over 100 forms using <a class="reference internal" href="../filingtypes.html#secedgar.filings.FilingType" title="secedgar.filings.FilingType"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.filings.FilingType</span></code></a></p></li>
-<li><p>Prepare to deprecate <code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.crawler.SecCrawler</span></code> in favor of separate filing class</p></li>
-<li><p>Modularize crawler for more general requests</p></li>
-<li><p>Fix count attribute to correctly fetch specified number of filings (or max available)</p></li>
-<li><p>Add <a class="reference internal" href="../filings.html#secedgar.filings.Filing" title="secedgar.filings.Filing"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.filings.Filing</span></code></a> for fetching SEC filings</p></li>
-<li><p>Add <code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.filings.CIKLookup</span></code> for getting company CIKs by company ticker or company name</p></li>
-<li><p>Add MANIFEST.in file to include requirements.txt, LICENSE, and README</p></li>
-<li><p>Add What’s New section to docs (replaces CHANGELOG)</p></li>
-</ul>
-</div>
-<div class="section" id="testing">
-<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>Change xfails to use <code class="docutils literal notranslate"><span class="pre">pytest.raises</span></code> for various tests</p></li>
-<li><p>Add <code class="docutils literal notranslate"><span class="pre">TestFilings</span></code> class to tests</p></li>
-<li><p>Add tests for saving filings</p></li>
-<li><p>Add tests for ticker/company name verification</p></li>
-<li><p>Add tox for testing</p></li>
-<li><p>Make Travis CI use setup used by PyPi to catch problems with setup.py</p></li>
-</ul>
-</div>
-<div class="section" id="bugs">
-<h2>Bugs<a class="headerlink" href="#bugs" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>Fix count attribute to fetch desired number of filings. <code class="docutils literal notranslate"><span class="pre">secedgar</span></code> will now either fetch specified number or, if not enough filings exist, all filings will be fetched.</p></li>
-</ul>
-</div>
-<div class="section" id="enhancements">
-<h2>Enhancements<a class="headerlink" href="#enhancements" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>Introduce <code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.filings.base.AbstractFiling</span></code> class as abstract base class</p></li>
+<li><p>Fixes bug where <code class="docutils literal notranslate"><span class="pre">get_response</span></code> does not break after validating response (thanks to abbadata!)</p></li>
+<li><p>Fixes bug where <code class="docutils literal notranslate"><span class="pre">get_response</span></code> sleeps even after success (jackmoody11)</p></li>
 </ul>
 </div>
 <div class="section" id="contributors">
 <h2>Contributors<a class="headerlink" href="#contributors" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
+<li><p>abbadata</p></li>
 <li><p>jackmoody11</p></li>
 </ul>
 </div>
