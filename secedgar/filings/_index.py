@@ -16,7 +16,7 @@ from secedgar.utils.exceptions import EDGARQueryError
 class IndexFilings(AbstractFiling):
     """Abstract Base Class for index filings.
 
-    Attributes:
+    Args:
         client (secedgar.client._base, optional): Client to use. Defaults to
             ``secedgar.client.NetworkClient``.
 

@@ -14,7 +14,7 @@ from secedgar.utils.exceptions import FilingTypeError
 class Filing(AbstractFiling):
     """Base class for receiving EDGAR filings.
 
-    Attributes:
+    Args:
         cik_lookup (str): Central Index Key (CIK) for company of interest.
         filing_type (secedgar.filings.filing_types.FilingType): Valid filing type enum.
         start_date (Union[str, datetime.datetime], optional): Date before which not to

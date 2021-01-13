@@ -17,9 +17,10 @@ cik_file_pairs = [
 @pytest.fixture(scope="module")
 def mock_daily_quarter_directory(monkeymodule):
     """Mocks directory of all daily filings for quarter."""
-    monkeymodule.setattr(DailyFilings, "_get_listings_directory", lambda *args, **
-                         kwargs: MockResponse(datapath_args=["filings", "daily",
-                                                             "daily_index_2018_QTR4.htm"]))
+    monkeymodule.setattr(DailyFilings, "_get_listings_directory",
+                         MockResponse(datapath_args=[
+                             "filings", "daily", "daily_index_2018_QTR4.htm"
+                         ]))
 
 
 @pytest.fixture(scope="module")
@@ -30,7 +31,8 @@ def mock_daily_idx_file(monkeymodule):
         with open(datapath("filings", "daily", "master.20181231.idx")) as f:
             return f.read()
 
-    monkeymodule.setattr(DailyFilings, "_get_master_idx_file", _mock_daily_idx_file)
+    monkeymodule.setattr(DailyFilings, "_get_master_idx_file",
+                         _mock_daily_idx_file)
 
 
 class TestDaily:
@@ -90,9 +92,9 @@ class TestDaily:
         assert url in daily_filing.get_urls()[key]
 
     def test_get_listings_directory(self, mock_daily_quarter_directory):
-        assert DailyFilings(date(2018, 12, 31))._get_listings_directory().status_code == 200
-        assert "master.20181231.idx" in DailyFilings(
-            date(2018, 12, 31))._get_listings_directory().text
+        daily_filing_listing_directory = DailyFilings(date(2018, 12, 31))._get_listings_directory()
+        assert daily_filing_listing_directory.status_code == 200
+        assert "master.20181231.idx" in daily_filing_listing_directory.text
 
     @pytest.mark.parametrize(
         "company_name",
@@ -108,8 +110,6 @@ class TestDaily:
                                  mock_daily_idx_file,
                                  company_name):
         daily_filing = DailyFilings(date(2018, 12, 31))
-
-        # All company names above should be in file
         assert company_name in daily_filing._get_master_idx_file()
 
     @pytest.mark.parametrize(

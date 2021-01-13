@@ -29,7 +29,7 @@ def no_http_requests(monkeysession):
             Please provide mock for {object}.""")
 
     to_avoid = (
-        "requests.sessions.Session.get",
+        "requests.Session.get",
         "aiohttp.ClientSession.get"
     )
 
@@ -39,8 +39,9 @@ def no_http_requests(monkeysession):
 
 @pytest.fixture(scope="session")
 def mock_filing_response(monkeysession):
-    monkeysession.setattr(NetworkClient, "fetch", lambda *args, **
-                          kwargs: AsyncMockResponse(text="Testing...").read())
+    monkeysession.setattr(NetworkClient, "fetch",
+                          lambda *args, **kwargs:
+                          AsyncMockResponse(content=bytes("Testing...", "utf-8")).read())
 
 
 @pytest.fixture(scope="session")
@@ -51,13 +52,15 @@ def mock_master_idx_file(monkeysession):
         with open(datapath("filings", "master", "master.idx")) as f:
             return f.read()
 
-    monkeysession.setattr(MasterFilings, "_get_master_idx_file", _mock_master_idx_file)
+    monkeysession.setattr(MasterFilings, "_get_master_idx_file",
+                          _mock_master_idx_file)
 
 
 @pytest.fixture(scope="session")
 def mock_filing_data(monkeysession):
     """Mock data from filing."""
-    monkeysession.setattr(requests, "get", lambda *args, **kwargs: MockResponse(text="Testing..."))
+    monkeysession.setattr(requests.Session, "get",
+                          MockResponse(content=bytes("Testing...", "utf-8")))
 
 
 @pytest.fixture(scope="session")

@@ -1,7 +1,7 @@
 import pytest
-
-from secedgar.filings.cik_validator import _CIKValidator
 from secedgar.client import NetworkClient
+from secedgar.filings.cik_validator import _CIKValidator
+from secedgar.tests.utils import MockResponse
 from secedgar.utils.exceptions import CIKError
 
 
@@ -13,6 +13,12 @@ def client():
 @pytest.fixture
 def ticker_lookups():
     return ["AAPL", "FB", "GOOGL", "NFLX", "MSFT"]
+
+
+@pytest.fixture
+def mock_single_cik_lookup_outside_map(monkeypatch):
+    monkeypatch.setattr(NetworkClient, "get_response",
+                        MockResponse(datapath_args=["CIK", "single_cik_search_result.html"]))
 
 
 class TestCIKValidator:
@@ -62,7 +68,8 @@ class TestCIKValidator:
         with pytest.raises(CIKError):
             _CIKValidator._validate_cik(bad_cik)
 
-    def test_params_reset_after_get_cik(self, ticker_lookups, client):
+    def test_params_reset_after_get_cik(self, ticker_lookups, client,
+                                        mock_single_cik_lookup_outside_map):
         validator = _CIKValidator(lookups=ticker_lookups, client=client)
         validator._get_cik(ticker_lookups[0])
         assert validator.params.get("CIK") is None and validator.params.get("company") is None
