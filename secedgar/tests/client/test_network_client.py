@@ -82,6 +82,36 @@ class TestNetworkClient:
         assert client.retry_count == good_retry_count
 
     @pytest.mark.parametrize(
+        "bad_backoff_factor",
+        [
+            "1",
+            "1.0",
+            "-1",
+            "-1.0",
+            [1, 2, 3],
+        ]
+    )
+    def test_bad_backoff_factor_setter(self, bad_backoff_factor):
+        with pytest.raises(TypeError):
+            _ = NetworkClient(backoff_factor=bad_backoff_factor)
+
+    @pytest.mark.parametrize(
+        "good_backoff_factor",
+        [
+            -1,
+            -1.0,
+            1,
+            1.0,
+            2,
+            10
+        ]
+    )
+    def test_good_backoff_factor_setter(self, good_backoff_factor):
+        client = NetworkClient()
+        client.backoff_factor = good_backoff_factor
+        assert client.backoff_factor == good_backoff_factor
+
+    @pytest.mark.parametrize(
         "test_input,expectation",
         [
             (0, ValueError),

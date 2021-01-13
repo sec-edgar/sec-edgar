@@ -22,6 +22,8 @@ class NetworkClient(AbstractClient):
             Defaults to 3.
         batch_size (int): Number of filings to receive per request (helpful if pagination needed).
             Defaults to 10.
+        backoff_factor (float): Backoff factor to use with ``urllib3.util.retry.Retry``.
+            See urllib3 docs for more info. Defaults to 0.
         rate_limit (int): Number of requests per second to limit to.
             Defaults to 10.
 
@@ -32,9 +34,10 @@ class NetworkClient(AbstractClient):
 
     _BASE = "http://www.sec.gov/"
 
-    def __init__(self, retry_count=3, batch_size=10, rate_limit=10):
+    def __init__(self, retry_count=3, batch_size=10, backoff_factor=0, rate_limit=10):
         self.retry_count = retry_count
         self.batch_size = batch_size
+        self.backoff_factor = backoff_factor
         self.rate_limit = rate_limit
 
     @property
@@ -62,6 +65,18 @@ class NetworkClient(AbstractClient):
         elif value < 1:
             raise ValueError("Batch size must be positive integer.")
         self._batch_size = value
+
+    @property
+    def backoff_factor(self):
+        """float: Backoff factor to pass to ``urllib3.util.retry.Retry``."""
+        return self._backoff_factor
+
+    @backoff_factor.setter
+    def backoff_factor(self, value):
+        if not isinstance(value, (int, float)):
+            raise TypeError(
+                "Backoff factor must be int or float. Given type {0}".format(type(value)))
+        self._backoff_factor = value
 
     @property
     def rate_limit(self):
@@ -111,7 +126,7 @@ class NetworkClient(AbstractClient):
             raise EDGARQueryError("No results were found or the value submitted was not valid.")
         return response
 
-    def get_response(self, path, params=None, backoff_factor=0, **kwargs):
+    def get_response(self, path, params=None, **kwargs):
         """Execute HTTP request and returns response if valid.
 
         Args:
@@ -129,7 +144,8 @@ class NetworkClient(AbstractClient):
         """
         prepared_url = self._prepare_query(path)
         with requests.Session() as session:
-            retry = Retry(self.retry_count, backoff_factor=backoff_factor, raise_on_status=True)
+            retry = Retry(self.retry_count, backoff_factor=self.backoff_factor,
+                          raise_on_status=True)
             session.mount(self._BASE, adapter=HTTPAdapter(max_retries=retry))
             session.hooks["response"].append(self._validate_response)
             response = session.get(prepared_url, params=params, **kwargs)
