@@ -102,8 +102,7 @@ class NetworkClient(AbstractClient):
         """
         return "{base}{path}".format(base=NetworkClient._BASE, path=path)
 
-    @staticmethod
-    def _validate_response(response, *args, **kwargs):
+    def _validate_response(self, response, *args, **kwargs):
         """Ensure response from EDGAR is valid.
 
         Args:
@@ -123,9 +122,11 @@ class NetworkClient(AbstractClient):
             SEC has banned your IP for 10 minutes.
             Please wait 10 minutes before making another request.
             https://www.sec.gov/privacy.htm#security"""
-
         elif any(m in response.text for m in error_messages):
             raise EDGARQueryError("No results were found or the value submitted was not valid.")
+
+        if not response.ok:
+            time.sleep(self.pause)
         return response
 
     def get_response(self, path, params=None, **kwargs):
