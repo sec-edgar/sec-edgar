@@ -250,7 +250,8 @@
 <h3>Highlights<a class="headerlink" href="#highlights" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Fixes bug where <code class="docutils literal notranslate"><span class="pre">get_response</span></code> does not break after validating response (thanks to abbadata!)</p></li>
-<li><p>Fixes bug where <code class="docutils literal notranslate"><span class="pre">get_response</span></code> sleeps even after success (jackmoody11)</p></li>
+<li><p>Fixes bug where <code class="docutils literal notranslate"><span class="pre">get_response</span></code> sleeps even after success</p></li>
+<li><p>Remove <code class="docutils literal notranslate"><span class="pre">pause</span></code> from <code class="docutils literal notranslate"><span class="pre">NetworkClient</span></code> initialization in favor of optional <code class="docutils literal notranslate"><span class="pre">backoff_factor</span></code> that relies on urllib3 retry module.</p></li>
 </ul>
 </div>
 <div class="section" id="contributors">
