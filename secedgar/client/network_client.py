@@ -11,6 +11,7 @@ from requests.adapters import HTTPAdapter
 from secedgar.client._base import AbstractClient
 from secedgar.utils import make_path
 from secedgar.utils.exceptions import EDGARQueryError
+from urllib3.util.retry import Retry
 
 
 class NetworkClient(AbstractClient):
@@ -19,10 +20,10 @@ class NetworkClient(AbstractClient):
     Args:
         retry_count (int): Number of times to retry connecting to URL if not successful.
             Defaults to 3.
-        pause (float): Time (in seconds) to wait before retrying if not successful.
-            Defaults to 0.5 seconds.
         batch_size (int): Number of filings to receive per request (helpful if pagination needed).
             Defaults to 10.
+        backoff_factor (float): Backoff factor to use with ``urllib3.util.retry.Retry``.
+            See urllib3 docs for more info. Defaults to 0.
         rate_limit (int): Number of requests per second to limit to.
             Defaults to 10.
 
@@ -33,10 +34,10 @@ class NetworkClient(AbstractClient):
 
     _BASE = "http://www.sec.gov/"
 
-    def __init__(self, retry_count=3, pause=0.5, batch_size=10, rate_limit=10):
+    def __init__(self, retry_count=3, batch_size=10, backoff_factor=0, rate_limit=10):
         self.retry_count = retry_count
-        self.pause = pause
         self.batch_size = batch_size
+        self.backoff_factor = backoff_factor
         self.rate_limit = rate_limit
 
     @property
@@ -53,19 +54,6 @@ class NetworkClient(AbstractClient):
         self._retry_count = value
 
     @property
-    def pause(self):
-        """float: Amount of time to pause between each unsuccessful request."""
-        return self._pause
-
-    @pause.setter
-    def pause(self, value):
-        if not isinstance(value, (int, float)):
-            raise TypeError("Pause must be int or float. Given type {0}.".format(type(value)))
-        elif value < 0:
-            raise ValueError("Pause must be greater than or equal to 0. Given {0}.".format(value))
-        self._pause = value
-
-    @property
     def batch_size(self):
         """int: The Number of results to show per page."""
         return self._batch_size
@@ -77,6 +65,18 @@ class NetworkClient(AbstractClient):
         elif value < 1:
             raise ValueError("Batch size must be positive integer.")
         self._batch_size = value
+
+    @property
+    def backoff_factor(self):
+        """float: Backoff factor to pass to ``urllib3.util.retry.Retry``."""
+        return self._backoff_factor
+
+    @backoff_factor.setter
+    def backoff_factor(self, value):
+        if not isinstance(value, (int, float)):
+            raise TypeError(
+                "Backoff factor must be int or float. Given type {0}".format(type(value)))
+        self._backoff_factor = value
 
     @property
     def rate_limit(self):
@@ -125,8 +125,6 @@ class NetworkClient(AbstractClient):
         elif any(m in response.text for m in error_messages):
             raise EDGARQueryError("No results were found or the value submitted was not valid.")
 
-        if not response.ok:
-            time.sleep(self.pause)
         return response
 
     def get_response(self, path, params=None, **kwargs):
@@ -136,22 +134,22 @@ class NetworkClient(AbstractClient):
             path (str): A properly-formatted path
             params (dict): Dictionary of parameters to pass
                 to request. Defaults to None.
-            kwargs: Keyword arguments to pass to `requests.Session.get`.
+            backoff_factor (float): Backoff factor to pass to ``urllib3.util.Retry``.
+            kwargs: Keyword arguments to pass to ``requests.Session.get``.
 
         Returns:
-            response (requests.Response): A `requests.Response` object.
+            response (requests.Response): A ``requests.Response`` object.
 
         Raises:
             EDGARQueryError: If problems arise when making query.
         """
         prepared_url = self._prepare_query(path)
         with requests.Session() as session:
-            session.mount(self._BASE, adapter=HTTPAdapter(max_retries=self.retry_count))
+            retry = Retry(self.retry_count, backoff_factor=self.backoff_factor,
+                          raise_on_status=True)
+            session.mount(self._BASE, adapter=HTTPAdapter(max_retries=retry))
             session.hooks["response"].append(self._validate_response)
-            response = session.get(prepared_url,
-                                   params=params,
-                                   **kwargs)
-            response.raise_for_status()
+            response = session.get(prepared_url, params=params, **kwargs)
             return response
 
     def get_soup(self, path, params, **kwargs):
