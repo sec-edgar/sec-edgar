@@ -2,7 +2,6 @@
 import asyncio
 import os
 import time
-import warnings
 
 import aiohttp
 import requests
