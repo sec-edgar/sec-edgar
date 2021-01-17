@@ -1,27 +1,22 @@
 import warnings
 
-from secedgar.client.network_client import NetworkClient
-from secedgar.utils.cik_map import get_cik_map
+from secedgar.client import NetworkClient
+from secedgar.utils import get_cik_map
 from secedgar.utils.exceptions import CIKError, EDGARQueryError
 
 
-class _CIKValidator(object):
-    """Validates company tickers and/or company names based on CIK availability.
+class CIKLookup:
+    """CIK Lookup object.
 
-    Used internally by the CIK class. Not intended for outside use.
+    Given list of tickers/company names to lookup, this object can return associated CIKs.
 
     Args:
-        lookups (Union[str, list, tuple]): List of tickers and/or company names for
-            which to find CIKs.
-        **kwargs: Any kwargs will be passed to NetworkClient if no client is given.
+        lookup (Union[str, list]): Ticker, company name, or list of tickers and/or company names.
 
     .. versionadded:: 0.1.5
     """
 
-    # See Stack Overflow's answer to how-do-you-pep-8-name-a-class-whose-name-is-an-acronym
-    # if you are wondering whether CIK should be capitalized in the class name or not.
     def __init__(self, lookups, client=None, **kwargs):
-        # Make sure lookups is not empty string
         if lookups and isinstance(lookups, str):
             self._lookups = [lookups]  # make single string into list
         else:
@@ -31,6 +26,21 @@ class _CIKValidator(object):
             self._lookups = lookups
         self._params = {'action': 'getcompany'}
         self._client = client if client is not None else NetworkClient(**kwargs)
+        self._lookup_dict = None
+        self._ciks = None
+
+    @property
+    def ciks(self):
+        """:obj:`list` of :obj:`str`: List of CIKs (as string of digits)."""
+        if self._ciks is None:
+            self._lookup_dict = self.get_ciks()
+            self._ciks = list(self.lookup_dict.values())
+        return self._ciks
+
+    @property
+    def lookups(self):
+        """`list` of `str` to lookup (to get CIK values)."""
+        return self._lookups
 
     @property
     def path(self):
@@ -48,9 +58,11 @@ class _CIKValidator(object):
         return self._params
 
     @property
-    def lookups(self):
-        """`list` of `str` to lookup (to get CIK values)."""
-        return self._lookups
+    def lookup_dict(self):
+        """:obj:`dict`: Dictionary that makes tickers and company names to CIKs."""
+        if self._lookup_dict is None:
+            self._lookup_dict = self.get_ciks()
+        return self._lookup_dict
 
     def get_ciks(self):
         """Validate lookup values and return corresponding CIKs.
@@ -171,6 +183,7 @@ class _CIKValidator(object):
         """Check if CIK is 10 digit string."""
         if not (isinstance(cik, str) and len(cik) == 10 and cik.isdigit()):
             raise CIKError(cik)
+        return cik
 
     @staticmethod
     def _validate_lookup(lookup):
@@ -184,3 +197,4 @@ class _CIKValidator(object):
         """
         if not (lookup and isinstance(lookup, str)):
             raise TypeError("Lookup value must be string. Given type {0}.".format(type(lookup)))
+        return lookup

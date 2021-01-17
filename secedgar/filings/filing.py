@@ -5,9 +5,9 @@ import warnings
 
 from secedgar.client import NetworkClient
 from secedgar.filings._base import AbstractFiling
-from secedgar.filings.cik_lookup import CIKLookup
 from secedgar.filings.filing_types import FilingType
 from secedgar.utils import sanitize_date
+from secedgar.utils.cik_lookup import CIKLookup
 from secedgar.utils.exceptions import FilingTypeError
 
 
@@ -122,7 +122,7 @@ class Filing(AbstractFiling):
 
     @property
     def cik_lookup(self):
-        """``secedgar.filings.cik_lookup.CIKLookup``: CIKLookupobject."""
+        """``secedgar.utils.cik_lookup.CIKLookup``: CIKLookupobject."""
         return self._cik_lookup
 
     @cik_lookup.setter
