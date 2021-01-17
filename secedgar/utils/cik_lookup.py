@@ -156,8 +156,8 @@ class CIKLookup:
             warnings.warn(warning_message)
         finally:
             # Delete parameters after lookup
-            self.params.pop('company', None)
-            self.params.pop('CIK', None)
+            self._params.pop('company', None)
+            self._params.pop('CIK', None)
 
     @staticmethod
     def _get_cik_possibilities(soup):

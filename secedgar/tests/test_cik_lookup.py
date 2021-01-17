@@ -3,7 +3,7 @@ import secedgar.utils
 from secedgar.client import NetworkClient
 from secedgar.tests.conftest import MockResponse
 from secedgar.utils.cik_lookup import CIKLookup
-from secedgar.utils.exceptions import EDGARQueryError
+from secedgar.utils.exceptions import CIKError, EDGARQueryError
 
 
 @pytest.fixture
@@ -98,8 +98,8 @@ class TestCIKLookup(object):
             _ = CIKLookup('0notvalid0').ciks
 
     def test_client_property(self, client, ticker_lookups):
-        validator = _CIKValidator(ticker_lookups, client=client)
-        assert validator.client == client
+        lookup = CIKLookup(ticker_lookups, client=client)
+        assert lookup.client == client
 
     @pytest.mark.parametrize(
         "bad_lookups",
@@ -111,11 +111,11 @@ class TestCIKLookup(object):
     )
     def test_empty_lookups_raises_type_error(self, bad_lookups):
         with pytest.raises(TypeError):
-            _CIKValidator(lookups=bad_lookups)
+            CIKLookup(lookups=bad_lookups)
 
     def test_lookups_property(self, ticker_lookups):
-        validator = _CIKValidator(lookups=ticker_lookups)
-        assert validator.lookups == ticker_lookups
+        lookup = CIKLookup(lookups=ticker_lookups)
+        assert lookup.lookups == ticker_lookups
 
     @pytest.mark.parametrize(
         "bad_lookup",
@@ -126,7 +126,7 @@ class TestCIKLookup(object):
     )
     def test_validate_lookup(self, bad_lookup):
         with pytest.raises(TypeError):
-            _CIKValidator._validate_lookup(bad_lookup)
+            CIKLookup._validate_lookup(bad_lookup)
 
     @pytest.mark.parametrize(
         "bad_cik",
@@ -141,10 +141,10 @@ class TestCIKLookup(object):
     )
     def test_validate_cik_on_bad_ciks(self, bad_cik):
         with pytest.raises(CIKError):
-            _CIKValidator._validate_cik(bad_cik)
+            CIKLookup._validate_cik(bad_cik)
 
     def test_params_reset_after_get_cik(self, ticker_lookups, client,
                                         mock_single_cik_lookup_outside_map):
-        validator = _CIKValidator(lookups=ticker_lookups, client=client)
-        validator._get_cik(ticker_lookups[0])
-        assert validator.params.get("CIK") is None and validator.params.get("company") is None
+        lookup = CIKLookup(lookups=ticker_lookups, client=client)
+        lookup._get_cik(ticker_lookups[0])
+        assert lookup.params.get("CIK") is None and lookup.params.get("company") is None
