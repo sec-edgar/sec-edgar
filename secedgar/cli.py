@@ -3,8 +3,8 @@ from datetime import datetime
 
 import click
 
+from secedgar.exceptions import FilingTypeError
 from secedgar.filings import DailyFilings, Filing, FilingType
-from secedgar.utils.exceptions import FilingTypeError
 
 
 @click.group()

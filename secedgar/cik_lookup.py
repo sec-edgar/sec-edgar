@@ -1,8 +1,30 @@
 import warnings
 
+import requests
+
 from secedgar.client import NetworkClient
-from secedgar.utils import get_cik_map
-from secedgar.utils.exceptions import CIKError, EDGARQueryError
+from secedgar.exceptions import CIKError, EDGARQueryError
+
+
+def get_cik_map(key="ticker"):
+    """Get dictionary of tickers to CIK numbers.
+
+    Args:
+        key (str): Should be either "ticker" or "title". Choosing "ticker"
+            will give dict with tickers as keys. Choosing "title" will use
+            company name as keys.
+
+    Returns:
+        Dictionary with either ticker or company name as keys, depending on
+        ``key`` argument, and corresponding CIK as values.
+
+    .. versionadded:: 0.1.6
+    """
+    if key not in ("ticker", "title"):
+        raise ValueError("key must be 'ticker' or 'title'. Was given {key}.".format(key=key))
+    response = requests.get("https://www.sec.gov/files/company_tickers.json")
+    json_response = response.json()
+    return {v[key]: str(v["cik_str"]) for v in json_response.values()}
 
 
 class CIKLookup:
