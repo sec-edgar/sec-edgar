@@ -1,5 +1,7 @@
+import json
+
 import pytest
-import secedgar.cik_lookup
+import requests
 from secedgar.cik_lookup import CIKLookup
 from secedgar.client import NetworkClient
 from secedgar.exceptions import CIKError, EDGARQueryError
@@ -24,12 +26,14 @@ def mock_single_cik_lookup_outside_map(monkeypatch):
 
 @pytest.fixture
 def mock_get_cik_map(monkeypatch):
-    ticker_return = {'AAPL': '320193', 'MSFT': '789019', 'FB': '1326801'}
-    title_return = {'AMAZON COM INC': '1018724', 'Alphabet Inc.': '1652044'}
-
-    def _map():
-        return {"ticker": ticker_return, "title": title_return}
-    monkeypatch.setattr(secedgar.cik_lookup, 'get_cik_map', _map)
+    response_json = {"0": {"cik_str": "320193", "ticker": "AAPL", "title": "Apple Inc."},
+                     "1": {"cik_str": "789019", "ticker": "MSFT", "title": "MICROSOFT CORP"},
+                     "2": {"cik_str": "1018724", "ticker": "AMZN", "title": "AMAZON COM INC"},
+                     "3": {"cik_str": "1326801", "ticker": "FB", "title": "Facebook Inc"},
+                     "4": {"cik_str": "1652044", "ticker": "GOOGL", "title": "Alphabet Inc."},
+                     "5": {"cik_str": "1652044", "ticker": "GOOG", "title": "Alphabet Inc."}}
+    response_json = json.dumps(response_json)
+    monkeypatch.setattr(requests, 'get', MockResponse(content=bytes(response_json, "utf-8")))
 
 
 @pytest.fixture
@@ -58,8 +62,8 @@ class TestCIKLookup(object):
             (['AAPL', 'AMAZON COM INC'], {'AAPL': '320193', 'AMAZON COM INC': '1018724'}),
             (['Alphabet Inc.'], {'Alphabet Inc.': '1652044'}),
             (['aapl', 'msft'], {'aapl': '320193', 'msft': '789019'}),
-            (['aapl', 'msft', 'Alphabet Inc.'], {
-             'aapl': '320193', 'msft': '789019', 'Alphabet Inc.': '1652044'}),
+            (['aapl', 'msft', 'Alphabet Inc.'],
+             {'aapl': '320193', 'msft': '789019', 'Alphabet Inc.': '1652044'}),
         ]
     )
     def test_cik_lookup_returns_correct_values(self, lookup, expected, mock_get_cik_map):

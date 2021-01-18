@@ -12,8 +12,10 @@ def get_cik_map():
     """Get dictionary of tickers and company names to CIK numbers.
 
     Uses ``functools.lru_cache`` to cache response if used in later calls.
-    To clear cache, use ``get_cik_map.cache_clear()``. All company names and
-    tickers are normalized by converting to upper case.
+    To clear cache, use ``get_cik_map.cache_clear()``.
+
+    .. note::
+       All company names and tickers are normalized by converting to upper case.
 
     Returns:
         Dictionary with keys "ticker" and "title". To get dictionary
@@ -24,7 +26,7 @@ def get_cik_map():
     """
     response = requests.get("https://www.sec.gov/files/company_tickers.json")
     json_response = response.json()
-    return {key: {v[key]: str(v["cik_str"]) for v in json_response.values()}
+    return {key: {v[key].upper(): str(v["cik_str"]) for v in json_response.values()}
             for key in ("ticker", "title")}
 
 
@@ -189,14 +191,16 @@ class CIKLookup:
         to_lookup = set(self.lookups)
 
         cik_map = get_cik_map()
+
+        # all keys upper case
         ticker_map = cik_map["ticker"]
         title_map = cik_map["title"]
 
         for lookup in to_lookup:
-            if lookup in ticker_map:
-                ciks[lookup] = ticker_map[lookup]
-            elif lookup in title_map:
-                ciks[lookup] = title_map[lookup]
+            if lookup.upper() in ticker_map:
+                ciks[lookup] = ticker_map[lookup.upper()]
+            elif lookup.upper() in title_map:
+                ciks[lookup] = title_map[lookup.upper()]
             else:
                 try:
                     result = self._get_cik(lookup)
