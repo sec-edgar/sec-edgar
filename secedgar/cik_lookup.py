@@ -1,3 +1,4 @@
+import functools
 import warnings
 
 import requests
@@ -6,25 +7,25 @@ from secedgar.client import NetworkClient
 from secedgar.exceptions import CIKError, EDGARQueryError
 
 
-def get_cik_map(key="ticker"):
-    """Get dictionary of tickers to CIK numbers.
+@functools.lru_cache()
+def get_cik_map():
+    """Get dictionary of tickers and company names to CIK numbers.
 
-    Args:
-        key (str): Should be either "ticker" or "title". Choosing "ticker"
-            will give dict with tickers as keys. Choosing "title" will use
-            company name as keys.
+    Uses ``functools.lru_cache`` to cache response if used in later calls.
+    To clear cache, use ``get_cik_map.cache_clear()``. All company names and
+    tickers are normalized by converting to upper case.
 
     Returns:
-        Dictionary with either ticker or company name as keys, depending on
-        ``key`` argument, and corresponding CIK as values.
+        Dictionary with keys "ticker" and "title". To get dictionary
+            mapping tickers to CIKs, use "ticker". To get
+            company names mapped to CIKs, use "title".
 
     .. versionadded:: 0.1.6
     """
-    if key not in ("ticker", "title"):
-        raise ValueError("key must be 'ticker' or 'title'. Was given {key}.".format(key=key))
     response = requests.get("https://www.sec.gov/files/company_tickers.json")
     json_response = response.json()
-    return {v[key]: str(v["cik_str"]) for v in json_response.values()}
+    return {key: {v[key]: str(v["cik_str"]) for v in json_response.values()}
+            for key in ("ticker", "title")}
 
 
 class CIKLookup:
@@ -184,39 +185,23 @@ class CIKLookup:
             ciks (dict): Dictionary with lookup terms as keys and CIKs as values.
 
         """
-        ciks = dict()
+        ciks = {}
         to_lookup = set(self.lookups)
-        found = set()
 
-        # First, try to get all CIKs with ticker map
-        # Tickers in map are upper case, so look up with upper case
-        ticker_map = get_cik_map(key="ticker")
+        cik_map = get_cik_map()
+        ticker_map = cik_map["ticker"]
+        title_map = cik_map["title"]
+
         for lookup in to_lookup:
-            try:
-                ciks[lookup] = ticker_map[lookup.upper()]
-                found.add(lookup)
-            except KeyError:
-                continue
-        to_lookup -= found
-
-        # If any more lookups remain, try to finish with company name map
-        # Case varies from company, so lookup with what is given
-        if to_lookup:
-            company_map = get_cik_map(key="title")
-            for lookup in to_lookup:
+            if lookup in ticker_map:
+                ciks[lookup] = ticker_map[lookup]
+            elif lookup in title_map:
+                ciks[lookup] = title_map[lookup]
+            else:
                 try:
-                    ciks[lookup] = company_map[lookup]
-                    found.add(lookup)
-                except KeyError:
-                    continue
-            to_lookup -= found
-
-        # Finally, if lookups are still left, look them up through the SEC's search
-        for lookup in to_lookup:
-            try:
-                result = self._get_cik(lookup)
-                self._validate_cik(result)  # raises error if not valid CIK
-                ciks[lookup] = result
-            except CIKError:
-                pass  # If multiple companies, found, just print out warnings
+                    result = self._get_cik(lookup)
+                    self._validate_cik(result)  # raises CIKError if not valid CIK
+                    ciks[lookup] = result
+                except CIKError:
+                    pass  # If multiple companies, found, print out warnings and skip
         return ciks

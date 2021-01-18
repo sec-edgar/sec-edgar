@@ -27,8 +27,8 @@ def mock_get_cik_map(monkeypatch):
     ticker_return = {'AAPL': '320193', 'MSFT': '789019', 'FB': '1326801'}
     title_return = {'AMAZON COM INC': '1018724', 'Alphabet Inc.': '1652044'}
 
-    def _map(key):
-        return ticker_return if key == 'ticker' else title_return
+    def _map():
+        return {"ticker": ticker_return, "title": title_return}
     monkeypatch.setattr(secedgar.cik_lookup, 'get_cik_map', _map)
 
 
