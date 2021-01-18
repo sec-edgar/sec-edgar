@@ -2,18 +2,8 @@ import gzip
 from datetime import datetime
 
 import pytest
-import requests
-from secedgar.cik_lookup import get_cik_map
 from secedgar.tests.utils import MockResponse, datapath
 from secedgar.utils import get_quarter, sanitize_date
-
-
-@pytest.fixture(scope="module")
-def mock_cik_map_response(monkeymodule):
-    with gzip.open(datapath("utils", "cik_map.json.gz"), "rt") as f:
-        content = bytes(f.read(), "utf-8")
-    monkeymodule.setattr(requests.Session, "get",
-                         MockResponse(content=content))
 
 
 class TestUtils:
@@ -56,43 +46,6 @@ class TestUtils:
     )
     def test_good_formats_datetime(self, dt_date, expected):
         assert sanitize_date(dt_date) == expected
-
-    @pytest.mark.parametrize(
-        "ticker,cik",
-        [
-            ("AAPL", "320193"),
-            ("FB", "1326801"),
-            ("MSFT", "789019")
-        ]
-    )
-    def test_get_cik_map(self, ticker, cik, mock_cik_map_response):
-        cik_map = get_cik_map()
-        assert cik_map[ticker] == cik
-
-    @pytest.mark.parametrize(
-        "name,cik",
-        [
-            ("Apple Inc.", "320193"),
-            ("NIKE, Inc.", "320187"),
-            ("MICROSOFT CORP", "789019"),
-        ]
-    )
-    def test_get_company_name_map(self, name, cik, mock_cik_map_response):
-        name_map = get_cik_map(key="title")
-        assert name_map[name] == cik
-
-    @pytest.mark.parametrize(
-        "key",
-        [
-            "Ticker",
-            "Title",
-            "CIK",
-            "Company Name"
-        ]
-    )
-    def test_get_cik_map_bad_keys(self, key):
-        with pytest.raises(ValueError):
-            get_cik_map(key=key)
 
     @pytest.mark.parametrize(
         "date,expected_quarter",

@@ -2,7 +2,7 @@ import json
 
 import pytest
 import requests
-from secedgar.cik_lookup import CIKLookup
+from secedgar.cik_lookup import CIKLookup, get_cik_map
 from secedgar.client import NetworkClient
 from secedgar.exceptions import CIKError, EDGARQueryError
 from secedgar.tests.conftest import MockResponse
@@ -152,3 +152,26 @@ class TestCIKLookup(object):
         lookup = CIKLookup(lookups=ticker_lookups, client=client)
         lookup._get_cik(ticker_lookups[0])
         assert lookup.params.get("CIK") is None and lookup.params.get("company") is None
+
+    @pytest.mark.parametrize(
+        "lookup,cik",
+        [
+            ("aapl", "320193"),
+            ("AMZN", "1018724"),
+            ("Msft", "789019"),
+        ]
+    )
+    def test_get_cik_map_tickers(self, lookup, cik, mock_get_cik_map):
+        cik_map = get_cik_map()
+        assert cik_map["ticker"][lookup.upper()] == cik
+
+    @pytest.mark.parametrize(
+        "lookup,cik",
+        [
+            ("facebook inc", "1326801"),
+            ("Alphabet Inc.", "1652044"),
+        ]
+    )
+    def test_get_cik_map_company_names(self, lookup, cik, mock_get_cik_map):
+        cik_map = get_cik_map()
+        assert cik_map["title"][lookup.upper()] == cik
