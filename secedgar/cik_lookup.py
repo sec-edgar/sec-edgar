@@ -86,50 +86,6 @@ class CIKLookup:
             self._lookup_dict = self.get_ciks()
         return self._lookup_dict
 
-    def get_ciks(self):
-        """Validate lookup values and return corresponding CIKs.
-
-        Returns:
-            ciks (dict): Dictionary with lookup terms as keys and CIKs as values.
-
-        """
-        ciks = dict()
-        to_lookup = set(self.lookups)
-        found = set()
-
-        # First, try to get all CIKs with ticker map
-        # Tickers in map are upper case, so look up with upper case
-        ticker_map = get_cik_map(key="ticker")
-        for lookup in to_lookup:
-            try:
-                ciks[lookup] = ticker_map[lookup.upper()]
-                found.add(lookup)
-            except KeyError:
-                continue
-        to_lookup -= found
-
-        # If any more lookups remain, try to finish with company name map
-        # Case varies from company, so lookup with what is given
-        if to_lookup:
-            company_map = get_cik_map(key="title")
-            for lookup in to_lookup:
-                try:
-                    ciks[lookup] = company_map[lookup]
-                    found.add(lookup)
-                except KeyError:
-                    continue
-            to_lookup -= found
-
-        # Finally, if lookups are still left, look them up through the SEC's search
-        for lookup in to_lookup:
-            try:
-                result = self._get_cik(lookup)
-                self._validate_cik(result)  # raises error if not valid CIK
-                ciks[lookup] = result
-            except CIKError:
-                pass  # If multiple companies, found, just print out warnings
-        return ciks
-
     # TODO: Add mock to test this functionality
     def _get_lookup_soup(self, lookup):
         """Gets `BeautifulSoup` object for lookup.
@@ -220,3 +176,47 @@ class CIKLookup:
         if not (lookup and isinstance(lookup, str)):
             raise TypeError("Lookup value must be string. Given type {0}.".format(type(lookup)))
         return lookup
+
+    def get_ciks(self):
+        """Validate lookup values and return corresponding CIKs.
+
+        Returns:
+            ciks (dict): Dictionary with lookup terms as keys and CIKs as values.
+
+        """
+        ciks = dict()
+        to_lookup = set(self.lookups)
+        found = set()
+
+        # First, try to get all CIKs with ticker map
+        # Tickers in map are upper case, so look up with upper case
+        ticker_map = get_cik_map(key="ticker")
+        for lookup in to_lookup:
+            try:
+                ciks[lookup] = ticker_map[lookup.upper()]
+                found.add(lookup)
+            except KeyError:
+                continue
+        to_lookup -= found
+
+        # If any more lookups remain, try to finish with company name map
+        # Case varies from company, so lookup with what is given
+        if to_lookup:
+            company_map = get_cik_map(key="title")
+            for lookup in to_lookup:
+                try:
+                    ciks[lookup] = company_map[lookup]
+                    found.add(lookup)
+                except KeyError:
+                    continue
+            to_lookup -= found
+
+        # Finally, if lookups are still left, look them up through the SEC's search
+        for lookup in to_lookup:
+            try:
+                result = self._get_cik(lookup)
+                self._validate_cik(result)  # raises error if not valid CIK
+                ciks[lookup] = result
+            except CIKError:
+                pass  # If multiple companies, found, just print out warnings
+        return ciks

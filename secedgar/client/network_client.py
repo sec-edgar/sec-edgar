@@ -8,8 +8,8 @@ import requests
 import tqdm
 from bs4 import BeautifulSoup
 from requests.adapters import HTTPAdapter
+from secedgar.exceptions import EDGARQueryError
 from secedgar.utils import make_path
-from secedgar.utils.exceptions import EDGARQueryError
 from urllib3.util.retry import Retry
 
 

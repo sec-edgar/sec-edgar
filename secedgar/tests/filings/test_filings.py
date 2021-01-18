@@ -2,11 +2,11 @@
 import datetime
 
 import pytest
+from secedgar.cik_lookup import CIKLookup
 from secedgar.client import NetworkClient
+from secedgar.exceptions import FilingTypeError
 from secedgar.filings import Filing, FilingType
 from secedgar.tests.utils import MockResponse
-from secedgar.utils.cik_lookup import CIKLookup
-from secedgar.utils.exceptions import FilingTypeError
 
 
 @pytest.fixture

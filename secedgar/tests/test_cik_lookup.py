@@ -1,9 +1,9 @@
 import pytest
-import secedgar.utils
+import secedgar.cik_lookup
+from secedgar.cik_lookup import CIKLookup
 from secedgar.client import NetworkClient
+from secedgar.exceptions import CIKError, EDGARQueryError
 from secedgar.tests.conftest import MockResponse
-from secedgar.utils.cik_lookup import CIKLookup
-from secedgar.utils.exceptions import CIKError, EDGARQueryError
 
 
 @pytest.fixture
@@ -27,9 +27,9 @@ def mock_get_cik_map(monkeypatch):
     ticker_return = {'AAPL': '320193', 'MSFT': '789019', 'FB': '1326801'}
     title_return = {'AMAZON COM INC': '1018724', 'Alphabet Inc.': '1652044'}
 
-    def _map(k):
-        return ticker_return if k == 'ticker' else title_return
-    monkeypatch.setattr(secedgar.utils, 'get_cik_map', _map)
+    def _map(key):
+        return ticker_return if key == 'ticker' else title_return
+    monkeypatch.setattr(secedgar.cik_lookup, 'get_cik_map', _map)
 
 
 @pytest.fixture

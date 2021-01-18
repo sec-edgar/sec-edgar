@@ -3,8 +3,9 @@ from datetime import datetime
 
 import pytest
 import requests
+from secedgar.cik_lookup import get_cik_map
 from secedgar.tests.utils import MockResponse, datapath
-from secedgar.utils import get_cik_map, get_quarter, sanitize_date
+from secedgar.utils import get_quarter, sanitize_date
 
 
 @pytest.fixture(scope="module")

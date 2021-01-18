@@ -22,7 +22,7 @@ Accessing ``lookups.lookup_dict`` would then return
 
    {'aapl': '320193', 'msft': '789019', 'Facebook': '0001326801'}
 
-Another alternative to using the ``CIKLookup`` class directly is to use the provided :meth:`secedgar.utils.get_cik_map` function.
+Another alternative to using the ``CIKLookup`` class directly is to use the provided :meth:`secedgar.cik_lookup.get_cik_map` function.
 
-.. autoclass:: secedgar.utils.cik_lookup.CIKLookup
+.. autoclass:: secedgar.cik_lookup.CIKLookup
    :members:

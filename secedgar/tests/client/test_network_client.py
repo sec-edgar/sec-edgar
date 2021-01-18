@@ -6,8 +6,8 @@ import time
 import pytest
 import requests
 from secedgar.client import NetworkClient
+from secedgar.exceptions import EDGARQueryError
 from secedgar.tests.utils import MockResponse
-from secedgar.utils.exceptions import EDGARQueryError
 
 
 @pytest.fixture
