@@ -1,8 +1,6 @@
-import gzip
 from datetime import datetime
 
 import pytest
-from secedgar.tests.utils import MockResponse, datapath
 from secedgar.utils import get_quarter, sanitize_date
 
 
