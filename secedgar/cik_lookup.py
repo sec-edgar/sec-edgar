@@ -195,10 +195,11 @@ class CIKLookup:
         title_map = cik_map["title"]
 
         for lookup in to_lookup:
-            if lookup.upper() in ticker_map:
-                ciks[lookup] = ticker_map[lookup.upper()]
-            elif lookup.upper() in title_map:
-                ciks[lookup] = title_map[lookup.upper()]
+            lookup_norm = lookup.upper()
+            if lookup_norm in ticker_map:
+                ciks[lookup] = ticker_map[lookup_norm]
+            elif lookup_norm in title_map:
+                ciks[lookup] = title_map[lookup_norm]
             else:
                 try:
                     result = self._get_cik(lookup)
