@@ -164,7 +164,6 @@ class CIKLookup:
         """Check if CIK is 10 digit string."""
         if not (isinstance(cik, str) and len(cik) == 10 and cik.isdigit()):
             raise CIKError(cik)
-        return cik
 
     @staticmethod
     def _validate_lookup(lookup):
@@ -178,7 +177,6 @@ class CIKLookup:
         """
         if not (lookup and isinstance(lookup, str)):
             raise TypeError("Lookup value must be string. Given type {0}.".format(type(lookup)))
-        return lookup
 
     def get_ciks(self):
         """Validate lookup values and return corresponding CIKs.
