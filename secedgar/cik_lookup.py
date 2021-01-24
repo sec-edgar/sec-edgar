@@ -58,7 +58,6 @@ class CIKLookup:
     def ciks(self):
         """:obj:`list` of :obj:`str`: List of CIKs (as string of digits)."""
         if self._ciks is None:
-            self._lookup_dict = self.get_ciks()
             self._ciks = list(self.lookup_dict.values())
         return self._ciks
 
