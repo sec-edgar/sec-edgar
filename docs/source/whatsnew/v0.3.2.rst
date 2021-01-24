@@ -4,10 +4,11 @@ v0.3.2
 Highlights
 ~~~~~~~~~~
 
-- Gets rid of unnecessary ``AbstractClient``
+- Gets rid of unnecessary ``AbstractClient``.
 - Flattens directory structure. The ``exceptions``, ``cik_lookup``, and ``utils`` have been moved to the main package directory.
 - Removes ``cik_map`` module in favor of single ``cik_lookup`` module which now houses ``get_cik_map``.
 - Slightly changes functionality of ``get_cik_map`` to return single dictionary.
+- Rename internal ``_get_cik`` to ``_get_cik_from_html``.
 
 
 Contributors

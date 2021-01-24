@@ -95,7 +95,7 @@ class CIKLookup:
         First tries to lookup using CIK. Then falls back to company name.
 
         .. warning::
-           Only to be used internally by `_get_cik` to get CIK from lookup.
+           Only to be used internally by `_get_cik_from_html` to get CIK from lookup.
 
         Args:
             lookup (str): CIK, company name, or ticker symbol to lookup.
@@ -112,7 +112,7 @@ class CIKLookup:
             self._params['company'] = lookup
             return self._client.get_soup(self.path, self.params)
 
-    def _get_cik(self, lookup):
+    def _get_cik_from_html(self, lookup):
         """Gets CIK from `BeautifulSoup` object.
 
         .. warning: This method will warn when lookup returns multiple possibilities for a
@@ -201,7 +201,7 @@ class CIKLookup:
                 ciks[lookup] = title_map[lookup_norm]
             else:
                 try:
-                    result = self._get_cik(lookup)
+                    result = self._get_cik_from_html(lookup)
                     self._validate_cik(result)  # raises CIKError if not valid CIK
                     ciks[lookup] = result
                 except CIKError:

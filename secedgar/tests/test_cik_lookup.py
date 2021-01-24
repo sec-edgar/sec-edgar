@@ -150,7 +150,7 @@ class TestCIKLookup(object):
     def test_params_reset_after_get_cik(self, ticker_lookups, client,
                                         mock_single_cik_lookup_outside_map):
         lookup = CIKLookup(lookups=ticker_lookups, client=client)
-        lookup._get_cik(ticker_lookups[0])
+        lookup._get_cik_from_html(ticker_lookups[0])
         assert lookup.params.get("CIK") is None and lookup.params.get("company") is None
 
     @pytest.mark.parametrize(
