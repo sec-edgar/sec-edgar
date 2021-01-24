@@ -3,10 +3,10 @@
 Finding Company CIKs
 ====================
 
-The ``secedgar.utils.get_cik_map`` function is provided as a utility to easily
+The ``secedgar.cik_lookup.get_cik_map`` function is provided as a utility to easily
 fetch CIKs based on a company's ticker or name.
 
-.. autofunction:: secedgar.utils.get_cik_map
+.. autofunction:: secedgar.cik_lookup.get_cik_map
 
 By default, ``get_cik_map`` fetches a dictionary using company tickers as keys.
 
@@ -16,12 +16,12 @@ By default, ``get_cik_map`` fetches a dictionary using company tickers as keys.
 
 .. ipython:: python
 
-   from secedgar.utils import get_cik_map
-   dict(list(get_cik_map().items())[:5])
+   from secedgar.cik_lookup import get_cik_map
+   dict(list(get_cik_map()["ticker"].items())[:5])
 
-To get a dictionary with the company names as the keys, use ``key="title"``.
+To get a dictionary with the company names as the keys, use the "title" key.
 
 .. ipython:: python
 
-   from secedgar.utils import get_cik_map
-   dict(list(get_cik_map(key="title").items())[:5])
+   from secedgar.cik_lookup import get_cik_map
+   dict(list(get_cik_map()["title"].items())[:5])

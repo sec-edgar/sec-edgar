@@ -173,21 +173,26 @@
             
   <div class="section" id="finding-company-ciks">
 <span id="cikmap"></span><h1>Finding Company CIKs<a class="headerlink" href="#finding-company-ciks" title="Permalink to this headline">¶</a></h1>
-<p>The <code class="docutils literal notranslate"><span class="pre">secedgar.utils.get_cik_map</span></code> function is provided as a utility to easily
+<p>The <code class="docutils literal notranslate"><span class="pre">secedgar.cik_lookup.get_cik_map</span></code> function is provided as a utility to easily
 fetch CIKs based on a company’s ticker or name.</p>
 <dl class="py function">
-<dt id="secedgar.utils.get_cik_map">
-<code class="sig-prename descclassname">secedgar.utils.</code><code class="sig-name descname">get_cik_map</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span><span class="o">=</span><span class="default_value">'ticker'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.utils.get_cik_map" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get dictionary of tickers to CIK numbers.</p>
+<dt id="secedgar.cik_lookup.get_cik_map">
+<code class="sig-prename descclassname">secedgar.cik_lookup.</code><code class="sig-name descname">get_cik_map</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.cik_lookup.get_cik_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get dictionary of tickers and company names to CIK numbers.</p>
+<p>Uses <code class="docutils literal notranslate"><span class="pre">functools.lru_cache</span></code> to cache response if used in later calls.
+To clear cache, use <code class="docutils literal notranslate"><span class="pre">get_cik_map.cache_clear()</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All company names and tickers are normalized by converting to upper case.</p>
+</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – Should be either “ticker” or “title”. Choosing “ticker”
-will give dict with tickers as keys. Choosing “title” will use
-company name as keys.</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>Dictionary with keys “ticker” and “title”. To get dictionary</dt><dd><p>mapping tickers to CIKs, use “ticker”. To get
+company names mapped to CIKs, use “title”.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Dictionary with either ticker or company name as keys, depending on
-<code class="docutils literal notranslate"><span class="pre">key</span></code> argument, and corresponding CIK as values.</p>
+</dl>
+</p>
 </dd>
 </dl>
 <div class="versionadded">
@@ -200,9 +205,9 @@ company name as keys.</p>
 <p class="admonition-title">Note</p>
 <p>In both examples below, only the first 5 results are shown.</p>
 </div>
-<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">secedgar.utils</span> <span class="kn">import</span> <span class="n">get_cik_map</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">secedgar.cik_lookup</span> <span class="kn">import</span> <span class="n">get_cik_map</span>
 
-<span class="gp">In [2]: </span><span class="nb">dict</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">get_cik_map</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">())[:</span><span class="mi">5</span><span class="p">])</span>
+<span class="gp">In [2]: </span><span class="nb">dict</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">get_cik_map</span><span class="p">()[</span><span class="s2">&quot;ticker&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">())[:</span><span class="mi">5</span><span class="p">])</span>
 <span class="gh">Out[2]: </span><span class="go"></span>
 <span class="go">{&#39;AAPL&#39;: &#39;320193&#39;,</span>
 <span class="go"> &#39;MSFT&#39;: &#39;789019&#39;,</span>
@@ -211,16 +216,16 @@ company name as keys.</p>
 <span class="go"> &#39;TSLA&#39;: &#39;1318605&#39;}</span>
 </pre></div>
 </div>
-<p>To get a dictionary with the company names as the keys, use <code class="docutils literal notranslate"><span class="pre">key=&quot;title&quot;</span></code>.</p>
-<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [3]: </span><span class="kn">from</span> <span class="nn">secedgar.utils</span> <span class="kn">import</span> <span class="n">get_cik_map</span>
+<p>To get a dictionary with the company names as the keys, use the “title” key.</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [3]: </span><span class="kn">from</span> <span class="nn">secedgar.cik_lookup</span> <span class="kn">import</span> <span class="n">get_cik_map</span>
 
-<span class="gp">In [4]: </span><span class="nb">dict</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">get_cik_map</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;title&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">())[:</span><span class="mi">5</span><span class="p">])</span>
+<span class="gp">In [4]: </span><span class="nb">dict</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">get_cik_map</span><span class="p">()[</span><span class="s2">&quot;title&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">())[:</span><span class="mi">5</span><span class="p">])</span>
 <span class="gh">Out[4]: </span><span class="go"></span>
-<span class="go">{&#39;Apple Inc.&#39;: &#39;320193&#39;,</span>
+<span class="go">{&#39;APPLE INC.&#39;: &#39;320193&#39;,</span>
 <span class="go"> &#39;MICROSOFT CORP&#39;: &#39;789019&#39;,</span>
 <span class="go"> &#39;AMAZON COM INC&#39;: &#39;1018724&#39;,</span>
-<span class="go"> &#39;Alphabet Inc.&#39;: &#39;1652044&#39;,</span>
-<span class="go"> &#39;Tesla, Inc.&#39;: &#39;1318605&#39;}</span>
+<span class="go"> &#39;ALPHABET INC.&#39;: &#39;1652044&#39;,</span>
+<span class="go"> &#39;TESLA, INC.&#39;: &#39;1318605&#39;}</span>
 </pre></div>
 </div>
 </div>
