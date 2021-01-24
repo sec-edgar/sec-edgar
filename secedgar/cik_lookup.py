@@ -1,27 +1,47 @@
+import functools
 import warnings
 
-from secedgar.client.network_client import NetworkClient
-from secedgar.utils.cik_map import get_cik_map
-from secedgar.utils.exceptions import CIKError, EDGARQueryError
+import requests
+
+from secedgar.client import NetworkClient
+from secedgar.exceptions import CIKError, EDGARQueryError
 
 
-class _CIKValidator(object):
-    """Validates company tickers and/or company names based on CIK availability.
+@functools.lru_cache()
+def get_cik_map():
+    """Get dictionary of tickers and company names to CIK numbers.
 
-    Used internally by the CIK class. Not intended for outside use.
+    Uses ``functools.lru_cache`` to cache response if used in later calls.
+    To clear cache, use ``get_cik_map.cache_clear()``.
+
+    .. note::
+       All company names and tickers are normalized by converting to upper case.
+
+    Returns:
+        Dictionary with keys "ticker" and "title". To get dictionary
+            mapping tickers to CIKs, use "ticker". To get
+            company names mapped to CIKs, use "title".
+
+    .. versionadded:: 0.1.6
+    """
+    response = requests.get("https://www.sec.gov/files/company_tickers.json")
+    json_response = response.json()
+    return {key: {v[key].upper(): str(v["cik_str"]) for v in json_response.values()}
+            for key in ("ticker", "title")}
+
+
+class CIKLookup:
+    """CIK Lookup object.
+
+    Given list of tickers/company names to lookup, this object can return associated CIKs.
 
     Args:
-        lookups (Union[str, list, tuple]): List of tickers and/or company names for
-            which to find CIKs.
-        **kwargs: Any kwargs will be passed to NetworkClient if no client is given.
+        lookup (Union[str, list]): Ticker, company name, or list of tickers and/or company names.
 
     .. versionadded:: 0.1.5
     """
 
-    # See Stack Overflow's answer to how-do-you-pep-8-name-a-class-whose-name-is-an-acronym
-    # if you are wondering whether CIK should be capitalized in the class name or not.
     def __init__(self, lookups, client=None, **kwargs):
-        # Make sure lookups is not empty string
         if lookups and isinstance(lookups, str):
             self._lookups = [lookups]  # make single string into list
         else:
@@ -31,6 +51,20 @@ class _CIKValidator(object):
             self._lookups = lookups
         self._params = {'action': 'getcompany'}
         self._client = client if client is not None else NetworkClient(**kwargs)
+        self._lookup_dict = None
+        self._ciks = None
+
+    @property
+    def ciks(self):
+        """:obj:`list` of :obj:`str`: List of CIKs (as string of digits)."""
+        if self._ciks is None:
+            self._ciks = list(self.lookup_dict.values())
+        return self._ciks
+
+    @property
+    def lookups(self):
+        """`list` of `str` to lookup (to get CIK values)."""
+        return self._lookups
 
     @property
     def path(self):
@@ -48,53 +82,11 @@ class _CIKValidator(object):
         return self._params
 
     @property
-    def lookups(self):
-        """`list` of `str` to lookup (to get CIK values)."""
-        return self._lookups
-
-    def get_ciks(self):
-        """Validate lookup values and return corresponding CIKs.
-
-        Returns:
-            ciks (dict): Dictionary with lookup terms as keys and CIKs as values.
-
-        """
-        ciks = dict()
-        to_lookup = set(self.lookups)
-        found = set()
-
-        # First, try to get all CIKs with ticker map
-        # Tickers in map are upper case, so look up with upper case
-        ticker_map = get_cik_map(key="ticker")
-        for lookup in to_lookup:
-            try:
-                ciks[lookup] = ticker_map[lookup.upper()]
-                found.add(lookup)
-            except KeyError:
-                continue
-        to_lookup -= found
-
-        # If any more lookups remain, try to finish with company name map
-        # Case varies from company, so lookup with what is given
-        if to_lookup:
-            company_map = get_cik_map(key="title")
-            for lookup in to_lookup:
-                try:
-                    ciks[lookup] = company_map[lookup]
-                    found.add(lookup)
-                except KeyError:
-                    continue
-            to_lookup -= found
-
-        # Finally, if lookups are still left, look them up through the SEC's search
-        for lookup in to_lookup:
-            try:
-                result = self._get_cik(lookup)
-                self._validate_cik(result)  # raises error if not valid CIK
-                ciks[lookup] = result
-            except CIKError:
-                pass  # If multiple companies, found, just print out warnings
-        return ciks
+    def lookup_dict(self):
+        """:obj:`dict`: Dictionary that makes tickers and company names to CIKs."""
+        if self._lookup_dict is None:
+            self._lookup_dict = self.get_ciks()
+        return self._lookup_dict
 
     # TODO: Add mock to test this functionality
     def _get_lookup_soup(self, lookup):
@@ -103,7 +95,7 @@ class _CIKValidator(object):
         First tries to lookup using CIK. Then falls back to company name.
 
         .. warning::
-           Only to be used internally by `_get_cik` to get CIK from lookup.
+           Only to be used internally by `_get_cik_from_html` to get CIK from lookup.
 
         Args:
             lookup (str): CIK, company name, or ticker symbol to lookup.
@@ -120,7 +112,7 @@ class _CIKValidator(object):
             self._params['company'] = lookup
             return self._client.get_soup(self.path, self.params)
 
-    def _get_cik(self, lookup):
+    def _get_cik_from_html(self, lookup):
         """Gets CIK from `BeautifulSoup` object.
 
         .. warning: This method will warn when lookup returns multiple possibilities for a
@@ -144,8 +136,8 @@ class _CIKValidator(object):
             warnings.warn(warning_message)
         finally:
             # Delete parameters after lookup
-            self.params.pop('company', None)
-            self.params.pop('CIK', None)
+            self._params.pop('company', None)
+            self._params.pop('CIK', None)
 
     @staticmethod
     def _get_cik_possibilities(soup):
@@ -184,3 +176,34 @@ class _CIKValidator(object):
         """
         if not (lookup and isinstance(lookup, str)):
             raise TypeError("Lookup value must be string. Given type {0}.".format(type(lookup)))
+
+    def get_ciks(self):
+        """Validate lookup values and return corresponding CIKs.
+
+        Returns:
+            ciks (dict): Dictionary with lookup terms as keys and CIKs as values.
+
+        """
+        ciks = {}
+        to_lookup = set(self.lookups)
+
+        cik_map = get_cik_map()
+
+        # all keys upper case
+        ticker_map = cik_map["ticker"]
+        title_map = cik_map["title"]
+
+        for lookup in to_lookup:
+            lookup_norm = lookup.upper()
+            if lookup_norm in ticker_map:
+                ciks[lookup] = ticker_map[lookup_norm]
+            elif lookup_norm in title_map:
+                ciks[lookup] = title_map[lookup_norm]
+            else:
+                try:
+                    result = self._get_cik_from_html(lookup)
+                    self._validate_cik(result)  # raises CIKError if not valid CIK
+                    ciks[lookup] = result
+                except CIKError:
+                    pass  # If multiple companies, found, print out warnings and skip
+        return ciks

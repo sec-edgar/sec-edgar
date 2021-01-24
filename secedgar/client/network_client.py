@@ -8,13 +8,12 @@ import requests
 import tqdm
 from bs4 import BeautifulSoup
 from requests.adapters import HTTPAdapter
-from secedgar.client._base import AbstractClient
+from secedgar.exceptions import EDGARQueryError
 from secedgar.utils import make_path
-from secedgar.utils.exceptions import EDGARQueryError
 from urllib3.util.retry import Retry
 
 
-class NetworkClient(AbstractClient):
+class NetworkClient:
     """Class in charge of sending and handling requests to EDGAR database.
 
     Args:

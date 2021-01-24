@@ -2,24 +2,24 @@
 import datetime
 
 import pytest
+from secedgar.cik_lookup import CIKLookup
 from secedgar.client import NetworkClient
+from secedgar.exceptions import FilingTypeError
 from secedgar.filings import Filing, FilingType
-from secedgar.filings.cik_validator import _CIKValidator
 from secedgar.tests.utils import MockResponse
-from secedgar.utils.exceptions import FilingTypeError
 
 
 @pytest.fixture
 def mock_cik_validator_get_single_cik(monkeypatch):
     """Mocks response for getting a single CIK."""
-    monkeypatch.setattr(_CIKValidator, "get_ciks",
+    monkeypatch.setattr(CIKLookup, "get_ciks",
                         lambda *args, **kwargs: {"aapl": "0000320193"})
 
 
 @pytest.fixture(scope="module")
 def mock_cik_validator_get_multiple_ciks(monkeymodule):
     """Mocks response for getting a single CIK."""
-    monkeymodule.setattr(_CIKValidator, "get_ciks",
+    monkeymodule.setattr(CIKLookup, "get_ciks",
                          lambda *args: {"aapl": "0000320193", "msft": "1234", "amzn": "5678"})
 
 

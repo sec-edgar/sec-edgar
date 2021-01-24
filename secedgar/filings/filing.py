@@ -3,12 +3,12 @@ import datetime
 import os
 import warnings
 
+from secedgar.cik_lookup import CIKLookup
 from secedgar.client import NetworkClient
+from secedgar.exceptions import FilingTypeError
 from secedgar.filings._base import AbstractFiling
-from secedgar.filings.cik_lookup import CIKLookup
 from secedgar.filings.filing_types import FilingType
 from secedgar.utils import sanitize_date
-from secedgar.utils.exceptions import FilingTypeError
 
 
 class Filing(AbstractFiling):
@@ -122,7 +122,7 @@ class Filing(AbstractFiling):
 
     @property
     def cik_lookup(self):
-        """``secedgar.filings.cik_lookup.CIKLookup``: CIKLookupobject."""
+        """``secedgar.cik_lookup.CIKLookup``: CIKLookup object."""
         return self._cik_lookup
 
     @cik_lookup.setter

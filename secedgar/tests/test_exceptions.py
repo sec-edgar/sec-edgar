@@ -11,7 +11,7 @@ import pytest
     ]
 )
 def test_exception_importable(exc):
-    from secedgar.utils import exceptions
+    from secedgar import exceptions
 
     err = getattr(exceptions, exc)
     assert err is not None

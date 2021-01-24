@@ -1,8 +1,6 @@
 import datetime
 import os
 
-from secedgar.utils.cik_map import get_cik_map  # noqa:F401
-
 
 def sanitize_date(date):
     """Sanitizes date to be in acceptable format for EDGAR.

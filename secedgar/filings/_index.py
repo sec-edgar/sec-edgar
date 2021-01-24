@@ -8,9 +8,9 @@ from queue import Empty, Queue
 from threading import Thread
 
 from secedgar.client import NetworkClient
+from secedgar.exceptions import EDGARQueryError
 from secedgar.filings._base import AbstractFiling
 from secedgar.utils import make_path
-from secedgar.utils.exceptions import EDGARQueryError
 
 
 class IndexFilings(AbstractFiling):
