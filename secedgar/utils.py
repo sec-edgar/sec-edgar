@@ -49,3 +49,16 @@ def get_quarter(date):
         date ([datetime.datetime]): Datetime object to get quarter for.
     """
     return (date.month - 1) // 3 + 1
+
+def get_month(quarter):
+    """Get month that corresponds with quarter start.
+
+    Args:
+        quarter ([datetime.datetime]): Datetime object to get quarter for.
+    """
+    if not isinstance(quarter, int):
+        raise TypeError('Quarter must be an int')
+    if quarter < 1 or quarter > 4:
+        raise TypeError('Quarter must be between 1 and 4.')
+
+    return 1 + (quarter - 1) * 3
