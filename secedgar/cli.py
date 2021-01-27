@@ -4,7 +4,7 @@ from datetime import datetime
 import click
 
 from secedgar.exceptions import FilingTypeError
-from secedgar.filings import DailyFilings, Filing, FilingType
+from secedgar.filings import CompanyFilings, DailyFilings, FilingType
 
 
 @click.group()
@@ -56,11 +56,11 @@ def filing(lookups, ftype, start, end, count, directory):
     except KeyError:
         raise FilingTypeError()
 
-    f = Filing(cik_lookup=lookups,
-               filing_type=ftype,
-               start_date=date_cleanup(start),
-               end_date=date_cleanup(end),
-               count=count)
+    f = CompanyFilings(cik_lookup=lookups,
+                       filing_type=ftype,
+                       start_date=date_cleanup(start),
+                       end_date=date_cleanup(end),
+                       count=count)
     f.save(directory=directory)
 
 
