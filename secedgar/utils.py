@@ -6,7 +6,7 @@ def sanitize_date(date):
     """Sanitizes date to be in acceptable format for EDGAR.
 
     Args:
-        date (Union[datetime.datetime, str]): Date to be sanitized for request.
+        date (Union[datetime.datetime, datetime.date, str]): Date to be sanitized for request.
 
     Returns:
         date (str): Properly formatted date in 'YYYYMMDD' format.
@@ -46,15 +46,16 @@ def get_quarter(date):
     """Get quarter that corresponds with date.
 
     Args:
-        date ([datetime.datetime]): Datetime object to get quarter for.
+        date (Union[datetime.datetime, datetime.date]): Datetime object to get quarter for.
     """
     return (date.month - 1) // 3 + 1
+
 
 def get_month(quarter):
     """Get month that corresponds with quarter start.
 
     Args:
-        quarter ([datetime.datetime]): Datetime object to get quarter for.
+        quarter (Union[datetime.datetime, datetime.date]): Datetime object to get quarter for.
     """
     if not isinstance(quarter, int):
         raise TypeError('Quarter must be an int')
