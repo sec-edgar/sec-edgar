@@ -98,10 +98,11 @@ class CompanyFilings(AbstractFiling):
 
     @filing_type.setter
     def filing_type(self, filing_type):
-        if not isinstance(filing_type, FilingType):
+        if isinstance(filing_type, FilingType):
+            self._params['type'] = filing_type.value
+        elif filing_type is not None:
             raise FilingTypeError
         self._filing_type = filing_type
-        self._params['type'] = filing_type.value
 
     @property
     def count(self):
