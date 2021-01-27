@@ -1,5 +1,5 @@
 import os
-from datetime import date
+from datetime import date, datetime
 
 import pytest
 from secedgar.filings.daily import DailyFilings
@@ -129,6 +129,44 @@ class TestDaily:
         daily_filing = DailyFilings(date(year, month, day))
         assert daily_filing.path == "Archives/edgar/daily-index/{year}/QTR{quarter}/".format(
             year=year, quarter=quarter)
+
+    @pytest.mark.parametrize(
+        "date",
+        [
+            date(2020, 1, 1),
+            date(2020, 3, 30),
+            date(1993, 12, 31),
+            datetime(2020, 1, 1)
+        ]
+    )
+    def test_good_date_setter(self, date):
+        daily_filing = DailyFilings(date=date)
+        assert daily_filing.date == date
+
+    @pytest.mark.parametrize(
+        "bad_date",
+        [
+            20201231,
+            "20201231",
+            "2020/12/31"
+        ]
+    )
+    def test_bad_date_on_init(self, bad_date):
+        with pytest.raises(TypeError):
+            daily_filing = DailyFilings(date=bad_date)
+
+    @pytest.mark.parametrize(
+        "bad_date",
+        [
+            20201231,
+            "20201231",
+            "2020/12/31"
+        ]
+    )
+    def test_bad_date_setter_after_init(self, bad_date):
+        daily_filing = DailyFilings(date=date(2020, 1, 1))
+        with pytest.raises(TypeError):
+            daily_filing.date = bad_date
 
     def test_no_params(self):
         """Params should always be empty."""
