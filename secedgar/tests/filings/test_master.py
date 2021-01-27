@@ -2,7 +2,7 @@ import os
 from datetime import date
 
 import pytest
-from secedgar.filings.master import MasterFilings
+from secedgar.filings.quarterly import QuarterlyFilings
 from secedgar.tests.utils import MockResponse
 
 
@@ -10,9 +10,9 @@ from secedgar.tests.utils import MockResponse
 def mock_master_quarter_directory(monkeymodule):
     """Mock directory of all filings for quarter.
 
-    Use for MasterFilings object.
+    Use for QuarterlyFilings object.
     """
-    monkeymodule.setattr(MasterFilings, "_get_listings_directory",
+    monkeymodule.setattr(QuarterlyFilings, "_get_listings_directory",
                          MockResponse(datapath_args=[
                              "filings", "master", "master_index_1993_QTR4.html"
                          ]))
@@ -20,7 +20,7 @@ def mock_master_quarter_directory(monkeymodule):
 
 @pytest.fixture
 def mock_master_idx_file(monkeypatch):
-    monkeypatch.setattr(MasterFilings, "_get_master_idx_file",
+    monkeypatch.setattr(QuarterlyFilings, "_get_master_idx_file",
                         lambda *args:
                         MockResponse(datapath_args=["filings", "master", "master.idx"]).text)
 
@@ -41,11 +41,11 @@ class TestMaster:
     )
     def test_bad_year(self, bad_year, expected_error):
         with pytest.raises(expected_error):
-            _ = MasterFilings(year=bad_year, quarter=1)
+            _ = QuarterlyFilings(year=bad_year, quarter=1)
 
     def test_good_year(self):
         for year in range(1993, date.today().year + 1):
-            mf = MasterFilings(year=year, quarter=1)
+            mf = QuarterlyFilings(year=year, quarter=1)
             assert mf.year == year
 
     @pytest.mark.parametrize(
@@ -64,11 +64,11 @@ class TestMaster:
     )
     def test_bad_quarter(self, bad_quarter, expected_error):
         with pytest.raises(expected_error):
-            _ = MasterFilings(year=2020, quarter=bad_quarter)
+            _ = QuarterlyFilings(year=2020, quarter=bad_quarter)
 
     def test_good_quarters(self):
         for quarter in range(1, 5):
-            mf = MasterFilings(year=2019, quarter=quarter)
+            mf = QuarterlyFilings(year=2019, quarter=quarter)
             assert mf.quarter == quarter
 
     @pytest.mark.parametrize(
@@ -80,11 +80,11 @@ class TestMaster:
         ]
     )
     def test_idx_filename_is_always_the_same(self, year, quarter):
-        mf = MasterFilings(year=year, quarter=quarter)
+        mf = QuarterlyFilings(year=year, quarter=quarter)
         assert mf.idx_filename == "master.idx"
 
     def test_always_false_entry_filter(self, mock_master_idx_file):
-        master_filing = MasterFilings(year=1993, quarter=4, entry_filter=lambda _: False)
+        master_filing = QuarterlyFilings(year=1993, quarter=4, entry_filter=lambda _: False)
         urls = master_filing.get_urls()
         assert len(urls) == 0
 
@@ -105,7 +105,7 @@ class TestMaster:
                   mock_filing_response,
                   subdir,
                   file):
-        master_filing = MasterFilings(year=1993, quarter=4)
+        master_filing = QuarterlyFilings(year=1993, quarter=4)
         master_filing.save(tmp_data_directory)
         subdir = os.path.join("1993", "QTR4", subdir)
         path_to_check = os.path.join(tmp_data_directory, subdir, file)
@@ -121,5 +121,5 @@ class TestMaster:
         ]
     )
     def test_clean_path(self, original_path, clean_path):
-        master_filing = MasterFilings(year=2000, quarter=1)
+        master_filing = QuarterlyFilings(year=2000, quarter=1)
         assert master_filing.clean_directory_path(original_path) == clean_path

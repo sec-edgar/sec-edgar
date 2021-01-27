@@ -1,5 +1,5 @@
 import asyncio
-import datetime
+from datetime import date
 import os
 import warnings
 
@@ -16,7 +16,8 @@ class CompanyFilings(AbstractFiling):
 
     Args:
         cik_lookup (str): Central Index Key (CIK) for company of interest.
-        filing_type (secedgar.filings.filing_types.FilingType): Valid filing type enum.
+        filing_type (Union[secedgar.filings.filing_types.FilingType, None]): Valid filing type enum.
+            Defaults to None. If None, then all filing types for CIKs will be returned.
         start_date (Union[str, datetime.datetime], optional): Date before which not to
             fetch reports. Stands for "date after."
             Defaults to None (will fetch all filings before end_date).
@@ -31,7 +32,7 @@ class CompanyFilings(AbstractFiling):
 
     def __init__(self,
                  cik_lookup,
-                 filing_type,
+                 filing_type=None,
                  start_date=None,
                  end_date=datetime.datetime.today(),
                  client=None,

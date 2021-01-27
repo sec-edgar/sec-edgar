@@ -1,4 +1,4 @@
-from secedgar.filings import MasterFilings, DailyFilings
+from secedgar.filings import QuarterlyFilings, DailyFilings
 from datetime import date, timedelta
 from secedgar.utils import get_quarter, get_month
 import logging
@@ -8,9 +8,10 @@ class ComboFilings:
                  entry_filter=lambda _: True):
         self.start = start
         self.end = end
-        self.master = MasterFilings(year=self.start.year, quarter=get_quarter(self.start), client=client, entry_filter=entry_filter)
+        self.master = QuarterlyFilings(year=self.start.year, quarter=get_quarter(self.start), client=client, entry_filter=entry_filter)
         self.daily = DailyFilings(date=self.start, client=client, entry_filter=entry_filter)
         self.recompute()
+
     def recompute(self):
         self.master_date_list = []
         self.daily_date_list = []
@@ -20,16 +21,23 @@ class ComboFilings:
         # if it isn't the start_date for the quarter, start at next quarter
         start_quarter_month = get_month(start_quarter)
         if date(self.start.year, start_quarter_month, 1) != self.start:
-            start_quarter += 1
+            start_quarter += 1 # TODO wrap around 4 quarters
 
         # First, add days between start and beginning of first quarter
         start_quarter_date = date(self.start.year, get_month(start_quarter), 1)
         current_position = self.start
         logging.debug('Segment 1 start:{}'.format(current_position.strftime('%Y%m%d')))
         logging.debug('Segment 1 end:{}'.format(start_quarter_date.strftime('%Y%m%d')))
-        while current_position < start_quarter_date:
-            self.daily_date_list.append(current_position)
-            current_position += timedelta(days=1)
+
+        days_to_fetch = start_quarter_date - self.start
+        if days_to_fetch < 50:
+            # Grab each day
+            while current_position < start_quarter_date:
+                self.daily_date_list.append(current_position)
+                current_position += timedelta(days=1)
+        else:
+            # Grab master with filter
+            self.master_date_list([self.start.year, start_quarter - 1])
         
         # Then, add quarters
         current_quarter = start_quarter
@@ -45,6 +53,7 @@ class ComboFilings:
         current_position = date(current_year, get_month(current_quarter), 1)
         logging.debug('Segment 2 start:{}'.format(current_position.strftime('%Y%m%d')))
         logging.debug('Segment 2 end:{}'.format(self.end.strftime('%Y%m%d')))
+        # TODO apply same logic to end days
         while current_position <= self.end:
             self.daily_date_list.append(current_position)
             current_position += timedelta(days=1)

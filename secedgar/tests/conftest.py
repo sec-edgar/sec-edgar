@@ -1,7 +1,7 @@
 import pytest
 import requests
 from secedgar.client import NetworkClient
-from secedgar.filings import MasterFilings
+from secedgar.filings import QuarterlyFilings
 from secedgar.tests.utils import AsyncMockResponse, MockResponse, datapath
 
 
@@ -52,7 +52,7 @@ def mock_master_idx_file(monkeysession):
         with open(datapath("filings", "master", "master.idx")) as f:
             return f.read()
 
-    monkeysession.setattr(MasterFilings, "_get_master_idx_file",
+    monkeysession.setattr(QuarterlyFilings, "_get_master_idx_file",
                           _mock_master_idx_file)
 
 

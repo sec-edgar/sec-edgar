@@ -5,7 +5,7 @@ from secedgar.filings._index import IndexFilings
 from secedgar.utils import get_quarter
 
 
-class MasterFilings(IndexFilings):
+class QuarterlyFilings(IndexFilings):
     """Class for retrieving all filings from specific year and quarter.
 
     Args:
