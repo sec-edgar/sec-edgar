@@ -51,11 +51,7 @@ class DailyFilings(IndexFilings):
 
     def __init__(self, date, client=None, entry_filter=lambda _: True):
         super().__init__(client=client, entry_filter=entry_filter)
-        if not isinstance(date, datetime.date):
-            raise TypeError(
-                "Date must be given as datetime.date object. Was given type {type}.".format(
-                    type=type(date)))
-        self._date = date
+        self.date = date
 
     @property
     def path(self):
@@ -70,13 +66,26 @@ class DailyFilings(IndexFilings):
 
     @property
     def quarter(self):
-        """Get quarter number from date attribute."""
+        """int: Get quarter number from date attribute."""
         return get_quarter(self._date)
 
     @property
     def year(self):
-        """Year of date for daily filing."""
+        """int: Year of date for daily filing."""
         return self._date.year
+
+    @property
+    def date(self):
+        """datetime.date: Date of daily filing."""
+        return self._date
+
+    @date.setter
+    def date(self, val):
+        if not isinstance(val, datetime.date):
+            raise TypeError(
+                "Date must be given as datetime.date object. Was given type {type}.".format(
+                    type=type(val)))
+        self._date = val
 
     @property
     def idx_filename(self):
