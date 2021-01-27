@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime
 
 import pytest
 from secedgar.utils import get_quarter, sanitize_date
@@ -39,7 +39,10 @@ class TestUtils:
         [
             (datetime(2018, 1, 1), "20180101"),
             (datetime(2020, 3, 4), "20200304"),
-            (datetime(2020, 7, 18), "20200718")
+            (datetime(2020, 7, 18), "20200718"),
+            (date(2018, 1, 1), "20180101"),
+            (date(2020, 3, 4), "20200304"),
+            (date(2020, 7, 18), "20200718")
         ]
     )
     def test_good_formats_datetime(self, dt_date, expected):
