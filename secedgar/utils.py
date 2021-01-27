@@ -14,7 +14,7 @@ def sanitize_date(date):
     Raises:
         TypeError: If date is not in format YYYYMMDD as str or int.
     """
-    if isinstance(date, datetime.datetime) or isinstance(date, datetime.date):
+    if isinstance(date, (datetime.datetime, datetime.date)):
         return date.strftime("%Y%m%d")
     elif isinstance(date, str):
         if len(date) != 8:
