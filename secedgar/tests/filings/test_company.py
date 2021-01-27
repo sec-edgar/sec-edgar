@@ -103,7 +103,8 @@ class TestFiling(object):
         ]
     )
     def test_good_start_date_setter_on_init(self, start_date):
-        filing = CompanyFilings(cik_lookup="aapl", filing_type=FilingType.FILING_10Q, start_date=start_date)
+        filing = CompanyFilings(
+            cik_lookup="aapl", filing_type=FilingType.FILING_10Q, start_date=start_date)
         assert filing.start_date == start_date
 
     @pytest.mark.parametrize(
@@ -119,7 +120,7 @@ class TestFiling(object):
     def test_bad_start_date_setter_on_init(self, bad_start_date):
         with pytest.raises(TypeError):
             CompanyFilings(cik_lookup="aapl", filing_type=FilingType.FILING_10Q,
-                   start_date=bad_start_date)
+                           start_date=bad_start_date)
 
     @pytest.mark.parametrize(
         "count,expected_error",
@@ -134,17 +135,17 @@ class TestFiling(object):
     def test_count_setter_bad_values(self, count, expected_error):
         with pytest.raises(expected_error):
             CompanyFilings(cik_lookup="aapl",
-                   filing_type=FilingType.FILING_10Q,
-                   count=count)
+                           filing_type=FilingType.FILING_10Q,
+                           count=count)
 
     def test_date_is_sanitized(self):
         start_date = datetime.datetime(2012, 3, 1)
         end_date = datetime.datetime(2015, 1, 1)
         aapl = CompanyFilings(cik_lookup="aapl",
-                      filing_type=FilingType.FILING_10Q,
-                      count=10,
-                      start_date=start_date,
-                      end_date=end_date)
+                              filing_type=FilingType.FILING_10Q,
+                              count=10,
+                              start_date=start_date,
+                              end_date=end_date)
         assert aapl.params["dateb"] == "20150101"
         assert aapl.params["datea"] == "20120301"
         assert aapl.start_date == datetime.datetime(2012, 3, 1)
@@ -152,9 +153,9 @@ class TestFiling(object):
 
     def test_date_is_sanitized_when_changed(self):
         aapl = CompanyFilings(cik_lookup="aapl",
-                      filing_type=FilingType.FILING_10Q,
-                      count=10,
-                      start_date="20150101")
+                              filing_type=FilingType.FILING_10Q,
+                              count=10,
+                              start_date="20150101")
         assert aapl.start_date == "20150101"
         aapl.start_date = datetime.datetime(2010, 1, 1)
         assert aapl.start_date == datetime.datetime(2010, 1, 1)
@@ -268,7 +269,9 @@ class TestFiling(object):
                                                          mock_cik_validator_get_multiple_ciks,
                                                          mock_single_cik_filing):
         # Uses same response for filing links (will all be filings for aapl)
-        f = CompanyFilings(cik_lookup=["aapl", "msft", "amzn"], filing_type=FilingType.FILING_10Q, count=5)
+        f = CompanyFilings(cik_lookup=["aapl", "msft", "amzn"],
+                           filing_type=FilingType.FILING_10Q,
+                           count=5)
         assert all(len(f.get_urls().get(key)) == 5 for key in f.get_urls().keys())
 
     @pytest.mark.parametrize(
@@ -285,7 +288,7 @@ class TestFiling(object):
                                                    mock_single_cik_filing):
         # Uses same response for filing links (will all be filings for aapl)
         f = CompanyFilings(cik_lookup=["aapl", "msft", "amzn"], filing_type=FilingType.FILING_10Q,
-                   count=count, client=NetworkClient(batch_size=10))
+                           count=count, client=NetworkClient(batch_size=10))
         assert all(len(f.get_urls().get(key)) == count for key in f.get_urls().keys())
 
     @pytest.mark.parametrize(
@@ -308,9 +311,9 @@ class TestFiling(object):
                                       mock_single_cik_filing_limited_responses,
                                       mock_filing_response):  # noqa:E501
         f = CompanyFilings(cik_lookup="aapl",
-                   filing_type=FilingType.FILING_10Q,
-                   count=count,
-                   client=NetworkClient(batch_size=10))
+                           filing_type=FilingType.FILING_10Q,
+                           count=count,
+                           client=NetworkClient(batch_size=10))
         f.save(tmp_data_directory)
         if raises_error:
             w = recwarn.pop(UserWarning)

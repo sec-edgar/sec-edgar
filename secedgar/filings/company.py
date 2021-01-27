@@ -16,12 +16,13 @@ class CompanyFilings(AbstractFiling):
 
     Args:
         cik_lookup (str): Central Index Key (CIK) for company of interest.
-        filing_type (Union[secedgar.filings.filing_types.FilingType, None]): Valid filing type enum.
-            Defaults to None. If None, then all filing types for CIKs will be returned.
-        start_date (Union[str, datetime.datetime, datetime.date], optional): Date before which not to
-            fetch reports. Stands for "date after."
-            Defaults to None (will fetch all filings before end_date).
-        end_date (Union[str, datetime.datetime, datetime.date], optional): Date after which not to fetch reports.
+        filing_type (Union[secedgar.filings.filing_types.FilingType, None]): Valid filing type
+            enum. Defaults to None. If None, then all filing types for CIKs will be returned.
+        start_date (Union[str, datetime.datetime, datetime.date], optional): Date before
+            which not to fetch reports. Stands for "date after."
+            Defaults to None (will fetch all filings before ``end_date``).
+        end_date (Union[str, datetime.datetime, datetime.date], optional):
+            Date after which not to fetch reports.
             Stands for "date before." Defaults to today.
         count (int): Number of filings to fetch. Will fetch up to `count` if that many filings
             are available. Defaults to all filings available.
@@ -71,7 +72,7 @@ class CompanyFilings(AbstractFiling):
 
     @property
     def start_date(self):
-        """Union([datetime.date, datetime.datetime, str]): Date before which no filings are fetched."""
+        """Union([datetime.date, datetime.datetime, str]): Date before which no filings fetched."""
         return self._start_date
 
     @start_date.setter
@@ -84,7 +85,7 @@ class CompanyFilings(AbstractFiling):
 
     @property
     def end_date(self):
-        """Union([datetime.date, datetime.datetime, str]): Date after which no filings are fetched."""
+        """Union([datetime.date, datetime.datetime, str]): Date after which no filings fetched."""
         return self._end_date
 
     @end_date.setter

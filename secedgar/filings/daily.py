@@ -82,9 +82,9 @@ class DailyFilings(IndexFilings):
     @date.setter
     def date(self, val):
         if not isinstance(val, (datetime.date, datetime.datetime)):
-            raise TypeError(
-                "Date must be given as datetime.date or datetime.datetime object. Was given type {type}.".format(
-                    type=type(val)))
+            raise TypeError("""Date must be given as datetime.date or datetime.datetime object.
+                            Was given type {type}.""".format(
+                            type=type(val)))
         self._date = val
 
     @property

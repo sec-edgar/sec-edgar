@@ -153,7 +153,7 @@ class TestDaily:
     )
     def test_bad_date_on_init(self, bad_date):
         with pytest.raises(TypeError):
-            daily_filing = DailyFilings(date=bad_date)
+            _ = DailyFilings(date=bad_date)
 
     @pytest.mark.parametrize(
         "bad_date",
