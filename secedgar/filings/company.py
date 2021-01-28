@@ -26,7 +26,7 @@ class CompanyFilings(AbstractFiling):
             Stands for "date before." Defaults to today.
         count (int): Number of filings to fetch. Will fetch up to `count` if that many filings
             are available. Defaults to all filings available.
-        kwargs: See kwargs accepted for :class:`secedgar.client.network_client.NetworkClient`.
+        kwargs: See kwargs accepted for :class:`secedgar.client.NetworkClient`.
 
     .. versionadded:: 0.1.5
     """
