@@ -58,4 +58,5 @@ class TestComboFilings:
                                          quarterly_expected,
                                          daily_expected):
         combo = ComboFilings(start_date=start_date, end_date=end_date)
-        assert combo.daily_date_list == daily_expected and combo.master_date_list == quarterly_expected
+        assert combo.daily_date_list == daily_expected \
+            and combo.master_date_list == quarterly_expected

@@ -92,8 +92,8 @@ class ComboFilings:
                              file_pattern=file_pattern,
                              download_all=download_all)
 
-        for date in self.daily_date_list:
-            self.daily._date = date
+        for d in self.daily_date_list:
+            self.daily._date = d
             self.daily.save(directory=directory,
                             dir_pattern=dir_pattern,
                             file_pattern=file_pattern,
