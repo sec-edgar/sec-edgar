@@ -4,13 +4,9 @@ import pytest
 from secedgar.filings.combo import ComboFilings
 import logging
 def lambda_matches(a, b):
-    matches = a.__code__.co_code == b.__code__.co_code
-    if not matches:
-        logging.warning('Did not match')
-    return matches
+    return a.__code__.co_code == b.__code__.co_code
 def line_matches(a, b):
-    matches = a[0] == b[0] and a[1] == b[1] and lambda_matches(a[2], b[2])
-    return matches
+    return a[0] == b[0] and a[1] == b[1] and lambda_matches(a[2], b[2])
 def master_list_matches(l1, l2):
     return all(line_matches(a, b) for (a,b) in zip(l1, l2))
 class TestComboFilings:
@@ -31,8 +27,6 @@ class TestComboFilings:
             (2020, 1, lambda _: True),
             (2020, 2, lambda _: True),
         ]
-        logging.info(f'Expected: {expected}')
-        logging.info(f'Actual: {combo.master_date_list}')
         assert master_list_matches(combo.master_date_list, expected)
         assert len(combo.daily_date_list) == 0
 
