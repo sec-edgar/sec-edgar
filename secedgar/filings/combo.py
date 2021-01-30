@@ -5,15 +5,15 @@ from secedgar.filings.daily import DailyFilings
 from secedgar.filings.quarterly import QuarterlyFilings
 from secedgar.utils import get_month, get_quarter
 
-BALANCING_POINT = 30
 class ComboFilings:
     def __init__(self, start_date: date, end_date: date, client=None,
-                 entry_filter=lambda _: True):
+                 entry_filter=lambda _: True, balancing_point=30):
         self.start_date = start_date
         self.end_date = end_date
         self.master = QuarterlyFilings(year=self.start_date.year, quarter=get_quarter(
             self.start_date), client=client, entry_filter=entry_filter)
         self.daily = DailyFilings(date=self.start_date, client=client, entry_filter=entry_filter)
+        self.balancing_point = balancing_point
         self.recompute()
 
     def recompute(self):
@@ -33,8 +33,8 @@ class ComboFilings:
         start_quarter_date = date(start_year, get_month(start_quarter), 1)
         # Append first days/quarter
         days_till_next_quarter = (start_quarter_date - self.start_date).days
-        if days_till_next_quarter > BALANCING_POINT:
-            self.master_date_list.append([self.start_date.year, start_quarter - 1, lambda x: date(x['date_filed']) >= self.start_date])
+        if days_till_next_quarter > self.balancing_point:
+            self.master_date_list.append((self.start_date.year, start_quarter - 1, lambda x: date(x['date_filed']) >= self.start_date))
         else:
             current_position = self.start_date
             while current_position < start_quarter_date:
@@ -46,7 +46,7 @@ class ComboFilings:
         current_year = self.start_date.year
         end_quarter = get_quarter(self.end_date)
         while current_quarter < end_quarter or current_year < self.end_date.year:
-            self.master_date_list.append((current_year, current_quarter))
+            self.master_date_list.append((current_year, current_quarter, lambda _: True))
             if current_quarter == 4:
                 current_quarter = 1
                 current_year += 1
@@ -56,8 +56,8 @@ class ComboFilings:
         # Add final days/quarter
         current_position = date(current_year, get_month(current_quarter), 1)
         days_till_end = (self.end_date - current_position).days
-        if days_till_end > BALANCING_POINT:
-            self.master_date_list.append([current_year, current_quarter, lambda x: date(x['date_filed']) <= self.end_date])
+        if days_till_end > self.balancing_point:
+            self.master_date_list.append((current_year, current_quarter, lambda x: date(x['date_filed']) <= self.end_date))
         else:
             while current_position <= self.end_date:
                 self.daily_date_list.append(current_position)
@@ -94,7 +94,7 @@ class ComboFilings:
                              download_all=download_all)
 
         for d in self.daily_date_list:
-            self.daily._date = d
+            self.daily.date = d
             self.daily.save(directory=directory,
                             dir_pattern=dir_pattern,
                             file_pattern=file_pattern,
