@@ -14,9 +14,9 @@ class DailyFilings(IndexFilings):
             Defaults to ``secedgar.client.NetworkClient`` if none is given.
         entry_filter (function, optional): A boolean function to determine
             if the FilingEntry should be kept. Defaults to `lambda _: True`.
-            The ``FilingEntry`` object exposes 6 variables which can be
+            The ``FilingEntry`` object exposes 7 variables which can be
             used to filter which filings to keep. These are "cik", "company_name",
-            "form_type", "date_filed", "file_name", and "path".
+            "form_type", "date_filed", "file_name", "path", and "num_previously_valid".
 
     Using ``entry_filter``
     ----------------------

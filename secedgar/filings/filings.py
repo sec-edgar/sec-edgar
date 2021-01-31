@@ -1,8 +1,12 @@
-from datetime import date
+from datetime import date, timedelta
 
 from secedgar.filings.combo import ComboFilings
 from secedgar.filings.company import CompanyFilings
 from secedgar.filings.daily import DailyFilings
+from secedgar.filings.filing_types import FilingType
+from secedgar.filings.quarterly import QuarterlyFilings
+from secedgar.utils import get_month, get_quarter, add_quarter
+from secedgar.exceptions import FilingTypeError
 
 
 def filings(cik_lookup=None,
@@ -12,9 +16,31 @@ def filings(cik_lookup=None,
             count=None,
             client=None,
             entry_filter=lambda _: True):
-    # some big if tree
-    if filing_type is not None:
-        def entry_filter(x): return x.form_type == filing_type
+    """Utility method to get best filing object.
+
+    Args:
+        cik_lookup (str): Central Index Key (CIK) for company of interest.
+        start_date (datetime.date, optional): Date of daily filing to fetch.
+        end_date (datetime.date, optional): Date of daily filing to fetch.
+        filing_type (secedgar.filings.filing_types.FilingType, optional): Valid filing type
+            enum. Defaults to None. If None, then all filing types for CIKs will be returned.
+        count (int, optional): Number of filings to fetch. Will fetch up to `count` if that
+        many filings are available. Defaults to all filings available.
+        client (secedgar.client._base, optional): Client to use. Defaults to
+                    ``secedgar.client.NetworkClient`` if None given.
+        entry_filter (function, optional): A boolean function to determine
+            if the FilingEntry should be kept. Defaults to ``lambda _: True``.
+            See :class:`secedgar.filings.DailyFilings` for more detail.
+    .. code-block:: python
+
+        from datetime import date
+        from secedgar.filings import filings, FilingType
+
+        engine = filings(start_date=date(2020, 12, 10), end_date=date(2020, 12, 10),
+            filing_type=FilingType.FILING_4, count=50)
+    """
+    if filing_type is not None and not isinstance(filing_type, FilingType):
+        raise FilingTypeError
 
     if cik_lookup:
         return CompanyFilings(cik_lookup,
@@ -23,33 +49,37 @@ def filings(cik_lookup=None,
                               end_date=end_date,
                               count=count,
                               client=client)
-    elif not end_date:
+
+    if filing_type is not None:
+        original_entry_filter = entry_filter
+
+        def entry_filter(x):
+            return x.form_type == filing_type and original_entry_filter(x)
+        original_entry_filter = entry_filter
+
+    if count is not None:
+        original_entry_filter = entry_filter
+
+        def entry_filter(x):
+            return x.num_previously_valid < count and original_entry_filter(x)
+
+    if end_date is None:
         return DailyFilings(date=start_date, client=client, entry_filter=entry_filter)
-    elif isinstance(start_date, date) and isinstance(end_date, date):
+
+    if isinstance(start_date, date) and isinstance(end_date, date):
+        current_quarter = get_quarter(start_date)
+        current_year = start_date.year
+        start_quarter_date = date(current_year, get_month(current_quarter), 1)
+        next_year, next_quarter = add_quarter(current_year, current_quarter)
+        end_quarter_date = date(next_year, get_month(next_quarter), 1) - timedelta(days=1)
+        if start_quarter_date == start_date and end_date == end_quarter_date:
+            return QuarterlyFilings(current_year, current_quarter, client=client,
+                                    entry_filter=entry_filter)
         return ComboFilings(start_date, end_date, client=client, entry_filter=entry_filter)
-    else:
-        raise ValueError('adafdasfda')
 
-# # Parameters
-
-
-# filings = MyFFancyFilingClass() < - method
-
-# filings.save()
-
-# QuarterlyFilings._get_tar()
-# DailyFilings._get_tar()
-
-# # 18129 KB
-# # 18K
-# # 350
-
-# '''
-
-# 18000
-# 350
-
-# 1 master ~~ 50 daily
-
-# < 50 days left, grab days instead of entry filter
-# '''
+    raise ValueError('''Invalid options. You must provide:
+'cik_lookup' -> CompanyFilings
+OR
+'start_date' and 'end_date' == None -> DailyFilings
+OR
+'start_date' and 'end_date' -> ComboFilings / QuarterlyFilings''')

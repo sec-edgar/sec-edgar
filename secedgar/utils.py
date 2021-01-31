@@ -63,3 +63,20 @@ def get_month(quarter):
         raise TypeError('Quarter must be between 1 and 4.')
 
     return 1 + (quarter - 1) * 3
+
+
+def add_quarter(year, quarter):
+    """Get the next year and quarter.
+
+    Args:
+        year (int): Year
+        quarter (int): Quarter
+    """
+    if quarter < 1 or quarter > 4:
+        raise TypeError('Quarter must be between 1 and 4.')
+    if quarter == 4:
+        quarter = 1
+        year += 1
+    else:
+        quarter += 1
+    return year, quarter

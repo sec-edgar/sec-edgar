@@ -2,17 +2,25 @@ from datetime import date
 
 import pytest
 from secedgar.filings.combo import ComboFilings
-import logging
+
+
 def lambda_matches(a, b):
     return a.__code__.co_code == b.__code__.co_code
+
+
 def line_matches(a, b):
     return a[0] == b[0] and a[1] == b[1] and lambda_matches(a[2], b[2])
+
+
 def master_list_matches(l1, l2):
-    return all(line_matches(a, b) for (a,b) in zip(l1, l2))
+    return all(line_matches(a, b) for (a, b) in zip(l1, l2))
+
+
 class TestComboFilings:
     def test_combo_quarterly_only_one_year(self):
         combo = ComboFilings(start_date=date(2020, 1, 1), end_date=date(2020, 12, 31))
-        expected = [(2020, 1, lambda _: True), (2020, 2, lambda _: True), (2020, 3, lambda _: True), (2020, 4, lambda _: True)]
+        expected = [(2020, 1, lambda _: True), (2020, 2, lambda _: True),
+                    (2020, 3, lambda _: True), (2020, 4, lambda _: True)]
         assert master_list_matches(combo.master_date_list, expected)
         assert len(combo.daily_date_list) == 0
 
@@ -44,19 +52,21 @@ class TestComboFilings:
     @pytest.mark.parametrize(
         "start_date,end_date,quarterly_expected,daily_expected",
         [
-            (date(2019, 12, 28), date(2020, 4, 1), [(2020, 1, lambda _: True)], ["2019-12-28",
-                                                                 "2019-12-29",
-                                                                 "2019-12-30",
-                                                                 "2019-12-31",
-                                                                 "2020-04-01"]),
-            (date(2020, 3, 30), date(2020, 10, 2), [(2020, 2, lambda _: True), (2020, 3, lambda _: True)], ["2020-03-30",
-                                                                            "2020-03-31",
-                                                                            "2020-10-01",
-                                                                            "2020-10-02"]),
-            (date(2020, 1, 1), date(2020, 4, 2), [(2020, 1, lambda _: True)], ["2020-04-01",
-                                                               "2020-04-02"]),
-            (date(2020, 3, 30), date(2020, 9, 30), [(2020, 2, lambda _: True), (2020, 3, lambda _: True)], ["2020-03-30",
-                                                                            "2020-03-31"]),
+            (date(2019, 12, 28), date(2020, 4, 1), [(2020, 1, lambda _: True)],
+             ["2019-12-28",
+              "2019-12-29",
+              "2019-12-30",
+              "2019-12-31",
+              "2020-04-01"]),
+            (date(2020, 3, 30), date(2020, 10, 2),
+             [(2020, 2, lambda _: True), (2020, 3, lambda _: True)], ["2020-03-30", "2020-03-31",
+                                                                      "2020-10-01",
+                                                                      "2020-10-02"]),
+            (date(2020, 1, 1), date(2020, 4, 2), [(2020, 1, lambda _: True)],
+             ["2020-04-01", "2020-04-02"]),
+            (date(2020, 3, 30), date(2020, 9, 30), [(2020, 2, lambda _: True),
+                                                    (2020, 3, lambda _: True)],
+                ["2020-03-30", "2020-03-31"]),
         ]
     )
     # TODO: Before making daily_date_list, should we make sure there are filings for that date?

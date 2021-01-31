@@ -142,15 +142,17 @@ class IndexFilings(AbstractFiling):
             self._filings_dict = {}
             FilingEntry = namedtuple(
                 "FilingEntry", ["cik", "company_name", "form_type", "date_filed", "file_name",
-                                "path"])
+                                "path", "num_previously_valid"])
             # idx file will have lines of the form CIK|Company Name|Form Type|Date Filed|File Name
+            current_count = 0
             entries = re.findall(r'^[0-9]+[|].+[|].+[|][0-9\-]+[|].+$', idx_file, re.MULTILINE)
             for entry in entries:
                 fields = entry.split("|")
                 path = "Archives/{file_name}".format(file_name=fields[-1])
-                entry = FilingEntry(*fields, path=path)
+                entry = FilingEntry(*fields, path=path, num_previously_valid=current_count)
                 if self.entry_filter is not None and not self.entry_filter(entry):
                     continue
+                current_count += 1
                 # Add new filing entry to CIK's list
                 if entry.cik in self._filings_dict:
                     self._filings_dict[entry.cik].append(entry)
