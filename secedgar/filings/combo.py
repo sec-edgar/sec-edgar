@@ -3,7 +3,7 @@ from datetime import date, timedelta
 from secedgar.filings.daily import DailyFilings
 from secedgar.filings.quarterly import QuarterlyFilings
 from secedgar.utils import get_month, get_quarter, add_quarter
-
+from secedgar.exceptions import EDGARQueryError
 
 class ComboFilings:
     """Class for retrieving all filings between specified dates.
@@ -99,8 +99,11 @@ class ComboFilings:
 
         for d in self.daily_date_list:
             self.daily.date = d
-            self.daily.save(directory=directory,
-                            dir_pattern=dir_pattern,
-                            file_pattern=file_pattern,
-                            download_all=download_all,
-                            date_format=daily_date_format)
+            try:
+                self.daily.save(directory=directory,
+                                dir_pattern=dir_pattern,
+                                file_pattern=file_pattern,
+                                download_all=download_all,
+                                date_format=daily_date_format)
+            except EDGARQueryError:
+                pass
