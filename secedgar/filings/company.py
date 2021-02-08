@@ -38,12 +38,13 @@ class CompanyFilings(AbstractFiling):
                  end_date=date.today(),
                  client=None,
                  count=None,
+                 ownership='include'
                  **kwargs):
         # Leave params before other setters
         self._params = {
             'action': 'getcompany',
             'output': 'xml',
-            'owner': 'include',
+            'owner': ownership,
             'start': 0,
         }
         self.start_date = start_date
@@ -78,8 +79,8 @@ class CompanyFilings(AbstractFiling):
     @start_date.setter
     def start_date(self, val):
         if val is not None:
-            self._start_date = val
             self._params['datea'] = sanitize_date(val)
+            self._start_date = val
         else:
             self._start_date = None
 
@@ -90,8 +91,8 @@ class CompanyFilings(AbstractFiling):
 
     @end_date.setter
     def end_date(self, val):
-        self._end_date = val
         self._params['dateb'] = sanitize_date(val)
+        self._end_date = val
 
     @property
     def filing_type(self):
@@ -172,7 +173,10 @@ class CompanyFilings(AbstractFiling):
 
         while self.count is None or len(links) < self.count:
             data = self.client.get_soup(self.path, self.params, **kwargs)
-            links.extend([link.string for link in data.find_all("filinghref")])
+            # TODO entry_filter here?
+            for row in data.find_all('content'):
+                if self.filing_type is None or row.find('filingtype').string == self.filing_type:
+                    links.append(row.find('filinghref').string)
             self.params["start"] += self.client.batch_size
             if len(data.find_all("filinghref")) == 0:  # no more filings
                 break

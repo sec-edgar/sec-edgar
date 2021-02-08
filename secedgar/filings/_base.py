@@ -84,7 +84,7 @@ class AbstractFiling(ABC):
         stripped = "".join(c for c in path if c in allowed)
         return stripped.replace(" ", "_")
 
-    def _check_urls_exist(self):
+    def get_urls_safely(self, **kwargs):
         """Wrapper around `get_urls` to check if there is a positive number of URLs.
 
         .. note:: This method will not check if the URLs are valid. Simply if they exist.
@@ -95,7 +95,7 @@ class AbstractFiling(ABC):
         Returns:
             urls (dict): Result of `get_urls` method.
         """
-        urls = self.get_urls()
+        urls = self.get_urls(**kwargs)
         if all(len(urls[cik]) == 0 for cik in urls.keys()):
             raise ValueError("No filings available.")
         return urls
