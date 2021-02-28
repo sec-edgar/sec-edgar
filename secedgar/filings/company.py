@@ -39,7 +39,7 @@ class CompanyFilings(AbstractFiling):
                  client=None,
                  count=None,
                  ownership='include',
-                 exact_filing_match=False,
+                 match_format='ALL',
                  **kwargs):
         # Leave params before other setters
         self._params = {
@@ -51,10 +51,10 @@ class CompanyFilings(AbstractFiling):
         self.start_date = start_date
         self.end_date = end_date
         self.filing_type = filing_type
-        self.exact_filing_match = exact_filing_match
         # make CIKLookup object for users if not given
         self.cik_lookup = cik_lookup
         self.count = count
+        self.match_format = match_format
         # Make default client NetworkClient and pass in kwargs
         self._client = client if client is not None else NetworkClient(**kwargs)
 
@@ -78,6 +78,12 @@ class CompanyFilings(AbstractFiling):
         """Union([datetime.date, datetime.datetime, str]): Date before which no filings fetched."""
         return self._start_date
 
+    @match_format.setter
+    def match_format(self, val):
+        if val in ['EXACT', 'AMEND', 'ALL']:
+            self._match_format = val
+        else:
+            raise ValueError('Format must be one of EXACT,AMEND,ALL')
     @start_date.setter
     def start_date(self, val):
         if val is not None:
@@ -177,9 +183,11 @@ class CompanyFilings(AbstractFiling):
             data = self.client.get_soup(self.path, self.params, **kwargs)
             # TODO entry_filter here?
             for row in data.find_all('content'):
-                if self.exact_filing_match:
-                    if self.filing_type is None or row.find('filingtype').string == self.filing_type:
-                        links.append(row.find('filinghref').string)
+                found_type = row.find('filingtype').string
+                if self.filing_type is None or self.match_format == 'ALL' or \
+                    (self.match_format != 'ALL' and found_type == self.filing_type) or \
+                    (self.match_format == 'AMEND' and found_type.replace('/A','') == self.filing_type):
+                    links.append(row.find('filinghref').string)
             self.params["start"] += self.client.batch_size
             if len(data.find_all("filinghref")) == 0:  # no more filings
                 break
