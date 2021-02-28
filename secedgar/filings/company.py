@@ -38,7 +38,8 @@ class CompanyFilings(AbstractFiling):
                  end_date=date.today(),
                  client=None,
                  count=None,
-                 ownership='include'
+                 ownership='include',
+                 exact_filing_match=False,
                  **kwargs):
         # Leave params before other setters
         self._params = {
@@ -50,6 +51,7 @@ class CompanyFilings(AbstractFiling):
         self.start_date = start_date
         self.end_date = end_date
         self.filing_type = filing_type
+        self.exact_filing_match = exact_filing_match
         # make CIKLookup object for users if not given
         self.cik_lookup = cik_lookup
         self.count = count
@@ -175,8 +177,9 @@ class CompanyFilings(AbstractFiling):
             data = self.client.get_soup(self.path, self.params, **kwargs)
             # TODO entry_filter here?
             for row in data.find_all('content'):
-                if self.filing_type is None or row.find('filingtype').string == self.filing_type:
-                    links.append(row.find('filinghref').string)
+                if self.exact_filing_match:
+                    if self.filing_type is None or row.find('filingtype').string == self.filing_type:
+                        links.append(row.find('filinghref').string)
             self.params["start"] += self.client.batch_size
             if len(data.find_all("filinghref")) == 0:  # no more filings
                 break
