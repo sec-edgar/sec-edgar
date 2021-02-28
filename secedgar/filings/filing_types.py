@@ -466,8 +466,6 @@ class FilingType(Enum):
     FILING_SP15D2 = 'SP 15D2' # Special Financial Report filed under Rule 15d-2
     FILING_SP15D2A = 'SP 15D2/A' # Special Financial Report filed under Rule 15d-2
     FILING_SUPPL = 'SUPPL' # Voluntary supplemental material filed pursuant to Section 11(a) of the Securities Act of 1933 by foreign issuers
-    FILING_T1 = 'T-1' # Note - Forms T-1 and T-2 are not filed as stand- alone submission types on the EDGAR system. They are filed as EX-25 (or EX-25/A when amended) to registration statements.
-    FILING_T2 = 'T-2' # Note - Forms T-1 and T-2 are not filed as stand- alone submission types on the EDGAR system. They are filed as EX-25 (or EX-25/A when amended) to registration statements.
     FILING_T3 = 'T-3' # Initial application for qualification of trust indentures
     FILING_T3A = 'T-3/A' # Initial application for qualification of trust indentures
     FILING_T6 = 'T-6' # Application for determination of eligibility of a foreign person to act as institutional trustee filed pursuant to Section 310(a)(1) of the Trust Indenture Act of 1939
@@ -835,7 +833,6 @@ class FilingType(Enum):
     FILING_SC14F1A = 'SC 14F1/A' # Amendment
     FILING_CB = 'CB' # Notification form filed in connection with certain tender offers, business combinations and rights offerings, in which the subject company is a foreign private issuer of which less than 10% of its securities are held by U.S. persons
     FILING_CBA = 'CB/A' # Amendment
-    FILING_NOINFOBLANKCELL = 'No info blank cell' # Registration statement for face- amount certificate companies
     FILING_S1 = 'S-1' # General form of registration statement for all companies including face-amount certificate companies
     FILING_S1A = 'S-1/A' # Pre-effective amendment
     FILING_S3 = 'S-3' # Registration statement for specified transactions by certain issuers including face-amount certificate companies
@@ -843,7 +840,6 @@ class FilingType(Enum):
     FILING_POSAM = 'POS AM' # Post-effective amendment to a registration statement that is not immediately effective upon filing
     FILING_497 = '497' # Definitive materials filed under paragraph (a), (b), (c), (d), (e) or (f) of Securities Act Rule 497
     FILING_497J = '497J' # Certification of no change in definitive materials under paragraph (j) of Securities Act Rule 497
-    FILING_NOINFOBLANKCELL = 'No info blank cell' # Registration statement for open- end management investment companies
     FILING_N1A = 'N-1A' # Initial registration statement filed on Form N-1A for open-end management investment companies
     FILING_N1AA = 'N-1A/A' # Pre-effective amendment to a registration statement filed on Form N-1A for open-end management investment companies (this filing cannot be submitted as a 1940 Act only filing)
     FILING_485APOS = '485APOS' # Post-effective amendment filed pursuant to Securities Act Rule 485(a) (this filing cannot be submitted as a 1940 Act only filing)
