@@ -38,8 +38,9 @@ def make_path(path, **kwargs):
     Returns:
         None
     """
-    if not os.path.exists(path):
-        os.makedirs(path, **kwargs)
+    sanitized_path = os.path.expanduser(path)
+    if not os.path.exists(sanitized_path):
+        os.makedirs(sanitized_path, **kwargs)
 
 
 def get_quarter(date):
