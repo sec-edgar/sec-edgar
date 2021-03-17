@@ -9,13 +9,15 @@ from secedgar.utils import get_month, get_quarter, add_quarter
 from secedgar.exceptions import FilingTypeError
 
 
-def filings(cik_lookup=None,
-            filing_type=None,
-            start_date=None,
-            end_date=date.today(),
-            count=None,
-            client=None,
-            entry_filter=lambda _: True):
+def filings(
+    cik_lookup=None,
+    filing_type=None,
+    start_date=None,
+    end_date=date.today(),
+    count=None,
+    client=None,
+    entry_filter=lambda _: True,
+):
     """Utility method to get best filing object.
 
     Args:
@@ -43,28 +45,33 @@ def filings(cik_lookup=None,
         raise FilingTypeError
 
     if cik_lookup:
-        return CompanyFilings(cik_lookup,
-                              filing_type=filing_type,
-                              start_date=start_date,
-                              end_date=end_date,
-                              count=count,
-                              client=client)
+        return CompanyFilings(
+            cik_lookup,
+            filing_type=filing_type,
+            start_date=start_date,
+            end_date=end_date,
+            count=count,
+            client=client,
+        )
 
     if filing_type is not None:
         original_entry_filter = entry_filter
 
         def entry_filter(x):
             return x.form_type == filing_type and original_entry_filter(x)
+
         original_entry_filter = entry_filter
 
     if count is not None:
-        raise NotImplementedError('Count has not yet been implemented for Daily, Master & Combo Filings.')
-        '''
+        raise NotImplementedError(
+            "Count has not yet been implemented for Daily, Master & Combo Filings."
+        )
+        """
         original_entry_filter = entry_filter
 
         def entry_filter(x):
             return x.num_previously_valid < count and original_entry_filter(x)
-        '''
+        """
 
     if end_date is None:
         return DailyFilings(date=start_date, client=client, entry_filter=entry_filter)
@@ -74,15 +81,17 @@ def filings(cik_lookup=None,
         current_year = start_date.year
         start_quarter_date = date(current_year, get_month(current_quarter), 1)
         next_year, next_quarter = add_quarter(current_year, current_quarter)
-        end_quarter_date = date(next_year, get_month(next_quarter), 1) - timedelta(days=1)
+        end_quarter_date = date(next_year, get_month(next_quarter), 1) - timedelta(
+            days=1
+        )
         if start_quarter_date == start_date and end_date == end_quarter_date:
-            return QuarterlyFilings(current_year, current_quarter, client=client,
-                                    entry_filter=entry_filter)
-        return ComboFilings(start_date, end_date, client=client, entry_filter=entry_filter)
+            return QuarterlyFilings(
+                current_year, current_quarter, client=client, entry_filter=entry_filter
+            )
+        return ComboFilings(
+            start_date, end_date, client=client, entry_filter=entry_filter
+        )
 
-    raise ValueError('''Invalid options. You must provide:
-'cik_lookup' -> CompanyFilings
-OR
-'start_date' and 'end_date' == None -> DailyFilings
-OR
-'start_date' and 'end_date' -> ComboFilings / QuarterlyFilings''')
+    raise ValueError(
+        """Invalid arguments. You must provide 'cik_lookup' OR 'start_date' OR 'start_date' and 'end_date'."""
+    )
