@@ -31,22 +31,24 @@ class CompanyFilings(AbstractFiling):
     .. versionadded:: 0.1.5
     """
 
-    def __init__(self,
-                 cik_lookup,
-                 filing_type=None,
-                 start_date=None,
-                 end_date=date.today(),
-                 client=None,
-                 count=None,
-                 ownership='include',
-                 match_format='ALL',
-                 **kwargs):
+    def __init__(
+        self,
+        cik_lookup,
+        filing_type=None,
+        start_date=None,
+        end_date=date.today(),
+        client=None,
+        count=None,
+        ownership="include",
+        match_format="ALL",
+        **kwargs
+    ):
         # Leave params before other setters
         self._params = {
-            'action': 'getcompany',
-            'output': 'xml',
-            'owner': ownership,
-            'start': 0,
+            "action": "getcompany",
+            "output": "xml",
+            "owner": ownership,
+            "start": 0,
         }
         self.start_date = start_date
         self.end_date = end_date
@@ -78,16 +80,21 @@ class CompanyFilings(AbstractFiling):
         """Union([datetime.date, datetime.datetime, str]): Date before which no filings fetched."""
         return self._start_date
 
+    @property
+    def match_format(self):
+        return self._match_format
+
     @match_format.setter
     def match_format(self, val):
-        if val in ['EXACT', 'AMEND', 'ALL']:
+        if val in ["EXACT", "AMEND", "ALL"]:
             self._match_format = val
         else:
-            raise ValueError('Format must be one of EXACT,AMEND,ALL')
+            raise ValueError("Format must be one of EXACT,AMEND,ALL")
+
     @start_date.setter
     def start_date(self, val):
         if val is not None:
-            self._params['datea'] = sanitize_date(val)
+            self._params["datea"] = sanitize_date(val)
             self._start_date = val
         else:
             self._start_date = None
@@ -99,7 +106,7 @@ class CompanyFilings(AbstractFiling):
 
     @end_date.setter
     def end_date(self, val):
-        self._params['dateb'] = sanitize_date(val)
+        self._params["dateb"] = sanitize_date(val)
         self._end_date = val
 
     @property
@@ -110,7 +117,7 @@ class CompanyFilings(AbstractFiling):
     @filing_type.setter
     def filing_type(self, filing_type):
         if isinstance(filing_type, FilingType):
-            self._params['type'] = filing_type.value
+            self._params["type"] = filing_type.value
         elif filing_type is not None:
             raise FilingTypeError
         self._filing_type = filing_type
@@ -130,7 +137,7 @@ class CompanyFilings(AbstractFiling):
             raise ValueError("Count must be positive integer or None.")
         else:
             self._count = val
-            self._params['count'] = val
+            self._params["count"] = val
 
     @property
     def cik_lookup(self):
@@ -175,31 +182,40 @@ class CompanyFilings(AbstractFiling):
             txt_urls (list of str): Up to the desired number of URLs for that specific company
             if available.
         """
-        self.params['CIK'] = cik
+        self.params["CIK"] = cik
         links = []
         self.params["start"] = 0  # set start back to 0 before paginating
 
         while self.count is None or len(links) < self.count:
             data = self.client.get_soup(self.path, self.params, **kwargs)
             # TODO entry_filter here?
-            for row in data.find_all('content'):
-                found_type = row.find('filingtype').string
-                if self.filing_type is None or self.match_format == 'ALL' or \
-                    (self.match_format != 'ALL' and found_type == self.filing_type) or \
-                    (self.match_format == 'AMEND' and found_type.replace('/A','') == self.filing_type):
-                    links.append(row.find('filinghref').string)
+            for row in data.find_all("content"):
+                found_type = row.find("filingtype").string
+                if (
+                    self.filing_type is None
+                    or self.match_format == "ALL"
+                    or (self.match_format != "ALL" and found_type == self.filing_type)
+                    or (
+                        self.match_format == "AMEND"
+                        and found_type.replace("/A", "") == self.filing_type
+                    )
+                ):
+                    links.append(row.find("filinghref").string)
             self.params["start"] += self.client.batch_size
             if len(data.find_all("filinghref")) == 0:  # no more filings
                 break
 
-        txt_urls = [link[:link.rfind("-")].strip() + ".txt" for link in links]
+        txt_urls = [link[: link.rfind("-")].strip() + ".txt" for link in links]
 
         if isinstance(self.count, int) and len(txt_urls) < self.count:
-            warnings.warn("Only {num} of {count} filings were found for {cik}.".format(
-                num=len(txt_urls), count=self.count, cik=cik))
+            warnings.warn(
+                "Only {num} of {count} filings were found for {cik}.".format(
+                    num=len(txt_urls), count=self.count, cik=cik
+                )
+            )
 
         # Takes `count` filings at most
-        return txt_urls[:self.count]
+        return txt_urls[: self.count]
 
     def save(self, directory, dir_pattern=None, file_pattern=None):
         """Save files in specified directory.
@@ -223,19 +239,18 @@ class CompanyFilings(AbstractFiling):
         urls = self._check_urls_exist()
 
         if dir_pattern is None:
-            dir_pattern = os.path.join('{cik}', '{type}')
+            dir_pattern = os.path.join("{cik}", "{type}")
         if file_pattern is None:
-            file_pattern = '{accession_number}'
+            file_pattern = "{accession_number}"
 
         inputs = []
         for cik, links in urls.items():
             formatted_dir = dir_pattern.format(cik=cik, type=self.filing_type.value)
             for link in links:
                 formatted_file = file_pattern.format(
-                    accession_number=self.get_accession_number(link))
-                path = os.path.join(directory,
-                                    formatted_dir,
-                                    formatted_file)
+                    accession_number=self.get_accession_number(link)
+                )
+                path = os.path.join(directory, formatted_dir, formatted_file)
                 inputs.append((link, path))
 
         loop = asyncio.get_event_loop()
