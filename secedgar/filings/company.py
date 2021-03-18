@@ -229,7 +229,7 @@ class CompanyFilings(AbstractFiling):
         Raises:
             ValueError: If no text urls are available for given filing object.
         """
-        urls = self._check_urls_exist()
+        urls = self.get_urls_safely()
 
         if dir_pattern is None:
             dir_pattern = os.path.join("{cik}", "{type}")

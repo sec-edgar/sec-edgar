@@ -66,12 +66,6 @@ def filings(
         raise NotImplementedError(
             "Count has not yet been implemented for Daily, Master & Combo Filings."
         )
-        """
-        original_entry_filter = entry_filter
-
-        def entry_filter(x):
-            return x.num_previously_valid < count and original_entry_filter(x)
-        """
 
     if end_date is None:
         return DailyFilings(date=start_date,
