@@ -74,23 +74,26 @@ def filings(
         """
 
     if end_date is None:
-        return DailyFilings(date=start_date, client=client, entry_filter=entry_filter)
+        return DailyFilings(date=start_date,
+                            client=client,
+                            entry_filter=entry_filter)
 
     if isinstance(start_date, date) and isinstance(end_date, date):
         current_quarter = get_quarter(start_date)
         current_year = start_date.year
         start_quarter_date = date(current_year, get_month(current_quarter), 1)
         next_year, next_quarter = add_quarter(current_year, current_quarter)
-        end_quarter_date = date(next_year, get_month(next_quarter), 1) - timedelta(
-            days=1
-        )
+        end_quarter_date = date(next_year, get_month(next_quarter),
+                                1) - timedelta(days=1)
         if start_quarter_date == start_date and end_date == end_quarter_date:
-            return QuarterlyFilings(
-                current_year, current_quarter, client=client, entry_filter=entry_filter
-            )
-        return ComboFilings(
-            start_date, end_date, client=client, entry_filter=entry_filter
-        )
+            return QuarterlyFilings(current_year,
+                                    current_quarter,
+                                    client=client,
+                                    entry_filter=entry_filter)
+        return ComboFilings(start_date,
+                            end_date,
+                            client=client,
+                            entry_filter=entry_filter)
 
     raise ValueError(
         """Invalid arguments. You must provide 'cik_lookup' OR 'start_date' OR 'start_date' and 'end_date'."""

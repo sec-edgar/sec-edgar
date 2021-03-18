@@ -32,8 +32,8 @@ class QuarterlyFilings(IndexFilings):
     @property
     def path(self):
         """Path property to pass to client."""
-        return "Archives/edgar/full-index/{year}/QTR{num}/".format(year=self._year,
-                                                                   num=self._quarter)
+        return "Archives/edgar/full-index/{year}/QTR{num}/".format(
+            year=self._year, num=self._quarter)
 
     @property
     def year(self):
@@ -45,8 +45,9 @@ class QuarterlyFilings(IndexFilings):
         if not isinstance(val, int):
             raise TypeError("Year must be an integer.")
         elif val < 1993 or val > date.today().year:
-            raise ValueError("Year must be in between 1993 and {now} (inclusive)".format(
-                now=date.today().year))
+            raise ValueError(
+                "Year must be in between 1993 and {now} (inclusive)".format(
+                    now=date.today().year))
         self._year = val
 
     @property
@@ -104,6 +105,10 @@ class QuarterlyFilings(IndexFilings):
             dir_pattern = os.path.join('{year}', 'QTR{quarter}', '{cik}')
 
         # If "{cik}" is in dir_pattern, it will be passed on and if not it will be ignored
-        formatted_dir = dir_pattern.format(year=self.year, quarter=self.quarter, cik="{cik}")
-        self.save_filings(directory, dir_pattern=formatted_dir,
-                          file_pattern=file_pattern, download_all=download_all)
+        formatted_dir = dir_pattern.format(year=self.year,
+                                           quarter=self.quarter,
+                                           cik="{cik}")
+        self.save_filings(directory,
+                          dir_pattern=formatted_dir,
+                          file_pattern=file_pattern,
+                          download_all=download_all)

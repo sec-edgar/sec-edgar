@@ -5,19 +5,28 @@ from secedgar.filings.quarterly import QuarterlyFilings
 from secedgar.utils import get_month, get_quarter, add_quarter
 from secedgar.exceptions import EDGARQueryError
 
+
 class ComboFilings:
     """Class for retrieving all filings between specified dates.
 
     .. versionadded:: 0.4.0
     """
-    def __init__(self, start_date: date, end_date: date, client=None,
-                 entry_filter=lambda _: True, balancing_point=30):
+
+    def __init__(self,
+                 start_date: date,
+                 end_date: date,
+                 client=None,
+                 entry_filter=lambda _: True,
+                 balancing_point=30):
         self.entry_filter = entry_filter
         self.start_date = start_date
         self.end_date = end_date
-        self.master = QuarterlyFilings(year=self.start_date.year, quarter=get_quarter(
-            self.start_date), client=client, entry_filter=self.entry_filter)
-        self.daily = DailyFilings(date=self.start_date, client=client,
+        self.master = QuarterlyFilings(year=self.start_date.year,
+                                       quarter=get_quarter(self.start_date),
+                                       client=client,
+                                       entry_filter=self.entry_filter)
+        self.daily = DailyFilings(date=self.start_date,
+                                  client=client,
                                   entry_filter=self.entry_filter)
         self.balancing_point = balancing_point
         self._recompute()
@@ -31,20 +40,23 @@ class ComboFilings:
             current_quarter = get_quarter(current_date)
             current_year = current_date.year
             next_year, next_quarter = add_quarter(current_year, current_quarter)
-            next_start_quarter_date = date(next_year, get_month(next_quarter), 1)
+            next_start_quarter_date = date(next_year, get_month(next_quarter),
+                                           1)
 
-            days_till_next_quarter = (next_start_quarter_date - current_date).days
+            days_till_next_quarter = (next_start_quarter_date -
+                                      current_date).days
             days_till_end = (self.end_date - current_date).days
             if days_till_next_quarter <= days_till_end:
-                current_start_quarter_date = date(current_year, get_month(current_quarter), 1)
+                current_start_quarter_date = date(current_year,
+                                                  get_month(current_quarter), 1)
                 if current_start_quarter_date == current_date:
-                    self.master_date_list.append((current_year, current_quarter, lambda x: True))
+                    self.master_date_list.append(
+                        (current_year, current_quarter, lambda x: True))
                     current_date = next_start_quarter_date
                 elif days_till_next_quarter > self.balancing_point:
                     self.master_date_list.append(
                         (current_year, current_quarter,
-                         lambda x: date(x['date_filed']) >= self.start_date)
-                    )
+                         lambda x: date(x['date_filed']) >= self.start_date))
                     current_date = next_start_quarter_date
                 else:
                     while current_date < next_start_quarter_date:
@@ -59,8 +71,7 @@ class ComboFilings:
                     else:
                         self.master_date_list.append(
                             (current_year, current_quarter,
-                             lambda x: date(x['date_filed']) <= self.end_date)
-                        )
+                             lambda x: date(x['date_filed']) <= self.end_date))
                         current_date = self.end_date
                 else:
                     while current_date <= self.end_date:

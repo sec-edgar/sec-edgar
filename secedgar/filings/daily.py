@@ -82,9 +82,9 @@ class DailyFilings(IndexFilings):
     @date.setter
     def date(self, val):
         if not isinstance(val, (datetime.date, datetime.datetime)):
-            raise TypeError("""Date must be given as datetime.date or datetime.datetime object.
-                            Was given type {type}.""".format(
-                            type=type(val)))
+            raise TypeError(
+                """Date must be given as datetime.date or datetime.datetime object.
+                            Was given type {type}.""".format(type=type(val)))
         self._date = val
 
     @property
@@ -95,8 +95,10 @@ class DailyFilings(IndexFilings):
     def _get_tar(self):
         """The .tar.gz filename for the current day."""
         if self.year < 1995 or (self.year == 1995 and self.quarter < 3):
-            raise ValueError('Bulk downloading is only available starting 1995 Q3.')
-        daily_file = '{date}.nc.tar.gz'.format(date=self._date.strftime("%Y%m%d"))
+            raise ValueError(
+                'Bulk downloading is only available starting 1995 Q3.')
+        daily_file = '{date}.nc.tar.gz'.format(
+            date=self._date.strftime("%Y%m%d"))
         return [daily_file]
 
     def _get_idx_formatted_date(self):
@@ -142,6 +144,9 @@ class DailyFilings(IndexFilings):
             dir_pattern = os.path.join("{date}", "{cik}")
 
         # If "{cik}" is in dir_pattern, it will be passed on and if not it will be ignored
-        formatted_dir = dir_pattern.format(date=self._date.strftime(date_format), cik="{cik}")
-        self.save_filings(directory, dir_pattern=formatted_dir,
-                          file_pattern=file_pattern, download_all=download_all)
+        formatted_dir = dir_pattern.format(
+            date=self._date.strftime(date_format), cik="{cik}")
+        self.save_filings(directory,
+                          dir_pattern=formatted_dir,
+                          file_pattern=file_pattern,
+                          download_all=download_all)

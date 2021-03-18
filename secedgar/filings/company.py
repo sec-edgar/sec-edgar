@@ -31,18 +31,16 @@ class CompanyFilings(AbstractFiling):
     .. versionadded:: 0.1.5
     """
 
-    def __init__(
-        self,
-        cik_lookup,
-        filing_type=None,
-        start_date=None,
-        end_date=date.today(),
-        client=None,
-        count=None,
-        ownership="include",
-        match_format="ALL",
-        **kwargs
-    ):
+    def __init__(self,
+                 cik_lookup,
+                 filing_type=None,
+                 start_date=None,
+                 end_date=date.today(),
+                 client=None,
+                 count=None,
+                 ownership="include",
+                 match_format="ALL",
+                 **kwargs):
         # Leave params before other setters
         self._params = {
             "action": "getcompany",
@@ -191,31 +189,25 @@ class CompanyFilings(AbstractFiling):
             # TODO entry_filter here?
             for row in data.find_all("content"):
                 found_type = row.find("filingtype").string
-                if (
-                    self.filing_type is None
-                    or self.match_format == "ALL"
-                    or (self.match_format != "ALL" and found_type == self.filing_type)
-                    or (
-                        self.match_format == "AMEND"
-                        and found_type.replace("/A", "") == self.filing_type
-                    )
-                ):
+                if (self.filing_type is None or self.match_format == "ALL" or
+                    (self.match_format != "ALL" and
+                     found_type == self.filing_type) or
+                    (self.match_format == "AMEND" and
+                     found_type.replace("/A", "") == self.filing_type)):
                     links.append(row.find("filinghref").string)
             self.params["start"] += self.client.batch_size
             if len(data.find_all("filinghref")) == 0:  # no more filings
                 break
 
-        txt_urls = [link[: link.rfind("-")].strip() + ".txt" for link in links]
+        txt_urls = [link[:link.rfind("-")].strip() + ".txt" for link in links]
 
         if isinstance(self.count, int) and len(txt_urls) < self.count:
             warnings.warn(
                 "Only {num} of {count} filings were found for {cik}.".format(
-                    num=len(txt_urls), count=self.count, cik=cik
-                )
-            )
+                    num=len(txt_urls), count=self.count, cik=cik))
 
         # Takes `count` filings at most
-        return txt_urls[: self.count]
+        return txt_urls[:self.count]
 
     def save(self, directory, dir_pattern=None, file_pattern=None):
         """Save files in specified directory.
@@ -245,11 +237,11 @@ class CompanyFilings(AbstractFiling):
 
         inputs = []
         for cik, links in urls.items():
-            formatted_dir = dir_pattern.format(cik=cik, type=self.filing_type.value)
+            formatted_dir = dir_pattern.format(cik=cik,
+                                               type=self.filing_type.value)
             for link in links:
                 formatted_file = file_pattern.format(
-                    accession_number=self.get_accession_number(link)
-                )
+                    accession_number=self.get_accession_number(link))
                 path = os.path.join(directory, formatted_dir, formatted_file)
                 inputs.append((link, path))
 

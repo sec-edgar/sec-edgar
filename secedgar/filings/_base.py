@@ -11,7 +11,11 @@ class AbstractFiling(ABC):
     .. versionadded:: 0.1.5
     """
 
-    def extract_meta(self, directory, out_dir=None, create_subdir=True, rm_infile=False):
+    def extract_meta(self,
+                     directory,
+                     out_dir=None,
+                     create_subdir=True,
+                     rm_infile=False):
         """Extract meta data from filings in directory."""
         for root, _, files in os.walk(directory):
             for file in files:
