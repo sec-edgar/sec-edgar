@@ -80,6 +80,7 @@ class CompanyFilings(AbstractFiling):
 
     @property
     def match_format(self):
+        """The match format to use when searching for filings."""
         return self._match_format
 
     @match_format.setter

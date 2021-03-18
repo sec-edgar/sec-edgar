@@ -177,9 +177,7 @@ class NetworkClient:
 
     @staticmethod
     async def fetch_and_save(link, path, session):
-        """Fetch link and save to path using session.
-
-        """
+        """Fetch link and save to path using session."""
         async with session.get(link) as response:
             contents = await response.read()
             make_path(os.path.dirname(path))
