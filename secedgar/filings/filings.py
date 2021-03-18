@@ -96,5 +96,5 @@ def filings(
                             entry_filter=entry_filter)
 
     raise ValueError(
-        """Invalid arguments. You must provide 'cik_lookup' OR 'start_date' OR 'start_date' and 'end_date'."""
-    )
+        """Invalid arguments. You must provide 'cik_lookup' OR 'start_date' \
+OR ('start_date' and 'end_date').""")

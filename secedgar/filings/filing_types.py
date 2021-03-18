@@ -6,10 +6,6 @@ class FilingType(Enum):
 
     .. versionadded:: 0.1.5
 
-    FILING_1A - Offering statement under Regulation A
-    FILING_1A_AMEND - Offering statement under Regulation A [AMENDMENT]
-    
-
     """
     FILING_1A = '1-A'
     FILING_1A_AMEND = '1-A/A'
