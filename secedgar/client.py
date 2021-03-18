@@ -176,13 +176,20 @@ class NetworkClient:
                              features='lxml')
 
     @staticmethod
-    async def fetch_and_save(link, path, session):
-        """Fetch link and save to path using session."""
-        async with session.get(link) as response:
+    async def fetch(link, session):
+        """Asynchronous get request.
+
+        Args:
+            link (str): URL to fetch.
+            session (aiohttp.ClientSession): Asynchronous client session to use to perform
+                get request.
+
+        Returns:
+            Content: Contents of response from get request.
+        """
+        async with await session.get(link) as response:
             contents = await response.read()
-            make_path(os.path.dirname(path))
-            with open(path, "wb") as f:
-                f.write(contents)
+        return contents
 
     async def wait_for_download_async(self, inputs):
         """Asynchronously download links into files using rate limit.
@@ -191,6 +198,13 @@ class NetworkClient:
             in tuple should be URL to request and second element should be path
             where content after requesting URL is stored.
         """
+
+        async def fetch_and_save(link, path, session):
+            """Fetch link and save to path using session."""
+            contents = await self.fetch(link, session)
+            make_path(os.path.dirname(path))
+            with open(path, "wb") as f:
+                f.write(contents)
 
         def batch(iterable, n):
             length = len(iterable)
@@ -208,8 +222,7 @@ class NetworkClient:
                                    unit_scale=self.rate_limit):
                 start = time.monotonic()
                 tasks = [
-                    self.fetch_and_save(link, path, client)
-                    for link, path in group
+                    fetch_and_save(link, path, client) for link, path in group
                 ]
                 await asyncio.gather(
                     *tasks)  # If results are needed they can be assigned here
