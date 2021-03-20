@@ -1,5 +1,4 @@
 from datetime import date, datetime
-from typing import Type
 
 import pytest
 import secedgar.utils as utils
