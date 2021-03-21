@@ -5,17 +5,17 @@ Filings
 
 There are currently two supported ways to fetch filings. If you
 are interested in grabbing specific types of filings for a specific set of companies,
-it is suggested that you use :class:`secedgar.core.Filing`. If you are interested in
+it is suggested that you use :class:`secedgar.core.CompanyFilings`. If you are interested in
 fetching all filings from any given day, you should use :class:`secedgar.core.DailyFilings`.
 
-Filings can be downloaded using :class:`secedgar.core.Filing`.
+Filings can be downloaded using :class:`secedgar.core.CompanyFilings`.
 
 Supported filing types can be found at :ref:`filingtypes`
 
 Filing
 ------
 
-.. autoclass:: secedgar.core.Filing
+.. autoclass:: secedgar.core.CompanyFilings
    :members:
 
 Examples
@@ -25,10 +25,10 @@ Restrict the start and end dates by using the ``start_date`` and ``end_date`` ar
 
 .. code-block:: python
 
-   from secedgar.core import FilingType, Filing
+   from secedgar import FilingType, CompanyFilings
    from datetime import datetime
 
-   filing = Filing(cik_lookup='aapl',
+   filing = CompanyFilings(cik_lookup='aapl',
                    filing_type=FilingType.FILING_10K,
                    start_date=datetime(2015, 1, 1),
                    end_date=datetime(2019, 1, 1))
@@ -38,10 +38,10 @@ The end date defaults to today's date.
 
 .. code-block:: python
 
-   from secedgar.core import FilingType, Filing
+   from secedgar import FilingType, CompanyFilings
    from datetime import datetime
 
-   filing = Filing(cik_lookup='aapl',
+   filing = CompanyFilings(cik_lookup='aapl',
                    filing_type=FilingType.FILING_10K,
                    start_date=datetime(2015, 1, 1)) # end date defaults to today
 
@@ -49,10 +49,10 @@ You can also look up a specific filing type for multiple companies.
 
 .. code-block:: python
 
-   from secedgar.core import FilingType, Filing
+   from secedgar import FilingType, CompanyFilings
    from datetime import datetime
 
-   filing = Filing(cik_lookup=['aapl', 'msft', 'fb'],
+   filing = CompanyFilings(cik_lookup=['aapl', 'msft', 'fb'],
                    filing_type=FilingType.FILING_10K,
                    start_date=datetime(2015, 1, 1))
 
@@ -74,18 +74,18 @@ Note that you should replace ``'/my_directory'`` with the desired directory of t
 
 .. code-block:: python
 
-   from secedgar.core import DailyFilings
+   from secedgar import DailyFilings
    from datetime import datetime
 
    daily_filings = DailyFilings(date=datetime(2020, 1, 2))
    daily_filings.save('/my_directory')
 
-Master Filings (Quarterly)
---------------------------
+Quarterly Filings
+-----------------
 
-The ``MasterFilings`` class can be used to fetch all the URLs for or download all filings from any given quarter.
+The ``QuarterlyFilings`` class can be used to fetch all the URLs for or download all filings from any given quarter.
 
-.. autoclass:: secedgar.core.MasterFilings
+.. autoclass:: secedgar.core.QuarterlyFilings
    :members:
 
 Examples
@@ -93,9 +93,9 @@ Examples
 
 .. code-block:: python
 
-   from secedgar.core import MasterFilings
+   from secedgar import QuarterlyFilings
 
-   master_filings = MasterFilings(year=2000, quarter=4)
+   master_filings = QuarterlyFilings(year=2000, quarter=4)
    urls = master_filings.get_urls()  # gets all URLs for filings from quarter 4 of 2000
    master_filings.save('/my_directory')  # saves all filings from quarter 4 of 2000 in my_directory
 
@@ -108,9 +108,9 @@ Here are some examples of how you might use those arguments to create custom dir
 
 .. code-block:: python
 
-   from secedgar.core import Filing, FilingType
+   from secedgar import CompanyFilings, FilingType
 
-   f = Filing(cik_lookup=["aapl", "msft"], filing_type=FilingType.FILING_10Q, count=5)
+   f = CompanyFilings(cik_lookup=["aapl", "msft"], filing_type=FilingType.FILING_10Q, count=5)
    f.save("./my_directory", dir_pattern="cik_{cik}/{type}", file_pattern="{accession_number}")
 
 The code above would create a directory structure that would look something like this:
@@ -134,4 +134,4 @@ The code above would create a directory structure that would look something like
          └── 0001564590-20-047996.txt
 
 
-This same sort of templating can be used for :class:`secedgar.core.DailyFilings` and :class:`secedgar.core.MasterFilings`.
+This same sort of templating can be used for :class:`secedgar.core.DailyFilings` and :class:`secedgar.core.QuarterlyFilings`.
