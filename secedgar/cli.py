@@ -46,8 +46,7 @@ def date_cleanup(date):
 @click.option(
     '-e',
     '--end',
-    help=
-    'End date for filings. Should be in the format YYYYMMDD. Defaults to today.',
+    help='End date for filings. Should be in the format YYYYMMDD. Defaults to today.',
     type=str)
 @click.option('-n',
               '--count',
