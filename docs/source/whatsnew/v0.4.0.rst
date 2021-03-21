@@ -1,0 +1,19 @@
+v0.3.2
+------
+
+Highlights
+~~~~~~~~~~
+
+Many breaking changes, as this update does a lot of restructuring.
+
+- Rename ``filings.py`` to ``company.py`` (and respective ``Filings`` class to ``Company``).
+- Rename ``master.py`` to ``quarterly.py`` (and respective ``Master`` class to ``Quarterly``).
+- Rename ``filings`` subdirectory to ``core`` to avoid confusion.
+- Create ``core.combo`` class that wraps around ``core.quarterly``, ``core.daily`` given 2 dates.
+- Create ``filings`` factory that returns the correct class based on user inputs. Returns one of ``core.combo``, ``core.quarterly``, ``core.daily``, ``core.company``.
+- Add many more types to ``filing_types`` enum. Switch to csv table for details.
+
+Contributors
+~~~~~~~~~~~~
+
+- reteps
