@@ -67,7 +67,8 @@ def filings(
             "Count has not yet been implemented for Daily, Master & Combo Filings."
         )
 
-    if end_date is None:
+    if (end_date is None or end_date == start_date) and isinstance(
+            start_date, date):
         return DailyFilings(date=start_date,
                             client=client,
                             entry_filter=entry_filter)
