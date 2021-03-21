@@ -2,6 +2,7 @@ import os
 from datetime import date, datetime
 
 import pytest
+import secedgar.utils as utils
 from secedgar.filings.daily import DailyFilings
 from secedgar.tests.utils import MockResponse, datapath
 
@@ -269,3 +270,20 @@ class TestDaily:
         subdir = os.path.join(cik, "2018-12-31")
         path_to_check = os.path.join(tmp_data_directory, subdir, file)
         assert os.path.exists(path_to_check)
+
+    @pytest.mark.parametrize(
+        "year,quarter",
+        [
+            (1995, 2),
+            (1995, 1),
+            (1994, 4)
+        ]
+    )
+    def test__get_tar_bad_year_quarter(self, year, quarter):
+        with pytest.raises(ValueError):
+            d = DailyFilings(date=date(year, utils.get_month(quarter), 1))
+            d._get_tar()
+
+    def test__get_tar_valid(self):
+        d = DailyFilings(date=date(2020, 1, 2))
+        assert d._get_tar() == ['20200102.nc.tar.gz']
