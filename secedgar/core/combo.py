@@ -2,12 +2,31 @@ from datetime import date, timedelta
 
 from secedgar.core.daily import DailyFilings
 from secedgar.core.quarterly import QuarterlyFilings
-from secedgar.utils import get_month, get_quarter, add_quarter
 from secedgar.exceptions import EDGARQueryError
+from secedgar.utils import add_quarter, get_month, get_quarter
 
 
 class ComboFilings:
     """Class for retrieving all filings between specified dates.
+
+    Args:
+        start_date (Union[str, datetime.datetime, datetime.date], optional): Date before
+            which not to fetch reports. Stands for "date after."
+            Defaults to None (will fetch all filings before ``end_date``).
+        end_date (Union[str, datetime.datetime, datetime.date], optional):
+            Date after which not to fetch reports.
+            Stands for "date before." Defaults to today.
+        client (secedgar.client._base.AbstractClient, optional): Client to use for fetching data.
+            Defaults to ``secedgar.client.NetworkClient`` if none is given.
+        entry_filter (function, optional): A boolean function to determine
+            if the FilingEntry should be kept. Defaults to `lambda _: True`.
+            The ``FilingEntry`` object exposes 7 variables which can be
+            used to filter which filings to keep. These are "cik", "company_name",
+            "form_type", "date_filed", "file_name", "path", and "num_previously_valid".
+        balancing_point (int): Number of days from which to change lookup method from using
+            ``DailyFilings`` to ``QuarterlyFilings``. If ``QuarterlyFilings`` is used, an
+            additional filter will be added to limit which days are included.
+            Defaults to 30.
 
     .. versionadded:: 0.4.0
     """
