@@ -1,7 +1,7 @@
 import os
 from datetime import date
 
-from secedgar.filings._index import IndexFilings
+from secedgar.core._index import IndexFilings
 from secedgar.utils import get_quarter
 
 
@@ -15,8 +15,8 @@ class QuarterlyFilings(IndexFilings):
             ``secedgar.client.NetworkClient`` if None given.
         entry_filter (function, optional): A boolean function to determine
             if the FilingEntry should be kept. Defaults to ``lambda _: True``.
-            See :class:`secedgar.filings.DailyFilings` for more detail.
-        kwargs: Keyword arguments to pass to ``secedgar.filings._index.IndexFilings``.
+            See :class:`secedgar.core.DailyFilings` for more detail.
+        kwargs: Keyword arguments to pass to ``secedgar.core._index.IndexFilings``.
     """
 
     def __init__(self,
@@ -87,7 +87,7 @@ class QuarterlyFilings(IndexFilings):
 
         Creates subdirectory within given directory of the form <YEAR>/QTR<QTR NUMBER>/.
         Then each distinct company name receives its own directory with all of its filings.
-        See ``secedgar.filings._index.IndexFilings`` for more detail.
+        See ``secedgar.core._index.IndexFilings`` for more detail.
 
         Args:
             directory (str): Directory where filings should be stored. Will be broken down

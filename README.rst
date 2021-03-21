@@ -32,7 +32,7 @@ Running
 
 .. code:: python
 
-    from secedgar.filings import Filing, FilingType
+    from secedgar.core import Filing, FilingType
 
     # 10Q filings for Apple (ticker "aapl")
     my_filings = Filing(cik_lookup='aapl', filing_type=FilingType.FILING_10Q)

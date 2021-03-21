@@ -1,10 +1,10 @@
 from datetime import date, timedelta
 
-from secedgar.filings.combo import ComboFilings
-from secedgar.filings.company import CompanyFilings
-from secedgar.filings.daily import DailyFilings
-from secedgar.filings.filing_types import FilingType
-from secedgar.filings.quarterly import QuarterlyFilings
+from secedgar.core.combo import ComboFilings
+from secedgar.core.company import CompanyFilings
+from secedgar.core.daily import DailyFilings
+from secedgar.core.filing_types import FilingType
+from secedgar.core.quarterly import QuarterlyFilings
 from secedgar.utils import get_month, get_quarter, add_quarter
 from secedgar.exceptions import FilingTypeError
 
@@ -24,7 +24,7 @@ def filings(
         cik_lookup (str): Central Index Key (CIK) for company of interest.
         start_date (datetime.date, optional): Date of daily filing to fetch.
         end_date (datetime.date, optional): Date of daily filing to fetch.
-        filing_type (secedgar.filings.filing_types.FilingType, optional): Valid filing type
+        filing_type (secedgar.core.filing_types.FilingType, optional): Valid filing type
             enum. Defaults to None. If None, then all filing types for CIKs will be returned.
         count (int, optional): Number of filings to fetch. Will fetch up to `count` if that
         many filings are available. Defaults to all filings available.
@@ -32,11 +32,11 @@ def filings(
                     ``secedgar.client.NetworkClient`` if None given.
         entry_filter (function, optional): A boolean function to determine
             if the FilingEntry should be kept. Defaults to ``lambda _: True``.
-            See :class:`secedgar.filings.DailyFilings` for more detail.
+            See :class:`secedgar.core.DailyFilings` for more detail.
     .. code-block:: python
 
         from datetime import date
-        from secedgar.filings import filings, FilingType
+        from secedgar.core import filings, FilingType
 
         engine = filings(start_date=date(2020, 12, 10), end_date=date(2020, 12, 10),
             filing_type=FilingType.FILING_4, count=50)

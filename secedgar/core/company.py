@@ -6,8 +6,8 @@ from datetime import date
 from secedgar.cik_lookup import CIKLookup
 from secedgar.client import NetworkClient
 from secedgar.exceptions import FilingTypeError
-from secedgar.filings._base import AbstractFiling
-from secedgar.filings.filing_types import FilingType
+from secedgar.core._base import AbstractFiling
+from secedgar.core.filing_types import FilingType
 from secedgar.utils import sanitize_date
 
 
@@ -16,7 +16,7 @@ class CompanyFilings(AbstractFiling):
 
     Args:
         cik_lookup (str): Central Index Key (CIK) for company of interest.
-        filing_type (Union[secedgar.filings.filing_types.FilingType, None]): Valid filing type
+        filing_type (Union[secedgar.core.filing_types.FilingType, None]): Valid filing type
             enum. Defaults to None. If None, then all filing types for CIKs will be returned.
         start_date (Union[str, datetime.datetime, datetime.date], optional): Date before
             which not to fetch reports. Stands for "date after."
@@ -110,7 +110,7 @@ class CompanyFilings(AbstractFiling):
 
     @property
     def filing_type(self):
-        """``secedgar.filings.FilingType``: FilingType enum of filing."""
+        """``secedgar.core.FilingType``: FilingType enum of filing."""
         return self._filing_type
 
     @filing_type.setter

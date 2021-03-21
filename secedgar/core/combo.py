@@ -1,7 +1,7 @@
 from datetime import date, timedelta
 
-from secedgar.filings.daily import DailyFilings
-from secedgar.filings.quarterly import QuarterlyFilings
+from secedgar.core.daily import DailyFilings
+from secedgar.core.quarterly import QuarterlyFilings
 from secedgar.utils import get_month, get_quarter, add_quarter
 from secedgar.exceptions import EDGARQueryError
 

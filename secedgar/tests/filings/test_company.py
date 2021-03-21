@@ -5,7 +5,7 @@ import pytest
 from secedgar.cik_lookup import CIKLookup
 from secedgar.client import NetworkClient
 from secedgar.exceptions import FilingTypeError
-from secedgar.filings import CompanyFilings, FilingType
+from secedgar.core import CompanyFilings, FilingType
 from secedgar.tests.utils import MockResponse
 
 

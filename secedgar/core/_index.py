@@ -9,7 +9,7 @@ from threading import Thread
 
 from secedgar.client import NetworkClient
 from secedgar.exceptions import EDGARQueryError
-from secedgar.filings._base import AbstractFiling
+from secedgar.core._base import AbstractFiling
 from secedgar.utils import make_path
 
 
@@ -136,7 +136,7 @@ class IndexFilings(AbstractFiling):
                 updated on each method call. Defaults to False.
 
             kwargs: Any kwargs to pass to _get_master_idx_file. See
-                ``secedgar.filings.daily.DailyFilings._get_master_idx_file``.
+                ``secedgar.core.daily.DailyFilings._get_master_idx_file``.
         """
         if self._filings_dict is None or update_cache:
             idx_file = self._get_master_idx_file(**kwargs)
@@ -247,9 +247,9 @@ class IndexFilings(AbstractFiling):
 
         Args:
             urls (dict): Dictionary of URLs that were retrieved. See
-            ``secedgar.filings._index.IndexFilings.get_urls()`` for more.
+            ``secedgar.core._index.IndexFilings.get_urls()`` for more.
             extract_directory (str): Location of extract directory as used in
-                ``secedgar.filings.daily.DailyFilings._unzip``
+                ``secedgar.core.daily.DailyFilings._unzip``
             directory (str): Final parent directory to move files to.
             dir_pattern (str): Format string for subdirectories. Default is `{cik}`.
                 Valid options are `cik`. See ``save`` method for more.

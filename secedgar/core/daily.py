@@ -1,7 +1,7 @@
 import datetime
 import os
 
-from secedgar.filings._index import IndexFilings
+from secedgar.core._index import IndexFilings
 from secedgar.utils import get_quarter
 
 
@@ -43,7 +43,7 @@ class DailyFilings(IndexFilings):
     .. code-block:: python
 
         from datetime import date
-        from secedgar.filings import DailyFilings
+        from secedgar.core import DailyFilings
 
         d = DailyFilings(date=date(2020, 12, 10), entry_filter=get_company_ab_10k)
 

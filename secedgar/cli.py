@@ -4,7 +4,7 @@ from datetime import datetime
 import click
 
 from secedgar.exceptions import FilingTypeError
-from secedgar.filings import CompanyFilings, DailyFilings, FilingType
+from secedgar.core import CompanyFilings, DailyFilings, FilingType
 
 
 @click.group()
@@ -27,27 +27,37 @@ def date_cleanup(date):
 
 
 @cli.command()
-@click.option('-l', '--lookups',
+@click.option('-l',
+              '--lookups',
               help='Companies and tickers to include in filing download.',
               required=True,
               multiple=True)
-@click.option('-t', '--ftype', help="""Choose a filing type.
-             See ``secedgar.filings.FilingType`` for a full list of available enums.
+@click.option('-t',
+              '--ftype',
+              help="""Choose a filing type.
+             See ``secedgar.core.FilingType`` for a full list of available enums.
              Should be of the form FILING_<filing type>.""",
               required=True)  # Need to convert this to enum somehow
-@click.option('-s', '--start',
+@click.option('-s',
+              '--start',
               help="""Start date for filings.
               Should be in the format YYYYMMDD. Defaults to first available filing.""",
               type=str)
-@click.option('-e', '--end',
-              help='End date for filings. Should be in the format YYYYMMDD. Defaults to today.',
-              type=str)
-@click.option('-n', '--count',
-              help='Number of filings to save. Defaults to all.', type=int)
+@click.option(
+    '-e',
+    '--end',
+    help=
+    'End date for filings. Should be in the format YYYYMMDD. Defaults to today.',
+    type=str)
+@click.option('-n',
+              '--count',
+              help='Number of filings to save. Defaults to all.',
+              type=int)
 @click.option('--directory',
               help="""Directory where files will be saved.
               Defaults to directory from which CLI is being executed.""",
-              default=os.getcwd(), type=str)
+              default=os.getcwd(),
+              type=str)
 def filing(lookups, ftype, start, end, count, directory):
     """Click command for downloading filings. Run ``secedgar filing --help`` for info."""
     # If given filing type is not valid enum, raise FilingTypeError
@@ -65,11 +75,17 @@ def filing(lookups, ftype, start, end, count, directory):
 
 
 @cli.command()
-@click.option('-d', '--date', help="""Date to look up daily filings for.
-              Should be in the format YYYYMMDD.""", required=True, type=str)
-@click.option('--directory', help="""Directory where files will be saved.
+@click.option('-d',
+              '--date',
+              help="""Date to look up daily filings for.
+              Should be in the format YYYYMMDD.""",
+              required=True,
+              type=str)
+@click.option('--directory',
+              help="""Directory where files will be saved.
               Defaults to directory from which CLI is being executed.""",
-              default=os.getcwd(), type=str)
+              default=os.getcwd(),
+              type=str)
 def daily(date, directory):
     """Click command for downloading daily filings. Run ``secedgar daily --help`` for info."""
     d = DailyFilings(date=date_cleanup(date))

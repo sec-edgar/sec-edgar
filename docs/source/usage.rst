@@ -18,7 +18,7 @@ The ``Filing`` class provides a simple API to fetch SEC filings.
 
 .. code-block:: python
 
-   from secedgar.filings import Filing, FilingType
+   from secedgar.core import Filing, FilingType
 
    my_filings = Filing(cik_lookup='aapl',
                        filing_type=FilingType.FILING_10Q,
@@ -28,7 +28,7 @@ The ``cik_lookup`` argument can also take multiple tickers and/or company names.
 
 .. code-block:: python
 
-   from secedgar.filings import Filing, FilingType
+   from secedgar.core import Filing, FilingType
 
    my_filings = Filing(cik_lookup=['aapl', 'msft', 'Facebook'],
                        filing_type=FilingType.FILING_10Q,

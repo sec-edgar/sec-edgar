@@ -3,11 +3,12 @@ from datetime import date
 import pytest
 from secedgar.client import NetworkClient
 from secedgar.exceptions import FilingTypeError
-from secedgar.filings import DailyFilings, QuarterlyFilings
-from secedgar.filings.filings import filings
+from secedgar.core import DailyFilings, QuarterlyFilings
+from secedgar.core.filings import filings
 
 
 class TestFilings:
+
     def test_bad_filing_type(self):
         with pytest.raises(FilingTypeError):
             filings(cik_lookup='aapl', filing_type='10-k')
@@ -17,7 +18,9 @@ class TestFilings:
 
     def test_count_not_implemented(self):
         with pytest.raises(NotImplementedError):
-            filings(start_date=date(2010, 1, 1), end_date=date(2020, 1, 1), count=10)
+            filings(start_date=date(2010, 1, 1),
+                    end_date=date(2020, 1, 1),
+                    count=10)
 
     def test_no_end_date_no_cik_lookp_returns_daily_filings(self):
         day = date(2020, 1, 1)
@@ -46,8 +49,7 @@ class TestFilings:
             # make daily or quarterly filing, but will not be recognized
             (dict(count=10, client=NetworkClient()), NotImplementedError),
             (dict(count=10), NotImplementedError),
-        ]
-    )
+        ])
     def test_bad_args_combination_raises_error(self, kwargs, error):
         with pytest.raises(error):
             filings(**kwargs)
