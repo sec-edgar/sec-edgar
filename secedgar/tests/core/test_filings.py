@@ -2,9 +2,10 @@ from datetime import date
 
 import pytest
 from secedgar.client import NetworkClient
-from secedgar.exceptions import FilingTypeError
 from secedgar.core import DailyFilings, QuarterlyFilings
+from secedgar.core.combo import ComboFilings
 from secedgar.core.filings import filings
+from secedgar.exceptions import FilingTypeError
 
 
 class TestFilings:
@@ -36,6 +37,14 @@ class TestFilings:
         assert isinstance(f, QuarterlyFilings)
         assert f.year == 2020
         assert f.quarter == 1
+
+    def test_mismatch_of_quarters_returns_combo_filings(self):
+        start_date = date(2020, 1, 1)
+        end_date = date(2020, 5, 1)
+        f = filings(start_date=start_date, end_date=end_date)
+        assert isinstance(f, ComboFilings)
+        assert f.start_date == start_date
+        assert f.end_date == end_date
 
     @pytest.mark.parametrize(
         "kwargs,error",
