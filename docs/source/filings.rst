@@ -3,19 +3,24 @@
 Filings
 =======
 
-There are currently two supported ways to fetch filings. If you
-are interested in grabbing specific types of filings for a specific set of companies,
-it is suggested that you use :class:`secedgar.core.CompanyFilings`. If you are interested in
-fetching all filings from any given day, you should use :class:`secedgar.core.DailyFilings`.
+There are multiple ways to download filings. The most direct way is to use the ``secedgar.core.filings.filings``
+function. This function will return a class which tries to best match your needs based on the arguments
+provided. For the more technical, the ``filings`` function is a factory.
 
-Filings can be downloaded using :class:`secedgar.core.CompanyFilings`.
+If you find that this does not meet your needs for any reason or would like more direct control
+over what is being created, you can use the following classes:
+
+- :class:`secedgar.CompanyFilings` - for fetching filings for specific companies
+- :class:`secedgar.DailyFilings` - for fetching filings from a specific date
+- :class:`secedgar.QuarterlyFilings` - for fetching filings from a specific quarter
+- :class:`secedgar.ComboFilings` - for fetching filings over a time span (most useful when spanning multiple quarters)
 
 Supported filing types can be found at :ref:`filingtypes`
 
 Filing
 ------
 
-.. autoclass:: secedgar.core.CompanyFilings
+.. autoclass:: secedgar.CompanyFilings
    :members:
 
 Examples
@@ -63,7 +68,7 @@ Daily Filings
 
 The ``DailyFilings`` class can be used to fetch all the URLs for or download all filings from any given day.
 
-.. autoclass:: secedgar.core.DailyFilings
+.. autoclass:: secedgar.DailyFilings
    :members:
 
 Examples
@@ -85,7 +90,7 @@ Quarterly Filings
 
 The ``QuarterlyFilings`` class can be used to fetch all the URLs for or download all filings from any given quarter.
 
-.. autoclass:: secedgar.core.QuarterlyFilings
+.. autoclass:: secedgar.QuarterlyFilings
    :members:
 
 Examples
@@ -98,6 +103,28 @@ Examples
    master_filings = QuarterlyFilings(year=2000, quarter=4)
    urls = master_filings.get_urls()  # gets all URLs for filings from quarter 4 of 2000
    master_filings.save('/my_directory')  # saves all filings from quarter 4 of 2000 in my_directory
+
+
+Combo Filings
+-------------
+
+The ``ComboFilings`` class can download all filings from a specified time frame.
+Internally, this class uses a mixture of ``DailyFilings`` and ``QuarterlyFilings`` to get all of the needed
+filings.
+
+.. autoclass:: secedgar.ComboFilings
+   :members:
+
+Examples
+^^^^^^^^
+
+.. code-block:: python
+
+   from datetime import date
+   from secedgar import ComboFilings
+
+   combo_filings = ComboFilings(start_date=date(2020, 1, 6), end_date=date(2020, 11, 5)
+   combo_filings.save('/my_directory')
 
 Saving Filings
 --------------
