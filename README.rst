@@ -32,10 +32,10 @@ Running
 
 .. code:: python
 
-    from secedgar.core import Filing, FilingType
+    from secedgar.core import CompanyFilings, FilingType
 
     # 10Q filings for Apple (ticker "aapl")
-    my_filings = Filing(cik_lookup='aapl', filing_type=FilingType.FILING_10Q)
+    my_filings = CompanyFilings(cik_lookup='aapl', filing_type=FilingType.FILING_10Q)
     my_filings.save('~/path/to/dir')
 
 Supported Methods
