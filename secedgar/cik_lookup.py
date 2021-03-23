@@ -49,7 +49,7 @@ class CIKLookup:
             if not (lookups and all(type(o) is str for o in lookups)):
                 raise TypeError("CIKs must be given as string or iterable.")
             self._lookups = lookups
-        self._params = {'action': 'getcompany'}
+        self._params = {}
         self._client = client if client is not None else NetworkClient(**kwargs)
         self._lookup_dict = None
         self._ciks = None
