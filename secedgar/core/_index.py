@@ -34,7 +34,7 @@ class IndexFilings(AbstractFiling):
         self._filings_dict = None
         self._paths = []
         self._urls = {}
-        self._entry_filter = entry_filter
+        self.entry_filter = entry_filter
 
     @property
     def entry_filter(self):
@@ -45,8 +45,11 @@ class IndexFilings(AbstractFiling):
         return self._entry_filter
 
     @entry_filter.setter
-    def entry_filter(self, val):
-        self._entry_filter = val
+    def entry_filter(self, fn):
+        if callable(fn):
+            self._entry_filter = fn
+        else:
+            raise ValueError('entry_filter must be a function or lambda.')
 
     @property
     def client(self):
