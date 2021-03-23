@@ -100,7 +100,6 @@ class ComboFilings:
 
     def get_urls(self):
         """Get all urls between ``start_date`` and ``end_date``."""
-
         # Use functools.reduce for speed
         # see https://stackoverflow.com/questions/10461531/merge-and-sum-of-two-dictionaries
         def reducer(accumulator, dictionary):
