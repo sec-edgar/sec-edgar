@@ -1,11 +1,10 @@
 from datetime import date, timedelta
+from functools import reduce
 
 from secedgar.core.daily import DailyFilings
 from secedgar.core.quarterly import QuarterlyFilings
 from secedgar.exceptions import EDGARQueryError
 from secedgar.utils import add_quarter, get_month, get_quarter
-
-from functools import reduce
 
 
 class ComboFilings:
@@ -102,7 +101,8 @@ class ComboFilings:
     def get_urls(self):
         """Get all urls between ``start_date`` and ``end_date``."""
 
-        # For speed, I have chosen functools.reduce as per https://stackoverflow.com/questions/10461531/merge-and-sum-of-two-dictionaries
+        # Use functools.reduce for speed
+        # see https://stackoverflow.com/questions/10461531/merge-and-sum-of-two-dictionaries
         def reducer(accumulator, dictionary):
             for key, value in dictionary.items():
                 accumulator[key] = accumulator.get(key, []) + value
