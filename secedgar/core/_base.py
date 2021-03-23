@@ -1,7 +1,7 @@
 import os
 import string
 from abc import ABC, abstractmethod
-
+import warnings
 from secedgar.parser import MetaParser
 
 
@@ -89,17 +89,14 @@ class AbstractFiling(ABC):
         return stripped.replace(" ", "_")
 
     def get_urls_safely(self, **kwargs):
-        """Wrapper around `get_urls` to check if there is a positive number of URLs.
+        """Wrapper around `get_urls` to check if there is a positive number of URLs, and warn if they don't.
 
         .. note:: This method will not check if the URLs are valid. Simply if they exist.
-
-        Raises:
-            ValueError: If no URLs exist, then ValueError is raised.
 
         Returns:
             urls (dict): Result of `get_urls` method.
         """
         urls = self.get_urls(**kwargs)
         if all(len(urls[cik]) == 0 for cik in urls.keys()):
-            raise ValueError("No filings available.")
+            warnings.warn("No filings available.")
         return urls
