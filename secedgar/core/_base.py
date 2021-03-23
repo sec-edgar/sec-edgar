@@ -2,6 +2,7 @@ import os
 import string
 from abc import ABC, abstractmethod
 
+from secedgar.exceptions import NoFilingsError
 from secedgar.parser import MetaParser
 
 
@@ -94,12 +95,12 @@ class AbstractFiling(ABC):
         .. note:: This method will not check if the URLs are valid. Simply if they exist.
 
         Raises:
-            ValueError: If no URLs exist, then ValueError is raised.
+            NoFilingsError: If no URLs exist, then NoFilingsError is raised.
 
         Returns:
             urls (dict): Result of `get_urls` method.
         """
         urls = self.get_urls(**kwargs)
         if all(len(urls[cik]) == 0 for cik in urls.keys()):
-            raise ValueError("No filings available.")
+            raise NoFilingsError("No filings available.")
         return urls

@@ -4,8 +4,8 @@ import datetime
 import pytest
 from secedgar.cik_lookup import CIKLookup
 from secedgar.client import NetworkClient
-from secedgar.exceptions import FilingTypeError
 from secedgar.core import CompanyFilings, FilingType
+from secedgar.exceptions import FilingTypeError, NoFilingsError
 from secedgar.tests.utils import MockResponse
 
 
@@ -202,7 +202,7 @@ class TestFiling(object):
                                           no_urls):
         monkeypatch.setattr(CompanyFilings, "get_urls", lambda x: no_urls)
         f = CompanyFilings(cik_lookup="aapl", filing_type=FilingType.FILING_10K)
-        with pytest.raises(ValueError):
+        with pytest.raises(NoFilingsError):
             f.save(tmp_data_directory)
 
     @pytest.mark.smoke

@@ -3,7 +3,7 @@ from functools import reduce
 
 from secedgar.core.daily import DailyFilings
 from secedgar.core.quarterly import QuarterlyFilings
-from secedgar.exceptions import EDGARQueryError
+from secedgar.exceptions import EDGARQueryError, NoFilingsError
 from secedgar.utils import add_quarter, get_month, get_quarter
 
 
@@ -162,5 +162,5 @@ class ComboFilings:
                                 file_pattern=file_pattern,
                                 download_all=download_all,
                                 date_format=daily_date_format)
-            except EDGARQueryError:
+            except (EDGARQueryError, NoFilingsError):
                 pass
