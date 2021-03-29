@@ -12,7 +12,7 @@ def line_matches(a, b):
     return a[0] == b[0] and a[1] == b[1] and lambda_matches(a[2], b[2])
 
 
-def master_list_matches(l1, l2):
+def quarterly_list_matches(l1, l2):
     return all(line_matches(a, b) for (a, b) in zip(l1, l2))
 
 
@@ -23,7 +23,7 @@ class TestComboFilings:
                              end_date=date(2020, 12, 31))
         expected = [(2020, 1, lambda _: True), (2020, 2, lambda _: True),
                     (2020, 3, lambda _: True), (2020, 4, lambda _: True)]
-        assert master_list_matches(combo.master_date_list, expected)
+        assert quarterly_list_matches(combo.quarterly_date_list, expected)
         assert len(combo.daily_date_list) == 0
 
     def test_combo_quarterly_only_multiple_years(self):
@@ -38,21 +38,21 @@ class TestComboFilings:
             (2020, 1, lambda _: True),
             (2020, 2, lambda _: True),
         ]
-        assert master_list_matches(combo.master_date_list, expected)
+        assert quarterly_list_matches(combo.quarterly_date_list, expected)
         assert len(combo.daily_date_list) == 0
 
     def test_combo_daily_only_single_day(self):
         combo = ComboFilings(start_date=date(2020, 12, 10),
                              end_date=date(2020, 12, 10))
         assert [str(s) for s in combo.daily_date_list] == ["2020-12-10"]
-        assert len(combo.master_date_list) == 0
+        assert len(combo.quarterly_date_list) == 0
 
     def test_combo_daily_only_multiple_days(self):
         combo = ComboFilings(start_date=date(2020, 12, 10),
                              end_date=date(2020, 12, 12))
         expected = ["2020-12-10", "2020-12-11", "2020-12-12"]
         assert [str(s) for s in combo.daily_date_list] == expected
-        assert len(combo.master_date_list) == 0
+        assert len(combo.quarterly_date_list) == 0
 
     @pytest.mark.parametrize(
         "start_date,end_date,quarterly_expected,daily_expected", [
@@ -76,4 +76,4 @@ class TestComboFilings:
                                          quarterly_expected, daily_expected):
         combo = ComboFilings(start_date=start_date, end_date=end_date)
         assert [str(s) for s in combo.daily_date_list] == daily_expected
-        assert master_list_matches(combo.master_date_list, quarterly_expected)
+        assert quarterly_list_matches(combo.quarterly_date_list, quarterly_expected)

@@ -7,7 +7,7 @@ from secedgar.tests.utils import MockResponse
 
 
 @pytest.fixture(scope="module")
-def mock_master_quarter_directory(monkeymodule):
+def mock_quarterly_quarter_directory(monkeymodule):
     """Mock directory of all filings for quarter.
 
     Use for QuarterlyFilings object.
@@ -25,7 +25,7 @@ def mock_master_idx_file(monkeypatch):
             datapath_args=["filings", "master", "master.idx"]).text)
 
 
-class TestMaster:
+class TestQuarterly:
 
     @pytest.mark.parametrize("bad_year,expected_error", [
         (-1, ValueError),
@@ -68,10 +68,10 @@ class TestMaster:
         assert mf.idx_filename == "master.idx"
 
     def test_always_false_entry_filter(self, mock_master_idx_file):
-        master_filing = QuarterlyFilings(year=1993,
+        quarterly_filing = QuarterlyFilings(year=1993,
                                          quarter=4,
                                          entry_filter=lambda _: False)
-        urls = master_filing.get_urls()
+        urls = quarterly_filing.get_urls()
         assert len(urls) == 0
 
     @pytest.mark.parametrize("subdir,file", [
@@ -84,8 +84,8 @@ class TestMaster:
     def test_save(self, tmp_data_directory, mock_filing_data,
                   mock_master_quarter_directory, mock_master_idx_file,
                   mock_filing_response, subdir, file):
-        master_filing = QuarterlyFilings(year=1993, quarter=4)
-        master_filing.save(tmp_data_directory)
+        quarterly_filing = QuarterlyFilings(year=1993, quarter=4)
+        quarterly_filing.save(tmp_data_directory)
         subdir = os.path.join("1993", "QTR4", subdir)
         path_to_check = os.path.join(tmp_data_directory, subdir, file)
         assert os.path.exists(path_to_check)
@@ -97,5 +97,5 @@ class TestMaster:
         ("Company with \\lots\\ of /slashes/", "Company_with_lots_of_slashes")
     ])
     def test_clean_path(self, original_path, clean_path):
-        master_filing = QuarterlyFilings(year=2000, quarter=1)
-        assert master_filing.clean_directory_path(original_path) == clean_path
+        quarterly_filing = QuarterlyFilings(year=2000, quarter=1)
+        assert quarterly_filing.clean_directory_path(original_path) == clean_path

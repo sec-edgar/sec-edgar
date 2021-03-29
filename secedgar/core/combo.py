@@ -41,7 +41,7 @@ class ComboFilings:
         self.entry_filter = entry_filter
         self.start_date = start_date
         self.end_date = end_date
-        self.master = QuarterlyFilings(year=self.start_date.year,
+        self.quarterly = QuarterlyFilings(year=self.start_date.year,
                                        quarter=get_quarter(self.start_date),
                                        client=client,
                                        entry_filter=self.entry_filter)
@@ -54,7 +54,7 @@ class ComboFilings:
     def _recompute(self):
         """Recompute the best list of quarters and days to use based on the start and end date."""
         current_date = self.start_date
-        self.master_date_list = []
+        self.quarterly_date_list = []
         self.daily_date_list = []
         while current_date <= self.end_date:
             current_quarter = get_quarter(current_date)
@@ -70,11 +70,11 @@ class ComboFilings:
                 current_start_quarter_date = date(current_year,
                                                   get_month(current_quarter), 1)
                 if current_start_quarter_date == current_date:
-                    self.master_date_list.append(
+                    self.quarterly_date_list.append(
                         (current_year, current_quarter, lambda x: True))
                     current_date = next_start_quarter_date
                 elif days_till_next_quarter > self.balancing_point:
-                    self.master_date_list.append(
+                    self.quarterly_date_list.append(
                         (current_year, current_quarter,
                          lambda x: date(x['date_filed']) >= self.start_date))
                     current_date = next_start_quarter_date
@@ -85,11 +85,11 @@ class ComboFilings:
             else:
                 if days_till_end > self.balancing_point:
                     if days_till_next_quarter - 1 == days_till_end:
-                        self.master_date_list.append(
+                        self.quarterly_date_list.append(
                             (current_year, current_quarter, lambda x: True))
                         current_date = next_start_quarter_date
                     else:
-                        self.master_date_list.append(
+                        self.quarterly_date_list.append(
                             (current_year, current_quarter,
                              lambda x: date(x['date_filed']) <= self.end_date))
                         current_date = self.end_date
@@ -108,11 +108,11 @@ class ComboFilings:
             return accumulator
 
         list_of_dicts = []
-        for (year, quarter, f) in self.master_date_list:
-            self.master.year = year
-            self.master.quarter = quarter
-            self.master.entry_filter = lambda x: f(x) and self.entry_filter(x)
-            list_of_dicts.append(self.master.get_urls())
+        for (year, quarter, f) in self.quarterly_date_list:
+            self.quarterly.year = year
+            self.quarterly.quarter = quarter
+            self.quarterly.entry_filter = lambda x: f(x) and self.entry_filter(x)
+            list_of_dicts.append(self.quarterly.get_urls())
 
         for d in self.daily_date_list:
             self.daily.date = d
@@ -145,11 +145,11 @@ class ComboFilings:
             daily_date_format (str, optional): Format string to use for the `{date}` pattern.
                 Defaults to "%Y%m%d".
         """
-        for (year, quarter, f) in self.master_date_list:
-            self.master.year = year
-            self.master.quarter = quarter
-            self.master.entry_filter = lambda x: f(x) and self.entry_filter(x)
-            self.master.save(directory=directory,
+        for (year, quarter, f) in self.quarterly_date_list:
+            self.quarterly.year = year
+            self.quarterly.quarter = quarter
+            self.quarterly.entry_filter = lambda x: f(x) and self.entry_filter(x)
+            self.quarterly.save(directory=directory,
                              dir_pattern=dir_pattern,
                              file_pattern=file_pattern,
                              download_all=download_all)

@@ -100,9 +100,9 @@ Examples
 
    from secedgar import QuarterlyFilings
 
-   master_filings = QuarterlyFilings(year=2000, quarter=4)
-   urls = master_filings.get_urls()  # gets all URLs for filings from quarter 4 of 2000
-   master_filings.save('/my_directory')  # saves all filings from quarter 4 of 2000 in my_directory
+   quarterly_filings = QuarterlyFilings(year=2000, quarter=4)
+   urls = quarterly_filings.get_urls()  # gets all URLs for filings from quarter 4 of 2000
+   quarterly_filings.save('/my_directory')  # saves all filings from quarter 4 of 2000 in my_directory
 
 
 Combo Filings

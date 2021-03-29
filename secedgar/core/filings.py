@@ -64,7 +64,7 @@ def filings(
 
     if count is not None:
         raise NotImplementedError(
-            "Count has not yet been implemented for Daily, Master & Combo Filings."
+            "Count has not yet been implemented for Daily, quarterly & Combo Filings."
         )
 
     if (end_date is None or end_date == start_date) and isinstance(
