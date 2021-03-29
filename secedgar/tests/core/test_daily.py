@@ -217,3 +217,31 @@ class TestDaily:
     def test__get_tar_valid(self):
         d = DailyFilings(date=date(2020, 1, 2))
         assert d._get_tar() == ['20200102.nc.tar.gz']
+
+    @pytest.mark.parametrize(
+        "bad_entry_filter",
+        [
+            "entry_filter",
+            True,
+            False,
+            1,
+            1.0
+        ]
+    )
+    def test_set_bad_entry_filter(self, bad_entry_filter):
+        with pytest.raises(ValueError):
+            d = DailyFilings(date=date(2020, 1, 2))
+            d.entry_filter = bad_entry_filter
+
+    @pytest.mark.parametrize(
+        "good_entry_filter",
+        [
+            lambda _: True,
+            lambda _: False,
+            lambda f: f.name.lower().startswith("a")
+        ]
+    )
+    def test_set_good_entry_filter(self, good_entry_filter):
+        d = DailyFilings(date=date(2020, 1, 2))
+        d.entry_filter = good_entry_filter
+        assert callable(d.entry_filter)
