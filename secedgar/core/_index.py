@@ -2,6 +2,7 @@ import asyncio
 import os
 import re
 import shutil
+import tempfile
 from abc import abstractmethod
 from collections import namedtuple
 from queue import Empty, Queue
@@ -316,25 +317,14 @@ class IndexFilings(AbstractFiling):
         urls = self.get_urls_safely(**kwargs)
 
         if download_all:
-            # Download tar files into huge temp directory
-            extract_directory = os.path.join(directory, 'temp')
-            i = 0
-            while os.path.exists(extract_directory):
-                # Ensure that there is no name clashing
-                extract_directory = os.path.join(directory,
-                                                 'temp{i}'.format(i=i))
-                i += 1
-
-            make_path(extract_directory)
-            self._unzip(extract_directory=extract_directory)
-            self._move_to_dest(urls=urls,
-                               extract_directory=extract_directory,
-                               directory=directory,
-                               file_pattern=file_pattern,
-                               dir_pattern=dir_pattern)
-
-            # Remove the initial extracted data
-            shutil.rmtree(extract_directory)
+            with tempfile.TemporaryDirectory() as tmpdir:
+                self._unzip(extract_directory=tmpdir)
+                # Apply folder structure by moving to final directory
+                self._move_to_dest(urls=urls,
+                                   extract_directory=tmpdir,
+                                   directory=directory,
+                                   file_pattern=file_pattern,
+                                   dir_pattern=dir_pattern)
         else:
             inputs = []
             for company, links in urls.items():
