@@ -60,7 +60,7 @@ class TestComboFilings:
                 2020, 4, 1), [(2020, 1, lambda _: True)], [
                     "2019-12-28", "2019-12-29", "2019-12-30", "2019-12-31",
                     "2020-04-01"
-                ]),
+            ]),
             (date(2020, 3, 30), date(2020, 10, 2), [
                 (2020, 2, lambda _: True), (2020, 3, lambda _: True)
             ], ["2020-03-30", "2020-03-31", "2020-10-01", "2020-10-02"]),
@@ -70,8 +70,9 @@ class TestComboFilings:
             (date(2020, 3, 30), date(2020, 9, 30), [
                 (2020, 2, lambda _: True), (2020, 3, lambda _: True)
             ], ["2020-03-30", "2020-03-31"]),
+            (date(2020, 1, 1), date(2020, 6, 28), [], [(2020, 1, lambda _: True),
+                                                       (2020, 2, lambda x: date(x['date_filed']) <= date(2020, 6, 28))])  # noqa
         ])
-    # TODO: Before making daily_date_list, should we make sure there are filings for that date?
     def test_combo_daily_quarterly_mixed(self, start_date, end_date,
                                          quarterly_expected, daily_expected):
         combo = ComboFilings(start_date=start_date, end_date=end_date)

@@ -42,9 +42,9 @@ class ComboFilings:
         self.start_date = start_date
         self.end_date = end_date
         self.quarterly = QuarterlyFilings(year=self.start_date.year,
-                                       quarter=get_quarter(self.start_date),
-                                       client=client,
-                                       entry_filter=self.entry_filter)
+                                          quarter=get_quarter(self.start_date),
+                                          client=client,
+                                          entry_filter=self.entry_filter)
         self.daily = DailyFilings(date=self.start_date,
                                   client=client,
                                   entry_filter=self.entry_filter)
@@ -150,9 +150,9 @@ class ComboFilings:
             self.quarterly.quarter = quarter
             self.quarterly.entry_filter = lambda x: f(x) and self.entry_filter(x)
             self.quarterly.save(directory=directory,
-                             dir_pattern=dir_pattern,
-                             file_pattern=file_pattern,
-                             download_all=download_all)
+                                dir_pattern=dir_pattern,
+                                file_pattern=file_pattern,
+                                download_all=download_all)
 
         for d in self.daily_date_list:
             self.daily.date = d

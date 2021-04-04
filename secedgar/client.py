@@ -8,9 +8,10 @@ import requests
 import tqdm
 from bs4 import BeautifulSoup
 from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
+
 from secedgar.exceptions import EDGARQueryError
 from secedgar.utils import make_path
-from urllib3.util.retry import Retry
 
 
 class NetworkClient:
@@ -198,7 +199,6 @@ class NetworkClient:
             in tuple should be URL to request and second element should be path
             where content after requesting URL is stored.
         """
-
         async def fetch_and_save(link, path, session):
             """Fetch link and save to path using session."""
             contents = await self.fetch(link, session)

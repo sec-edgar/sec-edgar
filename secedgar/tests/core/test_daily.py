@@ -61,9 +61,10 @@ class TestDaily:
         with pytest.raises(TypeError):
             DailyFilings(bad_date)
 
-    @pytest.mark.parametrize("key,url", [(cik, "http://www.sec.gov/Archives/edgar/data/{cik}/{f}".format(
-        cik=cik, f=f))
-        for cik, f in cik_file_pairs])
+    @pytest.mark.parametrize("key,url", [(cik,
+                                          "http://www.sec.gov/Archives/edgar/data/{cik}/{f}".format(
+                                              cik=cik, f=f))
+                                         for cik, f in cik_file_pairs])
     def test_get_urls(self, mock_daily_quarter_directory, mock_daily_idx_file,
                       key, url):
         daily_filing = DailyFilings(date(2018, 12, 31))
