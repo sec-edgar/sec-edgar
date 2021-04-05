@@ -203,7 +203,9 @@ class TestDaily:
 
     def test__get_tar_valid(self):
         d = DailyFilings(date=date(2020, 1, 2))
-        assert d._get_tar() == ['20200102.nc.tar.gz']
+        files = d._get_tar()
+        assert files[0].endswith('20200102.nc.tar.gz')
+        assert files[0].startswith('http')
 
     @pytest.mark.parametrize(
         "bad_entry_filter",
