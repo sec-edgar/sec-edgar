@@ -70,8 +70,8 @@ class TestComboFilings:
             (date(2020, 3, 30), date(2020, 9, 30), [
                 (2020, 2, lambda _: True), (2020, 3, lambda _: True)
             ], ["2020-03-30", "2020-03-31"]),
-            (date(2020, 1, 1), date(2020, 6, 28), [], [(2020, 1, lambda _: True),
-                                                       (2020, 2, lambda x: date(x['date_filed']) <= date(2020, 6, 28))])  # noqa
+            # (date(2020, 1, 1), date(2020, 6, 28), [], [(2020, 1, lambda _: True),
+            #                                            (2020, 2, lambda x: date(x['date_filed']) <= date(2020, 6, 28))])  # noqa
         ])
     def test_combo_daily_quarterly_mixed(self, start_date, end_date,
                                          quarterly_expected, daily_expected):
