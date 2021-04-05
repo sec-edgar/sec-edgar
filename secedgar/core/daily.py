@@ -99,7 +99,8 @@ class DailyFilings(IndexFilings):
                 'Bulk downloading is only available starting 1995 Q3.')
         daily_file = '{date}.nc.tar.gz'.format(
             date=self._date.strftime("%Y%m%d"))
-        return [daily_file]
+        daily_url = f'{self.client._BASE}{self.tar_path}{daily_file}'
+        return [daily_url]
 
     def _get_idx_formatted_date(self):
         """Format date for idx file.
