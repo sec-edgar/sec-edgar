@@ -82,7 +82,7 @@ class TestQuarterly:
         ("20762", "0000950131-94-000025.txt"),
     ])
     def test_save(self, tmp_data_directory, mock_filing_data,
-                  mock_master_quarter_directory, mock_master_idx_file,
+                  mock_quarterly_quarter_directory, mock_master_idx_file,
                   mock_filing_response, subdir, file):
         quarterly_filing = QuarterlyFilings(year=1993, quarter=4)
         quarterly_filing.save(tmp_data_directory)
