@@ -187,23 +187,28 @@ class CIKLookup:
         ciks = {}
         to_lookup = set(self.lookups)
 
-        cik_map = get_cik_map()
+        # If the lookup is all CIKs already, don't bother looking them up
+        if all([s.isdigit() for s in to_lookup]):
+            for lookup in to_lookup:
+                ciks[lookup] = lookup
+        else:
+            cik_map = get_cik_map()
 
-        # all keys upper case
-        ticker_map = cik_map["ticker"]
-        title_map = cik_map["title"]
+            # all keys upper case
+            ticker_map = cik_map["ticker"]
+            title_map = cik_map["title"]
 
-        for lookup in to_lookup:
-            lookup_norm = lookup.upper()
-            if lookup_norm in ticker_map:
-                ciks[lookup] = ticker_map[lookup_norm]
-            elif lookup_norm in title_map:
-                ciks[lookup] = title_map[lookup_norm]
-            else:
-                try:
-                    result = self._get_cik_from_html(lookup)
-                    self._validate_cik(result)  # raises CIKError if not valid CIK
-                    ciks[lookup] = result
-                except CIKError:
-                    pass  # If multiple companies, found, print out warnings and skip
+            for lookup in to_lookup:
+                lookup_norm = lookup.upper()
+                if lookup_norm in ticker_map:
+                    ciks[lookup] = ticker_map[lookup_norm]
+                elif lookup_norm in title_map:
+                    ciks[lookup] = title_map[lookup_norm]
+                else:
+                    try:
+                        result = self._get_cik_from_html(lookup)
+                        self._validate_cik(result)  # raises CIKError if not valid CIK
+                        ciks[lookup] = result
+                    except CIKError:
+                        pass  # If multiple companies, found, print out warnings and skip
         return ciks
