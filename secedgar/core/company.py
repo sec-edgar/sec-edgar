@@ -5,9 +5,9 @@ from datetime import date
 
 from secedgar.cik_lookup import CIKLookup
 from secedgar.client import NetworkClient
-from secedgar.exceptions import FilingTypeError
 from secedgar.core._base import AbstractFiling
 from secedgar.core.filing_types import FilingType
+from secedgar.exceptions import FilingTypeError
 from secedgar.utils import sanitize_date
 
 
@@ -256,3 +256,4 @@ class CompanyFilings(AbstractFiling):
 
         loop = asyncio.get_event_loop()
         loop.run_until_complete(self.client.wait_for_download_async(inputs))
+        loop.close()
