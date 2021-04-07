@@ -242,7 +242,7 @@ class IndexFilings(AbstractFiling):
         loop.run_until_complete(self.client.wait_for_download_async(inputs))
         loop.close()
 
-        tar_files = [p for u, p in inputs]
+        tar_files = [p for _, p in inputs]
 
         unpack_queue = Queue(maxsize=len(tar_files))
         unpack_threads = len(tar_files)
