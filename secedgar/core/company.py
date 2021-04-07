@@ -256,4 +256,3 @@ class CompanyFilings(AbstractFiling):
 
         loop = asyncio.get_event_loop()
         loop.run_until_complete(self.client.wait_for_download_async(inputs))
-        loop.close()

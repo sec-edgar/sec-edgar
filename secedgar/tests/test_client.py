@@ -177,5 +177,4 @@ class TestNetworkClient:
         start = time.time()
         loop.run_until_complete(client.wait_for_download_async(inputs))
         end = time.time()
-        loop.close()
         assert num_requests / math.ceil(end - start) <= rate_limit

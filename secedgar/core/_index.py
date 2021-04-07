@@ -240,7 +240,6 @@ class IndexFilings(AbstractFiling):
         inputs = [(url, os.path.join(extract_directory, url.split('/')[-1])) for url in tar_urls]
         loop = asyncio.get_event_loop()
         loop.run_until_complete(self.client.wait_for_download_async(inputs))
-        loop.close()
 
         tar_files = [p for _, p in inputs]
 
@@ -345,4 +344,3 @@ class IndexFilings(AbstractFiling):
                     inputs.append((link, path))
             loop = asyncio.get_event_loop()
             loop.run_until_complete(self.client.wait_for_download_async(inputs))
-            loop.close()
