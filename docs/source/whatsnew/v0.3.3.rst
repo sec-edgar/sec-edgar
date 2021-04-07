@@ -1,0 +1,15 @@
+v0.3.3
+------
+
+Highlights
+~~~~~~~~~~
+
+- Add ``user_agent`` argument to ``NetworkClient``
+
+
+Contributors
+~~~~~~~~~~~~
+
+- kevinschaul
+- jackmoody11
+

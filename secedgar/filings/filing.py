@@ -24,6 +24,8 @@ class Filing(AbstractFiling):
             Stands for "date before." Defaults to today.
         count (int): Number of filings to fetch. Will fetch up to `count` if that many filings
             are available. Defaults to all filings available.
+        user_agent (str): Value used for HTTP header "User-Agent" for all requests.
+            Defaults to "github.com/sec-edgar/sec-edgar"
         kwargs: See kwargs accepted for :class:`secedgar.client.network_client.NetworkClient`.
 
     .. versionadded:: 0.1.5
