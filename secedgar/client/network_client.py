@@ -162,7 +162,7 @@ class NetworkClient:
             EDGARQueryError: If problems arise when making query.
         """
         prepared_url = self._prepare_query(path)
-        headers = {"user-agent": self.user_agent}
+        headers = {"User-Agent": self.user_agent}
         with requests.Session() as session:
             retry = Retry(self.retry_count, backoff_factor=self.backoff_factor,
                           raise_on_status=True)
