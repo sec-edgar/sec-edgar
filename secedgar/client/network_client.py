@@ -99,7 +99,7 @@ class NetworkClient:
 
     @property
     def user_agent(self):
-        """str: Value used for HTTP header "User-Agent" for all requests"""
+        """str: Value used for HTTP header "User-Agent" for all requests."""
         return self._user_agent
 
     @user_agent.setter
