@@ -199,13 +199,13 @@ class TestDaily:
     def test__get_tar_bad_year_quarter(self, year, quarter):
         with pytest.raises(ValueError):
             d = DailyFilings(date=date(year, utils.get_month(quarter), 1))
-            d._get_tar()
+            d._get_tar_urls()
 
     def test__get_tar_valid(self):
         d = DailyFilings(date=date(2020, 1, 2))
-        files = d._get_tar()
-        assert files[0].endswith('20200102.nc.tar.gz')
-        assert files[0].startswith('http')
+        urls = d._get_tar_urls()
+        assert urls[0].endswith('20200102.nc.tar.gz')
+        assert urls[0].startswith('http')
 
     @pytest.mark.parametrize(
         "bad_entry_filter",
@@ -234,3 +234,6 @@ class TestDaily:
         d = DailyFilings(date=date(2020, 1, 2))
         d.entry_filter = good_entry_filter
         assert callable(d.entry_filter)
+
+    def test_download_all(self, monkeypatch):
+        pass

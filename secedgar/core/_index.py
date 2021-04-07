@@ -81,7 +81,7 @@ class IndexFilings(AbstractFiling):
         pass  # pragma: no cover
 
     @abstractmethod
-    def _get_tar(self):
+    def _get_tar_urls(self):
         """Passed to child classes."""
         pass  # pragma: no cover
 
@@ -235,7 +235,15 @@ class IndexFilings(AbstractFiling):
                 Note that this directory will be completely removed after
                 files are unzipped.
         """
-        tar_files = self._get_tar()
+        # Download tar files asynchronously into extract_directory
+        tar_urls = self._get_tar_urls()
+        inputs = [(url, os.path.join(extract_directory, url.split('/')[-1])) for url in tar_urls]
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(self.client.wait_for_download_async(inputs))
+        loop.close()
+
+        tar_files = [p for u, p in inputs]
+
         unpack_queue = Queue(maxsize=len(tar_files))
         unpack_threads = len(tar_files)
 
@@ -337,3 +345,4 @@ class IndexFilings(AbstractFiling):
                     inputs.append((link, path))
             loop = asyncio.get_event_loop()
             loop.run_until_complete(self.client.wait_for_download_async(inputs))
+            loop.close()
