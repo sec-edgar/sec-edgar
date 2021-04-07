@@ -1,0 +1,15 @@
+v0.3.3
+------
+
+Highlights
+~~~~~~~~~~
+
+- Bypasses CIK lookup calls to SEC if the provided argument is already a CIK.
+
+
+Contributors
+~~~~~~~~~~~~
+
+- kevinschaul
+- jackmoody11
+
