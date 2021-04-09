@@ -273,11 +273,11 @@ class IndexFilings(AbstractFiling):
                     break
         move_queue.join()
 
-    def save_filings(self,
-                     directory,
-                     dir_pattern="{cik}",
-                     file_pattern="{accession_number}",
-                     download_all=False):
+    def _save_filings(self,
+                      directory,
+                      dir_pattern="{cik}",
+                      file_pattern="{accession_number}",
+                      download_all=False):
         """Save all filings.
 
         Will store all filings under the parent directory of ``directory``, further

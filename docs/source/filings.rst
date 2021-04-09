@@ -16,7 +16,9 @@ Filing
 ------
 
 .. autoclass:: secedgar.filings.Filing
+   :inherited-members:
    :members:
+
 
 Examples
 ^^^^^^^^
@@ -79,7 +81,9 @@ Daily Filings
 The ``DailyFilings`` class can be used to fetch all the URLs for or download all filings from any given day.
 
 .. autoclass:: secedgar.filings.DailyFilings
+   :inherited-members:
    :members:
+
 
 Examples
 ^^^^^^^^
@@ -101,7 +105,9 @@ Master Filings (Quarterly)
 The ``MasterFilings`` class can be used to fetch all the URLs for or download all filings from any given quarter.
 
 .. autoclass:: secedgar.filings.MasterFilings
+   :inherited-members:
    :members:
+
 
 Examples
 ^^^^^^^^
