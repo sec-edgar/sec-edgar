@@ -134,5 +134,7 @@ class DailyFilings(IndexFilings):
 
         # If "{cik}" is in dir_pattern, it will be passed on and if not it will be ignored
         formatted_dir = dir_pattern.format(date=self._date.strftime(date_format), cik="{cik}")
-        self._save_filings(directory, dir_pattern=formatted_dir,
-                          file_pattern=file_pattern, download_all=download_all)
+        self._save_filings(directory,
+                           dir_pattern=formatted_dir,
+                           file_pattern=file_pattern,
+                           download_all=download_all)
