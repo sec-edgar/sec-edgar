@@ -198,6 +198,16 @@
                     <span class="n">count</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>SEC requests that traffic identifies itself via a user agent string. You can
+customize this according to your preference using the <code class="docutils literal notranslate"><span class="pre">user_agent</span></code> argument.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">secedgar.filings</span> <span class="kn">import</span> <span class="n">Filing</span><span class="p">,</span> <span class="n">FilingType</span>
+
+<span class="n">my_filings</span> <span class="o">=</span> <span class="n">Filing</span><span class="p">(</span><span class="n">cik_lookup</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;aapl&#39;</span><span class="p">,</span> <span class="s1">&#39;msft&#39;</span><span class="p">,</span> <span class="s1">&#39;Facebook&#39;</span><span class="p">],</span>
+                    <span class="n">filing_type</span><span class="o">=</span><span class="n">FilingType</span><span class="o">.</span><span class="n">FILING_10Q</span><span class="p">,</span>
+                    <span class="n">count</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+                    <span class="n">user_agent</span><span class="o">=</span><span class="s1">&#39;YOUR COMPANY NAME HERE&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>In order to save all fetched filings to a specific directory, use the <code class="docutils literal notranslate"><span class="pre">save</span></code> method.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_filings</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;~/tempdir&#39;</span><span class="p">)</span>
 </pre></div>

@@ -35,6 +35,19 @@ The ``cik_lookup`` argument can also take multiple tickers and/or company names.
                        count=15)
 
 
+SEC requests that traffic identifies itself via a user agent string. You can
+customize this according to your preference using the ``user_agent`` argument.
+
+.. code-block:: python
+
+   from secedgar.filings import Filing, FilingType
+
+   my_filings = Filing(cik_lookup=['aapl', 'msft', 'Facebook'],
+                       filing_type=FilingType.FILING_10Q,
+                       count=15,
+                       user_agent='YOUR COMPANY NAME HERE')
+
+
 In order to save all fetched filings to a specific directory, use the ``save`` method.
 
 .. code-block:: python
