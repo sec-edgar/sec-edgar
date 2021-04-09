@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Common Usage Examples &mdash; secedgar 0.3.2 documentation</title>
+  <title>Common Usage Examples &mdash; secedgar 0.3.3 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                0.3.2
+                0.3.3
               </div>
             
           
@@ -92,7 +92,11 @@
               <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Common Usage Examples</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Common Usage Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#using-a-user-agent">Using a User Agent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#saving-filings">Saving Filings</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="ciklookup.html">CIK Lookup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filings.html">Filings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filingtypes.html">Filing Types</a></li>
@@ -198,8 +202,20 @@
                     <span class="n">count</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
 </pre></div>
 </div>
+<div class="section" id="using-a-user-agent">
+<h2>Using a User Agent<a class="headerlink" href="#using-a-user-agent" title="Permalink to this headline">¶</a></h2>
 <p>SEC requests that traffic identifies itself via a user agent string. You can
 customize this according to your preference using the <code class="docutils literal notranslate"><span class="pre">user_agent</span></code> argument.</p>
+<p>A note from the SEC website:</p>
+<blockquote>
+<div><p>Please declare your traffic by updating your user agent to include company specific information.
+For best practices on efficiently downloading information from SEC.gov, including the latest EDGAR
+filings, visit <a class="reference external" href="https://www.sec.gov/developer">sec.gov/developer</a>. You can also
+<a class="reference external" href="https://public.govdelivery.com/accounts/USSEC/subscriber/new?topic_id=USSEC_260">sign up for email updates</a>
+on the SEC open data program, including best practices that make it more efficient to download data,
+and SEC.gov enhancements that may impact scripted downloading processes.
+For more information, contact <a class="reference external" href="mailto:opendata&#37;&#52;&#48;sec&#46;gov">opendata<span>&#64;</span>sec<span>&#46;</span>gov</a>.</p>
+</div></blockquote>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">secedgar.filings</span> <span class="kn">import</span> <span class="n">Filing</span><span class="p">,</span> <span class="n">FilingType</span>
 
 <span class="n">my_filings</span> <span class="o">=</span> <span class="n">Filing</span><span class="p">(</span><span class="n">cik_lookup</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;aapl&#39;</span><span class="p">,</span> <span class="s1">&#39;msft&#39;</span><span class="p">,</span> <span class="s1">&#39;Facebook&#39;</span><span class="p">],</span>
@@ -208,9 +224,13 @@ customize this according to your preference using the <code class="docutils lite
                     <span class="n">user_agent</span><span class="o">=</span><span class="s1">&#39;YOUR COMPANY NAME HERE&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="saving-filings">
+<h2>Saving Filings<a class="headerlink" href="#saving-filings" title="Permalink to this headline">¶</a></h2>
 <p>In order to save all fetched filings to a specific directory, use the <code class="docutils literal notranslate"><span class="pre">save</span></code> method.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_filings</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;~/tempdir&#39;</span><span class="p">)</span>
 </pre></div>
+</div>
 </div>
 </div>
 
