@@ -5,3 +5,4 @@ urllib3
 requests
 lxml
 tqdm
+click
