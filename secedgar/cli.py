@@ -67,7 +67,8 @@ def filing(ctx, lookups, ftype, start, end, count, directory):
                filing_type=ftype,
                start_date=date_cleanup(start),
                end_date=date_cleanup(end),
-               count=count)
+               count=count,
+               user_agent=ctx.obj['user_agent'])
     f.save(directory=directory)
 
 
@@ -80,5 +81,5 @@ def filing(ctx, lookups, ftype, start, end, count, directory):
 @click.pass_context
 def daily(ctx, date, directory):
     """Click command for downloading daily filings. Run ``secedgar daily --help`` for info."""
-    d = DailyFilings(date=date_cleanup(date))
+    d = DailyFilings(date=date_cleanup(date), user_agent=ctx.obj['user_agent'])
     d.save(directory=directory)
