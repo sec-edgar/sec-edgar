@@ -8,8 +8,14 @@ from secedgar.filings import DailyFilings, Filing, FilingType
 
 
 @click.group()
-def cli():
+@click.option('--user-agent',
+              help='Value used for HTTP header "User-Agent" for all requests.',
+              required=True)
+@click.pass_context
+def cli(ctx, user_agent):
     """Main CLI group."""
+    ctx.ensure_object(dict)
+    ctx.obj['user_agent'] = user_agent
     pass  # pragma: no cover
 
 
@@ -48,7 +54,8 @@ def date_cleanup(date):
               help="""Directory where files will be saved.
               Defaults to directory from which CLI is being executed.""",
               default=os.getcwd(), type=str)
-def filing(lookups, ftype, start, end, count, directory):
+@click.pass_context
+def filing(ctx, lookups, ftype, start, end, count, directory):
     """Click command for downloading filings. Run ``secedgar filing --help`` for info."""
     # If given filing type is not valid enum, raise FilingTypeError
     try:
@@ -70,7 +77,8 @@ def filing(lookups, ftype, start, end, count, directory):
 @click.option('--directory', help="""Directory where files will be saved.
               Defaults to directory from which CLI is being executed.""",
               default=os.getcwd(), type=str)
-def daily(date, directory):
+@click.pass_context
+def daily(ctx, date, directory):
     """Click command for downloading daily filings. Run ``secedgar daily --help`` for info."""
     d = DailyFilings(date=date_cleanup(date))
     d.save(directory=directory)
