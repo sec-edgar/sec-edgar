@@ -43,13 +43,16 @@ def date_cleanup(date):
               help='End date for filings. Should be in the format YYYYMMDD. Defaults to today.',
               type=str)
 @click.option('-n', '--count',
-              help='Number of filings to save. Defaults to all.', type=int)
+              help='Number of filings to save. Defaults to all.',
+              type=int)
 @click.option('--directory',
               help="""Directory where files will be saved.
               Defaults to directory from which CLI is being executed.""",
               default=os.getcwd(), type=str)
 @click.option('-u', '--user-agent',
-              help='Value used for HTTP header "User-Agent" for all requests.')
+              help='Value used for HTTP header "User-Agent" for all requests.',
+              required=True,
+              type=str)
 def filing(lookups, ftype, start, end, count, directory, user_agent):
     """Click command for downloading filings. Run ``secedgar filing --help`` for info."""
     # If given filing type is not valid enum, raise FilingTypeError
