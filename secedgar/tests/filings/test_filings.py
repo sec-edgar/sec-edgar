@@ -17,24 +17,10 @@ def mock_cik_validator_get_single_cik(monkeypatch):
 
 
 @pytest.fixture(scope="module")
-def mock_cik_validator_get_multiple_ciks(monkeymodule):
-    """Mocks response for getting a single CIK."""
-    monkeymodule.setattr(CIKLookup, "get_ciks",
-                         lambda *args: {"aapl": "0000320193", "msft": "1234", "amzn": "5678"})
-
-
-@pytest.fixture(scope="module")
 def mock_single_cik_not_found(monkeymodule):
     """NetworkClient get_response method will return html with CIK not found message."""
     monkeymodule.setattr(NetworkClient, "get_response",
                          MockResponse(datapath_args=["CIK", "cik_not_found.html"]))
-
-
-@pytest.fixture(scope="module")
-def mock_single_cik_filing(monkeymodule):
-    """Returns mock response of filinghrefs for getting filing URLs."""
-    monkeymodule.setattr(NetworkClient, "get_response",
-                         MockResponse(datapath_args=["filings", "aapl_10q_filings.xml"]))
 
 
 class MockSingleCIKFilingLimitedResponses:
