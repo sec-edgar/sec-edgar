@@ -4,6 +4,7 @@ import pytest
 from click.testing import CliRunner
 from secedgar.cli import cli
 from secedgar.exceptions import FilingTypeError
+import shutil
 
 
 def run_cli_command(cli_instance, user_input, directory, catch_exceptions=False):
@@ -38,9 +39,9 @@ class TestCLI:
     @pytest.mark.parametrize(
         "user_input,count",
         [
-            ("-l aapl -l msft -l amzn -t FILING_10Q", None),
-            ("-l aapl -l msft -l amzn -t FILING_10Q -n {}", 10),
-            ("-l aapl -l msft -l amzn -t FILING_10Q -n {}", 1),
+            ("filing -l amzn -t FILING_10Q", None),
+            ("filing -l aapl -l msft -l amzn -t FILING_10Q -n {}", 10),
+            ("filing -l aapl -l msft -l amzn -t FILING_10Q -n {}", 1),
         ]
     )
     def test_cli_filing_multiple_companies_input(self,
@@ -50,15 +51,19 @@ class TestCLI:
                                       mock_cik_validator_get_multiple_ciks,
                                       mock_single_cik_filing,
                                       mock_filing_response):
-        if count is not None:
-            user_input = user_input.format(count)
-        result = run_cli_command(filing, user_input, tmp_data_directory)
-        assert result.exit_code == 0
-        txt_files = [f for *_, files in os.walk(tmp_data_directory) for f in files]
-        if count is None:
-            assert len(txt_files) == 3
-        else:
-            assert len(txt_files) == 3 * count
+        try:
+            if count is not None:
+                user_input = user_input.format(count)
+            result = run_cli_command(cli, user_input, tmp_data_directory)
+            assert result.exit_code == 0
+            txt_files = [f for *_, files in os.walk(tmp_data_directory) for f in files]
+            if count is None:
+                assert len(txt_files) == 3
+            else:
+                assert len(txt_files) == 3 * count
+        finally:
+            shutil.rmtree(tmp_data_directory)
+
 
     @pytest.mark.parametrize(
         "user_input,expected_exception",
