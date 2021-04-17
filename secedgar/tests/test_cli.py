@@ -9,7 +9,8 @@ import shutil
 
 def run_cli_command(cli_instance, user_input, directory, catch_exceptions=False):
     runner = CliRunner()
-    user_input = "-u 'My User Agent (email@example.com)' " + user_input + " --directory {}".format(directory)
+    user_input = "-u 'My User Agent (email@example.com)' " + \
+        user_input + " --directory {}".format(directory)
     return runner.invoke(cli_instance, user_input, catch_exceptions=catch_exceptions)
 
 
@@ -35,7 +36,7 @@ class TestCLI:
     )
     def test_cli_filing_bad_inputs(self, user_input, expected_exception, tmp_data_directory):
         check_bad_inputs(cli, user_input, expected_exception, tmp_data_directory)
-        
+
     @pytest.mark.parametrize(
         "user_input,count",
         [
@@ -44,7 +45,8 @@ class TestCLI:
             ("filing -l aapl -l msft -l amzn -t FILING_10Q -n {}", 1),
         ]
     )
-    def test_cli_filing_multiple_companies_input(self,
+    def test_cli_filing_multiple_companies_input(
+                                      self,
                                       user_input,
                                       count,
                                       tmp_data_directory,
@@ -63,7 +65,6 @@ class TestCLI:
                 assert len(txt_files) == 3 * count
         finally:
             shutil.rmtree(tmp_data_directory)
-
 
     @pytest.mark.parametrize(
         "user_input,expected_exception",
