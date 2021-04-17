@@ -13,7 +13,7 @@ from secedgar.filings import DailyFilings, Filing, FilingType
               required=True,
               type=str)
 @click.pass_context
-def cli(ctx):
+def cli(ctx, user_agent):
     """Main CLI group."""
     ctx.ensure_object(dict)
     ctx.obj['user_agent'] = user_agent
@@ -56,7 +56,7 @@ def date_cleanup(date):
               Defaults to directory from which CLI is being executed.""",
               default=os.getcwd(), type=str)
 @click.pass_context
-def filing(ctx, lookups, ftype, start, end, count, directory, user_agent):
+def filing(ctx, lookups, ftype, start, end, count, directory):
     """Click command for downloading filings. Run ``secedgar filing --help`` for info."""
     # If given filing type is not valid enum, raise FilingTypeError
     try:
@@ -80,7 +80,7 @@ def filing(ctx, lookups, ftype, start, end, count, directory, user_agent):
               Defaults to directory from which CLI is being executed.""",
               default=os.getcwd(), type=str)
 @click.pass_context
-def daily(ctx, date, directory, user_agent):
+def daily(ctx, date, directory):
     """Click command for downloading daily filings. Run ``secedgar daily --help`` for info."""
     d = DailyFilings(date=date_cleanup(date), user_agent=ctx.obj['user_agent'])
     d.save(directory=directory)
