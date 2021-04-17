@@ -77,7 +77,8 @@ def filing(lookups, ftype, start, end, count, directory, user_agent):
               Defaults to directory from which CLI is being executed.""",
               default=os.getcwd(), type=str)
 @click.option('-u', '--user-agent',
-              help='Value used for HTTP header "User-Agent" for all requests.')
+              help='Value used for HTTP header "User-Agent" for all requests.',
+              required=True)
 def daily(date, directory, user_agent):
     """Click command for downloading daily filings. Run ``secedgar daily --help`` for info."""
     d = DailyFilings(date=date_cleanup(date), user_agent=user_agent)

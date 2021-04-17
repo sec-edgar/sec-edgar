@@ -25,10 +25,10 @@ class TestCLIFiling:
     @pytest.mark.parametrize(
         "user_input,expected_exception",
         [
-            ("-l aapl msft Facebook", SystemExit),  # missing filing type
-            ("-l aapl -t null", FilingTypeError),  # unrecognized filing type
-            ("-l aapl -t FILING_10Q -n abc", SystemExit),  # count is not int
-            ("-l aapl -t FILING_10Q -n 0", ValueError)  # no filings available if 0 picked
+            ("-l aapl msft Facebook -u 'My User Agent (email@example.com)'", SystemExit),  # missing filing type
+            ("-l aapl -t null -u 'My User Agent (email@example.com)'", FilingTypeError),  # unrecognized filing type
+            ("-l aapl -t FILING_10Q -n abc -u 'My User Agent (email@example.com)'", SystemExit),  # count is not int
+            ("-l aapl -t FILING_10Q -n 0 -u 'My User Agent (email@example.com)'", ValueError)  # no filings available if 0 picked
         ]
     )
     def test_filing_bad_inputs(self, user_input, expected_exception, tmp_data_directory):
@@ -37,9 +37,9 @@ class TestCLIFiling:
     @pytest.mark.parametrize(
         "user_input",
         [
-            "-l aapl msft fb FILING_10Q",
-            "-l aapl msft fb FILING_10Q -n 10",
-            "-l aapl msft fb FILING_10Q -n 1"
+            "-l aapl -l msft -l amzn -t FILING_10Q -x 'My User Agent (email@example.com)'",
+            "-l aapl -l msft -l amzn -t FILING_10Q -n 10 -u 'My User Agent (email@example.com)'",
+            "-l aapl -l msft -l amzn -t FILING_10Q -n 1 -u 'My User Agent (email@example.com)'",
         ]
     )
     def test_multiple_companies_input(self, user_input, tmp_data_directory):
@@ -52,7 +52,7 @@ class TestCLIDaily:
         "user_input,expected_exception",
         [
             ("", SystemExit),
-            ("-d 2020", ValueError)
+            ("-d 2020 -u 'My User Agent (email@example.com)'", ValueError)
         ]
     )
     def test_daily_bad_inputs(self, user_input, expected_exception, tmp_data_directory):
