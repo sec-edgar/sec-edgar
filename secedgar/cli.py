@@ -8,9 +8,15 @@ from secedgar.filings import DailyFilings, Filing, FilingType
 
 
 @click.group()
-def cli():
+@click.option('-u', '--user-agent',
+              help='Value used for HTTP header "User-Agent" for all requests.',
+              required=True,
+              type=str)
+@click.pass_context
+def cli(ctx, user_agent):
     """Main CLI group."""
-    pass  # pragma: no cover
+    ctx.ensure_object(dict)
+    ctx.obj['user_agent'] = user_agent
 
 
 def date_cleanup(date):
@@ -49,11 +55,8 @@ def date_cleanup(date):
               help="""Directory where files will be saved.
               Defaults to directory from which CLI is being executed.""",
               default=os.getcwd(), type=str)
-@click.option('-u', '--user-agent',
-              help='Value used for HTTP header "User-Agent" for all requests.',
-              required=True,
-              type=str)
-def filing(lookups, ftype, start, end, count, directory, user_agent):
+@click.pass_context
+def filing(ctx, lookups, ftype, start, end, count, directory):
     """Click command for downloading filings. Run ``secedgar filing --help`` for info."""
     # If given filing type is not valid enum, raise FilingTypeError
     try:
@@ -66,7 +69,7 @@ def filing(lookups, ftype, start, end, count, directory, user_agent):
                start_date=date_cleanup(start),
                end_date=date_cleanup(end),
                count=count,
-               user_agent=user_agent)
+               user_agent=ctx.obj['user_agent'])
     f.save(directory=directory)
 
 
@@ -76,9 +79,8 @@ def filing(lookups, ftype, start, end, count, directory, user_agent):
 @click.option('--directory', help="""Directory where files will be saved.
               Defaults to directory from which CLI is being executed.""",
               default=os.getcwd(), type=str)
-@click.option('-u', '--user-agent',
-              help='Value used for HTTP header "User-Agent" for all requests.')
-def daily(date, directory, user_agent):
+@click.pass_context
+def daily(ctx, date, directory):
     """Click command for downloading daily filings. Run ``secedgar daily --help`` for info."""
-    d = DailyFilings(date=date_cleanup(date), user_agent=user_agent)
+    d = DailyFilings(date=date_cleanup(date), user_agent=ctx.obj['user_agent'])
     d.save(directory=directory)
