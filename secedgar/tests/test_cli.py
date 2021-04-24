@@ -1,13 +1,13 @@
 import os
-import shutil
 
 import pytest
 from click.testing import CliRunner
 from secedgar.cli import cli
 from secedgar.exceptions import FilingTypeError
 # Borrow mocks without including in conftest
-from secedgar.tests.filings.test_daily import (mock_daily_idx_file,
-                                               mock_daily_quarter_directory)
+from secedgar.tests.filings.test_daily import mock_daily_idx_file  # noqa: F401
+from secedgar.tests.filings.test_daily import \
+    mock_daily_quarter_directory  # noqa: F401
 
 
 def run_cli_command(cli_instance,
