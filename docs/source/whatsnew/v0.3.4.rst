@@ -1,0 +1,15 @@
+v0.3.4
+------
+
+Highlights
+~~~~~~~~~~
+
+- Add ``user_agent`` to CLI to fix external breaking change
+
+
+Contributors
+~~~~~~~~~~~~
+
+- lolski
+- jackmoody11
+
