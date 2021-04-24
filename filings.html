@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Filings &mdash; secedgar 0.3.3 documentation</title>
+  <title>Filings &mdash; secedgar 0.3.4-alpha documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                0.3.3
+                0.3.4-alpha
               </div>
             
           
@@ -198,7 +198,7 @@ fetching all filings from any given day, you should use <a class="reference inte
 <h2>Filing<a class="headerlink" href="#filing" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="secedgar.filings.Filing">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">secedgar.filings.</span></code><code class="sig-name descname"><span class="pre">Filing</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cik_lookup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filing_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">datetime.datetime(2021,</span> <span class="pre">4,</span> <span class="pre">9,</span> <span class="pre">3,</span> <span class="pre">52,</span> <span class="pre">41,</span> <span class="pre">129881)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.Filing" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">secedgar.filings.</span></code><code class="sig-name descname"><span class="pre">Filing</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cik_lookup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filing_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">datetime.datetime(2021,</span> <span class="pre">4,</span> <span class="pre">24,</span> <span class="pre">3,</span> <span class="pre">10,</span> <span class="pre">34,</span> <span class="pre">318180)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.Filing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class for receiving EDGAR filings.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -427,7 +427,7 @@ customize this according to your preference using the <code class="docutils lite
 <p>The <code class="docutils literal notranslate"><span class="pre">DailyFilings</span></code> class can be used to fetch all the URLs for or download all filings from any given day.</p>
 <dl class="py class">
 <dt id="secedgar.filings.DailyFilings">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">secedgar.filings.</span></code><code class="sig-name descname"><span class="pre">DailyFilings</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">date</span></em>, <em class="sig-param"><span class="pre">client=None</span></em>, <em class="sig-param"><span class="pre">entry_filter=&lt;function</span> <span class="pre">DailyFilings.&lt;lambda&gt;&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.DailyFilings" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">secedgar.filings.</span></code><code class="sig-name descname"><span class="pre">DailyFilings</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">date</span></em>, <em class="sig-param"><span class="pre">client=None</span></em>, <em class="sig-param"><span class="pre">entry_filter=&lt;function</span> <span class="pre">DailyFilings.&lt;lambda&gt;&gt;</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings.DailyFilings" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class for retrieving all daily filings from <a class="reference external" href="https://www.sec.gov/Archives/edgar/daily-index">https://www.sec.gov/Archives/edgar/daily-index</a>.</p>
 <dl class="py attribute">
 <dt id="secedgar.filings.DailyFilings.date">
@@ -465,6 +465,12 @@ used to filter which filings to keep. These are “cik”, “company_name”,
 <dd class="field-odd"><p>function, optional</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="secedgar.filings.DailyFilings.kwargs">
+<code class="sig-name descname"><span class="pre">kwargs</span></code><a class="headerlink" href="#secedgar.filings.DailyFilings.kwargs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keyword arguments to pass to <code class="docutils literal notranslate"><span class="pre">secedgar.filings._index.IndexFilings</span></code>.</p>
 </dd></dl>
 
 <p>To only download filings from a company named “Company A”, the following
