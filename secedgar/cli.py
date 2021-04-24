@@ -14,7 +14,17 @@ from secedgar.filings import DailyFilings, Filing, FilingType
               type=str)
 @click.pass_context
 def cli(ctx, user_agent):
-    """Main CLI group."""
+    """Main CLI group.
+
+    \f
+
+    Args:
+        ctx (click.core.Context): Click context.
+        user_agent (str): User agent string to pass.
+
+    Returns:
+        None
+    """
     ctx.ensure_object(dict)
     ctx.obj['user_agent'] = user_agent
 
@@ -57,7 +67,25 @@ def date_cleanup(date):
               default=os.getcwd(), type=str)
 @click.pass_context
 def filing(ctx, lookups, ftype, start, end, count, directory):
-    """Click command for downloading filings. Run ``secedgar filing --help`` for info."""
+    """Click command for downloading filings. Run ``secedgar filing --help`` for info.
+
+    \f
+
+    Args:
+        ctx (click.core.Context): Click context.
+        lookups (str): Companies and tickers to include in filing download.
+        ftype (str): String of FilingType enum.
+        start (str): Start date for filings in YYYYMMDD format.
+            Will implicitly default to first available filing.
+        end (str): End date for filings in YYYYMMDD format.
+            Will implicitly default to today.
+        count (int): Number of filings to save per ticker/company.
+        directory (str): Directory where files should be saved.
+            Defaults to current working directory.
+
+    Returns:
+        None
+    """
     # If given filing type is not valid enum, raise FilingTypeError
     try:
         ftype = FilingType[ftype]
