@@ -17,6 +17,7 @@ class DailyFilings(IndexFilings):
             The ``FilingEntry`` object exposes 6 variables which can be
             used to filter which filings to keep. These are "cik", "company_name",
             "form_type", "date_filed", "file_name", and "path".
+        kwargs: Keyword arguments to pass to ``secedgar.filings._index.IndexFilings``.
 
     Using ``entry_filter``
     ----------------------
@@ -49,8 +50,8 @@ class DailyFilings(IndexFilings):
 
     """
 
-    def __init__(self, date, client=None, entry_filter=lambda _: True):
-        super().__init__(client=client, entry_filter=entry_filter)
+    def __init__(self, date, client=None, entry_filter=lambda _: True, **kwargs):
+        super().__init__(client=client, entry_filter=entry_filter, **kwargs)
         if not isinstance(date, datetime.date):
             raise TypeError(
                 "Date must be given as datetime.date object. Was given type {type}.".format(
