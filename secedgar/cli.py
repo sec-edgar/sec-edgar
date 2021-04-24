@@ -14,7 +14,7 @@ from secedgar.filings import DailyFilings, Filing, FilingType
               type=str)
 @click.pass_context
 def cli(ctx, user_agent):
-    """Main CLI group.
+    r"""Main CLI group.
 
     \f
 
@@ -30,7 +30,7 @@ def cli(ctx, user_agent):
 
 
 def date_cleanup(date):
-    """Transforms date of form YYYYMMDD to datetime object.
+    r"""Transforms date of form YYYYMMDD to datetime object.
 
     Args:
         date (Union[str, NoneType]): Date of the form YYYYMMDD to be transformed.
@@ -67,7 +67,7 @@ def date_cleanup(date):
               default=os.getcwd(), type=str)
 @click.pass_context
 def filing(ctx, lookups, ftype, start, end, count, directory):
-    """Click command for downloading filings. Run ``secedgar filing --help`` for info.
+    r"""Click command for downloading filings. Run ``secedgar filing --help`` for info.
 
     \f
 
