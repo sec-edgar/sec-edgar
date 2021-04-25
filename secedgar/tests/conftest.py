@@ -1,5 +1,6 @@
 import pytest
 import requests
+from secedgar.cik_lookup import CIKLookup
 from secedgar.client import NetworkClient
 from secedgar.filings import MasterFilings
 from secedgar.tests.utils import AsyncMockResponse, MockResponse, datapath
@@ -66,3 +67,17 @@ def mock_filing_data(monkeysession):
 @pytest.fixture(scope="session")
 def tmp_data_directory(tmpdir_factory):
     return str(tmpdir_factory.mktemp("tmp_data"))
+
+
+@pytest.fixture(scope="session")
+def mock_cik_validator_get_multiple_ciks(monkeysession):
+    """Mocks response for getting a single CIK."""
+    monkeysession.setattr(CIKLookup, "get_ciks",
+                          lambda *args: {"aapl": "0000320193", "msft": "1234", "amzn": "5678"})
+
+
+@pytest.fixture(scope="session")
+def mock_single_cik_filing(monkeysession):
+    """Returns mock response of filinghrefs for getting filing URLs."""
+    monkeysession.setattr(NetworkClient, "get_response",
+                          MockResponse(datapath_args=["filings", "aapl_10q_filings.xml"]))
