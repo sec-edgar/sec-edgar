@@ -26,6 +26,8 @@ class NetworkClient:
             See urllib3 docs for more info. Defaults to 0.
         rate_limit (int): Number of requests per second to limit to.
             Defaults to 10.
+        user_agent (str): Value used for HTTP header "User-Agent" for all requests.
+            Defaults to "github.com/sec-edgar/sec-edgar"
 
     .. note:
        It is highly suggested to keep rate_limit <= 10, as the SEC will block your IP
@@ -38,11 +40,13 @@ class NetworkClient:
                  retry_count=3,
                  batch_size=10,
                  backoff_factor=0,
-                 rate_limit=10):
+                 rate_limit=10,
+                 user_agent="github.com/sec-edgar/sec-edgar"):
         self.retry_count = retry_count
         self.batch_size = batch_size
         self.backoff_factor = backoff_factor
         self.rate_limit = rate_limit
+        self.user_agent = user_agent
 
     @property
     def retry_count(self):
@@ -99,6 +103,17 @@ class NetworkClient:
         else:
             self._rate_limit = value
 
+    @property
+    def user_agent(self):
+        """str: Value used for HTTP header "User-Agent" for all requests."""
+        return self._user_agent
+
+    @user_agent.setter
+    def user_agent(self, value):
+        if not isinstance(value, str):
+            raise TypeError("user_agent must be str. Given type {0}.".format(type(value)))
+        self._user_agent = value
+
     @staticmethod
     def _prepare_query(path):
         """Prepare the query url.
@@ -153,13 +168,15 @@ class NetworkClient:
             EDGARQueryError: If problems arise when making query.
         """
         prepared_url = self._prepare_query(path)
+        headers = {"User-Agent": self.user_agent}
         with requests.Session() as session:
             retry = Retry(self.retry_count,
                           backoff_factor=self.backoff_factor,
                           raise_on_status=True)
             session.mount(self._BASE, adapter=HTTPAdapter(max_retries=retry))
             session.hooks["response"].append(self._validate_response)
-            response = session.get(prepared_url, params=params, **kwargs)
+            response = session.get(prepared_url, params=params,
+                                   headers=headers, **kwargs)
             return response
 
     def get_soup(self, path, params, **kwargs):
@@ -205,6 +222,14 @@ class NetworkClient:
             make_path(os.path.dirname(path))
             with open(path, "wb") as f:
                 f.write(contents)
+
+        conn = aiohttp.TCPConnector(limit=self.rate_limit)
+        headers = {
+            "Connection": "keep-alive",
+            "User-Agent": self.user_agent,
+        }
+        client = aiohttp.ClientSession(connector=conn, headers=headers,
+                                       raise_for_status=True)
 
         def batch(iterable, n):
             length = len(iterable)

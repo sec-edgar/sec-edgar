@@ -195,7 +195,9 @@ class CIKLookup:
 
         for lookup in to_lookup:
             lookup_norm = lookup.upper()
-            if lookup_norm in ticker_map:
+            if lookup_norm.isdigit():
+                ciks[lookup] = lookup
+            elif lookup_norm in ticker_map:
                 ciks[lookup] = ticker_map[lookup_norm]
             elif lookup_norm in title_map:
                 ciks[lookup] = title_map[lookup_norm]

@@ -26,7 +26,9 @@ class CompanyFilings(AbstractFiling):
             Stands for "date before." Defaults to today.
         count (int): Number of filings to fetch. Will fetch up to `count` if that many filings
             are available. Defaults to all filings available.
-        kwargs: See kwargs accepted for :class:`secedgar.client.NetworkClient`.
+        user_agent (str): Value used for HTTP header "User-Agent" for all requests.
+            Defaults to "github.com/sec-edgar/sec-edgar"
+        kwargs: See kwargs accepted for :class:`secedgar.client.network_client.NetworkClient`.
 
     .. versionadded:: 0.1.5
     """
@@ -51,12 +53,12 @@ class CompanyFilings(AbstractFiling):
         self.start_date = start_date
         self.end_date = end_date
         self.filing_type = filing_type
-        # make CIKLookup object for users if not given
-        self.cik_lookup = cik_lookup
         self.count = count
         self.match_format = match_format
         # Make default client NetworkClient and pass in kwargs
         self._client = client if client is not None else NetworkClient(**kwargs)
+        # make CIKLookup object for users if not given
+        self.cik_lookup = cik_lookup
 
     @property
     def path(self):
@@ -146,7 +148,7 @@ class CompanyFilings(AbstractFiling):
     @cik_lookup.setter
     def cik_lookup(self, val):
         if not isinstance(val, CIKLookup):
-            val = CIKLookup(val)
+            val = CIKLookup(val, client=self.client)
         self._cik_lookup = val
 
     def get_urls(self, **kwargs):

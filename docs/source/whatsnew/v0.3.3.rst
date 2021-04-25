@@ -1,0 +1,16 @@
+v0.3.3
+------
+
+Highlights
+~~~~~~~~~~
+
+- Add ``user_agent`` argument to ``NetworkClient``
+- Bypasses CIK lookup calls to SEC if the provided argument is already a CIK.
+
+
+Contributors
+~~~~~~~~~~~~
+
+- kevinschaul
+- jackmoody11
+

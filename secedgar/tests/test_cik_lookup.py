@@ -2,6 +2,7 @@ import json
 
 import pytest
 import requests
+from unittest.mock import patch
 from secedgar.cik_lookup import CIKLookup, get_cik_map
 from secedgar.client import NetworkClient
 from secedgar.exceptions import CIKError, EDGARQueryError
@@ -64,6 +65,9 @@ class TestCIKLookup(object):
             (['aapl', 'msft'], {'aapl': '320193', 'msft': '789019'}),
             (['aapl', 'msft', 'Alphabet Inc.'],
              {'aapl': '320193', 'msft': '789019', 'Alphabet Inc.': '1652044'}),
+            (['320193'], {'320193': '320193'}),
+            (['320193', '1018724'], {'320193': '320193', '1018724': '1018724'}),
+            (['AAPL', '1018724'], {'AAPL': '320193', '1018724': '1018724'}),
         ]
     )
     def test_cik_lookup_returns_correct_values(self, lookup, expected, mock_get_cik_map):
@@ -83,6 +87,16 @@ class TestCIKLookup(object):
         multiple_results_cik = CIKLookup('paper')
         with pytest.warns(UserWarning):
             _ = multiple_results_cik.ciks
+
+    def test_cik_lookup_cik_hits_request(self):
+        with patch.object(CIKLookup, '_get_cik_from_html') as mock:
+            CIKLookup(['Apple']).get_ciks()
+            mock.assert_called()
+
+    def test_cik_lookup_cik_bypasses_request(self):
+        with patch.object(CIKLookup, '_get_cik_from_html') as mock:
+            CIKLookup(['1018724']).get_ciks()
+            mock.assert_not_called()
 
     @pytest.mark.parametrize(
         "bad_cik",

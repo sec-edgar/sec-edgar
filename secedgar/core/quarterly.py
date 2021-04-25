@@ -107,7 +107,7 @@ class QuarterlyFilings(IndexFilings):
         formatted_dir = dir_pattern.format(year=self.year,
                                            quarter=self.quarter,
                                            cik="{cik}")
-        self.save_filings(directory,
-                          dir_pattern=formatted_dir,
-                          file_pattern=file_pattern,
-                          download_all=download_all)
+        self._save_filings(directory,
+                           dir_pattern=formatted_dir,
+                           file_pattern=file_pattern,
+                           download_all=download_all)

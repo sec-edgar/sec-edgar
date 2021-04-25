@@ -16,7 +16,8 @@ class DailyFilings(IndexFilings):
             if the FilingEntry should be kept. Defaults to `lambda _: True`.
             The ``FilingEntry`` object exposes 7 variables which can be
             used to filter which filings to keep. These are "cik", "company_name",
-            "form_type", "date_filed", "file_name", "path", and "num_previously_valid".
+            "form_type", "date_filed", "file_name", and "path".
+        kwargs: Keyword arguments to pass to ``secedgar.filings._index.IndexFilings``.
 
     Using ``entry_filter``
     ----------------------
@@ -147,7 +148,7 @@ class DailyFilings(IndexFilings):
         # If "{cik}" is in dir_pattern, it will be passed on and if not it will be ignored
         formatted_dir = dir_pattern.format(
             date=self._date.strftime(date_format), cik="{cik}")
-        self.save_filings(directory,
-                          dir_pattern=formatted_dir,
-                          file_pattern=file_pattern,
-                          download_all=download_all)
+        self._save_filings(directory,
+                           dir_pattern=formatted_dir,
+                           file_pattern=file_pattern,
+                           download_all=download_all)
