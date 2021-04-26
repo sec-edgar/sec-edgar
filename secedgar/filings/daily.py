@@ -17,7 +17,7 @@ class DailyFilings(IndexFilings):
             The ``FilingEntry`` object exposes 6 variables which can be
             used to filter which filings to keep. These are "cik", "company_name",
             "form_type", "date_filed", "file_name", and "path".
-        kwargs: Keyword arguments to pass to ``secedgar.filings._index.IndexFilings``.
+        kwargs: Keyword arguments to pass to ``secedgar.core._index.IndexFilings``.
 
     Using ``entry_filter``
     ----------------------
