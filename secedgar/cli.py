@@ -34,9 +34,10 @@ def date_cleanup(date):
         date (str): Date of the form YYYYMMDD to be transformed.
 
     Returns:
-        ``datetime.date`` object for given string.
+        ``datetime.date`` object if given string.
+        If given None, None is returned.
     """
-    return datetime.strptime(date, "%Y%m%d").date()
+    return datetime.strptime(date, "%Y%m%d").date() if date is not None else None
 
 
 @cli.command()
