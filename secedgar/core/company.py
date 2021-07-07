@@ -187,23 +187,6 @@ class CompanyFilings(AbstractFiling):
         self.params["CIK"] = cik
         links = []
         self.params["start"] = 0  # set start back to 0 before paginating
-        '''
-        while self.count is None or len(links) < self.count:
-            data = self.client.get_soup(self.path, self.params, **kwargs)
-            # TODO entry_filter here?
-            for row in data.find_all("content"):
-                warnings.warn(row)
-                found_type = row.find("type").string
-                if (self.filing_type is None or self.match_format == "ALL" or
-                    (self.match_format != "ALL" and
-                     found_type == self.filing_type) or
-                    (self.match_format == "AMEND" and
-                     found_type.replace("/A", "") == self.filing_type)):
-                    links.append(row.find("filinghref").string)
-            self.params["start"] += self.client.batch_size
-            if len(data.find_all("filinghref")) == 0:  # no more filings
-                break
-        '''
         while self.count is None or len(links) < self.count:
             data = self.client.get_soup(self.path, self.params, **kwargs)
             links.extend([link.string for link in data.find_all("filinghref")])
