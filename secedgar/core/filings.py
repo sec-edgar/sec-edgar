@@ -5,8 +5,8 @@ from secedgar.core.company import CompanyFilings
 from secedgar.core.daily import DailyFilings
 from secedgar.core.filing_types import FilingType
 from secedgar.core.quarterly import QuarterlyFilings
-from secedgar.utils import get_month, get_quarter, add_quarter
 from secedgar.exceptions import FilingTypeError
+from secedgar.utils import add_quarter, get_month, get_quarter
 
 
 def filings(
@@ -17,6 +17,7 @@ def filings(
     count=None,
     client=None,
     entry_filter=lambda _: True,
+    **kwargs
 ):
     """Utility method to get best filing object.
 
@@ -52,6 +53,7 @@ def filings(
             end_date=end_date,
             count=count,
             client=client,
+            **kwargs
         )
 
     if filing_type is not None:
@@ -71,7 +73,8 @@ def filings(
             start_date, date):
         return DailyFilings(date=start_date,
                             client=client,
-                            entry_filter=entry_filter)
+                            entry_filter=entry_filter,
+                            **kwargs)
 
     if isinstance(start_date, date) and isinstance(end_date, date):
         current_quarter = get_quarter(start_date)
@@ -84,11 +87,13 @@ def filings(
             return QuarterlyFilings(current_year,
                                     current_quarter,
                                     client=client,
-                                    entry_filter=entry_filter)
+                                    entry_filter=entry_filter,
+                                    **kwargs)
         return ComboFilings(start_date,
                             end_date,
                             client=client,
-                            entry_filter=entry_filter)
+                            entry_filter=entry_filter,
+                            **kwargs)
 
     raise ValueError(
         """Invalid arguments. You must provide 'cik_lookup' OR 'start_date' \
