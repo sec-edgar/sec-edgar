@@ -7,12 +7,15 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Parser &mdash; secedgar 0.3.4-alpha documentation</title>
+  <title>Parser &mdash; secedgar 0.4.0-alpha documentation</title>
   
 
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
 
   
   
@@ -29,6 +32,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -64,7 +68,7 @@
             
             
               <div class="version">
-                0.3.4-alpha
+                0.4.0-alpha
               </div>
             
           
@@ -183,8 +187,8 @@ parsing will remain experimental for the foreseeable future.</p>
 <div class="section" id="parsing-meta-data">
 <h2>Parsing Meta Data<a class="headerlink" href="#parsing-meta-data" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="secedgar.parser.MetaParser">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">secedgar.parser.</span></code><code class="sig-name descname"><span class="pre">MetaParser</span></code><a class="headerlink" href="#secedgar.parser.MetaParser" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="secedgar.parser.MetaParser">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">secedgar.parser.</span></span><span class="sig-name descname"><span class="pre">MetaParser</span></span><a class="headerlink" href="#secedgar.parser.MetaParser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Utility class to extract metadata and documents from a single text file.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -194,8 +198,8 @@ parsing will remain experimental for the foreseeable future.</p>
 <p><span class="versionmodified added">New in version 0.3.0.</span></p>
 </div>
 <dl class="py method">
-<dt id="secedgar.parser.MetaParser.process">
-<code class="sig-name descname"><span class="pre">process</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">infile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_subdir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rm_infile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.parser.MetaParser.process" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="secedgar.parser.MetaParser.process">
+<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">infile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_subdir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rm_infile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.parser.MetaParser.process" title="Permalink to this definition">¶</a></dt>
 <dd><p>Process a text file and save processed files.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -215,8 +219,8 @@ If this is not true, files will be prefixed with the infile filename.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="secedgar.parser.MetaParser.process_document_metadata">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">process_document_metadata</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.parser.MetaParser.process_document_metadata" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="secedgar.parser.MetaParser.process_document_metadata">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">process_document_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.parser.MetaParser.process_document_metadata" title="Permalink to this definition">¶</a></dt>
 <dd><p>Process the metadata of an embedded document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -232,8 +236,8 @@ If this is not true, files will be prefixed with the infile filename.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="secedgar.parser.MetaParser.process_metadata">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">process_metadata</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">curr_doc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.parser.MetaParser.process_metadata" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="secedgar.parser.MetaParser.process_metadata">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">process_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">curr_doc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.parser.MetaParser.process_metadata" title="Permalink to this definition">¶</a></dt>
 <dd><p>Process the metadata of the focal document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

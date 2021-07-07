@@ -7,12 +7,15 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Finding Company CIKs &mdash; secedgar 0.3.4-alpha documentation</title>
+  <title>Finding Company CIKs &mdash; secedgar 0.4.0-alpha documentation</title>
   
 
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
 
   
   
@@ -29,6 +32,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -64,7 +68,7 @@
             
             
               <div class="version">
-                0.3.4-alpha
+                0.4.0-alpha
               </div>
             
           
@@ -176,8 +180,8 @@
 <p>The <code class="docutils literal notranslate"><span class="pre">secedgar.cik_lookup.get_cik_map</span></code> function is provided as a utility to easily
 fetch CIKs based on a company’s ticker or name.</p>
 <dl class="py function">
-<dt id="secedgar.cik_lookup.get_cik_map">
-<code class="sig-prename descclassname"><span class="pre">secedgar.cik_lookup.</span></code><code class="sig-name descname"><span class="pre">get_cik_map</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.cik_lookup.get_cik_map" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="secedgar.cik_lookup.get_cik_map">
+<span class="sig-prename descclassname"><span class="pre">secedgar.cik_lookup.</span></span><span class="sig-name descname"><span class="pre">get_cik_map</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.cik_lookup.get_cik_map" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get dictionary of tickers and company names to CIK numbers.</p>
 <p>Uses <code class="docutils literal notranslate"><span class="pre">functools.lru_cache</span></code> to cache response if used in later calls.
 To clear cache, use <code class="docutils literal notranslate"><span class="pre">get_cik_map.cache_clear()</span></code>.</p>

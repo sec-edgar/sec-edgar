@@ -7,12 +7,15 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>CIK Lookup &mdash; secedgar 0.3.4-alpha documentation</title>
+  <title>CIK Lookup &mdash; secedgar 0.4.0-alpha documentation</title>
   
 
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
 
   
   
@@ -29,6 +32,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -64,7 +68,7 @@
             
             
               <div class="version">
-                0.3.4-alpha
+                0.4.0-alpha
               </div>
             
           
@@ -176,11 +180,12 @@
 <p>The <code class="docutils literal notranslate"><span class="pre">CIKLookup</span></code> class allows users to get company filings using company tickers and/or company names.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>By default, the <code class="docutils literal notranslate"><span class="pre">Filing</span></code> class wraps any given string or an iterable with string objects (e.g. a list of strings or a tuple
+<p>By default, the <code class="docutils literal notranslate"><span class="pre">CompanyFilings</span></code> class wraps any given string or an iterable with string objects (e.g. a list of strings or a tuple
 of strings). You will probably not need to use this class. However, it can be useful if you wish to save the CIKs for lookup terms.</p>
 </div>
 <p>Below is an example of how you can retrieve lookup CIKs by using the <code class="docutils literal notranslate"><span class="pre">CIKLookup</span></code> class.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">secedgar.cik_lookup</span> <span class="kn">import</span> <span class="n">CIKLookup</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">secedgar.core.cik_lookup</span> <span class="kn">import</span> <span class="n">CIKLookup</span>
+
 <span class="n">lookups</span> <span class="o">=</span> <span class="n">CIKLookup</span><span class="p">([</span><span class="s1">&#39;aapl&#39;</span><span class="p">,</span> <span class="s1">&#39;msft&#39;</span><span class="p">,</span> <span class="s1">&#39;Facebook&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
@@ -190,8 +195,8 @@ of strings). You will probably not need to use this class. However, it can be us
 </div>
 <p>Another alternative to using the <code class="docutils literal notranslate"><span class="pre">CIKLookup</span></code> class directly is to use the provided <a class="reference internal" href="cikmap.html#secedgar.cik_lookup.get_cik_map" title="secedgar.cik_lookup.get_cik_map"><code class="xref py py-meth docutils literal notranslate"><span class="pre">secedgar.cik_lookup.get_cik_map()</span></code></a> function.</p>
 <dl class="py class">
-<dt id="secedgar.cik_lookup.CIKLookup">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">secedgar.cik_lookup.</span></code><code class="sig-name descname"><span class="pre">CIKLookup</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lookups</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.cik_lookup.CIKLookup" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="secedgar.cik_lookup.CIKLookup">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">secedgar.cik_lookup.</span></span><span class="sig-name descname"><span class="pre">CIKLookup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lookups</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.cik_lookup.CIKLookup" title="Permalink to this definition">¶</a></dt>
 <dd><p>CIK Lookup object.</p>
 <p>Given list of tickers/company names to lookup, this object can return associated CIKs.</p>
 <dl class="field-list simple">
@@ -202,9 +207,9 @@ of strings). You will probably not need to use this class. However, it can be us
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 0.1.5.</span></p>
 </div>
-<dl class="py method">
-<dt id="secedgar.cik_lookup.CIKLookup.ciks">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">ciks</span></code><a class="headerlink" href="#secedgar.cik_lookup.CIKLookup.ciks" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="secedgar.cik_lookup.CIKLookup.ciks">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">ciks</span></span><a class="headerlink" href="#secedgar.cik_lookup.CIKLookup.ciks" title="Permalink to this definition">¶</a></dt>
 <dd><p>List of CIKs (as string of digits).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -213,9 +218,9 @@ of strings). You will probably not need to use this class. However, it can be us
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt id="secedgar.cik_lookup.CIKLookup.client">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">client</span></code><a class="headerlink" href="#secedgar.cik_lookup.CIKLookup.client" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="secedgar.cik_lookup.CIKLookup.client">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">client</span></span><a class="headerlink" href="#secedgar.cik_lookup.CIKLookup.client" title="Permalink to this definition">¶</a></dt>
 <dd><p>Client to use to fetch requests.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -225,8 +230,8 @@ of strings). You will probably not need to use this class. However, it can be us
 </dd></dl>
 
 <dl class="py method">
-<dt id="secedgar.cik_lookup.CIKLookup.get_ciks">
-<code class="sig-name descname"><span class="pre">get_ciks</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.cik_lookup.CIKLookup.get_ciks" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="secedgar.cik_lookup.CIKLookup.get_ciks">
+<span class="sig-name descname"><span class="pre">get_ciks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.cik_lookup.CIKLookup.get_ciks" title="Permalink to this definition">¶</a></dt>
 <dd><p>Validate lookup values and return corresponding CIKs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -238,9 +243,9 @@ of strings). You will probably not need to use this class. However, it can be us
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt id="secedgar.cik_lookup.CIKLookup.lookup_dict">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">lookup_dict</span></code><a class="headerlink" href="#secedgar.cik_lookup.CIKLookup.lookup_dict" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="secedgar.cik_lookup.CIKLookup.lookup_dict">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">lookup_dict</span></span><a class="headerlink" href="#secedgar.cik_lookup.CIKLookup.lookup_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dictionary that makes tickers and company names to CIKs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -249,21 +254,21 @@ of strings). You will probably not need to use this class. However, it can be us
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt id="secedgar.cik_lookup.CIKLookup.lookups">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">lookups</span></code><a class="headerlink" href="#secedgar.cik_lookup.CIKLookup.lookups" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="secedgar.cik_lookup.CIKLookup.lookups">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">lookups</span></span><a class="headerlink" href="#secedgar.cik_lookup.CIKLookup.lookups" title="Permalink to this definition">¶</a></dt>
 <dd><p><cite>list</cite> of <cite>str</cite> to lookup (to get CIK values).</p>
 </dd></dl>
 
-<dl class="py method">
-<dt id="secedgar.cik_lookup.CIKLookup.params">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">params</span></code><a class="headerlink" href="#secedgar.cik_lookup.CIKLookup.params" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="secedgar.cik_lookup.CIKLookup.params">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">params</span></span><a class="headerlink" href="#secedgar.cik_lookup.CIKLookup.params" title="Permalink to this definition">¶</a></dt>
 <dd><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code> Search parameters to add to client.</p>
 </dd></dl>
 
-<dl class="py method">
-<dt id="secedgar.cik_lookup.CIKLookup.path">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">path</span></code><a class="headerlink" href="#secedgar.cik_lookup.CIKLookup.path" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="secedgar.cik_lookup.CIKLookup.path">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">path</span></span><a class="headerlink" href="#secedgar.cik_lookup.CIKLookup.path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Path to add to client base.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>

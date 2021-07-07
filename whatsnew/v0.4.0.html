@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>v0.2.1 &mdash; secedgar 0.4.0-alpha documentation</title>
+  <title>v0.4.0 &mdash; secedgar 0.4.0-alpha documentation</title>
   
 
   
@@ -154,13 +154,13 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>v0.2.1</li>
+      <li>v0.4.0</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/whatsnew/v0.2.1.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/whatsnew/v0.4.0.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -173,19 +173,26 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="v0-2-1">
-<h1>v0.2.1<a class="headerlink" href="#v0-2-1" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="v0-4-0">
+<h1>v0.4.0<a class="headerlink" href="#v0-4-0" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="highlights">
 <h2>Highlights<a class="headerlink" href="#highlights" title="Permalink to this headline">¶</a></h2>
+<p>Many breaking changes, as this update does a lot of restructuring.</p>
 <ul class="simple">
-<li><p>Fixes bug where <code class="docutils literal notranslate"><span class="pre">Filing</span></code> does not work when <code class="docutils literal notranslate"><span class="pre">count</span></code> is not specified (thanks to formvoltron!)</p></li>
+<li><p>Rename <code class="docutils literal notranslate"><span class="pre">filings.py</span></code> to <code class="docutils literal notranslate"><span class="pre">company.py</span></code> (and respective <code class="docutils literal notranslate"><span class="pre">Filings</span></code> class to <code class="docutils literal notranslate"><span class="pre">CompanyFilings</span></code>).</p></li>
+<li><p>Rename <code class="docutils literal notranslate"><span class="pre">master.py</span></code> to <code class="docutils literal notranslate"><span class="pre">quarterly.py</span></code> (and respective <code class="docutils literal notranslate"><span class="pre">MasterFilings</span></code> class to <code class="docutils literal notranslate"><span class="pre">QuarterlyFilings</span></code>).</p></li>
+<li><p>Rename <code class="docutils literal notranslate"><span class="pre">filings</span></code> subdirectory to <code class="docutils literal notranslate"><span class="pre">core</span></code> to avoid confusion.</p></li>
+<li><p>Create <code class="docutils literal notranslate"><span class="pre">ComboFilings</span></code> class that wraps around <code class="docutils literal notranslate"><span class="pre">QuarterlyFilings</span></code>, <code class="docutils literal notranslate"><span class="pre">DailyFilings</span></code> given 2 dates.</p></li>
+<li><p>Create <code class="docutils literal notranslate"><span class="pre">filings</span></code> factory that returns the correct class based on user inputs. Returns one of <code class="docutils literal notranslate"><span class="pre">ComboFilings</span></code>, <code class="docutils literal notranslate"><span class="pre">QuarterlyFilings</span></code>, <code class="docutils literal notranslate"><span class="pre">DailyFilings</span></code>, <code class="docutils literal notranslate"><span class="pre">CompanyFilings</span></code>.</p></li>
+<li><p>Add many more types to <code class="docutils literal notranslate"><span class="pre">FilingType</span></code> enum. Switch to csv table for details.</p></li>
+<li><p>If no filings found for <code class="docutils literal notranslate"><span class="pre">DailyFilings</span></code> or <code class="docutils literal notranslate"><span class="pre">MasterFilings</span></code> after finding that other filings that do not match the criteria exist, then raise a <code class="docutils literal notranslate"><span class="pre">NoFilingsError</span></code> instead of a <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>.</p></li>
 </ul>
 </div>
 <div class="section" id="contributors">
 <h2>Contributors<a class="headerlink" href="#contributors" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
+<li><p>reteps</p></li>
 <li><p>jackmoody11</p></li>
-<li><p>formvoltron</p></li>
 </ul>
 </div>
 </div>

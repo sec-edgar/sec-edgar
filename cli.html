@@ -7,12 +7,15 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Command Line Interface &mdash; secedgar 0.3.4-alpha documentation</title>
+  <title>Command Line Interface &mdash; secedgar 0.4.0-alpha documentation</title>
   
 
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
 
   
   
@@ -29,6 +32,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -64,7 +68,7 @@
             
             
               <div class="version">
-                0.3.4-alpha
+                0.4.0-alpha
               </div>
             
           
@@ -198,8 +202,8 @@ user_agent (str): User agent string to pass.</p>
 </div>
 <p class="rubric">Options</p>
 <dl class="std option">
-<dt id="cmdoption-secedgar-u">
-<span id="cmdoption-secedgar-user-agent"></span><code class="sig-name descname"><span class="pre">-u</span></code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname"><span class="pre">,</span> </code><code class="sig-name descname"><span class="pre">--user-agent</span></code><code class="sig-prename descclassname"> <span class="pre">&lt;user_agent&gt;</span></code><a class="headerlink" href="#cmdoption-secedgar-u" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-secedgar-u">
+<span id="cmdoption-secedgar-user-agent"></span><span class="sig-name descname"><span class="pre">-u</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--user-agent</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;user_agent&gt;</span></span><a class="headerlink" href="#cmdoption-secedgar-u" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>Required</strong> Value used for HTTP header “User-Agent” for all requests.</p>
 </dd></dl>
 
@@ -211,15 +215,15 @@ user_agent (str): User agent string to pass.</p>
 </div>
 <p class="rubric">Options</p>
 <dl class="std option">
-<dt id="cmdoption-secedgar-daily-d">
-<span id="cmdoption-secedgar-daily-date"></span><code class="sig-name descname"><span class="pre">-d</span></code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname"><span class="pre">,</span> </code><code class="sig-name descname"><span class="pre">--date</span></code><code class="sig-prename descclassname"> <span class="pre">&lt;date&gt;</span></code><a class="headerlink" href="#cmdoption-secedgar-daily-d" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-secedgar-daily-d">
+<span id="cmdoption-secedgar-daily-date"></span><span class="sig-name descname"><span class="pre">-d</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--date</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;date&gt;</span></span><a class="headerlink" href="#cmdoption-secedgar-daily-d" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>Required</strong> Date to look up daily filings for.
 Should be in the format YYYYMMDD.</p>
 </dd></dl>
 
 <dl class="std option">
-<dt id="cmdoption-secedgar-daily-directory">
-<code class="sig-name descname"><span class="pre">--directory</span></code><code class="sig-prename descclassname"> <span class="pre">&lt;directory&gt;</span></code><a class="headerlink" href="#cmdoption-secedgar-daily-directory" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-secedgar-daily-directory">
+<span class="sig-name descname"><span class="pre">--directory</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;directory&gt;</span></span><a class="headerlink" href="#cmdoption-secedgar-daily-directory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Directory where files will be saved.
 Defaults to directory from which CLI is being executed.</p>
 </dd></dl>
@@ -255,41 +259,41 @@ directory (str): Directory where files should be saved.</p>
 </div>
 <p class="rubric">Options</p>
 <dl class="std option">
-<dt id="cmdoption-secedgar-filing-l">
-<span id="cmdoption-secedgar-filing-lookups"></span><code class="sig-name descname"><span class="pre">-l</span></code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname"><span class="pre">,</span> </code><code class="sig-name descname"><span class="pre">--lookups</span></code><code class="sig-prename descclassname"> <span class="pre">&lt;lookups&gt;</span></code><a class="headerlink" href="#cmdoption-secedgar-filing-l" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-secedgar-filing-l">
+<span id="cmdoption-secedgar-filing-lookups"></span><span class="sig-name descname"><span class="pre">-l</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--lookups</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;lookups&gt;</span></span><a class="headerlink" href="#cmdoption-secedgar-filing-l" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>Required</strong> Companies and tickers to include in filing download.</p>
 </dd></dl>
 
 <dl class="std option">
-<dt id="cmdoption-secedgar-filing-t">
-<span id="cmdoption-secedgar-filing-ftype"></span><code class="sig-name descname"><span class="pre">-t</span></code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname"><span class="pre">,</span> </code><code class="sig-name descname"><span class="pre">--ftype</span></code><code class="sig-prename descclassname"> <span class="pre">&lt;ftype&gt;</span></code><a class="headerlink" href="#cmdoption-secedgar-filing-t" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-secedgar-filing-t">
+<span id="cmdoption-secedgar-filing-ftype"></span><span class="sig-name descname"><span class="pre">-t</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--ftype</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;ftype&gt;</span></span><a class="headerlink" href="#cmdoption-secedgar-filing-t" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>Required</strong> Choose a filing type.
-See <code class="docutils literal notranslate"><span class="pre">secedgar.filings.FilingType</span></code> for a full list of available enums.
+See <code class="docutils literal notranslate"><span class="pre">secedgar.core.FilingType</span></code> for a full list of available enums.
 Should be of the form FILING_&lt;filing type&gt;.</p>
 </dd></dl>
 
 <dl class="std option">
-<dt id="cmdoption-secedgar-filing-s">
-<span id="cmdoption-secedgar-filing-start"></span><code class="sig-name descname"><span class="pre">-s</span></code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname"><span class="pre">,</span> </code><code class="sig-name descname"><span class="pre">--start</span></code><code class="sig-prename descclassname"> <span class="pre">&lt;start&gt;</span></code><a class="headerlink" href="#cmdoption-secedgar-filing-s" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-secedgar-filing-s">
+<span id="cmdoption-secedgar-filing-start"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--start</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;start&gt;</span></span><a class="headerlink" href="#cmdoption-secedgar-filing-s" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start date for filings.
 Should be in the format YYYYMMDD. Defaults to first available filing.</p>
 </dd></dl>
 
 <dl class="std option">
-<dt id="cmdoption-secedgar-filing-e">
-<span id="cmdoption-secedgar-filing-end"></span><code class="sig-name descname"><span class="pre">-e</span></code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname"><span class="pre">,</span> </code><code class="sig-name descname"><span class="pre">--end</span></code><code class="sig-prename descclassname"> <span class="pre">&lt;end&gt;</span></code><a class="headerlink" href="#cmdoption-secedgar-filing-e" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-secedgar-filing-e">
+<span id="cmdoption-secedgar-filing-end"></span><span class="sig-name descname"><span class="pre">-e</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--end</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;end&gt;</span></span><a class="headerlink" href="#cmdoption-secedgar-filing-e" title="Permalink to this definition">¶</a></dt>
 <dd><p>End date for filings. Should be in the format YYYYMMDD. Defaults to today.</p>
 </dd></dl>
 
 <dl class="std option">
-<dt id="cmdoption-secedgar-filing-n">
-<span id="cmdoption-secedgar-filing-count"></span><code class="sig-name descname"><span class="pre">-n</span></code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname"><span class="pre">,</span> </code><code class="sig-name descname"><span class="pre">--count</span></code><code class="sig-prename descclassname"> <span class="pre">&lt;count&gt;</span></code><a class="headerlink" href="#cmdoption-secedgar-filing-n" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-secedgar-filing-n">
+<span id="cmdoption-secedgar-filing-count"></span><span class="sig-name descname"><span class="pre">-n</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--count</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;count&gt;</span></span><a class="headerlink" href="#cmdoption-secedgar-filing-n" title="Permalink to this definition">¶</a></dt>
 <dd><p>Number of filings to save. Defaults to all.</p>
 </dd></dl>
 
 <dl class="std option">
-<dt id="cmdoption-secedgar-filing-directory">
-<code class="sig-name descname"><span class="pre">--directory</span></code><code class="sig-prename descclassname"> <span class="pre">&lt;directory&gt;</span></code><a class="headerlink" href="#cmdoption-secedgar-filing-directory" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-secedgar-filing-directory">
+<span class="sig-name descname"><span class="pre">--directory</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;directory&gt;</span></span><a class="headerlink" href="#cmdoption-secedgar-filing-directory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Directory where files will be saved.
 Defaults to directory from which CLI is being executed.</p>
 </dd></dl>
