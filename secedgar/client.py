@@ -236,11 +236,6 @@ class NetworkClient:
             for ndx in range(0, length, n):
                 yield iterable[ndx:min(ndx + n, length)]
 
-        conn = aiohttp.TCPConnector(limit=self.rate_limit)
-        client = aiohttp.ClientSession(connector=conn,
-                                       headers={'Connection': 'keep-alive'},
-                                       raise_for_status=True)
-
         async with client:
             for group in tqdm.tqdm(batch(inputs, self.rate_limit),
                                    total=len(inputs) // self.rate_limit,
