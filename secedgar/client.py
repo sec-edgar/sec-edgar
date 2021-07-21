@@ -223,22 +223,17 @@ class NetworkClient:
             with open(path, "wb") as f:
                 f.write(contents)
 
-        conn = aiohttp.TCPConnector(limit=self.rate_limit)
-        headers = {
-            "Connection": "keep-alive",
-            "User-Agent": self.user_agent,
-        }
-        client = aiohttp.ClientSession(connector=conn, headers=headers,
-                                       raise_for_status=True)
-
         def batch(iterable, n):
             length = len(iterable)
             for ndx in range(0, length, n):
                 yield iterable[ndx:min(ndx + n, length)]
 
         conn = aiohttp.TCPConnector(limit=self.rate_limit)
-        client = aiohttp.ClientSession(connector=conn,
-                                       headers={'Connection': 'keep-alive'},
+        headers = {
+            "Connection": "keep-alive",
+            "User-Agent": self.user_agent,
+        }
+        client = aiohttp.ClientSession(connector=conn, headers=headers,
                                        raise_for_status=True)
 
         async with client:
