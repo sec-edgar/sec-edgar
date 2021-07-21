@@ -78,3 +78,10 @@ class TestComboFilings:
         combo = ComboFilings(start_date=start_date, end_date=end_date)
         assert [str(s) for s in combo.daily_date_list] == daily_expected
         assert quarterly_list_matches(combo.quarterly_date_list, quarterly_expected)
+
+    def test_user_agent_passed_to_client(self, mock_user_agent):
+        combo = ComboFilings(start_date=date(2020, 1, 1),
+                             end_date=date(2021, 1, 1),
+                             user_agent=mock_user_agent)
+        assert combo.quarterly.client.user_agent == mock_user_agent
+        assert combo.daily.client.user_agent == mock_user_agent

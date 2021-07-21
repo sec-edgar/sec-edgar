@@ -237,3 +237,7 @@ class TestDaily:
 
     def test_download_all(self, monkeypatch):
         pass
+
+    def test_user_agent_passed_to_client(self, mock_user_agent):
+        daily = DailyFilings(date=date(2021, 1, 1), user_agent=mock_user_agent)
+        assert daily.client.user_agent == mock_user_agent

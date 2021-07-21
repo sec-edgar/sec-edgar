@@ -99,3 +99,7 @@ class TestQuarterly:
     def test_clean_path(self, original_path, clean_path):
         quarterly_filing = QuarterlyFilings(year=2000, quarter=1)
         assert quarterly_filing.clean_directory_path(original_path) == clean_path
+
+    def test_user_agent_passed_to_client(self, mock_user_agent):
+        quarterly = QuarterlyFilings(year=2020, quarter=1, user_agent=mock_user_agent)
+        assert quarterly.client.user_agent == mock_user_agent
