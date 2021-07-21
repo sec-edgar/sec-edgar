@@ -37,14 +37,13 @@ def filings(
         kwargs: Any keyword arguments to pass to ``NetworkClient`` if no client is specified.
 
     Examples:
+        .. code-block:: python
 
-    .. code-block:: python
+            from datetime import date
+            from secedgar.core import filings, FilingType
 
-        from datetime import date
-        from secedgar.core import filings, FilingType
-
-        engine = filings(start_date=date(2020, 12, 10), end_date=date(2020, 12, 10),
-            filing_type=FilingType.FILING_4, count=50)
+            engine = filings(start_date=date(2020, 12, 10), end_date=date(2020, 12, 10),
+                filing_type=FilingType.FILING_4, count=50)
     """
     if filing_type is not None and not isinstance(filing_type, FilingType):
         raise FilingTypeError
