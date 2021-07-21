@@ -50,8 +50,8 @@ class DailyFilings(IndexFilings):
 
     """
 
-    def __init__(self, date, client=None, entry_filter=lambda _: True):
-        super().__init__(client=client, entry_filter=entry_filter)
+    def __init__(self, date, client=None, entry_filter=lambda _: True, **kwargs):
+        super().__init__(client=client, entry_filter=entry_filter, **kwargs)
         self.date = date
 
     @property

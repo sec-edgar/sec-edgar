@@ -37,17 +37,20 @@ class ComboFilings:
                  end_date: date,
                  client=None,
                  entry_filter=lambda _: True,
-                 balancing_point=30):
+                 balancing_point=30,
+                 **kwargs):
         self.entry_filter = entry_filter
         self.start_date = start_date
         self.end_date = end_date
         self.quarterly = QuarterlyFilings(year=self.start_date.year,
                                           quarter=get_quarter(self.start_date),
                                           client=client,
-                                          entry_filter=self.entry_filter)
+                                          entry_filter=self.entry_filter,
+                                          **kwargs)
         self.daily = DailyFilings(date=self.start_date,
                                   client=client,
-                                  entry_filter=self.entry_filter)
+                                  entry_filter=self.entry_filter,
+                                  **kwargs)
         self.balancing_point = balancing_point
         self._recompute()
 
