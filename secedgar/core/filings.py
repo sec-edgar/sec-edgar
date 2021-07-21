@@ -34,6 +34,10 @@ def filings(
         entry_filter (function, optional): A boolean function to determine
             if the FilingEntry should be kept. Defaults to ``lambda _: True``.
             See :class:`secedgar.core.DailyFilings` for more detail.
+        kwargs: Any keyword arguments to pass to ``NetworkClient`` if no client is specified.
+
+    Examples:
+
     .. code-block:: python
 
         from datetime import date

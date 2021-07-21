@@ -28,6 +28,7 @@ class ComboFilings:
             ``DailyFilings`` to ``QuarterlyFilings``. If ``QuarterlyFilings`` is used, an
             additional filter will be added to limit which days are included.
             Defaults to 30.
+        kwargs: Any keyword arguments to pass to ``NetworkClient`` if no client is specified.
 
     .. versionadded:: 0.4.0
     """
