@@ -34,9 +34,66 @@ class CompanyFilings(AbstractFiling):
         ownership (str): Must be in {"include", "exclude"}. Whether or not to include ownership
             filings.
         match_format (str): Must be in {"EXACT", "AMEND", "ALL"}.
-        kwargs: See kwargs accepted for :class:`secedgar.client.network_client.NetworkClient`.
+        kwargs: See kwargs accepted for :class:`secedgar.client.NetworkClient`.
 
-    .. versionadded:: 0.1.5
+    Examples:
+
+        Restrict the start and end dates by using the ``start_date`` and ``end_date`` arguments.
+
+        .. code-block:: python
+
+            from secedgar import FilingType, CompanyFilings
+            from datetime import date
+
+            filing = CompanyFilings(cik_lookup="aapl",
+                                    filing_type=FilingType.FILING_10K,
+                                    start_date=date(2015, 1, 1),
+                                    end_date=date(2019, 1, 1),
+                                    user_agent="Name (email)")
+
+        If you would like to find all filings from some ``start_date`` until today, simply exclude ``end_date``.
+        The end date defaults to today's date.
+
+        .. code-block:: python
+
+            from secedgar import FilingType, CompanyFilings
+            from datetime import date
+
+            # end date defaults to today
+            filing = CompanyFilings(cik_lookup="aapl",
+                                    filing_type=FilingType.FILING_10K,
+                                    start_date=date(2015, 1, 1),
+                                    user_agent="Name (email)")
+
+        You can also look up a specific filing type for multiple companies.
+
+        .. code-block:: python
+
+            from secedgar import FilingType, CompanyFilings
+            from datetime import date
+
+            filing = CompanyFilings(cik_lookup=["aapl", "msft", "fb"],
+                            filing_type=FilingType.FILING_10K,
+                            start_date=date(2015, 1, 1),
+                            user_agent="Name (email)")
+
+        *For a full list of the available filing types, please see* :class:`secedgar.core.FilingType`.
+
+
+        SEC requests that traffic identifies itself via a user agent string. You can
+        customize this according to your preference using the ``user_agent`` argument.
+
+        .. code-block:: python
+
+            from secedgar import FilingType, CompanyFilings
+            from datetime import date
+
+            filing = CompanyFilings(cik_lookup=["aapl", "msft", "fb"],
+                            filing_type=FilingType.FILING_10K,
+                            start_date=date(2015, 1, 1),
+                            user_agent="Name (email)")
+
+    .. versionadded:: 0.4.0
     """
 
     def __init__(self,
@@ -79,7 +136,7 @@ class CompanyFilings(AbstractFiling):
 
     @property
     def client(self):
-        """``secedgar.client._base``: Client to use to make requests."""
+        """``secedgar.client.NetworkClient``: Client to use to make requests."""
         return self._client
 
     @property
@@ -164,7 +221,7 @@ class CompanyFilings(AbstractFiling):
         Args:
             **kwargs: Anything to be passed to requests when making get request.
                 See keyword arguments accepted for
-                ``secedgar.client._base.AbstractClient.get_soup``.
+                ``secedgar.client.NetworkClient.get_soup``.
 
         Returns:
             urls (list): List of urls for txt files to download.
@@ -184,7 +241,7 @@ class CompanyFilings(AbstractFiling):
             cik (str): CIK for company.
             **kwargs: Anything to be passed to requests when making get request.
                 See keyword arguments accepted for
-                ``secedgar.client._base.AbstractClient.get_soup``.
+                ``secedgar.client.NetworkClient.get_soup``.
 
         Returns:
             txt_urls (list of str): Up to the desired number of URLs for that specific company

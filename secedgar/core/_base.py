@@ -29,7 +29,7 @@ class AbstractFiling(ABC):
     @property
     @abstractmethod
     def client(self):
-        """``secedgar.client._base``: Client to use to make requests."""
+        """``secedgar.client.NetworkClient``: Client to use to make requests."""
         pass  # pragma: no cover
 
     @property

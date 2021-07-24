@@ -34,6 +34,12 @@ class NetworkClient:
     .. note:
        It is highly suggested to keep rate_limit <= 10, as the SEC will block your IP
        temporarily if you exceed this rate.
+
+    Examples:
+        .. code-block:: python
+
+            from secedgar.client import NetworkClient
+            client = NetworkClient(user_agent="Name (email)")
     """
 
     _BASE = "http://www.sec.gov/"

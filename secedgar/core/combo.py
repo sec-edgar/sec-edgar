@@ -38,6 +38,19 @@ class ComboFilings:
         kwargs: Any keyword arguments to pass to ``NetworkClient`` if no client is specified.
 
     .. versionadded:: 0.4.0
+
+    Examples:
+
+        To download all filings from January 6, 2020 until November 5, 2020, you could do following:
+
+        .. code-block:: python
+
+            from datetime import date
+            from secedgar import ComboFilings
+
+            combo_filings = ComboFilings(start_date=date(2020, 1, 6),
+                                            end_date=date(2020, 11, 5)
+            combo_filings.save('/my_directory')
     """
 
     def __init__(self,

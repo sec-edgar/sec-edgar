@@ -23,6 +23,14 @@ class QuarterlyFilings(IndexFilings):
             if the FilingEntry should be kept. Defaults to ``lambda _: True``.
             See :class:`secedgar.core.DailyFilings` for more detail.
         kwargs: Keyword arguments to pass to ``secedgar.core._index.IndexFilings``.
+
+    Examples:
+        .. code-block:: python
+
+            import secedgar as sec
+            quarterly = sec.QuarterlyFilings(year=2021, quarter=2, user_agent="Name (email)")
+            quarterly.save("/path/to/dir")
+
     """
 
     def __init__(self,

@@ -52,7 +52,7 @@ class DailyFilings(IndexFilings):
         from datetime import date
         from secedgar.core import DailyFilings
 
-        d = DailyFilings(date=date(2020, 12, 10), entry_filter=get_company_ab_10k)
+        d = DailyFilings(date=date(2020, 12, 10), entry_filter=get_company_ab_10k, user_agent="Name (email)")
 
     """
 

@@ -59,7 +59,7 @@ class IndexFilings(AbstractFiling):
 
     @property
     def client(self):
-        """``secedgar.client._base``: Client to use to make requests."""
+        """``secedgar.client.NetworkClient``: Client to use to make requests."""
         return self._client
 
     @property
@@ -120,7 +120,7 @@ class IndexFilings(AbstractFiling):
             update_cache (bool, optional): Whether master index should be updated
                 method call. Defaults to False.
             kwargs: Keyword arguments to pass to
-                ``secedgar.client._base.AbstractClient.get_response``.
+                ``secedgar.client.NetworkClient.get_response``.
 
         Returns:
             text (str): Idx file text.
