@@ -50,7 +50,7 @@ class CIKLookup:
                 raise TypeError("CIKs must be given as string or iterable.")
             self._lookups = lookups
         self._params = {}
-        self._client = client if client is not None else NetworkClient(**kwargs)
+        self._client = client or NetworkClient(**kwargs)
         self._lookup_dict = None
         self._ciks = None
 
