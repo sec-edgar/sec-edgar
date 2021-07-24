@@ -2,7 +2,7 @@ from datetime import date
 
 import pytest
 from secedgar.client import NetworkClient
-from secedgar.core import DailyFilings, QuarterlyFilings
+from secedgar.core import DailyFilings, FilingType, QuarterlyFilings
 from secedgar.core.combo import ComboFilings
 from secedgar.core.filings import filings
 from secedgar.exceptions import FilingTypeError
@@ -14,6 +14,21 @@ class TestFilings:
         with pytest.raises(FilingTypeError):
             filings(cik_lookup='aapl', filing_type='10-k')
 
+    def test_user_agent_passed_to_objects(self, mock_user_agent):
+        f = filings(cik_lookup="aapl",
+                    filing_type=FilingType.FILING_10Q,
+                    user_agent=mock_user_agent)
+        assert f.client.user_agent == mock_user_agent
+
+    def test_client_passed_to_objects(self, mock_user_agent):
+        client = NetworkClient(user_agent=mock_user_agent)
+        company = filings(cik_lookup="aapl", filing_type=FilingType.FILING_10Q, client=client)
+        daily = filings(start_date=date(2021, 1, 1), end_date=date(2021, 1, 1), client=client)
+        quarterly = filings(start_date=date(2020, 1, 1), end_date=date(2020, 3, 31), client=client)
+        assert company.client == client
+        assert daily.client == client
+        assert quarterly.client == client
+
     def test_filing_type_plus_entry_filter_filters_both(self):
         pass
 
@@ -24,10 +39,10 @@ class TestFilings:
                     user_agent=mock_user_agent,
                     count=10)
 
-    def test_no_end_date_no_cik_lookp_returns_daily_filings(self, mock_user_agent):
+    def test_same_date_returns_daily_filings(self, mock_user_agent):
         day = date(2020, 1, 1)
 
-        f = filings(start_date=day, end_date=date(2020, 1, 1), user_agent=mock_user_agent)
+        f = filings(start_date=day, end_date=day, user_agent=mock_user_agent)
         assert isinstance(f, DailyFilings)
         assert f.date == day
         assert f.year == day.year

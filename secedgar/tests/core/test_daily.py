@@ -1,8 +1,10 @@
 import os
 from datetime import date, datetime
+from typing import Type
 
 import pytest
 import secedgar.utils as utils
+from secedgar.client import NetworkClient
 from secedgar.core.daily import DailyFilings
 from secedgar.tests.utils import MockResponse, datapath
 
@@ -245,3 +247,14 @@ class TestDaily:
     def test_user_agent_passed_to_client(self, mock_user_agent):
         daily = DailyFilings(date=date(2021, 1, 1), user_agent=mock_user_agent)
         assert daily.client.user_agent == mock_user_agent
+
+    def test_user_agent_client_none(self):
+        with pytest.raises(TypeError):
+            _ = DailyFilings(date=date(2020, 1, 1),
+                             user_agent=None,
+                             client=None)
+
+    def test_set_good_client(self, mock_user_agent):
+        client = NetworkClient(user_agent=mock_user_agent)
+        daily = DailyFilings(date=date(2021, 1, 1), client=client)
+        assert daily.client == client

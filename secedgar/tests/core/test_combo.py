@@ -2,7 +2,9 @@ from datetime import date
 from typing import Type
 
 import pytest
+from secedgar.client import NetworkClient
 from secedgar.core.combo import ComboFilings
+from secedgar.tests.conftest import mock_user_agent
 
 
 def lambda_matches(a, b):
@@ -24,6 +26,14 @@ class TestComboFilings:
                              end_date=date(2020, 12, 31),
                              user_agent=None,
                              client=None)
+
+    def test_client_passed_to_objects(self, mock_user_agent):
+        client = NetworkClient(user_agent=mock_user_agent)
+        combo = ComboFilings(start_date=date(2020, 1, 1),
+                             end_date=date(2020, 12, 31),
+                             client=client)
+        assert combo.quarterly.client == client
+        assert combo.daily.client == client
 
     def test_combo_quarterly_only_one_year(self, mock_user_agent):
         combo = ComboFilings(start_date=date(2020, 1, 1),

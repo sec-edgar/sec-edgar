@@ -1,5 +1,6 @@
 # Tests if filings are correctly received from EDGAR
 import datetime
+from typing import Type
 
 import pytest
 from secedgar.cik_lookup import CIKLookup
@@ -70,7 +71,27 @@ def mock_single_cik_filing_limited_responses(monkeypatch):
     monkeypatch.setattr(NetworkClient, "get_response", mock_limited_responses)
 
 
-class TestCompanyFilings(object):
+class TestCompanyFilings:
+    class TestCompanyFilingsClient:
+
+        def test_user_agent_client_none(self):
+            with pytest.raises(TypeError):
+                _ = CompanyFilings(cik_lookup="aapl",
+                                   filing_type=FilingType.FILING_10Q,
+                                   user_agent=None,
+                                   client=None)
+
+        def test_user_agent_set_to_client(self, mock_user_agent):
+            aapl = CompanyFilings(cik_lookup="aapl",
+                                  filing_type=FilingType.FILING_10Q,
+                                  user_agent=mock_user_agent)
+            assert aapl.client.user_agent == mock_user_agent
+
+        def test_client_property_set(self, mock_user_agent):
+            aapl = CompanyFilings(cik_lookup="aapl",
+                                  filing_type=FilingType.FILING_10Q,
+                                  client=NetworkClient(user_agent=mock_user_agent))
+            assert aapl.client.user_agent == mock_user_agent
 
     def test_count_returns_exact(self, mock_user_agent, mock_cik_validator_get_single_cik,
                                  mock_single_cik_filing):
