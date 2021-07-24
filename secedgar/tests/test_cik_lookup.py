@@ -1,8 +1,9 @@
 import json
+from unittest import mock
+from unittest.mock import patch
 
 import pytest
 import requests
-from unittest.mock import patch
 from secedgar.cik_lookup import CIKLookup, get_cik_map
 from secedgar.client import NetworkClient
 from secedgar.exceptions import CIKError, EDGARQueryError
@@ -10,13 +11,13 @@ from secedgar.tests.conftest import MockResponse
 
 
 @pytest.fixture
-def client():
-    return NetworkClient()
-
-
-@pytest.fixture
 def ticker_lookups():
     return ["AAPL", "FB", "GOOGL", "NFLX", "MSFT"]
+
+
+@pytest.fixture(scope="class")
+def mock_client_cik_lookup(mock_user_agent):
+    return NetworkClient(user_agent=mock_user_agent)
 
 
 @pytest.fixture
@@ -70,32 +71,32 @@ class TestCIKLookup(object):
             (['AAPL', '1018724'], {'AAPL': '320193', '1018724': '1018724'}),
         ]
     )
-    def test_cik_lookup_returns_correct_values(self, lookup, expected, mock_get_cik_map):
-        look = CIKLookup(lookup)
+    def test_cik_lookup_returns_correct_values(self, mock_client_cik_lookup, lookup, expected, mock_get_cik_map):
+        look = CIKLookup(lookup, client=mock_client_cik_lookup)
         assert look.lookup_dict == expected
 
-    def test_cik_lookup_lookups_property(self):
-        multiple_company_lookup = CIKLookup(['aapl', 'msft', 'fb'])
+    def test_cik_lookup_lookups_property(self, mock_client_cik_lookup):
+        multiple_company_lookup = CIKLookup(['aapl', 'msft', 'fb'], client=mock_client_cik_lookup)
         assert multiple_company_lookup.lookups == ['aapl', 'msft', 'fb']
 
-    def test_multiple_results_company_name_search(self, mock_single_cik_multiple_results_response):
-        multiple_results_cik = CIKLookup('paper')
+    def test_multiple_results_company_name_search(self, mock_client_cik_lookup, mock_single_cik_multiple_results_response):
+        multiple_results_cik = CIKLookup('paper', client=mock_client_cik_lookup)
         with pytest.warns(UserWarning):
             assert len(multiple_results_cik.ciks) == 0
 
-    def test_multiple_results_raises_warnings(self, mock_single_cik_multiple_results_response):
-        multiple_results_cik = CIKLookup('paper')
+    def test_multiple_results_raises_warnings(self, mock_client_cik_lookup, mock_single_cik_multiple_results_response):
+        multiple_results_cik = CIKLookup('paper', client=mock_client_cik_lookup)
         with pytest.warns(UserWarning):
             _ = multiple_results_cik.ciks
 
-    def test_cik_lookup_cik_hits_request(self):
+    def test_cik_lookup_cik_hits_request(self, mock_client_cik_lookup):
         with patch.object(CIKLookup, '_get_cik_from_html') as mock:
-            CIKLookup(['Apple']).get_ciks()
+            CIKLookup(['Apple'], client=mock_client_cik_lookup).get_ciks()
             mock.assert_called()
 
-    def test_cik_lookup_cik_bypasses_request(self):
+    def test_cik_lookup_cik_bypasses_request(self, mock_client_cik_lookup):
         with patch.object(CIKLookup, '_get_cik_from_html') as mock:
-            CIKLookup(['1018724']).get_ciks()
+            CIKLookup(['1018724'], client=mock_client_cik_lookup).get_ciks()
             mock.assert_not_called()
 
     @pytest.mark.parametrize(
@@ -105,19 +106,19 @@ class TestCIKLookup(object):
             123.0,
         ]
     )
-    def test_validate_cik__is_string(self, bad_cik):
+    def test_validate_cik__is_string(self, mock_client_cik_lookup, bad_cik):
         with pytest.raises(TypeError):
-            CIKLookup(bad_cik)
+            CIKLookup(bad_cik, client=mock_client_cik_lookup)
 
-    def test_validate_cik_after_cik_lookup(self, mock_single_cik_not_found):
+    def test_validate_cik_after_cik_lookup(self, mock_client_cik_lookup, mock_single_cik_not_found):
         # string remains unchecked until query to allow for possibility of
         # using company name, ticker, or CIK as string
         with pytest.raises(EDGARQueryError):
-            _ = CIKLookup('0notvalid0').ciks
+            _ = CIKLookup('0notvalid0', client=mock_client_cik_lookup).ciks
 
-    def test_client_property(self, client, ticker_lookups):
-        lookup = CIKLookup(ticker_lookups, client=client)
-        assert lookup.client == client
+    def test_client_property(self, mock_client_cik_lookup, ticker_lookups):
+        lookup = CIKLookup(ticker_lookups, client=mock_client_cik_lookup)
+        assert lookup.client == mock_client_cik_lookup
 
     @pytest.mark.parametrize(
         "bad_lookups",
@@ -131,8 +132,8 @@ class TestCIKLookup(object):
         with pytest.raises(TypeError):
             CIKLookup(lookups=bad_lookups)
 
-    def test_lookups_property(self, ticker_lookups):
-        lookup = CIKLookup(lookups=ticker_lookups)
+    def test_lookups_property(self, mock_client_cik_lookup, ticker_lookups):
+        lookup = CIKLookup(lookups=ticker_lookups, client=mock_client_cik_lookup)
         assert lookup.lookups == ticker_lookups
 
     @pytest.mark.parametrize(
@@ -161,9 +162,9 @@ class TestCIKLookup(object):
         with pytest.raises(CIKError):
             CIKLookup._validate_cik(bad_cik)
 
-    def test_params_reset_after_get_cik(self, ticker_lookups, client,
+    def test_params_reset_after_get_cik(self, ticker_lookups, mock_client_cik_lookup,
                                         mock_single_cik_lookup_outside_map):
-        lookup = CIKLookup(lookups=ticker_lookups, client=client)
+        lookup = CIKLookup(lookups=ticker_lookups, client=mock_client_cik_lookup)
         lookup._get_cik_from_html(ticker_lookups[0])
         assert lookup.params.get("CIK") is None and lookup.params.get("company") is None
 
