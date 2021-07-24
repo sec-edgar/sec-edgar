@@ -18,6 +18,11 @@ class CompanyFilings(AbstractFiling):
         cik_lookup (str): Central Index Key (CIK) for company of interest.
         filing_type (Union[secedgar.core.filing_types.FilingType, None]): Valid filing type
             enum. Defaults to None. If None, then all filing types for CIKs will be returned.
+        user_agent (Union[str, NoneType]): Value used for HTTP header "User-Agent" for all requests.
+            If given None, a valid client with user_agent must be given.
+            See the SEC's statement on
+            `fair access <https://www.sec.gov/os/accessing-edgar-data>`_
+            for more information.
         start_date (Union[str, datetime.datetime, datetime.date], optional): Date before
             which not to fetch reports. Stands for "date after."
             Defaults to None (will fetch all filings before ``end_date``).
@@ -37,6 +42,7 @@ class CompanyFilings(AbstractFiling):
     def __init__(self,
                  cik_lookup,
                  filing_type=None,
+                 user_agent=None,
                  start_date=None,
                  end_date=date.today(),
                  client=None,
@@ -57,7 +63,7 @@ class CompanyFilings(AbstractFiling):
         self.count = count
         self.match_format = match_format
         # Make default client NetworkClient and pass in kwargs
-        self._client = client if client is not None else NetworkClient(**kwargs)
+        self._client = client or NetworkClient(user_agent=user_agent, **kwargs)
         # make CIKLookup object for users if not given
         self.cik_lookup = cik_lookup
 

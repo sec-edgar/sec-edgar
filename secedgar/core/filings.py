@@ -12,6 +12,7 @@ from secedgar.utils import add_quarter, get_month, get_quarter
 def filings(
     cik_lookup=None,
     filing_type=None,
+    user_agent=None,
     start_date=None,
     end_date=date.today(),
     count=None,
@@ -52,20 +53,20 @@ def filings(
         return CompanyFilings(
             cik_lookup,
             filing_type=filing_type,
+            user_agent=user_agent,
             start_date=start_date,
             end_date=end_date,
             count=count,
             client=client,
             **kwargs
         )
+    # Define entry filter as original
+    _entry_filter = entry_filter
 
     if filing_type is not None:
-        original_entry_filter = entry_filter
-
-        def entry_filter(x):
-            return x.form_type == filing_type and original_entry_filter(x)
-
-        original_entry_filter = entry_filter
+        # If filing type also given, add filing types to existing entry filter
+        def _entry_filter(x):
+            return x.form_type == filing_type and entry_filter(x)
 
     if count is not None:
         raise NotImplementedError(
@@ -75,8 +76,9 @@ def filings(
     if (end_date is None or end_date == start_date) and isinstance(
             start_date, date):
         return DailyFilings(date=start_date,
+                            user_agent=user_agent,
                             client=client,
-                            entry_filter=entry_filter,
+                            entry_filter=_entry_filter,
                             **kwargs)
 
     if isinstance(start_date, date) and isinstance(end_date, date):
@@ -87,15 +89,17 @@ def filings(
         end_quarter_date = date(next_year, get_month(next_quarter),
                                 1) - timedelta(days=1)
         if start_quarter_date == start_date and end_date == end_quarter_date:
-            return QuarterlyFilings(current_year,
-                                    current_quarter,
+            return QuarterlyFilings(year=current_year,
+                                    quarter=current_quarter,
                                     client=client,
-                                    entry_filter=entry_filter,
+                                    user_agent=user_agent,
+                                    entry_filter=_entry_filter,
                                     **kwargs)
-        return ComboFilings(start_date,
-                            end_date,
+        return ComboFilings(start_date=start_date,
+                            end_date=end_date,
+                            user_agent=user_agent,
                             client=client,
-                            entry_filter=entry_filter,
+                            entry_filter=_entry_filter,
                             **kwargs)
 
     raise ValueError(

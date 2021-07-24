@@ -10,7 +10,13 @@ class DailyFilings(IndexFilings):
 
     Attributes:
         date (datetime.date): Date of daily filing to fetch.
-        client (secedgar.client._base.AbstractClient, optional): Client to use for fetching data.
+        user_agent (Union[str, NoneType], optional): Value used for HTTP header "User-Agent" for all requests.
+            If given None, a valid client with user_agent must be given.
+            See the SEC's statement on
+            `fair access <https://www.sec.gov/os/accessing-edgar-data>`_
+            for more information. Defaults to None.
+        client (Union[NoneType, secedgar.client.NetworkClient], optional): Client to use for fetching data.
+            If None is given, a user_agent must be given to pass to :class:`secedgar.client.NetworkClient`.
             Defaults to ``secedgar.client.NetworkClient`` if none is given.
         entry_filter (function, optional): A boolean function to determine
             if the FilingEntry should be kept. Defaults to `lambda _: True`.
@@ -50,8 +56,11 @@ class DailyFilings(IndexFilings):
 
     """
 
-    def __init__(self, date, client=None, entry_filter=lambda _: True, **kwargs):
-        super().__init__(client=client, entry_filter=entry_filter, **kwargs)
+    def __init__(self, date, user_agent=None, client=None, entry_filter=lambda _: True, **kwargs):
+        super().__init__(user_agent=user_agent,
+                         client=client,
+                         entry_filter=entry_filter,
+                         **kwargs)
         self.date = date
 
     @property
