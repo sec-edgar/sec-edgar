@@ -21,8 +21,9 @@ The ``CompanyFilings`` class provides a simple API to fetch SEC filings.
    from secedgar import CompanyFilings, FilingType
 
    my_filings = CompanyFilings(cik_lookup='aapl',
-                       filing_type=FilingType.FILING_10Q,
-                       count=15)
+                               filing_type=FilingType.FILING_10Q,
+                               count=15,
+                               user_agent='Name (email)')
 
 The ``cik_lookup`` argument can also take multiple tickers and/or company names.
 
@@ -31,8 +32,9 @@ The ``cik_lookup`` argument can also take multiple tickers and/or company names.
    from secedgar import CompanyFilings, FilingType
 
    my_filings = CompanyFilings(cik_lookup=['aapl', 'msft', 'Facebook'],
-                       filing_type=FilingType.FILING_10Q,
-                       count=15)
+                               filing_type=FilingType.FILING_10Q,
+                               count=15,
+                               user_agent='Name (email)')
 
 
 Using a User Agent
@@ -53,12 +55,12 @@ A note from the SEC website:
 
 .. code-block:: python
 
-   from secedgar.filings import Filing, FilingType
+   from secedgar import CompanyFilings, FilingType
 
-   my_filings = Filing(cik_lookup=['aapl', 'msft', 'Facebook'],
-                       filing_type=FilingType.FILING_10Q,
-                       count=15,
-                       user_agent='YOUR COMPANY NAME HERE')
+   my_filings = CompanyFilings(cik_lookup=['aapl', 'msft', 'Facebook'],
+                               filing_type=FilingType.FILING_10Q,
+                               count=15,
+                               user_agent='Name (email)')
 
 
 Saving Filings

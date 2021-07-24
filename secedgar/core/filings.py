@@ -92,8 +92,8 @@ def filings(
 
             # all filings for
             daily_filings = filings(start_date=date(2020, 1 ,3),
-                                        end_date=date(2020, 1, 3),
-                                        user_agent="Name (email)")
+                                    end_date=date(2020, 1, 3),
+                                    user_agent="Name (email)")
             daily_filings.save("/path/to/directory")
 
             # limit which quarterly filings to use - saves only form 4 filings

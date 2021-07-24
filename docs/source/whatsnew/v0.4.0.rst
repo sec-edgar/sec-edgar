@@ -13,7 +13,7 @@ Many breaking changes, as this update does a lot of restructuring.
 - Create ``filings`` factory that returns the correct class based on user inputs. Returns one of ``ComboFilings``, ``QuarterlyFilings``, ``DailyFilings``, ``CompanyFilings``.
 - Add many more types to ``FilingType`` enum. Switch to csv table for details.
 - If no filings found for ``DailyFilings`` or ``MasterFilings`` after finding that other filings that do not match the criteria exist, then raise a ``NoFilingsError`` instead of a ``ValueError``.
-- Fix use of ``user_agent`` by ``NetworkClient``
+- Fix use of ``user_agent`` by ``NetworkClient`` and require its use by all filings classes/functions
 
 Contributors
 ~~~~~~~~~~~~

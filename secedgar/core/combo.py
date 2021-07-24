@@ -49,7 +49,7 @@ class ComboFilings:
             from secedgar import ComboFilings
 
             combo_filings = ComboFilings(start_date=date(2020, 1, 6),
-                                            end_date=date(2020, 11, 5)
+                                         end_date=date(2020, 11, 5)
             combo_filings.save('/my_directory')
     """
 

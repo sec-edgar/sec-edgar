@@ -28,7 +28,9 @@ class QuarterlyFilings(IndexFilings):
         .. code-block:: python
 
             import secedgar as sec
-            quarterly = sec.QuarterlyFilings(year=2021, quarter=2, user_agent="Name (email)")
+            quarterly = sec.QuarterlyFilings(year=2021,
+                                             quarter=2,
+                                             user_agent="Name (email)")
             quarterly.save("/path/to/dir")
 
     """

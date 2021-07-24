@@ -73,9 +73,9 @@ class CompanyFilings(AbstractFiling):
             from datetime import date
 
             filing = CompanyFilings(cik_lookup=["aapl", "msft", "fb"],
-                            filing_type=FilingType.FILING_10K,
-                            start_date=date(2015, 1, 1),
-                            user_agent="Name (email)")
+                                    filing_type=FilingType.FILING_10K,
+                                    start_date=date(2015, 1, 1),
+                                    user_agent="Name (email)")
 
         *For a full list of the available filing types, please see* :class:`secedgar.core.FilingType`.
 
@@ -89,9 +89,9 @@ class CompanyFilings(AbstractFiling):
             from datetime import date
 
             filing = CompanyFilings(cik_lookup=["aapl", "msft", "fb"],
-                            filing_type=FilingType.FILING_10K,
-                            start_date=date(2015, 1, 1),
-                            user_agent="Name (email)")
+                                    filing_type=FilingType.FILING_10K,
+                                    start_date=date(2015, 1, 1),
+                                    user_agent="Name (email)")
 
     .. versionadded:: 0.4.0
     """
