@@ -11,14 +11,15 @@ class QuarterlyFilings(IndexFilings):
     Args:
         year (int): Must be in between 1993 and the current year (inclusive).
         quarter (int): Must be 1, 2, 3, or 4. Quarter of filings to fetch.
-        user_agent (Union[str, NoneType], optional): Value used for HTTP header "User-Agent" for all requests.
-            If given None, a valid client with user_agent must be given.
-            See the SEC's statement on
+        user_agent (Union[str, NoneType], optional): Value used for HTTP header
+            "User-Agent" for all requests. If given None, a valid client with
+            user_agent must be given. See the SEC's statement on
             `fair access <https://www.sec.gov/os/accessing-edgar-data>`_
             for more information. Defaults to None.
-        client (Union[NoneType, secedgar.client.NetworkClient], optional): Client to use for fetching data.
-            If None is given, a user_agent must be given to pass to :class:`secedgar.client.NetworkClient`.
-            Defaults to ``secedgar.client.NetworkClient`` if none is given.
+        client (Union[NoneType, secedgar.client.NetworkClient], optional): Client to use for
+            fetching data. If None is given, a user_agent must be given to pass to
+            :class:`secedgar.client.NetworkClient`. Defaults to ``secedgar.client.NetworkClient``
+            if none is given.
         entry_filter (function, optional): A boolean function to determine
             if the FilingEntry should be kept. Defaults to ``lambda _: True``.
             See :class:`secedgar.core.DailyFilings` for more detail.

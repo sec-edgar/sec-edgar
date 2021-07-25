@@ -23,8 +23,9 @@ class IndexFilings(AbstractFiling):
             See the SEC's statement on
             `fair access <https://www.sec.gov/os/accessing-edgar-data>`_
             for more information.
-        client (Union[NoneType, secedgar.client.NetworkClient], optional): Client to use for fetching data.
-            If None is given, a user_agent must be given to pass to :class:`secedgar.client.NetworkClient`.
+        client (Union[NoneType, secedgar.client.NetworkClient], optional): Client to use for
+            fetching data. If None is given, a user_agent must be given to pass to
+            :class:`secedgar.client.NetworkClient`.
             Defaults to ``secedgar.client.NetworkClient`` if none is given.
         entry_filter (function, optional): A boolean function to determine
             if the FilingEntry should be kept. E.g. `lambda l: l.form_type == "4"`.

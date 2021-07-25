@@ -37,7 +37,6 @@ class CompanyFilings(AbstractFiling):
         kwargs: See kwargs accepted for :class:`secedgar.client.NetworkClient`.
 
     Examples:
-
         Restrict the start and end dates by using the ``start_date`` and ``end_date`` arguments.
 
         .. code-block:: python
@@ -51,8 +50,8 @@ class CompanyFilings(AbstractFiling):
                                     end_date=date(2019, 1, 1),
                                     user_agent="Name (email)")
 
-        If you would like to find all filings from some ``start_date`` until today, simply exclude ``end_date``.
-        The end date defaults to today's date.
+        If you would like to find all filings from some ``start_date`` until today,
+        simply exclude ``end_date``. The end date defaults to today's date.
 
         .. code-block:: python
 
@@ -77,7 +76,8 @@ class CompanyFilings(AbstractFiling):
                                     start_date=date(2015, 1, 1),
                                     user_agent="Name (email)")
 
-        *For a full list of the available filing types, please see* :class:`secedgar.core.FilingType`.
+        *For a full list of the available filing types, please see*
+        :class:`secedgar.core.FilingType`.
 
 
         SEC requests that traffic identifies itself via a user agent string. You can

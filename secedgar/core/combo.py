@@ -23,8 +23,9 @@ class ComboFilings:
             See the SEC's statement on
             `fair access <https://www.sec.gov/os/accessing-edgar-data>`_
             for more information.
-        client (Union[NoneType, secedgar.client.NetworkClient], optional): Client to use for fetching data.
-            If None is given, a user_agent must be given to pass to :class:`secedgar.client.NetworkClient`.
+        client (Union[NoneType, secedgar.client.NetworkClient], optional): Client to use for
+            fetching data. If None is given, a user_agent must be given to pass to
+            :class:`secedgar.client.NetworkClient`.
             Defaults to ``secedgar.client.NetworkClient`` if none is given.
         entry_filter (function, optional): A boolean function to determine
             if the FilingEntry should be kept. Defaults to `lambda _: True`.
@@ -40,7 +41,6 @@ class ComboFilings:
     .. versionadded:: 0.4.0
 
     Examples:
-
         To download all filings from January 6, 2020 until November 5, 2020, you could do following:
 
         .. code-block:: python

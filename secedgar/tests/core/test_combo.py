@@ -1,10 +1,8 @@
 from datetime import date
-from typing import Type
 
 import pytest
 from secedgar.client import NetworkClient
 from secedgar.core.combo import ComboFilings
-from secedgar.tests.conftest import mock_user_agent
 
 
 def lambda_matches(a, b):

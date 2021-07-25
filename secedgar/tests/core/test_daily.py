@@ -1,6 +1,5 @@
 import os
 from datetime import date, datetime
-from typing import Type
 
 import pytest
 import secedgar.utils as utils
@@ -73,8 +72,9 @@ class TestDaily:
         assert url in daily_filing.get_urls()[key]
 
     def test_get_listings_directory(self, mock_user_agent, mock_daily_quarter_directory):
-        daily_filing_listing_directory = DailyFilings(date(2018, 12, 31),
-                                                      user_agent=mock_user_agent)._get_listings_directory()
+        daily_filings = DailyFilings(date(2018, 12, 31),
+                                     user_agent=mock_user_agent)
+        daily_filing_listing_directory = daily_filings._get_listings_directory()
         assert daily_filing_listing_directory.status_code == 200
         assert "master.20181231.idx" in daily_filing_listing_directory.text
 

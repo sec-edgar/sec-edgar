@@ -1,6 +1,5 @@
 # Tests if filings are correctly received from EDGAR
 import datetime
-from typing import Type
 
 import pytest
 from secedgar.cik_lookup import CIKLookup

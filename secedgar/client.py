@@ -24,8 +24,8 @@ class NetworkClient:
             for more information.
         retry_count (int, optional): Number of times to retry connecting to URL if not successful.
             Defaults to 3.
-        batch_size (int, optional): Number of filings to receive per request (helpful if pagination needed).
-            Defaults to 10.
+        batch_size (int, optional): Number of filings to receive per request
+            Helpful if pagination needed. Defaults to 10.
         backoff_factor (float, optional): Backoff factor to use with ``urllib3.util.retry.Retry``.
             See urllib3 docs for more info. Defaults to 0.
         rate_limit (int, optional): Number of requests per second to limit to.

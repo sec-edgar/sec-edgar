@@ -38,7 +38,6 @@ def filings(
         kwargs: Any keyword arguments to pass to ``NetworkClient`` if no client is specified.
 
     Examples:
-
         Using the ``filings`` function from secedgar is the easiest way to retrieve filings.
 
         Depending on the arguments given, secedgar will return an object that will get you
@@ -46,10 +45,14 @@ def filings(
 
         There are 4 main classes which can be returned.
 
-            - :class:`secedgar.core.combo.ComboFilings` for fetching filings over multiple days that does not fall exactly into a quarter
-            - :class:`secedgar.core.company.CompanyFilings` for fetching a particular filing type for one or more companies
-            - :class:`secedgar.core.daily.DailyFilings` for fetching all filings from a specific date
-            - :class:`secedgar.core.quarterly.QuarterlyFilings` for fetching all filings from a specific quarter
+            - :class:`secedgar.core.combo.ComboFilings` for fetching filings over multiple days
+                that does not fall exactly into a quarter
+            - :class:`secedgar.core.company.CompanyFilings` for fetching a particular
+                filing type for one or more companies
+            - :class:`secedgar.core.daily.DailyFilings` for fetching all filings
+                from a specific date
+            - :class:`secedgar.core.quarterly.QuarterlyFilings` for fetching all filings
+                from a specific quarter
 
         To get all filings over a time span, you could use something like below.
 
