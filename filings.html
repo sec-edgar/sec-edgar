@@ -232,31 +232,19 @@ the information you want from EDGAR.</p>
 <p>There are 4 main classes which can be returned.</p>
 <blockquote>
 <div><ul class="simple">
-<li><dl class="simple">
-<dt><a class="reference internal" href="#secedgar.ComboFilings" title="secedgar.core.combo.ComboFilings"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.core.combo.ComboFilings</span></code></a> for fetching filings over multiple days</dt><dd><p>that does not fall exactly into a quarter</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt><a class="reference internal" href="#secedgar.CompanyFilings" title="secedgar.core.company.CompanyFilings"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.core.company.CompanyFilings</span></code></a> for fetching a particular</dt><dd><p>filing type for one or more companies</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt><a class="reference internal" href="#secedgar.DailyFilings" title="secedgar.core.daily.DailyFilings"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.core.daily.DailyFilings</span></code></a> for fetching all filings</dt><dd><p>from a specific date</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt><a class="reference internal" href="#secedgar.QuarterlyFilings" title="secedgar.core.quarterly.QuarterlyFilings"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.core.quarterly.QuarterlyFilings</span></code></a> for fetching all filings</dt><dd><p>from a specific quarter</p>
-</dd>
-</dl>
-</li>
+<li><p><a class="reference internal" href="#secedgar.ComboFilings" title="secedgar.ComboFilings"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.ComboFilings</span></code></a> for fetching filings over multiple days
+that does not fall exactly into a quarter</p></li>
+<li><p><a class="reference internal" href="#secedgar.CompanyFilings" title="secedgar.CompanyFilings"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.CompanyFilings</span></code></a> for fetching a particular
+filing type for one or more companies</p></li>
+<li><p><a class="reference internal" href="#secedgar.DailyFilings" title="secedgar.DailyFilings"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.DailyFilings</span></code></a> for fetching all filings
+from a specific date</p></li>
+<li><p><a class="reference internal" href="#secedgar.QuarterlyFilings" title="secedgar.QuarterlyFilings"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.QuarterlyFilings</span></code></a> for fetching all filings
+from a specific quarter</p></li>
 </ul>
 </div></blockquote>
 <p>To get all filings over a time span, you could use something like below.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
-<span class="kn">from</span> <span class="nn">secedgar.core</span> <span class="kn">import</span> <span class="n">filings</span><span class="p">,</span> <span class="n">FilingType</span>
+<span class="kn">from</span> <span class="nn">secedgar</span> <span class="kn">import</span> <span class="n">filings</span><span class="p">,</span> <span class="n">FilingType</span>
 
 <span class="c1"># secedgar creates correct filing object for given arguments</span>
 <span class="c1"># this will fetch the first 50 filings found over the time span</span>
@@ -272,7 +260,7 @@ the information you want from EDGAR.</p>
 </pre></div>
 </div>
 <p>To get a single filing type for one or more companies, you could use this:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">secedgar</span> <span class="k">as</span> <span class="nn">sec</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">secedgar</span> <span class="kn">import</span> <span class="n">filings</span><span class="p">,</span> <span class="n">FilingType</span>
 
 <span class="c1"># similar to above, but fetches filings for specific tickers</span>
 <span class="n">company_filings</span> <span class="o">=</span> <span class="n">filings</span><span class="p">(</span><span class="n">cik_lookup</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;aapl&quot;</span><span class="p">,</span> <span class="s2">&quot;fb&quot;</span><span class="p">],</span>
@@ -284,7 +272,7 @@ the information you want from EDGAR.</p>
 </div>
 <p>To get filings for a single day, you could use something like this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
-<span class="kn">import</span> <span class="nn">secedgar</span> <span class="k">as</span> <span class="nn">sec</span>
+<span class="kn">from</span> <span class="nn">secedgar</span> <span class="kn">import</span> <span class="n">filings</span>
 
 <span class="c1"># all filings for</span>
 <span class="n">daily_filings</span> <span class="o">=</span> <span class="n">filings</span><span class="p">(</span><span class="n">start_date</span><span class="o">=</span><span class="n">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span> <span class="p">,</span><span class="mi">3</span><span class="p">),</span>
@@ -303,7 +291,7 @@ the information you want from EDGAR.</p>
 </div>
 <p>For getting filings from a specific quarter, the function call would look like this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
-<span class="kn">import</span> <span class="nn">secedgar</span> <span class="k">as</span> <span class="nn">sec</span>
+<span class="kn">from</span> <span class="nn">secedgar</span> <span class="kn">import</span> <span class="n">filings</span>
 
 <span class="c1"># all quarterly filings</span>
 <span class="n">quarterly_filings</span> <span class="o">=</span> <span class="n">filings</span><span class="p">(</span><span class="n">start_date</span><span class="o">=</span><span class="n">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span> <span class="p">,</span><span class="mi">1</span><span class="p">),</span>
@@ -762,18 +750,6 @@ if false downloads each file in index. Default is <cite>False</cite>.</p></li>
 
 </dd></dl>
 
-<div class="section" id="examples">
-<h4>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h4>
-<p>If you wanted to download all filings from January 2, 2020, you could use the following code.
-Note that you should replace <code class="docutils literal notranslate"><span class="pre">'/my_directory'</span></code> with the desired directory of the filings.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">secedgar</span> <span class="kn">import</span> <span class="n">DailyFilings</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
-
-<span class="n">daily_filings</span> <span class="o">=</span> <span class="n">DailyFilings</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-<span class="n">daily_filings</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;/my_directory&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
 </div>
 <div class="section" id="quarterly-filings">
 <h3>Quarterly Filings<a class="headerlink" href="#quarterly-filings" title="Permalink to this headline">¶</a></h3>
