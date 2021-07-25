@@ -75,7 +75,7 @@ class CIKLookup:
 
     @property
     def client(self):
-        """``secedgar.client_.base``: Client to use to fetch requests."""
+        """``secedgar.client.NetworkClient``: Client to use to fetch requests."""
         return self._client
 
     @property

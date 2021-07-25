@@ -45,21 +45,21 @@ def filings(
 
         There are 4 main classes which can be returned.
 
-            - :class:`secedgar.core.combo.ComboFilings` for fetching filings over multiple days
-                that does not fall exactly into a quarter
-            - :class:`secedgar.core.company.CompanyFilings` for fetching a particular
-                filing type for one or more companies
-            - :class:`secedgar.core.daily.DailyFilings` for fetching all filings
-                from a specific date
-            - :class:`secedgar.core.quarterly.QuarterlyFilings` for fetching all filings
-                from a specific quarter
+            - :class:`secedgar.ComboFilings` for fetching filings over multiple days
+              that does not fall exactly into a quarter
+            - :class:`secedgar.CompanyFilings` for fetching a particular
+              filing type for one or more companies
+            - :class:`secedgar.DailyFilings` for fetching all filings
+              from a specific date
+            - :class:`secedgar.QuarterlyFilings` for fetching all filings
+              from a specific quarter
 
         To get all filings over a time span, you could use something like below.
 
         .. code-block:: python
 
             from datetime import date
-            from secedgar.core import filings, FilingType
+            from secedgar import filings, FilingType
 
             # secedgar creates correct filing object for given arguments
             # this will fetch the first 50 filings found over the time span
@@ -77,7 +77,7 @@ def filings(
 
         .. code-block:: python
 
-            import secedgar as sec
+            from secedgar import filings, FilingType
 
             # similar to above, but fetches filings for specific tickers
             company_filings = filings(cik_lookup=["aapl", "fb"],
@@ -91,7 +91,7 @@ def filings(
         .. code-block:: python
 
             from datetime import date
-            import secedgar as sec
+            from secedgar import filings
 
             # all filings for
             daily_filings = filings(start_date=date(2020, 1 ,3),
@@ -114,7 +114,7 @@ def filings(
         .. code-block:: python
 
             from datetime import date
-            import secedgar as sec
+            from secedgar import filings
 
             # all quarterly filings
             quarterly_filings = filings(start_date=date(2020, 1 ,1),

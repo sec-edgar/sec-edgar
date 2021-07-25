@@ -44,20 +44,6 @@ The ``DailyFilings`` class can be used to fetch all the URLs for or download all
    :members:
 
 
-Examples
-^^^^^^^^
-
-If you wanted to download all filings from January 2, 2020, you could use the following code.
-Note that you should replace ``'/my_directory'`` with the desired directory of the filings.
-
-.. code-block:: python
-
-   from secedgar import DailyFilings
-   from datetime import datetime
-
-   daily_filings = DailyFilings(date=datetime(2020, 1, 2))
-   daily_filings.save('/my_directory')
-
 Quarterly Filings
 ~~~~~~~~~~~~~~~~~
 
