@@ -1,5 +1,6 @@
 from datetime import date, timedelta
 from functools import reduce
+from typing import Union
 
 from secedgar.core.daily import DailyFilings
 from secedgar.core.quarterly import QuarterlyFilings
@@ -17,7 +18,14 @@ class ComboFilings:
         end_date (Union[str, datetime.datetime, datetime.date], optional):
             Date after which not to fetch reports.
             Stands for "date before." Defaults to today.
-        client (secedgar.client._base.AbstractClient, optional): Client to use for fetching data.
+        user_agent (Union[str, NoneType]): Value used for HTTP header "User-Agent" for all requests.
+            If given None, a valid client with user_agent must be given.
+            See the SEC's statement on
+            `fair access <https://www.sec.gov/os/accessing-edgar-data>`_
+            for more information.
+        client (Union[NoneType, secedgar.client.NetworkClient], optional): Client to use for
+            fetching data. If None is given, a user_agent must be given to pass to
+            :class:`secedgar.client.NetworkClient`.
             Defaults to ``secedgar.client.NetworkClient`` if none is given.
         entry_filter (function, optional): A boolean function to determine
             if the FilingEntry should be kept. Defaults to `lambda _: True`.
@@ -28,26 +36,46 @@ class ComboFilings:
             ``DailyFilings`` to ``QuarterlyFilings``. If ``QuarterlyFilings`` is used, an
             additional filter will be added to limit which days are included.
             Defaults to 30.
+        kwargs: Any keyword arguments to pass to ``NetworkClient`` if no client is specified.
 
     .. versionadded:: 0.4.0
+
+    Examples:
+        To download all filings from January 6, 2020 until November 5, 2020, you could do following:
+
+        .. code-block:: python
+
+            from datetime import date
+            from secedgar import ComboFilings
+
+            combo_filings = ComboFilings(start_date=date(2020, 1, 6),
+                                         end_date=date(2020, 11, 5)
+            combo_filings.save('/my_directory')
     """
 
     def __init__(self,
                  start_date: date,
                  end_date: date,
+                 user_agent: Union[str, None] = None,
                  client=None,
                  entry_filter=lambda _: True,
-                 balancing_point=30):
+                 balancing_point=30,
+                 **kwargs):
         self.entry_filter = entry_filter
         self.start_date = start_date
         self.end_date = end_date
+        self.user_agent = user_agent
         self.quarterly = QuarterlyFilings(year=self.start_date.year,
                                           quarter=get_quarter(self.start_date),
+                                          user_agent=user_agent,
                                           client=client,
-                                          entry_filter=self.entry_filter)
+                                          entry_filter=self.entry_filter,
+                                          **kwargs)
         self.daily = DailyFilings(date=self.start_date,
+                                  user_agent=user_agent,
                                   client=client,
-                                  entry_filter=self.entry_filter)
+                                  entry_filter=self.entry_filter,
+                                  **kwargs)
         self.balancing_point = balancing_point
         self._recompute()
 

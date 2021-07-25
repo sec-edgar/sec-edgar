@@ -18,18 +18,24 @@ class IndexFilings(AbstractFiling):
     """Abstract Base Class for index filings.
 
     Args:
-        client (secedgar.client._base, optional): Client to use. Defaults to
-            ``secedgar.client.NetworkClient``.
-
+        user_agent (Union[str, NoneType]): Value used for HTTP header "User-Agent" for all requests.
+            If given None, a valid client with user_agent must be given.
+            See the SEC's statement on
+            `fair access <https://www.sec.gov/os/accessing-edgar-data>`_
+            for more information.
+        client (Union[NoneType, secedgar.client.NetworkClient], optional): Client to use for
+            fetching data. If None is given, a user_agent must be given to pass to
+            :class:`secedgar.client.NetworkClient`.
+            Defaults to ``secedgar.client.NetworkClient`` if none is given.
         entry_filter (function, optional): A boolean function to determine
             if the FilingEntry should be kept. E.g. `lambda l: l.form_type == "4"`.
             Defaults to `None`.
         kwargs: Any keyword arguments to pass to ``NetworkClient`` if no client is specified.
     """
 
-    def __init__(self, client=None, entry_filter=None, **kwargs):
+    def __init__(self, user_agent=None, client=None, entry_filter=None, **kwargs):
         super().__init__()
-        self._client = client if client is not None else NetworkClient(**kwargs)
+        self._client = client or NetworkClient(user_agent=user_agent, **kwargs)
         self._listings_directory = None
         self._master_idx_file = None
         self._filings_dict = None
@@ -54,7 +60,7 @@ class IndexFilings(AbstractFiling):
 
     @property
     def client(self):
-        """``secedgar.client._base``: Client to use to make requests."""
+        """``secedgar.client.NetworkClient``: Client to use to make requests."""
         return self._client
 
     @property
@@ -115,7 +121,7 @@ class IndexFilings(AbstractFiling):
             update_cache (bool, optional): Whether master index should be updated
                 method call. Defaults to False.
             kwargs: Keyword arguments to pass to
-                ``secedgar.client._base.AbstractClient.get_response``.
+                ``secedgar.client.NetworkClient.get_response``.
 
         Returns:
             text (str): Idx file text.

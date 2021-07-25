@@ -36,13 +36,13 @@ class TestQuarterly:
         ("1993", TypeError),
         ("1993.0", TypeError),
     ])
-    def test_bad_year(self, bad_year, expected_error):
+    def test_bad_year(self, mock_user_agent, bad_year, expected_error):
         with pytest.raises(expected_error):
-            _ = QuarterlyFilings(year=bad_year, quarter=1)
+            _ = QuarterlyFilings(year=bad_year, quarter=1, user_agent=mock_user_agent)
 
-    def test_good_year(self):
+    def test_good_year(self, mock_user_agent):
         for year in range(1993, date.today().year + 1):
-            mf = QuarterlyFilings(year=year, quarter=1)
+            mf = QuarterlyFilings(year=year, quarter=1, user_agent=mock_user_agent)
             assert mf.year == year
 
     @pytest.mark.parametrize("bad_quarter,expected_error", [(0.0, TypeError),
@@ -53,24 +53,25 @@ class TestQuarterly:
                                                             (5, ValueError),
                                                             (6, ValueError),
                                                             (2020, ValueError)])
-    def test_bad_quarter(self, bad_quarter, expected_error):
+    def test_bad_quarter(self, mock_user_agent, bad_quarter, expected_error):
         with pytest.raises(expected_error):
-            _ = QuarterlyFilings(year=2020, quarter=bad_quarter)
+            _ = QuarterlyFilings(year=2020, quarter=bad_quarter, user_agent=mock_user_agent)
 
-    def test_good_quarters(self):
+    def test_good_quarters(self, mock_user_agent):
         for quarter in range(1, 5):
-            mf = QuarterlyFilings(year=2019, quarter=quarter)
+            mf = QuarterlyFilings(year=2019, quarter=quarter, user_agent=mock_user_agent)
             assert mf.quarter == quarter
 
     @pytest.mark.parametrize("year,quarter", [(2018, 1), (2019, 2), (2020, 3)])
-    def test_idx_filename_is_always_the_same(self, year, quarter):
-        mf = QuarterlyFilings(year=year, quarter=quarter)
+    def test_idx_filename_is_always_the_same(self, mock_user_agent, year, quarter):
+        mf = QuarterlyFilings(year=year, quarter=quarter, user_agent=mock_user_agent)
         assert mf.idx_filename == "master.idx"
 
-    def test_always_false_entry_filter(self, mock_master_idx_file):
+    def test_always_false_entry_filter(self, mock_user_agent, mock_master_idx_file):
         quarterly_filing = QuarterlyFilings(year=1993,
                                             quarter=4,
-                                            entry_filter=lambda _: False)
+                                            entry_filter=lambda _: False,
+                                            user_agent=mock_user_agent)
         urls = quarterly_filing.get_urls()
         assert len(urls) == 0
 
@@ -81,10 +82,10 @@ class TestQuarterly:
         ("205239", "0000205239-94-000003.txt"),
         ("20762", "0000950131-94-000025.txt"),
     ])
-    def test_save(self, tmp_data_directory, mock_filing_data,
+    def test_save(self, tmp_data_directory, mock_user_agent, mock_filing_data,
                   mock_quarterly_quarter_directory, mock_master_idx_file,
                   mock_filing_response, subdir, file):
-        quarterly_filing = QuarterlyFilings(year=1993, quarter=4)
+        quarterly_filing = QuarterlyFilings(year=1993, quarter=4, user_agent=mock_user_agent)
         quarterly_filing.save(tmp_data_directory)
         subdir = os.path.join("1993", "QTR4", subdir)
         path_to_check = os.path.join(tmp_data_directory, subdir, file)
@@ -96,6 +97,10 @@ class TestQuarterly:
         ("Bed, Bath, & Beyond", "Bed_Bath__Beyond"),
         ("Company with \\lots\\ of /slashes/", "Company_with_lots_of_slashes")
     ])
-    def test_clean_path(self, original_path, clean_path):
-        quarterly_filing = QuarterlyFilings(year=2000, quarter=1)
+    def test_clean_path(self, mock_user_agent, original_path, clean_path):
+        quarterly_filing = QuarterlyFilings(year=2000, quarter=1, user_agent=mock_user_agent)
         assert quarterly_filing.clean_directory_path(original_path) == clean_path
+
+    def test_user_agent_passed_to_client(self, mock_user_agent):
+        quarterly = QuarterlyFilings(year=2020, quarter=1, user_agent=mock_user_agent)
+        assert quarterly.client.user_agent == mock_user_agent

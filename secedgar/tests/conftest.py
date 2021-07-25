@@ -37,6 +37,11 @@ def no_http_requests(monkeysession):
 
 
 @pytest.fixture(scope="session")
+def mock_user_agent():
+    return "Example (me@example.com)"
+
+
+@pytest.fixture(scope="session")
 def mock_filing_response(monkeysession):
     monkeysession.setattr(
         NetworkClient, "fetch",

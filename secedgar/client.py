@@ -18,30 +18,38 @@ class NetworkClient:
     """Class in charge of sending and handling requests to EDGAR database.
 
     Args:
-        retry_count (int): Number of times to retry connecting to URL if not successful.
-            Defaults to 3.
-        batch_size (int): Number of filings to receive per request (helpful if pagination needed).
-            Defaults to 10.
-        backoff_factor (float): Backoff factor to use with ``urllib3.util.retry.Retry``.
-            See urllib3 docs for more info. Defaults to 0.
-        rate_limit (int): Number of requests per second to limit to.
-            Defaults to 10.
         user_agent (str): Value used for HTTP header "User-Agent" for all requests.
-            Defaults to "github.com/sec-edgar/sec-edgar"
+            Must be given. See the SEC's statement on
+            `fair access <https://www.sec.gov/os/accessing-edgar-data>`_
+            for more information.
+        retry_count (int, optional): Number of times to retry connecting to URL if not successful.
+            Defaults to 3.
+        batch_size (int, optional): Number of filings to receive per request
+            Helpful if pagination needed. Defaults to 10.
+        backoff_factor (float, optional): Backoff factor to use with ``urllib3.util.retry.Retry``.
+            See urllib3 docs for more info. Defaults to 0.
+        rate_limit (int, optional): Number of requests per second to limit to.
+            Defaults to 10.
 
     .. note:
        It is highly suggested to keep rate_limit <= 10, as the SEC will block your IP
        temporarily if you exceed this rate.
+
+    Examples:
+        .. code-block:: python
+
+            from secedgar.client import NetworkClient
+            client = NetworkClient(user_agent="Name (email)")
     """
 
     _BASE = "http://www.sec.gov/"
 
     def __init__(self,
+                 user_agent,
                  retry_count=3,
                  batch_size=10,
                  backoff_factor=0,
-                 rate_limit=10,
-                 user_agent="github.com/sec-edgar/sec-edgar"):
+                 rate_limit=10):
         self.retry_count = retry_count
         self.batch_size = batch_size
         self.backoff_factor = backoff_factor
@@ -223,22 +231,17 @@ class NetworkClient:
             with open(path, "wb") as f:
                 f.write(contents)
 
-        conn = aiohttp.TCPConnector(limit=self.rate_limit)
-        headers = {
-            "Connection": "keep-alive",
-            "User-Agent": self.user_agent,
-        }
-        client = aiohttp.ClientSession(connector=conn, headers=headers,
-                                       raise_for_status=True)
-
         def batch(iterable, n):
             length = len(iterable)
             for ndx in range(0, length, n):
                 yield iterable[ndx:min(ndx + n, length)]
 
         conn = aiohttp.TCPConnector(limit=self.rate_limit)
-        client = aiohttp.ClientSession(connector=conn,
-                                       headers={'Connection': 'keep-alive'},
+        headers = {
+            "Connection": "keep-alive",
+            "User-Agent": self.user_agent,
+        }
+        client = aiohttp.ClientSession(connector=conn, headers=headers,
                                        raise_for_status=True)
 
         async with client:
