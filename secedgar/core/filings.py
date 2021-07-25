@@ -59,7 +59,7 @@ def filings(
         .. code-block:: python
 
             from datetime import date
-            from secedgar.core import filings, FilingType
+            from secedgar import filings, FilingType
 
             # secedgar creates correct filing object for given arguments
             # this will fetch the first 50 filings found over the time span
@@ -77,7 +77,7 @@ def filings(
 
         .. code-block:: python
 
-            import secedgar as sec
+            from secedgar import filings, FilingType
 
             # similar to above, but fetches filings for specific tickers
             company_filings = filings(cik_lookup=["aapl", "fb"],
@@ -91,7 +91,7 @@ def filings(
         .. code-block:: python
 
             from datetime import date
-            import secedgar as sec
+            from secedgar import filings
 
             # all filings for
             daily_filings = filings(start_date=date(2020, 1 ,3),
@@ -114,7 +114,7 @@ def filings(
         .. code-block:: python
 
             from datetime import date
-            import secedgar as sec
+            from secedgar import filings
 
             # all quarterly filings
             quarterly_filings = filings(start_date=date(2020, 1 ,1),
