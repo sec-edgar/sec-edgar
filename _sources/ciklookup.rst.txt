@@ -14,7 +14,8 @@ Below is an example of how you can retrieve lookup CIKs by using the ``CIKLookup
 
    from secedgar.core.cik_lookup import CIKLookup
 
-   lookups = CIKLookup(['aapl', 'msft', 'Facebook'])
+   lookups = CIKLookup(['aapl', 'msft', 'Facebook'],
+                       user_agent="Name (email)")
 
 
 Accessing ``lookups.lookup_dict`` would then return

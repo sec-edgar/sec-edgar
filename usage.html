@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Common Usage Examples &mdash; secedgar 0.4.0-alpha documentation</title>
+  <title>Common Usage Examples &mdash; secedgar 0.4.0-alpha.1 documentation</title>
   
 
   
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                0.4.0-alpha
+                0.4.0-alpha.1
               </div>
             
           
@@ -93,7 +93,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Common Usage Examples</a><ul>
@@ -109,7 +109,7 @@
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s New</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Package Information</span></p>
+<p class="caption" role="heading"><span class="caption-text">Package Information</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
 </ul>
@@ -194,16 +194,18 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">secedgar</span> <span class="kn">import</span> <span class="n">CompanyFilings</span><span class="p">,</span> <span class="n">FilingType</span>
 
 <span class="n">my_filings</span> <span class="o">=</span> <span class="n">CompanyFilings</span><span class="p">(</span><span class="n">cik_lookup</span><span class="o">=</span><span class="s1">&#39;aapl&#39;</span><span class="p">,</span>
-                    <span class="n">filing_type</span><span class="o">=</span><span class="n">FilingType</span><span class="o">.</span><span class="n">FILING_10Q</span><span class="p">,</span>
-                    <span class="n">count</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+                            <span class="n">filing_type</span><span class="o">=</span><span class="n">FilingType</span><span class="o">.</span><span class="n">FILING_10Q</span><span class="p">,</span>
+                            <span class="n">count</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+                            <span class="n">user_agent</span><span class="o">=</span><span class="s1">&#39;Name (email)&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">cik_lookup</span></code> argument can also take multiple tickers and/or company names.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">secedgar</span> <span class="kn">import</span> <span class="n">CompanyFilings</span><span class="p">,</span> <span class="n">FilingType</span>
 
 <span class="n">my_filings</span> <span class="o">=</span> <span class="n">CompanyFilings</span><span class="p">(</span><span class="n">cik_lookup</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;aapl&#39;</span><span class="p">,</span> <span class="s1">&#39;msft&#39;</span><span class="p">,</span> <span class="s1">&#39;Facebook&#39;</span><span class="p">],</span>
-                    <span class="n">filing_type</span><span class="o">=</span><span class="n">FilingType</span><span class="o">.</span><span class="n">FILING_10Q</span><span class="p">,</span>
-                    <span class="n">count</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+                            <span class="n">filing_type</span><span class="o">=</span><span class="n">FilingType</span><span class="o">.</span><span class="n">FILING_10Q</span><span class="p">,</span>
+                            <span class="n">count</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+                            <span class="n">user_agent</span><span class="o">=</span><span class="s1">&#39;Name (email)&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="section" id="using-a-user-agent">
@@ -220,12 +222,12 @@ on the SEC open data program, including best practices that make it more efficie
 and SEC.gov enhancements that may impact scripted downloading processes.
 For more information, contact <a class="reference external" href="mailto:opendata&#37;&#52;&#48;sec&#46;gov">opendata<span>&#64;</span>sec<span>&#46;</span>gov</a>.</p>
 </div></blockquote>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">secedgar.filings</span> <span class="kn">import</span> <span class="n">Filing</span><span class="p">,</span> <span class="n">FilingType</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">secedgar</span> <span class="kn">import</span> <span class="n">CompanyFilings</span><span class="p">,</span> <span class="n">FilingType</span>
 
-<span class="n">my_filings</span> <span class="o">=</span> <span class="n">Filing</span><span class="p">(</span><span class="n">cik_lookup</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;aapl&#39;</span><span class="p">,</span> <span class="s1">&#39;msft&#39;</span><span class="p">,</span> <span class="s1">&#39;Facebook&#39;</span><span class="p">],</span>
-                    <span class="n">filing_type</span><span class="o">=</span><span class="n">FilingType</span><span class="o">.</span><span class="n">FILING_10Q</span><span class="p">,</span>
-                    <span class="n">count</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
-                    <span class="n">user_agent</span><span class="o">=</span><span class="s1">&#39;YOUR COMPANY NAME HERE&#39;</span><span class="p">)</span>
+<span class="n">my_filings</span> <span class="o">=</span> <span class="n">CompanyFilings</span><span class="p">(</span><span class="n">cik_lookup</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;aapl&#39;</span><span class="p">,</span> <span class="s1">&#39;msft&#39;</span><span class="p">,</span> <span class="s1">&#39;Facebook&#39;</span><span class="p">],</span>
+                            <span class="n">filing_type</span><span class="o">=</span><span class="n">FilingType</span><span class="o">.</span><span class="n">FILING_10Q</span><span class="p">,</span>
+                            <span class="n">count</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+                            <span class="n">user_agent</span><span class="o">=</span><span class="s1">&#39;Name (email)&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

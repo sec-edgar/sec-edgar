@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>What’s New &mdash; secedgar 0.4.0-alpha documentation</title>
+  <title>What’s New &mdash; secedgar 0.4.0-alpha.1 documentation</title>
   
 
   
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                0.4.0-alpha
+                0.4.0-alpha.1
               </div>
             
           
@@ -93,7 +93,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Common Usage Examples</a></li>
@@ -195,7 +195,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Package Information</span></p>
+<p class="caption" role="heading"><span class="caption-text">Package Information</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
 </ul>
@@ -281,6 +281,7 @@
 <li><p>Create <code class="docutils literal notranslate"><span class="pre">filings</span></code> factory that returns the correct class based on user inputs. Returns one of <code class="docutils literal notranslate"><span class="pre">ComboFilings</span></code>, <code class="docutils literal notranslate"><span class="pre">QuarterlyFilings</span></code>, <code class="docutils literal notranslate"><span class="pre">DailyFilings</span></code>, <code class="docutils literal notranslate"><span class="pre">CompanyFilings</span></code>.</p></li>
 <li><p>Add many more types to <code class="docutils literal notranslate"><span class="pre">FilingType</span></code> enum. Switch to csv table for details.</p></li>
 <li><p>If no filings found for <code class="docutils literal notranslate"><span class="pre">DailyFilings</span></code> or <code class="docutils literal notranslate"><span class="pre">MasterFilings</span></code> after finding that other filings that do not match the criteria exist, then raise a <code class="docutils literal notranslate"><span class="pre">NoFilingsError</span></code> instead of a <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>.</p></li>
+<li><p>Fix use of <code class="docutils literal notranslate"><span class="pre">user_agent</span></code> by <code class="docutils literal notranslate"><span class="pre">NetworkClient</span></code> and require its use by all filings classes/functions</p></li>
 </ul>
 </div>
 <div class="section" id="contributors">
