@@ -41,7 +41,9 @@ Single Company
     from secedgar import filings, FilingType
 
     # 10Q filings for Apple (ticker "aapl")
-    my_filings = filings(cik_lookup="aapl", filing_type=FilingType.FILING_10Q, user_agent="Your name (your email)")
+    my_filings = filings(cik_lookup="aapl",
+                         filing_type=FilingType.FILING_10Q,
+                         user_agent="Your name (your email)")
     my_filings.save('/path/to/dir')
 
 
@@ -53,7 +55,9 @@ Multiple Companies
     from secedgar import filings, FilingType
 
     # 10Q filings for Apple and Facebook (tickers "aapl" and "fb")
-    my_filings = filings(cik_lookup=["aapl", "fb"], filing_type=FilingType.FILING_10Q, user_agent="Your name (your email)")
+    my_filings = filings(cik_lookup=["aapl", "fb"],
+                         filing_type=FilingType.FILING_10Q,
+                         user_agent="Your name (your email)")
     my_filings.save('/path/to/dir')
 
 
@@ -66,7 +70,8 @@ Daily Filings
     from secedgar import filings
     from datetime import date
 
-    daily_filings = filings(start_date=date(2021, 6, 30), user_agent="Your name (your email)")
+    daily_filings = filings(start_date=date(2021, 6, 30),
+                            user_agent="Your name (your email)")
     daily_urls = daily_filings.get_urls()
 
 
