@@ -118,4 +118,4 @@ The code above would create a directory structure that would look something like
          └── 0001564590-20-047996.txt
 
 
-This same sort of templating can be used for :class:`secedgar.core.DailyFilings` and :class:`secedgar.core.QuarterlyFilings`.
+This same sort of templating can be used for :class:`secedgar.DailyFilings` and :class:`secedgar.QuarterlyFilings`.
