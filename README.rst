@@ -11,15 +11,15 @@ single command.
 Installation
 ------------
 
-You may have to install the package using pip:
+You can install the package using pip:
 
 .. code:: bash
 
    $ pip install secedgar
 
-or
+OR
 
-You can clone the project or download it as zip.
+You can clone the project:
 
 .. code:: bash
 
@@ -30,13 +30,51 @@ You can clone the project or download it as zip.
 Running
 -------
 
+Company Filings
+~~~~~~~~~~~~~~~
+
+Single Company
+^^^^^^^^^^^^^^
+
 .. code:: python
 
-    from secedgar.filings import Filing, FilingType
+    from secedgar import filings, FilingType
 
     # 10Q filings for Apple (ticker "aapl")
-    my_filings = Filing(cik_lookup='aapl', filing_type=FilingType.FILING_10Q)
-    my_filings.save('~/path/to/dir')
+    my_filings = filings(cik_lookup="aapl",
+                         filing_type=FilingType.FILING_10Q,
+                         user_agent="Your name (your email)")
+    my_filings.save('/path/to/dir')
+
+
+Multiple Companies
+^^^^^^^^^^^^^^^^^^
+
+.. code:: python
+
+    from secedgar import filings, FilingType
+
+    # 10Q filings for Apple and Facebook (tickers "aapl" and "fb")
+    my_filings = filings(cik_lookup=["aapl", "fb"],
+                         filing_type=FilingType.FILING_10Q,
+                         user_agent="Your name (your email)")
+    my_filings.save('/path/to/dir')
+
+
+Daily Filings
+~~~~~~~~~~~~~
+
+
+.. code:: python
+
+    from secedgar import filings
+    from datetime import date
+
+    daily_filings = filings(start_date=date(2021, 6, 30),
+                            user_agent="Your name (your email)")
+    daily_urls = daily_filings.get_urls()
+
+
 
 Supported Methods
 -----------------
