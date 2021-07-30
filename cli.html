@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Command Line Interface &mdash; secedgar 0.4.0-alpha.1 documentation</title>
+  <title>Command Line Interface &mdash; secedgar 0.4.0-alpha.2 documentation</title>
   
 
   
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                0.4.0-alpha.1
+                0.4.0-alpha.2
               </div>
             
           
@@ -189,7 +189,6 @@ This helps to easily download filings from EDGAR without writing any code.</p>
 <div class="section" id="secedgar">
 <h2>secedgar<a class="headerlink" href="#secedgar" title="Permalink to this headline">¶</a></h2>
 <p>Main CLI group.</p>
-<p>f</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>ctx (click.core.Context): Click context.
 user_agent (str): User agent string to pass.</p>
@@ -210,6 +209,15 @@ user_agent (str): User agent string to pass.</p>
 <div class="section" id="secedgar-daily">
 <h3>daily<a class="headerlink" href="#secedgar-daily" title="Permalink to this headline">¶</a></h3>
 <p>Click command for downloading daily filings. Run <code class="docutils literal notranslate"><span class="pre">secedgar</span> <span class="pre">daily</span> <span class="pre">--help</span></code> for info.</p>
+<dl>
+<dt>Args:</dt><dd><p>ctx (click.core.Context): Click context.
+date (str): Date to look up daily filings for. Should be in the format YYYYMMDD.
+directory (str): Directory where files should be saved.</p>
+<blockquote>
+<div><p>Defaults to current working directory.</p>
+</div></blockquote>
+</dd>
+</dl>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>secedgar daily <span class="o">[</span>OPTIONS<span class="o">]</span>
 </pre></div>
 </div>
@@ -232,7 +240,6 @@ Defaults to directory from which CLI is being executed.</p>
 <div class="section" id="secedgar-filing">
 <h3>filing<a class="headerlink" href="#secedgar-filing" title="Permalink to this headline">¶</a></h3>
 <p>Click command for downloading filings. Run <code class="docutils literal notranslate"><span class="pre">secedgar</span> <span class="pre">filing</span> <span class="pre">--help</span></code> for info.</p>
-<p>f</p>
 <dl>
 <dt>Args:</dt><dd><p>ctx (click.core.Context): Click context.
 lookups (str): Companies and tickers to include in filing download.
