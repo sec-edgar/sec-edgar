@@ -1,0 +1,417 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Using Network Client &mdash; secedgar 0.4.0-alpha.2 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Parser" href="parser.html" />
+    <link rel="prev" title="Finding Company CIKs" href="cikmap.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> secedgar
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.0-alpha.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Common Usage Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ciklookup.html">CIK Lookup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filings.html">Filings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filingtypes.html">Filing Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cikmap.html">Finding Company CIKs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using Network Client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parser.html">Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s New</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">secedgar</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Using Network Client</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/client.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="using-network-client">
+<span id="client"></span><h1>Using Network Client<a class="headerlink" href="#using-network-client" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference internal" href="#secedgar.client.NetworkClient" title="secedgar.client.NetworkClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.client.NetworkClient</span></code></a> class is used to interact with the SEC’s website.
+This class aims to provide all utilities needed to make requesting data from the SEC as easily
+as possible.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By default, <code class="docutils literal notranslate"><span class="pre">secedgar</span></code> will use <code class="docutils literal notranslate"><span class="pre">NetworkClient</span></code>. Modifying <code class="docutils literal notranslate"><span class="pre">NetworkClient</span></code> is not
+necessary unless you need further control over how you would like to interact with the
+SEC’s website.</p>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="secedgar.client.NetworkClient">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">secedgar.client.</span></span><span class="sig-name descname"><span class="pre">NetworkClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_agent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retry_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backoff_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.client.NetworkClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class in charge of sending and handling requests to EDGAR database.</p>
+<dl>
+<dt>Args:        user_agent (str): Value used for HTTP header “User-Agent” for all requests.</dt><dd><blockquote>
+<div><p>Must be given. See the SEC’s statement on
+<a class="reference external" href="https://www.sec.gov/os/accessing-edgar-data">fair access</a>
+for more information.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>retry_count (int, optional): Number of times to retry connecting to URL if not successful.</dt><dd><p>Defaults to 3.</p>
+</dd>
+<dt>batch_size (int, optional): Number of filings to receive per request</dt><dd><p>Helpful if pagination needed. Defaults to 10.</p>
+</dd>
+<dt>backoff_factor (float, optional): Backoff factor to use with <code class="docutils literal notranslate"><span class="pre">urllib3.util.retry.Retry</span></code>.</dt><dd><p>See urllib3 docs for more info. Defaults to 0.</p>
+</dd>
+<dt>rate_limit (int, optional): Number of requests per second to limit to.</dt><dd><p>Defaults to 10.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Creating a basic instance of <code class="docutils literal notranslate"><span class="pre">NetworkClient</span></code> is straightforward.
+The only required argument is the <code class="docutils literal notranslate"><span class="pre">user_agent</span></code> argument.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">secedgar.client</span> <span class="kn">import</span> <span class="n">NetworkClient</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">NetworkClient</span><span class="p">(</span><span class="n">user_agent</span><span class="o">=</span><span class="s2">&quot;Name (email)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you are running into 429 errors, you may want to consider
+modifying your <code class="docutils literal notranslate"><span class="pre">backoff_factor</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By default, you can pass any keyword arguments you want to give
+<code class="docutils literal notranslate"><span class="pre">NetworkClient</span></code> to any of the various filings classes.
+The <a class="reference internal" href="filings.html#secedgar.filings" title="secedgar.filings"><code class="xref py py-meth docutils literal notranslate"><span class="pre">secedgar.filings()</span></code></a> function also accepts any/all of the
+<code class="docutils literal notranslate"><span class="pre">NetworkClient</span></code> keyword arguments.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">secedgar.client</span> <span class="kn">import</span> <span class="n">NetworkClient</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">NetworkClient</span><span class="p">(</span><span class="n">user_agent</span><span class="o">=</span><span class="s2">&quot;Name (email)&quot;</span><span class="p">,</span> <span class="n">backoff_factor</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py property">
+<dt class="sig sig-object py" id="secedgar.client.NetworkClient.backoff_factor">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">backoff_factor</span></span><a class="headerlink" href="#secedgar.client.NetworkClient.backoff_factor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Backoff factor to pass to <code class="docutils literal notranslate"><span class="pre">urllib3.util.retry.Retry</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="secedgar.client.NetworkClient.batch_size">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">batch_size</span></span><a class="headerlink" href="#secedgar.client.NetworkClient.batch_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Number of results to show per page.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="secedgar.client.NetworkClient.fetch">
+<em class="property"><span class="pre">async</span> <span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">fetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">link</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.client.NetworkClient.fetch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Asynchronous get request.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>link</strong> (<em>str</em>) – URL to fetch.</p></li>
+<li><p><strong>session</strong> (<em>aiohttp.ClientSession</em>) – Asynchronous client session to use to perform
+get request.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Contents of response from get request.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Content</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="secedgar.client.NetworkClient.get_response">
+<span class="sig-name descname"><span class="pre">get_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.client.NetworkClient.get_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute HTTP request and returns response if valid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – A properly-formatted path</p></li>
+<li><p><strong>params</strong> (<em>dict</em>) – Dictionary of parameters to pass
+to request. Defaults to None.</p></li>
+<li><p><strong>backoff_factor</strong> (<em>float</em>) – Backoff factor to pass to <code class="docutils literal notranslate"><span class="pre">urllib3.util.Retry</span></code>.</p></li>
+<li><p><strong>kwargs</strong> – Keyword arguments to pass to <code class="docutils literal notranslate"><span class="pre">requests.Session.get</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <code class="docutils literal notranslate"><span class="pre">requests.Response</span></code> object.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>response (requests.Response)</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>EDGARQueryError</strong> – If problems arise when making query.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="secedgar.client.NetworkClient.get_soup">
+<span class="sig-name descname"><span class="pre">get_soup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.client.NetworkClient.get_soup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return BeautifulSoup object from response text. Uses lxml parser.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – A properly-formatted path</p></li>
+<li><p><strong>params</strong> (<em>dict</em>) – Dictionary of parameters to pass
+to request.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>BeautifulSoup object from response text.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="secedgar.client.NetworkClient.rate_limit">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">rate_limit</span></span><a class="headerlink" href="#secedgar.client.NetworkClient.rate_limit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of requests to limit client to per second.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="secedgar.client.NetworkClient.retry_count">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">retry_count</span></span><a class="headerlink" href="#secedgar.client.NetworkClient.retry_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of times to retry request.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="secedgar.client.NetworkClient.user_agent">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">user_agent</span></span><a class="headerlink" href="#secedgar.client.NetworkClient.user_agent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Value used for HTTP header “User-Agent” for all requests.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="secedgar.client.NetworkClient.wait_for_download_async">
+<em class="property"><span class="pre">async</span> </em><span class="sig-name descname"><span class="pre">wait_for_download_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.client.NetworkClient.wait_for_download_async" title="Permalink to this definition">¶</a></dt>
+<dd><p>Asynchronously download links into files using rate limit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>inputs</strong> (<em>list of tuples of str</em>) – List of tuples with length 2. First element
+in tuple should be URL to request and second element should be path
+where content after requesting URL is stored.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="parser.html" class="btn btn-neutral float-right" title="Parser" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="cikmap.html" class="btn btn-neutral float-left" title="Finding Company CIKs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, sec-edgar.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

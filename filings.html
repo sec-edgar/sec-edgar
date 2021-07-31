@@ -112,6 +112,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="filingtypes.html">Filing Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cikmap.html">Finding Company CIKs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="client.html">Using Network Client</a></li>
 <li class="toctree-l1"><a class="reference internal" href="parser.html">Parser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s New</a></li>
@@ -204,7 +205,7 @@ over what is being created, you can use the following classes:</p>
 <h2>Filings Function<a class="headerlink" href="#filings-function" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="secedgar.filings">
-<span class="sig-prename descclassname"><span class="pre">secedgar.</span></span><span class="sig-name descname"><span class="pre">filings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cik_lookup=None</span></em>, <em class="sig-param"><span class="pre">filing_type=None</span></em>, <em class="sig-param"><span class="pre">user_agent=None</span></em>, <em class="sig-param"><span class="pre">start_date=None</span></em>, <em class="sig-param"><span class="pre">end_date=datetime.date(2021</span></em>, <em class="sig-param"><span class="pre">7</span></em>, <em class="sig-param"><span class="pre">30)</span></em>, <em class="sig-param"><span class="pre">count=None</span></em>, <em class="sig-param"><span class="pre">client=None</span></em>, <em class="sig-param"><span class="pre">entry_filter=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">secedgar.</span></span><span class="sig-name descname"><span class="pre">filings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cik_lookup=None</span></em>, <em class="sig-param"><span class="pre">filing_type=None</span></em>, <em class="sig-param"><span class="pre">user_agent=None</span></em>, <em class="sig-param"><span class="pre">start_date=None</span></em>, <em class="sig-param"><span class="pre">end_date=datetime.date(2021</span></em>, <em class="sig-param"><span class="pre">7</span></em>, <em class="sig-param"><span class="pre">31)</span></em>, <em class="sig-param"><span class="pre">count=None</span></em>, <em class="sig-param"><span class="pre">client=None</span></em>, <em class="sig-param"><span class="pre">entry_filter=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></em>, <em class="sig-param"><span class="pre">**kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings" title="Permalink to this definition">¶</a></dt>
 <dd><p>Utility method to get best filing object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -216,7 +217,7 @@ over what is being created, you can use the following classes:</p>
 enum. Defaults to None. If None, then all filing types for CIKs will be returned.</p></li>
 <li><p><strong>count</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of filings to fetch. Will fetch up to <cite>count</cite> if that</p></li>
 <li><p><strong>available.</strong> (<em>many filings are available. Defaults to all filings</em>) – </p></li>
-<li><p><strong>client</strong> (<em>secedgar.client.NetworkClient</em><em>, </em><em>optional</em>) – Client to use. Defaults to
+<li><p><strong>client</strong> (<a class="reference internal" href="client.html#secedgar.client.NetworkClient" title="secedgar.client.NetworkClient"><em>secedgar.client.NetworkClient</em></a><em>, </em><em>optional</em>) – Client to use. Defaults to
 <code class="docutils literal notranslate"><span class="pre">secedgar.client.NetworkClient</span></code> if None given.</p></li>
 <li><p><strong>entry_filter</strong> (<em>function</em><em>, </em><em>optional</em>) – A boolean function to determine
 if the FilingEntry should be kept. Defaults to <code class="docutils literal notranslate"><span class="pre">lambda</span> <span class="pre">_:</span> <span class="pre">True</span></code>.
@@ -318,7 +319,7 @@ from a specific quarter</p></li>
 <h3>Filing<a class="headerlink" href="#filing" title="Permalink to this headline">¶</a></h3>
 <dl class="py class">
 <dt class="sig sig-object py" id="secedgar.CompanyFilings">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">secedgar.</span></span><span class="sig-name descname"><span class="pre">CompanyFilings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cik_lookup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filing_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_agent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">datetime.date(2021,</span> <span class="pre">7,</span> <span class="pre">30)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ownership</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'include'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ALL'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.CompanyFilings" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">secedgar.</span></span><span class="sig-name descname"><span class="pre">CompanyFilings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cik_lookup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filing_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_agent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">datetime.date(2021,</span> <span class="pre">7,</span> <span class="pre">31)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ownership</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'include'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ALL'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.CompanyFilings" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class for receiving EDGAR filings.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -341,7 +342,7 @@ are available. Defaults to all filings available.</p></li>
 <li><p><strong>ownership</strong> (<em>str</em>) – Must be in {“include”, “exclude”}. Whether or not to include ownership
 filings.</p></li>
 <li><p><strong>match_format</strong> (<em>str</em>) – Must be in {“EXACT”, “AMEND”, “ALL”}.</p></li>
-<li><p><strong>kwargs</strong> – See kwargs accepted for <code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.client.NetworkClient</span></code>.</p></li>
+<li><p><strong>kwargs</strong> – See kwargs accepted for <a class="reference internal" href="client.html#secedgar.client.NetworkClient" title="secedgar.client.NetworkClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.client.NetworkClient</span></code></a>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -617,11 +618,11 @@ for more information. Defaults to None.</p>
 <span class="sig-name descname"><span class="pre">client</span></span><a class="headerlink" href="#secedgar.DailyFilings.client" title="Permalink to this definition">¶</a></dt>
 <dd><p>Client to use for
 fetching data. If None is given, a user_agent must be given to pass to
-<code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.client.NetworkClient</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">secedgar.client.NetworkClient</span></code>
+<a class="reference internal" href="client.html#secedgar.client.NetworkClient" title="secedgar.client.NetworkClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.client.NetworkClient</span></code></a>. Defaults to <code class="docutils literal notranslate"><span class="pre">secedgar.client.NetworkClient</span></code>
 if none is given.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>Union[NoneType, secedgar.client.NetworkClient], optional</p>
+<dd class="field-odd"><p>Union[NoneType, <a class="reference internal" href="client.html#secedgar.client.NetworkClient" title="secedgar.client.NetworkClient">secedgar.client.NetworkClient</a>], optional</p>
 </dd>
 </dl>
 </dd></dl>
@@ -769,9 +770,9 @@ user_agent must be given. See the SEC’s statement on
 <a class="reference external" href="https://www.sec.gov/os/accessing-edgar-data">fair access</a>
 for more information. Defaults to None.</p>
 </p></li>
-<li><p><strong>client</strong> (<em>Union</em><em>[</em><em>NoneType</em><em>, </em><em>secedgar.client.NetworkClient</em><em>]</em><em>, </em><em>optional</em>) – Client to use for
+<li><p><strong>client</strong> (<em>Union</em><em>[</em><em>NoneType</em><em>, </em><a class="reference internal" href="client.html#secedgar.client.NetworkClient" title="secedgar.client.NetworkClient"><em>secedgar.client.NetworkClient</em></a><em>]</em><em>, </em><em>optional</em>) – Client to use for
 fetching data. If None is given, a user_agent must be given to pass to
-<code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.client.NetworkClient</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">secedgar.client.NetworkClient</span></code>
+<a class="reference internal" href="client.html#secedgar.client.NetworkClient" title="secedgar.client.NetworkClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.client.NetworkClient</span></code></a>. Defaults to <code class="docutils literal notranslate"><span class="pre">secedgar.client.NetworkClient</span></code>
 if none is given.</p></li>
 <li><p><strong>entry_filter</strong> (<em>function</em><em>, </em><em>optional</em>) – A boolean function to determine
 if the FilingEntry should be kept. Defaults to <code class="docutils literal notranslate"><span class="pre">lambda</span> <span class="pre">_:</span> <span class="pre">True</span></code>.
@@ -865,9 +866,9 @@ See the SEC’s statement on
 <a class="reference external" href="https://www.sec.gov/os/accessing-edgar-data">fair access</a>
 for more information.</p>
 </p></li>
-<li><p><strong>client</strong> (<em>Union</em><em>[</em><em>NoneType</em><em>, </em><em>secedgar.client.NetworkClient</em><em>]</em><em>, </em><em>optional</em>) – Client to use for
+<li><p><strong>client</strong> (<em>Union</em><em>[</em><em>NoneType</em><em>, </em><a class="reference internal" href="client.html#secedgar.client.NetworkClient" title="secedgar.client.NetworkClient"><em>secedgar.client.NetworkClient</em></a><em>]</em><em>, </em><em>optional</em>) – Client to use for
 fetching data. If None is given, a user_agent must be given to pass to
-<code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.client.NetworkClient</span></code>.
+<a class="reference internal" href="client.html#secedgar.client.NetworkClient" title="secedgar.client.NetworkClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.client.NetworkClient</span></code></a>.
 Defaults to <code class="docutils literal notranslate"><span class="pre">secedgar.client.NetworkClient</span></code> if none is given.</p></li>
 <li><p><strong>entry_filter</strong> (<em>function</em><em>, </em><em>optional</em>) – A boolean function to determine
 if the FilingEntry should be kept. Defaults to <cite>lambda _: True</cite>.

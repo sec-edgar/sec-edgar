@@ -99,6 +99,7 @@
 <li class="toctree-l1"><a class="reference internal" href="filings.html">Filings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filingtypes.html">Filing Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cikmap.html">Finding Company CIKs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="client.html">Using Network Client</a></li>
 <li class="toctree-l1"><a class="reference internal" href="parser.html">Parser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s New</a></li>
@@ -176,6 +177,7 @@
 
 <div class="genindex-jumpbox">
  <a href="#Symbols"><strong>Symbols</strong></a>
+ | <a href="#B"><strong>B</strong></a>
  | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
  | <a href="#E"><strong>E</strong></a>
@@ -185,10 +187,13 @@
  | <a href="#K"><strong>K</strong></a>
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
+ | <a href="#N"><strong>N</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#Q"><strong>Q</strong></a>
+ | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#U"><strong>U</strong></a>
+ | <a href="#W"><strong>W</strong></a>
  | <a href="#Y"><strong>Y</strong></a>
  
 </div>
@@ -307,6 +312,18 @@
   </ul></td>
 </tr></table>
 
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="client.html#secedgar.client.NetworkClient.backoff_factor">backoff_factor (secedgar.client.NetworkClient property)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="client.html#secedgar.client.NetworkClient.batch_size">batch_size (secedgar.client.NetworkClient property)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -370,6 +387,8 @@
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="client.html#secedgar.client.NetworkClient.fetch">fetch() (secedgar.client.NetworkClient static method)</a>
+</li>
       <li><a href="filingtypes.html#secedgar.FilingType.FILING_1012B">FILING_1012B (secedgar.FilingType attribute)</a>
 </li>
       <li><a href="filingtypes.html#secedgar.FilingType.FILING_1012B_AMEND">FILING_1012B_AMEND (secedgar.FilingType attribute)</a>
@@ -870,10 +889,10 @@
 </li>
       <li><a href="filingtypes.html#secedgar.FilingType.FILING_F7">FILING_F7 (secedgar.FilingType attribute)</a>
 </li>
-      <li><a href="filingtypes.html#secedgar.FilingType.FILING_F7_AMEND">FILING_F7_AMEND (secedgar.FilingType attribute)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="filingtypes.html#secedgar.FilingType.FILING_F7_AMEND">FILING_F7_AMEND (secedgar.FilingType attribute)</a>
+</li>
       <li><a href="filingtypes.html#secedgar.FilingType.FILING_F7POS">FILING_F7POS (secedgar.FilingType attribute)</a>
 </li>
       <li><a href="filingtypes.html#secedgar.FilingType.FILING_F8">FILING_F8 (secedgar.FilingType attribute)</a>
@@ -1388,8 +1407,12 @@
 </li>
       <li><a href="ciklookup.html#secedgar.cik_lookup.CIKLookup.get_ciks">get_ciks() (secedgar.cik_lookup.CIKLookup method)</a>
 </li>
+      <li><a href="client.html#secedgar.client.NetworkClient.get_response">get_response() (secedgar.client.NetworkClient method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="client.html#secedgar.client.NetworkClient.get_soup">get_soup() (secedgar.client.NetworkClient method)</a>
+</li>
       <li><a href="filings.html#secedgar.ComboFilings.get_urls">get_urls() (secedgar.ComboFilings method)</a>
 
       <ul>
@@ -1445,6 +1468,14 @@
   </ul></td>
 </tr></table>
 
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="client.html#secedgar.client.NetworkClient">NetworkClient (class in secedgar.client)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -1487,6 +1518,18 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="filings.html#secedgar.QuarterlyFilings">QuarterlyFilings (class in secedgar)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="R">R</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="client.html#secedgar.client.NetworkClient.rate_limit">rate_limit (secedgar.client.NetworkClient property)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="client.html#secedgar.client.NetworkClient.retry_count">retry_count (secedgar.client.NetworkClient property)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1561,7 +1604,19 @@
 <h2 id="U">U</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="filings.html#secedgar.DailyFilings.user_agent">user_agent (secedgar.DailyFilings attribute)</a>
+      <li><a href="client.html#secedgar.client.NetworkClient.user_agent">user_agent (secedgar.client.NetworkClient property)</a>
+
+      <ul>
+        <li><a href="filings.html#secedgar.DailyFilings.user_agent">(secedgar.DailyFilings attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="client.html#secedgar.client.NetworkClient.wait_for_download_async">wait_for_download_async() (secedgar.client.NetworkClient method)</a>
 </li>
   </ul></td>
 </tr></table>
