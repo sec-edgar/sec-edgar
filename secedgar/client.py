@@ -17,8 +17,7 @@ from secedgar.utils import make_path
 class NetworkClient:
     """Class in charge of sending and handling requests to EDGAR database.
 
-    Args:
-        user_agent (str): Value used for HTTP header "User-Agent" for all requests.
+    Args:        user_agent (str): Value used for HTTP header "User-Agent" for all requests.
             Must be given. See the SEC's statement on
             `fair access <https://www.sec.gov/os/accessing-edgar-data>`_
             for more information.
@@ -36,10 +35,28 @@ class NetworkClient:
        temporarily if you exceed this rate.
 
     Examples:
+        Creating a basic instance of ``NetworkClient`` is straightforward.
+        The only required argument is the ``user_agent`` argument.
+
         .. code-block:: python
 
             from secedgar.client import NetworkClient
             client = NetworkClient(user_agent="Name (email)")
+
+        If you are running into 429 errors, you may want to consider
+        modifying your ``backoff_factor``.
+
+        .. note::
+
+           By default, you can pass any keyword arguments you want to give
+           ``NetworkClient`` to any of the various filings classes.
+           The :meth:`secedgar.filings` function also accepts any/all of the
+           ``NetworkClient`` keyword arguments.
+
+        .. code-block:: python
+
+           from secedgar.client import NetworkClient
+           client = NetworkClient(user_agent="Name (email)", backoff_factor=1)
     """
 
     _BASE = "http://www.sec.gov/"
@@ -220,9 +237,10 @@ class NetworkClient:
     async def wait_for_download_async(self, inputs):
         """Asynchronously download links into files using rate limit.
 
-        inputs (list of tuples of str): List of tuples with length 2. First element
-            in tuple should be URL to request and second element should be path
-            where content after requesting URL is stored.
+        Args:
+            inputs (list of tuples of str): List of tuples with length 2. First element
+                in tuple should be URL to request and second element should be path
+                where content after requesting URL is stored.
         """
         async def fetch_and_save(link, path, session):
             """Fetch link and save to path using session."""
