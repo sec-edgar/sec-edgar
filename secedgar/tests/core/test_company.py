@@ -332,4 +332,4 @@ class TestCompanyFilings:
         data = f.client.get_soup("", {})  # Get mock data from mock_single_cik_filing
         links = f._filter_filing_links(data)
         assert len(links) == 10
-        assert all(["BAD_LINK" not in l for l in links])
+        assert all(["BAD_LINK" not in link for link in links])
