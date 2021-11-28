@@ -2,6 +2,7 @@
 import datetime
 
 import pytest
+
 from secedgar.cik_lookup import CIKLookup
 from secedgar.client import NetworkClient
 from secedgar.core import CompanyFilings, FilingType
@@ -322,3 +323,13 @@ class TestCompanyFilings:
                                     filing_type=FilingType.FILING_10Q,
                                     user_agent=mock_user_agent)
         my_filings.save(tmp_data_directory)
+
+    def test__filter_filing_links(self, mock_user_agent, mock_single_cik_filing):
+        # data =
+        f = CompanyFilings(cik_lookup="aapl",
+                           filing_type=FilingType.FILING_10Q,
+                           user_agent=mock_user_agent)
+        data = f.client.get_soup("", {})  # Get mock data from mock_single_cik_filing
+        links = f._filter_filing_links(data)
+        assert len(links) == 10
+        assert all(["BAD_LINK" not in l for l in links])
