@@ -1,45 +1,22 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>Parser &mdash; secedgar 0.4.0-alpha.2 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script src="_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -47,33 +24,16 @@
     <link rel="prev" title="Using Network Client" href="client.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="index.html" class="icon icon-home"> secedgar
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 0.4.0-alpha.2
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -81,18 +41,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
@@ -114,82 +63,41 @@
 <li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">secedgar</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>Parser</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="_sources/parser.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="parser">
-<span id="id1"></span><h1>Parser<a class="headerlink" href="#parser" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="parser">
+<span id="id1"></span><h1>Parser<a class="headerlink" href="#parser" title="Permalink to this headline"></a></h1>
 <p>Starting in version 0.3.0, secedgar will start to implement a general-purpose parser.</p>
 <p>This is expected to be an ambitious task and may not be feasible for all filing types.
 However, given user feedback, we feel that it is worth a shot. Please note that
 parsing will remain experimental for the foreseeable future.</p>
-<div class="section" id="parsing-meta-data">
-<h2>Parsing Meta Data<a class="headerlink" href="#parsing-meta-data" title="Permalink to this headline">¶</a></h2>
+<section id="parsing-meta-data">
+<h2>Parsing Meta Data<a class="headerlink" href="#parsing-meta-data" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="secedgar.parser.MetaParser">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">secedgar.parser.</span></span><span class="sig-name descname"><span class="pre">MetaParser</span></span><a class="headerlink" href="#secedgar.parser.MetaParser" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">secedgar.parser.</span></span><span class="sig-name descname"><span class="pre">MetaParser</span></span><a class="headerlink" href="#secedgar.parser.MetaParser" title="Permalink to this definition"></a></dt>
 <dd><p>Utility class to extract metadata and documents from a single text file.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -200,7 +108,7 @@ parsing will remain experimental for the foreseeable future.</p>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="secedgar.parser.MetaParser.process">
-<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">infile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_subdir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rm_infile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.parser.MetaParser.process" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">infile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_subdir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rm_infile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.parser.MetaParser.process" title="Permalink to this definition"></a></dt>
 <dd><p>Process a text file and save processed files.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -221,7 +129,7 @@ If this is not true, files will be prefixed with the infile filename.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="secedgar.parser.MetaParser.process_document_metadata">
-<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">process_document_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.parser.MetaParser.process_document_metadata" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">process_document_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.parser.MetaParser.process_document_metadata" title="Permalink to this definition"></a></dt>
 <dd><p>Process the metadata of an embedded document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -238,7 +146,7 @@ If this is not true, files will be prefixed with the infile filename.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="secedgar.parser.MetaParser.process_metadata">
-<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">process_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">curr_doc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.parser.MetaParser.process_metadata" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">process_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">curr_doc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.parser.MetaParser.process_metadata" title="Permalink to this definition"></a></dt>
 <dd><p>Process the metadata of the focal document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -255,55 +163,38 @@ If this is not true, files will be prefixed with the infile filename.</p></li>
 
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="cli.html" class="btn btn-neutral float-right" title="Command Line Interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="client.html" class="btn btn-neutral float-left" title="Using Network Client" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cli.html" class="btn btn-neutral float-right" title="Command Line Interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2020, sec-edgar.
-
-    </p>
+    <p>&#169; Copyright 2020, sec-edgar.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
