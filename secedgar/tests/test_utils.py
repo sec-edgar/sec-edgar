@@ -1,6 +1,9 @@
+import os
+import platform
 from datetime import date, datetime
 
 import pytest
+
 import secedgar.utils as utils
 
 
@@ -121,3 +124,15 @@ class TestUtils:
     def test_add_quarter_bad_quarter(self, bad_quarter):
         with pytest.raises(TypeError):
             utils.add_quarter(2020, bad_quarter)
+
+    @pytest.mark.skipif(platform.system() == "Windows",
+                        reason="This test meant for Linux & Mac.")
+    def test_make_path_expand_user(self):
+        # make sure that you do not have a directory matching this if testing locally
+        path_to_expand = "~/_____testing_____"
+        utils.make_path(path_to_expand)
+        path_expanded = os.path.expanduser(path_to_expand)
+        try:
+            assert os.path.exists(path_expanded)
+        finally:
+            os.rmdir(path_expanded)
