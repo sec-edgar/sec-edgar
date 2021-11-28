@@ -1,4 +1,5 @@
 import os
+import platform
 from datetime import date, datetime
 
 import pytest
@@ -124,6 +125,8 @@ class TestUtils:
         with pytest.raises(TypeError):
             utils.add_quarter(2020, bad_quarter)
 
+    @pytest.mark.skipif(platform.system() == "Windows",
+                        reason="This test meant for Linux & Mac.")
     def test_make_path_expand_user(self):
         # make sure that you do not have a directory matching this if testing locally
         path_to_expand = "~/_____testing_____"
