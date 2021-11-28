@@ -231,6 +231,19 @@ class CompanyFilings(AbstractFiling):
             for key, cik in self.cik_lookup.lookup_dict.items()
         }
 
+    def _filter_filing_links(self, data):
+        """Filter filing links from data to only include exact matches.
+
+        Args:
+            data (``bs4.BeautifulSoup``): ``BeautifulSoup`` object to parse.
+
+        Returns:
+            list of str: List of URLs that match ``filing_type``.
+        """
+        filings = data.find_all("filing")
+        filings_filtered = [f for f in filings if f.type.string == self.filing_type.value]
+        return [f.filinghref.string for f in filings_filtered]
+
     # TODO: Change this to return accession numbers that are turned into URLs later
     def _get_urls_for_cik(self, cik, **kwargs):
         """Get all urls for specific company according to CIK.
@@ -252,7 +265,8 @@ class CompanyFilings(AbstractFiling):
         self.params["start"] = 0  # set start back to 0 before paginating
         while self.count is None or len(links) < self.count:
             data = self.client.get_soup(self.path, self.params, **kwargs)
-            links.extend([link.string for link in data.find_all("filinghref")])
+            filtered_links = self._filter_filing_links(data)
+            links.extend(filtered_links)
             self.params["start"] += self.client.batch_size
             if len(data.find_all("filinghref")) == 0:  # no more filings
                 break
