@@ -133,8 +133,14 @@ class CompanyFilings(AbstractFiling):
         """:obj:`dict`: Parameters to include in requests."""
         if self.start_date:
             self._params["datea"] = sanitize_date(self.start_date)
+        else:
+            self._params.pop("datea", None)  # if no start date, make sure it isn't in params
+
         if self.end_date:
             self._params["dateb"] = sanitize_date(self.end_date)
+        else:
+            self._params.pop("dateb", None)  # if no end date, make sure it isn't in params
+
         self._params["ownership"] = self.ownership
         return self._params
 
