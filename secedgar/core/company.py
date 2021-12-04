@@ -107,12 +107,10 @@ class CompanyFilings(AbstractFiling):
                  ownership="include",
                  match_format="ALL",
                  **kwargs):
-        # Leave params before other setters
         self._params = {
             "action": "getcompany",
             "output": "xml",
-            "owner": ownership,
-            "start": 0,
+            "start": 0
         }
         self.start_date = start_date
         self.end_date = end_date
@@ -123,6 +121,7 @@ class CompanyFilings(AbstractFiling):
         self._client = client or NetworkClient(user_agent=user_agent, **kwargs)
         # make CIKLookup object for users if not given
         self.cik_lookup = cik_lookup
+        self.ownership = ownership
 
     @property
     def path(self):
@@ -132,6 +131,11 @@ class CompanyFilings(AbstractFiling):
     @property
     def params(self):
         """:obj:`dict`: Parameters to include in requests."""
+        if self.start_date:
+            self._params["datea"] = sanitize_date(self.start_date)
+        if self.end_date:
+            self._params["dateb"] = sanitize_date(self.end_date)
+        self._params["ownership"] = self.ownership
         return self._params
 
     @property
@@ -151,18 +155,13 @@ class CompanyFilings(AbstractFiling):
 
     @match_format.setter
     def match_format(self, val):
-        if val in ["EXACT", "AMEND", "ALL"]:
-            self._match_format = val
-        else:
-            raise ValueError("Format must be one of EXACT,AMEND,ALL")
+        if val not in ("EXACT", "AMEND", "ALL"):
+            raise ValueError("Format must be 'EXACT', 'AMEND', or 'ALL'.")
+        self._match_format = val
 
     @start_date.setter
     def start_date(self, val):
-        if val is not None:
-            self._params["datea"] = sanitize_date(val)
-            self._start_date = val
-        else:
-            self._start_date = None
+        self._start_date = val
 
     @property
     def end_date(self):
@@ -171,7 +170,6 @@ class CompanyFilings(AbstractFiling):
 
     @end_date.setter
     def end_date(self, val):
-        self._params["dateb"] = sanitize_date(val)
         self._end_date = val
 
     @property
@@ -184,7 +182,9 @@ class CompanyFilings(AbstractFiling):
         if isinstance(filing_type, FilingType):
             self._params["type"] = filing_type.value
         elif filing_type is not None:
-            raise FilingTypeError
+            raise FilingTypeError(
+                f"filing_type must be of type FilingType. Given {type(filing_type)}."
+            )
         self._filing_type = filing_type
 
     @property
@@ -214,6 +214,16 @@ class CompanyFilings(AbstractFiling):
         if not isinstance(val, CIKLookup):
             val = CIKLookup(val, client=self.client)
         self._cik_lookup = val
+
+    @property
+    def ownership(self):
+        return self._ownership
+
+    @ownership.setter
+    def ownership(self, val):
+        if val not in ("include", "exclude"):
+            raise ValueError(f"Ownership must be 'include' or 'exclude'. Given {val}.")
+        self._ownership = val
 
     def get_urls(self, **kwargs):
         """Get urls for all CIKs given to Filing object.
