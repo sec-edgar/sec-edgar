@@ -386,3 +386,31 @@ class TestCompanyFilings:
         # Change ownership type
         f_include.ownership = "exclude"
         assert f_include.ownership == "exclude"
+
+    def test_start_date_change_to_none(self, mock_user_agent):
+        start_date = datetime.date(2020, 1, 1)
+        f = CompanyFilings(
+            cik_lookup="aapl",
+            filing_type=FilingType.FILING_10Q,
+            user_agent=mock_user_agent,
+            start_date=start_date
+        )
+        assert f.start_date == start_date
+        assert f.params["datea"] == "20200101"
+        f.start_date = None
+        assert f.start_date is None
+        assert "datea" not in f.params
+
+    def test_end_date_change_to_none(self, mock_user_agent):
+        end_date = datetime.date(2020, 1, 1)
+        f = CompanyFilings(
+            cik_lookup="aapl",
+            filing_type=FilingType.FILING_10Q,
+            user_agent=mock_user_agent,
+            end_date=end_date
+        )
+        assert f.end_date == end_date
+        assert f.params["dateb"] == "20200101"
+        f.end_date = None
+        assert f.end_date is None
+        assert "dateb" not in f.params
