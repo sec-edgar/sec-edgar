@@ -325,7 +325,6 @@ class TestCompanyFilings:
         my_filings.save(tmp_data_directory)
 
     def test__filter_filing_links(self, mock_user_agent, mock_single_cik_filing):
-        # data =
         f = CompanyFilings(cik_lookup="aapl",
                            filing_type=FilingType.FILING_10Q,
                            user_agent=mock_user_agent)
@@ -333,3 +332,57 @@ class TestCompanyFilings:
         links = f._filter_filing_links(data)
         assert len(links) == 10
         assert all(["BAD_LINK" not in link for link in links])
+
+    def test_same_urls_fetched(self, mock_user_agent, mock_single_cik_filing):
+        # mock_single_filing_cik has more than 10 URLs
+        # using count = 5 should help test whether the same URLs
+        # are fetched each time
+        f = CompanyFilings(cik_lookup="aapl",
+                           filing_type=FilingType.FILING_10Q,
+                           user_agent=mock_user_agent,
+                           count=5)
+        first_urls = f.get_urls()
+        second_urls = f.get_urls()
+        assert all(f == s for f, s in zip(first_urls, second_urls))
+
+    @pytest.mark.parametrize(
+        "bad_ownership",
+        [
+            "notright",
+            "_exclude",
+            "_include",
+            "notvalid",
+            1,
+            True,
+            False
+        ]
+    )
+    def test_ownership(self, bad_ownership, mock_user_agent):
+        with pytest.raises(ValueError):
+            CompanyFilings(
+                cik_lookup="aapl",
+                filing_type=FilingType.FILING_10Q,
+                user_agent=mock_user_agent,
+                ownership=bad_ownership
+            )
+
+    def test_good_ownership(self, mock_user_agent):
+        shared_params = dict(
+            cik_lookup="aapl",
+            filing_type=FilingType.FILING_10Q,
+            user_agent=mock_user_agent,
+        )
+        f_include = CompanyFilings(
+            **shared_params,
+            ownership="include"
+        )
+        f_exclude = CompanyFilings(
+            **shared_params,
+            ownership="exclude"
+        )
+        assert f_include.ownership == "include"
+        assert f_exclude.ownership == "exclude"
+
+        # Change ownership type
+        f_include.ownership = "exclude"
+        assert f_include.ownership == "exclude"
