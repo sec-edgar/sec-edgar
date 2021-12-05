@@ -223,6 +223,7 @@ class CompanyFilings(AbstractFiling):
 
     @property
     def ownership(self):
+        """str: Whether or not to include ownership in search."""
         return self._ownership
 
     @ownership.setter
