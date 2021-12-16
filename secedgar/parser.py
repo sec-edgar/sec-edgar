@@ -237,18 +237,17 @@ class MetaParser:
     @staticmethod
     def process_form_4(doc):
         
-        def match_values(parent_pattern, doc, child_pattern=value_pattern):
+        def match(parent_pattern, doc, child_pattern=value_pattern):
             matches = [re.search(child_pattern, match).group(1) for match in re.findall(parent_pattern, doc, re.S)]
             return matches 
 
-        # ### TODO: Would "filter" function work here? Might be a cleaner solution than repeated list comp.
-        security_title_matches = match_values(sec_title_pattern, doc)
-        trans_date_matches = match_values(trans_date_pattern, doc )
-        trans_shares_matches = match_values(trans_shares_pattern, doc)
-        trans_pps_matches = match_values(trans_pps_pattern, doc)  
-        trans_disp_code_matches = match_values(trans_disp_code_pattern, doc)
-        soft_matches = match_values(soft_pattern, doc)
-        doio_matches = match_values(doio_pattern, doc)
+        security_title_matches = match(sec_title_pattern, doc)
+        trans_date_matches = match(trans_date_pattern, doc )
+        trans_shares_matches = match(trans_shares_pattern, doc)
+        trans_pps_matches = match(trans_pps_pattern, doc)  
+        trans_disp_code_matches = match(trans_disp_code_pattern, doc)
+        soft_matches = match(soft_pattern, doc)
+        doio_matches = match(doio_pattern, doc)
         trans_form_matches = re.findall(trans_form_type_pattern, doc)
         trans_code_matches = re.findall(trans_code_pattern, doc)
         equity_swap_matches = re.findall(equity_swap_involved_pattern, doc)
