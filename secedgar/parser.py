@@ -236,23 +236,34 @@ class MetaParser:
 
     @staticmethod
     def process_form_4(doc):
-        
-        def match(parent_pattern, doc, child_pattern=value_pattern):
+        """Process the core data of the document.
+
+        Args:
+            doc (str): Document from which to extract core data.
+
+        Return:
+            data (dict): Core buy/sell/gift data from document.
+        """
+
+        # Regex find all nested values.
+        def nested_findall(parent_pattern, doc, child_pattern=value_pattern):
             matches = [re.search(child_pattern, match).group(1) for match in re.findall(parent_pattern, doc, re.S)]
             return matches 
 
-        security_title_matches = match(sec_title_pattern, doc)
-        trans_date_matches = match(trans_date_pattern, doc )
-        trans_shares_matches = match(trans_shares_pattern, doc)
-        trans_pps_matches = match(trans_pps_pattern, doc)  
-        trans_disp_code_matches = match(trans_disp_code_pattern, doc)
-        soft_matches = match(soft_pattern, doc)
-        doio_matches = match(doio_pattern, doc)
+        # Find core data from document.
+        security_title_matches = nested_findall(sec_title_pattern, doc)
+        trans_date_matches = nested_findall(trans_date_pattern, doc)
+        trans_shares_matches = nested_findall(trans_shares_pattern, doc)
+        trans_pps_matches = nested_findall(trans_pps_pattern, doc)  
+        trans_disp_code_matches = nested_findall(trans_disp_code_pattern, doc)
+        soft_matches = nested_findall(soft_pattern, doc)
+        doio_matches = nested_findall(doio_pattern, doc)
         trans_form_matches = re.findall(trans_form_type_pattern, doc)
         trans_code_matches = re.findall(trans_code_pattern, doc)
         equity_swap_matches = re.findall(equity_swap_involved_pattern, doc)
 
-        data_doc = {
+        # Map core data to dict
+        data = {
             "nonDerivativeTable": {
                 "nonDerivativeTransaction": [
                     {
@@ -303,4 +314,4 @@ class MetaParser:
             } 
         }
         
-        return data_doc
+        return data
