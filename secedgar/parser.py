@@ -6,6 +6,19 @@ import uu
 
 from secedgar.utils import make_path
 
+value_pattern = r"<value>(.*?)</value>"
+non_derivative_trans_pattern = r"<nonDerivativeTransaction>(.*?)</nonDerivativeTransaction>"
+sec_title_pattern = r"<securityTitle>(.*?)</securityTitle>"
+trans_date_pattern = r"<transactionDate>(.*?)</transactionDate>"
+trans_shares_pattern = r"<transactionShares>(.*?)</transactionShares>"
+trans_pps_pattern = r"<transactionPricePerShare>(.*?)</transactionPricePerShare"
+trans_disp_code_pattern = r"<transactionAcquiredDisposedCode>(.*?)</transactionAcquiredDisposedCode>"
+soft_pattern = r"<sharesOwnedFollowingTransaction>(.*?)</sharesOwnedFollowingTransaction>"
+doio_pattern = r"<directOrIndirectOwnership>(.*?)</directOrIndirectOwnership>"
+trans_form_type_pattern = r"<transactionFormType>(.*?)</transactionFormType>"
+trans_code_pattern = r"<transactionCode>(.*?)</transactionCode>"
+equity_swap_involved_pattern = r"<equitySwapInvolved>(.*?)</equitySwapInvolved>"
+
 
 class MetaParser:
     """Utility class to extract metadata and documents from a single text file.
@@ -224,18 +237,18 @@ class MetaParser:
     @staticmethod
     def process_form_4(doc):
         
+        def match_values(parent_pattern, doc, child_pattern=value_pattern):
+            matches = [re.search(child_pattern, match).group(1) for match in re.findall(parent_pattern, doc, re.S)]
+            return matches 
 
-        value_pattern = "<value>(.*?)</value>"
-        trans_form_type_pattern = "<transactionFormType>(.*?)</transactionFormType>"
-        trans_code_pattern = "<transactionCode>(.*?)</transactionCode>"
-        equity_swap_involved_pattern = "<equitySwapInvolved>(.*?)</equitySwapInvolved>"
-
-        value_matches = re.findall(value_pattern, doc)
-        indices = [1,2]*(len(value_matches)//2)
-        indexed_matches = zip(indices, value_matches)
-        security_title_matches = [sec_title for i, sec_title in indexed_matches if i==1]
-        indexed_matches = zip(indices, value_matches)
-        trans_date_matches = [trans_date for i, trans_date in indexed_matches if i==2]
+        # ### TODO: Would "filter" function work here? Might be a cleaner solution than repeated list comp.
+        security_title_matches = match_values(sec_title_pattern, doc)
+        trans_date_matches = match_values(trans_date_pattern, doc )
+        trans_shares_matches = match_values(trans_shares_pattern, doc)
+        trans_pps_matches = match_values(trans_pps_pattern, doc)  
+        trans_disp_code_matches = match_values(trans_disp_code_pattern, doc)
+        soft_matches = match_values(soft_pattern, doc)
+        doio_matches = match_values(doio_pattern, doc)
         trans_form_matches = re.findall(trans_form_type_pattern, doc)
         trans_code_matches = re.findall(trans_code_pattern, doc)
         equity_swap_matches = re.findall(equity_swap_involved_pattern, doc)
@@ -250,6 +263,17 @@ class MetaParser:
                             "transactionFormType": transactionFormType, 
                             "transactionCode": transactionCode, 
                             "equitySwapInvolved": equitySwapInvolved
+                        }, 
+                        "transactionAmounts": {
+                            "transactionShares": transactionShares, 
+                            "transactionPricePerShare": transactionPricePerShare, 
+                            "transactionAcquiredDisposedCode": transactionAcquiredDisposedCode
+                        }, 
+                        "postTransactionAmounts": {
+                            "sharesOwnedFollowingTransaction": sharesOwnedFollowingTransaction
+                        }, 
+                        "ownershipNature": {
+                            "directOrIndirectOwnership": directOrIndirectOwnership
                         }
                     }
                     for 
@@ -257,14 +281,24 @@ class MetaParser:
                         transactionDate, 
                         transactionFormType, 
                         transactionCode, 
-                        equitySwapInvolved 
+                        equitySwapInvolved, 
+                        transactionShares, 
+                        transactionPricePerShare, 
+                        transactionAcquiredDisposedCode, 
+                        sharesOwnedFollowingTransaction, 
+                        directOrIndirectOwnership  
                     in 
                         zip(
                             security_title_matches,
                             trans_date_matches,  
                             trans_form_matches, 
                             trans_code_matches, 
-                            equity_swap_matches
+                            equity_swap_matches, 
+                            trans_shares_matches, 
+                            trans_pps_matches, 
+                            trans_disp_code_matches, 
+                            soft_matches, 
+                            doio_matches
                         )
                 ]
             } 

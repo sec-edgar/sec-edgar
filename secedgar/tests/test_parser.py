@@ -18,20 +18,80 @@ class TestParser:
         <SEQUENCE>123
         <FILENAME>test-filename.txt
         <nonDerivativeTable>
-            <nonDerivativeTransaction>
-                <securityTitle>
-                    <value>Common Stock</value>
-                </securityTitle>
-                <transactionDate>
-                    <value>2021-05-14</value>
-                </transactionDate>
-                <transactionCoding>
-                    <transactionFormType>5</transactionFormType>
-                    <transactionCode>G</transactionCode>
-                    <equitySwapInvolved>0</equitySwapInvolved>
-                </transactionCoding>
-            </nonDerivativeTransaction>
-        </nonDerivativeTable>
+        <nonDerivativeTransaction>
+            <securityTitle>
+                <value>Common Stock</value>
+            </securityTitle>
+            <transactionDate>
+                <value>2021-05-14</value>
+            </transactionDate>
+            <transactionCoding>
+                <transactionFormType>5</transactionFormType>
+                <transactionCode>G</transactionCode>
+                <equitySwapInvolved>0</equitySwapInvolved>
+            </transactionCoding>
+            <transactionTimeliness>
+                <value>E</value>
+            </transactionTimeliness>
+            <transactionAmounts>
+                <transactionShares>
+                    <value>4010</value>
+                </transactionShares>
+                <transactionPricePerShare>
+                    <value>0</value>
+                </transactionPricePerShare>
+                <transactionAcquiredDisposedCode>
+                    <value>D</value>
+                </transactionAcquiredDisposedCode>
+            </transactionAmounts>
+            <postTransactionAmounts>
+                <sharesOwnedFollowingTransaction>
+                    <value>324164</value>
+                </sharesOwnedFollowingTransaction>
+            </postTransactionAmounts>
+            <ownershipNature>
+                <directOrIndirectOwnership>
+                    <value>D</value>
+                </directOrIndirectOwnership>
+            </ownershipNature>
+        </nonDerivativeTransaction>
+        <nonDerivativeTransaction>
+            <securityTitle>
+                <value>Common Stock</value>
+                <footnoteId id="F1"/>
+            </securityTitle>
+            <transactionDate>
+                <value>2021-08-02</value>
+            </transactionDate>
+            <transactionCoding>
+                <transactionFormType>4</transactionFormType>
+                <transactionCode>S</transactionCode>
+                <equitySwapInvolved>0</equitySwapInvolved>
+            </transactionCoding>
+            <transactionAmounts>
+                <transactionShares>
+                    <value>15600</value>
+                </transactionShares>
+                <transactionPricePerShare>
+                    <value>145.83</value>
+                    <footnoteId id="F2"/>
+                </transactionPricePerShare>
+                <transactionAcquiredDisposedCode>
+                    <value>D</value>
+                </transactionAcquiredDisposedCode>
+            </transactionAmounts>
+            <postTransactionAmounts>
+                <sharesOwnedFollowingTransaction>
+                    <value>308564</value>
+                </sharesOwnedFollowingTransaction>
+            </postTransactionAmounts>
+            <ownershipNature>
+                <directOrIndirectOwnership>
+                    <value>D</value>
+                </directOrIndirectOwnership>
+            </ownershipNature>
+        </nonDerivativeTransaction>
+    </nonDerivativeTable>
         """
         metadata = self.parser.process_form_4(doc)
         assert metadata == {
@@ -44,6 +104,37 @@ class TestParser:
                             "transactionFormType": "5", 
                             "transactionCode": "G", 
                             "equitySwapInvolved": "0"
+                        },
+                        "transactionAmounts": {
+                            "transactionShares": "4010", 
+                            "transactionPricePerShare": "0", 
+                            "transactionAcquiredDisposedCode": "D"
+                        }, 
+                        "postTransactionAmounts": {
+                            "sharesOwnedFollowingTransaction": "324164"
+                        }, 
+                        "ownershipNature": {
+                            "directOrIndirectOwnership": "D"
+                        }
+                    }, 
+                    {
+                        "securityTitle": "Common Stock", 
+                        "transactionDate": "2021-08-02", 
+                        "transactionCoding": {
+                            "transactionFormType": "4", 
+                            "transactionCode": "S", 
+                            "equitySwapInvolved": "0"
+                        },
+                        "transactionAmounts": {
+                            "transactionShares": "15600", 
+                            "transactionPricePerShare": "145.83", 
+                            "transactionAcquiredDisposedCode": "D"
+                        }, 
+                        "postTransactionAmounts": {
+                            "sharesOwnedFollowingTransaction": "308564"
+                        }, 
+                        "ownershipNature": {
+                            "directOrIndirectOwnership": "D"
                         }
                     }
                 ]
