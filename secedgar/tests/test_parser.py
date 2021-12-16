@@ -13,6 +13,34 @@ class TestParser:
         metadata = self.parser.process_document_metadata(doc)
         assert metadata == {"type": "10-K", "sequence": "123", "filename": "test-filename.txt"}
 
+    def test_process_document_metadata_form_4(self):
+        doc = """<TYPE>10-K
+        <SEQUENCE>123
+        <FILENAME>test-filename.txt
+        <nonDerivativeTable>
+            <nonDerivativeTransaction>
+                <transactionCoding>
+                    <transactionFormType>5</transactionFormType>
+                    <transactionCode>G</transactionCode>
+                    <equitySwapInvolved>0</equitySwapInvolved>
+                </transactionCoding>
+            </nonDerivativeTransaction>
+        </nonDerivativeTable>
+        """
+        metadata = self.parser.process_form_4(doc)
+        assert metadata == {
+            "nonDerivativeTable": {
+                "nonDerivativeTransaction": [
+                    {
+                        "transactionCoding": {
+                            "transactionFormType": "5", 
+                            "transactionCode": "G", 
+                            "equitySwapInvolved": "0"
+                        }
+                    }
+                ]
+            }
+        }
     @pytest.mark.parametrize(
         "bad_filetype",
         [

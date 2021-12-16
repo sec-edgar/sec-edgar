@@ -200,7 +200,6 @@ class MetaParser:
 
         Args:
             doc (str): Document to extract meta data from.
-
         Return:
             dict: Dictionary with fields parsed from document.
         """
@@ -221,3 +220,36 @@ class MetaParser:
         metadata_doc["filename"] = fn_m.group(1)
 
         return metadata_doc
+
+    @staticmethod
+    def process_form_4(doc):
+        
+
+        trans_form_type_pattern = "<transactionFormType>(.*?)</transactionFormType>"
+        trans_code_pattern = "<transactionCode>(.*?)</transactionCode>"
+        equity_swap_involved_pattern = "<equitySwapInvolved>(.*?)</equitySwapInvolved>"
+        data_doc = {
+            "nonDerivativeTable": {
+                "nonDerivativeTransaction": [
+                    {
+                        "transactionCoding": {
+                            "transactionFormType": transactionFormType, 
+                            "transactionCode": transactionCode, 
+                            "equitySwapInvolved": equitySwapInvolved
+                        }
+                    }
+                    for 
+                        transactionFormType, 
+                        transactionCode, 
+                        equitySwapInvolved 
+                    in 
+                        zip(
+                            re.findall(trans_form_type_pattern, doc), 
+                            re.findall(trans_code_pattern, doc), 
+                            re.findall(equity_swap_involved_pattern, doc)
+                        )
+                ]
+            } 
+        }
+        
+        return data_doc
