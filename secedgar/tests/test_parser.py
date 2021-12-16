@@ -19,6 +19,12 @@ class TestParser:
         <FILENAME>test-filename.txt
         <nonDerivativeTable>
             <nonDerivativeTransaction>
+                <securityTitle>
+                    <value>Common Stock</value>
+                </securityTitle>
+                <transactionDate>
+                    <value>2021-05-14</value>
+                </transactionDate>
                 <transactionCoding>
                     <transactionFormType>5</transactionFormType>
                     <transactionCode>G</transactionCode>
@@ -32,6 +38,8 @@ class TestParser:
             "nonDerivativeTable": {
                 "nonDerivativeTransaction": [
                     {
+                        "securityTitle": "Common Stock", 
+                        "transactionDate": "2021-05-14", 
                         "transactionCoding": {
                             "transactionFormType": "5", 
                             "transactionCode": "G", 

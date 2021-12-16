@@ -225,13 +225,27 @@ class MetaParser:
     def process_form_4(doc):
         
 
+        value_pattern = "<value>(.*?)</value>"
         trans_form_type_pattern = "<transactionFormType>(.*?)</transactionFormType>"
         trans_code_pattern = "<transactionCode>(.*?)</transactionCode>"
         equity_swap_involved_pattern = "<equitySwapInvolved>(.*?)</equitySwapInvolved>"
+
+        value_matches = re.findall(value_pattern, doc)
+        indices = [1,2]*(len(value_matches)//2)
+        indexed_matches = zip(indices, value_matches)
+        security_title_matches = [sec_title for i, sec_title in indexed_matches if i==1]
+        indexed_matches = zip(indices, value_matches)
+        trans_date_matches = [trans_date for i, trans_date in indexed_matches if i==2]
+        trans_form_matches = re.findall(trans_form_type_pattern, doc)
+        trans_code_matches = re.findall(trans_code_pattern, doc)
+        equity_swap_matches = re.findall(equity_swap_involved_pattern, doc)
+
         data_doc = {
             "nonDerivativeTable": {
                 "nonDerivativeTransaction": [
                     {
+                        "securityTitle": securityTitle, 
+                        "transactionDate": transactionDate, 
                         "transactionCoding": {
                             "transactionFormType": transactionFormType, 
                             "transactionCode": transactionCode, 
@@ -239,14 +253,18 @@ class MetaParser:
                         }
                     }
                     for 
+                        securityTitle,  
+                        transactionDate, 
                         transactionFormType, 
                         transactionCode, 
                         equitySwapInvolved 
                     in 
                         zip(
-                            re.findall(trans_form_type_pattern, doc), 
-                            re.findall(trans_code_pattern, doc), 
-                            re.findall(equity_swap_involved_pattern, doc)
+                            security_title_matches,
+                            trans_date_matches,  
+                            trans_form_matches, 
+                            trans_code_matches, 
+                            equity_swap_matches
                         )
                 ]
             } 
