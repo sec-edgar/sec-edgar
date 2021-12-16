@@ -14,7 +14,7 @@ class TestParser:
         assert metadata == {"type": "10-K", "sequence": "123", "filename": "test-filename.txt"}
 
     def test_process_document_metadata_form_4(self):
-        doc = """<TYPE>10-K
+        doc = """<TYPE>4
         <SEQUENCE>123
         <FILENAME>test-filename.txt
         <nonDerivativeTable>
@@ -93,7 +93,7 @@ class TestParser:
         </nonDerivativeTransaction>
     </nonDerivativeTable>
         """
-        metadata = self.parser.process_form_4(doc)
+        metadata = self.parser.process_document_data_form_4(doc)
         assert metadata == {
             "nonDerivativeTable": {
                 "nonDerivativeTransaction": [
