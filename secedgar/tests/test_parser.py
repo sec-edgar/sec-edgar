@@ -1,5 +1,5 @@
 import pytest
-from secedgar.parser import MetaParser
+from secedgar.parser import F4Parser, MetaParser
 
 
 class TestParser:
@@ -12,6 +12,24 @@ class TestParser:
         """
         metadata = self.parser.process_document_metadata(doc)
         assert metadata == {"type": "10-K", "sequence": "123", "filename": "test-filename.txt"}
+
+    @pytest.mark.parametrize(
+        "bad_filetype",
+        [
+            "xml",
+            "json",
+            "html",
+            "txt.gz",
+            "zip"
+        ]
+    )
+    def test_bad_filetypes_raises_error(self, bad_filetype):
+        with pytest.raises(ValueError):
+            self.parser.process(infile="test.{0}".format(bad_filetype))
+
+class TestF4Parser:
+
+    parser = F4Parser() 
 
     def test_process_document_metadata_form_4(self):
         doc = """<TYPE>4
@@ -93,7 +111,7 @@ class TestParser:
         </nonDerivativeTransaction>
     </nonDerivativeTable>
         """
-        metadata = self.parser.process_document_data_form_4(doc)
+        metadata = self.parser.process(doc)
         assert metadata == {
             "nonDerivativeTable": {
                 "nonDerivativeTransaction": [
@@ -140,16 +158,3 @@ class TestParser:
                 ]
             }
         }
-    @pytest.mark.parametrize(
-        "bad_filetype",
-        [
-            "xml",
-            "json",
-            "html",
-            "txt.gz",
-            "zip"
-        ]
-    )
-    def test_bad_filetypes_raises_error(self, bad_filetype):
-        with pytest.raises(ValueError):
-            self.parser.process(infile="test.{0}".format(bad_filetype))

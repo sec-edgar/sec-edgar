@@ -234,8 +234,10 @@ class MetaParser:
 
         return metadata_doc
 
+class F4Parser:
+
     @staticmethod
-    def process_document_data_form_4(doc):
+    def process(doc):
         """Process the core data of the document.
 
         Args:
