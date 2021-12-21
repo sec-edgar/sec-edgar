@@ -1,9 +1,10 @@
 from datetime import date
 
 import pytest
+from attr import Attribute
 
 from secedgar.client import NetworkClient
-from secedgar.core.combo import ComboFilings
+from secedgar.core.combo import ComboFilings, fill_days
 
 
 def lambda_matches(a, b):
@@ -19,6 +20,22 @@ def quarterly_list_matches(l1, l2):
 
 
 class TestComboFilings:
+    @pytest.mark.parametrize(
+        "include_start,include_end,expected",
+        [
+            (True, True, [date(2020, 1, i) for i in (1, 2, 3)]),
+            (True, False, [date(2020, 1, i) for i in (1, 2)]),
+            (False, False, [date(2020, 1, 2)]),
+            (False, True, [date(2020, 1, i) for i in (2, 3)]),
+        ]
+    )
+    def test_fill_days(self, include_start, include_end, expected):
+        result = fill_days(start=date(2020, 1, 1),
+                           end=date(2020, 1, 3),
+                           include_start=include_start,
+                           include_end=include_end)
+        assert result == expected
+
     def test_user_agent_client_none(self):
         with pytest.raises(TypeError):
             _ = ComboFilings(start_date=date(2020, 1, 1),
@@ -101,3 +118,61 @@ class TestComboFilings:
         combo = ComboFilings(start_date=start_date, end_date=end_date, user_agent=mock_user_agent)
         assert [str(s) for s in combo.daily_date_list] == daily_expected
         assert quarterly_list_matches(combo.quarterly_date_list, quarterly_expected)
+
+    def test_properties_on_init(self, mock_user_agent):
+        start = date(2020, 1, 1)
+        end = date(2020, 5, 30)
+        bp = 25
+        combo = ComboFilings(start_date=start,
+                             end_date=end,
+                             user_agent=mock_user_agent,
+                             balancing_point=bp)
+
+        assert combo.start_date == start
+        assert combo.end_date == end
+        assert combo.balancing_point == bp
+        assert combo.client.user_agent == mock_user_agent
+
+    @pytest.mark.parametrize(
+        "bad_entry_filter",
+        [
+            None,
+            [],
+            (),
+            0,
+            ""]
+    )
+    def test_bad_entry_filter(self, bad_entry_filter):
+        with pytest.raises(ValueError):
+            _ = ComboFilings(start_date=date(2020, 1, 1),
+                             end_date=date(2020, 5, 30),
+                             entry_filter=bad_entry_filter)
+
+    @pytest.mark.parametrize(
+        "good_entry_filter",
+        [
+            lambda x: True,
+            lambda x: False,
+            lambda f: f.form_type.lower() == "10-k"
+        ]
+    )
+    def test_good_entry_filter(self, good_entry_filter, mock_user_agent):
+        combo = ComboFilings(date(2020, 1, 1),
+                             date(2020, 5, 30),
+                             entry_filter=good_entry_filter,
+                             user_agent=mock_user_agent)
+        assert combo.entry_filter == good_entry_filter
+
+    def test_client_read_only(self, mock_user_agent):
+        combo = ComboFilings(start_date=date(2020, 1, 1),
+                             end_date=date(2020, 1, 3),
+                             user_agent=mock_user_agent)
+        with pytest.raises(AttributeError):
+            combo.client = None
+
+    def test_balancing_point_read_only(self, mock_user_agent):
+        combo = ComboFilings(start_date=date(2020, 1, 1),
+                             end_date=date(2020, 1, 3),
+                             user_agent=mock_user_agent)
+        with pytest.raises(AttributeError):
+            combo.balancing_point = 20
