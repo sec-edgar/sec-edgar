@@ -16,6 +16,7 @@ Many breaking changes, as this update does a lot of restructuring.
 - Fix use of ``user_agent`` by ``NetworkClient`` and require its use by all filings classes/functions
 - Fix issue where daily CLI command would not work due to ``date_cleanup`` returning ``datetime.datetime`` instead of ``datetime.date``
 - Fix issue where ``CompanyFilings`` includes links that are not exact matches to ``filing_type``.
+- Add NSAR filing types. Thanks to mjkoo91!
 
 Contributors
 ~~~~~~~~~~~~
