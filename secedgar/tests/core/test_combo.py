@@ -1,7 +1,6 @@
 from datetime import date
 
 import pytest
-from attr import Attribute
 
 from secedgar.client import NetworkClient
 from secedgar.core.combo import ComboFilings, fill_days
