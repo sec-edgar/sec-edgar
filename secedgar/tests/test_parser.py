@@ -27,9 +27,10 @@ class TestParser:
         with pytest.raises(ValueError):
             self.parser.process(infile="test.{0}".format(bad_filetype))
 
+
 class TestF4Parser:
 
-    parser = F4Parser() 
+    parser = F4Parser()
 
     def test_process_document_metadata_form_4(self):
         doc = """<TYPE>4
@@ -111,46 +112,46 @@ class TestF4Parser:
         </nonDerivativeTransaction>
     </nonDerivativeTable>
         """
-        metadata = self.parser.process(doc)
-        assert metadata == {
+        data = self.parser.process(doc)
+        assert data == {
             "nonDerivativeTable": {
                 "nonDerivativeTransaction": [
                     {
-                        "securityTitle": "Common Stock", 
-                        "transactionDate": "2021-05-14", 
+                        "securityTitle": "Common Stock",
+                        "transactionDate": "2021-05-14",
                         "transactionCoding": {
-                            "transactionFormType": "5", 
-                            "transactionCode": "G", 
+                            "transactionFormType": "5",
+                            "transactionCode": "G",
                             "equitySwapInvolved": "0"
                         },
                         "transactionAmounts": {
-                            "transactionShares": "4010", 
-                            "transactionPricePerShare": "0", 
+                            "transactionShares": "4010",
+                            "transactionPricePerShare": "0",
                             "transactionAcquiredDisposedCode": "D"
-                        }, 
+                        },
                         "postTransactionAmounts": {
                             "sharesOwnedFollowingTransaction": "324164"
-                        }, 
+                        },
                         "ownershipNature": {
                             "directOrIndirectOwnership": "D"
                         }
-                    }, 
+                    },
                     {
-                        "securityTitle": "Common Stock", 
-                        "transactionDate": "2021-08-02", 
+                        "securityTitle": "Common Stock",
+                        "transactionDate": "2021-08-02",
                         "transactionCoding": {
-                            "transactionFormType": "4", 
-                            "transactionCode": "S", 
+                            "transactionFormType": "4",
+                            "transactionCode": "S",
                             "equitySwapInvolved": "0"
                         },
                         "transactionAmounts": {
-                            "transactionShares": "15600", 
-                            "transactionPricePerShare": "145.83", 
+                            "transactionShares": "15600",
+                            "transactionPricePerShare": "145.83",
                             "transactionAcquiredDisposedCode": "D"
-                        }, 
+                        },
                         "postTransactionAmounts": {
                             "sharesOwnedFollowingTransaction": "308564"
-                        }, 
+                        },
                         "ownershipNature": {
                             "directOrIndirectOwnership": "D"
                         }
