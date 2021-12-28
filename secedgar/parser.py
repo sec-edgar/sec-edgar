@@ -248,7 +248,7 @@ class F4Parser:
     .. warning::
         The ``F4Parser`` class is still experimental. Use with caution.
 
-    .. versionadded:: 0.3.4
+    .. versionadded:: 0.4.0
     """
 
     @staticmethod
