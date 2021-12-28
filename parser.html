@@ -163,6 +163,37 @@ If this is not true, files will be prefixed with the infile filename.</p></li>
 
 </dd></dl>
 
+<p>Parsing Form 4 Data</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="secedgar.parser.F4Parser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">secedgar.parser.</span></span><span class="sig-name descname"><span class="pre">F4Parser</span></span><a class="headerlink" href="#secedgar.parser.F4Parser" title="Permalink to this definition"></a></dt>
+<dd><p>Utility class to extract actionable data and documents from a single text file.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">F4Parser</span></code> class is still experimental. Use with caution.</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.4.0.</span></p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="secedgar.parser.F4Parser.process">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.parser.F4Parser.process" title="Permalink to this definition"></a></dt>
+<dd><p>Process the actionable data of the document.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>doc</strong> (<em>str</em>) – Document from which to extract core data.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Tradable buy/sell/gift data from document.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>data (dict)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 </section>
 
