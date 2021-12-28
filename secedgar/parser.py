@@ -4,7 +4,25 @@ import os
 import re
 import uu
 
+from secedgar.exceptions import FilingTypeError
 from secedgar.utils import make_path
+
+value_pattern = r"<value>(.*?)</value>"
+non_derivative_trans_pattern = r"<nonDerivativeTransaction>(.*?)</nonDerivativeTransaction>"
+sec_title_pattern = r"<securityTitle>(.*?)</securityTitle>"
+trans_date_pattern = r"<transactionDate>(.*?)</transactionDate>"
+trans_shares_pattern = r"<transactionShares>(.*?)</transactionShares>"
+trans_pps_pattern = r"<transactionPricePerShare>(.*?)</transactionPricePerShare>"
+trans_disp_code_pattern = (
+    r"<transactionAcquiredDisposedCode>"
+    r"(.*?)"
+    r"</transactionAcquiredDisposedCode>"
+    )
+soft_pattern = r"<sharesOwnedFollowingTransaction>(.*?)</sharesOwnedFollowingTransaction>"
+doio_pattern = r"<directOrIndirectOwnership>(.*?)</directOrIndirectOwnership>"
+trans_form_type_pattern = r"<transactionFormType>(.*?)</transactionFormType>"
+trans_code_pattern = r"<transactionCode>(.*?)</transactionCode>"
+equity_swap_involved_pattern = r"<equitySwapInvolved>(.*?)</equitySwapInvolved>"
 
 
 class MetaParser:
@@ -203,6 +221,7 @@ class MetaParser:
 
         Return:
             dict: Dictionary with fields parsed from document.
+
         """
         metadata_doc = {}
 
@@ -221,3 +240,100 @@ class MetaParser:
         metadata_doc["filename"] = fn_m.group(1)
 
         return metadata_doc
+
+
+class F4Parser:
+    """Utility class to extract actionable data and documents from a single text file.
+
+    .. warning::
+        The ``F4Parser`` class is still experimental. Use with caution.
+
+    .. versionadded:: 0.4.0
+    """
+
+    @staticmethod
+    def process(doc):
+        """Process the actionable data of the document.
+
+        Args:
+            doc (str): Document from which to extract core data.
+
+        Return:
+            data (dict): Tradable buy/sell/gift data from document.
+
+        """
+        metadata = MetaParser.process_document_metadata(doc)
+
+        if metadata["type"] == "4":
+            # Regex find all nested values.
+            def nested_findall(parent_pattern, doc, child_pattern=value_pattern):
+                matches = [
+                    re.search(child_pattern, match).group(1)
+                    for match
+                    in re.findall(parent_pattern, doc, re.S)]
+                return matches
+
+            # Find core data from document.
+            security_title_matches = nested_findall(sec_title_pattern, doc)
+            trans_date_matches = nested_findall(trans_date_pattern, doc)
+            trans_shares_matches = nested_findall(trans_shares_pattern, doc)
+            trans_pps_matches = nested_findall(trans_pps_pattern, doc)
+            trans_disp_code_matches = nested_findall(trans_disp_code_pattern, doc)
+            soft_matches = nested_findall(soft_pattern, doc)
+            doio_matches = nested_findall(doio_pattern, doc)
+            trans_form_matches = re.findall(trans_form_type_pattern, doc)
+            trans_code_matches = re.findall(trans_code_pattern, doc)
+            equity_swap_matches = re.findall(equity_swap_involved_pattern, doc)
+
+            # Map core data to dict
+            data = {
+                "nonDerivativeTable": {
+                    "nonDerivativeTransaction": [
+                        {
+                            "securityTitle": securityTitle,
+                            "transactionDate": transactionDate,
+                            "transactionCoding": {
+                                "transactionFormType": transactionFormType,
+                                "transactionCode": transactionCode,
+                                "equitySwapInvolved": equitySwapInvolved
+                            },
+                            "transactionAmounts": {
+                                "transactionShares": transactionShares,
+                                "transactionPricePerShare": transactionPricePerShare,
+                                "transactionAcquiredDisposedCode": transactionAcquiredDisposedCode
+                            },
+                            "postTransactionAmounts": {
+                                "sharesOwnedFollowingTransaction": sharesOwnedFollowingTransaction
+                            },
+                            "ownershipNature": {
+                                "directOrIndirectOwnership": directOrIndirectOwnership
+                            }
+                        }
+                        for securityTitle,
+                        transactionDate,
+                        transactionFormType,
+                        transactionCode,
+                        equitySwapInvolved,
+                        transactionShares,
+                        transactionPricePerShare,
+                        transactionAcquiredDisposedCode,
+                        sharesOwnedFollowingTransaction,
+                        directOrIndirectOwnership
+                        in zip(
+                            security_title_matches,
+                            trans_date_matches,
+                            trans_form_matches,
+                            trans_code_matches,
+                            equity_swap_matches,
+                            trans_shares_matches,
+                            trans_pps_matches,
+                            trans_disp_code_matches,
+                            soft_matches,
+                            doio_matches
+                        )
+                    ]
+                }
+            }
+            return data
+        else:
+            raise FilingTypeError
