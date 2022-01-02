@@ -72,6 +72,24 @@ def mock_single_cik_filing_limited_responses(monkeypatch):
 
 
 class TestCompanyFilings:
+    valid_dates = [
+        datetime.datetime(2020, 1, 1),
+        datetime.datetime(2020, 2, 1),
+        datetime.datetime(2020, 3, 1),
+        datetime.datetime(2020, 4, 1),
+        datetime.datetime(2020, 5, 1),
+        "20200101",
+        20200101,
+        None
+    ]
+    bad_dates = [
+        1,
+        2020010101,
+        "2020010101",
+        "2020",
+        "0102"
+    ]
+
     class TestCompanyFilingsClient:
 
         def test_user_agent_client_none(self):
@@ -114,13 +132,7 @@ class TestCompanyFilings:
                                 count=count)
         assert filing.count == count
 
-    @pytest.mark.parametrize("start_date", [
-        datetime.datetime(2020, 1, 1),
-        datetime.datetime(2020, 2, 1),
-        datetime.datetime(2020, 3, 1),
-        datetime.datetime(2020, 4, 1),
-        datetime.datetime(2020, 5, 1), "20200101", 20200101, None
-    ])
+    @pytest.mark.parametrize("start_date", valid_dates)
     def test_good_start_date_setter_on_init(self, start_date, mock_user_agent):
         filing = CompanyFilings(
             cik_lookup="aapl",
@@ -129,14 +141,30 @@ class TestCompanyFilings:
             user_agent=mock_user_agent)
         assert filing.start_date == start_date
 
-    @pytest.mark.parametrize("bad_start_date",
-                             [1, 2020010101, "2020010101", "2020", "0102"])
+    @pytest.mark.parametrize("bad_start_date", bad_dates)
     def test_bad_start_date_setter_on_init(self, mock_user_agent, bad_start_date):
         with pytest.raises(TypeError):
             CompanyFilings(user_agent=mock_user_agent,
                            cik_lookup="aapl",
                            filing_type=FilingType.FILING_10Q,
                            start_date=bad_start_date)
+
+    @pytest.mark.parametrize("end_date", valid_dates)
+    def test_good_end_date_setter_on_init(self, end_date, mock_user_agent):
+        filing = CompanyFilings(
+            cik_lookup="aapl",
+            filing_type=FilingType.FILING_10Q,
+            end_date=end_date,
+            user_agent=mock_user_agent)
+        assert filing.end_date == end_date
+
+    @pytest.mark.parametrize("bad_end_date", bad_dates)
+    def test_bad_end_date_setter_on_init(self, mock_user_agent, bad_end_date):
+        with pytest.raises(TypeError):
+            CompanyFilings(user_agent=mock_user_agent,
+                           cik_lookup="aapl",
+                           filing_type=FilingType.FILING_10Q,
+                           end_date=bad_end_date)
 
     @pytest.mark.parametrize("count,expected_error", [(-1, ValueError),
                                                       (0, ValueError),
@@ -325,7 +353,6 @@ class TestCompanyFilings:
         my_filings.save(tmp_data_directory)
 
     def test__filter_filing_links(self, mock_user_agent, mock_single_cik_filing):
-        # data =
         f = CompanyFilings(cik_lookup="aapl",
                            filing_type=FilingType.FILING_10Q,
                            user_agent=mock_user_agent)
@@ -333,3 +360,85 @@ class TestCompanyFilings:
         links = f._filter_filing_links(data)
         assert len(links) == 10
         assert all(["BAD_LINK" not in link for link in links])
+
+    def test_same_urls_fetched(self, mock_user_agent, mock_single_cik_filing):
+        # mock_single_filing_cik has more than 10 URLs
+        # using count = 5 should help test whether the same URLs
+        # are fetched each time
+        f = CompanyFilings(cik_lookup="aapl",
+                           filing_type=FilingType.FILING_10Q,
+                           user_agent=mock_user_agent,
+                           count=5)
+        first_urls = f.get_urls()
+        second_urls = f.get_urls()
+        assert all(f == s for f, s in zip(first_urls, second_urls))
+
+    @pytest.mark.parametrize(
+        "bad_ownership",
+        [
+            "notright",
+            "_exclude",
+            "_include",
+            "notvalid",
+            1,
+            True,
+            False
+        ]
+    )
+    def test_ownership(self, bad_ownership, mock_user_agent):
+        with pytest.raises(ValueError):
+            CompanyFilings(
+                cik_lookup="aapl",
+                filing_type=FilingType.FILING_10Q,
+                user_agent=mock_user_agent,
+                ownership=bad_ownership
+            )
+
+    def test_good_ownership(self, mock_user_agent):
+        shared_params = dict(
+            cik_lookup="aapl",
+            filing_type=FilingType.FILING_10Q,
+            user_agent=mock_user_agent,
+        )
+        f_include = CompanyFilings(
+            **shared_params,
+            ownership="include"
+        )
+        f_exclude = CompanyFilings(
+            **shared_params,
+            ownership="exclude"
+        )
+        assert f_include.ownership == "include"
+        assert f_exclude.ownership == "exclude"
+
+        # Change ownership type
+        f_include.ownership = "exclude"
+        assert f_include.ownership == "exclude"
+
+    def test_start_date_change_to_none(self, mock_user_agent):
+        start_date = datetime.date(2020, 1, 1)
+        f = CompanyFilings(
+            cik_lookup="aapl",
+            filing_type=FilingType.FILING_10Q,
+            user_agent=mock_user_agent,
+            start_date=start_date
+        )
+        assert f.start_date == start_date
+        assert f.params["datea"] == "20200101"
+        f.start_date = None
+        assert f.start_date is None
+        assert "datea" not in f.params
+
+    def test_end_date_change_to_none(self, mock_user_agent):
+        end_date = datetime.date(2020, 1, 1)
+        f = CompanyFilings(
+            cik_lookup="aapl",
+            filing_type=FilingType.FILING_10Q,
+            user_agent=mock_user_agent,
+            end_date=end_date
+        )
+        assert f.end_date == end_date
+        assert f.params["dateb"] == "20200101"
+        f.end_date = None
+        assert f.end_date is None
+        assert "dateb" not in f.params
