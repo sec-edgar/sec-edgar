@@ -1,5 +1,6 @@
 import pytest
 import requests
+
 from secedgar.cik_lookup import CIKLookup
 from secedgar.client import NetworkClient
 from secedgar.core import QuarterlyFilings
@@ -22,8 +23,10 @@ def monkeysession():
     mpatch.undo()
 
 
-@pytest.fixture(autouse=True, scope="session")
-def no_http_requests(monkeysession):
+@pytest.fixture(autouse=True)
+def no_http_requests(request, monkeysession):
+    if "smoke" in request.keywords:
+        return
 
     def external_request_mock(object, *args, **kwargs):
         raise RuntimeError(
@@ -85,3 +88,9 @@ def mock_single_cik_filing(monkeysession):
     """Returns mock response of filinghrefs for getting filing URLs."""
     monkeysession.setattr(NetworkClient, "get_response",
                           MockResponse(datapath_args=["filings", "aapl_10q_filings.xml"]))
+
+
+@pytest.fixture(scope="session")
+def real_test_client():
+    """``NetworkClient`` to use when running live smoke tests."""
+    return NetworkClient(user_agent="sec_edgar_testing")

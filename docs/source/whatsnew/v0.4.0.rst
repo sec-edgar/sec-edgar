@@ -21,6 +21,7 @@ Many breaking changes, as this update does a lot of restructuring.
 - Get rid of caching behavior that was causing issues when downloading filings.
 - Simplify ``ComboFilings`` logic for getting quarterly and daily dates.
 - Fix issue where ``get_cik_map`` fails due to the SEC providing ``None`` for title or ticker.
+- Add smoke tests to test package "in the wild".
 
 Contributors
 ~~~~~~~~~~~~
