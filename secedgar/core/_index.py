@@ -142,43 +142,39 @@ class IndexFilings(AbstractFiling):
                                       .format(filename=self.idx_filename))
         return self._master_idx_file
 
-    def get_filings_dict(self, update_cache=False, **kwargs):
+    def get_filings_dict(self, **kwargs):
         """Get all filings inside an idx file.
 
         Args:
-            update_cache (bool, optional): Whether filings dict should be
-                updated on each method call. Defaults to False.
-
             kwargs: Any kwargs to pass to _get_master_idx_file. See
                 ``secedgar.core.daily.DailyFilings._get_master_idx_file``.
         """
-        if self._filings_dict is None or update_cache:
-            idx_file = self._get_master_idx_file(**kwargs)
-            # Will have CIK as keys and list of FilingEntry namedtuples as values
-            self._filings_dict = {}
-            FilingEntry = namedtuple("FilingEntry", [
-                "cik", "company_name", "form_type", "date_filed", "file_name",
-                "path", "num_previously_valid"
-            ])
-            # idx file will have lines of the form CIK|Company Name|Form Type|Date Filed|File Name
-            current_count = 0
-            entries = re.findall(r'^[0-9]+[|].+[|].+[|][0-9\-]+[|].+$',
-                                 idx_file, re.MULTILINE)
-            for entry in entries:
-                fields = entry.split("|")
-                path = "Archives/{file_name}".format(file_name=fields[-1])
-                entry = FilingEntry(*fields,
-                                    path=path,
-                                    num_previously_valid=current_count)
-                if self.entry_filter is not None and not self.entry_filter(
-                        entry):
-                    continue
-                current_count += 1
-                # Add new filing entry to CIK's list
-                if entry.cik in self._filings_dict:
-                    self._filings_dict[entry.cik].append(entry)
-                else:
-                    self._filings_dict[entry.cik] = [entry]
+        idx_file = self._get_master_idx_file(**kwargs)
+        # Will have CIK as keys and list of FilingEntry namedtuples as values
+        self._filings_dict = {}
+        FilingEntry = namedtuple("FilingEntry", [
+            "cik", "company_name", "form_type", "date_filed", "file_name",
+            "path", "num_previously_valid"
+        ])
+        # idx file will have lines of the form CIK|Company Name|Form Type|Date Filed|File Name
+        current_count = 0
+        entries = re.findall(r'^[0-9]+[|].+[|].+[|][0-9\-]+[|].+$',
+                             idx_file, re.MULTILINE)
+        for entry in entries:
+            fields = entry.split("|")
+            path = "Archives/{file_name}".format(file_name=fields[-1])
+            entry = FilingEntry(*fields,
+                                path=path,
+                                num_previously_valid=current_count)
+            if self.entry_filter is not None and not self.entry_filter(
+                    entry):
+                continue
+            current_count += 1
+            # Add new filing entry to CIK's list
+            if entry.cik in self._filings_dict:
+                self._filings_dict[entry.cik].append(entry)
+            else:
+                self._filings_dict[entry.cik] = [entry]
         return self._filings_dict
 
     def get_urls(self):
@@ -189,13 +185,12 @@ class IndexFilings(AbstractFiling):
         Returns:
             urls (list of str): List of all URLs to get.
         """
-        if not self._urls:
-            filings_dict = self.get_filings_dict()
-            self._urls = {
-                company:
-                [self.client._prepare_query(entry.path) for entry in entries]
-                for company, entries in filings_dict.items()
-            }
+        filings_dict = self.get_filings_dict()
+        self._urls = {
+            company:
+            [self.client._prepare_query(entry.path) for entry in entries]
+            for company, entries in filings_dict.items()
+        }
         return self._urls
 
     @staticmethod

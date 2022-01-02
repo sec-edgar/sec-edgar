@@ -2,10 +2,30 @@ from datetime import date, timedelta
 from functools import reduce
 from typing import Union
 
+from secedgar.client import NetworkClient
 from secedgar.core.daily import DailyFilings
 from secedgar.core.quarterly import QuarterlyFilings
 from secedgar.exceptions import EDGARQueryError, NoFilingsError
 from secedgar.utils import add_quarter, get_month, get_quarter
+
+
+def fill_days(start, end, include_start=False, include_end=False):
+    """Get dates for days in between start and end date.
+
+    Args:
+        start (``datetime.date``): Start date.
+        end (``datetime.date``): End date.
+        include_start (bool, optional): Whether or not to include start date in range.
+            Defaults to False.
+        include_end (bool, optional): Whether or not to include end date in range.
+            Defaults to False.
+
+    Returns:
+        list of ``datetime.date``: List of dates between ``start`` and ``end``.
+    """
+    start_range = 0 if include_start else 1
+    end_range = (end - start).days + 1 if include_end else (end - start).days
+    return [start + timedelta(days=d) for d in range(start_range, end_range)]
 
 
 class ComboFilings:
@@ -64,92 +84,154 @@ class ComboFilings:
         self.entry_filter = entry_filter
         self.start_date = start_date
         self.end_date = end_date
-        self.user_agent = user_agent
-        self.quarterly = QuarterlyFilings(year=self.start_date.year,
-                                          quarter=get_quarter(self.start_date),
-                                          user_agent=user_agent,
-                                          client=client,
-                                          entry_filter=self.entry_filter,
-                                          **kwargs)
-        self.daily = DailyFilings(date=self.start_date,
-                                  user_agent=user_agent,
-                                  client=client,
-                                  entry_filter=self.entry_filter,
-                                  **kwargs)
-        self.balancing_point = balancing_point
-        self._recompute()
+        self._client = client or NetworkClient(user_agent=user_agent, **kwargs)
+        self._balancing_point = balancing_point
 
-    def _recompute(self):
-        """Recompute the best list of quarters and days to use based on the start and end date."""
+    @property
+    def entry_filter(self):
+        """A boolean function to be tested on each listing entry.
+
+        This is tested regardless of download method.
+        """
+        return self._entry_filter
+
+    @entry_filter.setter
+    def entry_filter(self, fn):
+        if callable(fn):
+            self._entry_filter = fn
+        else:
+            raise ValueError('entry_filter must be a function or lambda.')
+
+    @property
+    def client(self):
+        """``secedgar.client.NetworkClient``: Client to use to make requests."""
+        return self._client
+
+    @property
+    def start_date(self):
+        """Union([datetime.date]): Date before which no filings fetched."""
+        return self._start_date
+
+    @start_date.setter
+    def start_date(self, val):
+        if val:
+            self._start_date = val
+        else:
+            self._start_date = None
+
+    @property
+    def end_date(self):
+        """Union([datetime.date]): Date after which no filings fetched."""
+        return self._end_date
+
+    @end_date.setter
+    def end_date(self, val):
+        self._end_date = val
+
+    @property
+    def balancing_point(self):
+        """int: Point after which to use ``QuarterlyFilings`` with ``entry_filter`` to get data."""
+        return self._balancing_point
+
+    def _get_quarterly_daily_date_lists(self):
+        """Break down date range into combination of quarters and single dates.
+
+        Returns:
+            tuple of lists: Quarterly date list and daily date list.
+        """
+        # Initialize quarter and date lists
         current_date = self.start_date
-        self.quarterly_date_list = []
-        self.daily_date_list = []
+        quarterly_date_list = []
+        daily_date_list = []
+
         while current_date <= self.end_date:
             current_quarter = get_quarter(current_date)
             current_year = current_date.year
             next_year, next_quarter = add_quarter(current_year, current_quarter)
-            next_start_quarter_date = date(next_year, get_month(next_quarter),
-                                           1)
+            next_start_quarter_date = date(next_year, get_month(next_quarter), 1)
 
             days_till_next_quarter = (next_start_quarter_date -
                                       current_date).days
             days_till_end = (self.end_date - current_date).days
+
+            # If there are more days until the end date than there are
+            # in the quarter, add
             if days_till_next_quarter <= days_till_end:
                 current_start_quarter_date = date(current_year,
                                                   get_month(current_quarter), 1)
                 if current_start_quarter_date == current_date:
-                    self.quarterly_date_list.append(
+                    quarterly_date_list.append(
                         (current_year, current_quarter, lambda x: True))
                     current_date = next_start_quarter_date
                 elif days_till_next_quarter > self.balancing_point:
-                    self.quarterly_date_list.append(
+                    quarterly_date_list.append(
                         (current_year, current_quarter,
                          lambda x: date(x['date_filed']) >= self.start_date))
                     current_date = next_start_quarter_date
                 else:
-                    while current_date < next_start_quarter_date:
-                        self.daily_date_list.append(current_date)
-                        current_date += timedelta(days=1)
+                    daily_date_list.extend(fill_days(start=current_date,
+                                                     end=next_start_quarter_date,
+                                                     include_start=True,
+                                                     include_end=False))
+                    current_date = next_start_quarter_date
             else:
                 if days_till_end > self.balancing_point:
                     if days_till_next_quarter - 1 == days_till_end:
-                        self.quarterly_date_list.append(
+                        quarterly_date_list.append(
                             (current_year, current_quarter, lambda x: True))
                         current_date = next_start_quarter_date
                     else:
-                        self.quarterly_date_list.append(
+                        quarterly_date_list.append(
                             (current_year, current_quarter,
                              lambda x: date(x['date_filed']) <= self.end_date))
                         current_date = self.end_date
                 else:
-                    while current_date <= self.end_date:
-                        self.daily_date_list.append(current_date)
-                        current_date += timedelta(days=1)
+                    daily_date_list.extend(fill_days(start=current_date,
+                                                     end=self.end_date,
+                                                     include_start=True,
+                                                     include_end=True))
+                    break
+        return quarterly_date_list, daily_date_list
+
+    @property
+    def quarterly_date_list(self):
+        """List of tuples: List of tuples with year, quarter, and ``entry_filter`` to use."""
+        return self._get_quarterly_daily_date_lists()[0]  # 0 = quarterly
+
+    @property
+    def daily_date_list(self):
+        """List of ``datetime.date``: List of dates for which to fetch daily data."""
+        return self._get_quarterly_daily_date_lists()[1]  # 1 = daily
 
     def get_urls(self):
         """Get all urls between ``start_date`` and ``end_date``."""
         # Use functools.reduce for speed
         # see https://stackoverflow.com/questions/10461531/merge-and-sum-of-two-dictionaries
-        def reducer(accumulator, dictionary):
+        def _reducer(accumulator, dictionary):
             for key, value in dictionary.items():
                 accumulator[key] = accumulator.get(key, []) + value
             return accumulator
 
         list_of_dicts = []
         for (year, quarter, f) in self.quarterly_date_list:
-            self.quarterly.year = year
-            self.quarterly.quarter = quarter
-            self.quarterly.entry_filter = lambda x: f(x) and self.entry_filter(x)
-            list_of_dicts.append(self.quarterly.get_urls())
+            q = QuarterlyFilings(year=year,
+                                 quarter=quarter,
+                                 user_agent=self.user_agent,
+                                 client=self.client,
+                                 entry_filter=lambda x: f(x) and self.entry_filter(x))
+            list_of_dicts.append(q.get_urls())
 
-        for d in self.daily_date_list:
-            self.daily.date = d
+        for _date in self.daily_date_list:
+            d = DailyFilings(date=_date,
+                             user_agent=self.user_agent,
+                             client=self.client,
+                             entry_filter=self.entry_filter)
             try:
-                list_of_dicts.append(self.daily.get_urls())
-            except EDGARQueryError:
-                pass
+                list_of_dicts.append(d.get_urls())
+            except EDGARQueryError:  # continue if no URLs available for given day
+                continue
 
-        complete_dictionary = reduce(reducer, list_of_dicts, {})
+        complete_dictionary = reduce(_reducer, list_of_dicts, {})
         return complete_dictionary
 
     def save(self,
@@ -173,22 +255,28 @@ class ComboFilings:
             daily_date_format (str, optional): Format string to use for the `{date}` pattern.
                 Defaults to "%Y%m%d".
         """
+        # Go through all quarters and dates and save filings using appropriate class
         for (year, quarter, f) in self.quarterly_date_list:
-            self.quarterly.year = year
-            self.quarterly.quarter = quarter
-            self.quarterly.entry_filter = lambda x: f(x) and self.entry_filter(x)
-            self.quarterly.save(directory=directory,
-                                dir_pattern=dir_pattern,
-                                file_pattern=file_pattern,
-                                download_all=download_all)
+            q = QuarterlyFilings(year=year,
+                                 quarter=quarter,
+                                 user_agent=self.client.user_agent,
+                                 client=self.client,
+                                 entry_filter=lambda x: f(x) and self.entry_filter(x))
+            q.save(directory=directory,
+                   dir_pattern=dir_pattern,
+                   file_pattern=file_pattern,
+                   download_all=download_all)
 
-        for d in self.daily_date_list:
-            self.daily.date = d
+        for date_ in self.daily_date_list:
+            d = DailyFilings(date=date_,
+                             user_agent=self.client.user_agent,
+                             client=self.client,
+                             entry_filter=self.entry_filter)
             try:
-                self.daily.save(directory=directory,
-                                dir_pattern=dir_pattern,
-                                file_pattern=file_pattern,
-                                download_all=download_all,
-                                date_format=daily_date_format)
-            except (EDGARQueryError, NoFilingsError):
-                pass
+                d.save(directory=directory,
+                       dir_pattern=dir_pattern,
+                       file_pattern=file_pattern,
+                       download_all=download_all,
+                       date_format=daily_date_format)
+            except (EDGARQueryError, NoFilingsError):  # continue if no filings for given day
+                continue
