@@ -57,25 +57,47 @@ def mock_single_cik_not_found(monkeypatch):
 
 
 class TestCIKLookup(object):
+    ciklookup_results = [
+        (['AAPL'], {'AAPL': '320193'}),
+        (['AAPL', 'AMAZON COM INC'], {'AAPL': '320193', 'AMAZON COM INC': '1018724'}),
+        (['Alphabet Inc.'], {'Alphabet Inc.': '1652044'}),
+        (['aapl', 'msft'], {'aapl': '320193', 'msft': '789019'}),
+        (['aapl', 'msft', 'Alphabet Inc.'],
+         {'aapl': '320193', 'msft': '789019', 'Alphabet Inc.': '1652044'}),
+        (['320193'], {'320193': '320193'}),
+        (['320193', '1018724'], {'320193': '320193', '1018724': '1018724'}),
+        (['AAPL', '1018724'], {'AAPL': '320193', '1018724': '1018724'}),
+    ]
+    cikmap_ticker_results = [
+        ("aapl", "320193"),
+        ("AMZN", "1018724"),
+        ("Msft", "789019"),
+    ]
+    cikmap_company_results = [
+        ("facebook inc", "1326801"),
+        ("Alphabet Inc.", "1652044"),
+    ]
+
     @pytest.mark.parametrize(
         "lookup,expected",
-        [
-            (['AAPL'], {'AAPL': '320193'}),
-            (['AAPL', 'AMAZON COM INC'], {'AAPL': '320193', 'AMAZON COM INC': '1018724'}),
-            (['Alphabet Inc.'], {'Alphabet Inc.': '1652044'}),
-            (['aapl', 'msft'], {'aapl': '320193', 'msft': '789019'}),
-            (['aapl', 'msft', 'Alphabet Inc.'],
-             {'aapl': '320193', 'msft': '789019', 'Alphabet Inc.': '1652044'}),
-            (['320193'], {'320193': '320193'}),
-            (['320193', '1018724'], {'320193': '320193', '1018724': '1018724'}),
-            (['AAPL', '1018724'], {'AAPL': '320193', '1018724': '1018724'}),
-        ]
+        ciklookup_results
     )
     def test_cik_lookup_returns_correct_values(self, mock_client_cik_lookup,
                                                lookup,
                                                expected,
                                                mock_get_cik_map):
         look = CIKLookup(lookup, client=mock_client_cik_lookup)
+        assert look.lookup_dict == expected
+
+    @pytest.mark.smoke
+    @pytest.mark.parametrize(
+        "lookup,expected",
+        ciklookup_results
+    )
+    def test_cik_lookup_returns_correct_values_smoke(self, lookup,
+                                                     expected,
+                                                     real_test_client):
+        look = CIKLookup(lookup, client=real_test_client)
         assert look.lookup_dict == expected
 
     def test_cik_lookup_lookups_property(self, mock_client_cik_lookup):
@@ -176,30 +198,40 @@ class TestCIKLookup(object):
 
     @pytest.mark.parametrize(
         "lookup,cik",
-        [
-            ("aapl", "320193"),
-            ("AMZN", "1018724"),
-            ("Msft", "789019"),
-        ]
+        cikmap_ticker_results
     )
     def test_get_cik_map_tickers(self, lookup, cik, mock_get_cik_map):
         cik_map = get_cik_map()
         assert cik_map["ticker"][lookup.upper()] == cik
 
+    @pytest.mark.smoke
     @pytest.mark.parametrize(
         "lookup,cik",
-        [
-            ("facebook inc", "1326801"),
-            ("Alphabet Inc.", "1652044"),
-        ]
+        cikmap_ticker_results
+    )
+    def test_get_cik_map_tickers_smoke(self, lookup, cik):
+        cik_map = get_cik_map()
+        assert cik_map["ticker"][lookup.upper()] == cik
+
+    @pytest.mark.parametrize(
+        "lookup,cik",
+        cikmap_company_results
     )
     def test_get_cik_map_company_names(self, lookup, cik, mock_get_cik_map):
         cik_map = get_cik_map()
         assert cik_map["title"][lookup.upper()] == cik
 
     @pytest.mark.smoke
-    def test_get_cik_map_no_mocks(self, monkeypatch):
-        monkeypatch.undo()
+    @pytest.mark.parametrize(
+        "lookup,cik",
+        cikmap_company_results
+    )
+    def test_get_cik_map_company_names_smoke(self, lookup, cik):
+        cik_map = get_cik_map()
+        assert cik_map["title"][lookup.upper()] == cik
+
+    @pytest.mark.smoke
+    def test_get_cik_map_smoke(self):
         cik_map = get_cik_map()
         assert "ticker" in cik_map and "title" in cik_map
         assert cik_map["ticker"] and cik_map["title"]

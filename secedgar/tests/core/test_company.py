@@ -1,5 +1,6 @@
 # Tests if filings are correctly received from EDGAR
 import datetime
+import os
 
 import pytest
 
@@ -101,10 +102,8 @@ class TestCompanyFilings:
                               filing_type=FilingType.FILING_10Q,
                               count=count)
         urls = aapl.get_urls()["aapl"]
-        if len(urls) != count:
-            raise AssertionError("""Count should return exact number of filings.
-                                 Got {0}, but expected {1} URLs.""".format(
-                urls, count))
+        assert len(urls) == count, """Count should return exact number of filings.
+                                 Got {0}, but expected {1} URLs.""".format(urls, count)
 
     @pytest.mark.parametrize("count", [None, 5, 10, 15, 27, 33])
     def test_count_setter_on_init(self, mock_user_agent, count):
@@ -187,10 +186,19 @@ class TestCompanyFilings:
         f.end_date = date
         assert f.end_date == date and f.params.get("dateb") == expected
 
-    @pytest.mark.slow
-    def test_txt_urls(self, mock_user_agent, mock_cik_validator_get_single_cik,
+    def test_txt_urls(self, mock_user_agent,
+                      mock_cik_validator_get_single_cik,
                       mock_single_cik_filing):
         aapl = CompanyFilings(user_agent=mock_user_agent,
+                              cik_lookup="aapl",
+                              filing_type=FilingType.FILING_10Q,
+                              count=10)
+        first_txt_url = aapl.get_urls()["aapl"][0]
+        assert first_txt_url.split(".")[-1] == "txt"
+
+    @pytest.mark.smoke
+    def test_txt_urls_smoke(self, real_test_client):
+        aapl = CompanyFilings(client=real_test_client,
                               cik_lookup="aapl",
                               filing_type=FilingType.FILING_10Q,
                               count=10)
@@ -244,7 +252,6 @@ class TestCompanyFilings:
         with pytest.raises(NoFilingsError):
             f.save(tmp_data_directory)
 
-    @pytest.mark.smoke
     def test_filing_save_multiple_ciks(self, tmp_data_directory,
                                        mock_user_agent,
                                        mock_cik_validator_get_multiple_ciks,
@@ -255,8 +262,18 @@ class TestCompanyFilings:
                            user_agent=mock_user_agent,
                            count=3)
         f.save(tmp_data_directory)
+        assert len(os.listdir(tmp_data_directory)) > 0
 
     @pytest.mark.smoke
+    def test_filing_save_multiple_ciks_smoke(self, tmp_data_directory,
+                                             real_test_client):
+        f = CompanyFilings(["aapl", "amzn", "msft"],
+                           FilingType.FILING_10Q,
+                           client=real_test_client,
+                           count=3)
+        f.save(tmp_data_directory)
+        assert len(os.listdir(tmp_data_directory)) > 0
+
     def test_filing_save_single_cik(self, tmp_data_directory,
                                     mock_user_agent,
                                     mock_cik_validator_get_single_cik,
@@ -264,6 +281,14 @@ class TestCompanyFilings:
                                     mock_filing_response):
         f = CompanyFilings("aapl", FilingType.FILING_10Q, user_agent=mock_user_agent, count=3)
         f.save(tmp_data_directory)
+        assert len(os.listdir(tmp_data_directory)) > 0
+
+    @pytest.mark.smoke
+    def test_filing_save_single_cik_smoke(self, tmp_data_directory,
+                                          real_test_client):
+        f = CompanyFilings("aapl", FilingType.FILING_10Q, client=real_test_client, count=3)
+        f.save(tmp_data_directory)
+        assert len(os.listdir(tmp_data_directory)) > 0
 
     def test_filing_get_urls_returns_single_list_of_urls(
             self, mock_user_agent,
@@ -316,13 +341,15 @@ class TestCompanyFilings:
             except AssertionError:
                 pass
 
-    @pytest.mark.skip
     @pytest.mark.smoke
-    def test_filing_simple_example(self, tmp_data_directory, mock_user_agent):
+    @pytest.mark.slow
+    def test_filing_simple_example_smoke(self, tmp_data_directory,
+                                         mock_user_agent):
         my_filings = CompanyFilings(cik_lookup="IBM",
                                     filing_type=FilingType.FILING_10Q,
                                     user_agent=mock_user_agent)
         my_filings.save(tmp_data_directory)
+        assert len(os.listdir(tmp_data_directory)) > 0, "No file or directory created after save."
 
     def test__filter_filing_links(self, mock_user_agent, mock_single_cik_filing):
         # data =
