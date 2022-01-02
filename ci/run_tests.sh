@@ -8,10 +8,10 @@
 echo "Running tests"
 
 if [[ -z "$1" ]]; then
-    pytest secedgar/tests
+    pytest secedgar/tests -m "not smoke"
 elif [[ "$1" -eq "cover" ]]; then
     # run tests, omit tests from coverage
-    coverage run --source secedgar --omit=*/tests* -m pytest
+    coverage run --source secedgar --omit=*/tests* -m pytest -m "not smoke"
     # output coverage results to xml file
     coverage xml -o cov.xml
     # Show missing lines
