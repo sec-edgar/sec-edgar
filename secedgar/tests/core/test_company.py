@@ -72,6 +72,24 @@ def mock_single_cik_filing_limited_responses(monkeypatch):
 
 
 class TestCompanyFilings:
+    valid_dates = [
+        datetime.datetime(2020, 1, 1),
+        datetime.datetime(2020, 2, 1),
+        datetime.datetime(2020, 3, 1),
+        datetime.datetime(2020, 4, 1),
+        datetime.datetime(2020, 5, 1),
+        "20200101",
+        20200101,
+        None
+    ]
+    bad_dates = [
+        1,
+        2020010101,
+        "2020010101",
+        "2020",
+        "0102"
+    ]
+
     class TestCompanyFilingsClient:
 
         def test_user_agent_client_none(self):
@@ -114,13 +132,7 @@ class TestCompanyFilings:
                                 count=count)
         assert filing.count == count
 
-    @pytest.mark.parametrize("start_date", [
-        datetime.datetime(2020, 1, 1),
-        datetime.datetime(2020, 2, 1),
-        datetime.datetime(2020, 3, 1),
-        datetime.datetime(2020, 4, 1),
-        datetime.datetime(2020, 5, 1), "20200101", 20200101, None
-    ])
+    @pytest.mark.parametrize("start_date", valid_dates)
     def test_good_start_date_setter_on_init(self, start_date, mock_user_agent):
         filing = CompanyFilings(
             cik_lookup="aapl",
@@ -129,14 +141,30 @@ class TestCompanyFilings:
             user_agent=mock_user_agent)
         assert filing.start_date == start_date
 
-    @pytest.mark.parametrize("bad_start_date",
-                             [1, 2020010101, "2020010101", "2020", "0102"])
+    @pytest.mark.parametrize("bad_start_date", bad_dates)
     def test_bad_start_date_setter_on_init(self, mock_user_agent, bad_start_date):
         with pytest.raises(TypeError):
             CompanyFilings(user_agent=mock_user_agent,
                            cik_lookup="aapl",
                            filing_type=FilingType.FILING_10Q,
                            start_date=bad_start_date)
+
+    @pytest.mark.parametrize("end_date", valid_dates)
+    def test_good_end_date_setter_on_init(self, end_date, mock_user_agent):
+        filing = CompanyFilings(
+            cik_lookup="aapl",
+            filing_type=FilingType.FILING_10Q,
+            end_date=end_date,
+            user_agent=mock_user_agent)
+        assert filing.end_date == end_date
+
+    @pytest.mark.parametrize("bad_end_date", bad_dates)
+    def test_bad_start_date_setter_on_init(self, mock_user_agent, bad_end_date):
+        with pytest.raises(TypeError):
+            CompanyFilings(user_agent=mock_user_agent,
+                           cik_lookup="aapl",
+                           filing_type=FilingType.FILING_10Q,
+                           end_date=bad_end_date)
 
     @pytest.mark.parametrize("count,expected_error", [(-1, ValueError),
                                                       (0, ValueError),
