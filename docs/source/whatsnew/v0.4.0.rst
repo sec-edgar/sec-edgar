@@ -18,6 +18,7 @@ Many breaking changes, as this update does a lot of restructuring.
 - Fix issue where ``CompanyFilings`` includes links that are not exact matches to ``filing_type``.
 - Add NSAR filing types. Thanks to mjkoo91!
 - Fix issue where ``get_cik_map`` fails due to the SEC providing ``None`` for title or ticker.
+- Add smoke tests to test package "in the wild".
 
 Contributors
 ~~~~~~~~~~~~
