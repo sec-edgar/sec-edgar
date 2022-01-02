@@ -3,6 +3,7 @@ from unittest.mock import patch
 
 import pytest
 import requests
+
 from secedgar.cik_lookup import CIKLookup, get_cik_map
 from secedgar.client import NetworkClient
 from secedgar.exceptions import CIKError, EDGARQueryError
@@ -195,3 +196,10 @@ class TestCIKLookup(object):
     def test_get_cik_map_company_names(self, lookup, cik, mock_get_cik_map):
         cik_map = get_cik_map()
         assert cik_map["title"][lookup.upper()] == cik
+
+    @pytest.mark.smoke
+    def test_get_cik_map_no_mocks(self, monkeypatch):
+        monkeypatch.undo()
+        cik_map = get_cik_map()
+        assert "ticker" in cik_map and "title" in cik_map
+        assert cik_map["ticker"] and cik_map["title"]
