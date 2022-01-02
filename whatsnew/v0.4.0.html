@@ -98,6 +98,7 @@
 <li><p>Fix use of <code class="docutils literal notranslate"><span class="pre">user_agent</span></code> by <code class="docutils literal notranslate"><span class="pre">NetworkClient</span></code> and require its use by all filings classes/functions</p></li>
 <li><p>Fix issue where daily CLI command would not work due to <code class="docutils literal notranslate"><span class="pre">date_cleanup</span></code> returning <code class="docutils literal notranslate"><span class="pre">datetime.datetime</span></code> instead of <code class="docutils literal notranslate"><span class="pre">datetime.date</span></code></p></li>
 <li><p>Fix issue where <code class="docutils literal notranslate"><span class="pre">CompanyFilings</span></code> includes links that are not exact matches to <code class="docutils literal notranslate"><span class="pre">filing_type</span></code>.</p></li>
+<li><p>Fix issue where <code class="docutils literal notranslate"><span class="pre">get_urls</span></code> does not reset <code class="docutils literal notranslate"><span class="pre">params</span></code> after getting company filings URLs.</p></li>
 <li><p>Add NSAR filing types. Thanks to mjkoo91!</p></li>
 <li><p>Get rid of caching behavior that was causing issues when downloading filings.</p></li>
 <li><p>Simplify <code class="docutils literal notranslate"><span class="pre">ComboFilings</span></code> logic for getting quarterly and daily dates.</p></li>
