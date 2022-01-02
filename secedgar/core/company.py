@@ -167,6 +167,7 @@ class CompanyFilings(AbstractFiling):
 
     @start_date.setter
     def start_date(self, val):
+        sanitize_date(val)  # make sure start date is valid
         self._start_date = val
 
     @property
@@ -176,6 +177,7 @@ class CompanyFilings(AbstractFiling):
 
     @end_date.setter
     def end_date(self, val):
+        sanitize_date(val)  # make sure end date is valid
         self._end_date = val
 
     @property
