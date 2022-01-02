@@ -74,7 +74,7 @@ class TestCIKLookup(object):
         ("Msft", "789019"),
     ]
     cikmap_company_results = [
-        ("facebook inc", "1326801"),
+        ("meta platforms, inc.", "1326801"),
         ("Alphabet Inc.", "1652044"),
     ]
 
