@@ -31,7 +31,7 @@ def mock_get_cik_map(monkeypatch):
     response_json = {"0": {"cik_str": "320193", "ticker": "AAPL", "title": "Apple Inc."},
                      "1": {"cik_str": "789019", "ticker": "MSFT", "title": "MICROSOFT CORP"},
                      "2": {"cik_str": "1018724", "ticker": "AMZN", "title": "AMAZON COM INC"},
-                     "3": {"cik_str": "1326801", "ticker": "FB", "title": "Facebook Inc"},
+                     "3": {"cik_str": "1326801", "ticker": "FB", "title": "META PLATFORMS, INC."},
                      "4": {"cik_str": "1652044", "ticker": "GOOGL", "title": "Alphabet Inc."},
                      "5": {"cik_str": "1652044", "ticker": "GOOG", "title": "Alphabet Inc."}}
     response_json = json.dumps(response_json)
