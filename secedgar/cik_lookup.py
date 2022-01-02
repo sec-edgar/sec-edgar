@@ -22,11 +22,17 @@ def get_cik_map():
             mapping tickers to CIKs, use "ticker". To get
             company names mapped to CIKs, use "title".
 
+    .. note::
+
+       If any tickers or titles are ``None``, the ticker or title will
+       be excluded from the returned dictionary.
+
     .. versionadded:: 0.1.6
     """
     response = requests.get("https://www.sec.gov/files/company_tickers.json")
     json_response = response.json()
-    return {key: {v[key].upper(): str(v["cik_str"]) for v in json_response.values()}
+    return {key: {v[key].upper(): str(v["cik_str"]) for v in json_response.values()
+                  if v[key] is not None}
             for key in ("ticker", "title")}
 
 
