@@ -159,7 +159,7 @@ class TestCompanyFilings:
         assert filing.end_date == end_date
 
     @pytest.mark.parametrize("bad_end_date", bad_dates)
-    def test_bad_start_date_setter_on_init(self, mock_user_agent, bad_end_date):
+    def test_bad_end_date_setter_on_init(self, mock_user_agent, bad_end_date):
         with pytest.raises(TypeError):
             CompanyFilings(user_agent=mock_user_agent,
                            cik_lookup="aapl",
