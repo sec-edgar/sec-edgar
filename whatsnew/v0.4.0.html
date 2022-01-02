@@ -99,6 +99,8 @@
 <li><p>Fix issue where daily CLI command would not work due to <code class="docutils literal notranslate"><span class="pre">date_cleanup</span></code> returning <code class="docutils literal notranslate"><span class="pre">datetime.datetime</span></code> instead of <code class="docutils literal notranslate"><span class="pre">datetime.date</span></code></p></li>
 <li><p>Fix issue where <code class="docutils literal notranslate"><span class="pre">CompanyFilings</span></code> includes links that are not exact matches to <code class="docutils literal notranslate"><span class="pre">filing_type</span></code>.</p></li>
 <li><p>Add NSAR filing types. Thanks to mjkoo91!</p></li>
+<li><p>Get rid of caching behavior that was causing issues when downloading filings.</p></li>
+<li><p>Simplify <code class="docutils literal notranslate"><span class="pre">ComboFilings</span></code> logic for getting quarterly and daily dates.</p></li>
 <li><p>Fix issue where <code class="docutils literal notranslate"><span class="pre">get_cik_map</span></code> fails due to the SEC providing <code class="docutils literal notranslate"><span class="pre">None</span></code> for title or ticker.</p></li>
 </ul>
 </section>
