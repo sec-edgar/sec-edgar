@@ -18,7 +18,7 @@ elif [[ "$1" = "all" ]]; then
     echo "Running all without cover"
     pytest secedgar/tests  # run all tests
 elif [[ "$1" = "cover" ]]; then
-    if [[ -z "$2" && "$2" = "all" ]]; then
+    if [[ "$2" = "all" ]]; then
         # run all tests (including smoke tests), omit test code from coverage
         echo "Running all with cover"
         coverage run --source secedgar --omit=*/tests* -m pytest
