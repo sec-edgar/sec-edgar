@@ -1,3 +1,4 @@
+from collections import namedtuple
 from datetime import date
 
 import pytest
@@ -80,3 +81,20 @@ class TestFilings:
     def test_bad_args_combination_raises_error(self, kwargs, error):
         with pytest.raises(error):
             filings(**kwargs)
+
+    def test_filing_type_with_entry_filter_properly_set(self, mock_user_agent):
+        f = filings(filing_type=FilingType.FILING_10Q,
+                    entry_filter=lambda f: "apple" in f.company_name.lower(),
+                    start_date=date(2020, 1, 1),
+                    end_date=date(2021, 1, 1),
+                    user_agent=mock_user_agent)
+        FilingEntry = namedtuple("FilingEntry", [
+            "cik", "company_name", "form_type", "date_filed", "file_name",
+            "path", "num_previously_valid"
+        ])
+        all_filings = [
+            FilingEntry("123", "abc", "10-K", "20200102", "", "", ""),
+            FilingEntry("456", "apple", "10-Q", "20200103", "", "", ""),
+            FilingEntry("789", "abc", "8-K", "20200104", "", "", "")
+        ]
+        assert [f.entry_filter(af) for af in all_filings] == [False, True, False]

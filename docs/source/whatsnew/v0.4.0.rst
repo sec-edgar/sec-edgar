@@ -22,6 +22,7 @@ Many breaking changes, as this update does a lot of restructuring.
 - Simplify ``ComboFilings`` logic for getting quarterly and daily dates.
 - Fix issue where ``get_cik_map`` fails due to the SEC providing ``None`` for title or ticker.
 - Add smoke tests to test package "in the wild".
+- Fix issue with combining ``entry_filter`` and ``filing_type``.
 
 Contributors
 ~~~~~~~~~~~~
