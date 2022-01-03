@@ -70,6 +70,10 @@ class TestQuarterly:
             mf = QuarterlyFilings(year=2019, quarter=quarter, user_agent=mock_user_agent)
             assert mf.quarter == quarter
 
+    def test_quarter_in_future_raises_value_error(self, mock_user_agent):
+        with pytest.raises(ValueError):
+            _ = QuarterlyFilings(year=date.today().year + 1, quarter=1, user_agent=mock_user_agent)
+
     @pytest.mark.parametrize("year,quarter", [(2018, 1), (2019, 2), (2020, 3)])
     def test_idx_filename_is_always_the_same(self, mock_user_agent, year, quarter):
         mf = QuarterlyFilings(year=year, quarter=quarter, user_agent=mock_user_agent)
