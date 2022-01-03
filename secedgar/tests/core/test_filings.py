@@ -1,6 +1,7 @@
 from datetime import date
 
 import pytest
+
 from secedgar.client import NetworkClient
 from secedgar.core import DailyFilings, FilingType, QuarterlyFilings
 from secedgar.core.combo import ComboFilings

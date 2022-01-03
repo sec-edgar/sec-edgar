@@ -2,6 +2,7 @@ import os
 from datetime import date, datetime
 
 import pytest
+
 import secedgar.utils as utils
 from secedgar.client import NetworkClient
 from secedgar.core.daily import DailyFilings
@@ -69,6 +70,17 @@ class TestDaily:
     def test_get_urls(self, mock_user_agent, mock_daily_quarter_directory, mock_daily_idx_file,
                       key, url):
         daily_filing = DailyFilings(date(2018, 12, 31), user_agent=mock_user_agent)
+        assert url in daily_filing.get_urls()[key]
+
+    @pytest.mark.smoke
+    @pytest.mark.parametrize("key,url", [(cik,
+                                          "http://www.sec.gov/Archives/edgar/data/{cik}/{f}".format(
+                                              cik=cik, f=f))
+                                         for cik, f in cik_file_pairs])
+    def test_get_urls_smoke(self, real_test_client,
+                            key,
+                            url):
+        daily_filing = DailyFilings(date(2018, 12, 31), client=real_test_client)
         assert url in daily_filing.get_urls()[key]
 
     def test_get_listings_directory(self, mock_user_agent, mock_daily_quarter_directory):
@@ -149,6 +161,20 @@ class TestDaily:
                           mock_filing_response,
                           mock_user_agent, cik, file):
         daily_filing = DailyFilings(date(2018, 12, 31), user_agent=mock_user_agent)
+        daily_filing.save(tmp_data_directory)
+        subdir = os.path.join("20181231", cik)
+        path_to_check = os.path.join(tmp_data_directory, subdir, file)
+        assert os.path.exists(path_to_check)
+
+    @pytest.mark.smoke
+    @pytest.mark.parametrize("cik,file", cik_file_pairs)
+    def test_save_default_smoke(self, tmp_data_directory,
+                                real_test_client,
+                                cik,
+                                file):
+        daily_filing = DailyFilings(date(2018, 12, 31),
+                                    client=real_test_client,
+                                    entry_filter=lambda f: f.cik == cik)
         daily_filing.save(tmp_data_directory)
         subdir = os.path.join("20181231", cik)
         path_to_check = os.path.join(tmp_data_directory, subdir, file)

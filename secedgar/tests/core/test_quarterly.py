@@ -2,6 +2,7 @@ import os
 from datetime import date
 
 import pytest
+
 from secedgar.core.quarterly import QuarterlyFilings
 from secedgar.tests.utils import MockResponse
 
@@ -26,6 +27,13 @@ def mock_master_idx_file(monkeypatch):
 
 
 class TestQuarterly:
+    year_1993_quarter_4_filings = [
+        ("1095785", "9999999997-02-056978.txt"),
+        ("11860", "0000011860-94-000005.txt"),
+        ("17206", "0000017206-94-000007.txt"),
+        ("205239", "0000205239-94-000003.txt"),
+        ("20762", "0000950131-94-000025.txt"),
+    ]
 
     @pytest.mark.parametrize("bad_year,expected_error", [
         (-1, ValueError),
@@ -75,17 +83,23 @@ class TestQuarterly:
         urls = quarterly_filing.get_urls()
         assert len(urls) == 0
 
-    @pytest.mark.parametrize("subdir,file", [
-        ("1095785", "9999999997-02-056978.txt"),
-        ("11860", "0000011860-94-000005.txt"),
-        ("17206", "0000017206-94-000007.txt"),
-        ("205239", "0000205239-94-000003.txt"),
-        ("20762", "0000950131-94-000025.txt"),
-    ])
+    @pytest.mark.parametrize("subdir,file", year_1993_quarter_4_filings)
     def test_save(self, tmp_data_directory, mock_user_agent, mock_filing_data,
                   mock_quarterly_quarter_directory, mock_master_idx_file,
                   mock_filing_response, subdir, file):
         quarterly_filing = QuarterlyFilings(year=1993, quarter=4, user_agent=mock_user_agent)
+        quarterly_filing.save(tmp_data_directory)
+        subdir = os.path.join("1993", "QTR4", subdir)
+        path_to_check = os.path.join(tmp_data_directory, subdir, file)
+        assert os.path.exists(path_to_check)
+
+    @pytest.mark.smoke
+    @pytest.mark.parametrize("subdir,file", year_1993_quarter_4_filings)
+    def test_save_smoke(self, tmp_data_directory,
+                        real_test_client,
+                        subdir,
+                        file):
+        quarterly_filing = QuarterlyFilings(year=1993, quarter=4, client=real_test_client)
         quarterly_filing.save(tmp_data_directory)
         subdir = os.path.join("1993", "QTR4", subdir)
         path_to_check = os.path.join(tmp_data_directory, subdir, file)
