@@ -81,6 +81,19 @@ class TestComboFilings:
         assert [str(s) for s in combo.daily_date_list] == ["2020-12-10"]
         assert len(combo.quarterly_date_list) == 0
 
+    def test_combo_set_none_start_date_init(self, mock_user_agent):
+        combo = ComboFilings(start_date=None,
+                             end_date=date(2021, 1, 1),
+                             user_agent=mock_user_agent)
+        assert combo.start_date is None
+
+    def test_combo_set_none_start_date_setter(self, mock_user_agent):
+        combo = ComboFilings(start_date=date(2020, 1, 1),
+                             end_date=date(2021, 1, 1),
+                             user_agent=mock_user_agent)
+        combo.start_date = None
+        assert combo.start_date is None
+
     def test_combo_daily_only_multiple_days(self, mock_user_agent):
         combo = ComboFilings(start_date=date(2020, 12, 10),
                              end_date=date(2020, 12, 12),
