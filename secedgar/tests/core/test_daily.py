@@ -37,6 +37,7 @@ def mock_daily_idx_file(monkeymodule):
 
 
 class TestDaily:
+    bad_dates = [20201231, "20201231", "2020/12/31"]
 
     @pytest.mark.parametrize("date,expected", [(date(2020, 1, 1), 1),
                                                (date(2020, 3, 31), 1),
@@ -124,12 +125,17 @@ class TestDaily:
         daily_filing = DailyFilings(date=date, user_agent=mock_user_agent)
         assert daily_filing.date == date
 
-    @pytest.mark.parametrize("bad_date", [20201231, "20201231", "2020/12/31"])
+    @pytest.mark.parametrize("bad_date", bad_dates)
     def test_bad_date_on_init(self, bad_date):
         with pytest.raises(TypeError):
             _ = DailyFilings(date=bad_date)
 
-    @pytest.mark.parametrize("bad_date", [20201231, "20201231", "2020/12/31"])
+    @pytest.mark.parametrize("good_date", [date(y, 1, 2) for y in range(2015, 2020)])
+    def test_good_date_on_init(self, good_date, mock_user_agent):
+        d = DailyFilings(date=good_date, user_agent=mock_user_agent)
+        assert d.date == good_date
+
+    @pytest.mark.parametrize("bad_date", bad_dates)
     def test_bad_date_setter_after_init(self, bad_date, mock_user_agent):
         daily_filing = DailyFilings(date=date(2020, 1, 1), user_agent=mock_user_agent)
         with pytest.raises(TypeError):
