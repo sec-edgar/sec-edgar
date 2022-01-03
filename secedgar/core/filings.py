@@ -146,6 +146,9 @@ def filings(
             client=client,
             **kwargs
         )
+    # set entry filter to be overwritten if filing_type is not None
+    _entry_filter = entry_filter
+
     if filing_type is not None:
         # If filing type also given, add filing types to existing entry filter
         def _entry_filter(x):
