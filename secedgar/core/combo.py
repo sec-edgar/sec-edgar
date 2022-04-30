@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+import datetime
 from functools import reduce
 from typing import Union
 
@@ -25,17 +25,17 @@ def fill_days(start, end, include_start=False, include_end=False):
     """
     start_range = 0 if include_start else 1
     end_range = (end - start).days + 1 if include_end else (end - start).days
-    return [start + timedelta(days=d) for d in range(start_range, end_range)]
+    return [start + datetime.timedelta(days=d) for d in range(start_range, end_range)]
 
 
 class ComboFilings:
     """Class for retrieving all filings between specified dates.
 
     Args:
-        start_date (Union[str, datetime.datetime, datetime.date], optional): Date before
+        start_date (Union[str, ``datetime.datetime``, ``datetime.date``], optional): Date before
             which not to fetch reports. Stands for "date after."
             Defaults to None (will fetch all filings before ``end_date``).
-        end_date (Union[str, datetime.datetime, datetime.date], optional):
+        end_date (Union[str, ``datetime.datetime``, ``datetime.date``], optional):
             Date after which not to fetch reports.
             Stands for "date before." Defaults to today.
         user_agent (Union[str, NoneType]): Value used for HTTP header "User-Agent" for all requests.
@@ -74,8 +74,8 @@ class ComboFilings:
     """
 
     def __init__(self,
-                 start_date: date,
-                 end_date: date,
+                 start_date: datetime.date,
+                 end_date: datetime.date,
                  user_agent: Union[str, None] = None,
                  client=None,
                  entry_filter=lambda _: True,
@@ -148,7 +148,7 @@ class ComboFilings:
             current_quarter = get_quarter(current_date)
             current_year = current_date.year
             next_year, next_quarter = add_quarter(current_year, current_quarter)
-            next_start_quarter_date = date(next_year, get_month(next_quarter), 1)
+            next_start_quarter_date = datetime.date(next_year, get_month(next_quarter), 1)
 
             days_till_next_quarter = (next_start_quarter_date -
                                       current_date).days
@@ -157,7 +157,7 @@ class ComboFilings:
             # If there are more days until the end date than there are
             # in the quarter, add
             if days_till_next_quarter <= days_till_end:
-                current_start_quarter_date = date(current_year,
+                current_start_quarter_date = datetime.date(current_year,
                                                   get_month(current_quarter), 1)
                 if current_start_quarter_date == current_date:
                     quarterly_date_list.append(
@@ -166,7 +166,7 @@ class ComboFilings:
                 elif days_till_next_quarter > self.balancing_point:
                     quarterly_date_list.append(
                         (current_year, current_quarter,
-                         lambda x: date(x['date_filed']) >= self.start_date))
+                         lambda x: datetime.datetime.strptime(x.date_filed, '%Y-%m-%d').date() >= self.start_date))
                     current_date = next_start_quarter_date
                 else:
                     daily_date_list.extend(fill_days(start=current_date,
@@ -183,7 +183,7 @@ class ComboFilings:
                     else:
                         quarterly_date_list.append(
                             (current_year, current_quarter,
-                             lambda x: date(x['date_filed']) <= self.end_date))
+                             lambda x: datetime.datetime.strptime(x.date_filed, '%Y-%m-%d').date() <= self.end_date))
                         current_date = self.end_date
                 else:
                     daily_date_list.extend(fill_days(start=current_date,
