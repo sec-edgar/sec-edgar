@@ -1,5 +1,4 @@
 from datetime import date
-from unittest import mock
 
 import pytest
 from secedgar.client import NetworkClient
@@ -187,11 +186,8 @@ class TestComboFilings:
 
         assert len(quarter_list) > 0, "Expected quarterly list not to be empty"
         assert len(date_list) > 0, "Expected date list not to be empty"
-        assert (date_list == [date(2022, 4, d) for d in range(1, 16)],
-                "Date list should have April 1 through 15.")
+        assert date_list == [date(2022, 4, d) for d in range(1, 16)], """
+        Date list should have April 1 through 15."""
         assert len(quarter_list) == 1, "Should only have one quarter"
         assert quarter_list[0][0] == 2022, "Only quarter in list should be Q1 2022"
         assert quarter_list[0][1] == 1, "Only quarter in list should be Q1 2022"
-
-
-

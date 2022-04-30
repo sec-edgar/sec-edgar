@@ -158,7 +158,7 @@ class ComboFilings:
             # in the quarter, add
             if days_till_next_quarter <= days_till_end:
                 current_start_quarter_date = datetime.date(current_year,
-                                                  get_month(current_quarter), 1)
+                                                           get_month(current_quarter), 1)
                 if current_start_quarter_date == current_date:
                     quarterly_date_list.append(
                         (current_year, current_quarter, lambda x: True))
@@ -166,7 +166,9 @@ class ComboFilings:
                 elif days_till_next_quarter > self.balancing_point:
                     quarterly_date_list.append(
                         (current_year, current_quarter,
-                         lambda x: datetime.datetime.strptime(x.date_filed, '%Y-%m-%d').date() >= self.start_date))
+                         lambda x: datetime.datetime.strptime(
+                             x.date_filed, '%Y-%m-%d'
+                         ).date() >= self.start_date))
                     current_date = next_start_quarter_date
                 else:
                     daily_date_list.extend(fill_days(start=current_date,
@@ -183,7 +185,9 @@ class ComboFilings:
                     else:
                         quarterly_date_list.append(
                             (current_year, current_quarter,
-                             lambda x: datetime.datetime.strptime(x.date_filed, '%Y-%m-%d').date() <= self.end_date))
+                             lambda x: datetime.datetime.strptime(
+                                 x.date_filed, '%Y-%m-%d'
+                             ).date() <= self.end_date))
                         current_date = self.end_date
                 else:
                     daily_date_list.extend(fill_days(start=current_date,
