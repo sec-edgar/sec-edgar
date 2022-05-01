@@ -19,7 +19,7 @@ if [[ "$1" -eq "dev" || "$1" -eq "docs" ]]; then
 fi
 
 if [[ "$1" -eq "docs" ]]; then
-    pip install ipython sphinx_rtd_theme sphinx sphinx-autobuild sphinx-click
+    pip install ipython sphinx_rtd_theme sphinx<4.4 sphinx-autobuild sphinx-click
 fi
 
 if [[ "$1" -eq "pypi" ]]; then
