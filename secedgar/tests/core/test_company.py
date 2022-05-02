@@ -3,7 +3,6 @@ import datetime
 import os
 
 import pytest
-
 from secedgar.cik_lookup import CIKLookup
 from secedgar.client import NetworkClient
 from secedgar.core import CompanyFilings, FilingType
@@ -342,10 +341,12 @@ class TestCompanyFilings:
         assert all(
             len(f.get_urls().get(key)) == count for key in f.get_urls().keys())
 
-    @pytest.mark.parametrize("count,raises_error", [(5, False), (10, False),
-                                                    (20, True), (30, True),
+    @pytest.mark.parametrize("count,raises_error", [(5, False),
+                                                    (10, False),
+                                                    (20, True),
+                                                    (30, True),
                                                     (40, True)])
-    @pytest.mark.filterwarnings("ignore::DeprecationWarning")
+    @ pytest.mark.filterwarnings("ignore::DeprecationWarning")
     # For collections.abc warning 3.8+
     def test_filings_warning_lt_count(self, recwarn, count, raises_error,
                                       tmp_data_directory,
@@ -364,18 +365,23 @@ class TestCompanyFilings:
         else:
             try:
                 w = recwarn.pop(UserWarning)
-                pytest.fail("Expected no UserWarning, but received one.")
+                # Allow XMLParsedAsHTMLWarning, but don't allow others
+                if w and w._category_name == "XMLParsedAsHTMLWarning":
+                    pass
+                else:
+                    pytest.fail("Expected no UserWarning, but received one.")
             # Should raise assertion error since no UserWarning should be found
             except AssertionError:
                 pass
 
-    @pytest.mark.smoke
-    @pytest.mark.slow
+    @ pytest.mark.smoke
+    @ pytest.mark.slow
     def test_filing_simple_example_smoke(self, tmp_data_directory,
                                          mock_user_agent):
         my_filings = CompanyFilings(cik_lookup="IBM",
                                     filing_type=FilingType.FILING_10Q,
-                                    user_agent=mock_user_agent)
+                                    user_agent=mock_user_agent,
+                                    count=3)
         my_filings.save(tmp_data_directory)
         assert len(os.listdir(tmp_data_directory)) > 0, "No file or directory created after save."
 
@@ -400,7 +406,7 @@ class TestCompanyFilings:
         second_urls = f.get_urls()
         assert all(f == s for f, s in zip(first_urls, second_urls))
 
-    @pytest.mark.parametrize(
+    @ pytest.mark.parametrize(
         "bad_ownership",
         [
             "notright",
