@@ -1,7 +1,6 @@
 from datetime import date
 
 import pytest
-
 from secedgar.client import NetworkClient
 from secedgar.core.combo import ComboFilings, fill_days
 
@@ -175,3 +174,20 @@ class TestComboFilings:
                              user_agent=mock_user_agent)
         with pytest.raises(AttributeError):
             combo.balancing_point = 20
+
+    def test_combo_filings_quarterly_lambda(self, mock_user_agent):
+        # Tests issue raised in GH#269.
+        combo = ComboFilings(start_date=date(2022, 2, 28),
+                             end_date=date(2022, 4, 15),
+                             user_agent=mock_user_agent)
+
+        # Make sure you can run ``_get_quarterly_daily_date_lists``
+        quarter_list, date_list = combo._get_quarterly_daily_date_lists()
+
+        assert len(quarter_list) > 0, "Expected quarterly list not to be empty"
+        assert len(date_list) > 0, "Expected date list not to be empty"
+        assert date_list == [date(2022, 4, d) for d in range(1, 16)], """
+        Date list should have April 1 through 15."""
+        assert len(quarter_list) == 1, "Should only have one quarter"
+        assert quarter_list[0][0] == 2022, "Only quarter in list should be Q1 2022"
+        assert quarter_list[0][1] == 1, "Only quarter in list should be Q1 2022"
