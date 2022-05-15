@@ -5,3 +5,4 @@ urllib3
 requests
 lxml
 tqdm
+typing_extensions<4.2.0
