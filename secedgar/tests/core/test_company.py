@@ -346,7 +346,7 @@ class TestCompanyFilings:
                                                     (20, True),
                                                     (30, True),
                                                     (40, True)])
-    @ pytest.mark.filterwarnings("ignore::DeprecationWarning")
+    @pytest.mark.filterwarnings("ignore::DeprecationWarning")
     # For collections.abc warning 3.8+
     def test_filings_warning_lt_count(self, recwarn, count, raises_error,
                                       tmp_data_directory,
@@ -374,8 +374,8 @@ class TestCompanyFilings:
             except AssertionError:
                 pass
 
-    @ pytest.mark.smoke
-    @ pytest.mark.slow
+    @pytest.mark.smoke
+    @pytest.mark.slow
     def test_filing_simple_example_smoke(self, tmp_data_directory,
                                          mock_user_agent):
         my_filings = CompanyFilings(cik_lookup="IBM",
@@ -406,7 +406,7 @@ class TestCompanyFilings:
         second_urls = f.get_urls()
         assert all(f == s for f, s in zip(first_urls, second_urls))
 
-    @ pytest.mark.parametrize(
+    @pytest.mark.parametrize(
         "bad_ownership",
         [
             "notright",

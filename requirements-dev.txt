@@ -2,5 +2,3 @@ pytest
 flake8
 pydocstyle >= 4.0.0
 click
-sphinx
-importlib_metadata<=4.7
