@@ -16,11 +16,10 @@ fi
 if [[ "$1" -eq "dev" || "$1" -eq "docs" ]]; then
     python setup.py install
 
-    # typing extensions drops support for python 3.6 in 4.2.0
-    pip install typing_extensions<4.2.0 --force-reinstall
-
     pip install -r requirements-dev.txt
 
+    # typing extensions drops support for python 3.6 in 4.2.0
+    pip install typing_extensions<4.2.0 --force-reinstall
 fi
 
 if [[ "$1" -eq "docs" ]]; then
