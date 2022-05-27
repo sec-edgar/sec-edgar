@@ -48,6 +48,7 @@ class CIKLookup:
 
     .. versionadded:: 0.1.5
     """
+    # TODO: Make client an optional argument with default to None
 
     def __init__(self, lookups, client, **kwargs):
         if lookups and isinstance(lookups, str):
