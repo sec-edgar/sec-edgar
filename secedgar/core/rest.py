@@ -23,7 +23,7 @@ def _get_lookup_dict(lookups, user_agent):
 
 
 def _combine_dicts(*dicts):
-    """Utility function to combine dictionaries.
+    """Utility function to combine dictionary values when values are lists.
 
     Returns:
         dict: Dictionaries combined into one.
