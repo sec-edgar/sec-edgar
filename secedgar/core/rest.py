@@ -87,7 +87,13 @@ def get_company_facts(lookups, user_agent):
     return company_facts
 
 
-def get_xbrl_frames(lookups, user_agent, concept_name, year, quarter=None, instantaneous=False):
+def get_xbrl_frames(lookups,
+                    user_agent,
+                    concept_name,
+                    year,
+                    quarter=None,
+                    currency="USD",
+                    instantaneous=False):
     lookup_dict = _get_lookup_dict(lookups=lookups, user_agent=user_agent)
     xbrl_frames = dict()
     for lookup, cik in lookup_dict.items():
@@ -95,7 +101,7 @@ def get_xbrl_frames(lookups, user_agent, concept_name, year, quarter=None, insta
         period = "CY{0}".format(year) if quarter is None else "CY{0}Q{1}".format(year, quarter)
         if instantaneous:
             period += "I"
-        url = "{0}frames/us-gaap/{1}/{2}.json".format(XBRL_BASE, concept_name, period)
+        url = "{0}frames/us-gaap/{1}/{2}/{3}.json".format(XBRL_BASE, concept_name, currency, period)
 
         # Request and add to dictionary
         resp = requests.get(url, headers={"user-agent": user_agent})
@@ -107,8 +113,8 @@ if __name__ == "__main__":
     user_agent = "Nunya Business (nunyabusiness@gmail.com)"
     lookups = ["aapl"]
 
-    submissions = get_submissions(lookups=lookups, user_agent=user_agent, recent=False)
-    print(submissions["aapl"])
+    # submissions = get_submissions(lookups=lookups, user_agent=user_agent, recent=False)
+    # print(submissions["aapl"])
 
     # concepts = get_company_concepts(lookups=lookups,
     #                                 user_agent=user_agent,
@@ -117,3 +123,7 @@ if __name__ == "__main__":
 
     # facts = get_company_facts(lookups=lookups, user_agent=user_agent)
     # print(facts)
+
+    frames = get_xbrl_frames(lookups=lookups, user_agent=user_agent,
+                             concept_name="AccountsPayableCurrent", year=2020)
+    print(frames)
