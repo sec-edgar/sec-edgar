@@ -107,4 +107,4 @@ class TestQuarterly:
 
     def test_error_raised_no_user_agent(self):
         with pytest.raises(TypeError):
-            quarterly = QuarterlyFilings(year=2020, quarter=1)
+            _ = QuarterlyFilings(year=2020, quarter=1)
