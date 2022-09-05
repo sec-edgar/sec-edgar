@@ -162,6 +162,7 @@ class IndexFilings(AbstractFiling):
                              idx_file, re.MULTILINE)
         for entry in entries:
             fields = entry.split("|")
+            fields[-1] = fields[-1].strip()  # get rid of carriage return or newline
             path = "Archives/{file_name}".format(file_name=fields[-1])
             entry = FilingEntry(*fields,
                                 path=path,
