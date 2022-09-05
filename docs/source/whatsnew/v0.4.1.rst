@@ -4,7 +4,7 @@ v0.4.1
 Highlights
 ~~~~~~~~~~
 
-- Fixes issue with ``QuarterlyFilings`` not setting ``user_agent`` argument. Thanks to prhiggins!
+- Fixes issue with ``ComboFilings`` not setting ``user_agent`` argument. Thanks to prhiggins!
 
 Contributors
 ~~~~~~~~~~~~
