@@ -17,3 +17,8 @@ Parsing Meta Data
 
 .. autoclass:: secedgar.parser.MetaParser
    :members:
+
+Parsing Form 4 Data 
+
+.. autoclass:: secedgar.parser.F4Parser 
+   :members:

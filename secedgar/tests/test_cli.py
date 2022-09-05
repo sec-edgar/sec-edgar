@@ -1,12 +1,15 @@
+import datetime
 import os
+from datetime import date
 
 import pytest
 from click.testing import CliRunner
-from secedgar.cli import cli
+
+from secedgar.cli import cli, date_cleanup
 from secedgar.exceptions import FilingTypeError
 # Borrow mocks without including in conftest
-from secedgar.tests.filings.test_daily import mock_daily_idx_file  # noqa: F401
-from secedgar.tests.filings.test_daily import \
+from secedgar.tests.core.test_daily import mock_daily_idx_file  # noqa: F401
+from secedgar.tests.core.test_daily import \
     mock_daily_quarter_directory  # noqa: F401
 
 
@@ -82,6 +85,28 @@ class TestCLI:
         else:
             assert len(txt_files) == 3 * count
 
+    @pytest.mark.smoke
+    @pytest.mark.parametrize(
+        "user_input,count",
+        [
+            ("filing -l aapl -l msft -l amzn -t FILING_10Q -n {}", 10),
+        ]
+    )
+    def test_cli_filing_multiple_companies_input_smoke(
+            self,
+            user_input,
+            count,
+            tmp_data_directory):
+        if count is not None:
+            user_input = user_input.format(count)
+        result = run_cli_command(cli, user_input, tmp_data_directory)
+        assert result.exit_code == 0
+        txt_files = [f for *_, files in os.walk(tmp_data_directory) for f in files]
+        if count is None:
+            assert len(txt_files) == 3
+        else:
+            assert len(txt_files) == 3 * count
+
     @pytest.mark.parametrize(
         "user_input,expected_exception",
         [
@@ -104,3 +129,21 @@ class TestCLI:
     )
     def test_cli_requires_user_agent(self, user_input, tmp_data_directory):
         check_bad_inputs(cli, user_input, SystemExit, tmp_data_directory, user_agent=None)
+
+    @pytest.mark.parametrize(
+        "input,output",
+        [
+            ("20210423", date(2021, 4, 23)),
+            ("19900101", date(1990, 1, 1)),
+            ("20000101", date(2000, 1, 1)),
+            (None, None)
+        ]
+
+    )
+    def test_date_cleanup(self, input, output):
+        result = date_cleanup(input)
+        if isinstance(input, str):
+            assert isinstance(result, datetime.date)
+        else:
+            assert result is None
+        assert result == output

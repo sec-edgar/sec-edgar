@@ -1,0 +1,32 @@
+v0.4.0
+------
+
+Highlights
+~~~~~~~~~~
+
+Many breaking changes, as this update does a lot of restructuring.
+
+- Rename ``filings.py`` to ``company.py`` (and respective ``Filings`` class to ``CompanyFilings``).
+- Rename ``master.py`` to ``quarterly.py`` (and respective ``MasterFilings`` class to ``QuarterlyFilings``).
+- Rename ``filings`` subdirectory to ``core`` to avoid confusion.
+- Create ``ComboFilings`` class that wraps around ``QuarterlyFilings``, ``DailyFilings`` given 2 dates.
+- Create ``filings`` factory that returns the correct class based on user inputs. Returns one of ``ComboFilings``, ``QuarterlyFilings``, ``DailyFilings``, ``CompanyFilings``.
+- Add many more types to ``FilingType`` enum. Switch to csv table for details.
+- If no filings found for ``DailyFilings`` or ``MasterFilings`` after finding that other filings that do not match the criteria exist, then raise a ``NoFilingsError`` instead of a ``ValueError``.
+- Fix use of ``user_agent`` by ``NetworkClient`` and require its use by all filings classes/functions
+- Fix issue where daily CLI command would not work due to ``date_cleanup`` returning ``datetime.datetime`` instead of ``datetime.date``
+- Fix issue where ``CompanyFilings`` includes links that are not exact matches to ``filing_type``.
+- Fix issue where ``get_urls`` does not reset ``params`` after getting company filings URLs.
+- Add NSAR filing types. Thanks to mjkoo91!
+- Get rid of caching behavior that was causing issues when downloading filings.
+- Simplify ``ComboFilings`` logic for getting quarterly and daily dates.
+- Fix issue where ``get_cik_map`` fails due to the SEC providing ``None`` for title or ticker.
+- Add smoke tests to test package "in the wild".
+
+Contributors
+~~~~~~~~~~~~
+
+- reteps
+- jackmoody11
+- lolski
+- agraddy

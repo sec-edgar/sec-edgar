@@ -5,14 +5,15 @@ import time
 
 import pytest
 import requests
+
 from secedgar.client import NetworkClient
 from secedgar.exceptions import EDGARQueryError
 from secedgar.tests.utils import MockResponse
 
 
 @pytest.fixture
-def client():
-    return NetworkClient()
+def client(mock_user_agent):
+    return NetworkClient(user_agent=mock_user_agent)
 
 
 @pytest.fixture
@@ -35,10 +36,23 @@ def mock_single_filing_page_good_response(monkeypatch):
 
 
 class TestNetworkClient:
+    @pytest.mark.parametrize(
+        "user_agent",
+        [
+            None,
+            1,
+            True,
+            False,
+        ]
+    )
+    def test_client_bad_user_agent(self, user_agent):
+        with pytest.raises(TypeError):
+            _ = NetworkClient(user_agent=user_agent)
+
     def test_client_bad_response_raises_error(self, client):
         no_cik_response = MockResponse(datapath_args=["CIK", "cik_not_found.html"])
         with pytest.raises(EDGARQueryError):
-            NetworkClient()._validate_response(no_cik_response)
+            client._validate_response(no_cik_response)
 
     def test_client_good_response_single_filing_type_passes(self,
                                                             mock_single_filing_type_good_response,
@@ -91,9 +105,9 @@ class TestNetworkClient:
             [1, 2, 3],
         ]
     )
-    def test_bad_backoff_factor_setter(self, bad_backoff_factor):
+    def test_bad_backoff_factor_setter(self, bad_backoff_factor, mock_user_agent):
         with pytest.raises(TypeError):
-            _ = NetworkClient(backoff_factor=bad_backoff_factor)
+            _ = NetworkClient(user_agent=mock_user_agent, backoff_factor=bad_backoff_factor)
 
     @pytest.mark.parametrize(
         "good_backoff_factor",
@@ -106,8 +120,8 @@ class TestNetworkClient:
             10
         ]
     )
-    def test_good_backoff_factor_setter(self, good_backoff_factor):
-        client = NetworkClient()
+    def test_good_backoff_factor_setter(self, mock_user_agent, good_backoff_factor):
+        client = NetworkClient(user_agent=mock_user_agent)
         client.backoff_factor = good_backoff_factor
         assert client.backoff_factor == good_backoff_factor
 
@@ -166,9 +180,10 @@ class TestNetworkClient:
         "rate_limit",
         range(1, 10)
     )
-    def test_rate_limit_requests_per_second(self, tmp_data_directory, rate_limit,
+    def test_rate_limit_requests_per_second(self, mock_user_agent,
+                                            tmp_data_directory, rate_limit,
                                             mock_filing_response):
-        client = NetworkClient(rate_limit=rate_limit)
+        client = NetworkClient(user_agent=mock_user_agent, rate_limit=rate_limit)
         min_seconds = 3
         num_requests = rate_limit * min_seconds
         inputs = [("https://google.com", os.path.join(tmp_data_directory, str(i)))

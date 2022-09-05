@@ -22,11 +22,17 @@ def get_cik_map():
             mapping tickers to CIKs, use "ticker". To get
             company names mapped to CIKs, use "title".
 
+    .. note::
+
+       If any tickers or titles are ``None``, the ticker or title will
+       be excluded from the returned dictionary.
+
     .. versionadded:: 0.1.6
     """
     response = requests.get("https://www.sec.gov/files/company_tickers.json")
     json_response = response.json()
-    return {key: {v[key].upper(): str(v["cik_str"]) for v in json_response.values()}
+    return {key: {v[key].upper(): str(v["cik_str"]) for v in json_response.values()
+                  if v[key] is not None}
             for key in ("ticker", "title")}
 
 
@@ -37,11 +43,13 @@ class CIKLookup:
 
     Args:
         lookup (Union[str, list]): Ticker, company name, or list of tickers and/or company names.
+        client (secedgar.client.NetworkClient): A network client object to use. See
+            :class:`secedgar.client.NetworkClient` for more details.
 
     .. versionadded:: 0.1.5
     """
 
-    def __init__(self, lookups, client=None, **kwargs):
+    def __init__(self, lookups, client, **kwargs):
         if lookups and isinstance(lookups, str):
             self._lookups = [lookups]  # make single string into list
         else:
@@ -50,7 +58,7 @@ class CIKLookup:
                 raise TypeError("CIKs must be given as string or iterable.")
             self._lookups = lookups
         self._params = {}
-        self._client = client if client is not None else NetworkClient(**kwargs)
+        self._client = client or NetworkClient(**kwargs)
         self._lookup_dict = None
         self._ciks = None
 
@@ -73,7 +81,7 @@ class CIKLookup:
 
     @property
     def client(self):
-        """``secedgar.client_.base``: Client to use to fetch requests."""
+        """``secedgar.client.NetworkClient``: Client to use to fetch requests."""
         return self._client
 
     @property

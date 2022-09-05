@@ -17,6 +17,7 @@ Welcome to secedgar's documentation!
    filings
    filingtypes
    cikmap
+   client
    parser
    cli
    whatsnew

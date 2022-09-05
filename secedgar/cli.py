@@ -3,8 +3,8 @@ from datetime import datetime
 
 import click
 
+from secedgar.core import CompanyFilings, DailyFilings, FilingType
 from secedgar.exceptions import FilingTypeError
-from secedgar.filings import DailyFilings, Filing, FilingType
 
 
 @click.group()
@@ -14,9 +14,7 @@ from secedgar.filings import DailyFilings, Filing, FilingType
               type=str)
 @click.pass_context
 def cli(ctx, user_agent):
-    r"""Main CLI group.
-
-    \f
+    """Main CLI group.
 
     Args:
         ctx (click.core.Context): Click context.
@@ -30,28 +28,32 @@ def cli(ctx, user_agent):
 
 
 def date_cleanup(date):
-    r"""Transforms date of form YYYYMMDD to datetime object.
+    """Transforms date of form YYYYMMDD to datetime object.
 
     Args:
-        date (Union[str, NoneType]): Date of the form YYYYMMDD to be transformed.
+        date (str): Date of the form YYYYMMDD to be transformed.
 
     Returns:
-        ``datetime.datetime`` object if given string.
-        Returns None if None is given.
+        ``datetime.date`` object if given string.
+        If given None, None is returned.
     """
-    return datetime.strptime(date, "%Y%m%d") if date is not None else None
+    return datetime.strptime(date, "%Y%m%d").date() if date is not None else None
 
 
 @cli.command()
-@click.option('-l', '--lookups',
+@click.option('-l',
+              '--lookups',
               help='Companies and tickers to include in filing download.',
               required=True,
               multiple=True)
-@click.option('-t', '--ftype', help="""Choose a filing type.
-             See ``secedgar.filings.FilingType`` for a full list of available enums.
+@click.option('-t',
+              '--ftype',
+              help="""Choose a filing type.
+             See ``secedgar.core.FilingType`` for a full list of available enums.
              Should be of the form FILING_<filing type>.""",
               required=True)  # Need to convert this to enum somehow
-@click.option('-s', '--start',
+@click.option('-s',
+              '--start',
               help="""Start date for filings.
               Should be in the format YYYYMMDD. Defaults to first available filing.""",
               type=str)
@@ -67,9 +69,7 @@ def date_cleanup(date):
               default=os.getcwd(), type=str)
 @click.pass_context
 def filing(ctx, lookups, ftype, start, end, count, directory):
-    r"""Click command for downloading filings. Run ``secedgar filing --help`` for info.
-
-    \f
+    """Click command for downloading filings. Run ``secedgar filing --help`` for info.
 
     Args:
         ctx (click.core.Context): Click context.
@@ -92,23 +92,35 @@ def filing(ctx, lookups, ftype, start, end, count, directory):
     except KeyError:
         raise FilingTypeError()
 
-    f = Filing(cik_lookup=lookups,
-               filing_type=ftype,
-               start_date=date_cleanup(start),
-               end_date=date_cleanup(end),
-               count=count,
-               user_agent=ctx.obj['user_agent'])
+    f = CompanyFilings(cik_lookup=lookups,
+                       filing_type=ftype,
+                       start_date=date_cleanup(start),
+                       end_date=date_cleanup(end),
+                       count=count,
+                       user_agent=ctx.obj['user_agent'])
     f.save(directory=directory)
 
 
 @cli.command()
-@click.option('-d', '--date', help="""Date to look up daily filings for.
-              Should be in the format YYYYMMDD.""", required=True, type=str)
-@click.option('--directory', help="""Directory where files will be saved.
+@click.option('-d',
+              '--date',
+              help="""Date to look up daily filings for.
+              Should be in the format YYYYMMDD.""",
+              required=True,
+              type=str)
+@click.option('--directory',
+              help="""Directory where files will be saved.
               Defaults to directory from which CLI is being executed.""",
               default=os.getcwd(), type=str)
 @click.pass_context
 def daily(ctx, date, directory):
-    """Click command for downloading daily filings. Run ``secedgar daily --help`` for info."""
+    """Click command for downloading daily filings. Run ``secedgar daily --help`` for info.
+
+    Args:
+        ctx (click.core.Context): Click context.
+        date (str): Date to look up daily filings for. Should be in the format YYYYMMDD.
+        directory (str): Directory where files should be saved.
+            Defaults to current working directory.
+    """
     d = DailyFilings(date=date_cleanup(date), user_agent=ctx.obj['user_agent'])
     d.save(directory=directory)
