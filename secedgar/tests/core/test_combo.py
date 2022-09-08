@@ -191,3 +191,8 @@ class TestComboFilings:
         assert len(quarter_list) == 1, "Should only have one quarter"
         assert quarter_list[0][0] == 2022, "Only quarter in list should be Q1 2022"
         assert quarter_list[0][1] == 1, "Only quarter in list should be Q1 2022"
+
+    def test_combo_no_user_agent_raises_error(self):
+        with pytest.raises(TypeError):
+            _ = ComboFilings(start_date=date(2022, 2, 28),
+                             end_date=date(2022, 4, 15))

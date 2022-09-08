@@ -84,6 +84,7 @@ class ComboFilings:
         self.entry_filter = entry_filter
         self.start_date = start_date
         self.end_date = end_date
+        self.user_agent = user_agent
         self._client = client or NetworkClient(user_agent=user_agent, **kwargs)
         self._balancing_point = balancing_point
 
