@@ -219,3 +219,7 @@ if __name__ == "__main__":
 
     # facts = get_company_facts(lookups=lookups, user_agent=user_agent)
     # print(facts)
+
+    frames = get_xbrl_frames(lookups=lookups, user_agent=user_agent,
+                             concept_name="AccountsPayableCurrent", year=2020)
+    print(frames)

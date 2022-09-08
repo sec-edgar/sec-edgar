@@ -16,6 +16,7 @@ Welcome to secedgar's documentation!
    ciklookup
    filings
    filingtypes
+   rest_api
    cikmap
    client
    parser
