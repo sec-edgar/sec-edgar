@@ -32,16 +32,17 @@ def _combine_dicts(*dicts):
         >>> b = {"A": [7, 8], "B": [0, 1, 2]}
         >>> _combine_dicts(a, b)
         {'A': [1, 2, 3, 7, 8], 'B': [4, 5, 6, 0, 1, 2]}
+        >>> _combine_dicts(a)
+        {'A': [1, 2, 3], 'B': [4, 5, 6]}
     """
-    if len(dicts) == 1:
-        return dicts[0]
-    else:
-        first = dicts[0]
-        # add each dict to combined dict
-        for d in dicts[1:]:
-            for k in first.keys():
-                first[k] = first[k] + d[k]
-        return first
+    final = {}
+    for d in dicts:
+        for k, v in d.items():
+            if k in final:
+                final[k] += v
+            else:
+                final[k] = v
+    return final
 
 
 def get_submissions(lookups, user_agent, recent=True):

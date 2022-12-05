@@ -1,9 +1,25 @@
 import pytest
-from secedgar.core.rest import (get_company_concepts, get_company_facts,
-                                get_submissions, get_xbrl_frames)
+from secedgar.core.rest import (_combine_dicts, get_company_concepts,
+                                get_company_facts, get_submissions,
+                                get_xbrl_frames)
 
 
 class TestRest:
+    @pytest.mark.parametrize("dicts,expected",
+                             [
+                                 ([{"A": [1, 2, 3], "B": [4, 5, 6]},
+                                  {"A": [7, 8], "B": [0, 1, 2]}],
+                                  {'A': [1, 2, 3, 7, 8], 'B': [4, 5, 6, 0, 1, 2]}),
+                                 ([{"A": [1, 2, 3]},
+                                  {"B": [4, 5, 6]}],
+                                  {"A": [1, 2, 3], "B": [4, 5, 6]}),
+                                 ([{"A": [1]}],
+                                  {"A": [1]})
+                             ]
+                             )
+    def test__combine_dicts(self, dicts, expected):
+        assert _combine_dicts(*dicts) == expected
+
     @pytest.mark.smoke
     def test_get_submissions(self, mock_user_agent):
         submissions = get_submissions(lookups=["aapl"], user_agent=mock_user_agent)
