@@ -1,5 +1,4 @@
 import requests
-
 from secedgar.cik_lookup import CIKLookup
 
 API_BASE = "https://data.sec.gov/api/"
@@ -29,7 +28,6 @@ def _combine_dicts(*dicts):
         dict: Dictionaries combined into one.
 
     Examples:
-
         >>> a = {"A": [1, 2, 3], "B": [4, 5, 6]}
         >>> b = {"A": [7, 8], "B": [0, 1, 2]}
         >>> _combine_dicts(a, b)
@@ -97,7 +95,6 @@ def get_company_concepts(lookups, user_agent, concept_name):
         dict: Dictionary with concept data for given lookups.
 
     Example:
-
         .. code::
 
             concept = "AccountsPayableCurrent"
@@ -130,7 +127,6 @@ def get_company_facts(lookups, user_agent):
         dict: Dictionary with lookups as keys and company fact dictionaries as values.
 
     Examples:
-
         >>> facts = get_company_facts(["aapl"], "Name (email@example.com)")
         >>> single_fact = facts["aapl"]["facts"]["us-gaap"]["Assets"]["units"]["USD"][0]
         >>> single_fact["val"]
@@ -159,7 +155,7 @@ def get_xbrl_frames(user_agent,
                     quarter=None,
                     currency="USD",
                     instantaneous=False):
-    """
+    """Get data for concept name in year (and quarter, if given).
 
     Args:
         user_agent (str): User agent to send to the SEC.
@@ -176,7 +172,6 @@ def get_xbrl_frames(user_agent,
             Dig into the data key for all period data.
 
     Examples:
-
         .. code::
 
             frames = get_xbrl_frames(user_agent="Name (email@example.com)",
@@ -210,7 +205,7 @@ if __name__ == "__main__":
     # submissions = get_submissions(lookups=lookups, user_agent=user_agent, recent=False)
     # print(submissions["aapl"])
 
-    print(_combine_dicts({"A": [1, 2, 3], "B": [4, 5, 6]}, {"A": [7, 8], "B": [0, 1, 2]}))
+    # print(_combine_dicts({"A": [1, 2, 3], "B": [4, 5, 6]}, {"A": [7, 8], "B": [0, 1, 2]}))
 
     # concepts = get_company_concepts(lookups=lookups,
     #                                 user_agent=user_agent,
@@ -220,6 +215,8 @@ if __name__ == "__main__":
     # facts = get_company_facts(lookups=lookups, user_agent=user_agent)
     # print(facts)
 
-    frames = get_xbrl_frames(lookups=lookups, user_agent=user_agent,
-                             concept_name="AccountsPayableCurrent", year=2020)
-    print(frames)
+    # frames = get_xbrl_frames(lookups=lookups, user_agent=user_agent,
+    #                          concept_name="AccountsPayableCurrent", year=2020)
+    # print(frames)
+
+    print(get_company_facts(["aapl"], "Example (example@example.com)"))
