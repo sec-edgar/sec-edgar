@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Finding Company CIKs &mdash; secedgar 0.4.0 documentation</title>
+  <title>Finding Company CIKs &mdash; secedgar 0.4.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -17,6 +17,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
@@ -33,7 +34,7 @@
             <a href="index.html" class="icon icon-home"> secedgar
           </a>
               <div class="version">
-                0.4.0
+                0.4.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -50,7 +51,10 @@
 <li class="toctree-l1"><a class="reference internal" href="ciklookup.html">CIK Lookup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filings.html">Filings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filingtypes.html">Filing Types</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Finding Company CIKs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Finding Company CIKs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#secedgar.cik_lookup.get_cik_map"><code class="docutils literal notranslate"><span class="pre">get_cik_map()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="client.html">Using Network Client</a></li>
 <li class="toctree-l1"><a class="reference internal" href="parser.html">Parser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line Interface</a></li>
@@ -74,8 +78,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Finding Company CIKs</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Finding Company CIKs</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/cikmap.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -130,9 +134,9 @@ be excluded from the returned dictionary.</p>
 <span class="gh">Out[2]: </span><span class="go"></span>
 <span class="go">{&#39;AAPL&#39;: &#39;320193&#39;,</span>
 <span class="go"> &#39;MSFT&#39;: &#39;789019&#39;,</span>
-<span class="go"> &#39;TSLA&#39;: &#39;1318605&#39;,</span>
 <span class="go"> &#39;BRK-B&#39;: &#39;1067983&#39;,</span>
-<span class="go"> &#39;UNH&#39;: &#39;731766&#39;}</span>
+<span class="go"> &#39;UNH&#39;: &#39;731766&#39;,</span>
+<span class="go"> &#39;JNJ&#39;: &#39;200406&#39;}</span>
 </pre></div>
 </div>
 <p>To get a dictionary with the company names as the keys, use the “title” key.</p>
@@ -142,9 +146,9 @@ be excluded from the returned dictionary.</p>
 <span class="gh">Out[4]: </span><span class="go"></span>
 <span class="go">{&#39;APPLE INC.&#39;: &#39;320193&#39;,</span>
 <span class="go"> &#39;MICROSOFT CORP&#39;: &#39;789019&#39;,</span>
-<span class="go"> &#39;TESLA, INC.&#39;: &#39;1318605&#39;,</span>
 <span class="go"> &#39;BERKSHIRE HATHAWAY INC&#39;: &#39;1067983&#39;,</span>
-<span class="go"> &#39;UNITEDHEALTH GROUP INC&#39;: &#39;731766&#39;}</span>
+<span class="go"> &#39;UNITEDHEALTH GROUP INC&#39;: &#39;731766&#39;,</span>
+<span class="go"> &#39;JOHNSON &amp; JOHNSON&#39;: &#39;200406&#39;}</span>
 </pre></div>
 </div>
 </section>

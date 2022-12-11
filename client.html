@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Using Network Client &mdash; secedgar 0.4.0 documentation</title>
+  <title>Using Network Client &mdash; secedgar 0.4.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -17,6 +17,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
@@ -33,7 +34,7 @@
             <a href="index.html" class="icon icon-home"> secedgar
           </a>
               <div class="version">
-                0.4.0
+                0.4.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -51,7 +52,21 @@
 <li class="toctree-l1"><a class="reference internal" href="filings.html">Filings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filingtypes.html">Filing Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cikmap.html">Finding Company CIKs</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Using Network Client</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using Network Client</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#secedgar.client.NetworkClient"><code class="docutils literal notranslate"><span class="pre">NetworkClient</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#secedgar.client.NetworkClient.backoff_factor"><code class="docutils literal notranslate"><span class="pre">NetworkClient.backoff_factor</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#secedgar.client.NetworkClient.batch_size"><code class="docutils literal notranslate"><span class="pre">NetworkClient.batch_size</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#secedgar.client.NetworkClient.fetch"><code class="docutils literal notranslate"><span class="pre">NetworkClient.fetch()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#secedgar.client.NetworkClient.get_response"><code class="docutils literal notranslate"><span class="pre">NetworkClient.get_response()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#secedgar.client.NetworkClient.get_soup"><code class="docutils literal notranslate"><span class="pre">NetworkClient.get_soup()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#secedgar.client.NetworkClient.rate_limit"><code class="docutils literal notranslate"><span class="pre">NetworkClient.rate_limit</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#secedgar.client.NetworkClient.retry_count"><code class="docutils literal notranslate"><span class="pre">NetworkClient.retry_count</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#secedgar.client.NetworkClient.user_agent"><code class="docutils literal notranslate"><span class="pre">NetworkClient.user_agent</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#secedgar.client.NetworkClient.wait_for_download_async"><code class="docutils literal notranslate"><span class="pre">NetworkClient.wait_for_download_async()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="parser.html">Parser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s New</a></li>
@@ -74,8 +89,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Using Network Client</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Using Network Client</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/client.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -264,7 +279,7 @@ to request.</p></li>
 <dd><p>Asynchronously download links into files using rate limit.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>inputs</strong> (<em>list of tuples of str</em>) – List of tuples with length 2. First element
+<dd class="field-odd"><p><strong>inputs</strong> (<em>list</em><em> of </em><em>tuples</em><em> of </em><em>str</em>) – List of tuples with length 2. First element
 in tuple should be URL to request and second element should be path
 where content after requesting URL is stored.</p>
 </dd>

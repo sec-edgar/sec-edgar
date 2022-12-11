@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CIK Lookup &mdash; secedgar 0.4.0 documentation</title>
+  <title>CIK Lookup &mdash; secedgar 0.4.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -17,6 +17,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
@@ -33,7 +34,7 @@
             <a href="index.html" class="icon icon-home"> secedgar
           </a>
               <div class="version">
-                0.4.0
+                0.4.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -47,7 +48,19 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Common Usage Examples</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">CIK Lookup</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">CIK Lookup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#secedgar.cik_lookup.CIKLookup"><code class="docutils literal notranslate"><span class="pre">CIKLookup</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#secedgar.cik_lookup.CIKLookup.ciks"><code class="docutils literal notranslate"><span class="pre">CIKLookup.ciks</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#secedgar.cik_lookup.CIKLookup.client"><code class="docutils literal notranslate"><span class="pre">CIKLookup.client</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#secedgar.cik_lookup.CIKLookup.get_ciks"><code class="docutils literal notranslate"><span class="pre">CIKLookup.get_ciks()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#secedgar.cik_lookup.CIKLookup.lookup_dict"><code class="docutils literal notranslate"><span class="pre">CIKLookup.lookup_dict</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#secedgar.cik_lookup.CIKLookup.lookups"><code class="docutils literal notranslate"><span class="pre">CIKLookup.lookups</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#secedgar.cik_lookup.CIKLookup.params"><code class="docutils literal notranslate"><span class="pre">CIKLookup.params</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#secedgar.cik_lookup.CIKLookup.path"><code class="docutils literal notranslate"><span class="pre">CIKLookup.path</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="filings.html">Filings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filingtypes.html">Filing Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cikmap.html">Finding Company CIKs</a></li>
@@ -74,8 +87,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>CIK Lookup</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">CIK Lookup</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/ciklookup.rst.txt" rel="nofollow"> View page source</a>
       </li>
