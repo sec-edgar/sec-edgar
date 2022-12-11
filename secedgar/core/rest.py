@@ -1,4 +1,5 @@
 import requests
+
 from secedgar.cik_lookup import CIKLookup
 
 API_BASE = "https://data.sec.gov/api/"
@@ -197,27 +198,3 @@ def get_xbrl_frames(user_agent,
     resp = requests.get(url, headers={"user-agent": user_agent})
     xbrl_frames = resp.json()
     return xbrl_frames
-
-
-if __name__ == "__main__":
-    # user_agent = "Nunya Business (nunyabusiness@gmail.com)"
-    # lookups = ["aapl"]
-
-    # submissions = get_submissions(lookups=lookups, user_agent=user_agent, recent=False)
-    # print(submissions["aapl"])
-
-    # print(_combine_dicts({"A": [1, 2, 3], "B": [4, 5, 6]}, {"A": [7, 8], "B": [0, 1, 2]}))
-
-    # concepts = get_company_concepts(lookups=lookups,
-    #                                 user_agent=user_agent,
-    #                                 concept_name="AccountsPayableCurrent")
-    # print(concepts)
-
-    # facts = get_company_facts(lookups=lookups, user_agent=user_agent)
-    # print(facts)
-
-    # frames = get_xbrl_frames(lookups=lookups, user_agent=user_agent,
-    #                          concept_name="AccountsPayableCurrent", year=2020)
-    # print(frames)
-
-    print(get_company_facts(["aapl"], "Example (example@example.com)"))
