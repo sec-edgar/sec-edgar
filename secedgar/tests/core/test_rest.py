@@ -1,4 +1,5 @@
 import pytest
+
 from secedgar.core.rest import (_combine_dicts, get_company_concepts,
                                 get_company_facts, get_submissions,
                                 get_xbrl_frames)
@@ -24,7 +25,7 @@ class TestRest:
     def test_get_submissions(self, mock_user_agent):
         submissions = get_submissions(lookups=["aapl"], user_agent=mock_user_agent)
         # Make sure Apple's CIK shows up properly
-        assert submissions["aapl"]["cik"] == "320193"
+        assert str(submissions["aapl"]["cik"]) == "320193"
 
         # Make sure there are accession numbers
         assert submissions["aapl"]["filings"]["recent"]["accessionNumber"]
@@ -36,7 +37,7 @@ class TestRest:
                                         user_agent=mock_user_agent,
                                         concept_name=concept)
         # Ensure CIK is correct
-        assert concepts["AAPL"]["cik"] == "320193"
+        assert str(concepts["AAPL"]["cik"]) == "320193"
 
         # Make sure that there are results for accounts payable
         assert concepts["AAPL"]["units"]["USD"]
