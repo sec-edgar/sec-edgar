@@ -13,13 +13,13 @@ jobs:
         # If you're using actions/checkout@v2 you must
         # set persist-credentials to false in most cases
         # for the deployment to work correctly.
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           persist-credentials: false
       - name: Set up Python 3.6
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
-          python-version: 3.6.15
+          python-version: 3.6
       - name: Install dependencies
         run: |
           ./ci/install_dependencies.sh docs
