@@ -1,3 +1,5 @@
+from typing import List, Union
+
 import requests
 
 from secedgar.cik_lookup import CIKLookup
@@ -6,7 +8,7 @@ API_BASE = "https://data.sec.gov/api/"
 XBRL_BASE = "{0}xbrl/".format(API_BASE)
 
 
-def _get_lookup_dict(lookups, user_agent):
+def _get_lookup_dict(lookups: List[str], user_agent: str):
     """Utility function to get CIKs for lookups.
 
     Args:
@@ -46,7 +48,9 @@ def _combine_dicts(*dicts):
     return final
 
 
-def get_submissions(lookups, user_agent, recent=True):
+def get_submissions(lookups: Union[List[str], str],
+                    user_agent: str,
+                    recent: bool = True) -> dict:
     """Get information about submissions for entities.
 
     Args:
@@ -84,12 +88,13 @@ def get_submissions(lookups, user_agent, recent=True):
     return submissions_dict
 
 
-def get_company_concepts(lookups, user_agent, concept_name):
+def get_company_concepts(lookups: Union[List[str], str],
+                         user_agent: str,
+                         concept_name: str) -> dict:
     """Get company concepts using SEC's REST API.
 
     Args:
-        lookups (list of str): Tickers or company names to lookup concepts for.
-
+        lookups (list of str or str): Tickers or CIKs to get concepts for.
         user_agent (str): User agent to send to SEC.
         concept_name (str): Name of the concept to get data for.
 
@@ -118,11 +123,11 @@ def get_company_concepts(lookups, user_agent, concept_name):
     return company_concepts
 
 
-def get_company_facts(lookups, user_agent):
+def get_company_facts(lookups: Union[List[str], str], user_agent: str) -> dict:
     """Get company facts for lookups.
 
     Args:
-        lookups (list of str): Tickers or company names to lookup company facts for.
+        lookups (list of str or str): Tickers or CIKs to get company facts for.
         user_agent (str): User agent to send to SEC.
 
     Returns:
@@ -151,12 +156,12 @@ def get_company_facts(lookups, user_agent):
     return company_facts
 
 
-def get_xbrl_frames(user_agent,
-                    concept_name,
-                    year,
-                    quarter=None,
-                    currency="USD",
-                    instantaneous=False):
+def get_xbrl_frames(user_agent: str,
+                    concept_name: str,
+                    year: int,
+                    quarter: Union[None, int] = None,
+                    currency: str = "USD",
+                    instantaneous: bool = False) -> dict:
     """Get data for concept name in year (and quarter, if given).
 
     Args:
