@@ -21,14 +21,24 @@ class TestRest:
     def test__combine_dicts(self, dicts, expected):
         assert _combine_dicts(*dicts) == expected
 
+    @pytest.mark.parametrize(
+        "recent",
+        [True, False]
+    )
     @pytest.mark.smoke
-    def test_get_submissions(self, mock_user_agent):
-        submissions = get_submissions(lookups=["aapl"], user_agent=mock_user_agent)
+    def test_get_submissions(self, mock_user_agent, recent):
+        submissions = get_submissions(lookups=["aapl"],
+                                      user_agent=mock_user_agent,
+                                      recent=recent)
+        assert submissions
         # Make sure Apple's CIK shows up properly
         assert str(submissions["aapl"]["cik"]) == "320193"
 
         # Make sure there are accession numbers
         assert submissions["aapl"]["filings"]["recent"]["accessionNumber"]
+
+        # Result should be dictionary
+        assert isinstance(submissions, dict)
 
     @pytest.mark.smoke
     def test_get_company_concepts(self, mock_user_agent):
@@ -36,16 +46,21 @@ class TestRest:
         concepts = get_company_concepts(lookups=["AAPL"],
                                         user_agent=mock_user_agent,
                                         concept_name=concept)
+        assert concepts
         # Ensure CIK is correct
         assert str(concepts["AAPL"]["cik"]) == "320193"
 
         # Make sure that there are results for accounts payable
         assert concepts["AAPL"]["units"]["USD"]
 
+        # Result should be dictionary
+        assert isinstance(concepts, dict)
+
     @pytest.mark.smoke
     def test_get_company_facts(self, mock_user_agent):
         facts = get_company_facts(lookups=["aapl"], user_agent=mock_user_agent)
 
+        assert facts
         # Ensure CIK is correct - sometimes will give number, so cast to string
         assert str(facts["aapl"]["cik"]) == "320193"
 
@@ -59,19 +74,23 @@ class TestRest:
         # Make sure we can get Revenues for Apple
         assert facts["aapl"]["facts"]["us-gaap"]["Revenues"]["units"]["USD"]
 
+        # Result should be dictionary
+        assert isinstance(facts, dict)
+
     @pytest.mark.smoke
     @pytest.mark.parametrize(
-        "concept",
+        "concept,instantaneous",
         [
-            "Revenues"
+            ("Revenues", False),
+            ("Revenues", True)
         ]
     )
-    def test_get_xbrl_frames(self, mock_user_agent, concept):
+    def test_get_xbrl_frames(self, mock_user_agent, concept, instantaneous):
         frames = get_xbrl_frames(user_agent=mock_user_agent,
                                  concept_name=concept,
                                  year=2020,
                                  quarter=1,
-                                 instantaneous=False)
+                                 instantaneous=instantaneous)
         # Check to make sure we got the right frame
         assert frames["tag"] == concept
 
@@ -82,4 +101,4 @@ class TestRest:
         assert "accn" in frames["data"][0]
         assert "cik" in frames["data"][0]
 
-        frames
+        assert isinstance(frames, dict)
