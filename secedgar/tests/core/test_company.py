@@ -3,6 +3,7 @@ import datetime
 import os
 
 import pytest
+
 from secedgar.cik_lookup import CIKLookup
 from secedgar.client import NetworkClient
 from secedgar.core import CompanyFilings, FilingType
@@ -290,6 +291,45 @@ class TestCompanyFilings:
                            count=3)
         f.save(tmp_data_directory)
         assert len(os.listdir(tmp_data_directory)) > 0
+
+    @pytest.mark.parametrize(
+        "match_format",
+        [
+            "EXACT",
+            "AMEND",
+            "ALL"
+        ]
+    )
+    def test_match_format_good(self, mock_user_agent, match_format):
+        f = CompanyFilings(["aapl", "amzn", "msft"],
+                           FilingType.FILING_10Q,
+                           user_agent=mock_user_agent,
+                           count=3,
+                           match_format=match_format)
+
+        assert f.match_format == match_format
+
+    @pytest.mark.parametrize(
+        "match_format",
+        [
+            "exact",
+            "amend",
+            "all",
+            "none",
+            None,
+            True,
+            False,
+            1,
+            0
+        ]
+    )
+    def test_match_format_bad(self, mock_user_agent, match_format):
+        with pytest.raises(ValueError):
+            CompanyFilings(["aapl", "amzn", "msft"],
+                           FilingType.FILING_10Q,
+                           user_agent=mock_user_agent,
+                           count=3,
+                           match_format=match_format)
 
     @pytest.mark.smoke
     def test_filing_save_multiple_ciks_smoke(self, tmp_data_directory,
