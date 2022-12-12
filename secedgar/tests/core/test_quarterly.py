@@ -104,3 +104,7 @@ class TestQuarterly:
     def test_user_agent_passed_to_client(self, mock_user_agent):
         quarterly = QuarterlyFilings(year=2020, quarter=1, user_agent=mock_user_agent)
         assert quarterly.client.user_agent == mock_user_agent
+
+    def test_error_raised_no_user_agent(self):
+        with pytest.raises(TypeError):
+            _ = QuarterlyFilings(year=2020, quarter=1)

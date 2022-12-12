@@ -16,8 +16,12 @@ Many breaking changes, as this update does a lot of restructuring.
 - Fix use of ``user_agent`` by ``NetworkClient`` and require its use by all filings classes/functions
 - Fix issue where daily CLI command would not work due to ``date_cleanup`` returning ``datetime.datetime`` instead of ``datetime.date``
 - Fix issue where ``CompanyFilings`` includes links that are not exact matches to ``filing_type``.
+- Fix issue where ``get_urls`` does not reset ``params`` after getting company filings URLs.
 - Add NSAR filing types. Thanks to mjkoo91!
+- Get rid of caching behavior that was causing issues when downloading filings.
+- Simplify ``ComboFilings`` logic for getting quarterly and daily dates.
 - Fix issue where ``get_cik_map`` fails due to the SEC providing ``None`` for title or ticker.
+- Add smoke tests to test package "in the wild".
 
 Contributors
 ~~~~~~~~~~~~
@@ -25,3 +29,4 @@ Contributors
 - reteps
 - jackmoody11
 - lolski
+- agraddy
