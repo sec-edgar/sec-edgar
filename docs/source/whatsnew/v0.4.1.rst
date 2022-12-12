@@ -1,0 +1,15 @@
+v0.4.1
+------
+
+Highlights
+~~~~~~~~~~
+
+- Fixes issue with ``ComboFilings`` not setting ``user_agent`` argument. Thanks to prhiggins!
+- Add new filing types to ``FilingTypes``. Thanks to wayneroe!
+
+Contributors
+~~~~~~~~~~~~
+
+- prhiggins
+- wayneroe
+- jackmoody11

@@ -90,12 +90,12 @@ class AbstractFiling(ABC):
         return stripped.replace(" ", "_")
 
     def get_urls_safely(self, **kwargs):
-        """Wrapper around `get_urls` to check if there is a positive number of URLs, and warn if they don't.
+        """Wrapper around `get_urls` to check if there is a positive number of URLs.
 
         .. note:: This method will not check if the URLs are valid. Simply if they exist.
 
         Raises:
-            NoFilingsError: If no URLs exist, then NoFilingsError is raised.
+            ``NoFilingsError``: If no URLs exist, then NoFilingsError is raised.
 
         Returns:
             urls (dict): Result of `get_urls` method.
