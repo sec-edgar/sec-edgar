@@ -237,6 +237,6 @@ class TestCIKLookup(object):
         assert cik_map["ticker"] and cik_map["title"]
 
     def test_cik_lookup_client_none(self, ticker_lookups, mock_user_agent):
-        lookup = CIKLookup(lookups=ticker_lookups, user_agent=mock_user_agent)
+        lookup = CIKLookup(lookups=ticker_lookups, user_agent=mock_user_agent, client=None)
         assert isinstance(lookup.client, NetworkClient)
         assert lookup.lookups == ticker_lookups
