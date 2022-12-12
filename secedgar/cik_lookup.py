@@ -43,19 +43,13 @@ class CIKLookup:
 
     Args:
         lookup (Union[str, list]): Ticker, company name, or list of tickers and/or company names.
-        client (Union[None, secedgar.client.NetworkClient]): A network client object to use.
-            If ``None`` is given, then will pass kwargs to :class:`secedgar.client.NetworkClient`.
-            See :class:`secedgar.client.NetworkClient` for more details. Defaults to ``None``.
-
-    .. warning::
-
-        If ``None`` is passed to client, you must specify your ``user_agent`` in ``kwargs``.
-        For example, ``CIKLookup(lookup=["aapl"], user_agent="Name (email@example.com")``.
+        client (secedgar.client.NetworkClient): A network client object to use. See
+            :class:`secedgar.client.NetworkClient` for more details.
 
     .. versionadded:: 0.1.5
     """
 
-    def __init__(self, lookups, client=None, **kwargs):
+    def __init__(self, lookups, client, **kwargs):
         if lookups and isinstance(lookups, str):
             self._lookups = [lookups]  # make single string into list
         else:
