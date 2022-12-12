@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CIK Lookup &mdash; secedgar 0.5.0 documentation</title>
+  <title>CIK Lookup &mdash; secedgar 0.4.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -34,7 +34,7 @@
             <a href="index.html" class="icon icon-home"> secedgar
           </a>
               <div class="version">
-                0.5.0
+                0.4.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -63,7 +63,6 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="filings.html">Filings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filingtypes.html">Filing Types</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rest_api.html">REST API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cikmap.html">Finding Company CIKs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="client.html">Using Network Client</a></li>
 <li class="toctree-l1"><a class="reference internal" href="parser.html">Parser</a></li>
@@ -121,24 +120,18 @@ of strings). You will probably not need to use this class. However, it can be us
 <p>Another alternative to using the <code class="docutils literal notranslate"><span class="pre">CIKLookup</span></code> class directly is to use the provided <a class="reference internal" href="cikmap.html#secedgar.cik_lookup.get_cik_map" title="secedgar.cik_lookup.get_cik_map"><code class="xref py py-meth docutils literal notranslate"><span class="pre">secedgar.cik_lookup.get_cik_map()</span></code></a> function.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="secedgar.cik_lookup.CIKLookup">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">secedgar.cik_lookup.</span></span><span class="sig-name descname"><span class="pre">CIKLookup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lookups</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.cik_lookup.CIKLookup" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">secedgar.cik_lookup.</span></span><span class="sig-name descname"><span class="pre">CIKLookup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lookups</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.cik_lookup.CIKLookup" title="Permalink to this definition"></a></dt>
 <dd><p>CIK Lookup object.</p>
 <p>Given list of tickers/company names to lookup, this object can return associated CIKs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>lookup</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>list</em><em>]</em>) – Ticker, company name, or list of tickers and/or company names.</p></li>
-<li><p><strong>client</strong> (<em>Union</em><em>[</em><em>None</em><em>, </em><a class="reference internal" href="client.html#secedgar.client.NetworkClient" title="secedgar.client.NetworkClient"><em>secedgar.client.NetworkClient</em></a><em>]</em>) – A network client object to use.
-If <code class="docutils literal notranslate"><span class="pre">None</span></code> is given, then will pass kwargs to <a class="reference internal" href="client.html#secedgar.client.NetworkClient" title="secedgar.client.NetworkClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.client.NetworkClient</span></code></a>.
-See <a class="reference internal" href="client.html#secedgar.client.NetworkClient" title="secedgar.client.NetworkClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.client.NetworkClient</span></code></a> for more details. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p><strong>client</strong> (<a class="reference internal" href="client.html#secedgar.client.NetworkClient" title="secedgar.client.NetworkClient"><em>secedgar.client.NetworkClient</em></a>) – A network client object to use. See
+<a class="reference internal" href="client.html#secedgar.client.NetworkClient" title="secedgar.client.NetworkClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.client.NetworkClient</span></code></a> for more details.</p></li>
 </ul>
 </dd>
 </dl>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>If <code class="docutils literal notranslate"><span class="pre">None</span></code> is passed to client, you must specify your <code class="docutils literal notranslate"><span class="pre">user_agent</span></code> in <code class="docutils literal notranslate"><span class="pre">kwargs</span></code>.
-For example, <code class="docutils literal notranslate"><span class="pre">CIKLookup(lookup=[&quot;aapl&quot;],</span> <span class="pre">user_agent=&quot;Name</span> <span class="pre">(email&#64;example.com&quot;)</span></code>.</p>
-</div>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 0.1.5.</span></p>
 </div>
