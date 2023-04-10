@@ -298,7 +298,7 @@ class CompanyFilings(AbstractFiling):
         filing_urls = []
         for link in links:
             data = BeautifulSoup(
-                self.client._get_response_prepared_url(link, None, **kwargs).text,
+                self.client.get_response(link, None, prepare=False, **kwargs).text,
                 features="lxml",
             )
 

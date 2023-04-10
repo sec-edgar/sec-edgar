@@ -196,7 +196,7 @@ class NetworkClient:
 
         return response
 
-    def get_response(self, path, params=None, **kwargs):
+    def get_response(self, path, params=None, prepare=True, **kwargs):
         """Execute HTTP request and returns response if valid.
 
         Args:
@@ -212,10 +212,13 @@ class NetworkClient:
         Raises:
             EDGARQueryError: If problems arise when making query.
         """
-        prepared_url = self._prepare_query(path)
-        return self._get_response_prepared_url(prepared_url, params=params, **kwargs)
+        if prepare:
+            prepared_url = self._prepare_query(path)
+        else: 
+            prepared_url = path
+        return self._get_response(prepared_url, params=params, **kwargs)
 
-    def _get_response_prepared_url(self, prepared_url, params=None, **kwargs):
+    def _get_response(self, prepared_url, params=None, **kwargs):
         headers = {"User-Agent": self.user_agent}
         with requests.Session() as session:
             retry = Retry(
@@ -230,7 +233,7 @@ class NetworkClient:
             )
             return response
 
-    def get_soup(self, path, params, **kwargs):
+    def get_soup(self, path, params, prepare=True, **kwargs):
         """Return BeautifulSoup object from response text. Uses lxml parser.
 
         Args:
@@ -242,8 +245,11 @@ class NetworkClient:
             BeautifulSoup object from response text.
         """
         return BeautifulSoup(
-            self.get_response(path, params, **kwargs).text, features="lxml"
+            self.get_response(path, params, prepare, **kwargs).text, features="lxml"
         )
+
+    def get_soup_text(self, path, params, prepare=True, **kwargs):
+        return self.get_soup(path, params, prepare, **kwargs).get_text()
 
     @staticmethod
     async def fetch(link, session):
@@ -272,11 +278,12 @@ class NetworkClient:
 
         async def fetch_and_save(link, path, session):
             """Fetch link and save to path using session."""
-            pdf = HTML(link).write_pdf()
-            path = path.replace(".htm", ".pdf")
+            txt = self.get_soup_text(link, None, False)
+            path = path.replace(".htm", ".txt")
             try:
-                supabase.storage.from_("sec-filings").upload(path, pdf)
+                supabase.storage.from_("sec-filings").upload(path, str.encode(txt))
             except StorageException as e:
+                print(e)
                 pass
 
         def batch(iterable, n):
