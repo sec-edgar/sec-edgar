@@ -1,34 +1,20 @@
-sec-edgar
-=========
-
-|Tests Status| |Docs Status|
-
-Getting filings of various companies at once is really a pain, but
-SEC-Edgar does that for you. You can download all of a company’s
-periodic reports, filings and forms from the EDGAR database with a
-single command.
-
-Installation
-------------
-
-You can install the package using pip:
-
-.. code:: bash
-
-   $ pip install secedgar
-
-OR
-
-You can clone the project:
-
-.. code:: bash
-
-   $ git clone https://github.com/sec-edgar/sec-edgar.git
-   $ cd sec-edgar
-   $ python setup.py install
 
 Running
 -------
+
+
+```bash
+# For macOS, refer to weasyprint installation docs for different platforms
+brew install weasyprint
+pip install -r requirements.txt
+
+export SUPABASE_URL=...
+export SUPABASE_KEY=...
+python main.py
+```
+
+Edit the list in `tickers.txt` to upload 10-Ks for different companies. If a ticker is already present in the supabase bucket,
+the crawler will skip it.
 
 Company Filings
 ~~~~~~~~~~~~~~~
@@ -61,33 +47,12 @@ Multiple Companies
     my_filings.save('/path/to/dir')
 
 
-Daily Filings
-~~~~~~~~~~~~~
-
-
-.. code:: python
-
-    from secedgar import filings
-    from datetime import date
-
-    daily_filings = filings(start_date=date(2021, 6, 30),
-                            user_agent="Your name (your email)")
-    daily_urls = daily_filings.get_urls()
-
-
-
 Supported Methods
 -----------------
 
 Currently this crawler supports many different filing types. To see the full list, please refer to the docs. If you don't see a filing type you would like
 to be supported, please create an issue on GitHub.
 
-Documentation
+Original Documentation
 --------------
 To learn more about the APIs and latest changes in the project, read the `official documentation <https://sec-edgar.github.io/sec-edgar>`_.
-
-
-.. |Tests Status| image:: https://github.com/sec-edgar/sec-edgar/workflows/Tests/badge.svg
-   :target: https://github.com/sec-edgar/sec-edgar/actions?query=workflow%3ATests
-.. |Docs Status| image:: https://github.com/sec-edgar/sec-edgar/workflows/Build%20Docs/badge.svg
-   :target: https://github.com/sec-edgar/sec-edgar/actions?query=workflow%3A%22Build+Docs%22
