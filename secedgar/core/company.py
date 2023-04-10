@@ -7,8 +7,9 @@ from secedgar.cik_lookup import CIKLookup
 from secedgar.client import NetworkClient
 from secedgar.core._base import AbstractFiling
 from secedgar.core.filing_types import FilingType
-from secedgar.exceptions import FilingTypeError
+from secedgar.exceptions import FilingTypeError, NoFilingsError
 from secedgar.utils import sanitize_date
+from bs4 import BeautifulSoup
 
 
 class CompanyFilings(AbstractFiling):
@@ -96,22 +97,20 @@ class CompanyFilings(AbstractFiling):
     .. versionadded:: 0.4.0
     """
 
-    def __init__(self,
-                 cik_lookup,
-                 filing_type=None,
-                 user_agent=None,
-                 start_date=None,
-                 end_date=date.today(),
-                 client=None,
-                 count=None,
-                 ownership="include",
-                 match_format="ALL",
-                 **kwargs):
-        self._params = {
-            "action": "getcompany",
-            "output": "xml",
-            "start": 0
-        }
+    def __init__(
+        self,
+        cik_lookup,
+        filing_type=None,
+        user_agent=None,
+        start_date=None,
+        end_date=date.today(),
+        client=None,
+        count=None,
+        ownership="include",
+        match_format="ALL",
+        **kwargs,
+    ):
+        self._params = {"action": "getcompany", "output": "xml", "start": 0}
         self.start_date = start_date
         self.end_date = end_date
         self.filing_type = filing_type
@@ -134,14 +133,18 @@ class CompanyFilings(AbstractFiling):
         if self.start_date:
             self._params["datea"] = sanitize_date(self.start_date)
         else:
-            self._params.pop("datea", None)  # if no start date, make sure it isn't in params
+            self._params.pop(
+                "datea", None
+            )  # if no start date, make sure it isn't in params
 
         if self.end_date:
             self._params["dateb"] = sanitize_date(self.end_date)
         else:
-            self._params.pop("dateb", None)  # if no end date, make sure it isn't in params
+            self._params.pop(
+                "dateb", None
+            )  # if no end date, make sure it isn't in params
 
-        self._params["ownership"] = self.ownership
+        self._params["ownership"] = False
         return self._params
 
     @property
@@ -260,7 +263,9 @@ class CompanyFilings(AbstractFiling):
             list of str: List of URLs that match ``filing_type``.
         """
         filings = data.find_all("filing")
-        filings_filtered = [f for f in filings if f.type.string == self.filing_type.value]
+        filings_filtered = [
+            f for f in filings if f.type.string == self.filing_type.value
+        ]
         return [f.filinghref.string for f in filings_filtered]
 
     # TODO: Change this to return accession numbers that are turned into URLs later
@@ -290,15 +295,37 @@ class CompanyFilings(AbstractFiling):
             if len(data.find_all("filinghref")) == 0:  # no more filings
                 break
 
-        txt_urls = [link[:link.rfind("-")].strip() + ".txt" for link in links]
+        filing_urls = []
+        for link in links:
+            data = BeautifulSoup(
+                self.client._get_response_prepared_url(link, None, **kwargs).text,
+                features="lxml",
+            )
 
-        if isinstance(self.count, int) and len(txt_urls) < self.count:
+            table = data.find("table", {"class": "tableFile"})
+            rows = table.find_all("tr")
+            found_10k = False
+            for row in rows:
+                cols = row.find_all("td")
+                for col in cols:
+                    if col.text.strip() == "10-K":
+                        found_10k = True
+                if found_10k:
+                    filing_urls.append(
+                        self.client._BASE
+                        + cols[2].find("a").get("href").split("doc=")[-1]
+                    )
+                    break
+
+        if isinstance(self.count, int) and len(filing_urls) < self.count:
             warnings.warn(
                 "Only {num} of {count} filings were found for {cik}.".format(
-                    num=len(txt_urls), count=self.count, cik=cik))
+                    num=len(filing_urls), count=self.count, cik=cik
+                )
+            )
 
         # Takes `count` filings at most
-        return txt_urls[:self.count]
+        return filing_urls[: self.count]
 
     def save(self, directory, dir_pattern=None, file_pattern=None):
         """Save files in specified directory.
@@ -319,7 +346,11 @@ class CompanyFilings(AbstractFiling):
         Raises:
             ValueError: If no text urls are available for given filing object.
         """
-        urls = self.get_urls_safely()
+        try:
+            urls = self.get_urls_safely()
+        except NoFilingsError:
+            print(f"No filings found for {self.cik_lookup.lookups}")
+            return
 
         if dir_pattern is None:
             dir_pattern = os.path.join("{cik}", "{type}")
@@ -328,11 +359,11 @@ class CompanyFilings(AbstractFiling):
 
         inputs = []
         for cik, links in urls.items():
-            formatted_dir = dir_pattern.format(cik=cik,
-                                               type=self.filing_type.value)
+            formatted_dir = dir_pattern.format(cik=cik, type=self.filing_type.value)
             for link in links:
                 formatted_file = file_pattern.format(
-                    accession_number=self.get_accession_number(link))
+                    accession_number=self.get_accession_number(link)
+                )
                 path = os.path.join(directory, formatted_dir, formatted_file)
                 inputs.append((link, path))
 

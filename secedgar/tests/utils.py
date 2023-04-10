@@ -9,16 +9,14 @@ def datapath(*args):
     Returns:
         path including ``secedgar/tests/data``.
     """
-    base_path = os.path.join(os.path.dirname(__file__), 'data')
+    base_path = os.path.join(os.path.dirname(__file__), "data")
     return os.path.join(base_path, *args)
 
 
 class MockResponse(requests.Response):
-    def __init__(self, datapath_args=[],
-                 status_code=200,
-                 content=None,
-                 *args,
-                 **kwargs):
+    def __init__(
+        self, datapath_args=[], status_code=200, content=None, *args, **kwargs
+    ):
         super().__init__()
         self.status_code = status_code
         if content is not None:
@@ -33,17 +31,22 @@ class MockResponse(requests.Response):
 
 
 class AsyncMockResponse(MockResponse):
-    def __init__(self, datapath_args=[],
-                 status_code=200,
-                 content=None,
-                 encoding="utf-8",
-                 *args,
-                 **kwargs):
-        super().__init__(datapath_args=datapath_args,
-                         status_code=status_code,
-                         content=content,
-                         *args,
-                         **kwargs)
+    def __init__(
+        self,
+        datapath_args=[],
+        status_code=200,
+        content=None,
+        encoding="utf-8",
+        *args,
+        **kwargs
+    ):
+        super().__init__(
+            datapath_args=datapath_args,
+            status_code=status_code,
+            content=content,
+            *args,
+            **kwargs
+        )
         self._encoding = encoding
 
     async def __aexit__(self, exc_type, exc, tb):
@@ -57,7 +60,9 @@ class AsyncMockResponse(MockResponse):
 
 
 class AsyncLimitedResponsesSession:
-    def __init__(self, response=AsyncMockResponse(content=bytes("Testing...", "utf-8")), limit=10):
+    def __init__(
+        self, response=AsyncMockResponse(content=bytes("Testing...", "utf-8")), limit=10
+    ):
         self._response = response
         self._limit = limit
         self._requests_made = 0

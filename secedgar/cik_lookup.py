@@ -31,9 +31,14 @@ def get_cik_map():
     """
     response = requests.get("https://www.sec.gov/files/company_tickers.json")
     json_response = response.json()
-    return {key: {v[key].upper(): str(v["cik_str"]) for v in json_response.values()
-                  if v[key] is not None}
-            for key in ("ticker", "title")}
+    return {
+        key: {
+            v[key].upper(): str(v["cik_str"])
+            for v in json_response.values()
+            if v[key] is not None
+        }
+        for key in ("ticker", "title")
+    }
 
 
 class CIKLookup:
@@ -113,11 +118,11 @@ class CIKLookup:
                 company CIK.
         """
         try:  # try to lookup by CIK
-            self._params['CIK'] = lookup
+            self._params["CIK"] = lookup
             return self._client.get_soup(self.path, self.params)
         except EDGARQueryError:  # fallback to lookup by company name
-            self.params.pop('CIK')  # delete this parameter so no conflicts arise
-            self._params['company'] = lookup
+            self.params.pop("CIK")  # delete this parameter so no conflicts arise
+            self._params["company"] = lookup
             return self._client.get_soup(self.path, self.params)
 
     def _get_cik_from_html(self, lookup):
@@ -135,17 +140,19 @@ class CIKLookup:
         self._validate_lookup(lookup)
         soup = self._get_lookup_soup(lookup)
         try:  # try to get single CIK for lookup
-            span = soup.find('span', {'class': 'companyName'})
-            return span.find('a').getText().split()[0]  # returns single CIK
+            span = soup.find("span", {"class": "companyName"})
+            return span.find("a").getText().split()[0]  # returns single CIK
         except AttributeError:  # warn and skip if multiple possibilities for CIK found
             warning_message = """Lookup '{0}' will be skipped.
                           Found multiple companies matching '{0}':
-                          {1}""".format(lookup, '\n'.join(self._get_cik_possibilities(soup)))
+                          {1}""".format(
+                lookup, "\n".join(self._get_cik_possibilities(soup))
+            )
             warnings.warn(warning_message)
         finally:
             # Delete parameters after lookup
-            self._params.pop('company', None)
-            self._params.pop('CIK', None)
+            self._params.pop("company", None)
+            self._params.pop("CIK", None)
 
     @staticmethod
     def _get_cik_possibilities(soup):
@@ -159,9 +166,11 @@ class CIKLookup:
         """
         try:
             # Exclude table header
-            table_rows = soup.find('table', {'summary': 'Results'}).find_all('tr')[1:]
+            table_rows = soup.find("table", {"summary": "Results"}).find_all("tr")[1:]
             # Company names are in second column of table
-            return [''.join(row.find_all('td')[1].find_all(text=True)) for row in table_rows]
+            return [
+                "".join(row.find_all("td")[1].find_all(text=True)) for row in table_rows
+            ]
         except AttributeError:
             # If there are no CIK possibilities, then no results were returned
             raise EDGARQueryError
@@ -183,7 +192,9 @@ class CIKLookup:
             TypeError: If lookup is not a non-empty string.
         """
         if not (lookup and isinstance(lookup, str)):
-            raise TypeError("Lookup value must be string. Given type {0}.".format(type(lookup)))
+            raise TypeError(
+                "Lookup value must be string. Given type {0}.".format(type(lookup))
+            )
 
     def get_ciks(self):
         """Validate lookup values and return corresponding CIKs.

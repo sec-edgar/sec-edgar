@@ -56,7 +56,7 @@ class IndexFilings(AbstractFiling):
         if callable(fn):
             self._entry_filter = fn
         else:
-            raise ValueError('entry_filter must be a function or lambda.')
+            raise ValueError("entry_filter must be a function or lambda.")
 
     @property
     def client(self):
@@ -94,8 +94,9 @@ class IndexFilings(AbstractFiling):
     @property
     def tar_path(self):
         """str: Tar.gz path added to the client base."""
-        return "Archives/edgar/Feed/{year}/QTR{num}/".format(year=self.year,
-                                                             num=self.quarter)
+        return "Archives/edgar/Feed/{year}/QTR{num}/".format(
+            year=self.year, num=self.quarter
+        )
 
     def _get_listings_directory(self, update_cache=False, **kwargs):
         """Get page with list of all idx files for given date or quarter.
@@ -111,7 +112,8 @@ class IndexFilings(AbstractFiling):
         """
         if self._listings_directory is None or update_cache:
             self._listings_directory = self.client.get_response(
-                self.path, self.params, **kwargs)
+                self.path, self.params, **kwargs
+            )
         return self._listings_directory
 
     def _get_master_idx_file(self, update_cache=False, **kwargs):
@@ -133,13 +135,18 @@ class IndexFilings(AbstractFiling):
         if self._master_idx_file is None or update_cache:
             if self.idx_filename in self._get_listings_directory().text:
                 master_idx_url = "{path}{filename}".format(
-                    path=self.path, filename=self.idx_filename)
+                    path=self.path, filename=self.idx_filename
+                )
                 self._master_idx_file = self.client.get_response(
-                    master_idx_url, self.params, **kwargs).text
+                    master_idx_url, self.params, **kwargs
+                ).text
             else:
-                raise EDGARQueryError("""File {filename} not found.
-                                     There may be no filings for the given day/quarter."""
-                                      .format(filename=self.idx_filename))
+                raise EDGARQueryError(
+                    """File {filename} not found.
+                                     There may be no filings for the given day/quarter.""".format(
+                        filename=self.idx_filename
+                    )
+                )
         return self._master_idx_file
 
     def get_filings_dict(self, **kwargs):
@@ -152,23 +159,29 @@ class IndexFilings(AbstractFiling):
         idx_file = self._get_master_idx_file(**kwargs)
         # Will have CIK as keys and list of FilingEntry namedtuples as values
         self._filings_dict = {}
-        FilingEntry = namedtuple("FilingEntry", [
-            "cik", "company_name", "form_type", "date_filed", "file_name",
-            "path", "num_previously_valid"
-        ])
+        FilingEntry = namedtuple(
+            "FilingEntry",
+            [
+                "cik",
+                "company_name",
+                "form_type",
+                "date_filed",
+                "file_name",
+                "path",
+                "num_previously_valid",
+            ],
+        )
         # idx file will have lines of the form CIK|Company Name|Form Type|Date Filed|File Name
         current_count = 0
-        entries = re.findall(r'^[0-9]+[|].+[|].+[|][0-9\-]+[|].+$',
-                             idx_file, re.MULTILINE)
+        entries = re.findall(
+            r"^[0-9]+[|].+[|].+[|][0-9\-]+[|].+$", idx_file, re.MULTILINE
+        )
         for entry in entries:
             fields = entry.split("|")
             fields[-1] = fields[-1].strip()  # get rid of carriage return or newline
             path = "Archives/{file_name}".format(file_name=fields[-1])
-            entry = FilingEntry(*fields,
-                                path=path,
-                                num_previously_valid=current_count)
-            if self.entry_filter is not None and not self.entry_filter(
-                    entry):
+            entry = FilingEntry(*fields, path=path, num_previously_valid=current_count)
+            if self.entry_filter is not None and not self.entry_filter(entry):
                 continue
             current_count += 1
             # Add new filing entry to CIK's list
@@ -188,8 +201,7 @@ class IndexFilings(AbstractFiling):
         """
         filings_dict = self.get_filings_dict()
         self._urls = {
-            company:
-            [self.client._prepare_query(entry.path) for entry in entries]
+            company: [self.client._prepare_query(entry.path) for entry in entries]
             for company, entries in filings_dict.items()
         }
         return self._urls
@@ -239,7 +251,10 @@ class IndexFilings(AbstractFiling):
         """
         # Download tar files asynchronously into extract_directory
         tar_urls = self._get_tar_urls()
-        inputs = [(url, os.path.join(extract_directory, url.split('/')[-1])) for url in tar_urls]
+        inputs = [
+            (url, os.path.join(extract_directory, url.split("/")[-1]))
+            for url in tar_urls
+        ]
         loop = asyncio.get_event_loop()
         loop.run_until_complete(self.client.wait_for_download_async(inputs))
 
@@ -249,8 +264,9 @@ class IndexFilings(AbstractFiling):
         unpack_threads = len(tar_files)
 
         for _ in range(unpack_threads):
-            worker = Thread(target=self._do_unpack_archive,
-                            args=(unpack_queue, extract_directory))
+            worker = Thread(
+                target=self._do_unpack_archive, args=(unpack_queue, extract_directory)
+            )
             worker.start()
         for f in tar_files:
             full_path = os.path.join(extract_directory, f)
@@ -258,8 +274,9 @@ class IndexFilings(AbstractFiling):
 
         unpack_queue.join()
 
-    def _move_to_dest(self, urls, extract_directory, directory, file_pattern,
-                      dir_pattern):
+    def _move_to_dest(
+        self, urls, extract_directory, directory, file_pattern, dir_pattern
+    ):
         """Moves all files from extract_directory into proper final format in directory.
 
         Args:
@@ -285,30 +302,32 @@ class IndexFilings(AbstractFiling):
         (_, _, extracted_files) = next(os.walk(extract_directory))
 
         for link in link_list:
-            link_cik = link.split('/')[-2]
+            link_cik = link.split("/")[-2]
             link_accession = self.get_accession_number(link)
-            filepath = link_accession.split('.')[0]
-            possible_endings = ('nc', 'corr04', 'corr03', 'corr02', 'corr01')
+            filepath = link_accession.split(".")[0]
+            possible_endings = ("nc", "corr04", "corr03", "corr02", "corr01")
             for ending in possible_endings:
-                full_filepath = filepath + '.' + ending
+                full_filepath = filepath + "." + ending
                 # If the filepath is found, move it to the correct path
                 if full_filepath in extracted_files:
-
                     formatted_dir = dir_pattern.format(cik=link_cik)
                     formatted_file = file_pattern.format(
-                        accession_number=link_accession)
+                        accession_number=link_accession
+                    )
                     old_path = os.path.join(extract_directory, full_filepath)
                     full_dir = os.path.join(directory, formatted_dir)
                     move_queue.put_nowait((formatted_file, full_dir, old_path))
                     break
         move_queue.join()
 
-    def _save_filings(self,
-                      directory,
-                      dir_pattern="{cik}",
-                      file_pattern="{accession_number}",
-                      download_all=False,
-                      **kwargs):
+    def _save_filings(
+        self,
+        directory,
+        dir_pattern="{cik}",
+        file_pattern="{accession_number}",
+        download_all=False,
+        **kwargs
+    ):
         """Save all filings.
 
         Will store all filings under the parent directory of ``directory``, further
@@ -329,20 +348,22 @@ class IndexFilings(AbstractFiling):
             with tempfile.TemporaryDirectory() as tmpdir:
                 self._unzip(extract_directory=tmpdir)
                 # Apply folder structure by moving to final directory
-                self._move_to_dest(urls=urls,
-                                   extract_directory=tmpdir,
-                                   directory=directory,
-                                   file_pattern=file_pattern,
-                                   dir_pattern=dir_pattern)
+                self._move_to_dest(
+                    urls=urls,
+                    extract_directory=tmpdir,
+                    directory=directory,
+                    file_pattern=file_pattern,
+                    dir_pattern=dir_pattern,
+                )
         else:
             inputs = []
             for company, links in urls.items():
                 formatted_dir = dir_pattern.format(cik=company)
                 for link in links:
                     formatted_file = file_pattern.format(
-                        accession_number=self.get_accession_number(link))
-                    path = os.path.join(directory, formatted_dir,
-                                        formatted_file)
+                        accession_number=self.get_accession_number(link)
+                    )
+                    path = os.path.join(directory, formatted_dir, formatted_file)
                     inputs.append((link, path))
             loop = asyncio.get_event_loop()
             loop.run_until_complete(self.client.wait_for_download_async(inputs))

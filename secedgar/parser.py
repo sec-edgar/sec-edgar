@@ -8,17 +8,19 @@ from secedgar.exceptions import FilingTypeError
 from secedgar.utils import make_path
 
 value_pattern = r"<value>(.*?)</value>"
-non_derivative_trans_pattern = r"<nonDerivativeTransaction>(.*?)</nonDerivativeTransaction>"
+non_derivative_trans_pattern = (
+    r"<nonDerivativeTransaction>(.*?)</nonDerivativeTransaction>"
+)
 sec_title_pattern = r"<securityTitle>(.*?)</securityTitle>"
 trans_date_pattern = r"<transactionDate>(.*?)</transactionDate>"
 trans_shares_pattern = r"<transactionShares>(.*?)</transactionShares>"
 trans_pps_pattern = r"<transactionPricePerShare>(.*?)</transactionPricePerShare>"
 trans_disp_code_pattern = (
-    r"<transactionAcquiredDisposedCode>"
-    r"(.*?)"
-    r"</transactionAcquiredDisposedCode>"
-    )
-soft_pattern = r"<sharesOwnedFollowingTransaction>(.*?)</sharesOwnedFollowingTransaction>"
+    r"<transactionAcquiredDisposedCode>" r"(.*?)" r"</transactionAcquiredDisposedCode>"
+)
+soft_pattern = (
+    r"<sharesOwnedFollowingTransaction>(.*?)</sharesOwnedFollowingTransaction>"
+)
 doio_pattern = r"<directOrIndirectOwnership>(.*?)</directOrIndirectOwnership>"
 trans_form_type_pattern = r"<transactionFormType>(.*?)</transactionFormType>"
 trans_code_pattern = r"<transactionCode>(.*?)</transactionCode>"
@@ -35,11 +37,14 @@ class MetaParser:
     """
 
     def __init__(self):
-
         self.re_doc = re.compile("<DOCUMENT>(.*?)</DOCUMENT>", flags=re.DOTALL)
-        self.re_sec_doc = re.compile("<SEC-DOCUMENT>(.*?)</SEC-DOCUMENT>", flags=re.DOTALL)
+        self.re_sec_doc = re.compile(
+            "<SEC-DOCUMENT>(.*?)</SEC-DOCUMENT>", flags=re.DOTALL
+        )
         self.re_text = re.compile("<TEXT>(.*?)</TEXT>", flags=re.DOTALL)
-        self.re_sec_header = re.compile("<SEC-HEADER>.*?\n(.*?)</SEC-HEADER>", flags=re.DOTALL)
+        self.re_sec_header = re.compile(
+            "<SEC-HEADER>.*?\n(.*?)</SEC-HEADER>", flags=re.DOTALL
+        )
 
     def process(self, infile, out_dir=None, create_subdir=True, rm_infile=False):
         """Process a text file and save processed files.
@@ -55,22 +60,24 @@ class MetaParser:
         Returns:
             None
         """
-        if not infile.endswith('.txt'):
-            raise ValueError('{file} Does not appear to be a .txt file.'.format(file=infile))
+        if not infile.endswith(".txt"):
+            raise ValueError(
+                "{file} Does not appear to be a .txt file.".format(file=infile)
+            )
 
         with open(infile, encoding="utf8") as f:
             intxt = f.read()
 
         if out_dir is None:
             out_dir = os.path.dirname(infile)
-        infile_base = os.path.basename(infile).split('.txt')[0]
+        infile_base = os.path.basename(infile).split(".txt")[0]
         metadata_file_format = "{base}_{num}.metadata.json"
-        document_file_format = '{base}_{sec_doc_num}.{file}'
+        document_file_format = "{base}_{sec_doc_num}.{file}"
         if create_subdir:
             out_dir = os.path.join(out_dir, infile_base)
             make_path(out_dir)
             metadata_file_format = "{num}.metadata.json"
-            document_file_format = '{sec_doc_num}.{file}'
+            document_file_format = "{sec_doc_num}.{file}"
         sec_doc_cursor = 0
         sec_doc_count = intxt.count("<SEC-DOCUMENT>")
         for sec_doc_num in range(sec_doc_count):
@@ -85,7 +92,9 @@ class MetaParser:
             metadata_match = self.re_sec_header.search(sec_doc)
             metadata_txt = metadata_match.group(1)
             metadata_cursor = metadata_match.span()[1]
-            metadata_filename = metadata_file_format.format(base=infile_base, num=sec_doc_num)
+            metadata_filename = metadata_file_format.format(
+                base=infile_base, num=sec_doc_num
+            )
             metadata_file = os.path.join(out_dir, metadata_filename)
             metadata_dict = self.process_metadata(metadata_txt)
             # logging.info("Metadata written into {}".format(metadata_file))
@@ -108,9 +117,7 @@ class MetaParser:
                 doc_filename = doc_metadata["filename"]
                 doc_txt = self.re_text.search(doc).group(1).strip()
                 target_doc_filename = document_file_format.format(
-                    base=infile_base,
-                    sec_doc_num=sec_doc_num,
-                    file=doc_filename
+                    base=infile_base, sec_doc_num=sec_doc_num, file=doc_filename
                 )
                 doc_outfile = os.path.join(out_dir, target_doc_filename)
 
@@ -130,8 +137,9 @@ class MetaParser:
 
             # Save SEC-DOCUMENT metadata to file
             with open(metadata_file, "w", encoding="utf8") as fileh:
-                formatted_metadata = json.dumps(metadata_dict, indent=2,
-                                                sort_keys=True, ensure_ascii=False)
+                formatted_metadata = json.dumps(
+                    metadata_dict, indent=2, sort_keys=True, ensure_ascii=False
+                )
                 fileh.write(formatted_metadata)
 
         if rm_infile:
@@ -151,16 +159,14 @@ class MetaParser:
         levels = [None, None]
 
         for line in curr_doc.split("\n"):
-
             logging.debug("Line: '{}'".format(line))
 
             if "<ACCEPTANCE-DATETIME>" in line:
-                out_dict["acceptance-datetime"] = \
-                    line[len("<ACCEPTANCE-DATETIME>"):]
+                out_dict["acceptance-datetime"] = line[len("<ACCEPTANCE-DATETIME>") :]
                 continue
 
             if "<DESCRIPTION>" in line:
-                out_dict["description"] = line[len("<DESCRIPTION>"):]
+                out_dict["description"] = line[len("<DESCRIPTION>") :]
                 continue
 
             # e.g. "CONFORMED SUBMISSION TYPE:	8-K"
@@ -179,8 +185,7 @@ class MetaParser:
                 levels[1] = None
                 if levels[0] not in out_dict:
                     out_dict[levels[0]] = dict()
-                    logging.debug("Creating level 1 header {}"
-                                  .format(levels[0]))
+                    logging.debug("Creating level 1 header {}".format(levels[0]))
                 continue
 
             # Level 2 header (must be before the data for correct matching)
@@ -190,16 +195,16 @@ class MetaParser:
                 levels[1] = m.group(1).replace(" ", "_")
                 if levels[1] not in out_dict[levels[0]]:
                     out_dict[levels[0]][levels[1]] = {}
-                    logging.debug("Creating level 2 header {}"
-                                  .format(levels[1]))
+                    logging.debug("Creating level 2 header {}".format(levels[1]))
                 continue
 
             # Level 1 data
             m = re.match("^\t(?!\t)(.+):\t*(.+)$", line)
             if m:
                 out_dict[levels[0]][m.group(1)] = m.group(2)
-                logging.debug("Level 1 data. Levels[0]={}; group={}"
-                              .format(levels[0], m.group(1)))
+                logging.debug(
+                    "Level 1 data. Levels[0]={}; group={}".format(levels[0], m.group(1))
+                )
                 continue
 
             # Level 2 data
@@ -269,8 +274,8 @@ class F4Parser:
             def nested_findall(parent_pattern, doc, child_pattern=value_pattern):
                 matches = [
                     re.search(child_pattern, match).group(1)
-                    for match
-                    in re.findall(parent_pattern, doc, re.S)]
+                    for match in re.findall(parent_pattern, doc, re.S)
+                ]
                 return matches
 
             # Find core data from document.
@@ -295,31 +300,21 @@ class F4Parser:
                             "transactionCoding": {
                                 "transactionFormType": transactionFormType,
                                 "transactionCode": transactionCode,
-                                "equitySwapInvolved": equitySwapInvolved
+                                "equitySwapInvolved": equitySwapInvolved,
                             },
                             "transactionAmounts": {
                                 "transactionShares": transactionShares,
                                 "transactionPricePerShare": transactionPricePerShare,
-                                "transactionAcquiredDisposedCode": transactionAcquiredDisposedCode
+                                "transactionAcquiredDisposedCode": transactionAcquiredDisposedCode,
                             },
                             "postTransactionAmounts": {
                                 "sharesOwnedFollowingTransaction": sharesOwnedFollowingTransaction
                             },
                             "ownershipNature": {
                                 "directOrIndirectOwnership": directOrIndirectOwnership
-                            }
+                            },
                         }
-                        for securityTitle,
-                        transactionDate,
-                        transactionFormType,
-                        transactionCode,
-                        equitySwapInvolved,
-                        transactionShares,
-                        transactionPricePerShare,
-                        transactionAcquiredDisposedCode,
-                        sharesOwnedFollowingTransaction,
-                        directOrIndirectOwnership
-                        in zip(
+                        for securityTitle, transactionDate, transactionFormType, transactionCode, equitySwapInvolved, transactionShares, transactionPricePerShare, transactionAcquiredDisposedCode, sharesOwnedFollowingTransaction, directOrIndirectOwnership in zip(
                             security_title_matches,
                             trans_date_matches,
                             trans_form_matches,
@@ -329,7 +324,7 @@ class F4Parser:
                             trans_pps_matches,
                             trans_disp_code_matches,
                             soft_matches,
-                            doio_matches
+                            doio_matches,
                         )
                     ]
                 }

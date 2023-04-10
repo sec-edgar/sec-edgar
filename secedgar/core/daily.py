@@ -59,11 +59,12 @@ class DailyFilings(IndexFilings):
 
     """
 
-    def __init__(self, date, user_agent=None, client=None, entry_filter=lambda _: True, **kwargs):
-        super().__init__(user_agent=user_agent,
-                         client=client,
-                         entry_filter=entry_filter,
-                         **kwargs)
+    def __init__(
+        self, date, user_agent=None, client=None, entry_filter=lambda _: True, **kwargs
+    ):
+        super().__init__(
+            user_agent=user_agent, client=client, entry_filter=entry_filter, **kwargs
+        )
         self.date = date
 
     @property
@@ -75,7 +76,8 @@ class DailyFilings(IndexFilings):
             Omitting will raise EDGARQueryError.
         """
         return "Archives/edgar/daily-index/{year}/QTR{num}/".format(
-            year=self.year, num=self.quarter)
+            year=self.year, num=self.quarter
+        )
 
     @property
     def quarter(self):
@@ -97,7 +99,10 @@ class DailyFilings(IndexFilings):
         if not isinstance(val, (datetime.date, datetime.datetime)):
             raise TypeError(
                 """Date must be given as datetime.date or datetime.datetime object.
-                            Was given type {type}.""".format(type=type(val)))
+                            Was given type {type}.""".format(
+                    type=type(val)
+                )
+            )
         self._date = val
 
     @property
@@ -108,11 +113,9 @@ class DailyFilings(IndexFilings):
     def _get_tar_urls(self):
         """The .tar.gz filename for the current day."""
         if self.year < 1995 or (self.year == 1995 and self.quarter < 3):
-            raise ValueError(
-                'Bulk downloading is only available starting 1995 Q3.')
-        daily_file = '{date}.nc.tar.gz'.format(
-            date=self._date.strftime("%Y%m%d"))
-        daily_url = f'{self.client._BASE}{self.tar_path}{daily_file}'
+            raise ValueError("Bulk downloading is only available starting 1995 Q3.")
+        daily_file = "{date}.nc.tar.gz".format(date=self._date.strftime("%Y%m%d"))
+        daily_url = f"{self.client._BASE}{self.tar_path}{daily_file}"
         return [daily_url]
 
     def _get_idx_formatted_date(self):
@@ -131,12 +134,14 @@ class DailyFilings(IndexFilings):
         else:
             return self._date.strftime("%Y%m%d")
 
-    def save(self,
-             directory,
-             dir_pattern=None,
-             file_pattern="{accession_number}",
-             date_format="%Y%m%d",
-             download_all=False):
+    def save(
+        self,
+        directory,
+        dir_pattern=None,
+        file_pattern="{accession_number}",
+        date_format="%Y%m%d",
+        download_all=False,
+    ):
         """Save all daily filings.
 
         Store all filings for each unique company name under a separate subdirectory
@@ -159,8 +164,11 @@ class DailyFilings(IndexFilings):
 
         # If "{cik}" is in dir_pattern, it will be passed on and if not it will be ignored
         formatted_dir = dir_pattern.format(
-            date=self._date.strftime(date_format), cik="{cik}")
-        self._save_filings(directory,
-                           dir_pattern=formatted_dir,
-                           file_pattern=file_pattern,
-                           download_all=download_all)
+            date=self._date.strftime(date_format), cik="{cik}"
+        )
+        self._save_filings(
+            directory,
+            dir_pattern=formatted_dir,
+            file_pattern=file_pattern,
+            download_all=download_all,
+        )

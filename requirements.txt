@@ -5,3 +5,5 @@ urllib3
 requests
 lxml
 tqdm
+supabase
+weasyprint

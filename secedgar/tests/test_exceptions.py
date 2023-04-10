@@ -1,15 +1,7 @@
 import pytest
 
 
-@pytest.mark.parametrize(
-    "exc",
-    [
-        "EDGARQueryError",
-        "CIKError",
-        "FilingTypeError"
-
-    ]
-)
+@pytest.mark.parametrize("exc", ["EDGARQueryError", "CIKError", "FilingTypeError"])
 def test_exception_importable(exc):
     from secedgar import exceptions
 

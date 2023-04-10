@@ -73,14 +73,16 @@ class ComboFilings:
             combo_filings.save('/my_directory')
     """
 
-    def __init__(self,
-                 start_date: datetime.date,
-                 end_date: datetime.date,
-                 user_agent: Union[str, None] = None,
-                 client=None,
-                 entry_filter=lambda _: True,
-                 balancing_point=30,
-                 **kwargs):
+    def __init__(
+        self,
+        start_date: datetime.date,
+        end_date: datetime.date,
+        user_agent: Union[str, None] = None,
+        client=None,
+        entry_filter=lambda _: True,
+        balancing_point=30,
+        **kwargs
+    ):
         self.entry_filter = entry_filter
         self.start_date = start_date
         self.end_date = end_date
@@ -101,7 +103,7 @@ class ComboFilings:
         if callable(fn):
             self._entry_filter = fn
         else:
-            raise ValueError('entry_filter must be a function or lambda.')
+            raise ValueError("entry_filter must be a function or lambda.")
 
     @property
     def client(self):
@@ -149,52 +151,74 @@ class ComboFilings:
             current_quarter = get_quarter(current_date)
             current_year = current_date.year
             next_year, next_quarter = add_quarter(current_year, current_quarter)
-            next_start_quarter_date = datetime.date(next_year, get_month(next_quarter), 1)
+            next_start_quarter_date = datetime.date(
+                next_year, get_month(next_quarter), 1
+            )
 
-            days_till_next_quarter = (next_start_quarter_date -
-                                      current_date).days
+            days_till_next_quarter = (next_start_quarter_date - current_date).days
             days_till_end = (self.end_date - current_date).days
 
             # If there are more days until the end date than there are
             # in the quarter, add
             if days_till_next_quarter <= days_till_end:
-                current_start_quarter_date = datetime.date(current_year,
-                                                           get_month(current_quarter), 1)
+                current_start_quarter_date = datetime.date(
+                    current_year, get_month(current_quarter), 1
+                )
                 if current_start_quarter_date == current_date:
                     quarterly_date_list.append(
-                        (current_year, current_quarter, lambda x: True))
+                        (current_year, current_quarter, lambda x: True)
+                    )
                     current_date = next_start_quarter_date
                 elif days_till_next_quarter > self.balancing_point:
                     quarterly_date_list.append(
-                        (current_year, current_quarter,
-                         lambda x: datetime.datetime.strptime(
-                             x.date_filed, '%Y-%m-%d'
-                         ).date() >= self.start_date))
+                        (
+                            current_year,
+                            current_quarter,
+                            lambda x: datetime.datetime.strptime(
+                                x.date_filed, "%Y-%m-%d"
+                            ).date()
+                            >= self.start_date,
+                        )
+                    )
                     current_date = next_start_quarter_date
                 else:
-                    daily_date_list.extend(fill_days(start=current_date,
-                                                     end=next_start_quarter_date,
-                                                     include_start=True,
-                                                     include_end=False))
+                    daily_date_list.extend(
+                        fill_days(
+                            start=current_date,
+                            end=next_start_quarter_date,
+                            include_start=True,
+                            include_end=False,
+                        )
+                    )
                     current_date = next_start_quarter_date
             else:
                 if days_till_end > self.balancing_point:
                     if days_till_next_quarter - 1 == days_till_end:
                         quarterly_date_list.append(
-                            (current_year, current_quarter, lambda x: True))
+                            (current_year, current_quarter, lambda x: True)
+                        )
                         current_date = next_start_quarter_date
                     else:
                         quarterly_date_list.append(
-                            (current_year, current_quarter,
-                             lambda x: datetime.datetime.strptime(
-                                 x.date_filed, '%Y-%m-%d'
-                             ).date() <= self.end_date))
+                            (
+                                current_year,
+                                current_quarter,
+                                lambda x: datetime.datetime.strptime(
+                                    x.date_filed, "%Y-%m-%d"
+                                ).date()
+                                <= self.end_date,
+                            )
+                        )
                         current_date = self.end_date
                 else:
-                    daily_date_list.extend(fill_days(start=current_date,
-                                                     end=self.end_date,
-                                                     include_start=True,
-                                                     include_end=True))
+                    daily_date_list.extend(
+                        fill_days(
+                            start=current_date,
+                            end=self.end_date,
+                            include_start=True,
+                            include_end=True,
+                        )
+                    )
                     break
         return quarterly_date_list, daily_date_list
 
@@ -210,6 +234,7 @@ class ComboFilings:
 
     def get_urls(self):
         """Get all urls between ``start_date`` and ``end_date``."""
+
         # Use functools.reduce for speed
         # see https://stackoverflow.com/questions/10461531/merge-and-sum-of-two-dictionaries
         def _reducer(accumulator, dictionary):
@@ -218,19 +243,23 @@ class ComboFilings:
             return accumulator
 
         list_of_dicts = []
-        for (year, quarter, f) in self.quarterly_date_list:
-            q = QuarterlyFilings(year=year,
-                                 quarter=quarter,
-                                 user_agent=self.user_agent,
-                                 client=self.client,
-                                 entry_filter=lambda x: f(x) and self.entry_filter(x))
+        for year, quarter, f in self.quarterly_date_list:
+            q = QuarterlyFilings(
+                year=year,
+                quarter=quarter,
+                user_agent=self.user_agent,
+                client=self.client,
+                entry_filter=lambda x: f(x) and self.entry_filter(x),
+            )
             list_of_dicts.append(q.get_urls())
 
         for _date in self.daily_date_list:
-            d = DailyFilings(date=_date,
-                             user_agent=self.user_agent,
-                             client=self.client,
-                             entry_filter=self.entry_filter)
+            d = DailyFilings(
+                date=_date,
+                user_agent=self.user_agent,
+                client=self.client,
+                entry_filter=self.entry_filter,
+            )
             try:
                 list_of_dicts.append(d.get_urls())
             except EDGARQueryError:  # continue if no URLs available for given day
@@ -239,12 +268,14 @@ class ComboFilings:
         complete_dictionary = reduce(_reducer, list_of_dicts, {})
         return complete_dictionary
 
-    def save(self,
-             directory,
-             dir_pattern=None,
-             file_pattern="{accession_number}",
-             download_all=False,
-             daily_date_format="%Y%m%d"):
+    def save(
+        self,
+        directory,
+        dir_pattern=None,
+        file_pattern="{accession_number}",
+        download_all=False,
+        daily_date_format="%Y%m%d",
+    ):
         """Save all filings between ``start_date`` and ``end_date``.
 
         Only filings that satisfy args given at initialization will
@@ -261,27 +292,38 @@ class ComboFilings:
                 Defaults to "%Y%m%d".
         """
         # Go through all quarters and dates and save filings using appropriate class
-        for (year, quarter, f) in self.quarterly_date_list:
-            q = QuarterlyFilings(year=year,
-                                 quarter=quarter,
-                                 user_agent=self.client.user_agent,
-                                 client=self.client,
-                                 entry_filter=lambda x: f(x) and self.entry_filter(x))
-            q.save(directory=directory,
-                   dir_pattern=dir_pattern,
-                   file_pattern=file_pattern,
-                   download_all=download_all)
+        for year, quarter, f in self.quarterly_date_list:
+            q = QuarterlyFilings(
+                year=year,
+                quarter=quarter,
+                user_agent=self.client.user_agent,
+                client=self.client,
+                entry_filter=lambda x: f(x) and self.entry_filter(x),
+            )
+            q.save(
+                directory=directory,
+                dir_pattern=dir_pattern,
+                file_pattern=file_pattern,
+                download_all=download_all,
+            )
 
         for date_ in self.daily_date_list:
-            d = DailyFilings(date=date_,
-                             user_agent=self.client.user_agent,
-                             client=self.client,
-                             entry_filter=self.entry_filter)
+            d = DailyFilings(
+                date=date_,
+                user_agent=self.client.user_agent,
+                client=self.client,
+                entry_filter=self.entry_filter,
+            )
             try:
-                d.save(directory=directory,
-                       dir_pattern=dir_pattern,
-                       file_pattern=file_pattern,
-                       download_all=download_all,
-                       date_format=daily_date_format)
-            except (EDGARQueryError, NoFilingsError):  # continue if no filings for given day
+                d.save(
+                    directory=directory,
+                    dir_pattern=dir_pattern,
+                    file_pattern=file_pattern,
+                    download_all=download_all,
+                    date_format=daily_date_format,
+                )
+            except (
+                EDGARQueryError,
+                NoFilingsError,
+            ):  # continue if no filings for given day
                 continue

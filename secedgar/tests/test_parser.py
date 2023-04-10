@@ -11,25 +11,19 @@ class TestParser:
         <FILENAME>test-filename.txt
         """
         metadata = self.parser.process_document_metadata(doc)
-        assert metadata == {"type": "10-K", "sequence": "123", "filename": "test-filename.txt"}
+        assert metadata == {
+            "type": "10-K",
+            "sequence": "123",
+            "filename": "test-filename.txt",
+        }
 
-    @pytest.mark.parametrize(
-        "bad_filetype",
-        [
-            "xml",
-            "json",
-            "html",
-            "txt.gz",
-            "zip"
-        ]
-    )
+    @pytest.mark.parametrize("bad_filetype", ["xml", "json", "html", "txt.gz", "zip"])
     def test_bad_filetypes_raises_error(self, bad_filetype):
         with pytest.raises(ValueError):
             self.parser.process(infile="test.{0}".format(bad_filetype))
 
 
 class TestF4Parser:
-
     parser = F4Parser()
 
     def test_process_document_metadata_form_4(self):
@@ -122,19 +116,17 @@ class TestF4Parser:
                         "transactionCoding": {
                             "transactionFormType": "5",
                             "transactionCode": "G",
-                            "equitySwapInvolved": "0"
+                            "equitySwapInvolved": "0",
                         },
                         "transactionAmounts": {
                             "transactionShares": "4010",
                             "transactionPricePerShare": "0",
-                            "transactionAcquiredDisposedCode": "D"
+                            "transactionAcquiredDisposedCode": "D",
                         },
                         "postTransactionAmounts": {
                             "sharesOwnedFollowingTransaction": "324164"
                         },
-                        "ownershipNature": {
-                            "directOrIndirectOwnership": "D"
-                        }
+                        "ownershipNature": {"directOrIndirectOwnership": "D"},
                     },
                     {
                         "securityTitle": "Common Stock",
@@ -142,20 +134,18 @@ class TestF4Parser:
                         "transactionCoding": {
                             "transactionFormType": "4",
                             "transactionCode": "S",
-                            "equitySwapInvolved": "0"
+                            "equitySwapInvolved": "0",
                         },
                         "transactionAmounts": {
                             "transactionShares": "15600",
                             "transactionPricePerShare": "145.83",
-                            "transactionAcquiredDisposedCode": "D"
+                            "transactionAcquiredDisposedCode": "D",
                         },
                         "postTransactionAmounts": {
                             "sharesOwnedFollowingTransaction": "308564"
                         },
-                        "ownershipNature": {
-                            "directOrIndirectOwnership": "D"
-                        }
-                    }
+                        "ownershipNature": {"directOrIndirectOwnership": "D"},
+                    },
                 ]
             }
         }

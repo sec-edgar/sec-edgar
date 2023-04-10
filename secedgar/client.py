@@ -2,6 +2,7 @@
 import asyncio
 import os
 import time
+import logging
 
 import aiohttp
 import requests
@@ -12,6 +13,16 @@ from urllib3.util.retry import Retry
 
 from secedgar.exceptions import EDGARQueryError
 from secedgar.utils import make_path
+from supabase import Client, create_client
+from weasyprint import HTML
+from storage3.utils import StorageException
+
+# Remove default weasyprint logging, ensure it only prints for important errors
+logging.disable(logging.CRITICAL)
+
+url: str = os.environ.get("SUPABASE_URL")
+key: str = os.environ.get("SUPABASE_KEY")
+supabase: Client = create_client(url, key)
 
 
 class NetworkClient:
@@ -61,12 +72,9 @@ class NetworkClient:
 
     _BASE = "http://www.sec.gov/"
 
-    def __init__(self,
-                 user_agent,
-                 retry_count=3,
-                 batch_size=10,
-                 backoff_factor=0,
-                 rate_limit=10):
+    def __init__(
+        self, user_agent, retry_count=3, batch_size=10, backoff_factor=0, rate_limit=10
+    ):
         self.retry_count = retry_count
         self.batch_size = batch_size
         self.backoff_factor = backoff_factor
@@ -81,11 +89,13 @@ class NetworkClient:
     @retry_count.setter
     def retry_count(self, value):
         if not isinstance(value, int):
-            raise TypeError("Retry count must be int. Given type {0}.".format(
-                type(value)))
+            raise TypeError(
+                "Retry count must be int. Given type {0}.".format(type(value))
+            )
         elif value < 0:
             raise ValueError(
-                "Retry count must be greater than 0. Given {0}.".format(value))
+                "Retry count must be greater than 0. Given {0}.".format(value)
+            )
         self._retry_count = value
 
     @property
@@ -96,8 +106,9 @@ class NetworkClient:
     @batch_size.setter
     def batch_size(self, value):
         if not isinstance(value, int):
-            raise TypeError("Batch size must be int. Given type {0}".format(
-                type(value)))
+            raise TypeError(
+                "Batch size must be int. Given type {0}".format(type(value))
+            )
         elif value < 1:
             raise ValueError("Batch size must be positive integer.")
         self._batch_size = value
@@ -112,7 +123,9 @@ class NetworkClient:
         if not isinstance(value, (int, float)):
             raise TypeError(
                 "Backoff factor must be int or float. Given type {0}".format(
-                    type(value)))
+                    type(value)
+                )
+            )
         self._backoff_factor = value
 
     @property
@@ -124,7 +137,8 @@ class NetworkClient:
     def rate_limit(self, value):
         if not (0 < value <= 10):
             raise ValueError(
-                "Rate must be greater than 0 and less than or equal to 10.")
+                "Rate must be greater than 0 and less than or equal to 10."
+            )
         else:
             self._rate_limit = value
 
@@ -136,7 +150,9 @@ class NetworkClient:
     @user_agent.setter
     def user_agent(self, value):
         if not isinstance(value, str):
-            raise TypeError("user_agent must be str. Given type {0}.".format(type(value)))
+            raise TypeError(
+                "user_agent must be str. Given type {0}.".format(type(value))
+            )
         self._user_agent = value
 
     @staticmethod
@@ -160,9 +176,12 @@ class NetworkClient:
         Raises:
             EDGARQueryError: If response contains EDGAR error message.
         """
-        error_messages = ("The value you submitted is not valid",
-                          "No matching Ticker Symbol.", "No matching CIK.",
-                          "No matching companies.")
+        error_messages = (
+            "The value you submitted is not valid",
+            "No matching Ticker Symbol.",
+            "No matching CIK.",
+            "No matching companies.",
+        )
         status_code = response.status_code
 
         if status_code == 429:
@@ -172,7 +191,8 @@ class NetworkClient:
             https://www.sec.gov/privacy.htm#security"""
         elif any(m in response.text for m in error_messages):
             raise EDGARQueryError(
-                "No results were found or the value submitted was not valid.")
+                "No results were found or the value submitted was not valid."
+            )
 
         return response
 
@@ -193,15 +213,21 @@ class NetworkClient:
             EDGARQueryError: If problems arise when making query.
         """
         prepared_url = self._prepare_query(path)
+        return self._get_response_prepared_url(prepared_url, params=params, **kwargs)
+
+    def _get_response_prepared_url(self, prepared_url, params=None, **kwargs):
         headers = {"User-Agent": self.user_agent}
         with requests.Session() as session:
-            retry = Retry(self.retry_count,
-                          backoff_factor=self.backoff_factor,
-                          raise_on_status=True)
+            retry = Retry(
+                self.retry_count,
+                backoff_factor=self.backoff_factor,
+                raise_on_status=True,
+            )
             session.mount(self._BASE, adapter=HTTPAdapter(max_retries=retry))
             session.hooks["response"].append(self._validate_response)
-            response = session.get(prepared_url, params=params,
-                                   headers=headers, **kwargs)
+            response = session.get(
+                prepared_url, params=params, headers=headers, **kwargs
+            )
             return response
 
     def get_soup(self, path, params, **kwargs):
@@ -215,8 +241,9 @@ class NetworkClient:
         Returns:
             BeautifulSoup object from response text.
         """
-        return BeautifulSoup(self.get_response(path, params, **kwargs).text,
-                             features='lxml')
+        return BeautifulSoup(
+            self.get_response(path, params, **kwargs).text, features="lxml"
+        )
 
     @staticmethod
     async def fetch(link, session):
@@ -242,36 +269,41 @@ class NetworkClient:
                 in tuple should be URL to request and second element should be path
                 where content after requesting URL is stored.
         """
+
         async def fetch_and_save(link, path, session):
             """Fetch link and save to path using session."""
-            contents = await self.fetch(link, session)
-            make_path(os.path.dirname(path))
-            with open(path, "wb") as f:
-                f.write(contents)
+            pdf = HTML(link).write_pdf()
+            path = path.replace(".htm", ".pdf")
+            try:
+                supabase.storage.from_("sec-filings").upload(path, pdf)
+            except StorageException as e:
+                pass
 
         def batch(iterable, n):
             length = len(iterable)
             for ndx in range(0, length, n):
-                yield iterable[ndx:min(ndx + n, length)]
+                yield iterable[ndx : min(ndx + n, length)]
 
         conn = aiohttp.TCPConnector(limit=self.rate_limit)
         headers = {
             "Connection": "keep-alive",
             "User-Agent": self.user_agent,
         }
-        client = aiohttp.ClientSession(connector=conn, headers=headers,
-                                       raise_for_status=True)
+        client = aiohttp.ClientSession(
+            connector=conn, headers=headers, raise_for_status=True
+        )
 
         async with client:
-            for group in tqdm.tqdm(batch(inputs, self.rate_limit),
-                                   total=len(inputs) // self.rate_limit,
-                                   unit_scale=self.rate_limit):
+            for group in tqdm.tqdm(
+                batch(inputs, self.rate_limit),
+                total=len(inputs) // self.rate_limit,
+                unit_scale=self.rate_limit,
+            ):
                 start = time.monotonic()
-                tasks = [
-                    fetch_and_save(link, path, client) for link, path in group
-                ]
+                tasks = [fetch_and_save(link, path, client) for link, path in group]
                 await asyncio.gather(
-                    *tasks)  # If results are needed they can be assigned here
+                    *tasks
+                )  # If results are needed they can be assigned here
                 execution_time = time.monotonic() - start
                 # If execution time > 1, requests are essentially wasted, but a small price to pay
                 await asyncio.sleep(max(0, 1 - execution_time))

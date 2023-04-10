@@ -18,10 +18,10 @@ def sanitize_date(date):
         return date.strftime("%Y%m%d")
     elif isinstance(date, str):
         if len(date) != 8:
-            raise TypeError('Date must be of the form YYYYMMDD')
+            raise TypeError("Date must be of the form YYYYMMDD")
     elif isinstance(date, int):
-        if date < 10 ** 7 or date > 10 ** 8:
-            raise TypeError('Date must be of the form YYYYMMDD')
+        if date < 10**7 or date > 10**8:
+            raise TypeError("Date must be of the form YYYYMMDD")
     return date
 
 
@@ -59,9 +59,9 @@ def get_month(quarter):
         quarter (Union[datetime.datetime, datetime.date]): Datetime object to get quarter for.
     """
     if not isinstance(quarter, int):
-        raise TypeError('Quarter must be an int')
+        raise TypeError("Quarter must be an int")
     if quarter < 1 or quarter > 4:
-        raise TypeError('Quarter must be between 1 and 4.')
+        raise TypeError("Quarter must be between 1 and 4.")
 
     return 1 + (quarter - 1) * 3
 
@@ -74,7 +74,7 @@ def add_quarter(year, quarter):
         quarter (int): Quarter
     """
     if quarter < 1 or quarter > 4:
-        raise TypeError('Quarter must be between 1 and 4.')
+        raise TypeError("Quarter must be between 1 and 4.")
     if quarter == 4:
         quarter = 1
         year += 1

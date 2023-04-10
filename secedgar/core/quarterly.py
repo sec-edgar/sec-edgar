@@ -36,17 +36,18 @@ class QuarterlyFilings(IndexFilings):
 
     """
 
-    def __init__(self,
-                 year,
-                 quarter,
-                 user_agent=None,
-                 client=None,
-                 entry_filter=lambda _: True,
-                 **kwargs):
-        super().__init__(user_agent=user_agent,
-                         client=client,
-                         entry_filter=entry_filter,
-                         **kwargs)
+    def __init__(
+        self,
+        year,
+        quarter,
+        user_agent=None,
+        client=None,
+        entry_filter=lambda _: True,
+        **kwargs
+    ):
+        super().__init__(
+            user_agent=user_agent, client=client, entry_filter=entry_filter, **kwargs
+        )
         self.year = year
         self.quarter = quarter
 
@@ -54,7 +55,8 @@ class QuarterlyFilings(IndexFilings):
     def path(self):
         """Path property to pass to client."""
         return "Archives/edgar/full-index/{year}/QTR{num}/".format(
-            year=self._year, num=self._quarter)
+            year=self._year, num=self._quarter
+        )
 
     @property
     def year(self):
@@ -68,7 +70,9 @@ class QuarterlyFilings(IndexFilings):
         elif val < 1993 or val > date.today().year:
             raise ValueError(
                 "Year must be in between 1993 and {now} (inclusive)".format(
-                    now=date.today().year))
+                    now=date.today().year
+                )
+            )
         self._year = val
 
     @property
@@ -83,8 +87,11 @@ class QuarterlyFilings(IndexFilings):
         elif val not in range(1, 5):
             raise ValueError("Quarter must be in between 1 and 4 (inclusive).")
         elif self.year == date.today().year and val > get_quarter(date.today()):
-            raise ValueError("Latest quarter for current year is {qtr}".format(
-                qtr=get_quarter(date.today())))
+            raise ValueError(
+                "Latest quarter for current year is {qtr}".format(
+                    qtr=get_quarter(date.today())
+                )
+            )
         self._quarter = val
 
     @property
@@ -95,14 +102,18 @@ class QuarterlyFilings(IndexFilings):
     def _get_tar_urls(self):
         """The list of .tar.gz daily files in the current quarter."""
         soup = self.client.get_soup(self.tar_path, {})
-        files = [a.get('href') for a in soup.find_all('a') if "nc.tar.gz" in a.get('href')]
+        files = [
+            a.get("href") for a in soup.find_all("a") if "nc.tar.gz" in a.get("href")
+        ]
         return files
 
-    def save(self,
-             directory,
-             dir_pattern=None,
-             file_pattern="{accession_number}",
-             download_all=False):
+    def save(
+        self,
+        directory,
+        dir_pattern=None,
+        file_pattern="{accession_number}",
+        download_all=False,
+    ):
         """Save all daily filings.
 
         Creates subdirectory within given directory of the form <YEAR>/QTR<QTR NUMBER>/.
@@ -122,13 +133,15 @@ class QuarterlyFilings(IndexFilings):
         """
         if dir_pattern is None:
             # https://stackoverflow.com/questions/11283961/partial-string-formatting
-            dir_pattern = os.path.join('{year}', 'QTR{quarter}', '{cik}')
+            dir_pattern = os.path.join("{year}", "QTR{quarter}", "{cik}")
 
         # If "{cik}" is in dir_pattern, it will be passed on and if not it will be ignored
-        formatted_dir = dir_pattern.format(year=self.year,
-                                           quarter=self.quarter,
-                                           cik="{cik}")
-        self._save_filings(directory,
-                           dir_pattern=formatted_dir,
-                           file_pattern=file_pattern,
-                           download_all=download_all)
+        formatted_dir = dir_pattern.format(
+            year=self.year, quarter=self.quarter, cik="{cik}"
+        )
+        self._save_filings(
+            directory,
+            dir_pattern=formatted_dir,
+            file_pattern=file_pattern,
+            download_all=download_all,
+        )

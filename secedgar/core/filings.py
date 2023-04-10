@@ -159,35 +159,42 @@ def filings(
             "Count has not yet been implemented for Daily, quarterly & Combo Filings."
         )
 
-    if (end_date is None or end_date == start_date) and isinstance(
-            start_date, date):
-        return DailyFilings(date=start_date,
-                            user_agent=user_agent,
-                            client=client,
-                            entry_filter=_entry_filter,
-                            **kwargs)
+    if (end_date is None or end_date == start_date) and isinstance(start_date, date):
+        return DailyFilings(
+            date=start_date,
+            user_agent=user_agent,
+            client=client,
+            entry_filter=_entry_filter,
+            **kwargs
+        )
 
     if isinstance(start_date, date) and isinstance(end_date, date):
         current_quarter = get_quarter(start_date)
         current_year = start_date.year
         start_quarter_date = date(current_year, get_month(current_quarter), 1)
         next_year, next_quarter = add_quarter(current_year, current_quarter)
-        end_quarter_date = date(next_year, get_month(next_quarter),
-                                1) - timedelta(days=1)
+        end_quarter_date = date(next_year, get_month(next_quarter), 1) - timedelta(
+            days=1
+        )
         if start_quarter_date == start_date and end_date == end_quarter_date:
-            return QuarterlyFilings(year=current_year,
-                                    quarter=current_quarter,
-                                    client=client,
-                                    user_agent=user_agent,
-                                    entry_filter=_entry_filter,
-                                    **kwargs)
-        return ComboFilings(start_date=start_date,
-                            end_date=end_date,
-                            user_agent=user_agent,
-                            client=client,
-                            entry_filter=_entry_filter,
-                            **kwargs)
+            return QuarterlyFilings(
+                year=current_year,
+                quarter=current_quarter,
+                client=client,
+                user_agent=user_agent,
+                entry_filter=_entry_filter,
+                **kwargs
+            )
+        return ComboFilings(
+            start_date=start_date,
+            end_date=end_date,
+            user_agent=user_agent,
+            client=client,
+            entry_filter=_entry_filter,
+            **kwargs
+        )
 
     raise ValueError(
         """Invalid arguments. You must provide 'cik_lookup' OR 'start_date' \
-OR ('start_date' and 'end_date').""")
+OR ('start_date' and 'end_date')."""
+    )
