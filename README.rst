@@ -3,17 +3,17 @@ Running
 -------
 
 
-```bash
-# For macOS, refer to weasyprint installation docs for different platforms
-brew install weasyprint
-pip install -r requirements.txt
+.. code:: bash
 
-export SUPABASE_URL=...
-export SUPABASE_KEY=...
-python main.py
-```
+    # Refer to weasyprint installation docs for different platforms
+    brew install weasyprint
+    pip install -r requirements.txt
 
-Edit the list in `tickers.txt` to upload 10-Ks for different companies. If a ticker is already present in the supabase bucket,
+    export SUPABASE_URL=...
+    export SUPABASE_KEY=...
+    python main.py
+
+Edit the list in `tickers.txt` to upload 10-Ks for more companies. If a ticker is already present in the supabase bucket,
 the crawler will skip it.
 
 Company Filings
