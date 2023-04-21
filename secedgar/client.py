@@ -279,9 +279,17 @@ class NetworkClient:
         async def fetch_and_save(link, path, session):
             """Fetch link and save to path using session."""
             txt = self.get_soup_text(link, None, False)
-            path = path.replace(".htm", ".txt")
+            txt_path = path.replace(".htm", ".txt")
             try:
-                supabase.storage.from_("sec-filings").upload(path, str.encode(txt))
+                supabase.storage.from_("sec-filings").upload(txt_path, txt)
+            except StorageException as e:
+                print(e)
+                pass
+
+            pdf = HTML(link).write_pdf()
+            pdf_path = path.replace(".htm", ".pdf")
+            try:
+                supabase.storage.from_("public-sec-filings").upload(pdf_path, pdf)
             except StorageException as e:
                 print(e)
                 pass
