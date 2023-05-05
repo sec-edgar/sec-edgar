@@ -806,7 +806,7 @@ class FilingType(Enum):
     FILING_U9C3 = "u-9c-3"
     FILING_UNDER = "UNDER"
     FILING_UNDER_AMEND = "UNDER/A"
-    FILING_UPLOAD = "upload"
+    FILING_UPLOAD = "UPLOAD"
     FILING_UR1 = "u-r-1"
     FILING_WBAPP = "wb-app"
     FILING_WDLREQ = "wdl-req"

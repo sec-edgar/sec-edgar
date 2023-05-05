@@ -7,6 +7,8 @@ import logging
 import aiohttp
 import requests
 import tqdm
+from io import BytesIO
+from pypdf import PdfReader, PdfWriter
 from bs4 import BeautifulSoup
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
@@ -278,21 +280,51 @@ class NetworkClient:
 
         async def fetch_and_save(link, path, session):
             """Fetch link and save to path using session."""
-            txt = self.get_soup_text(link, None, False)
-            txt_path = path.replace(".htm", ".txt")
+            if (path.split(".")[-1] == "pdf"):
+                await _process_pdf(link, path, session)
+            else:
+                txt = self.get_soup_text(link, None, False)
+                txt_path = path.replace(".htm", ".txt")
+                try:
+                    supabase.storage.from_("sec-filings").upload(txt_path, str.encode(txt))
+                except StorageException as e:
+                    print("Skipping {} {}".format(path, e))
+                    pass
+
+                pdf = HTML(link).write_pdf()
+                pdf_path = path.replace(".htm", ".pdf")
+                try:
+                    supabase.storage.from_("public-sec-filings").upload(pdf_path, pdf)
+                except StorageException as e:
+                    print("Skipping {} {}".format(path, e))
+                    pass
+        
+
+        async def _process_pdf(link, path, session):
+            res = await session.get(link)
+            data = bytes()
+            async for chunk in res.content.iter_chunked(1024):
+                data += chunk
+            
+            try:
+                supabase.storage.from_("public-sec-filings").upload(path, data)
+            except StorageException as e:
+                print("Skipping {} {}".format(path, link))
+                pass
+
+            file = BytesIO(data)
+            reader = PdfReader(file)
+            file.seek(0)
+            txt_path = path.replace(".pdf", ".txt")
+            txt = ""
+            for page in reader.pages:
+                txt += page.extract_text() + "\n"
             try:
                 supabase.storage.from_("sec-filings").upload(txt_path, str.encode(txt))
             except StorageException as e:
-                print(e)
+                print("Skipping {} {}".format(path, link))
                 pass
 
-            pdf = HTML(link).write_pdf()
-            pdf_path = path.replace(".htm", ".pdf")
-            try:
-                supabase.storage.from_("public-sec-filings").upload(pdf_path, pdf)
-            except StorageException as e:
-                print(e)
-                pass
 
         def batch(iterable, n):
             length = len(iterable)

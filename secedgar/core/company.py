@@ -294,14 +294,29 @@ class CompanyFilings(AbstractFiling):
             self.params["start"] += self.client.batch_size
             if len(data.find_all("filinghref")) == 0:  # no more filings
                 break
+        
+        urls = []
+        if self.filing_type == FilingType.FILING_10K:
+            urls = self._parse_10k_urls(links, **kwargs)
+        elif self.filing_type == FilingType.FILING_CORRESP or self.filing_type == FilingType.FILING_UPLOAD:
+            urls = self._parse_corresp_urls(links, **kwargs)
+        else:
+            urls = [link[:link.rfind("-")].strip() + ".txt" for link in links]
+        
+        urls = list(set(urls))
+        if isinstance(self.count, int) and len(urls) < self.count:
+            warnings.warn(
+                "Only {num} of {count} filings were found for {cik}.".format(
+                    num=len(urls), count=self.count, cik=cik))
+        return urls[:self.count]
 
+    def _parse_10k_urls(self, links, **kwargs):
         filing_urls = []
         for link in links:
             data = BeautifulSoup(
                 self.client.get_response(link, None, prepare=False, **kwargs).text,
                 features="lxml",
             )
-
             table = data.find("table", {"class": "tableFile"})
             rows = table.find_all("tr")
             found_10k = False
@@ -316,17 +331,26 @@ class CompanyFilings(AbstractFiling):
                         + cols[2].find("a").get("href").split("doc=")[-1]
                     )
                     break
+        return filing_urls
 
-        if isinstance(self.count, int) and len(filing_urls) < self.count:
-            warnings.warn(
-                "Only {num} of {count} filings were found for {cik}.".format(
-                    num=len(filing_urls), count=self.count, cik=cik
-                )
+    def _parse_corresp_urls(self, links, **kwargs):
+        filing_urls = []
+        for link in links:
+            data = BeautifulSoup(
+                self.client.get_response(link, None, prepare=False, **kwargs).text,
+                features="lxml",
             )
-
-        # Takes `count` filings at most
-        return filing_urls[: self.count]
-
+            table = data.find("table", {"class": "tableFile"})
+            rows = table.find_all("tr")
+            for row in rows:
+                cols = row.find_all("td")
+                for col in cols:
+                    if col.text.strip() in ["UPLOAD", "LETTER", "CORRESP"]:
+                        filing_urls.append(self.client._BASE+ cols[2].find("a").get("href"))    
+                        break
+        return filing_urls
+    
+            
     def save(self, directory, dir_pattern=None, file_pattern=None):
         """Save files in specified directory.
 
@@ -362,7 +386,7 @@ class CompanyFilings(AbstractFiling):
             formatted_dir = dir_pattern.format(cik=cik, type=self.filing_type.value)
             for link in links:
                 formatted_file = file_pattern.format(
-                    accession_number=self.get_accession_number(link)
+                    accession_number=self.get_accession_number(link, self.filing_type)
                 )
                 path = os.path.join(directory, formatted_dir, formatted_file)
                 inputs.append((link, path))

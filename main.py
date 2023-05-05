@@ -2,8 +2,9 @@ import logging
 from secedgar import filings, FilingType
 
 ACCOUNTING_FILING_TYPES = [
-    FilingType.FILING_10K,
-    FilingType.FILING_CORRESP
+    # FilingType.FILING_10K,
+    FilingType.FILING_CORRESP,
+    FilingType.FILING_UPLOAD,
 ]
 
 with open("tickers.txt", "r") as tickers:
@@ -13,5 +14,5 @@ with open("tickers.txt", "r") as tickers:
             filings(
                 cik_lookup=ticker,
                 filing_type=filing_type,
-                user_agent="James Wang james@accrual.ai",
+                user_agent="Ryan Leung ryan@accrual.ai",
             ).save("/")

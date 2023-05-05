@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 
 from secedgar.exceptions import NoFilingsError
 from secedgar.parser import MetaParser
-
+from secedgar.core.filing_types import FilingType
 
 class AbstractFiling(ABC):
     """Abstract base class for all SEC EDGAR filings.
@@ -70,12 +70,14 @@ class AbstractFiling(ABC):
         pass  # pragma: no cover
 
     @staticmethod
-    def get_accession_number(url):
+    def get_accession_number(url, filing_type=None):
         """Get accession number from filing URL.
 
         .. note::
-           All URLs are expected to end with /{accession number}.txt
+           All URLs are expected to end with /{accession number}.txt except for UPLOAD and CORRESP
         """
+        if filing_type in [FilingType.FILING_UPLOAD, FilingType.FILING_CORRESP]:
+            return url.split("/")[-2] + "." + url.split("/")[-1].split(".")[-1]
         return url.split("/")[-1]
 
     @staticmethod
