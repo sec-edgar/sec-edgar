@@ -1,0 +1,14 @@
+v0.5.0
+------
+
+Highlights
+~~~~~~~~~~
+
+- Add access to SEC's REST API via ``secedgar.core.rest`` module
+- New functions include ``get_submissions``, ``get_company_concepts``, ``get_company_facts``, and ``get_xbrl_frames``.
+- Set ``client`` keyword arg to ``None`` by default for ``CIKLookup``. This will create client object automatically instead of requiring user to provide client.
+
+Contributors
+~~~~~~~~~~~~
+
+- jackmoody11
