@@ -66,12 +66,14 @@ class NetworkClient:
                  retry_count=3,
                  batch_size=10,
                  backoff_factor=0,
-                 rate_limit=10):
+                 rate_limit=10,
+                 ssl_flag=True):
         self.retry_count = retry_count
         self.batch_size = batch_size
         self.backoff_factor = backoff_factor
         self.rate_limit = rate_limit
         self.user_agent = user_agent
+        self.ssl_flag = ssl_flag
 
     @property
     def retry_count(self):
@@ -254,7 +256,7 @@ class NetworkClient:
             for ndx in range(0, length, n):
                 yield iterable[ndx:min(ndx + n, length)]
 
-        conn = aiohttp.TCPConnector(limit=self.rate_limit, ssl=False)
+        conn = aiohttp.TCPConnector(limit=self.rate_limit, ssl=self.ssl_flag)
         headers = {
             "Connection": "keep-alive",
             "User-Agent": self.user_agent,
