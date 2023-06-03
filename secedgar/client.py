@@ -254,7 +254,7 @@ class NetworkClient:
             for ndx in range(0, length, n):
                 yield iterable[ndx:min(ndx + n, length)]
 
-        conn = aiohttp.TCPConnector(limit=self.rate_limit)
+        conn = aiohttp.TCPConnector(limit=self.rate_limit, ssl=False)
         headers = {
             "Connection": "keep-alive",
             "User-Agent": self.user_agent,
