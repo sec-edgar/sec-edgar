@@ -66,7 +66,7 @@ class NetworkClient:
                  retry_count=3,
                  batch_size=10,
                  backoff_factor=0,
-                 rate_limit=10,
+                 rate_limit=5,
                  ssl_flag=True):
         self.retry_count = retry_count
         self.batch_size = batch_size
