@@ -43,15 +43,15 @@ class TestRest:
     @pytest.mark.smoke
     def test_get_company_concepts(self, mock_user_agent):
         concept = "AccountsPayableCurrent"
-        concepts = get_company_concepts(lookups=["AAPL"],
+        concepts = get_company_concepts(lookups=["aapl"],
                                         user_agent=mock_user_agent,
                                         concept_name=concept)
         assert concepts
         # Ensure CIK is correct
-        assert str(concepts["AAPL"]["cik"]) == "320193"
+        assert str(concepts["aapl"]["cik"]) == "320193"
 
         # Make sure that there are results for accounts payable
-        assert concepts["AAPL"]["units"]["USD"]
+        assert concepts["aapl"]["units"]["USD"]
 
         # Result should be dictionary
         assert isinstance(concepts, dict)
