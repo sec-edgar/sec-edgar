@@ -8,7 +8,7 @@ from secedgar.exceptions import CIKError, EDGARQueryError
 
 
 @functools.lru_cache()
-def get_cik_map(user_agent=None):
+def get_cik_map(user_agent):
     """Get dictionary of tickers and company names to CIK numbers.
 
     Uses ``functools.lru_cache`` to cache response if used in later calls.
@@ -29,10 +29,7 @@ def get_cik_map(user_agent=None):
 
     .. versionadded:: 0.1.6
     """
-    if user_agent:
-        headers = {'user-agent': user_agent}
-    else:
-        headers = {}
+    headers = {'user-agent': user_agent}
     response = requests.get("https://www.sec.gov/files/company_tickers.json", headers=headers)
     json_response = response.json()
     return {key: {v[key].upper(): str(v["cik_str"]) for v in json_response.values()
