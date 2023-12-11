@@ -151,7 +151,7 @@ def filings(
 
     if filing_type is not None:
         # If filing type also given, add filing types to existing entry filter
-        def _entry_filter(x):
+        def _entry_filter(x):  # noqa: F811
             return x.form_type == filing_type and entry_filter(x)
 
     if count is not None:
