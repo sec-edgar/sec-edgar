@@ -8,7 +8,7 @@ from secedgar.exceptions import CIKError, EDGARQueryError
 
 
 @functools.lru_cache()
-def get_cik_map():
+def get_cik_map(client=None):
     """Get dictionary of tickers and company names to CIK numbers.
 
     Uses ``functools.lru_cache`` to cache response if used in later calls.
@@ -29,7 +29,10 @@ def get_cik_map():
 
     .. versionadded:: 0.1.6
     """
-    response = requests.get("https://www.sec.gov/files/company_tickers.json")
+    if client is None:
+        warnings.warn("No client given. Using default client.")
+        client = NetworkClient()
+    response = client.get_response("https://www.sec.gov/files/company_tickers.json")
     json_response = response.json()
     return {key: {v[key].upper(): str(v["cik_str"]) for v in json_response.values()
                   if v[key] is not None}
@@ -201,7 +204,7 @@ class CIKLookup:
         ciks = {}
         to_lookup = set(self.lookups)
 
-        cik_map = get_cik_map()
+        cik_map = get_cik_map(self.client)
 
         # all keys upper case
         ticker_map = cik_map["ticker"]
