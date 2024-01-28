@@ -80,7 +80,8 @@ def tmp_data_directory(tmpdir_factory):
 def mock_cik_validator_get_multiple_ciks(monkeysession):
     """Mocks response for getting a single CIK."""
     monkeysession.setattr(CIKLookup, "get_ciks",
-                          lambda *args: {"aapl": "0000320193", "msft": "1234", "amzn": "5678"})
+                          lambda *args: {"aapl": "0000320193", "msft": "0000789019",
+                                         "amzn": "0001018724"})
 
 
 @pytest.fixture(scope="session")

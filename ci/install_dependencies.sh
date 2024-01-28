@@ -9,7 +9,7 @@
 #     $ ./ci/install_dependencies.sh pypi # set up dependencies for deploying to PyPi
 if [[ $(uname) == "Linux" ]]; then
     # Install lxml dependencies
-    sudo apt-get update && sudo apt-get install python-dev libxml2-dev libxslt-dev libz-dev
+    sudo apt-get update && sudo apt-get install python-dev libxml2-dev libxslt-dev libz-dev python3-setuptools
 fi
 
 # Both dev and docs dependencies require dev dependencies
