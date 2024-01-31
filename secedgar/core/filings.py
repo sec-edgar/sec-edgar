@@ -146,13 +146,13 @@ def filings(
             client=client,
             **kwargs
         )
-    # Define entry filter as original
+    # set entry filter to be overwritten if filing_type is not None
     _entry_filter = entry_filter
 
     if filing_type is not None:
         # If filing type also given, add filing types to existing entry filter
         def _entry_filter(x):
-            return x.form_type == filing_type and entry_filter(x)
+            return x.form_type == filing_type.value and entry_filter(x)
 
     if count is not None:
         raise NotImplementedError(
