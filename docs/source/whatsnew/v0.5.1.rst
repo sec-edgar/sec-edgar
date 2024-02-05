@@ -1,0 +1,13 @@
+v0.5.1
+------
+
+Highlights
+~~~~~~~~~~
+
+- Pass user agent to ``CIKLookup``. Thanks to clintmoyer!
+
+Contributors
+~~~~~~~~~~~~
+
+- clintmoyer
+- jackmoody11
