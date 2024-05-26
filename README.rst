@@ -15,7 +15,7 @@ You can install the package using pip:
 
 .. code:: bash
 
-   $ pip install secedgar
+   $ pip install git+https://github.com/sec-edgar/sec-edgar.git
 
 OR
 
