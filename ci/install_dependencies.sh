@@ -16,6 +16,7 @@ fi
 # Use virtual environment
 
 if [[ "$1" -eq "dev" || "$1" -eq "docs" ]]; then
+    python -m pip install setuptools
     python setup.py install
     python -m pip install -r requirements-dev.txt
 fi
