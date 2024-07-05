@@ -8,6 +8,7 @@
 # Usage:
 #     $ ./ci/lint.sh             # flake8 check
 #     $ ./ci/lint.sh docstring   # flake8 and docstring check
+source venv/bin/activate
 echo "Using flake8 version $(flake8 --version)"
 flake8 secedgar --count --show-source --statistics
 
