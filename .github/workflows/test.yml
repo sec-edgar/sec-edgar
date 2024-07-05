@@ -24,7 +24,7 @@ jobs:
         run: chmod +x ./ci/install_dependencies.sh && chmod +x ./ci/lint.sh && chmod +x ./ci/run_tests.sh
       - name: Install dependencies
         run: |
-          ./ci/install_dependencies.sh
+          ./ci/install_dependencies.sh dev
       - name: Lint code and docstrings
         run: |
           ./ci/lint.sh docstring
