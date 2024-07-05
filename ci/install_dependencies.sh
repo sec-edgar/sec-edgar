@@ -9,20 +9,24 @@
 #     $ ./ci/install_dependencies.sh pypi # set up dependencies for deploying to PyPi
 if [[ $(uname) == "Linux" ]]; then
     # Install lxml dependencies
-    sudo apt-get update && sudo apt-get install python-dev libxml2-dev libxslt-dev libz-dev
+    sudo apt-get update && sudo apt-get install python-dev libxml2-dev libxslt-dev libz-dev python3-setuptools
 fi
 
 # Both dev and docs dependencies require dev dependencies
+# Use virtual environment
+python -m venv venv
+source venv/bin/activate
+
 if [[ "$1" -eq "dev" || "$1" -eq "docs" ]]; then
     python setup.py install
-    pip install -r requirements-dev.txt
+    python -m pip install -r requirements-dev.txt
 fi
 
 if [[ "$1" -eq "docs" ]]; then
-    pip install ipython sphinx_rtd_theme sphinx sphinx-autobuild sphinx-click
+    python -m pip install ipython sphinx_rtd_theme sphinx sphinx-autobuild sphinx-click
 fi
 
 if [[ "$1" -eq "pypi" ]]; then
     python -m pip install --upgrade pip
-    pip install setuptools wheel twine
+    python -m pip install setuptools wheel twine
 fi
