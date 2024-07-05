@@ -14,8 +14,6 @@ fi
 
 # Both dev and docs dependencies require dev dependencies
 # Use virtual environment
-python -m venv venv
-source venv/bin/activate
 
 if [[ "$1" -eq "dev" || "$1" -eq "docs" ]]; then
     python setup.py install
