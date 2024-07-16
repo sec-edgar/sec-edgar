@@ -168,7 +168,7 @@ class CIKLookup:
             # Exclude table header
             table_rows = soup.find('table', {'summary': 'Results'}).find_all('tr')[1:]
             # Company names are in second column of table
-            return [''.join(row.find_all('td')[1].find_all(text=True)) for row in table_rows]
+            return [''.join(row.find_all('td')[1].find_all(string=True)) for row in table_rows]
         except AttributeError:
             # If there are no CIK possibilities, then no results were returned
             raise EDGARQueryError
