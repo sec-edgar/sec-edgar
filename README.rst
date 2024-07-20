@@ -87,7 +87,7 @@ Documentation
 To learn more about the APIs and latest changes in the project, read the `official documentation <https://sec-edgar.github.io/sec-edgar>`_.
 
 
-.. |Tests Status| image:: https://github.com/sec-edgar/sec-edgar/workflows/Tests/badge.svg
-   :target: https://github.com/sec-edgar/sec-edgar/actions?query=workflow%3ATests
-.. |Docs Status| image:: https://github.com/sec-edgar/sec-edgar/workflows/Build%20Docs/badge.svg
-   :target: https://github.com/sec-edgar/sec-edgar/actions?query=workflow%3A%22Build+Docs%22
+.. |Tests Status| image:: https://github.com/sec-edgar/sec-edgar/actions/workflows/test.yml/badge.svg
+   :target: https://github.com/sec-edgar/sec-edgar/actions/workflows/test.yml
+.. |Docs Status| image:: https://github.com/sec-edgar/sec-edgar/actions/workflows/docs.yml/badge.svg
+   :target: https://github.com/sec-edgar/sec-edgar/actions/workflows/docs.yml
