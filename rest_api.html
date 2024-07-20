@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>REST API &mdash; secedgar 0.5.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=55274cbf" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=3fadbb4a"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Finding Company CIKs" href="cikmap.html" />
+    <link rel="prev" title="Filing Types" href="filingtypes.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            secedgar
+          </a>
+              <div class="version">
+                0.5.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Common Usage Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ciklookup.html">CIK Lookup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filings.html">Filings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filingtypes.html">Filing Types</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">REST API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#wrapper">Wrapper</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#secedgar.core.rest.get_submissions"><code class="docutils literal notranslate"><span class="pre">get_submissions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#secedgar.core.rest.get_company_concepts"><code class="docutils literal notranslate"><span class="pre">get_company_concepts()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#secedgar.core.rest.get_company_facts"><code class="docutils literal notranslate"><span class="pre">get_company_facts()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#secedgar.core.rest.get_xbrl_frames"><code class="docutils literal notranslate"><span class="pre">get_xbrl_frames()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cikmap.html">Finding Company CIKs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="client.html">Using Network Client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parser.html">Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s New</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">secedgar</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">REST API</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/rest_api.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="rest-api">
+<span id="id1"></span><h1>REST API<a class="headerlink" href="#rest-api" title="Permalink to this heading"></a></h1>
+<p>The SEC recently released an API which can be used to more easily access data on companies.
+For a complete overview of the API, you can
+<a class="reference external" href="https://www.sec.gov/edgar/sec-api-documentation">read more here</a>.</p>
+<section id="wrapper">
+<h2>Wrapper<a class="headerlink" href="#wrapper" title="Permalink to this heading"></a></h2>
+<p>In order to make this information even easier to extract, <code class="docutils literal notranslate"><span class="pre">secedgar</span></code> contains functions that
+wrap around the EDGAR API to make the data even more accessible. Below are the functions available
+via <code class="docutils literal notranslate"><span class="pre">secedgar</span></code>.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="secedgar.core.rest.get_submissions">
+<span class="sig-prename descclassname"><span class="pre">secedgar.core.rest.</span></span><span class="sig-name descname"><span class="pre">get_submissions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lookups</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_agent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#secedgar.core.rest.get_submissions" title="Permalink to this definition"></a></dt>
+<dd><p>Get information about submissions for entities.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lookups</strong> (<em>list</em><em> of </em><em>str</em><em> or </em><em>str</em>) – Tickers or CIKs to get submission data for.</p></li>
+<li><p><strong>user_agent</strong> (<em>str</em>) – User agent to provide the SEC.</p></li>
+<li><p><strong>recent</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether or not to only get the most recent.
+Setting <code class="docutils literal notranslate"><span class="pre">recent</span></code> to True will give at least one year of filings or 1000 filings
+(whichever is more). Setting <code class="docutils literal notranslate"><span class="pre">recent</span></code> to False will return all filings.
+Defaults to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary with keys being the lookups and values being the responses from the API.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="secedgar.core.rest.get_company_concepts">
+<span class="sig-prename descclassname"><span class="pre">secedgar.core.rest.</span></span><span class="sig-name descname"><span class="pre">get_company_concepts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lookups</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_agent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">concept_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#secedgar.core.rest.get_company_concepts" title="Permalink to this definition"></a></dt>
+<dd><p>Get company concepts using SEC’s REST API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lookups</strong> (<em>list</em><em> of </em><em>str</em><em> or </em><em>str</em>) – Tickers or CIKs to get concepts for.</p></li>
+<li><p><strong>user_agent</strong> (<em>str</em>) – User agent to send to SEC.</p></li>
+<li><p><strong>concept_name</strong> (<em>str</em>) – Name of the concept to get data for.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary with concept data for given lookups.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">concept</span> <span class="o">=</span> <span class="s2">&quot;AccountsPayableCurrent&quot;</span>
+<span class="n">get_company_concepts</span><span class="p">(</span><span class="n">lookups</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;AAPL&quot;</span><span class="p">],</span>
+                     <span class="n">user_agent</span><span class="o">=</span><span class="s2">&quot;Name (email@example.com)&quot;</span><span class="p">,</span>
+                     <span class="n">concept_name</span><span class="o">=</span><span class="n">concept</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="secedgar.core.rest.get_company_facts">
+<span class="sig-prename descclassname"><span class="pre">secedgar.core.rest.</span></span><span class="sig-name descname"><span class="pre">get_company_facts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lookups</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_agent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#secedgar.core.rest.get_company_facts" title="Permalink to this definition"></a></dt>
+<dd><p>Get company facts for lookups.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lookups</strong> (<em>list</em><em> of </em><em>str</em><em> or </em><em>str</em>) – Tickers or CIKs to get company facts for.</p></li>
+<li><p><strong>user_agent</strong> (<em>str</em>) – User agent to send to SEC.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary with lookups as keys and company fact dictionaries as values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">facts</span> <span class="o">=</span> <span class="n">get_company_facts</span><span class="p">([</span><span class="s2">&quot;aapl&quot;</span><span class="p">],</span> <span class="s2">&quot;Name (email@example.com)&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">single_fact</span> <span class="o">=</span> <span class="n">facts</span><span class="p">[</span><span class="s2">&quot;aapl&quot;</span><span class="p">][</span><span class="s2">&quot;facts&quot;</span><span class="p">][</span><span class="s2">&quot;us-gaap&quot;</span><span class="p">][</span><span class="s2">&quot;Assets&quot;</span><span class="p">][</span><span class="s2">&quot;units&quot;</span><span class="p">][</span><span class="s2">&quot;USD&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">single_fact</span><span class="p">[</span><span class="s2">&quot;val&quot;</span><span class="p">]</span>
+<span class="go">39572000000</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">single_fact</span><span class="p">[</span><span class="s2">&quot;fy&quot;</span><span class="p">]</span>
+<span class="go">2009</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">single_fact</span><span class="p">[</span><span class="s2">&quot;fp&quot;</span><span class="p">]</span>
+<span class="go">Q3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">single_fact</span><span class="p">[</span><span class="s2">&quot;form&quot;</span><span class="p">]</span>
+<span class="go">&#39;10-Q&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">single_fact</span><span class="p">[</span><span class="s2">&quot;filed&quot;</span><span class="p">]</span>
+<span class="go">&#39;2009-07-22&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="secedgar.core.rest.get_xbrl_frames">
+<span class="sig-prename descclassname"><span class="pre">secedgar.core.rest.</span></span><span class="sig-name descname"><span class="pre">get_xbrl_frames</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_agent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">concept_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quarter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">currency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'USD'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instantaneous</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#secedgar.core.rest.get_xbrl_frames" title="Permalink to this definition"></a></dt>
+<dd><p>Get data for concept name in year (and quarter, if given).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user_agent</strong> (<em>str</em>) – User agent to send to the SEC.</p></li>
+<li><p><strong>concept_name</strong> (<em>str</em>) – Concept name to get. For example, “Assets”.</p></li>
+<li><p><strong>year</strong> (<em>int</em>) – Year to get concept data for.</p></li>
+<li><p><strong>quarter</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>NoneType</em><em>]</em><em>, </em><em>optional</em>) – Quarter to get data for. If given None,
+will look for data for the entire year. Defaults to None.</p></li>
+<li><p><strong>instantaneous</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to look for instantaneous data.
+See <a class="reference external" href="https://www.sec.gov/edgar/sec-api-documentation">SEC website for more</a>.
+Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Dictionary with information about concept_name.</dt><dd><p>Dig into the data key for all period data.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">frames</span> <span class="o">=</span> <span class="n">get_xbrl_frames</span><span class="p">(</span><span class="n">user_agent</span><span class="o">=</span><span class="s2">&quot;Name (email@example.com)&quot;</span><span class="p">,</span>
+                         <span class="n">concept_name</span><span class="o">=</span><span class="s2">&quot;Assets&quot;</span><span class="p">,</span>
+                         <span class="n">year</span><span class="o">=</span><span class="mi">2020</span><span class="p">,</span>
+                         <span class="n">quarter</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                         <span class="n">instantaneous</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">frames</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;entityName&quot;</span><span class="p">])</span>
+<span class="c1"># Prints &quot;MOXIAN (BVI) INC&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">frames</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;val&quot;</span><span class="p">])</span>
+<span class="c1"># Prints 2295657</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">frames</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;accn&quot;</span><span class="p">])</span>
+<span class="c1"># Prints &quot;0001493152-22-013323&quot;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="filingtypes.html" class="btn btn-neutral float-left" title="Filing Types" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cikmap.html" class="btn btn-neutral float-right" title="Finding Company CIKs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, sec-edgar.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,23 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Filings &mdash; secedgar 0.4.1 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  <title>Filings &mdash; secedgar 0.5.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=55274cbf" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=3fadbb4a"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
@@ -31,14 +32,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> secedgar
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            secedgar
           </a>
               <div class="version">
-                0.4.1
+                0.5.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -65,6 +70,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="filingtypes.html">Filing Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rest_api.html">REST API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cikmap.html">Finding Company CIKs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="client.html">Using Network Client</a></li>
 <li class="toctree-l1"><a class="reference internal" href="parser.html">Parser</a></li>
@@ -89,7 +95,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Filings</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/filings.rst.txt" rel="nofollow"> View page source</a>
@@ -118,10 +124,10 @@ over what is being created, you can use the following classes:</p>
 <h2>Filings Function<a class="headerlink" href="#filings-function" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="secedgar.filings">
-<span class="sig-prename descclassname"><span class="pre">secedgar.</span></span><span class="sig-name descname"><span class="pre">filings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cik_lookup=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filing_type=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_agent=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date=datetime.date(2022</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">12)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entry_filter=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">secedgar.</span></span><span class="sig-name descname"><span class="pre">filings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cik_lookup=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filing_type=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_agent=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date=datetime.date(2024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">20)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entry_filter=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings" title="Permalink to this definition"></a></dt>
 <dd><p>Utility method to get best filing object.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>cik_lookup</strong> (<em>str</em>) – Central Index Key (CIK) for company of interest.</p></li>
 <li><p><strong>start_date</strong> (<em>datetime.date</em><em>, </em><em>optional</em>) – Date of daily filing to fetch.</p></li>
@@ -232,10 +238,10 @@ from a specific quarter</p></li>
 <h3>Filing<a class="headerlink" href="#filing" title="Permalink to this heading"></a></h3>
 <dl class="py class">
 <dt class="sig sig-object py" id="secedgar.CompanyFilings">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">secedgar.</span></span><span class="sig-name descname"><span class="pre">CompanyFilings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cik_lookup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filing_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_agent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">datetime.date(2022,</span> <span class="pre">12,</span> <span class="pre">12)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ownership</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'include'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ALL'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.CompanyFilings" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">secedgar.</span></span><span class="sig-name descname"><span class="pre">CompanyFilings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cik_lookup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filing_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_agent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">datetime.date(2024,</span> <span class="pre">7,</span> <span class="pre">20)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ownership</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'include'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ALL'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.CompanyFilings" title="Permalink to this definition"></a></dt>
 <dd><p>Base class for receiving EDGAR filings.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>cik_lookup</strong> (<em>str</em>) – Central Index Key (CIK) for company of interest.</p></li>
 <li><p><strong>filing_type</strong> (<em>Union</em><em>[</em><a class="reference internal" href="filingtypes.html#secedgar.FilingType" title="secedgar.core.filing_types.FilingType"><em>secedgar.core.filing_types.FilingType</em></a><em>, </em><em>None</em><em>]</em>) – Valid filing type
@@ -314,7 +320,7 @@ customize this according to your preference using the <code class="docutils lite
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cik_lookup</span></span><a class="headerlink" href="#secedgar.CompanyFilings.cik_lookup" title="Permalink to this definition"></a></dt>
 <dd><p>CIKLookup object.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">secedgar.cik_lookup.CIKLookup</span></code></p>
 </dd>
 </dl>
@@ -325,7 +331,7 @@ customize this according to your preference using the <code class="docutils lite
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">clean_directory_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.CompanyFilings.clean_directory_path" title="Permalink to this definition"></a></dt>
 <dd><p>Clean string to use as directory name.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – Directory name to clean.</p>
 </dd>
 </dl>
@@ -336,7 +342,7 @@ customize this according to your preference using the <code class="docutils lite
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">client</span></span><a class="headerlink" href="#secedgar.CompanyFilings.client" title="Permalink to this definition"></a></dt>
 <dd><p>Client to use to make requests.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">secedgar.client.NetworkClient</span></code></p>
 </dd>
 </dl>
@@ -353,7 +359,7 @@ customize this according to your preference using the <code class="docutils lite
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">end_date</span></span><a class="headerlink" href="#secedgar.CompanyFilings.end_date" title="Permalink to this definition"></a></dt>
 <dd><p>Date after which no filings fetched.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Union([datetime.date, datetime.datetime, str])</p>
 </dd>
 </dl>
@@ -370,7 +376,7 @@ customize this according to your preference using the <code class="docutils lite
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filing_type</span></span><a class="headerlink" href="#secedgar.CompanyFilings.filing_type" title="Permalink to this definition"></a></dt>
 <dd><p>FilingType enum of filing.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">secedgar.core.FilingType</span></code></p>
 </dd>
 </dl>
@@ -391,15 +397,15 @@ customize this according to your preference using the <code class="docutils lite
 <span class="sig-name descname"><span class="pre">get_urls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.CompanyFilings.get_urls" title="Permalink to this definition"></a></dt>
 <dd><p>Get urls for all CIKs given to Filing object.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>**kwargs</strong> – Anything to be passed to requests when making get request.
 See keyword arguments accepted for
 <code class="docutils literal notranslate"><span class="pre">secedgar.client.NetworkClient.get_soup</span></code>.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>List of urls for txt files to download.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>urls (list)</p>
 </dd>
 </dl>
@@ -414,13 +420,13 @@ See keyword arguments accepted for
 <p>This method will not check if the URLs are valid. Simply if they exist.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Raises</dt>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>NoFilingsError</strong> – If no URLs exist, then NoFilingsError is raised.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Result of <cite>get_urls</cite> method.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>urls (dict)</p>
 </dd>
 </dl>
@@ -437,7 +443,7 @@ See keyword arguments accepted for
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ownership</span></span><a class="headerlink" href="#secedgar.CompanyFilings.ownership" title="Permalink to this definition"></a></dt>
 <dd><p>Whether or not to include ownership in search.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -448,7 +454,7 @@ See keyword arguments accepted for
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">params</span></span><a class="headerlink" href="#secedgar.CompanyFilings.params" title="Permalink to this definition"></a></dt>
 <dd><p>Parameters to include in requests.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></p>
 </dd>
 </dl>
@@ -459,7 +465,7 @@ See keyword arguments accepted for
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">path</span></span><a class="headerlink" href="#secedgar.CompanyFilings.path" title="Permalink to this definition"></a></dt>
 <dd><p>Path added to client base.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -472,7 +478,7 @@ See keyword arguments accepted for
 <p>Each txt url looks something like:
 <a class="reference external" href="https://www.sec.gov/Archives/edgar/data/1018724/000101872419000043/0001018724-19-000043.txt">https://www.sec.gov/Archives/edgar/data/1018724/000101872419000043/0001018724-19-000043.txt</a></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>directory</strong> (<em>str</em>) – Path to directory where files should be saved.</p></li>
 <li><p><strong>dir_pattern</strong> (<em>str</em>) – Format string for subdirectories. Default is “{cik}/{type}”.
@@ -481,10 +487,10 @@ Valid options are {cik} and/or {type}.</p></li>
 Valid options are {accession_number}.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
 </dd>
-<dt class="field-odd">Raises</dt>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>ValueError</strong> – If no text urls are available for given filing object.</p>
 </dd>
 </dl>
@@ -495,7 +501,7 @@ Valid options are {accession_number}.</p></li>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">start_date</span></span><a class="headerlink" href="#secedgar.CompanyFilings.start_date" title="Permalink to this definition"></a></dt>
 <dd><p>Date before which no filings fetched.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Union([datetime.date, datetime.datetime, str])</p>
 </dd>
 </dl>
@@ -516,7 +522,7 @@ Valid options are {accession_number}.</p></li>
 <span class="sig-name descname"><span class="pre">date</span></span><a class="headerlink" href="#secedgar.DailyFilings.date" title="Permalink to this definition"></a></dt>
 <dd><p>Date of daily filing to fetch.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>datetime.date</p>
 </dd>
 </dl>
@@ -531,7 +537,7 @@ user_agent must be given. See the SEC’s statement on
 <a class="reference external" href="https://www.sec.gov/os/accessing-edgar-data">fair access</a>
 for more information. Defaults to None.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Union[str, NoneType], optional</p>
 </dd>
 </dl>
@@ -545,7 +551,7 @@ fetching data. If None is given, a user_agent must be given to pass to
 <a class="reference internal" href="client.html#secedgar.client.NetworkClient" title="secedgar.client.NetworkClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.client.NetworkClient</span></code></a>. Defaults to <code class="docutils literal notranslate"><span class="pre">secedgar.client.NetworkClient</span></code>
 if none is given.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Union[NoneType, <a class="reference internal" href="client.html#secedgar.client.NetworkClient" title="secedgar.client.NetworkClient">secedgar.client.NetworkClient</a>], optional</p>
 </dd>
 </dl>
@@ -560,7 +566,7 @@ The <code class="docutils literal notranslate"><span class="pre">FilingEntry</sp
 used to filter which filings to keep. These are “cik”, “company_name”,
 “form_type”, “date_filed”, “file_name”, and “path”.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>function, optional</p>
 </dd>
 </dl>
@@ -601,7 +607,7 @@ a specific day, a well-defined <code class="docutils literal notranslate"><span 
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">date</span></span><a class="headerlink" href="#id0" title="Permalink to this definition"></a></dt>
 <dd><p>Date of daily filing.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>datetime.date</p>
 </dd>
 </dl>
@@ -623,7 +629,7 @@ a specific day, a well-defined <code class="docutils literal notranslate"><span 
 Omitting will raise EDGARQueryError.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -634,7 +640,7 @@ Omitting will raise EDGARQueryError.</p>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">quarter</span></span><a class="headerlink" href="#secedgar.DailyFilings.quarter" title="Permalink to this definition"></a></dt>
 <dd><p>Get quarter number from date attribute.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>int</p>
 </dd>
 </dl>
@@ -648,7 +654,7 @@ Omitting will raise EDGARQueryError.</p>
 within given directory argument. Creates directory with date in YYYYMMDD format
 within given directory.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>directory</strong> (<em>str</em>) – Directory where filings should be stored. Will be broken down
 further by company name and form type.</p></li>
@@ -669,7 +675,7 @@ if false downloads each file in index. Default is <cite>False</cite>.</p></li>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">year</span></span><a class="headerlink" href="#secedgar.DailyFilings.year" title="Permalink to this definition"></a></dt>
 <dd><p>Year of date for daily filing.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>int</p>
 </dd>
 </dl>
@@ -687,7 +693,7 @@ if false downloads each file in index. Default is <cite>False</cite>.</p></li>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">secedgar.</span></span><span class="sig-name descname"><span class="pre">QuarterlyFilings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quarter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_agent=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entry_filter=&lt;function</span> <span class="pre">QuarterlyFilings.&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.QuarterlyFilings" title="Permalink to this definition"></a></dt>
 <dd><p>Class for retrieving all filings from specific year and quarter.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>year</strong> (<em>int</em>) – Must be in between 1993 and the current year (inclusive).</p></li>
 <li><p><strong>quarter</strong> (<em>int</em>) – Must be 1, 2, 3, or 4. Quarter of filings to fetch.</p></li>
@@ -742,7 +748,7 @@ See <code class="xref py py-class docutils literal notranslate"><span class="pre
 Then each distinct company name receives its own directory with all of its filings.
 See <code class="docutils literal notranslate"><span class="pre">secedgar.core._index.IndexFilings</span></code> for more detail.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>directory</strong> (<em>str</em>) – Directory where filings should be stored. Will be broken down
 further by company name and form type.</p></li>
@@ -777,10 +783,10 @@ Internally, this class uses a mixture of <code class="docutils literal notransla
 filings.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="secedgar.ComboFilings">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">secedgar.</span></span><span class="sig-name descname"><span class="pre">ComboFilings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_date:</span> <span class="pre">~datetime.date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date:</span> <span class="pre">~datetime.date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_agent:</span> <span class="pre">~typing.Optional[str]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entry_filter=&lt;function</span> <span class="pre">ComboFilings.&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balancing_point=30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.ComboFilings" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">secedgar.</span></span><span class="sig-name descname"><span class="pre">ComboFilings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_date:</span> <span class="pre">~datetime.date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date:</span> <span class="pre">~datetime.date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_agent:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entry_filter=&lt;function</span> <span class="pre">ComboFilings.&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balancing_point=30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.ComboFilings" title="Permalink to this definition"></a></dt>
 <dd><p>Class for retrieving all filings between specified dates.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>start_date</strong> (Union[str, <code class="docutils literal notranslate"><span class="pre">datetime.datetime</span></code>, <code class="docutils literal notranslate"><span class="pre">datetime.date</span></code>], optional) – Date before
 which not to fetch reports. Stands for “date after.”
@@ -828,7 +834,7 @@ Defaults to 30.</p></li>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">balancing_point</span></span><a class="headerlink" href="#secedgar.ComboFilings.balancing_point" title="Permalink to this definition"></a></dt>
 <dd><p>Point after which to use <code class="docutils literal notranslate"><span class="pre">QuarterlyFilings</span></code> with <code class="docutils literal notranslate"><span class="pre">entry_filter</span></code> to get data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>int</p>
 </dd>
 </dl>
@@ -839,7 +845,7 @@ Defaults to 30.</p></li>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">client</span></span><a class="headerlink" href="#secedgar.ComboFilings.client" title="Permalink to this definition"></a></dt>
 <dd><p>Client to use to make requests.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">secedgar.client.NetworkClient</span></code></p>
 </dd>
 </dl>
@@ -850,7 +856,7 @@ Defaults to 30.</p></li>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">daily_date_list</span></span><a class="headerlink" href="#secedgar.ComboFilings.daily_date_list" title="Permalink to this definition"></a></dt>
 <dd><p>List of dates for which to fetch daily data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>List of <code class="docutils literal notranslate"><span class="pre">datetime.date</span></code></p>
 </dd>
 </dl>
@@ -861,7 +867,7 @@ Defaults to 30.</p></li>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">end_date</span></span><a class="headerlink" href="#secedgar.ComboFilings.end_date" title="Permalink to this definition"></a></dt>
 <dd><p>Date after which no filings fetched.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Union([datetime.date])</p>
 </dd>
 </dl>
@@ -885,7 +891,7 @@ Defaults to 30.</p></li>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">quarterly_date_list</span></span><a class="headerlink" href="#secedgar.ComboFilings.quarterly_date_list" title="Permalink to this definition"></a></dt>
 <dd><p>List of tuples with year, quarter, and <code class="docutils literal notranslate"><span class="pre">entry_filter</span></code> to use.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>List of tuples</p>
 </dd>
 </dl>
@@ -898,7 +904,7 @@ Defaults to 30.</p></li>
 <p>Only filings that satisfy args given at initialization will
 be saved.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>directory</strong> (<em>str</em>) – Directory where filings should be stored.</p></li>
 <li><p><strong>dir_pattern</strong> (<em>str</em><em>, </em><em>optional</em>) – Format string for subdirectories. Defaults to None.</p></li>
@@ -918,7 +924,7 @@ Defaults to “%Y%m%d”.</p></li>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">start_date</span></span><a class="headerlink" href="#secedgar.ComboFilings.start_date" title="Permalink to this definition"></a></dt>
 <dd><p>Date before which no filings fetched.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Union([datetime.date])</p>
 </dd>
 </dl>
