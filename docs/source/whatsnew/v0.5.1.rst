@@ -5,7 +5,7 @@ Highlights
 ~~~~~~~~~~
 
 - Pass user agent to ``CIKLookup``. Thanks to clintmoyer!
-- Fix bug preventing `filing_type` being set to `None` in `CompanyFilings`
+- Fix bug preventing ``filing_type`` being set to ``None`` in ``CompanyFilings``
 
 Contributors
 ~~~~~~~~~~~~
