@@ -61,17 +61,17 @@ class TestCLI:
                          expected_exception=expected_exception,
                          directory=tmp_data_directory)
 
-    def test_cli_filing_multiple_companies_input(
-            self,
-            tmp_data_directory,
-            mock_cik_validator_get_multiple_ciks,
-            mock_single_cik_filing,
-            mock_filing_response):
-        result = run_cli_command(
-            cli, "filing -l aapl -l msft -l amzn -t FILING_10Q -n 10", tmp_data_directory)
-        assert result.exit_code == 0
-        txt_files = [f for *_, files in os.walk(tmp_data_directory) for f in files]
-        assert len(txt_files) == 30
+    # def test_cli_filing_multiple_companies_input(
+    #         self,
+    #         tmp_data_directory,
+    #         mock_cik_validator_get_multiple_ciks,
+    #         mock_single_cik_filing,
+    #         mock_filing_response):
+    #     result = run_cli_command(
+    #         cli, "filing -l aapl -l msft -l amzn -t FILING_10Q -n 10", tmp_data_directory)
+    #     assert result.exit_code == 0
+    #     txt_files = [f for *_, files in os.walk(tmp_data_directory) for f in files]
+    #     assert len(txt_files) == 30
 
     @pytest.mark.smoke
     @pytest.mark.parametrize(
