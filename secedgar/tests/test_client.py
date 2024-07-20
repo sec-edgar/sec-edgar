@@ -175,6 +175,26 @@ class TestNetworkClient:
         client.batch_size = good_batch_size
         assert client.batch_size == good_batch_size
 
+    @pytest.mark.parametrize(
+        "good_proxy",
+        [None, {"http": "http://username:password@example.com:8080"}]
+    )
+    def test_client_good_proxy_setter(self, good_proxy, client):
+        client.proxies = good_proxy
+        assert client.proxies == good_proxy
+
+    @pytest.mark.parametrize(
+        "test_input,expectation",
+        [
+            (1, TypeError),
+            ("http://username:password@example.com:8080", TypeError),
+            (True, TypeError)
+        ]
+    )
+    def test_client_bad_proxy_setter(self, test_input, expectation, client):
+        with pytest.raises(expectation):
+            client.proxies = test_input
+
     @pytest.mark.asyncio
     @pytest.mark.parametrize(
         "rate_limit",

@@ -2,6 +2,7 @@
 import asyncio
 import os
 import time
+from typing import Union
 
 import aiohttp
 import requests
@@ -29,6 +30,7 @@ class NetworkClient:
             See urllib3 docs for more info. Defaults to 0.
         rate_limit (int, optional): Number of requests per second to limit to.
             Defaults to 10.
+        proxies (Union[None, dict], optional): Proxies to pass to ``requests.get`` when making request.
 
     .. note:
        It is highly suggested to keep rate_limit <= 10, as the SEC will block your IP
@@ -66,12 +68,14 @@ class NetworkClient:
                  retry_count=3,
                  batch_size=10,
                  backoff_factor=0,
-                 rate_limit=10):
+                 rate_limit=10,
+                 proxies: Union[None, dict] = None):
         self.retry_count = retry_count
         self.batch_size = batch_size
         self.backoff_factor = backoff_factor
         self.rate_limit = rate_limit
         self.user_agent = user_agent
+        self.proxies = proxies
 
     @property
     def retry_count(self):
@@ -139,6 +143,18 @@ class NetworkClient:
             raise TypeError("user_agent must be str. Given type {0}.".format(type(value)))
         self._user_agent = value
 
+    @property
+    def proxies(self):
+        return self._proxies
+
+    @proxies.setter
+    def proxies(self, value):
+        if value is not None and not isinstance(value, dict):
+            raise TypeError(
+                "proxies must be either None or a dictionary. Given type {0}.".format(type(value))
+            )
+        self._proxies = value
+
     @staticmethod
     def _prepare_query(path):
         """Prepare the query url.
@@ -201,7 +217,7 @@ class NetworkClient:
             session.mount(self._BASE, adapter=HTTPAdapter(max_retries=retry))
             session.hooks["response"].append(self._validate_response)
             response = session.get(prepared_url, params=params,
-                                   headers=headers, **kwargs)
+                                   headers=headers, proxies=self.proxies, **kwargs)
             return response
 
     def get_soup(self, path, params, **kwargs):
@@ -259,7 +275,8 @@ class NetworkClient:
             "Connection": "keep-alive",
             "User-Agent": self.user_agent,
         }
-        client = aiohttp.ClientSession(connector=conn, headers=headers,
+        client = aiohttp.ClientSession(connector=conn,
+                                       headers=headers,
                                        raise_for_status=True)
 
         async with client:

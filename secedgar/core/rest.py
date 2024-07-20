@@ -50,7 +50,8 @@ def _combine_dicts(*dicts):
 
 def get_submissions(lookups: Union[List[str], str],
                     user_agent: str,
-                    recent: bool = True) -> dict:
+                    recent: bool = True,
+                    proxies: Union[None, dict] = None) -> dict:
     """Get information about submissions for entities.
 
     Args:
@@ -60,6 +61,8 @@ def get_submissions(lookups: Union[List[str], str],
             Setting ``recent`` to True will give at least one year of filings or 1000 filings
             (whichever is more). Setting ``recent`` to False will return all filings.
             Defaults to True.
+        proxies (Union[None, dict], optional): Proxies to pass to ``requests.get`` when making request.
+
 
     Returns:
         dict: Dictionary with keys being the lookups and values being the responses from the API.
@@ -69,7 +72,8 @@ def get_submissions(lookups: Union[List[str], str],
     url_base = "https://data.sec.gov/submissions/"
     for lookup, cik in lookup_dict.items():
         resp = requests.get("{0}CIK{1}.json".format(url_base, cik.zfill(10)),
-                            headers={"user-agent": user_agent})
+                            headers={"user-agent": user_agent},
+                            proxies=proxies)
         resp_json = resp.json()
         if not recent:
             try:
@@ -79,7 +83,8 @@ def get_submissions(lookups: Union[List[str], str],
 
             # Get data for older submission files and add to recent
             older_submissions = [requests.get("{0}{1}".format(url_base, f["name"]),
-                                              headers={"user-agent": user_agent}).json()
+                                              headers={"user-agent": user_agent},
+                                              proxies=proxies).json()
                                  for f in older_submission_files]
 
             resp_json["filings"]["recent"] = _combine_dicts(resp_json["filings"]["recent"],
@@ -90,13 +95,15 @@ def get_submissions(lookups: Union[List[str], str],
 
 def get_company_concepts(lookups: Union[List[str], str],
                          user_agent: str,
-                         concept_name: str) -> dict:
+                         concept_name: str,
+                         proxies: Union[None, dict] = None) -> dict:
     """Get company concepts using SEC's REST API.
 
     Args:
         lookups (list of str or str): Tickers or CIKs to get concepts for.
         user_agent (str): User agent to send to SEC.
         concept_name (str): Name of the concept to get data for.
+        proxies (Union[None, dict], optional): Proxies to pass to ``requests.get`` when making request.
 
     Returns:
         dict: Dictionary with concept data for given lookups.
@@ -118,17 +125,21 @@ def get_company_concepts(lookups: Union[List[str], str],
             concept_name
         )
         resp = requests.get(url,
-                            headers={"user-agent": user_agent})
+                            headers={"user-agent": user_agent},
+                            proxies=proxies)
         company_concepts[lookup] = resp.json()
     return company_concepts
 
 
-def get_company_facts(lookups: Union[List[str], str], user_agent: str) -> dict:
+def get_company_facts(lookups: Union[List[str], str],
+                      user_agent: str,
+                      proxies: Union[None, dict] = None) -> dict:
     """Get company facts for lookups.
 
     Args:
         lookups (list of str or str): Tickers or CIKs to get company facts for.
         user_agent (str): User agent to send to SEC.
+        proxies (Union[None, dict], optional): Proxies to pass to ``requests.get`` when making request.
 
     Returns:
         dict: Dictionary with lookups as keys and company fact dictionaries as values.
@@ -151,7 +162,9 @@ def get_company_facts(lookups: Union[List[str], str], user_agent: str) -> dict:
     company_facts = dict()
     for lookup, cik in lookup_dict.items():
         url = "{0}companyfacts/CIK{1}.json".format(XBRL_BASE, cik.zfill(10))
-        resp = requests.get(url, headers={"user-agent": user_agent})
+        resp = requests.get(url,
+                            headers={"user-agent": user_agent},
+                            proxies=proxies)
         company_facts[lookup] = resp.json()
     return company_facts
 
@@ -161,7 +174,8 @@ def get_xbrl_frames(user_agent: str,
                     year: int,
                     quarter: Union[None, int] = None,
                     currency: str = "USD",
-                    instantaneous: bool = False) -> dict:
+                    instantaneous: bool = False,
+                    proxies: Union[None, dict] = None) -> dict:
     """Get data for concept name in year (and quarter, if given).
 
     Args:
@@ -173,6 +187,7 @@ def get_xbrl_frames(user_agent: str,
         instantaneous (bool, optional): Whether to look for instantaneous data.
             See `SEC website for more <https://www.sec.gov/edgar/sec-api-documentation>`_.
             Defaults to False.
+        proxies (Union[None, dict], optional): Proxies to pass to ``requests.get`` when making request.
 
     Returns:
         dict: Dictionary with information about concept_name.
@@ -200,6 +215,8 @@ def get_xbrl_frames(user_agent: str,
     url = "{0}frames/us-gaap/{1}/{2}/{3}.json".format(XBRL_BASE, concept_name, currency, period)
     print(url)
     # Request and add to dictionary
-    resp = requests.get(url, headers={"user-agent": user_agent})
+    resp = requests.get(url,
+                        headers={"user-agent": user_agent},
+                        proxies=proxies)
     xbrl_frames = resp.json()
     return xbrl_frames

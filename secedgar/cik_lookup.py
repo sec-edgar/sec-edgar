@@ -8,7 +8,7 @@ from secedgar.exceptions import CIKError, EDGARQueryError
 
 
 @functools.lru_cache()
-def get_cik_map(user_agent):
+def get_cik_map(user_agent, proxies=None):
     """Get dictionary of tickers and company names to CIK numbers.
 
     Uses ``functools.lru_cache`` to cache response if used in later calls.
@@ -16,6 +16,10 @@ def get_cik_map(user_agent):
 
     .. note::
        All company names and tickers are normalized by converting to upper case.
+
+    Args:
+        user_agent(str): User agent to send to SEC in request.
+        proxies (Union[None, dict], optional): Proxies to pass to ``requests.get`` when making request.
 
     Returns:
         Dictionary with keys "ticker" and "title". To get dictionary
@@ -27,10 +31,20 @@ def get_cik_map(user_agent):
        If any tickers or titles are ``None``, the ticker or title will
        be excluded from the returned dictionary.
 
+    Example:
+        .. code::
+
+            from secedgar.cik_lookup import get_cik_map
+            proxies = {"http": "<http_proxy_goes_here>", "https": "<https_proxy_goes_here>"}
+            user_agent = "Example (example@example.com)"
+            cik_map = get_cik_map(user_agent=user_agent, proxies=proxies)
+
     .. versionadded:: 0.1.6
     """
     headers = {'user-agent': user_agent}
-    response = requests.get("https://www.sec.gov/files/company_tickers.json", headers=headers)
+    response = requests.get("https://www.sec.gov/files/company_tickers.json",
+                            headers=headers,
+                            proxies=proxies)
     json_response = response.json()
     return {key: {v[key].upper(): str(v["cik_str"]) for v in json_response.values()
                   if v[key] is not None}
