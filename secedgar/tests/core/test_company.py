@@ -363,7 +363,7 @@ class TestCompanyFilings:
         f.save(tmp_data_directory)
         assert len(os.listdir(tmp_data_directory)) > 0
 
-    @ pytest.mark.smoke
+    @pytest.mark.smoke
     def test_filing_save_single_cik_smoke(self, tmp_data_directory,
                                           real_test_client):
         f = CompanyFilings("aapl", FilingType.FILING_10Q, client=real_test_client, count=3)
