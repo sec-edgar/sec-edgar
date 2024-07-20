@@ -93,4 +93,4 @@ def mock_single_cik_filing(monkeysession):
 @pytest.fixture(scope="session")
 def real_test_client():
     """``NetworkClient`` to use when running live smoke tests."""
-    return NetworkClient(user_agent="sec_edgar_testing")
+    return NetworkClient(user_agent="Example User (example@example.com)")

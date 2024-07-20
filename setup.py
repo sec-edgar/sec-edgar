@@ -4,7 +4,7 @@ import re
 from setuptools import find_packages, setup
 from setuptools.command.install import install
 
-SUPPORTED_VERSIONS = ['3.6', '3.7', '3.8', '3.9']
+SUPPORTED_VERSIONS = ["3.8", "3.9", "3.10", "3.11", "3.12"]
 SUPPORTED_VERSIONS_CLASSIFIERS = ['Programming Language :: Python :: {version}'.format(
     version=version) for version in SUPPORTED_VERSIONS]
 CLASSIFIERS = [

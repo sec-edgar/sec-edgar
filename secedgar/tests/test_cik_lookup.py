@@ -200,8 +200,8 @@ class TestCIKLookup(object):
         "lookup,cik",
         cikmap_ticker_results
     )
-    def test_get_cik_map_tickers(self, lookup, cik, mock_get_cik_map):
-        cik_map = get_cik_map()
+    def test_get_cik_map_tickers(self, lookup, cik, mock_get_cik_map, mock_user_agent):
+        cik_map = get_cik_map(user_agent=mock_user_agent)
         assert cik_map["ticker"][lookup.upper()] == cik
 
     @pytest.mark.smoke
@@ -209,16 +209,16 @@ class TestCIKLookup(object):
         "lookup,cik",
         cikmap_ticker_results
     )
-    def test_get_cik_map_tickers_smoke(self, lookup, cik):
-        cik_map = get_cik_map()
+    def test_get_cik_map_tickers_smoke(self, lookup, cik, mock_user_agent):
+        cik_map = get_cik_map(user_agent=mock_user_agent)
         assert cik_map["ticker"][lookup.upper()] == cik
 
     @pytest.mark.parametrize(
         "lookup,cik",
         cikmap_company_results
     )
-    def test_get_cik_map_company_names(self, lookup, cik, mock_get_cik_map):
-        cik_map = get_cik_map()
+    def test_get_cik_map_company_names(self, lookup, cik, mock_get_cik_map, mock_user_agent):
+        cik_map = get_cik_map(user_agent=mock_user_agent)
         assert cik_map["title"][lookup.upper()] == cik
 
     @pytest.mark.smoke
@@ -226,13 +226,13 @@ class TestCIKLookup(object):
         "lookup,cik",
         cikmap_company_results
     )
-    def test_get_cik_map_company_names_smoke(self, lookup, cik):
-        cik_map = get_cik_map()
+    def test_get_cik_map_company_names_smoke(self, lookup, cik, mock_user_agent):
+        cik_map = get_cik_map(user_agent=mock_user_agent)
         assert cik_map["title"][lookup.upper()] == cik
 
     @pytest.mark.smoke
-    def test_get_cik_map_smoke(self):
-        cik_map = get_cik_map()
+    def test_get_cik_map_smoke(self, mock_user_agent):
+        cik_map = get_cik_map(user_agent=mock_user_agent)
         assert "ticker" in cik_map and "title" in cik_map
         assert cik_map["ticker"] and cik_map["title"]
 

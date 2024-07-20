@@ -9,6 +9,7 @@
 #     $ ./ci/run_tests.sh cover # Runs all non-smoke tests with coverage
 #     $ ./ci/run_tests.sh all   # Runs all tests (including smoke tests)
 #     $ ./ci/run_tests.sh cover all # Runs all tests with coverage (including smoke tests)
+
 echo "Running tests"
 
 if [[ -z "$1" ]]; then
