@@ -235,15 +235,16 @@ class TestCompanyFilings:
 
     @pytest.mark.smoke
     def test_no_json_decode_error(self, real_test_client):
-        from secedgar import CompanyFilings, FilingType
         from json import JSONDecodeError
+
+        from secedgar import CompanyFilings, FilingType
 
         my_filings = CompanyFilings(cik_lookup='aapl',
                                     filing_type=FilingType.FILING_10Q,
                                     count=15,
                                     user_agent=real_test_client)
         try:
-            res = my_filings.get_urls()
+            my_filings.get_urls()
         except JSONDecodeError:
             pytest.fail("Received JSONDecodeError")
 
