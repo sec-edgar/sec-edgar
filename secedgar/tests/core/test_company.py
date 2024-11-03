@@ -233,6 +233,21 @@ class TestCompanyFilings:
         first_txt_url = aapl.get_urls()["aapl"][0]
         assert first_txt_url.split(".")[-1] == "txt"
 
+    @pytest.mark.smoke
+    def test_no_json_decode_error(self, mock_user_agent):
+        from json import JSONDecodeError
+
+        from secedgar import CompanyFilings, FilingType
+
+        my_filings = CompanyFilings(cik_lookup='aapl',
+                                    filing_type=FilingType.FILING_10Q,
+                                    count=15,
+                                    user_agent=mock_user_agent)
+        try:
+            my_filings.get_urls()
+        except JSONDecodeError:
+            pytest.fail("Received JSONDecodeError")
+
     @pytest.mark.parametrize("new_filing_type",
                              (FilingType.FILING_10K,
                               FilingType.FILING_8K,
