@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en">
 <head>
@@ -6,19 +8,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Filings &mdash; secedgar 0.5.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/custom.css?v=55274cbf" />
 
   
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=3fadbb4a"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=3fadbb4a"></script>
+      <script src="_static/doctools.js?v=888ff710"></script>
+      <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
@@ -38,9 +36,6 @@
           <a href="index.html" class="icon icon-home">
             secedgar
           </a>
-              <div class="version">
-                0.5.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -124,7 +119,7 @@ over what is being created, you can use the following classes:</p>
 <h2>Filings Function<a class="headerlink" href="#filings-function" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="secedgar.filings">
-<span class="sig-prename descclassname"><span class="pre">secedgar.</span></span><span class="sig-name descname"><span class="pre">filings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cik_lookup=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filing_type=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_agent=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date=datetime.date(2024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">20)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entry_filter=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">secedgar.</span></span><span class="sig-name descname"><span class="pre">filings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cik_lookup=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filing_type=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_agent=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date=datetime.date(2024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">11</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">3)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entry_filter=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings" title="Permalink to this definition"></a></dt>
 <dd><p>Utility method to get best filing object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -238,7 +233,7 @@ from a specific quarter</p></li>
 <h3>Filing<a class="headerlink" href="#filing" title="Permalink to this heading"></a></h3>
 <dl class="py class">
 <dt class="sig sig-object py" id="secedgar.CompanyFilings">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">secedgar.</span></span><span class="sig-name descname"><span class="pre">CompanyFilings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cik_lookup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filing_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_agent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">datetime.date(2024,</span> <span class="pre">7,</span> <span class="pre">20)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ownership</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'include'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ALL'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.CompanyFilings" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">secedgar.</span></span><span class="sig-name descname"><span class="pre">CompanyFilings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cik_lookup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filing_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_agent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">datetime.date(2024,</span> <span class="pre">11,</span> <span class="pre">3)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ownership</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'include'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ALL'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.CompanyFilings" title="Permalink to this definition"></a></dt>
 <dd><p>Base class for receiving EDGAR filings.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
