@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Finding Company CIKs &mdash; secedgar 0.5.0 documentation</title>
+  <title>Finding Company CIKs &mdash; secedgar 0.6.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/custom.css?v=55274cbf" />
@@ -14,7 +14,7 @@
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=3fadbb4a"></script>
+      <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=add265a1"></script>
       <script src="_static/doctools.js?v=888ff710"></script>
       <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/js/theme.js"></script>
@@ -133,11 +133,11 @@ be excluded from the returned dictionary.</p>
 
 <span class="gp">In [2]: </span><span class="nb">dict</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">get_cik_map</span><span class="p">(</span><span class="n">user_agent</span><span class="o">=</span><span class="s2">&quot;Example (email@example.com)&quot;</span><span class="p">)[</span><span class="s2">&quot;ticker&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">())[:</span><span class="mi">5</span><span class="p">])</span>
 <span class="gh">Out[2]: </span>
-<span class="go">{&#39;AAPL&#39;: &#39;320193&#39;,</span>
-<span class="go"> &#39;NVDA&#39;: &#39;1045810&#39;,</span>
+<span class="go">{&#39;NVDA&#39;: &#39;1045810&#39;,</span>
+<span class="go"> &#39;AAPL&#39;: &#39;320193&#39;,</span>
 <span class="go"> &#39;MSFT&#39;: &#39;789019&#39;,</span>
-<span class="go"> &#39;GOOGL&#39;: &#39;1652044&#39;,</span>
-<span class="go"> &#39;AMZN&#39;: &#39;1018724&#39;}</span>
+<span class="go"> &#39;AMZN&#39;: &#39;1018724&#39;,</span>
+<span class="go"> &#39;GOOGL&#39;: &#39;1652044&#39;}</span>
 </pre></div>
 </div>
 <p>To get a dictionary with the company names as the keys, use the “title” key.</p>
@@ -145,11 +145,11 @@ be excluded from the returned dictionary.</p>
 
 <span class="gp">In [4]: </span><span class="nb">dict</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">get_cik_map</span><span class="p">(</span><span class="n">user_agent</span><span class="o">=</span><span class="s2">&quot;Example (email@example.com)&quot;</span><span class="p">)[</span><span class="s2">&quot;title&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">())[:</span><span class="mi">5</span><span class="p">])</span>
 <span class="gh">Out[4]: </span>
-<span class="go">{&#39;APPLE INC.&#39;: &#39;320193&#39;,</span>
-<span class="go"> &#39;NVIDIA CORP&#39;: &#39;1045810&#39;,</span>
+<span class="go">{&#39;NVIDIA CORP&#39;: &#39;1045810&#39;,</span>
+<span class="go"> &#39;APPLE INC.&#39;: &#39;320193&#39;,</span>
 <span class="go"> &#39;MICROSOFT CORP&#39;: &#39;789019&#39;,</span>
-<span class="go"> &#39;ALPHABET INC.&#39;: &#39;1652044&#39;,</span>
-<span class="go"> &#39;AMAZON COM INC&#39;: &#39;1018724&#39;}</span>
+<span class="go"> &#39;AMAZON COM INC&#39;: &#39;1018724&#39;,</span>
+<span class="go"> &#39;ALPHABET INC.&#39;: &#39;1652044&#39;}</span>
 </pre></div>
 </div>
 </section>
