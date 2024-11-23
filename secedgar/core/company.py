@@ -298,7 +298,6 @@ class CompanyFilings(AbstractFiling):
             warnings.warn(
                 "Only {num} of {count} filings were found for {cik}.".format(
                     num=len(txt_urls), count=self.count, cik=cik))
-        print(self.count)
         # Takes `count` filings at most
         return txt_urls[:self.count]
 
