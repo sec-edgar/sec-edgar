@@ -29,10 +29,8 @@ def get_cik_map(client=None):
 
     .. versionadded:: 0.1.6
     """
-    if client is None:
-        warnings.warn("No client given. Using default client.")
-        client = NetworkClient()
-    response = client.get_response("https://www.sec.gov/files/company_tickers.json")
+    headers = {"User-Agent": "Hello World dot com"}
+    response = requests.get("https://www.sec.gov/files/company_tickers.json", headers=headers)
     json_response = response.json()
     return {key: {v[key].upper(): str(v["cik_str"]) for v in json_response.values()
                   if v[key] is not None}
