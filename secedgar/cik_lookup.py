@@ -8,7 +8,7 @@ from secedgar.exceptions import CIKError, EDGARQueryError
 
 
 @functools.lru_cache()
-def get_cik_map(client=None):
+def get_cik_map(user_agent):
     """Get dictionary of tickers and company names to CIK numbers.
 
     Uses ``functools.lru_cache`` to cache response if used in later calls.
@@ -29,7 +29,7 @@ def get_cik_map(client=None):
 
     .. versionadded:: 0.1.6
     """
-    headers = {"User-Agent": "Hello World dot com"}
+    headers = {'user-agent': user_agent}
     response = requests.get("https://www.sec.gov/files/company_tickers.json", headers=headers)
     json_response = response.json()
     return {key: {v[key].upper(): str(v["cik_str"]) for v in json_response.values()
@@ -168,7 +168,7 @@ class CIKLookup:
             # Exclude table header
             table_rows = soup.find('table', {'summary': 'Results'}).find_all('tr')[1:]
             # Company names are in second column of table
-            return [''.join(row.find_all('td')[1].find_all(text=True)) for row in table_rows]
+            return [''.join(row.find_all('td')[1].find_all(string=True)) for row in table_rows]
         except AttributeError:
             # If there are no CIK possibilities, then no results were returned
             raise EDGARQueryError
@@ -202,7 +202,7 @@ class CIKLookup:
         ciks = {}
         to_lookup = set(self.lookups)
 
-        cik_map = get_cik_map(self.client)
+        cik_map = get_cik_map(self.client.user_agent)
 
         # all keys upper case
         ticker_map = cik_map["ticker"]

@@ -1,4 +1,4 @@
-__version__ = '0.5.0'
+__version__ = '0.6.0'
 
 from secedgar.core.combo import ComboFilings  # noqa: F401
 from secedgar.core.company import CompanyFilings  # noqa: F401

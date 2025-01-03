@@ -13,13 +13,13 @@ jobs:
         # If you're using actions/checkout@v2 you must
         # set persist-credentials to false in most cases
         # for the deployment to work correctly.
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
-      - name: Set up Python 3.6
-        uses: actions/setup-python@v4
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v5
         with:
-          python-version: 3.6
+          python-version: 3.8
       - name: Install dependencies
         run: |
           ./ci/install_dependencies.sh docs
@@ -28,7 +28,7 @@ jobs:
           cd docs
           make html
       - name: Deploy Docs 🚀
-        uses: JamesIves/github-pages-deploy-action@releases/v3
+        uses: JamesIves/github-pages-deploy-action@releases/v4
         with:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BRANCH: gh-pages # The branch the action should deploy to.

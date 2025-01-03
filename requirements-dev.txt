@@ -1,5 +1,6 @@
 aiohttp < 4.0.0
-pytest
+click
 flake8
 pydocstyle >= 4.0.0
-click
+pytest
+pytest-asyncio
