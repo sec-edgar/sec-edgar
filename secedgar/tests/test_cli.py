@@ -85,8 +85,7 @@ class TestCLI:
             user_input,
             count,
             tmp_data_directory):
-        if count is not None:
-            user_input = user_input.format(count)
+
         result = run_cli_command(cli, user_input, tmp_data_directory)
         assert result.exit_code == 0
         txt_files = [f for *_, files in os.walk(tmp_data_directory) for f in files]
