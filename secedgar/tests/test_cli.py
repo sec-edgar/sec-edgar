@@ -77,7 +77,7 @@ class TestCLI:
     @pytest.mark.parametrize(
         "user_input,count",
         [
-            ("filing -l aapl -l msft -l amzn -t FILING_10Q -n {}", 10),
+            ("filing -l aapl -l msft -l amzn -t FILING_10Q -n 10", 10),
         ]
     )
     def test_cli_filing_multiple_companies_input_smoke(
