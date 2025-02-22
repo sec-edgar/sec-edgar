@@ -6,15 +6,15 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>v0.5.1 &mdash; secedgar 0.6.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+  <title>v0.6.0 &mdash; secedgar 0.6.0-alpha documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=55274cbf" />
 
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=add265a1"></script>
+      <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=80a8d4b2"></script>
       <script src="../_static/doctools.js?v=888ff710"></script>
       <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../_static/js/theme.js"></script>
@@ -52,7 +52,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../rest_api.html">REST API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cikmap.html">Finding Company CIKs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../client.html">Using Network Client</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../parser.html">Parser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cli.html">Command Line Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What’s New</a></li>
 </ul>
@@ -75,9 +74,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">v0.5.1</li>
+      <li class="breadcrumb-item active">v0.6.0</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/whatsnew/v0.5.1.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/whatsnew/v0.6.0.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -85,13 +84,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="v0-5-1">
-<h1>v0.5.1<a class="headerlink" href="#v0-5-1" title="Permalink to this heading"></a></h1>
+  <section id="v0-6-0">
+<h1>v0.6.0<a class="headerlink" href="#v0-6-0" title="Permalink to this heading"></a></h1>
 <section id="highlights">
 <h2>Highlights<a class="headerlink" href="#highlights" title="Permalink to this heading"></a></h2>
 <ul class="simple">
-<li><p>Pass user agent to <code class="docutils literal notranslate"><span class="pre">CIKLookup</span></code>. Thanks to clintmoyer!</p></li>
+<li><p>Pass user agent to <code class="docutils literal notranslate"><span class="pre">CIKLookup</span></code> and require user agent for <code class="docutils literal notranslate"><span class="pre">get_cik_map</span></code>. Thanks to clintmoyer!</p></li>
 <li><p>Fix bug preventing <code class="docutils literal notranslate"><span class="pre">filing_type</span></code> being set to <code class="docutils literal notranslate"><span class="pre">None</span></code> in <code class="docutils literal notranslate"><span class="pre">CompanyFilings</span></code></p></li>
+<li><p>Changed supported versions (now supports Python 3.8 through 3.12)</p></li>
 </ul>
 </section>
 <section id="contributors">
@@ -99,6 +99,7 @@
 <ul class="simple">
 <li><p>clintmoyer</p></li>
 <li><p>jackmoody11</p></li>
+<li><p>tenstormavi</p></li>
 </ul>
 </section>
 </section>

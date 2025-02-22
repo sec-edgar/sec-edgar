@@ -6,15 +6,15 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Filings &mdash; secedgar 0.6.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+  <title>Filings &mdash; secedgar 0.6.0-alpha documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/custom.css?v=55274cbf" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=add265a1"></script>
+      <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=80a8d4b2"></script>
       <script src="_static/doctools.js?v=888ff710"></script>
       <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/js/theme.js"></script>
@@ -68,7 +68,6 @@
 <li class="toctree-l1"><a class="reference internal" href="rest_api.html">REST API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cikmap.html">Finding Company CIKs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="client.html">Using Network Client</a></li>
-<li class="toctree-l1"><a class="reference internal" href="parser.html">Parser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s New</a></li>
 </ul>
@@ -119,7 +118,7 @@ over what is being created, you can use the following classes:</p>
 <h2>Filings Function<a class="headerlink" href="#filings-function" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="secedgar.filings">
-<span class="sig-prename descclassname"><span class="pre">secedgar.</span></span><span class="sig-name descname"><span class="pre">filings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cik_lookup=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filing_type=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_agent=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date=datetime.date(2024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">11</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">23)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entry_filter=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">secedgar.</span></span><span class="sig-name descname"><span class="pre">filings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cik_lookup=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filing_type=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_agent=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date=datetime.date(2025</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">22)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entry_filter=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.filings" title="Permalink to this definition"></a></dt>
 <dd><p>Utility method to get best filing object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -158,8 +157,8 @@ from a specific quarter</p></li>
 </ul>
 </div></blockquote>
 <p>To get all filings over a time span, you could use something like below.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
-<span class="kn">from</span> <span class="nn">secedgar</span> <span class="kn">import</span> <span class="n">filings</span><span class="p">,</span> <span class="n">FilingType</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">date</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">secedgar</span><span class="w"> </span><span class="kn">import</span> <span class="n">filings</span><span class="p">,</span> <span class="n">FilingType</span>
 
 <span class="c1"># secedgar creates correct filing object for given arguments</span>
 <span class="c1"># this will fetch the first 50 filings found over the time span</span>
@@ -175,7 +174,7 @@ from a specific quarter</p></li>
 </pre></div>
 </div>
 <p>To get a single filing type for one or more companies, you could use this:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">secedgar</span> <span class="kn">import</span> <span class="n">filings</span><span class="p">,</span> <span class="n">FilingType</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">secedgar</span><span class="w"> </span><span class="kn">import</span> <span class="n">filings</span><span class="p">,</span> <span class="n">FilingType</span>
 
 <span class="c1"># similar to above, but fetches filings for specific tickers</span>
 <span class="n">company_filings</span> <span class="o">=</span> <span class="n">filings</span><span class="p">(</span><span class="n">cik_lookup</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;aapl&quot;</span><span class="p">,</span> <span class="s2">&quot;fb&quot;</span><span class="p">],</span>
@@ -186,8 +185,8 @@ from a specific quarter</p></li>
 </pre></div>
 </div>
 <p>To get filings for a single day, you could use something like this:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
-<span class="kn">from</span> <span class="nn">secedgar</span> <span class="kn">import</span> <span class="n">filings</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">date</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">secedgar</span><span class="w"> </span><span class="kn">import</span> <span class="n">filings</span>
 
 <span class="c1"># all filings for</span>
 <span class="n">daily_filings</span> <span class="o">=</span> <span class="n">filings</span><span class="p">(</span><span class="n">start_date</span><span class="o">=</span><span class="n">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span> <span class="p">,</span><span class="mi">3</span><span class="p">),</span>
@@ -205,8 +204,8 @@ from a specific quarter</p></li>
 </pre></div>
 </div>
 <p>For getting filings from a specific quarter, the function call would look like this:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
-<span class="kn">from</span> <span class="nn">secedgar</span> <span class="kn">import</span> <span class="n">filings</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">date</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">secedgar</span><span class="w"> </span><span class="kn">import</span> <span class="n">filings</span>
 
 <span class="c1"># all quarterly filings</span>
 <span class="n">quarterly_filings</span> <span class="o">=</span> <span class="n">filings</span><span class="p">(</span><span class="n">start_date</span><span class="o">=</span><span class="n">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span> <span class="p">,</span><span class="mi">1</span><span class="p">),</span>
@@ -233,7 +232,7 @@ from a specific quarter</p></li>
 <h3>Filing<a class="headerlink" href="#filing" title="Permalink to this heading"></a></h3>
 <dl class="py class">
 <dt class="sig sig-object py" id="secedgar.CompanyFilings">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">secedgar.</span></span><span class="sig-name descname"><span class="pre">CompanyFilings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cik_lookup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filing_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_agent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">datetime.date(2024,</span> <span class="pre">11,</span> <span class="pre">23)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ownership</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'include'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ALL'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.CompanyFilings" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">secedgar.</span></span><span class="sig-name descname"><span class="pre">CompanyFilings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cik_lookup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filing_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_agent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">datetime.date(2025,</span> <span class="pre">2,</span> <span class="pre">22)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ownership</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'include'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ALL'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.CompanyFilings" title="Permalink to this definition"></a></dt>
 <dd><p>Base class for receiving EDGAR filings.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -262,8 +261,8 @@ filings.</p></li>
 </dl>
 <p class="rubric">Examples</p>
 <p>Restrict the start and end dates by using the <code class="docutils literal notranslate"><span class="pre">start_date</span></code> and <code class="docutils literal notranslate"><span class="pre">end_date</span></code> arguments.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">secedgar</span> <span class="kn">import</span> <span class="n">FilingType</span><span class="p">,</span> <span class="n">CompanyFilings</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">secedgar</span><span class="w"> </span><span class="kn">import</span> <span class="n">FilingType</span><span class="p">,</span> <span class="n">CompanyFilings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">date</span>
 
 <span class="n">filing</span> <span class="o">=</span> <span class="n">CompanyFilings</span><span class="p">(</span><span class="n">cik_lookup</span><span class="o">=</span><span class="s2">&quot;aapl&quot;</span><span class="p">,</span>
                         <span class="n">filing_type</span><span class="o">=</span><span class="n">FilingType</span><span class="o">.</span><span class="n">FILING_10K</span><span class="p">,</span>
@@ -274,8 +273,8 @@ filings.</p></li>
 </div>
 <p>If you would like to find all filings from some <code class="docutils literal notranslate"><span class="pre">start_date</span></code> until today,
 simply exclude <code class="docutils literal notranslate"><span class="pre">end_date</span></code>. The end date defaults to today’s date.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">secedgar</span> <span class="kn">import</span> <span class="n">FilingType</span><span class="p">,</span> <span class="n">CompanyFilings</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">secedgar</span><span class="w"> </span><span class="kn">import</span> <span class="n">FilingType</span><span class="p">,</span> <span class="n">CompanyFilings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">date</span>
 
 <span class="c1"># end date defaults to today</span>
 <span class="n">filing</span> <span class="o">=</span> <span class="n">CompanyFilings</span><span class="p">(</span><span class="n">cik_lookup</span><span class="o">=</span><span class="s2">&quot;aapl&quot;</span><span class="p">,</span>
@@ -285,8 +284,8 @@ simply exclude <code class="docutils literal notranslate"><span class="pre">end_
 </pre></div>
 </div>
 <p>You can also look up a specific filing type for multiple companies.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">secedgar</span> <span class="kn">import</span> <span class="n">FilingType</span><span class="p">,</span> <span class="n">CompanyFilings</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">secedgar</span><span class="w"> </span><span class="kn">import</span> <span class="n">FilingType</span><span class="p">,</span> <span class="n">CompanyFilings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">date</span>
 
 <span class="n">filing</span> <span class="o">=</span> <span class="n">CompanyFilings</span><span class="p">(</span><span class="n">cik_lookup</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;aapl&quot;</span><span class="p">,</span> <span class="s2">&quot;msft&quot;</span><span class="p">,</span> <span class="s2">&quot;fb&quot;</span><span class="p">],</span>
                         <span class="n">filing_type</span><span class="o">=</span><span class="n">FilingType</span><span class="o">.</span><span class="n">FILING_10K</span><span class="p">,</span>
@@ -298,8 +297,8 @@ simply exclude <code class="docutils literal notranslate"><span class="pre">end_
 <code class="xref py py-class docutils literal notranslate"><span class="pre">secedgar.core.FilingType</span></code>.</p>
 <p>SEC requests that traffic identifies itself via a user agent string. You can
 customize this according to your preference using the <code class="docutils literal notranslate"><span class="pre">user_agent</span></code> argument.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">secedgar</span> <span class="kn">import</span> <span class="n">FilingType</span><span class="p">,</span> <span class="n">CompanyFilings</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">secedgar</span><span class="w"> </span><span class="kn">import</span> <span class="n">FilingType</span><span class="p">,</span> <span class="n">CompanyFilings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">date</span>
 
 <span class="n">filing</span> <span class="o">=</span> <span class="n">CompanyFilings</span><span class="p">(</span><span class="n">cik_lookup</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;aapl&quot;</span><span class="p">,</span> <span class="s2">&quot;msft&quot;</span><span class="p">,</span> <span class="s2">&quot;fb&quot;</span><span class="p">],</span>
                         <span class="n">filing_type</span><span class="o">=</span><span class="n">FilingType</span><span class="o">.</span><span class="n">FILING_10K</span><span class="p">,</span>
@@ -358,12 +357,6 @@ customize this according to your preference using the <code class="docutils lite
 <dd class="field-odd"><p>Union([datetime.date, datetime.datetime, str])</p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="secedgar.CompanyFilings.extract_meta">
-<span class="sig-name descname"><span class="pre">extract_meta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_subdir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rm_infile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#secedgar.CompanyFilings.extract_meta" title="Permalink to this definition"></a></dt>
-<dd><p>Extract meta data from filings in directory.</p>
 </dd></dl>
 
 <dl class="py property">
@@ -577,20 +570,20 @@ used to filter which filings to keep. These are “cik”, “company_name”,
 <h4>Using <code class="docutils literal notranslate"><span class="pre">entry_filter</span></code><a class="headerlink" href="#using-entry-filter" title="Permalink to this heading"></a></h4>
 <p>To only download filings from a company named “Company A”, the following
 function would suffice for only getting those filings:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_company_a_filings</span><span class="p">(</span><span class="n">filing_entry</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_company_a_filings</span><span class="p">(</span><span class="n">filing_entry</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">filing_entry</span><span class="o">.</span><span class="n">company_name</span> <span class="o">==</span> <span class="s2">&quot;Company A&quot;</span>
 </pre></div>
 </div>
 <p>To only download Company A or Company B’s 10-K fillings from
 a specific day, a well-defined <code class="docutils literal notranslate"><span class="pre">entry_filter</span></code> would be:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_company_ab_10k</span><span class="p">(</span><span class="n">filing_entry</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_company_ab_10k</span><span class="p">(</span><span class="n">filing_entry</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">filing_entry</span><span class="o">.</span><span class="n">company_name</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;Company A&quot;</span><span class="p">,</span> <span class="s2">&quot;Company B&quot;</span><span class="p">)</span> <span class="ow">and</span>
            <span class="n">filing_entry</span><span class="o">.</span><span class="n">form_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;10-k&quot;</span>
 </pre></div>
 </div>
 <p>To use the second function as an <code class="docutils literal notranslate"><span class="pre">entry_filter</span></code>, the following code could be used:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
-<span class="kn">from</span> <span class="nn">secedgar.core</span> <span class="kn">import</span> <span class="n">DailyFilings</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">date</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">secedgar.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">DailyFilings</span>
 
 <span class="n">d</span> <span class="o">=</span> <span class="n">DailyFilings</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
                  <span class="n">entry_filter</span><span class="o">=</span><span class="n">get_company_ab_10k</span><span class="p">,</span>
@@ -710,7 +703,7 @@ See <code class="xref py py-class docutils literal notranslate"><span class="pre
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">secedgar</span> <span class="k">as</span> <span class="nn">sec</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">secedgar</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sec</span>
 <span class="n">quarterly</span> <span class="o">=</span> <span class="n">sec</span><span class="o">.</span><span class="n">QuarterlyFilings</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="mi">2021</span><span class="p">,</span>
                                  <span class="n">quarter</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                                  <span class="n">user_agent</span><span class="o">=</span><span class="s2">&quot;Name (email)&quot;</span><span class="p">)</span>
@@ -816,8 +809,8 @@ Defaults to 30.</p></li>
 </div>
 <p class="rubric">Examples</p>
 <p>To download all filings from January 6, 2020 until November 5, 2020, you could do following:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
-<span class="kn">from</span> <span class="nn">secedgar</span> <span class="kn">import</span> <span class="n">ComboFilings</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">date</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">secedgar</span><span class="w"> </span><span class="kn">import</span> <span class="n">ComboFilings</span>
 
 <span class="n">combo_filings</span> <span class="o">=</span> <span class="n">ComboFilings</span><span class="p">(</span><span class="n">start_date</span><span class="o">=</span><span class="n">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
                              <span class="n">end_date</span><span class="o">=</span><span class="n">date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
@@ -933,7 +926,7 @@ Defaults to “%Y%m%d”.</p></li>
 <h2>Saving Filings<a class="headerlink" href="#saving-filings" title="Permalink to this heading"></a></h2>
 <p>In version 0.3.0, the <code class="docutils literal notranslate"><span class="pre">dir_pattern</span></code> and <code class="docutils literal notranslate"><span class="pre">file_pattern</span></code> arguments were introduced to allow for more flexible structuring of filings.</p>
 <p>Here are some examples of how you might use those arguments to create custom directory structures</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">secedgar</span> <span class="kn">import</span> <span class="n">CompanyFilings</span><span class="p">,</span> <span class="n">FilingType</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">secedgar</span><span class="w"> </span><span class="kn">import</span> <span class="n">CompanyFilings</span><span class="p">,</span> <span class="n">FilingType</span>
 
 <span class="n">f</span> <span class="o">=</span> <span class="n">CompanyFilings</span><span class="p">(</span><span class="n">cik_lookup</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;aapl&quot;</span><span class="p">,</span> <span class="s2">&quot;msft&quot;</span><span class="p">],</span>
                    <span class="n">filing_type</span><span class="o">=</span><span class="n">FilingType</span><span class="o">.</span><span class="n">FILING_10Q</span><span class="p">,</span>

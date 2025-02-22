@@ -6,15 +6,15 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Common Usage Examples &mdash; secedgar 0.6.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+  <title>Common Usage Examples &mdash; secedgar 0.6.0-alpha documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/custom.css?v=55274cbf" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=add265a1"></script>
+      <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=80a8d4b2"></script>
       <script src="_static/doctools.js?v=888ff710"></script>
       <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/js/theme.js"></script>
@@ -58,7 +58,6 @@
 <li class="toctree-l1"><a class="reference internal" href="rest_api.html">REST API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cikmap.html">Finding Company CIKs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="client.html">Using Network Client</a></li>
-<li class="toctree-l1"><a class="reference internal" href="parser.html">Parser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s New</a></li>
 </ul>
@@ -103,7 +102,7 @@
 <li><p>Management’s Analysis</p></li>
 </ul>
 <p>The <code class="docutils literal notranslate"><span class="pre">CompanyFilings</span></code> class provides a simple API to fetch SEC filings.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">secedgar</span> <span class="kn">import</span> <span class="n">CompanyFilings</span><span class="p">,</span> <span class="n">FilingType</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">secedgar</span><span class="w"> </span><span class="kn">import</span> <span class="n">CompanyFilings</span><span class="p">,</span> <span class="n">FilingType</span>
 
 <span class="n">my_filings</span> <span class="o">=</span> <span class="n">CompanyFilings</span><span class="p">(</span><span class="n">cik_lookup</span><span class="o">=</span><span class="s1">&#39;aapl&#39;</span><span class="p">,</span>
                             <span class="n">filing_type</span><span class="o">=</span><span class="n">FilingType</span><span class="o">.</span><span class="n">FILING_10Q</span><span class="p">,</span>
@@ -112,7 +111,7 @@
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">cik_lookup</span></code> argument can also take multiple tickers and/or company names.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">secedgar</span> <span class="kn">import</span> <span class="n">CompanyFilings</span><span class="p">,</span> <span class="n">FilingType</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">secedgar</span><span class="w"> </span><span class="kn">import</span> <span class="n">CompanyFilings</span><span class="p">,</span> <span class="n">FilingType</span>
 
 <span class="n">my_filings</span> <span class="o">=</span> <span class="n">CompanyFilings</span><span class="p">(</span><span class="n">cik_lookup</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;aapl&#39;</span><span class="p">,</span> <span class="s1">&#39;msft&#39;</span><span class="p">,</span> <span class="s1">&#39;Facebook&#39;</span><span class="p">],</span>
                             <span class="n">filing_type</span><span class="o">=</span><span class="n">FilingType</span><span class="o">.</span><span class="n">FILING_10Q</span><span class="p">,</span>
@@ -134,7 +133,7 @@ on the SEC open data program, including best practices that make it more efficie
 and SEC.gov enhancements that may impact scripted downloading processes.
 For more information, contact <a class="reference external" href="mailto:opendata&#37;&#52;&#48;sec&#46;gov">opendata<span>&#64;</span>sec<span>&#46;</span>gov</a>.</p>
 </div></blockquote>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">secedgar</span> <span class="kn">import</span> <span class="n">CompanyFilings</span><span class="p">,</span> <span class="n">FilingType</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">secedgar</span><span class="w"> </span><span class="kn">import</span> <span class="n">CompanyFilings</span><span class="p">,</span> <span class="n">FilingType</span>
 
 <span class="n">my_filings</span> <span class="o">=</span> <span class="n">CompanyFilings</span><span class="p">(</span><span class="n">cik_lookup</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;aapl&#39;</span><span class="p">,</span> <span class="s1">&#39;msft&#39;</span><span class="p">,</span> <span class="s1">&#39;Facebook&#39;</span><span class="p">],</span>
                             <span class="n">filing_type</span><span class="o">=</span><span class="n">FilingType</span><span class="o">.</span><span class="n">FILING_10Q</span><span class="p">,</span>
