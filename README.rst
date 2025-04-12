@@ -30,19 +30,18 @@ You can clone the project:
 Running
 -------
 
-.. warning::
-   If you are using Jupyter Notebook, you'll need to install and configure nest-asyncio:
+If you are using Jupyter Notebook, you'll need to install and configure nest-asyncio:
 
-   .. code-block:: bash
+.. code-block:: bash
 
-      pip install nest-asyncio
+   pip install nest-asyncio
 
-   Then add the following code at the start of your notebook:
+Then add the following code at the start of your notebook:
 
-   .. code-block:: python
+.. code-block:: python
 
-      import nest_asyncio
-      nest_asyncio.apply()
+   import nest_asyncio
+   nest_asyncio.apply()
 
 Company Filings
 ~~~~~~~~~~~~~~~
