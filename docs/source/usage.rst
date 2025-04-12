@@ -7,7 +7,7 @@ Common Usage Examples
 secedgar provides a simple way to download multiple filings from the
 `SEC Edgar database <https://www.sec.gov/edgar/searchedgar/companysearch.html>`__.
 
-.. warning::
+.. note::
    If you are using Jupyter Notebook, you'll need to install and configure nest-asyncio:
 
    .. code-block:: bash
