@@ -94,6 +94,18 @@
 <span id="usage"></span><h1>Common Usage Examples<a class="headerlink" href="#common-usage-examples" title="Permalink to this heading"></a></h1>
 <p>secedgar provides a simple way to download multiple filings from the
 <a class="reference external" href="https://www.sec.gov/edgar/searchedgar/companysearch.html">SEC Edgar database</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are using Jupyter Notebook, you’ll need to install and configure nest-asyncio:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>nest-asyncio
+</pre></div>
+</div>
+<p>Then add the following code at the start of your notebook:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">nest_asyncio</span>
+<span class="n">nest_asyncio</span><span class="o">.</span><span class="n">apply</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
 <p>This package is useful for obtaining important financial information about public companies such as</p>
 <ul class="simple">
 <li><p>Financials</p></li>
