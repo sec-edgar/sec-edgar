@@ -1,0 +1,46 @@
+{
+  "_fixture": "SYNTHETIC TEST DATA. Fictional company. Not SEC data. See tests/fixtures/README.md.",
+  "cik": "9999901",
+  "entityType": "operating",
+  "name": "Testco Industries Inc",
+  "tickers": ["TSTC"],
+  "exchanges": ["Nasdaq"],
+  "fiscalYearEnd": "1231",
+  "filings": {
+    "recent": {
+      "accessionNumber": [
+        "0000999901-25-000010",
+        "0000999901-24-000030",
+        "0000999901-24-000020",
+        "0000999901-24-000010",
+        "0000999901-23-000010"
+      ],
+      "filingDate": [
+        "2025-02-14",
+        "2024-08-09",
+        "2024-04-25",
+        "2024-02-15",
+        "2023-02-15"
+      ],
+      "reportDate": [
+        "2024-12-31",
+        "2023-12-31",
+        "2024-03-31",
+        "2023-12-31",
+        "2022-12-31"
+      ],
+      "form": ["10-K", "10-K/A", "10-Q", "10-K", "10-KT"],
+      "primaryDocument": [
+        "tstc-20241231.htm",
+        "tstc-20231231a.htm",
+        "tstc-20240331.htm",
+        "tstc-20231231.htm",
+        "tstc-20221231.htm"
+      ],
+      "primaryDocDescription": ["10-K", "10-K/A", "10-Q", "10-K", "10-KT"],
+      "isXBRL": [1, 1, 1, 1, 1],
+      "size": [4100000, 900000, 1800000, 4000000, 3800000]
+    },
+    "files": []
+  }
+}

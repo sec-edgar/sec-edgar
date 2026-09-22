@@ -1,0 +1,71 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "edgar-mcp"
+version = "0.1.0"
+description = "An MCP server that exposes SEC EDGAR financial filing data as six agent tools."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Arnav", email = "arnavhpd@gmail.com" }]
+keywords = ["mcp", "sec", "edgar", "xbrl", "llm", "agent-tools"]
+classifiers = [
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+]
+
+# Pinned, not ranged. An eval number is only reproducible if the dependency
+# tree that produced it is reproducible.
+dependencies = [
+    "mcp==1.27.0",
+    "httpx==0.28.1",
+    "PyYAML==6.0.3",
+]
+
+[project.optional-dependencies]
+# Needed only to run the eval harness against a real model.
+evals = [
+    "anthropic==1.4.0",
+]
+dev = [
+    "pytest==9.1.1",
+    "ruff==0.15.11",
+]
+
+[project.scripts]
+edgar-mcp = "edgar_mcp.server:main"
+
+[project.urls]
+Homepage = "https://github.com/Arnavdsp/edgar-mcp"
+Source = "https://github.com/Arnavdsp/edgar-mcp"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = ["error::DeprecationWarning:edgar_mcp.*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests", "evals"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "ANN", "D"]
+ignore = [
+    "D203",   # incompatible with D211
+    "D213",   # incompatible with D212
+    "ANN401", # dict[str, Any] is the honest type for JSON payloads
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["D100", "D103", "ANN001", "ANN201"]
+"evals/*" = ["D100"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"

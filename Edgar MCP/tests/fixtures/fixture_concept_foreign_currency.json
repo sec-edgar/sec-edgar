@@ -1,0 +1,24 @@
+{
+  "_fixture": "SYNTHETIC TEST DATA. Fictional company. Not SEC data. See tests/fixtures/README.md.",
+  "cik": 9999906,
+  "taxonomy": "us-gaap",
+  "tag": "Revenues",
+  "label": "Revenues",
+  "description": "Fixture for a filer that reports in euros, so the value must never be compared with a USD figure.",
+  "entityName": "Continental Widgets NV",
+  "units": {
+    "EUR": [
+      {
+        "start": "2024-01-01",
+        "end": "2024-12-31",
+        "val": 9000000000,
+        "accn": "0000999906-25-000002",
+        "fy": 2024,
+        "fp": "FY",
+        "form": "20-F",
+        "filed": "2025-03-20",
+        "frame": "CY2024"
+      }
+    ]
+  }
+}

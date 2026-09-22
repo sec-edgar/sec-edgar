@@ -1,0 +1,2855 @@
+{
+  "config": {
+    "provider": "openai",
+    "model": "openai/gpt-oss-20b",
+    "runs": 3,
+    "question_count": 25,
+    "attempts": 75,
+    "no_cache": false,
+    "max_turns": 8,
+    "max_cost_usd": 5.0,
+    "halted_on_cost": false,
+    "started_at": "2026-09-09T16:48:08+00:00",
+    "finished_at": "2026-09-11T15:34:06+00:00",
+    "gold_meta": {
+      "version": 1,
+      "verified_values": 25,
+      "total_questions": 25,
+      "warning": "",
+      "ciks": {
+        "apple": "320193",
+        "nvidia": "1045810",
+        "microsoft": "789019",
+        "tesla": "1318605",
+        "amazon": "1018724"
+      }
+    },
+    "unverified_expected_values": []
+  },
+  "summary": {
+    "metrics": {
+      "accuracy_pct": {
+        "mean": 12.5,
+        "stdev": 12.5,
+        "runs": [
+          25.0,
+          12.5,
+          0.0
+        ]
+      },
+      "refusal_correct_pct": {
+        "mean": 90.66666666666667,
+        "stdev": 2.309401076758503,
+        "runs": [
+          88.0,
+          92.0,
+          92.0
+        ]
+      },
+      "citation_pct": {
+        "mean": 0.0,
+        "stdev": 0.0,
+        "runs": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "must_mention_pct": {
+        "mean": 29.333333333333332,
+        "stdev": 2.309401076758501,
+        "runs": [
+          28.000000000000004,
+          32.0,
+          28.000000000000004
+        ]
+      },
+      "tool_calls_mean": {
+        "mean": 0.17333333333333334,
+        "stdev": 0.16653327995729061,
+        "runs": [
+          0.36,
+          0.12,
+          0.04
+        ]
+      },
+      "latency_p50_s": {
+        "mean": 2083.014271926671,
+        "stdev": 560.2664608538205,
+        "runs": [
+          1445.723721372,
+          2498.0653187530115,
+          2305.253775655001
+        ]
+      },
+      "latency_p95_s": {
+        "mean": 4268.4481202766665,
+        "stdev": 704.3305400627263,
+        "runs": [
+          3455.642980128003,
+          4699.189194331004,
+          4650.512186370994
+        ]
+      },
+      "cost_usd_total": {
+        "mean": 0.0,
+        "stdev": 0.0,
+        "runs": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "errors": {
+        "mean": 18.0,
+        "stdev": 1.0,
+        "runs": [
+          17.0,
+          18.0,
+          19.0
+        ]
+      }
+    },
+    "per_run": [
+      {
+        "accuracy_pct": 25.0,
+        "refusal_correct_pct": 88.0,
+        "citation_pct": 0.0,
+        "must_mention_pct": 28.000000000000004,
+        "tool_calls_mean": 0.36,
+        "latency_p50_s": 1445.723721372,
+        "latency_p95_s": 3455.642980128003,
+        "cost_usd_total": 0.0,
+        "errors": 17.0
+      },
+      {
+        "accuracy_pct": 12.5,
+        "refusal_correct_pct": 92.0,
+        "citation_pct": 0.0,
+        "must_mention_pct": 32.0,
+        "tool_calls_mean": 0.12,
+        "latency_p50_s": 2498.0653187530115,
+        "latency_p95_s": 4699.189194331004,
+        "cost_usd_total": 0.0,
+        "errors": 18.0
+      },
+      {
+        "accuracy_pct": 0.0,
+        "refusal_correct_pct": 92.0,
+        "citation_pct": 0.0,
+        "must_mention_pct": 28.000000000000004,
+        "tool_calls_mean": 0.04,
+        "latency_p50_s": 2305.253775655001,
+        "latency_p95_s": 4650.512186370994,
+        "cost_usd_total": 0.0,
+        "errors": 19.0
+      }
+    ],
+    "by_question": {
+      "rev_nvda_fy24": {
+        "passes": 0,
+        "attempts": 3,
+        "accuracy_applicable": true,
+        "tool_calls": [
+          3,
+          0,
+          0
+        ],
+        "latencies": [
+          29.060413565999625,
+          4509.724766665997,
+          2287.3698094669962
+        ],
+        "answers": [
+          "I\u2019m sorry, but the EDGAR tools do not have a revenue figure for NVIDIA\u2019s fiscal year\u202f2024. The most recent annual revenue data available is for FY\u202f2022 (reported in the 10\u2011K filed\u202f2022\u201103\u201118, ending\u202f2022\u201101\u201130).",
+          "",
+          ""
+        ],
+        "needs_manual_review": false,
+        "pass_rate": 0.0,
+        "tool_calls_mean": 1.0,
+        "latency_mean_s": 2275.3849965663308
+      },
+      "rev_aapl_fy24": {
+        "passes": 1,
+        "attempts": 3,
+        "accuracy_applicable": true,
+        "tool_calls": [
+          2,
+          0,
+          0
+        ],
+        "latencies": [
+          73.15294522300064,
+          1998.7069397270025,
+          1416.584345462994
+        ],
+        "answers": [
+          "Apple\u2019s total net sales for fiscal\u202f2024 were **$391.0\u202fbillion** (US\u202f$391,035,000,000).  \nThis figure comes from the 10\u2011K filed on 2025\u201110\u201131 for the fiscal year ending 2024\u201109\u201128.",
+          "",
+          ""
+        ],
+        "needs_manual_review": false,
+        "pass_rate": 0.3333333333333333,
+        "tool_calls_mean": 0.6666666666666666,
+        "latency_mean_s": 1162.814743470999
+      },
+      "ni_msft_fy24": {
+        "passes": 1,
+        "attempts": 3,
+        "accuracy_applicable": true,
+        "tool_calls": [
+          2,
+          0,
+          0
+        ],
+        "latencies": [
+          62.43284160299845,
+          2403.603997940001,
+          2166.950236678007
+        ],
+        "answers": [
+          "Microsoft\u2019s net income for fiscal year\u202f2024 was **$88.14\u202fbillion** (US\u202f$88,136,000,000).  \nThis figure comes from the FY\u202f2024 10\u2011K filed on 2026\u201107\u201129, covering the period ended\u202fJune\u202f30\u202f2024.",
+          "",
+          ""
+        ],
+        "needs_manual_review": false,
+        "pass_rate": 0.3333333333333333,
+        "tool_calls_mean": 0.6666666666666666,
+        "latency_mean_s": 1544.3290254070023
+      },
+      "assets_amzn_fy24": {
+        "passes": 0,
+        "attempts": 3,
+        "accuracy_applicable": true,
+        "tool_calls": [
+          0,
+          0,
+          0
+        ],
+        "latencies": [
+          1468.9835390930002,
+          3260.1427511059956,
+          3496.956542795
+        ],
+        "answers": [
+          "",
+          "",
+          ""
+        ],
+        "needs_manual_review": false,
+        "pass_rate": 0.0,
+        "tool_calls_mean": 0.0,
+        "latency_mean_s": 2742.0276109979986
+      },
+      "rnd_nvda_fy24": {
+        "passes": 1,
+        "attempts": 3,
+        "accuracy_applicable": true,
+        "tool_calls": [
+          0,
+          2,
+          0
+        ],
+        "latencies": [
+          1443.4589369789992,
+          3206.5907438249997,
+          2720.908809932007
+        ],
+        "answers": [
+          "",
+          "NVIDIA spent **$8.675\u202fbillion** on research and development in fiscal\u202f2024 (period ended\u202fJanuary\u202f28,\u202f2024). This figure comes from the company\u2019s 10\u2011K filing (accession\u202f0001045810\u201126\u2011000021) reported in FY\u202f2026.",
+          ""
+        ],
+        "needs_manual_review": false,
+        "pass_rate": 0.3333333333333333,
+        "tool_calls_mean": 0.6666666666666666,
+        "latency_mean_s": 2456.9861635786688
+      },
+      "cash_tsla_fy24": {
+        "passes": 0,
+        "attempts": 3,
+        "accuracy_applicable": true,
+        "tool_calls": [
+          0,
+          0,
+          0
+        ],
+        "latencies": [
+          1442.974683036,
+          3570.0497248350002,
+          1324.6116980600054
+        ],
+        "answers": [
+          "",
+          "",
+          ""
+        ],
+        "needs_manual_review": false,
+        "pass_rate": 0.0,
+        "tool_calls_mean": 0.0,
+        "latency_mean_s": 2112.5453686436686
+      },
+      "opinc_aapl_fy24": {
+        "passes": 0,
+        "attempts": 3,
+        "accuracy_applicable": true,
+        "tool_calls": [
+          0,
+          0,
+          0
+        ],
+        "latencies": [
+          1449.546848394999,
+          3263.439301784005,
+          1470.9096490049997
+        ],
+        "answers": [
+          "",
+          "",
+          ""
+        ],
+        "needs_manual_review": false,
+        "pass_rate": 0.0,
+        "tool_calls_mean": 0.0,
+        "latency_mean_s": 2061.298599728001
+      },
+      "liab_msft_fy24": {
+        "passes": 0,
+        "attempts": 3,
+        "accuracy_applicable": true,
+        "tool_calls": [
+          0,
+          0,
+          0
+        ],
+        "latencies": [
+          1442.6037097009994,
+          2344.2671150509996,
+          3410.2017992979963
+        ],
+        "answers": [
+          "",
+          "",
+          ""
+        ],
+        "needs_manual_review": false,
+        "pass_rate": 0.0,
+        "tool_calls_mean": 0.0,
+        "latency_mean_s": 2399.024208016665
+      },
+      "cmp_nvda_aapl_rev_fy24": {
+        "passes": 0,
+        "attempts": 3,
+        "accuracy_applicable": false,
+        "tool_calls": [
+          0,
+          0,
+          0
+        ],
+        "latencies": [
+          1442.4842327059996,
+          4736.692634994004,
+          3500.1861083520052
+        ],
+        "answers": [
+          "",
+          "",
+          ""
+        ],
+        "needs_manual_review": false,
+        "pass_rate": 0.0,
+        "tool_calls_mean": 0.0,
+        "latency_mean_s": 3226.4543253506695
+      },
+      "cmp_msft_aapl_ni_fy24": {
+        "passes": 0,
+        "attempts": 3,
+        "accuracy_applicable": false,
+        "tool_calls": [
+          0,
+          0,
+          0
+        ],
+        "latencies": [
+          2327.5070624809996,
+          3256.393250844005,
+          3560.8655363839935
+        ],
+        "answers": [
+          "",
+          "",
+          ""
+        ],
+        "needs_manual_review": false,
+        "pass_rate": 0.0,
+        "tool_calls_mean": 0.0,
+        "latency_mean_s": 3048.2552832363326
+      },
+      "cmp_tsla_nvda_rnd_fy24": {
+        "passes": 0,
+        "attempts": 3,
+        "accuracy_applicable": false,
+        "tool_calls": [
+          0,
+          0,
+          0
+        ],
+        "latencies": [
+          1448.1058917510018,
+          2390.3792294550076,
+          2205.153763432987
+        ],
+        "answers": [
+          "",
+          "",
+          ""
+        ],
+        "needs_manual_review": false,
+        "pass_rate": 0.0,
+        "tool_calls_mean": 0.0,
+        "latency_mean_s": 2014.5462948796655
+      },
+      "cmp_amzn_msft_assets_fy24": {
+        "passes": 0,
+        "attempts": 3,
+        "accuracy_applicable": false,
+        "tool_calls": [
+          0,
+          0,
+          0
+        ],
+        "latencies": [
+          2287.4407488769975,
+          2498.0653187530115,
+          2305.253775655001
+        ],
+        "answers": [
+          "",
+          "",
+          ""
+        ],
+        "needs_manual_review": false,
+        "pass_rate": 0.0,
+        "tool_calls_mean": 0.0,
+        "latency_mean_s": 2363.586614428337
+      },
+      "cmp_five_rev_fy24": {
+        "passes": 0,
+        "attempts": 3,
+        "accuracy_applicable": false,
+        "tool_calls": [
+          0,
+          0,
+          0
+        ],
+        "latencies": [
+          2375.0650613550024,
+          4699.189194331004,
+          4650.512186370994
+        ],
+        "answers": [
+          "",
+          "",
+          ""
+        ],
+        "needs_manual_review": false,
+        "pass_rate": 0.0,
+        "tool_calls_mean": 0.0,
+        "latency_mean_s": 3908.2554806856665
+      },
+      "cmp_nvda_tsla_growth": {
+        "passes": 0,
+        "attempts": 3,
+        "accuracy_applicable": false,
+        "tool_calls": [
+          0,
+          0,
+          0
+        ],
+        "latencies": [
+          2074.219367982001,
+          3316.6532591190044,
+          3637.261974967987
+        ],
+        "answers": [
+          "",
+          "",
+          ""
+        ],
+        "needs_manual_review": false,
+        "pass_rate": 0.0,
+        "tool_calls_mean": 0.0,
+        "latency_mean_s": 3009.378200689664
+      },
+      "amb_aapl_margins": {
+        "passes": 2,
+        "attempts": 3,
+        "accuracy_applicable": false,
+        "tool_calls": [
+          0,
+          0,
+          0
+        ],
+        "latencies": [
+          1445.723721372,
+          0.6760222070006421,
+          1040.0754926319933
+        ],
+        "answers": [
+          "",
+          "Which margin would you like to review\u2014gross margin, operating margin, or net margin?",
+          "Which margin would you like to review\u2014gross margin, operating margin, or net margin?"
+        ],
+        "needs_manual_review": true,
+        "pass_rate": 0.6666666666666666,
+        "tool_calls_mean": 0.0,
+        "latency_mean_s": 828.825078736998
+      },
+      "amb_apple_name": {
+        "passes": 0,
+        "attempts": 3,
+        "accuracy_applicable": false,
+        "tool_calls": [
+          0,
+          0,
+          0
+        ],
+        "latencies": [
+          1445.345881153,
+          1849.901655071997,
+          3466.2561849520134
+        ],
+        "answers": [
+          "",
+          "",
+          ""
+        ],
+        "needs_manual_review": true,
+        "pass_rate": 0.0,
+        "tool_calls_mean": 0.0,
+        "latency_mean_s": 2253.83457372567
+      },
+      "amb_delta_name": {
+        "passes": 3,
+        "attempts": 3,
+        "accuracy_applicable": false,
+        "tool_calls": [
+          0,
+          0,
+          0
+        ],
+        "latencies": [
+          638.0723798279978,
+          1.3971850749949226,
+          825.8775416350109
+        ],
+        "answers": [
+          "Which \u201cDelta\u201d are you referring to? Options include Delta Air Lines (ticker DAL), Delta Dental (ticker DLT), Delta Electronics (ticker DLTN), etc. Please provide the ticker or full company name.",
+          "Which Delta company are you referring to?  \n- Delta Air Lines (ticker **DAL**)  \n- Delta Dental (ticker **DLT**)  \n- Other Delta entities (e.g., Delta Corp, Delta Airlines Holdings, etc.)",
+          "Which Delta company are you referring to?  \n- Delta Air Lines (ticker **DAL**)  \n- Delta Dental (ticker **DLT**)  \n- Other Delta entities (e.g., Delta Corp, Delta Airlines Holdings, etc.)"
+        ],
+        "needs_manual_review": true,
+        "pass_rate": 1.0,
+        "tool_calls_mean": 0.0,
+        "latency_mean_s": 488.4490355126679
+      },
+      "amb_nvda_profitable": {
+        "passes": 0,
+        "attempts": 3,
+        "accuracy_applicable": false,
+        "tool_calls": [
+          2,
+          0,
+          0
+        ],
+        "latencies": [
+          3445.061337156003,
+          3410.9951078440063,
+          4827.024102639989
+        ],
+        "answers": [
+          "NVIDIA reported net income of **$4.37\u202fbillion** for its fiscal year that ended **January\u202f29,\u202f2023**.  \nThe figure comes from the company\u2019s DEF\u202f14A filing (accession\u202f0001045810\u201126\u2011000036) filed on\u202fMay\u202f12,\u202f2026, which reports the FY\u202f2023 period.",
+          "",
+          ""
+        ],
+        "needs_manual_review": true,
+        "pass_rate": 0.0,
+        "tool_calls_mean": 0.6666666666666666,
+        "latency_mean_s": 3894.3601825466662
+      },
+      "amb_msft_debt": {
+        "passes": 0,
+        "attempts": 3,
+        "accuracy_applicable": false,
+        "tool_calls": [
+          0,
+          0,
+          0
+        ],
+        "latencies": [
+          3613.9057910699994,
+          3523.622329728998,
+          3607.3904736639815
+        ],
+        "answers": [
+          "",
+          "",
+          ""
+        ],
+        "needs_manual_review": true,
+        "pass_rate": 0.0,
+        "tool_calls_mean": 0.0,
+        "latency_mean_s": 3581.6395314876595
+      },
+      "ref_stripe_private": {
+        "passes": 3,
+        "attempts": 3,
+        "accuracy_applicable": false,
+        "tool_calls": [
+          0,
+          0,
+          0
+        ],
+        "latencies": [
+          842.2898927890055,
+          0.8682279200002085,
+          840.3938348469965
+        ],
+        "answers": [
+          "I\u2019m sorry, but Stripe is a private company and does not file reports with the SEC, so there is no EDGAR filing from which to pull a revenue figure. If you meant a different public company, let me know its name or ticker.",
+          "I\u2019m sorry, but Stripe is a private company and does not file reports with the SEC, so there is no EDGAR filing from which to pull a revenue figure. If you meant a different public company, let me know its name or ticker.",
+          "I\u2019m sorry, but Stripe is a private company and does not file reports with the SEC, so there is no EDGAR filing from which to pull a revenue figure. If you meant a different public company, let me know its name or ticker."
+        ],
+        "needs_manual_review": false,
+        "pass_rate": 1.0,
+        "tool_calls_mean": 0.0,
+        "latency_mean_s": 561.1839851853341
+      },
+      "ref_future_2027": {
+        "passes": 0,
+        "attempts": 3,
+        "accuracy_applicable": false,
+        "tool_calls": [
+          0,
+          0,
+          0
+        ],
+        "latencies": [
+          1084.4801826049952,
+          969.9097239160037,
+          1108.4022240759805
+        ],
+        "answers": [
+          "I\u2019m sorry, but I can\u2019t provide a forecast for Apple\u2019s fiscal\u202f2027 revenue. The EDGAR tools only return figures that have actually been reported in filings, and no such future\u2011period data is available in the SEC database.",
+          "I\u2019m sorry, but I can\u2019t provide a forecast for Apple\u2019s fiscal\u20112027 revenue. The EDGAR tools only return figures that have already been reported in filed documents, and no such future\u2011period data is available in the SEC filings.",
+          "I\u2019m sorry, but I can\u2019t provide a forecast for Apple\u2019s fiscal\u202f2027 revenue. The EDGAR tools only return figures that have actually been reported in filings, and no such future\u2011period data is available in the SEC database."
+        ],
+        "needs_manual_review": false,
+        "pass_rate": 0.0,
+        "tool_calls_mean": 0.0,
+        "latency_mean_s": 1054.2640435323265
+      },
+      "ref_stock_price": {
+        "passes": 0,
+        "attempts": 3,
+        "accuracy_applicable": false,
+        "tool_calls": [
+          0,
+          0,
+          0
+        ],
+        "latencies": [
+          1183.7876264279985,
+          1020.2419028639997,
+          1048.1276055649796
+        ],
+        "answers": [
+          "I\u2019m sorry, but I can\u2019t provide real\u2011time stock prices.",
+          "I\u2019m sorry, but I can\u2019t provide real\u2011time stock prices.",
+          "I\u2019m sorry, but I can\u2019t provide real\u2011time stock prices."
+        ],
+        "needs_manual_review": false,
+        "pass_rate": 0.0,
+        "tool_calls_mean": 0.0,
+        "latency_mean_s": 1084.0523782856592
+      },
+      "ref_fts_1998": {
+        "passes": 2,
+        "attempts": 3,
+        "accuracy_applicable": false,
+        "tool_calls": [
+          0,
+          1,
+          1
+        ],
+        "latencies": [
+          1448.0469531740018,
+          2222.1365061739925,
+          2075.9215867019957
+        ],
+        "answers": [
+          "",
+          "EDGAR\u2019s full\u2011text index starts in 2001, so filings from 1998 cannot be searched by keyword. To find 1998 filings that mention \u201cY2K remediation,\u201d you\u2019ll need to locate the relevant 10\u2011K or 10\u2011Q filings manually (e.g., via `list_filings`) and then read the text yourself.",
+          "EDGAR\u2019s full\u2011text index starts in 2001, so filings from 1998 cannot be searched by keyword. To find 1998 filings that mention \u201cY2K remediation,\u201d you\u2019ll need to locate the relevant 10\u2011K or 10\u2011Q filings manually (e.g., via `list_filings`) and then read the text yourself."
+        ],
+        "needs_manual_review": false,
+        "pass_rate": 0.6666666666666666,
+        "tool_calls_mean": 0.6666666666666666,
+        "latency_mean_s": 1915.36834868333
+      },
+      "rst_tsla_revision": {
+        "passes": 0,
+        "attempts": 3,
+        "accuracy_applicable": false,
+        "tool_calls": [
+          0,
+          0,
+          0
+        ],
+        "latencies": [
+          3455.642980128003,
+          2530.5273583829985,
+          3615.7374444630113
+        ],
+        "answers": [
+          "",
+          "",
+          ""
+        ],
+        "needs_manual_review": true,
+        "pass_rate": 0.0,
+        "tool_calls_mean": 0.0,
+        "latency_mean_s": 3200.635927658004
+      },
+      "rst_amzn_fy22": {
+        "passes": 0,
+        "attempts": 3,
+        "accuracy_applicable": false,
+        "tool_calls": [
+          0,
+          0,
+          0
+        ],
+        "latencies": [
+          3324.0291866660045,
+          2233.931788394999,
+          3236.7809110959934
+        ],
+        "answers": [
+          "",
+          "",
+          ""
+        ],
+        "needs_manual_review": true,
+        "pass_rate": 0.0,
+        "tool_calls_mean": 0.0,
+        "latency_mean_s": 2931.580628718999
+      }
+    },
+    "by_category": {
+      "ambiguous": {
+        "pass_rate_pct": 33.33333333333333,
+        "questions": 5
+      },
+      "comparison": {
+        "pass_rate_pct": 0.0,
+        "questions": 6
+      },
+      "lookup": {
+        "pass_rate_pct": 12.5,
+        "questions": 8
+      },
+      "refusal": {
+        "pass_rate_pct": 41.666666666666664,
+        "questions": 4
+      },
+      "restatement": {
+        "pass_rate_pct": 0.0,
+        "questions": 2
+      }
+    }
+  },
+  "attempts": [
+    {
+      "question_id": "rev_nvda_fy24",
+      "run": 1,
+      "answer": "I\u2019m sorry, but the EDGAR tools do not have a revenue figure for NVIDIA\u2019s fiscal year\u202f2024. The most recent annual revenue data available is for FY\u202f2022 (reported in the 10\u2011K filed\u202f2022\u201103\u201118, ending\u202f2022\u201101\u201130).",
+      "tool_calls": [
+        {
+          "name": "resolve_company",
+          "arguments": {
+            "query": "NVIDIA"
+          }
+        },
+        {
+          "name": "get_financial_concept",
+          "arguments": {
+            "cik": "1045810",
+            "concept": "revenue",
+            "fiscal_year": 2024,
+            "period": "annual"
+          }
+        },
+        {
+          "name": "get_financial_concept",
+          "arguments": {
+            "cik": "1045810",
+            "concept": "revenue",
+            "period": "annual"
+          }
+        }
+      ],
+      "latency_s": 29.06,
+      "input_tokens": 11413,
+      "output_tokens": 535,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 3,
+        "must_mention_hits": [
+          "fiscal",
+          "2024"
+        ],
+        "must_mention_total": 3,
+        "must_mention_ok": false,
+        "accuracy_applicable": true,
+        "accurate": false,
+        "numbers_in_answer": [
+          2024.0,
+          2022.0,
+          10.0,
+          2022.0,
+          3.0,
+          18.0,
+          2022.0,
+          1.0
+        ],
+        "needs_manual_review": false
+      },
+      "error": null
+    },
+    {
+      "question_id": "rev_aapl_fy24",
+      "run": 1,
+      "answer": "Apple\u2019s total net sales for fiscal\u202f2024 were **$391.0\u202fbillion** (US\u202f$391,035,000,000).  \nThis figure comes from the 10\u2011K filed on 2025\u201110\u201131 for the fiscal year ending 2024\u201109\u201128.",
+      "tool_calls": [
+        {
+          "name": "resolve_company",
+          "arguments": {
+            "query": "Apple"
+          }
+        },
+        {
+          "name": "get_financial_concept",
+          "arguments": {
+            "cik": "0000320193",
+            "concept": "net_sales",
+            "fiscal_year": 2024,
+            "period": "annual"
+          }
+        }
+      ],
+      "latency_s": 73.153,
+      "input_tokens": 7811,
+      "output_tokens": 234,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 2,
+        "must_mention_hits": [
+          "fiscal",
+          "2024"
+        ],
+        "must_mention_total": 2,
+        "must_mention_ok": true,
+        "accuracy_applicable": true,
+        "accurate": true,
+        "numbers_in_answer": [
+          2024.0,
+          391000000000.0,
+          391035000000.0,
+          10.0,
+          2025.0,
+          10.0,
+          31.0,
+          2024.0
+        ],
+        "needs_manual_review": false
+      },
+      "error": null
+    },
+    {
+      "question_id": "ni_msft_fy24",
+      "run": 1,
+      "answer": "Microsoft\u2019s net income for fiscal year\u202f2024 was **$88.14\u202fbillion** (US\u202f$88,136,000,000).  \nThis figure comes from the FY\u202f2024 10\u2011K filed on 2026\u201107\u201129, covering the period ended\u202fJune\u202f30\u202f2024.",
+      "tool_calls": [
+        {
+          "name": "resolve_company",
+          "arguments": {
+            "query": "Microsoft"
+          }
+        },
+        {
+          "name": "get_financial_concept",
+          "arguments": {
+            "cik": "789019",
+            "concept": "net_income",
+            "fiscal_year": 2024,
+            "period": "annual"
+          }
+        }
+      ],
+      "latency_s": 62.433,
+      "input_tokens": 7792,
+      "output_tokens": 236,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 2,
+        "must_mention_hits": [
+          "fiscal",
+          "2024"
+        ],
+        "must_mention_total": 2,
+        "must_mention_ok": true,
+        "accuracy_applicable": true,
+        "accurate": true,
+        "numbers_in_answer": [
+          2024.0,
+          88140000000.0,
+          88136000000.0,
+          2024.0,
+          10.0,
+          2026.0,
+          7.0,
+          29.0
+        ],
+        "needs_manual_review": false
+      },
+      "error": null
+    },
+    {
+      "question_id": "assets_amzn_fy24",
+      "run": 1,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 1468.984,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 1,
+        "must_mention_ok": false,
+        "accuracy_applicable": true,
+        "accurate": false,
+        "numbers_in_answer": [],
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "rnd_nvda_fy24",
+      "run": 1,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 1443.459,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 2,
+        "must_mention_ok": false,
+        "accuracy_applicable": true,
+        "accurate": false,
+        "numbers_in_answer": [],
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "cash_tsla_fy24",
+      "run": 1,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 1442.975,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 1,
+        "must_mention_ok": false,
+        "accuracy_applicable": true,
+        "accurate": false,
+        "numbers_in_answer": [],
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "opinc_aapl_fy24",
+      "run": 1,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 1449.547,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 2,
+        "must_mention_ok": false,
+        "accuracy_applicable": true,
+        "accurate": false,
+        "numbers_in_answer": [],
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "liab_msft_fy24",
+      "run": 1,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 1442.604,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 1,
+        "must_mention_ok": false,
+        "accuracy_applicable": true,
+        "accurate": false,
+        "numbers_in_answer": [],
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "cmp_nvda_aapl_rev_fy24",
+      "run": 1,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 1442.484,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 4,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "cmp_msft_aapl_ni_fy24",
+      "run": 1,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 2327.507,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 2,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "cmp_tsla_nvda_rnd_fy24",
+      "run": 1,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 1448.106,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 2,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "cmp_amzn_msft_assets_fy24",
+      "run": 1,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 2287.441,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 2,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "cmp_five_rev_fy24",
+      "run": 1,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 2375.065,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 2,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "cmp_nvda_tsla_growth",
+      "run": 1,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 2074.219,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 2,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "amb_aapl_margins",
+      "run": 1,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 1445.724,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 1,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "clarified": false,
+        "needs_manual_review": true,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "amb_apple_name",
+      "run": 1,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 1445.346,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 0,
+        "must_mention_ok": true,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "clarified": false,
+        "needs_manual_review": true,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "amb_delta_name",
+      "run": 1,
+      "answer": "Which \u201cDelta\u201d are you referring to? Options include Delta Air Lines (ticker DAL), Delta Dental (ticker DLT), Delta Electronics (ticker DLTN), etc. Please provide the ticker or full company name.",
+      "tool_calls": [],
+      "latency_s": 638.072,
+      "input_tokens": 2228,
+      "output_tokens": 83,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 0,
+        "must_mention_ok": true,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "clarified": true,
+        "needs_manual_review": true
+      },
+      "error": null
+    },
+    {
+      "question_id": "amb_nvda_profitable",
+      "run": 1,
+      "answer": "NVIDIA reported net income of **$4.37\u202fbillion** for its fiscal year that ended **January\u202f29,\u202f2023**.  \nThe figure comes from the company\u2019s DEF\u202f14A filing (accession\u202f0001045810\u201126\u2011000036) filed on\u202fMay\u202f12,\u202f2026, which reports the FY\u202f2023 period.",
+      "tool_calls": [
+        {
+          "name": "resolve_company",
+          "arguments": {
+            "query": "NVIDIA"
+          }
+        },
+        {
+          "name": "get_financial_concept",
+          "arguments": {
+            "cik": "1045810",
+            "concept": "net_income",
+            "fiscal_year": 2023,
+            "period": "annual"
+          }
+        }
+      ],
+      "latency_s": 3445.061,
+      "input_tokens": 7551,
+      "output_tokens": 368,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 2,
+        "must_mention_hits": [],
+        "must_mention_total": 0,
+        "must_mention_ok": true,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "clarified": false,
+        "needs_manual_review": true
+      },
+      "error": null
+    },
+    {
+      "question_id": "amb_msft_debt",
+      "run": 1,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 3613.906,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 0,
+        "must_mention_ok": true,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "clarified": false,
+        "needs_manual_review": true,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "ref_stripe_private",
+      "run": 1,
+      "answer": "I\u2019m sorry, but Stripe is a private company and does not file reports with the SEC, so there is no EDGAR filing from which to pull a revenue figure. If you meant a different public company, let me know its name or ticker.",
+      "tool_calls": [],
+      "latency_s": 842.29,
+      "input_tokens": 2231,
+      "output_tokens": 246,
+      "cost_usd": null,
+      "scores": {
+        "refused": true,
+        "should_refuse": true,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [
+          "not",
+          "SEC"
+        ],
+        "must_mention_total": 2,
+        "must_mention_ok": true,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "needs_manual_review": false
+      },
+      "error": null
+    },
+    {
+      "question_id": "ref_future_2027",
+      "run": 1,
+      "answer": "I\u2019m sorry, but I can\u2019t provide a forecast for Apple\u2019s fiscal\u202f2027 revenue. The EDGAR tools only return figures that have actually been reported in filings, and no such future\u2011period data is available in the SEC database.",
+      "tool_calls": [],
+      "latency_s": 1084.48,
+      "input_tokens": 2232,
+      "output_tokens": 212,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": true,
+        "refusal_correct": false,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [
+          "future"
+        ],
+        "must_mention_total": 2,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "needs_manual_review": false
+      },
+      "error": null
+    },
+    {
+      "question_id": "ref_stock_price",
+      "run": 1,
+      "answer": "I\u2019m sorry, but I can\u2019t provide real\u2011time stock prices.",
+      "tool_calls": [],
+      "latency_s": 1183.788,
+      "input_tokens": 2229,
+      "output_tokens": 48,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": true,
+        "refusal_correct": false,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 1,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "needs_manual_review": false
+      },
+      "error": null
+    },
+    {
+      "question_id": "ref_fts_1998",
+      "run": 1,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 1448.047,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": true,
+        "refusal_correct": false,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 1,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "rst_tsla_revision",
+      "run": 1,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 3455.643,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 1,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "disclosed_restatement": false,
+        "needs_manual_review": true,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "rst_amzn_fy22",
+      "run": 1,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 3324.029,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 2,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "disclosed_restatement": false,
+        "needs_manual_review": true,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "rev_nvda_fy24",
+      "run": 2,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 4509.725,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 3,
+        "must_mention_ok": false,
+        "accuracy_applicable": true,
+        "accurate": false,
+        "numbers_in_answer": [],
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "rev_aapl_fy24",
+      "run": 2,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 1998.707,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 2,
+        "must_mention_ok": false,
+        "accuracy_applicable": true,
+        "accurate": false,
+        "numbers_in_answer": [],
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "ni_msft_fy24",
+      "run": 2,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 2403.604,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 2,
+        "must_mention_ok": false,
+        "accuracy_applicable": true,
+        "accurate": false,
+        "numbers_in_answer": [],
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "assets_amzn_fy24",
+      "run": 2,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 3260.143,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 1,
+        "must_mention_ok": false,
+        "accuracy_applicable": true,
+        "accurate": false,
+        "numbers_in_answer": [],
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "rnd_nvda_fy24",
+      "run": 2,
+      "answer": "NVIDIA spent **$8.675\u202fbillion** on research and development in fiscal\u202f2024 (period ended\u202fJanuary\u202f28,\u202f2024). This figure comes from the company\u2019s 10\u2011K filing (accession\u202f0001045810\u201126\u2011000021) reported in FY\u202f2026.",
+      "tool_calls": [
+        {
+          "name": "resolve_company",
+          "arguments": {
+            "query": "NVIDIA"
+          }
+        },
+        {
+          "name": "get_financial_concept",
+          "arguments": {
+            "cik": "1045810",
+            "concept": "rnd_expense",
+            "fiscal_year": 2024,
+            "period": "annual"
+          }
+        }
+      ],
+      "latency_s": 3206.591,
+      "input_tokens": 7545,
+      "output_tokens": 232,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 2,
+        "must_mention_hits": [
+          "research",
+          "2024"
+        ],
+        "must_mention_total": 2,
+        "must_mention_ok": true,
+        "accuracy_applicable": true,
+        "accurate": true,
+        "numbers_in_answer": [
+          8675000000.0,
+          2024.0,
+          28.0,
+          2024.0,
+          10.0,
+          1045810.0,
+          26.0,
+          21.0
+        ],
+        "needs_manual_review": false
+      },
+      "error": null
+    },
+    {
+      "question_id": "cash_tsla_fy24",
+      "run": 2,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 3570.05,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 1,
+        "must_mention_ok": false,
+        "accuracy_applicable": true,
+        "accurate": false,
+        "numbers_in_answer": [],
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "opinc_aapl_fy24",
+      "run": 2,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 3263.439,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 2,
+        "must_mention_ok": false,
+        "accuracy_applicable": true,
+        "accurate": false,
+        "numbers_in_answer": [],
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "liab_msft_fy24",
+      "run": 2,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 2344.267,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 1,
+        "must_mention_ok": false,
+        "accuracy_applicable": true,
+        "accurate": false,
+        "numbers_in_answer": [],
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "cmp_nvda_aapl_rev_fy24",
+      "run": 2,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 4736.693,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 4,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "cmp_msft_aapl_ni_fy24",
+      "run": 2,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 3256.393,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 2,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "cmp_tsla_nvda_rnd_fy24",
+      "run": 2,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 2390.379,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 2,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "cmp_amzn_msft_assets_fy24",
+      "run": 2,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 2498.065,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 2,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "cmp_five_rev_fy24",
+      "run": 2,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 4699.189,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 2,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "cmp_nvda_tsla_growth",
+      "run": 2,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 3316.653,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 2,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "amb_aapl_margins",
+      "run": 2,
+      "answer": "Which margin would you like to review\u2014gross margin, operating margin, or net margin?",
+      "tool_calls": [],
+      "latency_s": 0.676,
+      "input_tokens": 2232,
+      "output_tokens": 76,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [
+          "margin"
+        ],
+        "must_mention_total": 1,
+        "must_mention_ok": true,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "clarified": true,
+        "needs_manual_review": true
+      },
+      "error": null
+    },
+    {
+      "question_id": "amb_apple_name",
+      "run": 2,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 1849.902,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 0,
+        "must_mention_ok": true,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "clarified": false,
+        "needs_manual_review": true,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "amb_delta_name",
+      "run": 2,
+      "answer": "Which Delta company are you referring to?  \n- Delta Air Lines (ticker **DAL**)  \n- Delta Dental (ticker **DLT**)  \n- Other Delta entities (e.g., Delta Corp, Delta Airlines Holdings, etc.)",
+      "tool_calls": [],
+      "latency_s": 1.397,
+      "input_tokens": 2228,
+      "output_tokens": 107,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 0,
+        "must_mention_ok": true,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "clarified": true,
+        "needs_manual_review": true
+      },
+      "error": null
+    },
+    {
+      "question_id": "amb_nvda_profitable",
+      "run": 2,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 3410.995,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 0,
+        "must_mention_ok": true,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "clarified": false,
+        "needs_manual_review": true,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "amb_msft_debt",
+      "run": 2,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 3523.622,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 0,
+        "must_mention_ok": true,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "clarified": false,
+        "needs_manual_review": true,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "ref_stripe_private",
+      "run": 2,
+      "answer": "I\u2019m sorry, but Stripe is a private company and does not file reports with the SEC, so there is no EDGAR filing from which to pull a revenue figure. If you meant a different public company, let me know its name or ticker.",
+      "tool_calls": [],
+      "latency_s": 0.868,
+      "input_tokens": 2231,
+      "output_tokens": 246,
+      "cost_usd": null,
+      "scores": {
+        "refused": true,
+        "should_refuse": true,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [
+          "not",
+          "SEC"
+        ],
+        "must_mention_total": 2,
+        "must_mention_ok": true,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "needs_manual_review": false
+      },
+      "error": null
+    },
+    {
+      "question_id": "ref_future_2027",
+      "run": 2,
+      "answer": "I\u2019m sorry, but I can\u2019t provide a forecast for Apple\u2019s fiscal\u20112027 revenue. The EDGAR tools only return figures that have already been reported in filed documents, and no such future\u2011period data is available in the SEC filings.",
+      "tool_calls": [],
+      "latency_s": 969.91,
+      "input_tokens": 2232,
+      "output_tokens": 195,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": true,
+        "refusal_correct": false,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [
+          "future"
+        ],
+        "must_mention_total": 2,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "needs_manual_review": false
+      },
+      "error": null
+    },
+    {
+      "question_id": "ref_stock_price",
+      "run": 2,
+      "answer": "I\u2019m sorry, but I can\u2019t provide real\u2011time stock prices.",
+      "tool_calls": [],
+      "latency_s": 1020.242,
+      "input_tokens": 2229,
+      "output_tokens": 48,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": true,
+        "refusal_correct": false,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 1,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "needs_manual_review": false
+      },
+      "error": null
+    },
+    {
+      "question_id": "ref_fts_1998",
+      "run": 2,
+      "answer": "EDGAR\u2019s full\u2011text index starts in 2001, so filings from 1998 cannot be searched by keyword. To find 1998 filings that mention \u201cY2K remediation,\u201d you\u2019ll need to locate the relevant 10\u2011K or 10\u2011Q filings manually (e.g., via `list_filings`) and then read the text yourself.",
+      "tool_calls": [
+        {
+          "name": "search_full_text",
+          "arguments": {
+            "date_from": "1998-01-01",
+            "date_to": "1998-12-31",
+            "forms": null,
+            "limit": 10,
+            "query": "\"Y2K remediation\""
+          }
+        }
+      ],
+      "latency_s": 2222.137,
+      "input_tokens": 4712,
+      "output_tokens": 175,
+      "cost_usd": null,
+      "scores": {
+        "refused": true,
+        "should_refuse": true,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 1,
+        "must_mention_hits": [
+          "2001"
+        ],
+        "must_mention_total": 1,
+        "must_mention_ok": true,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "needs_manual_review": false
+      },
+      "error": null
+    },
+    {
+      "question_id": "rst_tsla_revision",
+      "run": 2,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 2530.527,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 1,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "disclosed_restatement": false,
+        "needs_manual_review": true,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "rst_amzn_fy22",
+      "run": 2,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 2233.932,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 2,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "disclosed_restatement": false,
+        "needs_manual_review": true,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "rev_nvda_fy24",
+      "run": 3,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 2287.37,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 3,
+        "must_mention_ok": false,
+        "accuracy_applicable": true,
+        "accurate": false,
+        "numbers_in_answer": [],
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "rev_aapl_fy24",
+      "run": 3,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 1416.584,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 2,
+        "must_mention_ok": false,
+        "accuracy_applicable": true,
+        "accurate": false,
+        "numbers_in_answer": [],
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "ni_msft_fy24",
+      "run": 3,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 2166.95,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 2,
+        "must_mention_ok": false,
+        "accuracy_applicable": true,
+        "accurate": false,
+        "numbers_in_answer": [],
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "assets_amzn_fy24",
+      "run": 3,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 3496.957,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 1,
+        "must_mention_ok": false,
+        "accuracy_applicable": true,
+        "accurate": false,
+        "numbers_in_answer": [],
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "rnd_nvda_fy24",
+      "run": 3,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 2720.909,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 2,
+        "must_mention_ok": false,
+        "accuracy_applicable": true,
+        "accurate": false,
+        "numbers_in_answer": [],
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "cash_tsla_fy24",
+      "run": 3,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 1324.612,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 1,
+        "must_mention_ok": false,
+        "accuracy_applicable": true,
+        "accurate": false,
+        "numbers_in_answer": [],
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "opinc_aapl_fy24",
+      "run": 3,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 1470.91,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 2,
+        "must_mention_ok": false,
+        "accuracy_applicable": true,
+        "accurate": false,
+        "numbers_in_answer": [],
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "liab_msft_fy24",
+      "run": 3,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 3410.202,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 1,
+        "must_mention_ok": false,
+        "accuracy_applicable": true,
+        "accurate": false,
+        "numbers_in_answer": [],
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "cmp_nvda_aapl_rev_fy24",
+      "run": 3,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 3500.186,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 4,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "cmp_msft_aapl_ni_fy24",
+      "run": 3,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 3560.866,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 2,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "cmp_tsla_nvda_rnd_fy24",
+      "run": 3,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 2205.154,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 2,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "cmp_amzn_msft_assets_fy24",
+      "run": 3,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 2305.254,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 2,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "cmp_five_rev_fy24",
+      "run": 3,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 4650.512,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 2,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "cmp_nvda_tsla_growth",
+      "run": 3,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 3637.262,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 2,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "needs_manual_review": false,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "amb_aapl_margins",
+      "run": 3,
+      "answer": "Which margin would you like to review\u2014gross margin, operating margin, or net margin?",
+      "tool_calls": [],
+      "latency_s": 1040.075,
+      "input_tokens": 2232,
+      "output_tokens": 76,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [
+          "margin"
+        ],
+        "must_mention_total": 1,
+        "must_mention_ok": true,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "clarified": true,
+        "needs_manual_review": true
+      },
+      "error": null
+    },
+    {
+      "question_id": "amb_apple_name",
+      "run": 3,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 3466.256,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 0,
+        "must_mention_ok": true,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "clarified": false,
+        "needs_manual_review": true,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "amb_delta_name",
+      "run": 3,
+      "answer": "Which Delta company are you referring to?  \n- Delta Air Lines (ticker **DAL**)  \n- Delta Dental (ticker **DLT**)  \n- Other Delta entities (e.g., Delta Corp, Delta Airlines Holdings, etc.)",
+      "tool_calls": [],
+      "latency_s": 825.878,
+      "input_tokens": 2228,
+      "output_tokens": 107,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 0,
+        "must_mention_ok": true,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "clarified": true,
+        "needs_manual_review": true
+      },
+      "error": null
+    },
+    {
+      "question_id": "amb_nvda_profitable",
+      "run": 3,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 4827.024,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 0,
+        "must_mention_ok": true,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "clarified": false,
+        "needs_manual_review": true,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "amb_msft_debt",
+      "run": 3,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 3607.39,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 0,
+        "must_mention_ok": true,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "clarified": false,
+        "needs_manual_review": true,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "ref_stripe_private",
+      "run": 3,
+      "answer": "I\u2019m sorry, but Stripe is a private company and does not file reports with the SEC, so there is no EDGAR filing from which to pull a revenue figure. If you meant a different public company, let me know its name or ticker.",
+      "tool_calls": [],
+      "latency_s": 840.394,
+      "input_tokens": 2231,
+      "output_tokens": 246,
+      "cost_usd": null,
+      "scores": {
+        "refused": true,
+        "should_refuse": true,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [
+          "not",
+          "SEC"
+        ],
+        "must_mention_total": 2,
+        "must_mention_ok": true,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "needs_manual_review": false
+      },
+      "error": null
+    },
+    {
+      "question_id": "ref_future_2027",
+      "run": 3,
+      "answer": "I\u2019m sorry, but I can\u2019t provide a forecast for Apple\u2019s fiscal\u202f2027 revenue. The EDGAR tools only return figures that have actually been reported in filings, and no such future\u2011period data is available in the SEC database.",
+      "tool_calls": [],
+      "latency_s": 1108.402,
+      "input_tokens": 2232,
+      "output_tokens": 212,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": true,
+        "refusal_correct": false,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [
+          "future"
+        ],
+        "must_mention_total": 2,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "needs_manual_review": false
+      },
+      "error": null
+    },
+    {
+      "question_id": "ref_stock_price",
+      "run": 3,
+      "answer": "I\u2019m sorry, but I can\u2019t provide real\u2011time stock prices.",
+      "tool_calls": [],
+      "latency_s": 1048.128,
+      "input_tokens": 2229,
+      "output_tokens": 48,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": true,
+        "refusal_correct": false,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 1,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "needs_manual_review": false
+      },
+      "error": null
+    },
+    {
+      "question_id": "ref_fts_1998",
+      "run": 3,
+      "answer": "EDGAR\u2019s full\u2011text index starts in 2001, so filings from 1998 cannot be searched by keyword. To find 1998 filings that mention \u201cY2K remediation,\u201d you\u2019ll need to locate the relevant 10\u2011K or 10\u2011Q filings manually (e.g., via `list_filings`) and then read the text yourself.",
+      "tool_calls": [
+        {
+          "name": "search_full_text",
+          "arguments": {
+            "date_from": "1998-01-01",
+            "date_to": "1998-12-31",
+            "forms": null,
+            "limit": 10,
+            "query": "\"Y2K remediation\""
+          }
+        }
+      ],
+      "latency_s": 2075.922,
+      "input_tokens": 4712,
+      "output_tokens": 175,
+      "cost_usd": null,
+      "scores": {
+        "refused": true,
+        "should_refuse": true,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 1,
+        "must_mention_hits": [
+          "2001"
+        ],
+        "must_mention_total": 1,
+        "must_mention_ok": true,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "needs_manual_review": false
+      },
+      "error": null
+    },
+    {
+      "question_id": "rst_tsla_revision",
+      "run": 3,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 3615.737,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 1,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "disclosed_restatement": false,
+        "needs_manual_review": true,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    },
+    {
+      "question_id": "rst_amzn_fy22",
+      "run": 3,
+      "answer": "",
+      "tool_calls": [],
+      "latency_s": 3236.781,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": null,
+      "scores": {
+        "refused": false,
+        "should_refuse": false,
+        "refusal_correct": true,
+        "cited": false,
+        "tool_calls": 0,
+        "must_mention_hits": [],
+        "must_mention_total": 2,
+        "must_mention_ok": false,
+        "accuracy_applicable": false,
+        "accurate": null,
+        "disclosed_restatement": false,
+        "needs_manual_review": true,
+        "errored": true
+      },
+      "error": "RuntimeError: provider kept failing after 12 attempts"
+    }
+  ]
+}

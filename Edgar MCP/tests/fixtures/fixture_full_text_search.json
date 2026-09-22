@@ -1,0 +1,37 @@
+{
+  "_fixture": "SYNTHETIC TEST DATA. Fictional companies. Not SEC data. See tests/fixtures/README.md.",
+  "took": 12,
+  "timed_out": false,
+  "hits": {
+    "total": { "value": 2, "relation": "eq" },
+    "max_score": 8.1,
+    "hits": [
+      {
+        "_index": "edgar_file",
+        "_id": "0000999901-25-000010:tstc-20241231.htm",
+        "_score": 8.1,
+        "_source": {
+          "ciks": ["0000009999901"],
+          "display_names": ["Testco Industries Inc  (TSTC)"],
+          "file_type": "10-K",
+          "root_form": "10-K",
+          "file_date": "2025-02-14",
+          "adsh": "0000999901-25-000010"
+        }
+      },
+      {
+        "_index": "edgar_file",
+        "_id": "0000999902-24-000005:fbsy-20240630.htm",
+        "_score": 6.4,
+        "_source": {
+          "ciks": ["0000009999902"],
+          "display_names": ["Fallback Systems Corp  (FBSY)"],
+          "file_type": "10-K",
+          "root_form": "10-K",
+          "file_date": "2024-08-05",
+          "adsh": "0000999902-24-000005"
+        }
+      }
+    ]
+  }
+}

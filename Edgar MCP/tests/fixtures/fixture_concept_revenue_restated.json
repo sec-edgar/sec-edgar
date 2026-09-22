@@ -1,0 +1,45 @@
+{
+  "_fixture": "SYNTHETIC TEST DATA. Fictional company. Not SEC data. See tests/fixtures/README.md.",
+  "cik": 9999903,
+  "taxonomy": "us-gaap",
+  "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+  "label": "Revenue from Contract with Customer, Excluding Assessed Tax",
+  "description": "Fixture where fiscal 2023 was restated downward in a later 10-K/A.",
+  "entityName": "Restated Metals Inc",
+  "units": {
+    "USD": [
+      {
+        "start": "2022-01-01",
+        "end": "2022-12-31",
+        "val": 44000000000,
+        "accn": "0000999903-23-000001",
+        "fy": 2022,
+        "fp": "FY",
+        "form": "10-K",
+        "filed": "2023-02-20",
+        "frame": "CY2022"
+      },
+      {
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "val": 55000000000,
+        "accn": "0000999903-24-000001",
+        "fy": 2023,
+        "fp": "FY",
+        "form": "10-K",
+        "filed": "2024-02-20",
+        "frame": "CY2023"
+      },
+      {
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "val": 51000000000,
+        "accn": "0000999903-24-000044",
+        "fy": 2023,
+        "fp": "FY",
+        "form": "10-K/A",
+        "filed": "2024-08-09"
+      }
+    ]
+  }
+}

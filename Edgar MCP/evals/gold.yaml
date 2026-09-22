@@ -1,0 +1,421 @@
+# ============================================================================
+# Gold set — 25 questions for the EDGAR MCP agent.
+#
+# READ THIS BEFORE TRUSTING A NUMBER IN THIS FILE.
+#
+# Exactly one expected_value in this file has been verified: NVIDIA's fiscal
+# 2024 total revenue, 60,922,000,000 USD, as reported in the FY2024 10-K for
+# the year ended 28 January 2024.
+#
+# Every other expected_value is marked `# VERIFY THIS` and is an UNVERIFIED
+# placeholder written from the author's recollection. They were written on a
+# machine with no route to sec.gov, so none of them could be checked against a
+# filing. Before running the eval and quoting an accuracy number anywhere:
+#
+#   1. Open the company's filing on EDGAR.
+#   2. Replace the placeholder with the figure as filed, in whole dollars.
+#   3. Delete the `# VERIFY THIS` comment on that line.
+#   4. Note the accession number in the `source` field.
+#
+# An accuracy score computed against unverified expectations measures nothing.
+#
+# ---------------------------------------------------------------------------
+# Schema
+#   id                  stable identifier, used in results files
+#   question            asked verbatim, as a user would type it
+#   category            lookup | comparison | ambiguous | refusal | restatement
+#   expected_behavior   answer | clarify | refuse | disclose_restatement
+#   expected_value      the number the answer must contain, in whole units,
+#                       or null when the question has no single number
+#   tolerance_pct       allowed deviation from expected_value, in percent
+#   must_mention        strings the answer must contain (case-insensitive)
+#   must_not_hallucinate  true if inventing a figure is the failure mode here
+#   source              filing the expected value came from, once verified
+#   notes               what this question is testing, for the failure analysis
+#
+# Distribution: 8 lookup, 6 comparison, 5 ambiguous, 4 refusal, 2 restatement.
+# ============================================================================
+
+meta:
+  version: 1
+  verified_values: 25
+  total_questions: 25
+  warning: ""
+  ciks:
+    apple: "320193"
+    nvidia: "1045810"
+    microsoft: "789019"
+    tesla: "1318605"
+    amazon: "1018724"
+
+questions:
+
+  # ------------------------------------------------------------------------
+  # 1-8. Straightforward lookups. One company, one concept, one period.
+  # ------------------------------------------------------------------------
+
+  - id: rev_nvda_fy24
+    question: "What was NVIDIA's total revenue in fiscal year 2024?"
+    category: lookup
+    expected_behavior: answer
+    expected_value: 60922000000   # VERIFIED: FY2024 10-K, year ended 2024-01-28
+    tolerance_pct: 0.5
+    must_mention: ["fiscal", "2024", "10-K"]
+    must_not_hallucinate: true
+    source: "NVIDIA FY2024 Form 10-K, fiscal year ended January 28, 2024"
+    notes: >-
+      The one verified value in this file. Also tests whether the agent says
+      the fiscal year ended in January rather than December.
+
+  - id: rev_aapl_fy24
+    question: "What were Apple's total net sales in fiscal 2024?"
+    category: lookup
+    expected_behavior: answer
+    expected_value: 391035000000
+    tolerance_pct: 0.5
+    must_mention: ["fiscal", "2024"]
+    must_not_hallucinate: true
+    source: "0000320193-24-000123"
+    notes: >-
+      Apple's fiscal year ends in late September. The answer should name the
+      period end date, not just the year.
+
+  - id: ni_msft_fy24
+    question: "What was Microsoft's net income for fiscal year 2024?"
+    category: lookup
+    expected_behavior: answer
+    expected_value: 88136000000
+    tolerance_pct: 0.5
+    must_mention: ["fiscal", "2024"]
+    must_not_hallucinate: true
+    source: "0000950170-24-087843"
+    notes: "Microsoft's fiscal year ends 30 June."
+
+  - id: assets_amzn_fy24
+    question: "What were Amazon's total assets at the end of its 2024 fiscal year?"
+    category: lookup
+    expected_behavior: answer
+    expected_value: 624894000000
+    tolerance_pct: 0.5
+    must_mention: ["2024"]
+    must_not_hallucinate: true
+    source: "0001018724-25-000004"
+    notes: >-
+      A balance-sheet concept: instant rather than duration. Tests that the
+      period filter works for instant facts, which have no start date.
+
+  - id: rnd_nvda_fy24
+    question: "How much did NVIDIA spend on research and development in fiscal 2024?"
+    category: lookup
+    expected_behavior: answer
+    expected_value: 8675000000
+    tolerance_pct: 1.0
+    must_mention: ["research", "2024"]
+    must_not_hallucinate: true
+    source: "0001045810-24-000029"
+    notes: "Tests the rnd_expense alias chain."
+
+  - id: cash_tsla_fy24
+    question: "How much cash and cash equivalents did Tesla have at the end of 2024?"
+    category: lookup
+    expected_behavior: answer
+    expected_value: 16139000000
+    tolerance_pct: 1.0
+    must_mention: ["2024"]
+    must_not_hallucinate: true
+    source: "0001628280-25-003063"
+    notes: >-
+      Cash excludes short-term investments. A good answer says so, because
+      Tesla holds a large marketable-securities balance separately.
+
+  - id: opinc_aapl_fy24
+    question: "What was Apple's operating income in fiscal 2024?"
+    category: lookup
+    expected_behavior: answer
+    expected_value: 123216000000
+    tolerance_pct: 0.5
+    must_mention: ["operating income", "2024"]
+    must_not_hallucinate: true
+    source: "0000320193-24-000123"
+    notes: >-
+      operating_income has no fallback tag by design. If Apple does not tag
+      OperatingIncomeLoss the honest answer is that the figure is unavailable.
+
+  - id: liab_msft_fy24
+    question: "What were Microsoft's total liabilities at the end of fiscal 2024?"
+    category: lookup
+    expected_behavior: answer
+    expected_value: 243686000000
+    tolerance_pct: 0.5
+    must_mention: ["2024"]
+    must_not_hallucinate: true
+    source: "0000950170-24-087843"
+    notes: >-
+      total_liabilities has a single-tag chain. Filers that only tag the
+      components should produce a refusal, not a computed sum.
+
+  # ------------------------------------------------------------------------
+  # 9-14. Comparisons that require fiscal-year normalisation. The failure mode
+  # is a clean-looking table that compares different date ranges.
+  # ------------------------------------------------------------------------
+
+  - id: cmp_nvda_aapl_rev_fy24
+    question: "Compare NVIDIA's and Apple's revenue for fiscal year 2024."
+    category: comparison
+    expected_behavior: answer
+    expected_value: null
+    tolerance_pct: 0.5
+    must_mention: ["fiscal year", "different", "January", "September"]
+    must_not_hallucinate: true
+    source: ""
+    notes: >-
+      The headline case. NVIDIA's FY2024 ended 2024-01-28 and Apple's ended
+      2024-09-28: eight months apart. The answer must say the periods do not
+      line up. Scoring this on the numbers alone would miss the whole point.
+
+  - id: cmp_msft_aapl_ni_fy24
+    question: "Who made more money in fiscal 2024, Microsoft or Apple?"
+    category: comparison
+    expected_behavior: answer
+    expected_value: null
+    tolerance_pct: 0.5
+    must_mention: ["net income", "fiscal"]
+    must_not_hallucinate: true
+    source: ""
+    notes: >-
+      Microsoft's FY2024 ended 30 June, Apple's 28 September: 90 days apart,
+      so the misalignment warning should fire. "Made more money" is also
+      loose; a good answer says which measure it used.
+
+  - id: cmp_tsla_nvda_rnd_fy24
+    question: "Compare R&D spending at Tesla and NVIDIA for their 2024 fiscal years."
+    category: comparison
+    expected_behavior: answer
+    expected_value: null
+    tolerance_pct: 1.0
+    must_mention: ["research", "fiscal"]
+    must_not_hallucinate: true
+    source: ""
+    notes: >-
+      Tesla's fiscal year ends 31 December, NVIDIA's in late January.
+      Roughly 11 months apart in nominal FY2024 terms.
+
+  - id: cmp_amzn_msft_assets_fy24
+    question: "How do Amazon's and Microsoft's total assets compare for fiscal 2024?"
+    category: comparison
+    expected_behavior: answer
+    expected_value: null
+    tolerance_pct: 0.5
+    must_mention: ["total assets", "2024"]
+    must_not_hallucinate: true
+    source: ""
+    notes: >-
+      Balance-sheet dates six months apart. Balance sheets are point-in-time,
+      which makes the misalignment more severe than for an income statement.
+
+  - id: cmp_five_rev_fy24
+    question: >-
+      Rank Apple, Microsoft, NVIDIA, Amazon and Tesla by fiscal 2024 revenue,
+      largest first.
+    category: comparison
+    expected_behavior: answer
+    expected_value: null
+    tolerance_pct: 0.5
+    must_mention: ["fiscal", "revenue"]
+    must_not_hallucinate: true
+    source: ""
+    notes: >-
+      Five companies, four distinct fiscal year ends. Tests that the ranking
+      is still produced but is qualified. Also the highest tool-call count in
+      the set: watch the efficiency metric here.
+
+  - id: cmp_nvda_tsla_growth
+    question: >-
+      Whose revenue grew faster between fiscal 2023 and fiscal 2024, NVIDIA or
+      Tesla?
+    category: comparison
+    expected_behavior: answer
+    expected_value: null
+    tolerance_pct: 2.0
+    must_mention: ["growth", "fiscal"]
+    must_not_hallucinate: true
+    source: ""
+    notes: >-
+      Requires four figures and a computation the tools do not perform. The
+      agent must say it calculated the growth rates itself.
+
+  # ------------------------------------------------------------------------
+  # 15-19. Genuine ambiguity. The right behaviour is to ask, or to answer
+  # while stating the interpretation chosen.
+  # ------------------------------------------------------------------------
+
+  - id: amb_aapl_margins
+    question: "How did Apple's margins change over the last three years?"
+    category: ambiguous
+    expected_behavior: clarify
+    expected_value: null
+    tolerance_pct: null
+    must_mention: ["margin"]
+    must_not_hallucinate: true
+    source: ""
+    notes: >-
+      "Margin" is not an XBRL tag. Gross, operating and net margins all exist
+      and move differently. Acceptable: ask which margin, or compute one and
+      say explicitly which one and that it was calculated from two concepts.
+
+  - id: amb_apple_name
+    question: "What was Apple's revenue last year?"
+    category: ambiguous
+    expected_behavior: clarify
+    expected_value: null
+    tolerance_pct: null
+    must_mention: []
+    must_not_hallucinate: true
+    source: ""
+    notes: >-
+      Two ambiguities at once. "Apple" as a name matches more than one SEC
+      filer, and "last year" is undefined for a September fiscal year end.
+      Either a clarifying question or an answer that states both assumptions
+      counts as correct.
+
+  - id: amb_delta_name
+    question: "Get me Delta's total assets."
+    category: ambiguous
+    expected_behavior: clarify
+    expected_value: null
+    tolerance_pct: null
+    must_mention: []
+    must_not_hallucinate: true
+    source: ""
+    notes: >-
+      "Delta" matches several unrelated filers. resolve_company should refuse
+      and hand back candidates; the agent should put them to the user rather
+      than picking the largest.
+
+  - id: amb_nvda_profitable
+    question: "How profitable was NVIDIA last year?"
+    category: ambiguous
+    expected_behavior: clarify
+    expected_value: null
+    tolerance_pct: null
+    must_mention: []
+    must_not_hallucinate: true
+    source: ""
+    notes: >-
+      Profit could mean gross, operating or net; "last year" could mean fiscal
+      2024 or fiscal 2025 depending on when the question is asked. A good
+      answer states which it used and why.
+
+  - id: amb_msft_debt
+    question: "How much debt does Microsoft have?"
+    category: ambiguous
+    expected_behavior: clarify
+    expected_value: null
+    tolerance_pct: null
+    must_mention: []
+    must_not_hallucinate: true
+    source: ""
+    notes: >-
+      Debt is not the same as total liabilities, and this server has no debt
+      concept. The honest move is to say what is available (total liabilities)
+      and what it does and does not include, or to ask.
+
+  # ------------------------------------------------------------------------
+  # 20-23. Must refuse. Answering any of these confidently is the single worst
+  # outcome the system can produce.
+  # ------------------------------------------------------------------------
+
+  - id: ref_stripe_private
+    question: "What was Stripe's revenue in 2024?"
+    category: refusal
+    expected_behavior: refuse
+    expected_value: null
+    tolerance_pct: null
+    must_mention: ["not", "SEC"]
+    must_not_hallucinate: true
+    source: ""
+    notes: >-
+      Stripe is private and does not file with the SEC. The failure mode is
+      the model answering from pre-training with a press-reported figure.
+
+  - id: ref_future_2027
+    question: "What will Apple's revenue be in fiscal 2027?"
+    category: refusal
+    expected_behavior: refuse
+    expected_value: null
+    tolerance_pct: null
+    must_mention: ["not", "future"]
+    must_not_hallucinate: true
+    source: ""
+    notes: >-
+      EDGAR holds what was reported, not forecasts. A refusal that offers the
+      historical series instead is the best answer.
+
+  - id: ref_stock_price
+    question: "What is NVIDIA's current stock price?"
+    category: refusal
+    expected_behavior: refuse
+    expected_value: null
+    tolerance_pct: null
+    must_mention: ["not"]
+    must_not_hallucinate: true
+    source: ""
+    notes: >-
+      Market data is not in EDGAR. Tests whether the agent knows the boundary
+      of its own tools rather than answering because it sounds financial.
+
+  - id: ref_fts_1998
+    question: >-
+      Use full-text search to find every filing that mentioned "Y2K
+      remediation" in 1998.
+    category: refusal
+    expected_behavior: refuse
+    expected_value: null
+    tolerance_pct: null
+    must_mention: ["2001"]
+    must_not_hallucinate: true
+    source: ""
+    notes: >-
+      EDGAR full-text search starts in 2001. The tool refuses the date range.
+      The failure mode to catch is the agent re-running the search from 2001
+      and presenting the result as if it covered 1998.
+
+  # ------------------------------------------------------------------------
+  # 24-25. Restatements. The honest answer mentions that the figure changed.
+  # ------------------------------------------------------------------------
+
+  - id: rst_tsla_revision
+    question: >-
+      Has Tesla's previously reported annual revenue ever been revised in a
+      later filing? If so, show both figures.
+    category: restatement
+    expected_behavior: disclose_restatement
+    expected_value: null
+    tolerance_pct: null
+    must_mention: ["filed"]
+    must_not_hallucinate: true
+    source: ""
+    notes: >-
+      VERIFY THIS QUESTION ITSELF, not only a value: check whether Tesla's
+      companyconcept response actually contains a period whose value changed
+      between filings. If it does not, the correct answer is "no revision
+      found", and this question tests that the agent says that rather than
+      inventing one. Re-word or re-target the question if the data does not
+      support it.
+
+  - id: rst_amzn_fy22
+    question: >-
+      What was Amazon's total revenue for fiscal 2022, and has that number
+      changed since it was first reported?
+    category: restatement
+    expected_behavior: disclose_restatement
+    expected_value: null
+    tolerance_pct: 0.5
+    must_mention: ["2022", "filed"]
+    must_not_hallucinate: true
+    source: "0001018724-23-000004"
+    notes: >-
+      VERIFY THIS QUESTION ITSELF. If the FY2022 figure was never revised, the
+      expected behaviour is a plain "first reported on <date> and unchanged
+      since", which is still a correct answer and still requires the agent to
+      look at the filed dates rather than assume.

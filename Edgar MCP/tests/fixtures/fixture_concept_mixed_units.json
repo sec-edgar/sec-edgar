@@ -1,0 +1,47 @@
+{
+  "_fixture": "SYNTHETIC TEST DATA. Fictional company. Not SEC data. See tests/fixtures/README.md.",
+  "cik": 9999901,
+  "taxonomy": "us-gaap",
+  "tag": "NetIncomeLoss",
+  "label": "Net Income (Loss) Attributable to Parent",
+  "description": "Fixture where EDGAR returns dollars and dollars-per-share under the same tag. Mixing them would be wrong by nine orders of magnitude.",
+  "entityName": "Testco Industries Inc",
+  "units": {
+    "USD": [
+      {
+        "start": "2024-01-01",
+        "end": "2024-12-31",
+        "val": 22000000000,
+        "accn": "0000999901-25-000010",
+        "fy": 2024,
+        "fp": "FY",
+        "form": "10-K",
+        "filed": "2025-02-14",
+        "frame": "CY2024"
+      },
+      {
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "val": 19000000000,
+        "accn": "0000999901-24-000010",
+        "fy": 2023,
+        "fp": "FY",
+        "form": "10-K",
+        "filed": "2024-02-15",
+        "frame": "CY2023"
+      }
+    ],
+    "USD/shares": [
+      {
+        "start": "2024-01-01",
+        "end": "2024-12-31",
+        "val": 4.4,
+        "accn": "0000999901-25-000010",
+        "fy": 2024,
+        "fp": "FY",
+        "form": "10-K",
+        "filed": "2025-02-14"
+      }
+    ]
+  }
+}
