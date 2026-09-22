@@ -1,0 +1,10 @@
+{
+  "_fixture": "SYNTHETIC TEST DATA. Fictional companies. Not SEC data. See tests/fixtures/README.md.",
+  "0": { "cik_str": 9999901, "ticker": "TSTC", "title": "Testco Industries Inc" },
+  "1": { "cik_str": 9999902, "ticker": "FBSY", "title": "Fallback Systems Corp" },
+  "2": { "cik_str": 9999903, "ticker": "RSTD", "title": "Restated Metals Inc" },
+  "3": { "cik_str": 9999904, "ticker": "APRT", "title": "Aperture Science Inc" },
+  "4": { "cik_str": 9999905, "ticker": "APHC", "title": "Aperture Holdings Corp" },
+  "5": { "cik_str": 9999906, "ticker": "EURO", "title": "Continental Widgets NV" },
+  "6": { "cik_str": 9999907, "ticker": "ZZZZ", "title": "Zebra Manufacturing Company" }
+}

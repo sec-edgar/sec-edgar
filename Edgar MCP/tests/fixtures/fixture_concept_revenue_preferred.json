@@ -1,0 +1,77 @@
+{
+  "_fixture": "SYNTHETIC TEST DATA. Fictional company. Not SEC data. See tests/fixtures/README.md.",
+  "cik": 9999901,
+  "taxonomy": "us-gaap",
+  "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+  "label": "Revenue from Contract with Customer, Excluding Assessed Tax",
+  "description": "Fixture standing in for the post-ASC-606 revenue tag.",
+  "entityName": "Testco Industries Inc",
+  "units": {
+    "USD": [
+      {
+        "start": "2022-01-01",
+        "end": "2022-12-31",
+        "val": 111000000000,
+        "accn": "0000999901-23-000010",
+        "fy": 2022,
+        "fp": "FY",
+        "form": "10-K",
+        "filed": "2023-02-15",
+        "frame": "CY2022"
+      },
+      {
+        "start": "2022-01-01",
+        "end": "2022-12-31",
+        "val": 111000000000,
+        "accn": "0000999901-24-000010",
+        "fy": 2023,
+        "fp": "FY",
+        "form": "10-K",
+        "filed": "2024-02-15"
+      },
+      {
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "val": 122000000000,
+        "accn": "0000999901-24-000010",
+        "fy": 2023,
+        "fp": "FY",
+        "form": "10-K",
+        "filed": "2024-02-15",
+        "frame": "CY2023"
+      },
+      {
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "val": 122000000000,
+        "accn": "0000999901-25-000010",
+        "fy": 2024,
+        "fp": "FY",
+        "form": "10-K",
+        "filed": "2025-02-14"
+      },
+      {
+        "start": "2024-01-01",
+        "end": "2024-12-31",
+        "val": 133000000000,
+        "accn": "0000999901-25-000010",
+        "fy": 2024,
+        "fp": "FY",
+        "form": "10-K",
+        "filed": "2025-02-14",
+        "frame": "CY2024"
+      },
+      {
+        "start": "2024-01-01",
+        "end": "2024-03-31",
+        "val": 30000000000,
+        "accn": "0000999901-24-000020",
+        "fy": 2024,
+        "fp": "Q1",
+        "form": "10-Q",
+        "filed": "2024-04-25",
+        "frame": "CY2024Q1"
+      }
+    ]
+  }
+}

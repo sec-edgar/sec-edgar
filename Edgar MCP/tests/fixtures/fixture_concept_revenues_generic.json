@@ -1,0 +1,34 @@
+{
+  "_fixture": "SYNTHETIC TEST DATA. Fictional company. Not SEC data. See tests/fixtures/README.md.",
+  "cik": 9999902,
+  "taxonomy": "us-gaap",
+  "tag": "Revenues",
+  "label": "Revenues",
+  "description": "Fixture for a filer that never adopted the ASC 606 contract-revenue tags.",
+  "entityName": "Fallback Systems Corp",
+  "units": {
+    "USD": [
+      {
+        "start": "2023-07-01",
+        "end": "2024-06-30",
+        "val": 47000000000,
+        "accn": "0000999902-24-000005",
+        "fy": 2024,
+        "fp": "FY",
+        "form": "10-K",
+        "filed": "2024-08-05",
+        "frame": "CY2023Q3TO2024Q2"
+      },
+      {
+        "start": "2022-07-01",
+        "end": "2023-06-30",
+        "val": 41000000000,
+        "accn": "0000999902-23-000005",
+        "fy": 2023,
+        "fp": "FY",
+        "form": "10-K",
+        "filed": "2023-08-04"
+      }
+    ]
+  }
+}

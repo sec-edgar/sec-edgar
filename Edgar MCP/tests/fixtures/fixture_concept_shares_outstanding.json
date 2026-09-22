@@ -1,0 +1,42 @@
+{
+  "_fixture": "SYNTHETIC TEST DATA. Fictional company. Not SEC data. See tests/fixtures/README.md.",
+  "cik": 9999901,
+  "taxonomy": "dei",
+  "tag": "EntityCommonStockSharesOutstanding",
+  "label": "Entity Common Stock, Shares Outstanding",
+  "description": "Fixture for a shares concept that also carries a dollar unit, to prove the shares family never picks USD.",
+  "entityName": "Testco Industries Inc",
+  "units": {
+    "shares": [
+      {
+        "end": "2025-01-31",
+        "val": 5000000000,
+        "accn": "0000999901-25-000010",
+        "fy": 2024,
+        "fp": "FY",
+        "form": "10-K",
+        "filed": "2025-02-14"
+      },
+      {
+        "end": "2024-01-31",
+        "val": 5100000000,
+        "accn": "0000999901-24-000010",
+        "fy": 2023,
+        "fp": "FY",
+        "form": "10-K",
+        "filed": "2024-02-15"
+      }
+    ],
+    "USD": [
+      {
+        "end": "2025-01-31",
+        "val": 1,
+        "accn": "0000999901-25-000010",
+        "fy": 2024,
+        "fp": "FY",
+        "form": "10-K",
+        "filed": "2025-02-14"
+      }
+    ]
+  }
+}
