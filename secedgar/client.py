@@ -205,18 +205,20 @@ class NetworkClient:
             return response
 
     def get_soup(self, path, params, **kwargs):
-        """Return BeautifulSoup object from response text. Uses lxml parser.
+        """Return BeautifulSoup object using the requested response format.
 
         Args:
             path (str): A properly-formatted path
             params (dict): Dictionary of parameters to pass
-                to request.
+                to request. Uses the lxml XML parser when ``output`` is ``xml``,
+                otherwise uses the lxml HTML parser.
 
         Returns:
             BeautifulSoup object from response text.
         """
+        parser = 'xml' if params and params.get('output') == 'xml' else 'lxml'
         return BeautifulSoup(self.get_response(path, params, **kwargs).text,
-                             features='lxml')
+                             features=parser)
 
     @staticmethod
     async def fetch(link, session):
