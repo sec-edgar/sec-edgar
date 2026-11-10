@@ -36,6 +36,28 @@ def mock_single_filing_page_good_response(monkeypatch):
 
 
 class TestNetworkClient:
+    @pytest.mark.parametrize("declaration", ['', '<?xml version="1.0"?>'])
+    @pytest.mark.filterwarnings("error::bs4.XMLParsedAsHTMLWarning")
+    def test_get_soup_xml(self, client, monkeypatch, declaration):
+        content = declaration + '<results><companyName>A &amp; B</companyName></results>'
+        monkeypatch.setattr(client, "get_response",
+                            MockResponse(content=content.encode("utf-8")))
+
+        soup = client.get_soup("cgi-bin/browse-edgar", {"output": "xml"})
+
+        assert soup.find("companyName").text == "A & B"
+        assert soup.find("html") is None
+
+    @pytest.mark.parametrize("params", [None, {}, {"output": "html"}])
+    def test_get_soup_html(self, client, monkeypatch, params):
+        monkeypatch.setattr(client, "get_response", MockResponse(
+            content=b'<html><body><P class="companyName">A &amp; B<br>CIK 123'))
+
+        soup = client.get_soup("cgi-bin/browse-edgar", params)
+
+        assert soup.find("p", class_="companyName").get_text() == "A & BCIK 123"
+        assert soup.find("br") is not None
+
     @pytest.mark.parametrize(
         "user_agent",
         [
